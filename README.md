@@ -18,7 +18,8 @@ location stops working.
 There are a growing group of organizations that have pledged responsibility 
 to ensure the operation of this website. These organizations are: 
 Digital Bazaar, 3 Round Stones, OpenLink Software, Applied Testing and 
-Technology, and Openspring. They are responsible for all administrative 
+Technology, Openspring, and Bosatsu Consulting. 
+They are responsible for all administrative 
 tasks associated with operating the service. The social contract between 
 these organizations gives each of them full access to all information required 
 to maintain and operate the website. The agreement is setup such that a 
