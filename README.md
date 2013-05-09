@@ -40,6 +40,15 @@ redirect to restore service to the rest of the Web.
 Adding a Permanent Identifier to w3id.org
 =========================================
 
+You can always send a request to add a redirect to the 
+[public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/)
+mailing list. Make sure to include the URL that you want on w3id.org, the
+URL that you want to redirect to, and the HTTP code that you want to use
+when redirecting. An administrator will then create the redirect for you.
+
+For the more technically savvy, you can create the redirect yourself by
+following these steps:
+
 1. Fork this source code repository.
 2. Add a new re-direct entry. Look in the '/security/.htaccess' file for a
    simple example.
