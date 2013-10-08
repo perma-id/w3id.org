@@ -3,9 +3,9 @@ Permanent Identifiers for the Web
 
 This repository holds the website source code for https://w3id.org/
 
-The purpose of w3id.org is to provide a secure, permanent URL re-direction 
-service for Web applications. This service is run by the W3C Permanent Identifier 
-Community Group.
+The purpose of w3id.org is to provide a secure, permanent URL re-direction
+service for Web applications. This service is run by the [W3C Permanent
+Identifier Community Group](http://www.w3.org/community/perma-id/).
 
 Web applications that deal with Linked Data often need to specify and use URLs 
 that are very stable. They utilize services such as this one to ensure that 
@@ -41,14 +41,8 @@ redirect to restore service to the rest of the Web.
 Adding a Permanent Identifier to w3id.org
 =========================================
 
-You can always send a request to add a redirect to the 
-[public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/)
-mailing list. Make sure to include the URL that you want on w3id.org, the
-URL that you want to redirect to, and the HTTP code that you want to use
-when redirecting. An administrator will then create the redirect for you.
-
-For the more technically savvy, you can create the redirect yourself by
-following these steps:
+For the technically savvy, the preferred way to create the redirect yourself is
+by following these steps:
 
 1. Fork this source code repository.
 2. Add a new re-direct entry. Look in the '/security/.htaccess' file for a
@@ -57,3 +51,9 @@ following these steps:
 4. w3id.org administrators will review your pull request and merge it if 
    everything looks correct. Once the pull request is merged, the changes go
    live immediately.
+
+You can also send a request to add a redirect to the 
+[public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/)
+mailing list. Make sure to include the URL that you want on w3id.org, the
+URL that you want to redirect to, and the HTTP code that you want to use
+when redirecting. An administrator will then create the redirect for you.
