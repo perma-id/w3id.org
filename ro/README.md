@@ -11,6 +11,10 @@ Ontologies:
 * https://w3id.org/ro/wf4ever (namespace: http://purl.org/wf4ever/wf4ever#)
 * https://w3id.org/ro/roevo (namespace: http://purl.org/wf4ever/roevo#)
 
+JSON-LD contexts:
+* https://w3id.org/ro/wfdesc/context
+* https://w3id.org/ro/wf4ever/context
+
 Note that the ontology namespaces are at http://purl.org/wf4ever/
 for historical reasons, while the ontologies can also be retrieved using
 https://w3id.org/ro/
