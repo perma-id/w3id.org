@@ -1,0 +1,31 @@
+language: bash
+
+before_install:  
+  - sudo apt-get -qq update
+
+install:
+  - sudo apt-get -qq install linkchecker apache2
+
+before_script:
+  - sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n </Directory>' /etc/apache2/sites-enabled/*
+  - sudo cp -r * /var/www/
+  - sudo a2enmod rewrite
+  - sudo service apache2 restart
+  - mkdir -p ~/.linkchecker
+  - echo -e "[filtering]\nignorewarnings=http-moved-permanent,http-empty-content" > ~/.linkchecker/linkcheckerrc
+  - sudo tail -f /var/log/apache2/error.log >&2 &
+
+script:
+  - cat $(find . -name 'README.md') | 
+    grep https://w3id.org | 
+    sed 's,.*https://w3id.org/,http://localhost/,'  |
+    sed 's,[ )].*,,' > checking-uris.txt ; 
+    echo "About to test locally:" ; cat checking-uris.txt | sed s,http://localhost,https://w3id.org,
+  - cat checking-uris.txt | linkchecker --stdin -r 0
+
+after_script:
+  - sudo cat /var/log/apache2/access.log
+
+after_failure:
+  - sudo cat /var/log/apache2/error.log > &2
+
