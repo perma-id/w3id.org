@@ -1,5 +1,5 @@
-RDW
-===
+CLIPC
+=====
 
 Homepage:
 * http://w3id.org/clipc
