@@ -1,0 +1,16 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf *.owl *.jsonld *.ttl files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Default Rule
+RewriteRule ^(DE-|ZDB-)(.+)$ http://ld.zdb-services.de/resource/organisations/$1$2 [R=303]
+RewriteRule ^(IT-)(.+)$ http://anagrafe.iccu.sbn.it/opencms/opencms/ricerche/dettaglio.html?monocampo=$1$2 [R=303]
+RewriteRule ^(US-)(.+)$ http://id.loc.gov/vocabulary/organizations/$2 [R=303,L]
