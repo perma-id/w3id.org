@@ -1,0 +1,44 @@
+RewriteEngine On
+
+RewriteRule ^(DE-|ZDB-)(.+)$ http://ld.zdb-services.de/resource/organisations/$1$2 [R=303]
+RewriteRule ^(IT-)(.+)$ http://anagrafe.iccu.sbn.it/opencms/opencms/ricerche/dettaglio.html?monocampo=$1$2 [R=303]
+
+# If there are caps, set HASCAPS to true and skip next rule
+RewriteRule ^(US-)([A-Z]+)$ - [E=HASCAPS:TRUE,S=1]
+
+# Skip this entire section if no uppercase letters in requested URL
+RewriteRule ![A-Z] - [S=28]
+
+# Replace single occurance of CAP with cap, then process next Rule.
+RewriteRule ^(US-)([^A]*)A(.*)$ $1$2a$3
+RewriteRule ^(US-)([^B]*)B(.*)$ $1$2b$3
+RewriteRule ^(US-)([^C]*)C(.*)$ $1$2c$3
+RewriteRule ^(US-)([^D]*)D(.*)$ $1$2d$3
+RewriteRule ^(US-)([^E]*)E(.*)$ $1$2e$3
+RewriteRule ^(US-)([^F]*)F(.*)$ $1$2f$3
+RewriteRule ^(US-)([^G]*)G(.*)$ $1$2g$3
+RewriteRule ^(US-)([^H]*)H(.*)$ $1$2h$3
+RewriteRule ^(US-)([^I]*)I(.*)$ $1$2i$3
+RewriteRule ^(US-)([^J]*)J(.*)$ $1$2j$3
+RewriteRule ^(US-)([^K]*)K(.*)$ $1$2k$3
+RewriteRule ^(US-)([^L]*)L(.*)$ $1$2l$3
+RewriteRule ^(US-)([^M]*)M(.*)$ $1$2m$3
+RewriteRule ^(US-)([^N]*)N(.*)$ $1$2n$3
+RewriteRule ^(US-)([^O]*)O(.*)$ $1$2o$3
+RewriteRule ^(US-)([^P]*)P(.*)$ $1$2p$3
+RewriteRule ^(US-)([^Q]*)Q(.*)$ $1$2q$3
+RewriteRule ^(US-)([^R]*)R(.*)$ $1$2r$3
+RewriteRule ^(US-)([^S]*)S(.*)$ $1$2s$3
+RewriteRule ^(US-)([^T]*)T(.*)$ $1$2t$3
+RewriteRule ^(US-)([^U]*)U(.*)$ $1$2u$3
+RewriteRule ^(US-)([^V]*)V(.*)$ $1$2v$3
+RewriteRule ^(US-)([^W]*)W(.*)$ $1$2w$3
+RewriteRule ^(US-)([^X]*)X(.*)$ $1$2x$3
+RewriteRule ^(US-)([^Y]*)Y(.*)$ $1$2y$3
+RewriteRule ^(US-)([^Z]*)Z(.*)$ $1$2z$3
+
+# If there are any uppercase letters, restart at very first RewriteRule in file.
+RewriteRule US-.+([A-Z]) - [N]
+
+RewriteCond %{ENV:HASCAPS} TRUE
+RewriteRule ^(US-)(.+)$ http://id.loc.gov/vocabulary/organizations/$2 [R=303,L]

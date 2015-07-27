@@ -1,0 +1,22 @@
+RewriteEngine on
+
+# NOTE: We use rawgit.com for JSON-LD context and Turtle file, 
+# for correct Content-Type, but common-workflow-language.github.io
+# for the textual spec and home page
+
+# Current draft (FIXME: Should use cdn.rawgit.com once draft is released)
+RewriteRule ^$ http://common-workflow-language.github.io/draft-2/ [R=302,L]
+RewriteRule ^context$ https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft-2/cwl-context.jsonld [R=302,L]
+RewriteRule ^cwl$ https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft-2/cwl.ttl [R=302,L]
+RewriteRule ^avro$ https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft-2/cwl.ttl [R=302,L]
+RewriteRule ^cwl.ttl$ https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft-2/cwl.ttl [R=302,L]
+
+# Any specific draft
+RewriteRule ^draft(.*)/context https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft$1/cwl-context.jsonld [R=302,L]
+RewriteRule ^draft(.*)/cwl.ttl https://rawgit.com/common-workflow-language/common-workflow-language.github.io/master/draft$1/cwl.ttl [R=302,L]
+RewriteRule ^draft(.*) https://common-workflow-language.github.io/draft$1 [R=302,L]
+# Any specific version (in the future)
+RewriteRule ^v(.*)/context https://cdn.rawgit.com/common-workflow-language/common-workflow-language.github.io/master/v$1/cwl-context.jsonld [R=302,L]
+RewriteRule ^v(.*)/cwl.ttl https://cdn.rawgit.com/common-workflow-language/common-workflow-language.github.io/master/v$1/cwl.ttl [R=302,L]
+RewriteRule ^v(.*) https://common-workflow-language.github.io/v$1 [R=302,L]
+
