@@ -5,11 +5,11 @@ Homepage:
 * http://www.unit.eu/
 
 Vocabularies:
-* https://www.w3id.org/unit/lro/schema
+* https://w3id.org/unit/lro/schema
 
 SPARQL endpoints:
-* https://www.w3id.org/unit/lro/sparql
-* https://www.w3id.org/unit/organizations/sparql
+* https://w3id.org/unit/lro/sparql
+* https://w3id.org/unit/organizations/sparql
 
 
 Contacts: 
