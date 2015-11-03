@@ -9,7 +9,7 @@ JSON-LD context:
 * https://w3id.org/nidash/context
 
 Ontology:
-* https://w3id.org/nidash/nidm/
+* https://w3id.org/nidash/nidm
 
 
 References:
