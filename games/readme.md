@@ -5,8 +5,8 @@ Repository created to store the redirections of the the games described with the
 
 At the moment we have three games:
 
-/games/asteroids -> http://52.31.80.76/HTML5-Asteroids/
+/games/asteroids -> http://www.gamecloudgames.com/HTML5-Asteroids/
 
-/games/coil -> http://52.31.80.76/Coil/
+/games/coil -> http://www.gamecloudgames.com/Coil/
 
-/games/browserquest -> http://52.31.80.76:8000/
+/games/browserquest -> http://www.gamecloudgames.com/BrowserQuest
