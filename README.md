@@ -71,7 +71,9 @@ Guidelines on Identifiers
 1. Do not link squat. If you are going to claim a permanent identifier,
    make sure you or your organization intends for it to be around for
    at least 20+ years.
-2. If you are creating a link to your personal website, please do so under 
+2. Make sure the link you redirect to works. If not, we will most
+   likely reject your requested addition.
+3. If you are creating a link to your personal website, please do so under 
    the /people/ subdirectory. A simple redirect should be placed in
    /people/.htaccess. A complex redirect should be placed under a 
    directory like /people/rubarb/.htaccess.
