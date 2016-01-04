@@ -65,6 +65,17 @@ mailing list. Make sure to include the URL that you want on w3id.org, the
 URL that you want to redirect to, and the HTTP code that you want to use
 when redirecting. An administrator will then create the redirect for you.
 
+Guidelines on Identifiers
+-------------------------
+
+1. Do not link squat. If you are going to claim a permanent identifier,
+   make sure you or your organization intends for it to be around for
+   at least 20+ years.
+2. If you are creating a link to your personal website, please do so under 
+   the /people/ subdirectory. A simple redirect should be placed in
+   /people/.htaccess. A complex redirect should be placed under a 
+   directory like /people/rubarb/.htaccess.
+
 Link checking
 -------------
 A simple [Travis-CI](https://travis-ci.org/perma-id/w3id.org) job 
