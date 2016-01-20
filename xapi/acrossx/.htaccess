@@ -147,6 +147,22 @@ RewriteRule ^verbs/reported$ http://xapi.vocab.pub/datasets/acrossx/verbs.ttl [R
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^verbs/reported$ http://xapi.vocab.pub/datasets/acrossx/verbs.jsonld [R=303]
 
+# revealed
+# ---------------------------
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^verbs/revealed$ http://xapi.vocab.pub/datasets/acrossx/verbs#revealed [R=303,NE]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^verbs/revealed$ http://xapi.vocab.pub/datasets/acrossx/verbs.ttl [R=303]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^verbs/revealed$ http://xapi.vocab.pub/datasets/acrossx/verbs.jsonld [R=303]
 
 # was-assigned
 # ---------------------------
