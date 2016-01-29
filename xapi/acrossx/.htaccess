@@ -9,6 +9,8 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/acrossx/$1 [R=303]
+RewriteRule ^([a-z-]+)/(zh-cn)$ http://xapi.vocab.pub/datasets/acrossx/$1/zh-cn [R=303]
+RewriteRule ^([a-z-]+)/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx/$1/zh-tw [R=303]
 RewriteRule ^$ http://xapi.vocab.pub/datasets/acrossx/ [R=303]
 
 # Rewrite rule to serve Turtle content from the vocabulary URI if requested
@@ -18,16 +20,6 @@ RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/acrossx/$1.ttl [R=303]
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/acrossx/$1.jsonld [R=303]
-
-# Rewrite rule for translated versions in Chinese
-# ---------------------------
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([a-z-]+)/(zh-cn)$ http://xapi.vocab.pub/datasets/acrossx/$1/zh-cn [R=303]
-RewriteRule ^([a-z-]+)/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx/$1/zh-tw [R=303]
 
 # verbs & activity types catch all other IRIs
 # ---------------------------
@@ -45,6 +37,3 @@ RewriteRule ^([a-z-]+)/[a-z-]+$ http://xapi.vocab.pub/datasets/acrossx/$1.jsonld
 # Rewrite rule to serve Turtle content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^([a-z-]+)/[a-z-]+$ http://xapi.vocab.pub/datasets/acrossx/$1.ttl [R=303]
-
-
- 
