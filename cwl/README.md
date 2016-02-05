@@ -3,19 +3,21 @@ Common Workflow Language
 
 Specification:
 * https://w3id.org/cwl/
-* https://w3id.org/cwl/draft-?/
+* https://w3id.org/cwl/draft-3/
 
 JSON-LD context:
 * https://w3id.org/cwl/context
-* https://w3id.org/cwl/draft-?/context
+* https://w3id.org/cwl/salad-context
+* https://w3id.org/cwl/draft-3/salad-context
+* https://w3id.org/cwl/draft-3/context
 
 Ontology:
 * https://w3id.org/cwl/cwl#
 * https://w3id.org/cwl/salad#
 * https://w3id.org/cwl/cwl.ttl (for owl:import)
 * https://w3id.org/cwl/salad.ttl (for owl:import)
-* https://w3id.org/cwl/draft-?/cwl.ttl (for owl:import)
-* https://w3id.org/cwl/draft-?/salad.ttl (for owl:import)
+* https://w3id.org/cwl/draft-3/cwl.ttl (for owl:import)
+* https://w3id.org/cwl/draft-3/salad.ttl (for owl:import)
 
 References:
 * http://common-workflow-language.github.io/
