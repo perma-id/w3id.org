@@ -7,8 +7,8 @@ Specification:
 
 JSON-LD context:
 * https://w3id.org/cwl/context
-* https://w3id.org/cwl/salad-context
-* https://w3id.org/cwl/draft-3/salad-context
+* https://w3id.org/cwl/salad/context
+* https://w3id.org/cwl/draft-3/salad/context
 * https://w3id.org/cwl/draft-3/context
 
 Ontology:
