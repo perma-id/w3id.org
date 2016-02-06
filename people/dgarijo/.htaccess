@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine on
+#A set of rewrite rules with content negotiation for w3id.org/people/dgarijo
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://raw.githubusercontent.com/dgarijo/me/master/me.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://raw.githubusercontent.com/dgarijo/me/master/me.ttl [R=303,L]
+RewriteRule ^$ http://purl.org/net/dgarijo [R=303,L]

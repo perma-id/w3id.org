@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^cmi5/CourseStructure$ https://github.com/AICC/CMI-5_Spec_Current [R=303]
+RewriteRule ^cmi5/CourseStructure/$ https://github.com/AICC/CMI-5_Spec_Current/ [R=303]
+RewriteRule ^cmi5/CourseStructure.xsd$ http://xapi.vocab.pub/profiles/cmi5/CourseStructure.xsd [R=303]
+
+# Rewrite rule to serve XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^cmi5/CourseStructure$ http://xapi.vocab.pub/profiles/cmi5/CourseStructure.xsd [R=303]
+RewriteRule ^cmi5/CourseStructure/$ http://xapi.vocab.pub/profiles/cmi5/CourseStructure.xsd [R=303]
+
