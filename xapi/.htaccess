@@ -4,16 +4,13 @@ RewriteEngine on
 #Rewrite base to xAPI vocab server
 RewriteRule ^$ http://xapi.vocab.pub [L]
 
-# Rewrite for faceted search
-RewriteRule ^$ http://xapi.vocab.pub:8890/fct [L]
-
 # Rewrite for SPARQL URI
 # ---------------------------
 RewriteRule ^sparql$ http://xapi.vocab.pub:8890/sparql [R=302]
 
 # Rewrite rule to serve vocabulary context from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^vocabulary/context\.jsonld$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
+RewriteRule ^vocabulary/context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
 
 # Ontology Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -42,7 +39,9 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^adl$ http://xapi.vocab.pub/datasets/adl/ [R=303]
+RewriteRule ^adl$ http://xapi.vocab.pub/datasets/adl [R=303]
+RewriteRule ^adl/$ http://xapi.vocab.pub/datasets/adl/ [R=303]
+RewriteRule ^adl/verbs$ http://xapi.vocab.pub/datasets/adl/ [R=303]
 
 # ADL vocabualry rewrite rule to serve JSON-LD content from the vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
