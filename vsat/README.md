@@ -1,7 +1,7 @@
 Linked data url reditrection
 ============================
 
-A permanent home for anchoring linked data URIs for vocabularies pertaining to VSAT networks at https://w3id.org/vsat/...
+A permanent home for anchoring linked data URIs for vocabularies pertaining to VSAT networks at https://w3id.org/vsat/
 
 contact 
 -------
