@@ -2,7 +2,7 @@
 
 Homepage
 
-* http://alaintxu.duckdns.org
+* https://alaintxu.duckdns.org/ontologies/mo
 
 Contacts
 
