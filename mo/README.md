@@ -1,10 +1,8 @@
-## Mentions Ontology Initiative
+Mentions Ontology
+===
 
-Homepage
+Homepage:
+* https://w3id.org/mo/ --> https://alaintxu.duckdns.org/ontologies/mo/
 
-* https://alaintxu.duckdns.org/ontologies/mo
-
-Contacts
-
+Contacts: 
 * Alain Perez <aperez@mondragon.edu>
-* Felix Larrinaga <flarrinaga@mondragon.edu>
