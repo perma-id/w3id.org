@@ -32,11 +32,6 @@ RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
 
 # ADL Vocabulary
 # ---------------------------
-# ADL vocabualry rewrite rules to serve JSON-LD content if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^adl/?$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
-RewriteRule ^adl/([a-z-]*)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
-RewriteRule ^adl/([a-z-]*)/([a-z-]*)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
 
 # ADL vocabulary rewrite rules to serve HTML content if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -48,15 +43,16 @@ RewriteRule ^adl/([a-z-]+)$ http://xapi.vocab.pub/datasets/adl/ [R=303,L]
 # ADL vocabulary rewrite rule for specific verbs & activity types - catch all IRIs
 RewriteRule ^adl/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/adl/#$2 [R=303,NE,L]
 
+# ADL vocabualry rewrite rules to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^adl/?$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^adl/([a-z-]*)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^adl/([a-z-]*)/([a-z-]+)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303,L]
 
 # AcrossX Vocabulary
 # ---------------------------
-# acrossx vocabulary rewrite rule to serve JSON-LD if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^acrossx/?$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303,L]
-RewriteRule ^acrossx/(zh-cn)$ http://xapi.vocab.pub/datasets/acrossx-zh-cn.jsonld [R=303,L]
-RewriteRule ^acrossx/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx-zh-tw.jsonld [R=303,L]
-RewriteRule ^acrossx/([a-z-]*)/([a-z-]*)$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303,L]
 
 # acrossx vocabulary rewrite rule for HTML if requested
 # ---------------------------
@@ -71,6 +67,15 @@ RewriteRule ^acrossx/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx/zh-tw [R=30
 RewriteRule ^acrossx/([a-z-]+)$ http://xapi.vocab.pub/datasets/acrossx/ [R=303,L]
 RewriteRule ^acrossx/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/acrossx/#$2 [R=303,NE]
 
+# acrossx vocabulary rewrite rule to serve JSON-LD if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^acrossx/?$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^acrossx/(zh-cn)$ http://xapi.vocab.pub/datasets/acrossx-zh-cn.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^acrossx/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx-zh-tw.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^acrossx/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303,L]
 
 
 # IEEE ADB Vocabulary
