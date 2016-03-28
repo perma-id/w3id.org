@@ -30,62 +30,38 @@ RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
 
 # PUT ALL VOCABULARY DATASET REWRITE RULES BELOW THIS POINT
 
-# ADL Vocabulary
+# Consolidated Vocabulary Rewrite Rules
 # ---------------------------
 
-# ADL vocabulary rewrite rules to serve HTML content if requested
+# Serve HTML content at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^adl/?$ http://xapi.vocab.pub/datasets/adl/ [R=303]
-RewriteRule ^adl/([a-z-]+)$ http://xapi.vocab.pub/datasets/adl/ [R=303]
-# ADL vocabulary rewrite rule for specific verbs & activity types - catch all IRIs
-RewriteRule ^adl/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/adl/#$2 [R=303,NE]
+RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/$1/ [R=303]
 
-# ADL vocabualry rewrite rules to serve JSON-LD content if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^adl/?$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303]
-RewriteRule ^adl/verbs/?(.*)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303]
-RewriteRule ^adl/activities/?(.*)$ http://xapi.vocab.pub/datasets/adl.jsonld [R=303]
-
-# AcrossX Vocabulary
-# ---------------------------
-
-# acrossx vocabulary rewrite rule for HTML if requested
-# ---------------------------
-# Rewrite rule to serve HTML content from the vocabulary IRI if requested
+# Serve HTML content at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^acrossx/?$ http://xapi.vocab.pub/datasets/acrossx/ [R=303]
-RewriteRule ^acrossx/(zh-cn)$ http://xapi.vocab.pub/datasets/acrossx/zh-cn [R=303]
-RewriteRule ^acrossx/(zh-tw)$ http://xapi.vocab.pub/datasets/acrossx/zh-tw [R=303]
-RewriteRule ^acrossx/([a-z-]+)$ http://xapi.vocab.pub/datasets/acrossx/ [R=303]
-RewriteRule ^acrossx/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/acrossx/#$2 [R=303,NE]
+RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1/#$3 [R=303,NE]
 
-# acrossx vocabulary rewrite rule to serve JSON-LD if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^acrossx/?$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303]
-RewriteRule ^acrossx/(zh-cn)/?$ http://xapi.vocab.pub/datasets/acrossx-zh-cn.jsonld [R=303]
-RewriteRule ^acrossx/(zh-tw)/?$ http://xapi.vocab.pub/datasets/acrossx-zh-tw.jsonld [R=303]
-RewriteRule ^acrossx/verbs/?(.*)$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303]
-RewriteRule ^acrossx/activities/?(.*)$ http://xapi.vocab.pub/datasets/acrossx.jsonld [R=303]
-
-# IEEE ADB Vocabulary
-# ---------------------------
-# Rewrite rule to serve HTML content if requested
+# Serve HTML content at type IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^adb/?$ http://xapi.vocab.pub/datasets/ieee-adb/ [R=303]
-RewriteRule ^adb/([a-z-]+)$ http://xapi.vocab.pub/datasets/ieee-adb/#$1 [R=303,NE]
-RewriteRule ^adb/([a-z-]+)/([a-z-]+)$ http://xapi.vocab.pub/datasets/ieee-adb/#$2 [R=303,NE]
+RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1/ [R=303,NE]
 
-# ieee-adb vocabualry rewrite rule to serve JSON-LD if requested
+# Serve JSON-LD at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^adb/?$ http://xapi.vocab.pub/datasets/adb.jsonld [R=303]
-RewriteRule ^adb/verbs/?(.*)$ http://xapi.vocab.pub/datasets/adb.jsonld [R=303]
+RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
 
+# Serve JSON-LD at vocabulary type IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
