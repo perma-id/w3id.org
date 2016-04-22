@@ -2,7 +2,7 @@ SPARQL-Generate
 ===
 
 Homepage:
-* https://w3id.org/sparql-generate --> http://ci.emse.fr/sparql-generate
+* https://w3id.org/sparql-generate --> http://ci.emse.fr/sparql-generate/
 
 Implementations:
 * over Apache Jena: https://github.com/thesmartenergy/sparql-generate

@@ -3,7 +3,7 @@ The web site that exposes SPARQL-Generate queries to interpret Green-Button file
 ===
 
 Homepage:
-* https://w3id.org/seas/green-button --> http://ci.emse.fr/green-button
+* https://w3id.org/seas/green-button --> http://ci.emse.fr/green-button/
 
 Source:
 * https://github.com/thesmartenergy/green-button
