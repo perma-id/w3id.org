@@ -2,12 +2,10 @@ language: bash
 
 before_install:  
   - sudo apt-get update
-  - sudo apt-get -s upgrade
-  - sudo apt-get -y upgrade
-  - sudo dpkg -l libssl1.0.0 libssl-dev
+  - sudo apt-get -qq upgrade
 
 install:
-  - sudo apt-get install libssl1.0.0 linkchecker apache2 ca-certificates
+  - sudo apt-get -qq install libssl1.0.0 linkchecker apache2 ca-certificates
 
 before_script:
   - sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n </Directory>' /etc/apache2/sites-enabled/*
