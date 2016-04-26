@@ -1,13 +1,10 @@
 # Resource2Vec
 Resource2Vec provides knowledge graph embeddings of RDF graphs.
 
-## RESTful API Specifications
+## Links
 
-<https://w3id.org/resource2vec/api/v0.1/>
-
-## Source code
-
-<https://github.com/AKSW/Resource2Vec>
+* [RESTful API Specifications](http://resource2vec.aksw.org/api/v0.1)
+* [Source code](https://github.com/AKSW/Resource2Vec)
 
 ## Citing Resource2Vec
 
