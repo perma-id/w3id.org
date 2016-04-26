@@ -9,6 +9,11 @@ TTL: https://github.com/i40-Tools/vocabularies/blob/master/AutomationML/aml.ttl
 
 RDF/XML: https://github.com/i40-Tools/vocabularies/blob/master/AutomationML/aml.owl
 
+eis/vocabs/fuhsen:
+
+HTML: https://github.com/LiDaKrA/Ontology/blob/master/Documentation/
+
+OMN: https://raw.githubusercontent.com/LiDaKrA/Ontology/master/Implementation/fuhsen.omn
 
 Contacts
 

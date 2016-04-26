@@ -10,7 +10,7 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
-#Rewrite rules for Aml vocabulary extension 
+#Rewrite rules for Aml vocabulary  
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -24,3 +24,19 @@ RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^aml$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/AutomationML/aml.ttl [R=303,NE,L]
 #default response: owl
 RewriteRule ^aml$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/AutomationML/aml.owl [R=303,NE,L]
+
+
+#Rewrite rules for FuhSen vocabulary  
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^fuhsen$ https://github.com/LiDaKrA/Ontology/blob/master/Documentation/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^fuhsen$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/AutomationML/aml.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^fuhsen$ https://raw.githubusercontent.com/LiDaKrA/Ontology/master/Implementation/fuhsen.omn [R=303,NE,L]
+#default response: omn
+RewriteRule ^fuhsen$ https://raw.githubusercontent.com/LiDaKrA/Ontology/master/Implementation/fuhsen.omn [R=303,NE,L]
