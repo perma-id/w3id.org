@@ -3,7 +3,7 @@ Resource2Vec provides knowledge graph embeddings of RDF graphs.
 
 ## RESTful API Specifications
 
-<https://w3id.org/resource2vec/api/v0.1/>
+<https://w3id.org/resource2vec/api/v0.1>
 
 ## Source code
 
