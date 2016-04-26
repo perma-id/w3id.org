@@ -14,3 +14,6 @@ TTL: https://github.com/i40-Tools/vocabularies/blob/master/AutomationML/aml.ttl
 RDF/XML: https://github.com/i40-Tools/vocabularies/blob/master/AutomationML/aml.owl
 
 
+Contacts
+
+* Irlan Grangel <grangel@cs.uni-bonn.de>
