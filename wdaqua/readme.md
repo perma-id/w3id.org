@@ -1,4 +1,4 @@
-Repository created to store the redirections of the the vocabulary for AutomationML
+Repository created to store the redirections of the the Qanary vocabulary 
 ===================
 
 /wdaqua/qanary: 
