@@ -24,7 +24,7 @@ script:
     sed 's,.*https://w3id.org/,http://localhost/,'  |
     sed 's,[ )].*,,' > checking-uris.txt ; 
     echo "About to test locally:" ; cat checking-uris.txt | sed s,http://localhost,https://w3id.org,
-  - cat checking-uris.txt | linkchecker --stdin -r 0
+  - cat checking-uris.txt | linkchecker -v --stdin -r 0
 
 after_script:
   - sudo cat /var/log/apache2/access.log
