@@ -8,3 +8,4 @@ Materials for publication in escience2014 -> http://dgarijo.github.io/ResearchOb
 Materials for publication in escience2014 (2) -> http://dgarijo.github.io/ResearchObjects/eScience2014UserSurvey/
 Materials for publication in WORKS 2014 -> http://dgarijo.github.io/ResearchObjects/WORKS14-WfEcosystems/
 Materials for publication in PhD Thesis ->http://dgarijo.github.io/ResearchObjects/MiningAbstractionsInScientificWfs/
+Materials for publication in ACS2016 ->http://dgarijo.github.io/ResearchObjects/acs2016/
