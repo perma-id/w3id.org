@@ -1,23 +1,6 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
 Options +FollowSymLinks
-# Turn off MultiViews
-Options -MultiViews
-
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
-AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
-
 RewriteEngine on
-
-#Rewrite rules for bmontology
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^bmontology$ https://w3id.org/bmontology/bmontologyDco/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^bmontology$ https://w3id.org/bmontology/bm-ontology.owl [R=303,NE,L]
-#default response: owl
-RewriteRule ^bmontology$ https://w3id.org/bmontology/bm-ontology.owl [R=303,NE,L]
+RewriteRule ^$ http://213.136.65.6:8080/lode/bm-ontology [R=302,L]
+RewriteRule ^v1$ http://213.136.65.6:8080/lode/bm-ontology.owl [R=302,L]
