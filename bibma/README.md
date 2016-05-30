@@ -5,7 +5,7 @@ URI: https://w3id.org/bibma (@prefix `bibma`)
 serves HTML documentation (by default): http://doc.biblissima-condorcet.fr/ontologie/bibma/
 `Accept: text/html` or `Accept: application/xhtml+xml`
 
-serves OWL source (RDF/XML): http://data.biblissima.fr/ontology/bibma.owl
+serves OWL source (RDF/XML): http://doc.biblissima-condorcet.fr/ontologie/bibma.owl
 `Accept: application/rdf+xml`
 
 ## Contacts
