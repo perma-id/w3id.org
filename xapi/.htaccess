@@ -28,6 +28,10 @@ RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.rdf [R=303]
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
 
+# JSON-LD VOCABULARY CONTEXT
+# Context for xAPI Vocabulary Datasets published as Constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^vocabulary/context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
 
 # ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
 # ---------------------------------------------
@@ -83,12 +87,8 @@ RewriteRule ^acrossx/(.*)/(.*)$ http://xapi-cop.net/vocab/zh-cn/#$2 [R=303,NE]
 # ---------------------------
 
 
+
 # XAPI VOCABULARY DATASET REWRITE RULES BELOW THIS POINT
-
-# Rewrite rule to serve vocabulary dataset JSON-LD context from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^vocabulary/context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
-
 # Consolidated HTML/RDFa & JSON-LD Rules to account for vocab/profile pattern match and two child paths after
 # ---------------------------
 # Serve HTML content at vocabulary IRI if requested
@@ -122,4 +122,18 @@ RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
