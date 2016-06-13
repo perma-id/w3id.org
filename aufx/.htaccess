@@ -2,14 +2,9 @@ Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
-
-
 RewriteEngine On
 
-#http://www.essepuntato.it/lode/owlapi/http://eecs.qmul.ac.uk/~thomasw/aufx/ontology/1.0//aufx.ttl#d4e882
-
 AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
 AddType text/turtle .ttl
 
 # Rewrite engine setup
@@ -25,11 +20,10 @@ RewriteRule ^ontology/(.*) http://www.essepuntato.it/lode/owlapi/http://eecs.qmu
 
 # Rewrite rule to serve RDF/XML content if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/aufx/ontology/$1/aufx.owl [R=303,L]
+RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/aufx/ontology/$1/aufx.rdf [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/aufx/ontology/$1/aufx.ttl [R=303,L]
-
 
 # Choose the default response
 #RewriteRule ^ontology$ ontology.owl [R=303]
