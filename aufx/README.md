@@ -2,4 +2,4 @@
 
 Contacts:
 
-* Thomas Wilmering <thomas.wilmering@gmail.com>
+* Thomas Wilmering <thomas . wilmering @ gmail . com>
