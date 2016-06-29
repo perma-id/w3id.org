@@ -25,6 +25,21 @@ RewriteRule ^aml$ https://raw.githubusercontent.com/i40-Tools/vocabularies/maste
 #default response: owl
 RewriteRule ^aml$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/AutomationML/aml.owl [R=303,NE,L]
 
+#Rewrite rules for IEC62264 vocabulary  
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^iec$ https://rawgit.com/i40-Tools/vocabularies/master/IEC62264/documentation/index.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^iec$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/IEC62264/iec62264.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^iec$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/IEC62264/iec62264.ttl [R=303,NE,L]
+#default response: rdf
+RewriteRule ^iec$ https://raw.githubusercontent.com/i40-Tools/vocabularies/master/IEC62264/iec62264.owl [R=303,NE,L]
+
 
 #Rewrite rules for FuhSen vocabulary  
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
