@@ -13,7 +13,7 @@ Juckes et al. 2014, CLIPC overview poster to European Geophysical Assembly, 2014
 Juckes et al. 2014, presentation to the ESA CCI colocation meeting, Frascati.
  * http://clipc-services.ceda.ac.uk/static/docs/CLIPC_Feb2014_Frascati.pdf
 
-Juckes et al 2015, presentation to the CORE CLIMAX colocation meeting, Brusses.
+Juckes et al 2015, presentation to the CORE CLIMAX colocation meeting, Brussels.
  * http://clipc-services.ceda.ac.uk/static/docs/coreclimax2ndcolloc_juckes.pdf
 
 Juckes et al 2015, poster at the ECCA meeting, Copenhagen, 2015.
