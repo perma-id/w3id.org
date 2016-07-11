@@ -24,3 +24,18 @@ RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^domain$ http://lig-coin.imag.fr/mica/ontology/domainOntology/domain.ttl [R=303,NE,L]
 #default response: owl
 RewriteRule ^domain$ http://lig-coin.imag.fr/mica/ontology/domainOntology/domain.owl [R=303,NE,L]
+
+#Rewrite rules for MICA factsheet vocabulary extension 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/factsheetOntology/factsheetDoc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/factsheetOntology/factsheet.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/factsheetOntology/factsheet.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/domainOntology/factsheet.owl [R=303,NE,L]
