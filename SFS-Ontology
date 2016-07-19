@@ -1,0 +1,2724 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY exif "http://www.kanzaki.com/ns/exif#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY nrl "http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#" >
+    <!ENTITY nco "http://www.semanticdesktop.org/ontologies/2007/03/22/nco#" >
+    <!ENTITY nmm "http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#" >
+    <!ENTITY nao "http://www.semanticdesktop.org/ontologies/2007/08/15/nao#" >
+    <!ENTITY nie "http://www.semanticdesktop.org/ontologies/2007/01/19/nie#" >
+    <!ENTITY nfo "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#" >
+    <!ENTITY nid3 "http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#" >
+    <!ENTITY nexif "http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#"
+     xml:base="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:exif="http://www.kanzaki.com/ns/exif#"
+     xmlns:nao="http://www.semanticdesktop.org/ontologies/2007/08/15/nao#"
+     xmlns:nfo="http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#"
+     xmlns:nie="http://www.semanticdesktop.org/ontologies/2007/01/19/nie#"
+     xmlns:nco="http://www.semanticdesktop.org/ontologies/2007/03/22/nco#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:nmm="http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:nrl="http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:nid3="http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#"
+     xmlns:nexif="http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/date -->
+
+    <owl:AnnotationProperty rdf:about="&dc;date"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/description -->
+
+    <owl:AnnotationProperty rdf:about="&dc;description"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/title -->
+
+    <owl:AnnotationProperty rdf:about="&dc;title"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nao#deprecated -->
+
+    <owl:AnnotationProperty rdf:about="&nao;deprecated"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nao#userVisible -->
+
+    <owl:AnnotationProperty rdf:about="&nao;userVisible"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#inverseProperty -->
+
+    <owl:AnnotationProperty rdf:about="&nrl;inverseProperty"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#maxCardinality -->
+
+    <owl:AnnotationProperty rdf:about="&nrl;maxCardinality"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#duration -->
+
+    <rdfs:Datatype rdf:about="&xsd;duration"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#depends -->
+
+    <owl:ObjectProperty rdf:about="&nie;depends">
+        <rdfs:label>depends</rdfs:label>
+        <rdfs:comment>Dependency relation. A piece of content depends on another piece of data in order to be properly understood/used/interpreted.</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;relatedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#hasLogicalPart -->
+
+    <owl:ObjectProperty rdf:about="&nie;hasLogicalPart">
+        <rdfs:label>hasLogicalPart</rdfs:label>
+        <rdfs:comment>Generic property used to express &apos;logical&apos; containment relationships between InformationElements. NIE extensions are encouraged to provide more specific subproperties of this one. It is advisable for actual instances of InformationElement to use those specific subproperties. Note the difference between &apos;physical&apos; containment (hasPart) and logical containment (hasLogicalPart)</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&nie;InformationElement"/>
+        <nrl:inverseProperty rdf:resource="&nie;isLogicalPartOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#hasPart -->
+
+    <owl:ObjectProperty rdf:about="&nie;hasPart">
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;relatedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#interpretedAs -->
+
+    <owl:ObjectProperty rdf:about="&nie;interpretedAs">
+        <rdfs:label>interpretedAs</rdfs:label>
+        <rdfs:comment>Links the DataObject with the InformationElement it is interpreted as.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:range rdf:resource="&nie;InformationElement"/>
+        <nrl:inverseProperty rdf:resource="&nie;isStoredAs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#isLogicalPartOf -->
+
+    <owl:ObjectProperty rdf:about="&nie;isLogicalPartOf">
+        <rdfs:range rdf:resource="&nie;InformationElement"/>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="&nie;isPartOf">
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:range rdf:resource="&nie;InformationElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#isStoredAs -->
+
+    <owl:ObjectProperty rdf:about="&nie;isStoredAs">
+        <rdfs:label>isStoredAs</rdfs:label>
+        <rdfs:comment>Links the information element with the DataObject it is stored in.</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <nrl:inverseProperty rdf:resource="&nie;interpretedAs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#links -->
+
+    <owl:ObjectProperty rdf:about="&nie;links">
+        <rdfs:label>links</rdfs:label>
+        <rdfs:comment>A linking relation. A piece of content links/mentions a piece of data</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;relatedTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#relatedTo -->
+
+    <owl:ObjectProperty rdf:about="&nie;relatedTo">
+        <rdfs:label>relatedTo</rdfs:label>
+        <rdfs:comment>A common superproperty for all relations between a piece of content and other pieces of data (which may be interpreted as other pieces of content).</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url -->
+
+    <owl:ObjectProperty rdf:about="&nie;url">
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nco#contributor -->
+
+    <owl:ObjectProperty rdf:about="&nco;contributor">
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:subPropertyOf rdf:resource="&nao;contributor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#belongsToContainer -->
+
+    <owl:ObjectProperty rdf:about="&nfo;belongsToContainer">
+        <rdfs:label>belongsToContainer</rdfs:label>
+        <rdfs:comment>Models the containment relations between Files and Folders (or CompressedFiles).</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;isPartOf"/>
+        <rdfs:range rdf:resource="&nfo;DataContainer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#depiction -->
+
+    <owl:ObjectProperty rdf:about="&nfo;depiction">
+        <rdfs:label>depiction</rdfs:label>
+        <rdfs:comment>Relates an information element to an image which depicts said element.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;Image"/>
+        <nrl:inverseProperty rdf:resource="&nfo;depicts"/>
+        <rdfs:domain rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#depicts -->
+
+    <owl:ObjectProperty rdf:about="&nfo;depicts">
+        <rdfs:label>depicts</rdfs:label>
+        <rdfs:comment>Relates an image to the information elements it depicts.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Image"/>
+        <nrl:inverseProperty rdf:resource="&nfo;depiction"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileOwner -->
+
+    <owl:ObjectProperty rdf:about="&nfo;fileOwner">
+        <rdfs:label>fileOwner</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The owner of the file as defined by the file system access rights feature.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileUrl -->
+
+    <owl:ObjectProperty rdf:about="&nfo;fileUrl">
+        <rdfs:label>fileUrl</rdfs:label>
+        <nao:deprecated rdf:datatype="&xsd;boolean">true</nao:deprecated>
+        <rdfs:comment>URL of the file. It points at the location of the file. In cases where creating a simple file:// or http:// URL for a file is difficult (e.g. for files inside compressed archives) the applications are encouraged to use conventions defined by Apache Commons VFS Project at http://jakarta.apache.org/  commons/ vfs/ filesystems.html.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;url"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hasMediaFileListEntry -->
+
+    <owl:ObjectProperty rdf:about="&nfo;hasMediaFileListEntry">
+        <rdfs:label>hasMediaFileListEntry</rdfs:label>
+        <rdfs:comment>This property is intended to point to an RDF list of MediaFiles.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;MediaFileListEntry"/>
+        <rdfs:domain rdf:resource="&nfo;MediaList"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#artist -->
+
+    <owl:ObjectProperty rdf:about="&nexif;artist">
+        <rdfs:label>artist</rdfs:label>
+        <rdfs:comment>tagNumber: 315
+Person who created the image</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nexif;Photo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gps -->
+
+    <owl:ObjectProperty rdf:about="&nexif;gps">
+        <rdfs:label>gps</rdfs:label>
+        <rdfs:comment>The location where the picture has been made. This property aggregates values of two properties from the original EXIF specification: gpsLatitute (tag number 2) and gpsLongitude (tag number 4), and gpsAltitude (tag number 6).</rdfs:comment>
+        <rdfs:domain rdf:resource="&nexif;Photo"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Point"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#attachedPicture -->
+
+    <owl:ObjectProperty rdf:about="&nid3;attachedPicture">
+        <rdfs:label>attachedPicture</rdfs:label>
+        <rdfs:comment>A picture attached to an audio file. The DataObject refered to by this property is usually interpreted as an nfo:Image Inspired by the attached picture tag defined in http://www.id3.org/id3v2.3.0 sec. 4.15)</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;hasPart"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#backgroundArtist -->
+
+    <owl:ObjectProperty rdf:about="&nid3;backgroundArtist">
+        <rdfs:label>backgroundArtist</rdfs:label>
+        <rdfs:comment>TPE2
+The &apos;Band/Orchestra/Accompaniment&apos; frame is used for additional information about the performers in the recording.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#composer -->
+
+    <owl:ObjectProperty rdf:about="&nid3;composer">
+        <rdfs:label>composer</rdfs:label>
+        <rdfs:comment>TCOM
+The &apos;Composer(s)&apos; frame is intended for the name of the composer(s). They are seperated with the &quot;/&quot; character.
+Note that in the RDF representation each composer is represented with a separate triple.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#generalEncapsulatedObject -->
+
+    <owl:ObjectProperty rdf:about="&nid3;generalEncapsulatedObject">
+        <rdfs:label>generalEncapsulatedObject</rdfs:label>
+        <rdfs:comment>An arbitrary file embedded in an audio file. Inspired by http://www.id3.org/id3v2.3.0 sec. 
+4.16)</rdfs:comment>
+        <rdfs:range rdf:resource="&nie;DataObject"/>
+        <rdfs:subPropertyOf rdf:resource="&nie;hasPart"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#involvedPerson -->
+
+    <owl:ObjectProperty rdf:about="&nid3;involvedPerson">
+        <rdfs:label>involvedPerson</rdfs:label>
+        <rdfs:comment>Links an ID3 file to an InvolvedPerson, an equivalent of the involvedPeopleList tag. Since there might be a lot of people contributing to an audio file in various ways, such as musicians and technicians, the &apos;Text information frames&apos; are often insufficient to list everyone involved in a project. The &apos;Involved people list&apos; is a frame containing the names of those involved, and how they were involved. The body simply contains a terminated string with the involvement directly followed by a terminated string with the involvee followed by a new involvement and so on. There may only be one &quot;IPLS&quot; frame in each tag.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&nid3;InvolvedPerson"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#involvedPersonContact -->
+
+    <owl:ObjectProperty rdf:about="&nid3;involvedPersonContact">
+        <rdfs:label>involvedPersonContact</rdfs:label>
+        <rdfs:comment>An actual contact to the involved person.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;InvolvedPerson"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#leadArtist -->
+
+    <owl:ObjectProperty rdf:about="&nid3;leadArtist">
+        <rdfs:label>leadArtist</rdfs:label>
+        <rdfs:comment>TPE1
+The &apos;Lead artist(s)/Lead performer(s)/Soloist(s)/Performing group&apos; is used for the main artist(s). They are seperated with the &quot;/&quot; character.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#licensee -->
+
+    <owl:ObjectProperty rdf:about="&nid3;licensee">
+        <rdfs:label>licensee</rdfs:label>
+        <rdfs:comment>TOWN
+The &apos;File owner/licensee&apos; frame contains the name of the owner or licensee of the file and it&apos;s contents.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#officialArtistWebpage -->
+
+    <owl:ObjectProperty rdf:about="&nid3;officialArtistWebpage">
+        <rdfs:label>officialArtistWebpage</rdfs:label>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#officialAudioSourceWebpage -->
+
+    <owl:ObjectProperty rdf:about="&nid3;officialAudioSourceWebpage">
+        <rdfs:label>officialAudioSourceWebpage</rdfs:label>
+        <rdfs:comment>WOAS
+The &apos;Official audio source webpage&apos; frame is a URL pointing at the official webpage for the source of the audio file, e.g. a movie.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#officialFileWebpage -->
+
+    <owl:ObjectProperty rdf:about="&nid3;officialFileWebpage">
+        <rdfs:label>officialFileWebpage</rdfs:label>
+        <rdfs:comment>WOAF
+The &apos;Official audio file webpage&apos; frame is a URL pointing at a file specific webpage.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#originalArtist -->
+
+    <owl:ObjectProperty rdf:about="&nid3;originalArtist">
+        <rdfs:label>originalArtist</rdfs:label>
+        <rdfs:comment>TOPE
+The &apos;Original artist(s)/performer(s)&apos; frame is intended for the performer(s) of the original recording, if for example the music in the file should be a cover of a previously released song. The performers are seperated with the &quot;/&quot; character.
+Note that in the RDF repressentation each orignal artist is represented with a separate triple.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#originalTextWriter -->
+
+    <owl:ObjectProperty rdf:about="&nid3;originalTextWriter">
+        <rdfs:label>originalTextWriter</rdfs:label>
+        <rdfs:comment>TOLY
+The &apos;Original lyricist(s)/text writer(s)&apos; frame is intended for the text writer(s) of the original recording, if for example the music in the file should be a cover of a previously released song. The text writers are seperated with the &quot;/&quot; character.
+Note that in the RDF representation each original lyricist is represented with a separate triple.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#publisher -->
+
+    <owl:ObjectProperty rdf:about="&nid3;publisher">
+        <rdfs:label>publisher</rdfs:label>
+        <rdfs:comment>TPUB
+The &apos;Publisher&apos; frame simply contains the name of the label or publisher.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#publishersWebpage -->
+
+    <owl:ObjectProperty rdf:about="&nid3;publishersWebpage">
+        <rdfs:label>publishersWebpage</rdfs:label>
+        <rdfs:comment>WPUB
+The &apos;Publishers official webpage&apos; frame is a URL pointing at the official wepage for the publisher.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&rdfs;Resource"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#textWriter -->
+
+    <owl:ObjectProperty rdf:about="&nid3;textWriter">
+        <rdfs:label>textWriter</rdfs:label>
+        <rdfs:comment>TEXT
+The &apos;Lyricist(s)/Text writer(s)&apos; frame is intended for the writer(s) of the text or lyrics in the recording. They are seperated with the &quot;/&quot; character.
+Note that in the RDF representation each text writer is represented with a separate triple.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nao#contributor -->
+
+    <owl:ObjectProperty rdf:about="&nao;contributor"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#actor -->
+
+    <owl:ObjectProperty rdf:about="&nmm;actor">
+        <rdfs:label>nmm:actor</rdfs:label>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:subPropertyOf rdf:resource="&nco;contributor"/>
+        <rdfs:domain rdf:resource="&nfo;Video"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#musicAlbum -->
+
+    <owl:ObjectProperty rdf:about="&nmm;musicAlbum">
+        <rdfs:label>nmm:musicAlbum</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Album the music belongs to</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;isLogicalPartOf"/>
+        <rdfs:range rdf:resource="&nmm;MusicAlbum"/>
+        <rdfs:domain rdf:resource="&nmm;MusicPiece"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#belongedToContainer -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#belongedToContainer">
+        <rdfs:label>sfs:belongedToContainer</rdfs:label>
+        <rdfs:comment>Previous container of a file. Models the containment relations between Files and Folders (or compressed files) where they were previously been in. A user group semantically related files in a folder. If a user place a file in one folder and then after some time he moves it to another folder then it indicates that files in both folders are somehow related to each other. Tracking previous containers/folders of a file enables to relate a file with the files of containers where it previously belonged to.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:range rdf:resource="&nfo;DataContainer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedLocation_Time -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedLocation_Time">
+        <rdfs:label>sfs:fileAccessedLocation_Time</rdfs:label>
+        <rdfs:comment>It relates objects of nfo:FileDataObject and FileAccess classes. Which enables to track accessed time and location of a file. So, frequent access timings and locations can be calculated.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#FileAccess"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedByApplication -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedByApplication">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label>sfs:fileCreatedByApplication</rdfs:label>
+        <rdfs:comment>Specifies application using which a file is originally created. This property helps in maintaining provenance information of a file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;Application"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedByUser -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedByUser">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label>sfs:fileCreatedByUser</rdfs:label>
+        <rdfs:comment>User who originally created file. This property helps in maintaining provenance information of a file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedFrom">
+        <rdfs:label>sfs:fileCreatedFrom</rdfs:label>
+        <rdfs:comment>A file created from (the contents of) another file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedOnDevice -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedOnDevice">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label>sfs:fileCreatedOnDevice</rdfs:label>
+        <rdfs:comment>Computer or Device on which a file is created.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedTogather -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileCreatedTogather">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label>sfs:fileCreatedTogather</rdfs:label>
+        <rdfs:comment>Files created together within a predefined threshold.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileDuplicateOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileDuplicateOf">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label>sfs:fileDuplicateOf</rdfs:label>
+        <rdfs:comment>Exact match. Files that are 100 % identical.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileFrequentlyAccessedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileFrequentlyAccessedWith">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label>sfs:fileFrequentlyAccessedWith</rdfs:label>
+        <rdfs:comment>A file that is frequently accessed with another file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileManualPeekLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileManualPeekLocation">
+        <rdfs:label>sfs:fileManualPeekLocation</rdfs:label>
+        <rdfs:comment>User&apos;s manual location based annotation.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Point"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedByApplication -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedByApplication">
+        <rdfs:label>sfs:fileModifiedByApplication</rdfs:label>
+        <rdfs:comment>Relates a file to application which makes changes to a file. This property helps in maintaining provenance information of a file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;Application"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedByUser -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedByUser">
+        <rdfs:label>sfs:fileModifiedByUser</rdfs:label>
+        <rdfs:comment>Track users who modified file. This property helps in preserving provenance information of a file.</rdfs:comment>
+        <rdfs:range rdf:resource="&nco;Contact"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedOnDevice -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedOnDevice">
+        <rdfs:label>sfs:fileModifiedOnDevice</rdfs:label>
+        <rdfs:comment>Track devices/computers on which a file is modified. A file is annotated each time if a file is modified by a different device. This property helps in preserving the provenance information of the file.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileNearDuplicateOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileNearDuplicateOf">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:label>sfs:fileNearDuplicateOf</rdfs:label>
+        <rdfs:comment>Approximate match. Files that are identical to some extent. These could be older versions of the file. Use a similarity threshold to detect near-duplicates. e.g. If Similarity between two files is &gt; 80%, then both files are &quot;near duplicates&quot;.</rdfs:comment>
+        <rdfs:range rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakLocation">
+        <rdfs:label>sfs:filePeakLocation</rdfs:label>
+        <rdfs:comment>Geographical location where a file is frequently accessed.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Point"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#location -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#location">
+        <rdfs:label>wgs84_pos:location</rdfs:label>
+        <rdfs:range rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#byteSize -->
+
+    <owl:DatatypeProperty rdf:about="&nie;byteSize">
+        <rdfs:label>byteSize</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>The overall size of the data object in bytes. That means the space taken by the DataObject in its container, and not the size of the content that is of interest to the user. For cases where the content size is different (e.g. in compressed files the content is larger, in messages the content excludes headings and is smaller) use more specific properties, not necessarily subproperties of this one.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#characterSet -->
+
+    <owl:DatatypeProperty rdf:about="&nie;characterSet">
+        <rdfs:label>characterSet</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>Characterset in which the content of the InformationElement was created. Example: ISO-8859-1, UTF-8. One of the registered character sets at http://www.iana.org/assignments/character-sets. This characterSet is used to interpret any textual parts of the content. If more than one characterSet is used within one data object, use more specific properties.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#comment -->
+
+    <owl:DatatypeProperty rdf:about="&nie;comment">
+        <rdfs:label>comment</rdfs:label>
+        <rdfs:comment>A user comment about an InformationElement.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#contentModified -->
+
+    <owl:DatatypeProperty rdf:about="&nie;contentModified">
+        <rdfs:label>modified</rdfs:label>
+        <rdfs:comment>The date of a modification of the original content (not its corresponding DataObject or local copy). Compare with nie:modified.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#contentSize -->
+
+    <owl:DatatypeProperty rdf:about="&nie;contentSize">
+        <rdfs:label>contentSize</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>The size of the content. This property can be used whenever the size of the content of an InformationElement differs from the size of the DataObject. (e.g. because of compression, encoding, encryption or any other representation issues). The contentSize in expressed in bytes.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#copyright -->
+
+    <owl:DatatypeProperty rdf:about="&nie;copyright">
+        <rdfs:label>copyright</rdfs:label>
+        <rdfs:comment>Content copyright</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;legal"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#created -->
+
+    <owl:DatatypeProperty rdf:about="&nie;created">
+        <rdfs:label>created</rdfs:label>
+        <rdfs:comment>Date of creation of the DataObject. Note that this date refers to the creation of the DataObject itself (i.e. the physical representation). Compare with nie:contentCreated.</rdfs:comment>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:subPropertyOf rdf:resource="&nie;modified"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#description -->
+
+    <owl:DatatypeProperty rdf:about="&nie;description">
+        <rdfs:label>description</rdfs:label>
+        <rdfs:comment>A textual description of the resource. This property may be used for any metadata fields that provide some meta-information or comment about a resource in the form of a passage of text. This property is not to be confused with nie:plainTextContent. Use more specific subproperties wherever possible.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#disclaimer -->
+
+    <owl:DatatypeProperty rdf:about="&nie;disclaimer">
+        <rdfs:label>disclaimer</rdfs:label>
+        <rdfs:comment>A disclaimer</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;legal"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#generator -->
+
+    <owl:DatatypeProperty rdf:about="&nie;generator">
+        <rdfs:label>generator</rdfs:label>
+        <rdfs:comment>Software used to &quot;generate&quot; the contents. E.g. a word processor name.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#identifier -->
+
+    <owl:DatatypeProperty rdf:about="&nie;identifier">
+        <rdfs:label>nie:identifier</rdfs:label>
+        <rdfs:comment>An unambiguous reference to the InformationElement within a given context. Recommended best practice is to identify the resource by means of a string conforming to a formal identification system.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nao;identifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#keyword -->
+
+    <owl:DatatypeProperty rdf:about="&nie;keyword">
+        <rdfs:label>keyword</rdfs:label>
+        <rdfs:comment>Adapted DublinCore: The topic of the content of the resource, as keyword. No sentences here. Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme. </rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#language -->
+
+    <owl:DatatypeProperty rdf:about="&nie;language">
+        <rdfs:label>language</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>Language the InformationElement is expressed in. This property applies to the data object in its entirety. If the data object is divisible into parts expressed in multiple languages - more specific properties should be used. Users are encouraged to use the two-letter code specified in the RFC 3066</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#lastModified -->
+
+    <owl:DatatypeProperty rdf:about="&nie;lastModified">
+        <rdfs:label>lastModified</rdfs:label>
+        <rdfs:comment>Last modification date of the DataObject. Note that this date refers to the modification of the DataObject itself (i.e. the physical representation). Compare with nie:contentLastModified.</rdfs:comment>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:subPropertyOf rdf:resource="&nie;modified"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#legal -->
+
+    <owl:DatatypeProperty rdf:about="&nie;legal">
+        <rdfs:label>legal</rdfs:label>
+        <rdfs:comment>A common superproperty for all properties that point at legal information about an Information Element</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#license -->
+
+    <owl:DatatypeProperty rdf:about="&nie;license">
+        <rdfs:label>license</rdfs:label>
+        <rdfs:comment>Terms and intellectual property rights licensing conditions.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;legal"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#licenseType -->
+
+    <owl:DatatypeProperty rdf:about="&nie;licenseType">
+        <rdfs:label>licenseType</rdfs:label>
+        <rdfs:comment>The type of the license. Possible values for this field may include &quot;GPL&quot;, &quot;BSD&quot;, &quot;Creative Commons&quot; etc.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;legal"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#mimeType -->
+
+    <owl:DatatypeProperty rdf:about="&nie;mimeType">
+        <rdfs:label>mimeType</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>The mime type of the resource, if available. Example: &quot;text/plain&quot;. See http://www.iana.org/assignments/media-types/. This property applies to data objects that can be described with one mime type. In cases where the object as a whole has one mime type, while it&apos;s parts have other mime types, or there is no mime type that can be applied to the object as a whole, but some parts of the content have mime types - use more specific properties.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;InformationElement"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#modified -->
+
+    <owl:DatatypeProperty rdf:about="&nie;modified">
+        <rdfs:label>modified</rdfs:label>
+        <rdfs:comment>Date the DataObject was changed in any way.  Note that this date refers to the modification of the DataObject itself (i.e. the physical representation). Compare with nie:contentModified.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nie;DataObject"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#plainTextContent -->
+
+    <owl:DatatypeProperty rdf:about="&nie;plainTextContent">
+        <rdfs:label>plainTextContent</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>Plain-text representation of the content of a InformationElement with all markup removed. The main purpose of this property is full-text indexing and search. Its exact content is considered application-specific. The user can make no assumptions about what is and what is not contained within. Applications should use more specific properties wherever possible.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#subject -->
+
+    <owl:DatatypeProperty rdf:about="&nie;subject">
+        <rdfs:label>subject</rdfs:label>
+        <rdfs:comment>An overall topic of the content of a InformationElement</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#title -->
+
+    <owl:DatatypeProperty rdf:about="&nie;title">
+        <rdfs:label>title</rdfs:label>
+        <rdfs:comment>Name given to an InformationElement</rdfs:comment>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#version -->
+
+    <owl:DatatypeProperty rdf:about="&nie;version">
+        <rdfs:label>version</rdfs:label>
+        <rdfs:comment>The current version of the given data object. Exact semantics is unspecified at this level. Use more specific subproperties if needed.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#aspectRatio -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;aspectRatio">
+        <rdfs:label>aspectRatio</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Visual content aspect ratio. (Width divided by Height)</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Visual"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#averageBitrate -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;averageBitrate">
+        <rdfs:label>averageBitrate</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The average overall bitrate of a media container. (i.e. the size of the piece of media in bits, divided by it&apos;s duration expressed in seconds).</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Media"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;rate"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#bitDepth -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;bitDepth">
+        <rdfs:label>bitDepth</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>A common superproperty for all properties signifying the amount of bits for an atomic unit of data. Examples of subproperties may include bitsPerSample and bitsPerPixel</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Media"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#bitsPerSample -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;bitsPerSample">
+        <rdfs:label>bitsPerSample</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Amount of bits in each audio sample.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Audio"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;bitDepth"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#characterCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;characterCount">
+        <rdfs:label>characterCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of characters in the document.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;TextDocument"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#colorCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;colorCount">
+        <rdfs:label>color count</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The number of colors used/available in a raster image.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;RasterImage"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#colorDepth -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;colorDepth">
+        <rdfs:label>colorDepth</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Amount of bits used to express the color of each pixel.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Visual"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;bitDepth"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#count -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;count">
+        <rdfs:label>count</rdfs:label>
+        <rdfs:comment>A common superproperty for all properties signifying the amount of atomic media data units. Examples of subproperties may include sampleCount and frameCount.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Media"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#duration -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;duration">
+        <rdfs:label>duration</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Duration of a media piece.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Media"/>
+        <rdfs:range rdf:resource="&xsd;duration"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileCreated -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;fileCreated">
+        <rdfs:label>fileCreated</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>File creation date</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;created"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileLastAccessed -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;fileLastAccessed">
+        <rdfs:label>fileLastAccessed</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Time when the file was last accessed.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileLastModified -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;fileLastModified">
+        <rdfs:label>fileLastModified</rdfs:label>
+        <nao:deprecated rdf:datatype="&xsd;boolean">true</nao:deprecated>
+        <rdfs:comment>last modification date</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;lastModified"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;fileName">
+        <rdfs:label>fileName</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>Name of the file, together with the extension</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileSize -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;fileSize">
+        <rdfs:label>fileSize</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The size of the file in bytes. For compressed files it means the size of the packed file, not of the contents. For folders it means the aggregated size of all contained files and folders </rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;byteSize"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#frameCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;frameCount">
+        <rdfs:label>frameCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of frames in a video sequence.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Video"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;count"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#frameRate -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;frameRate">
+        <rdfs:label>frameRate</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Amount of video frames per second.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Video"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;rate"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#height -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;height">
+        <rdfs:label>height</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Visual content height in pixels.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#horizontalResolution -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;horizontalResolution">
+        <rdfs:label>horizontalResolution</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Horizontal resolution of an image (if printed). Expressed in DPI.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Image"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#isPasswordProtected -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;isPasswordProtected">
+        <rdfs:label>isPasswordProtected</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>States if a given resource is password-protected.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;ArchiveItem"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#lineCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;lineCount">
+        <rdfs:label>lineCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of lines in a text document</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;TextDocument"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#pageCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;pageCount">
+        <rdfs:label>pageCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Number of pages.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;PaginatedTextDocument"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#paletteSize -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;paletteSize">
+        <rdfs:label>palette size</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The number of colors defined in palette of the raster image.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;RasterImage"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#permissions -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;permissions">
+        <rdfs:label>permissions</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>A string containing the permissions of a file. A feature common in many UNIX-like operating systems.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#rate -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;rate">
+        <rdfs:label>rate</rdfs:label>
+        <rdfs:comment>A common superproperty for all properties specifying the media rate. Examples of subproperties may include frameRate for video and sampleRate for audio. This property is expressed in units per second.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Media"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#sampleCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;sampleCount">
+        <rdfs:label>sampleCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of samples in an audio clip.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Audio"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;count"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#sampleRate -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;sampleRate">
+        <rdfs:label>sampleRate</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of audio samples per second.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Audio"/>
+        <rdfs:subPropertyOf rdf:resource="&nfo;rate"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#verticalResolution -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;verticalResolution">
+        <rdfs:label>verticalResolution</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Vertical resolution of an Image (if printed). Expressed in DPI</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Image"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#width -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;width">
+        <rdfs:label>width</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>Visual content width in pixels.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;Visual"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#wordCount -->
+
+    <owl:DatatypeProperty rdf:about="&nfo;wordCount">
+        <rdfs:label>wordCount</rdfs:label>
+        <nrl:maxCardinality rdf:datatype="&xsd;integer">1</nrl:maxCardinality>
+        <rdfs:comment>The amount of words in a text document.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;TextDocument"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#apertureValue -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;apertureValue">
+        <rdfs:label>apertureValue</rdfs:label>
+        <rdfs:comment>tagNumber: 37378
+The lens aperture. The unit is the APEX value.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;pictTaking"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#bitsPerSample -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;bitsPerSample">
+        <rdfs:label>bitsPerSample</rdfs:label>
+        <rdfs:comment>tagNumber: 258
+The number of bits per image component. In this standard each component of the image is 8 bits, so the value for this tag is 8. See also SamplesPerPixel. In JPEG compressed data a JPEG marker is used instead of this tag.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;resolution"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#compression -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;compression">
+        <rdfs:label>compression</rdfs:label>
+        <rdfs:comment>The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6.
+tagNumber: 259</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#date -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;date">
+        <rdfs:label>date</rdfs:label>
+        <rdfs:comment>a date information. Usually saved as YYYY:MM:DD (HH:MM:SS) format in Exif data, but represented here as W3C-DTF format</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#dateTime -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;dateTime">
+        <rdfs:label>dateTime</rdfs:label>
+        <rdfs:comment>The date and time of image creation. In this standard it is the date and time the file was changed.
+tagNumber: 306</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;lastModified"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;date"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#digitalZoomRatio -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;digitalZoomRatio">
+        <rdfs:label>digitalZoomRatio</rdfs:label>
+        <rdfs:comment>tagNumber: 41988
+The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this indicates that digital zoom was not used.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;pictTaking"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#exifAttribute -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;exifAttribute">
+        <rdfs:label>exifAttribute</rdfs:label>
+        <rdfs:comment>A property that connects an IFD (or other resource) to one of its entries (Exif attribute). Super property which integrates all Exif tags. Domain definition dropped so that this vocabulary can be used to describe not only Exif IFD, but also general image.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#flash -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;flash">
+        <rdfs:label>flash</rdfs:label>
+        <rdfs:comment>tagNumber: 37385
+The status of flash when the image was shot.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;pictTaking"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#focalLength -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;focalLength">
+        <rdfs:label>focalLength</rdfs:label>
+        <rdfs:comment>The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera.
+tagNumber: 37386</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;mm"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;pictTaking"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsAreaInformation -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsAreaInformation">
+        <rdfs:label>gpsAreaInformation</rdfs:label>
+        <rdfs:comment>A character string recording the name of the GPS area. The first byte indicates the character code used, and this is followed by the name of the GPS area.
+tagNumber: 28</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsImgDirection -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsImgDirection">
+        <rdfs:label>gpsImgDirection</rdfs:label>
+        <rdfs:comment>tagNumber: 17
+The direction of the image when it was captured. The range of values is from 0.00 to 359.99.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsImgDirectionRef -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsImgDirectionRef">
+        <rdfs:label>gpsImgDirectionRef</rdfs:label>
+        <rdfs:comment>tagNumber: 16
+The reference for giving the direction of the image when it is captured. &apos;T&apos; denotes true direction and &apos;M&apos; is magnetic direction.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsInfo -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsInfo">
+        <rdfs:label>gpsInfo</rdfs:label>
+        <rdfs:comment>An attribute relating to GPS information</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsSpeed -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsSpeed">
+        <rdfs:label>gpsSpeed</rdfs:label>
+        <rdfs:comment>The speed of GPS receiver movement.
+tagNumber: 13</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsSpeedRef -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsSpeedRef">
+        <rdfs:label>gpsSpeedRef</rdfs:label>
+        <rdfs:comment>tagNumber: 12
+The unit used to express the GPS receiver speed of movement. &apos;K&apos; &apos;M&apos; and &apos;N&apos; represents kilometers per hour, miles per hour, and knots.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsTimeStamp -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsTimeStamp">
+        <rdfs:label>gpsTimeStamp</rdfs:label>
+        <rdfs:comment>tagNumber: 7
+The time as UTC (Coordinated Universal Time). TimeStamp is expressed as three RATIONAL values giving the hour, minute, and second.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsTrack -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsTrack">
+        <rdfs:label>gpsTrack</rdfs:label>
+        <rdfs:comment>The direction of GPS receiver movement. The range of values is from 0.00 to 359.99.
+tagNumber: 15</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#gpsTrackRef -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;gpsTrackRef">
+        <rdfs:label>gpsTrackRef</rdfs:label>
+        <rdfs:comment>tagNumber: 14
+The reference for giving the direction of GPS receiver movement. &apos;T&apos; denotes true direction and &apos;M&apos; is magnetic direction.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;gpsInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#height -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;height">
+        <rdfs:label>height</rdfs:label>
+        <rdfs:comment>Height of an object</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;length"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#imageDataStruct -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;imageDataStruct">
+        <rdfs:label>imageDataStruct</rdfs:label>
+        <rdfs:comment>An attribute relating to image data structure</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#imageDescription -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;imageDescription">
+        <rdfs:label>imageDescription</rdfs:label>
+        <rdfs:comment>tagNumber: 270
+A character string giving the title of the image. It may be a comment such as &quot;1988 company picnic&quot; or the like. Two-byte character codes cannot be used. When a 2-byte code is necessary, the Exif Private tag UserComment is to be used.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;title"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#imageLength -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;imageLength">
+        <rdfs:label>imageLength</rdfs:label>
+        <rdfs:comment>tagNumber: 257
+Image height. The number of rows of image data. In JPEG compressed data a JPEG marker is used.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nfo;height"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;height"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#imageWidth -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;imageWidth">
+        <rdfs:label>imageWidth</rdfs:label>
+        <rdfs:comment>tagNumber: 256
+Image width. The number of columns of image data, equal to the number of pixels per row. In JPEG compressed data a JPEG marker is used instead of this tag.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;width"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#length -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;length">
+        <rdfs:label>length</rdfs:label>
+        <rdfs:comment>Length of an object. Could be a subProperty of other general schema.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#make -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;make">
+        <rdfs:label>make</rdfs:label>
+        <rdfs:comment>Manufacturer of image input equipment
+tagNumber: 271</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#makerNote -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;makerNote">
+        <rdfs:label>makerNote</rdfs:label>
+        <rdfs:comment>Manufacturer notes
+tagNumber: 37500</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;userInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#mm -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;mm">
+        <rdfs:label>mm</rdfs:label>
+        <rdfs:comment>A length with unit of mm</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;length"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#model -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;model">
+        <rdfs:label>model</rdfs:label>
+        <rdfs:comment>tagNumber: 272
+Model of image input equipment</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#pictTaking -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;pictTaking">
+        <rdfs:label>pictTaking</rdfs:label>
+        <rdfs:comment>An attribute relating to Picture-Taking Conditions</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#resolution -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;resolution">
+        <rdfs:label>resolution</rdfs:label>
+        <rdfs:comment>a rational number representing a resolution. Could be a subProperty of other general schema.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#resolutionUnit -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;resolutionUnit">
+        <rdfs:label>resolutionUnit</rdfs:label>
+        <rdfs:comment>tagNumber: 296
+The unit for measuring XResolution and YResolution. The same unit is used for both XResolution and YResolution. If the image resolution in unknown, 2 (inches) is designated.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#shutterSpeedValue -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;shutterSpeedValue">
+        <rdfs:label>shutterSpeedValue</rdfs:label>
+        <rdfs:comment>tagNumber: 37377
+Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;pictTaking"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#software -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;software">
+        <rdfs:label>software</rdfs:label>
+        <rdfs:comment>tagNumber: 305
+The name and version of the software or firmware of the camera or image input device used to generate the image.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#userComment -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;userComment">
+        <rdfs:label>userComment</rdfs:label>
+        <rdfs:comment>tagNumber: 37510
+A tag for Exif users to write keywords or comments on the image besides those in ImageDescription, and without the character code limitations of the ImageDescription tag. The character code used in the UserComment tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;userInfo"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#userInfo -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;userInfo">
+        <rdfs:label>userInfo</rdfs:label>
+        <rdfs:comment>An attribute relating to User Information</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;exifAttribute"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#width -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;width">
+        <rdfs:label>width</rdfs:label>
+        <rdfs:comment>Width of an object</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;length"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#xResolution -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;xResolution">
+        <rdfs:label>xResolution</rdfs:label>
+        <rdfs:comment>The number of pixels per ResolutionUnit in the ImageWidth direction. When the image resolution is unknown, 72 [dpi] is designated.
+tagNumber: 282</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;resolution"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#yResolution -->
+
+    <owl:DatatypeProperty rdf:about="&nexif;yResolution">
+        <rdfs:label>yResolution</rdfs:label>
+        <rdfs:comment>tagNumber: 283
+The number of pixels per ResolutionUnit in the ImageLength direction. The same value as XResolution is designated.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nexif;imageDataStruct"/>
+        <rdfs:subPropertyOf rdf:resource="&nexif;resolution"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#albumTitle -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;albumTitle">
+        <rdfs:label>albumTitle</rdfs:label>
+        <rdfs:comment>TALB
+The &apos;Album/Movie/Show title&apos; frame is intended for the title of the recording(/source of sound) which the audio in the file is taken from.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#comments -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;comments">
+        <rdfs:label>comments</rdfs:label>
+        <nao:deprecated rdf:datatype="&xsd;boolean">true</nao:deprecated>
+        <rdfs:comment>COMM - This frame is indended for any kind of full text information that does not fit in any other frame. It consists of a frame header followed by encoding, language and content descriptors and is ended with the actual comment as a text string. Newline characters are allowed in the comment text string. There may be more than one comment frame in each tag, but only one with the same language and content descriptor. Deprecated in favor of the more generic nie:comment.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;comment"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#contentType -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;contentType">
+        <rdfs:label>contentType</rdfs:label>
+        <rdfs:comment>TCON
+
+The &apos;Content type&apos;, which previously was stored as a one byte numeric value only, is now a numeric string. You may use one or several of the types as ID3v1.1 did or, since the category list would be impossible to maintain with accurate and up to date categories, define your own. 
+
+References to the ID3v1 genres can be made by, as first byte, enter &quot;(&quot; followed by a number from the genres list (appendix A) and ended with a &quot;)&quot; character. This is optionally followed by a refinement, e.g. &quot;(21)&quot; or &quot;(4)Eurodisco&quot;. Several references can be made in the same frame, e.g. &quot;(51)(39)&quot;. If the refinement should begin with a &quot;(&quot; character it should be replaced with &quot;((&quot;, e.g. &quot;((I can figure out any genre)&quot; or &quot;(55)((I think...)&quot;. The following new content types is defined in ID3v2 and is implemented in the same way as the numerig content types, e.g. &quot;(RX)&quot;. 
+RX    Remix 
+CR    Cover</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#fileType -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;fileType">
+        <rdfs:label>fileType</rdfs:label>
+        <rdfs:comment>TFLT
+The &apos;File type&apos; frame indicates which type of audio this tag defines. The following type and refinements are defined: 
+MPG MPEG Audio; 
+/1 MPEG 1/2 layer I;
+/2 MPEG 1/2 layer II;
+/3 MPEG 1/2 layer III;
+/2.5 MPEG 2.5;
+/AAC Advanced audio compression;
+VQF Transform-domain Weighted Interleave Vector Quantization;
+PCM Pulse Code Modulated audio;</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#involvment -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;involvment">
+        <rdfs:label>involvment</rdfs:label>
+        <rdfs:comment>How was this particular person involved in this particular track.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;InvolvedPerson"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#length -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;length">
+        <rdfs:label>length</rdfs:label>
+        <rdfs:comment>TLEN
+The &apos;Length&apos; frame contains the length of the audiofile in milliseconds, represented as a numeric string.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#originalAlbumTitle -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;originalAlbumTitle">
+        <rdfs:label>originalAlbumTitle</rdfs:label>
+        <rdfs:comment>TOAL
+The &apos;Original album/movie/show title&apos; frame is intended for the title of the original recording (or source of sound), if for example the music in the file should be a cover of a previously released song.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#originalReleaseYear -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;originalReleaseYear">
+        <rdfs:label>originalReleaseYear</rdfs:label>
+        <rdfs:comment>TORY
+The &apos;Original release year&apos; frame is intended for the year when the original recording, if for example the music in the file should be a cover of a previously released song, was released. The field is formatted as in the &quot;TYER&quot; frame.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#partOfSet -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;partOfSet">
+        <rdfs:label>partOfSet</rdfs:label>
+        <rdfs:comment>TPOS
+The &apos;Part of a set&apos; frame is a numeric string that describes which part of a set the audio came from. This frame is used if the source described in the &quot;TALB&quot; frame is divided into several mediums, e.g. a double CD. The value may be extended with a &quot;/&quot; character and a numeric string containing the total number of parts in the set. E.g. &quot;1/2&quot;.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#recordingDate -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;recordingDate">
+        <rdfs:label>recordingDate</rdfs:label>
+        <rdfs:comment>TRDA
+The &apos;Recording dates&apos; frame is a intended to be used as complement to the &quot;TYER&quot;, &quot;TDAT&quot; and &quot;TIME&quot; frames. E.g. &quot;4th-7th June, 12th June&quot; in combination with the &quot;TYER&quot; frame.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#recordingYear -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;recordingYear">
+        <rdfs:label>recordingYear</rdfs:label>
+        <rdfs:comment>TYER
+The &apos;Year&apos; frame is a numeric string with a year of the recording. This frames is always four characters long (until the year 10000).</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#time -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;time">
+        <rdfs:label>time</rdfs:label>
+        <rdfs:comment>TIME
+The &apos;Time&apos; frame is a numeric string in the HHMM format containing the time for the recording. This field is always four characters long.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#title -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;title">
+        <rdfs:label>title</rdfs:label>
+        <nao:deprecated rdf:datatype="&xsd;boolean">true</nao:deprecated>
+        <rdfs:comment>TIT2
+The &apos;Title/Songname/Content description&apos; frame is the actual name of the piece (e.g. &quot;Adagio&quot;, &quot;Hurricane Donna&quot;). Deprecated in favor of the more generic nie:title.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&nie;title"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#trackNumber -->
+
+    <owl:DatatypeProperty rdf:about="&nid3;trackNumber">
+        <rdfs:label>trackNumber</rdfs:label>
+        <rdfs:comment>TRCK
+The &apos;Track number/Position in set&apos; frame is a numeric string containing the order number of the audio-file on its original recording. This may be extended with a &quot;/&quot; character and a numeric string containing the total numer of tracks/elements on the original recording. E.g. &quot;4/9&quot;.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nid3;ID3Audio"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nao#identifier -->
+
+    <owl:DatatypeProperty rdf:about="&nao;identifier">
+        <rdfs:label>nao:identifier</rdfs:label>
+        <rdfs:comment>Defines a generic identifier for a resource</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#musicBrainzTrackID -->
+
+    <owl:DatatypeProperty rdf:about="&nmm;musicBrainzTrackID">
+        <rdfs:label>nmm:musicBrainzTrackID</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&nie;identifier"/>
+        <rdfs:domain rdf:resource="&nmm;MusicPiece"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedCounter -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedCounter">
+        <rdfs:label>sfs:fileAccessedCounter</rdfs:label>
+        <rdfs:comment>Number of times the file is accessed.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedHistory -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedHistory">
+        <rdfs:label>sfs:fileAccessedHistory</rdfs:label>
+        <rdfs:comment>Date and time is recorded each time a file is accessed to maintain a file accessed history.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedTime -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedTime">
+        <rdfs:label>sfs:fileAccessedTime</rdfs:label>
+        <rdfs:comment>File accessed time.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#FileAccess"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedHistory -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileModifiedHistory">
+        <rdfs:label>sfs:fileModifiedHistory</rdfs:label>
+        <rdfs:comment>Date and time is recorded each time a file is modified to maintain a file modified history.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakDay -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakDay">
+        <rdfs:label>sfs:filePeakDay</rdfs:label>
+        <rdfs:comment>File&apos;s peak day. Value ranges from 0-6, with 0 being Sunday.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakHour -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#filePeakHour">
+        <rdfs:label>sfs:filePeakHour</rdfs:label>
+        <rdfs:comment>Peak hour of the file. Value ranges from 0 to 23.</rdfs:comment>
+        <rdfs:domain rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#lat -->
+
+    <owl:DatatypeProperty rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#lat">
+        <rdfs:label>wgs84_pos:lat</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#lat_long -->
+
+    <owl:DatatypeProperty rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#lat_long">
+        <rdfs:label>wgs84_pos:lat/long</rdfs:label>
+        <rdfs:comment>A comma-separated representation of a latitude, longitude coordinate.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#long -->
+
+    <owl:DatatypeProperty rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#long">
+        <rdfs:label>wgs84_pos:long</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#DataObject -->
+
+    <owl:Class rdf:about="&nie;DataObject">
+        <rdfs:label>nie:DataObject</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:comment>A unit of data that is created, annotated and processed on the user desktop. It represents a native structure the user works with. The usage of the term &apos;native&apos; is important. It means that a DataObject can be directly mapped to a data structure maintained by a native application. This may be a file, a set of files or a part of a file. The granularity depends on the user. This class is not intended to be instantiated by itself. Use more specific subclasses.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#InformationElement -->
+
+    <owl:Class rdf:about="&nie;InformationElement">
+        <rdfs:label>nie:InformationElement</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:comment>A unit of content the user works with. This is a superclass for all interpretations of a DataObject.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nco#Contact -->
+
+    <owl:Class rdf:about="&nco;Contact">
+        <rdfs:label>nco:Contact</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Application -->
+
+    <owl:Class rdf:about="&nfo;Application">
+        <rdfs:label>nfo:Application</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Software"/>
+        <rdfs:comment>An application</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Archive -->
+
+    <owl:Class rdf:about="&nfo;Archive">
+        <rdfs:label>nfo:Archive</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;DataContainer"/>
+        <rdfs:comment>A compressed file. May contain other files or folder inside. </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#ArchiveItem -->
+
+    <owl:Class rdf:about="&nfo;ArchiveItem">
+        <rdfs:label>nfo:ArchiveItem</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;EmbeddedFileDataObject"/>
+        <rdfs:comment>A file entity inside an archive.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Attachment -->
+
+    <owl:Class rdf:about="&nfo;Attachment">
+        <rdfs:label>nfo:Attachment</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;EmbeddedFileDataObject"/>
+        <rdfs:comment>A file attached to another data object. Many data formats allow for attachments: emails, vcards, ical events, id3 and exif...</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Audio -->
+
+    <owl:Class rdf:about="&nfo;Audio">
+        <rdfs:label>nfo:Audio</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Media"/>
+        <rdfs:comment>A file containing audio content</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#DataContainer -->
+
+    <owl:Class rdf:about="&nfo;DataContainer">
+        <rdfs:label>nfo:DataContainer</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:comment>A superclass for all entities, whose primary purpose is to serve as containers for other data object. They usually don&apos;t have any &quot;meaning&quot; by themselves. Examples include folders, archives and optical disc images.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Document -->
+
+    <owl:Class rdf:about="&nfo;Document">
+        <rdfs:label>nfo:Document</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:comment>A generic document. A common superclass for all documents on the desktop.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#EmbeddedFileDataObject -->
+
+    <owl:Class rdf:about="&nfo;EmbeddedFileDataObject">
+        <rdfs:label>nfo:EmbeddedFileDataObject</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:comment>A file embedded in another data object. There are many ways in which a file may be embedded in another one. Use this class directly only in cases if none of the subclasses gives a better description of your case.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Executable -->
+
+    <owl:Class rdf:about="&nfo;Executable">
+        <rdfs:label>nfo:Executable</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:comment>An executable file.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject -->
+
+    <owl:Class rdf:about="&nfo;FileDataObject">
+        <rdfs:label>nfo:file</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;DataObject"/>
+        <rdfs:comment>A resource containing a finite sequence of bytes with arbitrary information, that is available to a computer program and is usually based on some kind of durable storage. A file is durable in the sense that it remains available for programs to use after the current program has finished.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Folder -->
+
+    <owl:Class rdf:about="&nfo;Folder">
+        <rdfs:label>nfo:Folder</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;DataContainer"/>
+        <rdfs:comment>A folder/directory. Examples of folders include folders on a filesystem and message folders in a mailbox.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Image -->
+
+    <owl:Class rdf:about="&nfo;Image">
+        <rdfs:label>nfo:Image</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Visual"/>
+        <rdfs:comment>A file containing an image.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#LocalFileDataObject -->
+
+    <owl:Class rdf:about="&nfo;LocalFileDataObject">
+        <rdfs:label>nfo:local file</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:comment>A local file data object which is stored on a local file system. Its nie:url always uses the file:/ protocol. The main use of this class is to distinguish local and non-local files.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Media -->
+
+    <owl:Class rdf:about="&nfo;Media">
+        <rdfs:label>nfo:Media</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:comment>A piece of media content. This class may be used to express complex media containers with many streams of various media content (both aural and visual).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#MediaFileListEntry -->
+
+    <owl:Class rdf:about="&nfo;MediaFileListEntry">
+        <rdfs:label>nfo:MediaFileListEntry</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:comment>A single node in the list of media files contained within an MediaList instance. This class is intended to provide a type all those links have. In valid NRL untyped resources cannot be linked. There are no properties defined for this class but the application may expect rdf:first and rdf:last links. The former points to the DataObject instance, interpreted as Media the latter points at another MediaFileListEntr. At the end of the list there is a link to rdf:nil.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#MediaList -->
+
+    <owl:Class rdf:about="&nfo;MediaList">
+        <rdfs:label>nfo:MediaList</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:comment>A file containing a list of media files.e.g. a playlist</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#PaginatedTextDocument -->
+
+    <owl:Class rdf:about="&nfo;PaginatedTextDocument">
+        <rdfs:label>nfo:PaginatedTextDocument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;TextDocument"/>
+        <rdfs:comment>A file containing a text document, that is unambiguously divided into pages. Examples might include PDF, DOC, PS, DVI etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#PlainTextDocument -->
+
+    <owl:Class rdf:about="&nfo;PlainTextDocument">
+        <rdfs:label>nfo:PlainTextDocument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;TextDocument"/>
+        <rdfs:comment>A file containing plain text (ASCII, Unicode or other encodings). Examples may include TXT, HTML, XML, program source code etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Presentation -->
+
+    <owl:Class rdf:about="&nfo;Presentation">
+        <rdfs:label>nfo:Presentation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Document"/>
+        <rdfs:comment>A Presentation made by some presentation software (Corel Presentations, OpenOffice Impress, MS Powerpoint etc.)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#RasterImage -->
+
+    <owl:Class rdf:about="&nfo;RasterImage">
+        <rdfs:label>nfo:RasterImage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Image"/>
+        <rdfs:comment>A raster image.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#RemoteDataObject -->
+
+    <owl:Class rdf:about="&nfo;RemoteDataObject">
+        <rdfs:label>nfo:RemoteDataObject</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;FileDataObject"/>
+        <rdfs:comment>A file data object stored at a remote location. Don&apos;t confuse this class with a RemotePortAddress. This one applies to a particular resource, RemotePortAddress applies to an address, that can have various interpretations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Software -->
+
+    <owl:Class rdf:about="&nfo;Software">
+        <rdfs:label>nfo:Software</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nie;InformationElement"/>
+        <rdfs:subClassOf rdf:resource="&nao;Agent"/>
+        <rdfs:comment>A piece of software. Examples may include applications and the operating system. This interpretation most commonly applies to SoftwareItems.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Spreadsheet -->
+
+    <owl:Class rdf:about="&nfo;Spreadsheet">
+        <rdfs:label>nfo:Spreadsheet</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Document"/>
+        <rdfs:comment>A spreadsheet, created by a spreadsheet application. Examples might include Gnumeric, OpenOffice Calc or MS Excel.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#TextDocument -->
+
+    <owl:Class rdf:about="&nfo;TextDocument">
+        <rdfs:label>nfo:TextDocument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Document"/>
+        <rdfs:comment>A text document</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#VectorImage -->
+
+    <owl:Class rdf:about="&nfo;VectorImage">
+        <rdfs:label>nfo:VectorImage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Image"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Video -->
+
+    <owl:Class rdf:about="&nfo;Video">
+        <rdfs:label>nfo:Video</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Visual"/>
+        <rdfs:comment>A video file.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Visual -->
+
+    <owl:Class rdf:about="&nfo;Visual">
+        <rdfs:label>nfo:Visual</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Media"/>
+        <rdfs:comment>File containing visual content.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nexif#Photo -->
+
+    <owl:Class rdf:about="&nexif;Photo">
+        <rdfs:label>nexif:Photo</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;RasterImage"/>
+        <rdfs:comment>A photo, an image captured using a camera, an EXIF Image File Directory. Implementation notes: use nie:copyright to store copyright notices.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#ID3Audio -->
+
+    <owl:Class rdf:about="&nid3;ID3Audio">
+        <rdfs:label>nid3:ID3Audio</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Audio"/>
+        <rdfs:comment>A File annotated with ID3 tags. Implementation notes: use nie:title for the actual name of the piece (TIT2, the &apos;Title/Songname/Content description&apos; frame); use nie:language for the languages of the text or lyrics spoken or sung in the audio (TLAN, the &apos;Language(s)&apos; frame); use nie:comment for any kind of full text information that does not fit in any other frame (COMM frame).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/05/10/nid3#InvolvedPerson -->
+
+    <owl:Class rdf:about="&nid3;InvolvedPerson">
+        <rdfs:label>nid3:InvolvedPerson</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:comment>Since there might be a lot of people contributing to an audio file in various ways, such as musicians and technicians, the &apos;Text information frames&apos; are often insufficient to list everyone involved in a project. The &apos;Involved people list&apos; is a frame containing the names of those involved, and how they were involved. The body simply contains a terminated string with the involvement directly followed by a terminated string with the involvee followed by a new involvement and so on. There may only be one &quot;IPLS&quot; frame in each tag.
+Note that in this RDF representation each InvolvedPerson is represented with a separate instance of the InvolvedPerson class and with a separate involvedPerson triple.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/08/15/nao#Agent -->
+
+    <owl:Class rdf:about="&nao;Agent">
+        <rdfs:label>nao:Agent</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#Movie -->
+
+    <owl:Class rdf:about="&nmm;Movie">
+        <rdfs:label>nmm:Movie</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Video"/>
+        <rdfs:comment>A Movie</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#MusicAlbum -->
+
+    <owl:Class rdf:about="&nmm;MusicAlbum">
+        <rdfs:label>nmm:MusicAlbum</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;MediaList"/>
+        <rdfs:comment>The music album as provided by the publisher. Not to be confused with media lists or collections.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2009/02/19/nmm#MusicPiece -->
+
+    <owl:Class rdf:about="&nmm;MusicPiece">
+        <rdfs:label>nmm:music</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&nfo;Audio"/>
+        <rdfs:comment>Used to assign music-specific properties such a BPM to video and audio</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#FileAccess -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#FileAccess">
+        <rdfs:label>sfs:FileAccess</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedTime"/>
+                <owl:someValuesFrom rdf:resource="&xsd;dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#location"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Point"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/syed.rahman/ontologies/2016/1/SFS-Ontology#fileAccessedTime"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#location"/>
+                <owl:onClass rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Point"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>FileAccess uniquely identified by time, latitude, longitude and altitude. An object of FileAccess is created upon each file access. fileAccessLocation property relates objects of nfo:FileDataObject and FileAccess classes. This enables to track accessed time and location of a file.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#Resource -->
+
+    <owl:Class rdf:about="&rdfs;Resource">
+        <rdfs:label>rdfs:Resource</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#Point -->
+
+    <owl:Class rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#Point">
+        <rdfs:label>wgs84_pos:Point</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"/>
+        <rdfs:comment>A point, typically described using a coordinate system relative to Earth, such as WGS84.
+  </rdfs:comment>
+        <rdfs:comment> 
+Uniquely identified by lat/long/alt. i.e.
+
+spaciallyIntersects(P1, P2) :- lat(P1, LAT), long(P1, LONG), alt(P1, ALT),
+  lat(P2, LAT), long(P2, LONG), alt(P2, ALT).
+
+sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P2).
+  </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing -->
+
+    <owl:Class rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing">
+        <rdfs:label>wgs84_pos:SpatialThing</rdfs:label>
+        <rdfs:comment>Anything with spatial extent, i.e. size, shape, or position.
+ e.g. people, places, bowling balls, as well as abstract areas like cubes.
+</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#hasPart -->
+
+    <owl:NamedIndividual rdf:about="&nie;hasPart"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#isLogicalPartOf -->
+
+    <owl:NamedIndividual rdf:about="&nie;isLogicalPartOf"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#isPartOf -->
+
+    <owl:NamedIndividual rdf:about="&nie;isPartOf"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url -->
+
+    <owl:NamedIndividual rdf:about="&nie;url"/>
+    
+
+
+    <!-- http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#hasHash -->
+
+    <owl:NamedIndividual rdf:about="&nfo;hasHash"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="&nie;hasPart">
+        <rdfs:label>hasPart</rdfs:label>
+        <nao:userVisible rdf:datatype="&xsd;boolean">false</nao:userVisible>
+        <rdfs:comment>Generic property used to express &apos;physical&apos; containment relationships between DataObjects. NIE extensions are encouraged to provide more specific subproperties of this one. It is advisable for actual instances of DataObjects to use those specific subproperties. Note to the developers: Please be aware of the distinction between containment relation and provenance. The hasPart relation models physical containment, an InformationElement (a nmo:Message) can have a &apos;physical&apos; part (an nfo:Attachment).  Also, please note the difference between physical containment (hasPart) and logical containment (hasLogicalPart) the former has more strict meaning. They may occur independently of each other.</rdfs:comment>
+        <nrl:inverseProperty rdf:resource="&nie;isPartOf"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&nie;isLogicalPartOf">
+        <rdfs:label>nie:isLogicalPartOf</rdfs:label>
+        <rdfs:comment>Generic property used to express &apos;logical&apos; containment relationships between DataObjects. NIE extensions are encouraged to provide more specific subproperties of this one. It is advisable for actual instances of InformationElement to use those specific subproperties. Note the difference between &apos;physical&apos; containment (isPartOf) and logical containment (isLogicalPartOf)</rdfs:comment>
+        <nrl:inverseProperty rdf:resource="&nie;hasLogicalPart"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&nie;url">
+        <rdfs:label>url</rdfs:label>
+        <nrl:maxCardinality>1</nrl:maxCardinality>
+        <rdfs:comment>URL of a DataObject. It points to the location of the object. A typial usage is FileDataObject. In cases where creating a simple file:// or http:// URL for a file is difficult (e.g. for files inside compressed archives) the applications are encouraged to use conventions defined by Apache Commons VFS Project at http://jakarta.apache.org/  commons/ vfs/ filesystems.html.</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="&nie;isPartOf">
+        <rdfs:label>isPartOf</rdfs:label>
+        <nao:userVisible rdf:datatype="&xsd;boolean">false</nao:userVisible>
+        <rdfs:comment>Generic property used to express containment relationships between DataObjects. NIE extensions are encouraged to provide more specific subproperties of this one. It is advisable for actual instances of DataObjects to use those specific subproperties. Note to the developers: Please be aware of the distinction between containment relation and provenance. The isPartOf relation models physical containment, a nie:DataObject (e.g. an nfo:Attachment) is a &apos;physical&apos; part of an nie:InformationElement (a nmo:Message). Also, please note the difference between physical containment (isPartOf) and logical containment (isLogicalPartOf) the former has more strict meaning. They may occur independently of each other.</rdfs:comment>
+        <nrl:inverseProperty rdf:resource="&nie;hasPart"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#">
+        <rdfs:label>geo</rdfs:label>
+        <dc:description>A vocabulary for representing latitude, longitude and 
+ altitude information in the WGS84 geodetic reference datum. 
+ Version $Id: wgs84_pos.rdf,v 1.22 2009/04/20 15:00:30 timbl Exp $. See http://www.w3.org/2003/01/geo/ for more details.</dc:description>
+        <rdfs:comment>
+Recent changes to this namespace:
+$Log: wgs84_pos.rdf,v $
+Revision 1.22  2009/04/20 15:00:30  timbl
+Remove the time bits which have been deal with elsewhere eg in iCal.
+
+Revision 1.21  2009/04/20 12:52:47  timbl
+try again
+
+Revision 1.20  2009/04/20 12:42:11  timbl
+Add Event (edited ages ago and never checked in), and location (following discussion http://chatlogs.planetrdf.com/swig/2009-04-20#T12-36-09)
+
+Revision 1.19  2009/04/20 12:36:31  timbl
+Add Event (edited ages ago and never checked in), and location (following discussion http://chatlogs.planetrdf.com/swig/2009-04-20#T12-36-09)
+
+Revision 1.18  2006/02/01 22:01:04  danbri
+Clarified that lat and long are decimal degrees, and that alt is decimal metres about local reference ellipsoid
+
+Revision 1.17  2004/02/06 17:38:12  danbri
+Fixed a bad commit screwup
+
+Revision 1.15  2003/04/19 11:24:08  danbri
+Fixed the typo even more.
+
+Revision 1.14  2003/04/19 11:16:56  danbri
+fixed a typo
+
+Revision 1.13  2003/02/19 22:27:27  connolly
+relaxed domain constraints on lat/long/alt from Point to SpatialThing
+
+Revision 1.12  2003/01/12 01:41:41  danbri
+Trying local copy of XSLT doc.
+
+Revision 1.11  2003/01/12 01:20:18  danbri
+added a link to morten&apos;s xslt rdfs viewer.
+
+Revision 1.10  2003/01/11 18:56:49  danbri
+Removed datatype range from lat and long properties, since they would
+have required each occurance of the property to mention the datatype.
+
+Revision 1.9  2003/01/11 11:41:31  danbri
+Another typo; repaired rdfs:Property to rdf:Property x4
+
+Revision 1.8  2003/01/11 11:05:02  danbri
+Added an rdfs:range for each lat/long/alt property,
+http://www.w3.org/2001/XMLSchema#float
+
+Revision 1.7  2003/01/10 20:25:16  danbri
+Longer rdfs:comment for Point, trying to be Earth-centric and neutral about
+coordinate system(s) at the same time. Feedback welcomed.
+
+Revision 1.6  2003/01/10 20:18:30  danbri
+Added CVS log comments into the RDF/XML as an rdfs:comment property of the
+vocabulary. Note that this is not common practice (but seems both harmless
+and potentially useful).
+
+
+revision 1.5
+date: 2003/01/10 20:14:31;  author: danbri;  state: Exp;  lines: +16 -5
+Updated schema:
+Added a dc:date, added url for more info. Changed the rdfs:label of the
+namespace from gp to geo. Added a class Point, set as the rdfs:domain of
+each property. Added XML comment on the lat_long property suggesting that
+we might not need it (based on #rdfig commentary from implementors).
+
+revision 1.4
+date: 2003/01/10 20:01:07;  author: danbri;  state: Exp;  lines: +6 -5
+Fixed typo; several rdfs:about attributes are now rdf:about. Thanks to MortenF in
+#rdfig for catching this error.
+
+revision 1.3
+date: 2003/01/10 11:59:03;  author: danbri;  state: Exp;  lines: +4 -3
+fixed buglet in vocab, added more wgs links
+
+revision 1.2
+date: 2003/01/10 11:01:11;  author: danbri;  state: Exp;  lines: +4 -4
+Removed alt from the as-a-flat-string property, and switched from
+space separated to comma separated.
+
+revision 1.1
+date: 2003/01/10 10:53:23;  author: danbri;  state: Exp;
+basic geo vocab
+
+</rdfs:comment>
+        <dc:date>$Date: 2009/04/20 15:00:30 $</dc:date>
+        <dc:title>WGS84 Geo Positioning: an RDF vocabulary</dc:title>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
+
