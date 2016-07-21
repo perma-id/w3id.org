@@ -28,7 +28,7 @@ Also:
 
 References:
 * http://dx.doi.org/10.5281/zenodo.31765 
-* http://researchobject.org/
+* https://github.com/identifiercommons/identifier-rules/
 
 Contacts: 
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
