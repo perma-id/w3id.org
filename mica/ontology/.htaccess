@@ -39,3 +39,35 @@ RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/factsheetOntology/factsheet.ttl [R=303,NE,L]
 #default response: owl
 RewriteRule ^factsheet$ http://lig-coin.imag.fr/mica/ontology/factsheetOntology/factsheet.owl [R=303,NE,L]
+
+#Rewrite rules for MICA model ontology 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/model/modelDoc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/model/MicaModel.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/model/MicaModel.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/model/MicaModel.owl [R=303,NE,L]
+
+#Rewrite rules for MICA vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MicaOntology$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntologyDoc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^MicaOntology$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MICAOntology.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^MicaOntology$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MICAOntology.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^MicaOntology$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MICAOntology.rdf [R=303,NE,L]
+
+
