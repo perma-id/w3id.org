@@ -8,4 +8,4 @@ Homepage:
 https://github.com/sadeghiafshin/skg/
 
 Contacts:
-Afshin Sadeghi <sadeghi at uni-bonn.de>
+Afshin Sadeghi <sadeghi@uni-bonn.de>
