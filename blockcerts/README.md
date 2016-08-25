@@ -3,12 +3,12 @@
 
 Homepage:
 
-https://w3id.org/bc
+https://w3id.org/blockcerts
 
 
 JSON-LD contexts:
 
-https://w3id.org/bc/context
+https://w3id.org/blockcerts/context
 
 
 Contacts:
