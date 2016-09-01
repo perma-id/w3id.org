@@ -4,6 +4,7 @@ The aim of this top-level directory is to provide permanent URLs for resources c
 
 Vocabularies:
 * [http://w3id.org/semiot/ontologies/proto#](http://w3id.org/semiot/ontologies/proto#)
+* [http://w3id.org/semiot/ontologies/semiot#](http://w3id.org/semiot/ontologies/semiot#)
 
 Contacts:
 
