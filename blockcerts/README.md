@@ -13,4 +13,4 @@ https://w3id.org/blockcerts/context
 
 Contacts:
 
-certs@media.mit.edu
+certs@mit.edu
