@@ -8,7 +8,7 @@ https://w3id.org/blockcerts
 
 JSON-LD contexts:
 
-https://w3id.org/blockcerts/context
+https://w3id.org/blockcerts/v1
 
 
 Contacts:
