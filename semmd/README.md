@@ -1,4 +1,4 @@
-Semantic Materials Ontologies, Vocabularies, and SKOS vocabularies
+Semantic Materials Ontologies, Vocabularies, and SKOS Vocabularies
 ===
 
 Root:
