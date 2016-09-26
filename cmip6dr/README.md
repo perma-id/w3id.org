@@ -1,8 +1,8 @@
 CLIPC
 =====
 
-Homepage:
-* http://w3id.org/CMIP6-dreq
+Homepage: https://www.earthsystemcog.org/projects/wip/CMIP6DataRequest
+* http://w3id.org/cmip6dr 
 
 
 Contacts:
