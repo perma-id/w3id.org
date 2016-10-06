@@ -2,7 +2,7 @@ Semantic Materials Ontologies, Vocabularies, and SKOS Vocabularies
 ===
 
 Namespace Root:
-* https://w3id.org/semmd  (@prefix semmmd: https://w3id.org/semmd/...)
+* https://w3id.org/semmd/
 
 Ontologies:
 * https://w3id.org/semmd/onto/
