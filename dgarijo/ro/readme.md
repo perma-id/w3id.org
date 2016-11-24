@@ -17,3 +17,5 @@ Materials for publication in WORKS 2014 -> http://dgarijo.github.io/ResearchObje
 Materials for publication in PhD Thesis ->http://dgarijo.github.io/ResearchObjects/MiningAbstractionsInScientificWfs/
 
 Materials for publication in ACS2016 ->http://dgarijo.github.io/ResearchObjects/acs2016/
+
+Materials for publication in AAAI2017 ->http://dgarijo.github.io/ResearchObjects/aaai2017/
