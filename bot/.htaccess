@@ -1,0 +1,33 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+
+#RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/index-en.html [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/index-en.html  [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/ontology.xml [R=303,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/ontology.ttl [R=303,NE,L]
+
+# In case of accept header <application/n-triples>
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* 
+RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/ontology.n3 [R=303,NE,L]
+
+#default response: html
+RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/index-en.html [R=303,NE,L]
