@@ -38,6 +38,15 @@ TTL: http://i40.semantic-interoperability.org/smo/smo.ttl
 RDF/XML: http://i40.semantic-interoperability.org/smo/smo.owl
 
 
+i40/sto/:
+
+HTML: http://i40.semantic-interoperability.org/sto/
+
+TTL: http://i40.semantic-interoperability.org/smo/sto.ttl 
+
+RDF/XML: http://i40.semantic-interoperability.org/smo/sto.xml
+
+
 Contacts
 
 * Irlan Grangel <grangel@cs.uni-bonn.de>
