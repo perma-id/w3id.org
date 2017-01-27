@@ -1,14 +1,30 @@
-BCI-ontology
+# Brain Computing Interface (BCI) Ontology
 
-Homepage:
-https://w3id.org/BCI-ontology
+## What is the BCI-ontology?
 
-Vocabularies:
-https://w3id.org/BCI-ontology (@prefix bci: https://w3id.org/BCI-ontology/)
+The BCI ontology specifies a foundational metadata model set for real-world multimodal Brain Computing Interface (BCI) data capture activities.
 
-Contacts:
-Sergio Rodriguez <srodriguez@pet.cs.nctu.edu.tw>
-John K. Zao <jkzao@pet.cs.nctu.edu.tw>
+Its structure depicts a conceptual framework that BCI applications can extend and use in their implementations, to define core concepts that capture a relevant and interoperable metadata vocabulary.
 
-Registered name:
-CerebraWeb.
+- Namespace URI: `https://w3id.org/BCI-ontology#`
+
+## Linked Open Vocabularies Registry
+
+- [Brain Computing Interface (BCI) Ontology: (bci)](http://lov.okfn.org/dataset/lov/vocabs/bci)
+
+## Overview Presentation
+
+- [Brain Computing Interface (BCI) Ontology: Overview Presentation](http://prezi.com/rbzrzgr2wgdi/?utm_campaign=share&utm_medium=copy&rc=ex0share)
+
+## Related publication
+
+- [Pervasive brain monitoring and data sharing based on multi-tier distributed computing and linked data technology](http://journal.frontiersin.org/article/10.3389/fnhum.2014.00370/full)
+
+## Homepage
+
+- [CerebraWeb.net](http://cerebraweb.net) `Home to the Linked BCI Data Web`
+
+## Contacts
+
+- Sergio Rodriguez <`srodriguez [at] pet.cs.nctu.edu.tw`>
+- John K. Zao <`jkzao [at] pet.cs.nctu.edu.tw`>
