@@ -1,7 +1,5 @@
 RewriteEngine on
 
-RewriteRule ^([A-Za-z0-9-]+)/?$ https://intuit.crs4.it/otla/$1 [R=302,L]
-
 Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
@@ -10,14 +8,31 @@ Options -MultiViews
 # if not present in main apache config
 AddType application/rdf+xml .rdf
 
-#Rewrite rules for Asteroids vocabulary extension
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^([A-Za-z0-9-]+)/?$ https://intuit.crs4.it/otla/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.*
+RewriteRule ^resource/([A-Za-z0-9-]+)/?$ https://api.intuit.crs4.it/otla/v1/individuals/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.*
+RewriteRule ^([A-Z][A-Za-z0-9-]+)/?$ https://api.intuit.crs4.it/otla/v1/classes/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.*
+RewriteRule ^([a-z][A-Za-z0-9-]+)/?$ https://api.intuit.crs4.it/otla/v1/properties/$1 [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^$ https://intuit.crs4.it/otla.rdf [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-#default response: owl
-RewriteRule ^$ https://intuit.crs4.it/otla.rdf [R=303,NE,L]
+RewriteRule ^/?$ https://intuit.crs4.it/otla.rdf [R=302,L]
+
+RewriteRule ^/?$ https://intuit.crs4.it/otla [R=302,L]
