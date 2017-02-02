@@ -1,6 +1,5 @@
 RewriteEngine on
 
-RewriteRule ^([A-Za-z0-9-]+)/?$ https://intuit.crs4.it/ttla/$1 [R=302,L]
 
 Options +FollowSymLinks
 # Turn off MultiViews
@@ -9,21 +8,29 @@ Options -MultiViews
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
 AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
 AddType text/turtle .ttl
-AddType application/octet-stream .omn
+AddType text/owl-manchester .omn
 
-#Rewrite rules for Asteroids vocabulary extension
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^([A-Za-z0-9-]+)/?$ https://intuit.crs4.it/ttla/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/ntriples.*
+RewriteRule ^([A-Za-z0-9-]+)/?$ https://api.intuit.crs4.it/ttla/v1/concepts/$1 [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^$ https://intuit.crs4.it/ttla.owl [R=303,NE,L]
+RewriteRule ^/?$ https://intuit.crs4.it/ttla.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^$ https://intuit.crs4.it/ttla.ttl [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/octet-stream.*
-RewriteRule ^$ https://intuit.crs4.it/ttla.omn [R=303,NE,L]
-#default response: owl
-RewriteRule ^$ https://intuit.crs4.it/ttla.rdf [R=303,NE,L]
+RewriteRule ^/?$ https://intuit.crs4.it/ttla.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/owl\-manchester.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla.omn [R=302,L]
+
+
+RewriteRule ^/?$ https://intuit.crs4.it/ttla [R=302,L]
