@@ -12,10 +12,15 @@ install:
     #  - sudo apt-get -qq install linkchecker apache2 ca-certificates libcurl3 libcurl3-gnutls libcurl4-openssl-dev libgcrypt11 libgcrypt11-dev libgnutls-dev libgnutls-openssl27 libgnutls26 libgnutlsxx27 libnss3 libnss3-1d libpam-modules libpam-modules-bin libpam-runtime libpam0g libpcre3 libpcre3-dev libpcrecpp0 libss2 libssl-dev libssl-doc libssl1.0.0 libtasn1-3 libtasn1-3-dev multiarch-support openssh-client openssh-server openssl
 
 before_script:
-  - sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n </Directory>' /etc/apache2/sites-enabled/*
+        #- sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n </Directory>' /etc/apache2/sites-enabled/*
+  - sudo ls /etc/apache2/sites-enabled
+  - sudo cat /etc/apache2/sites-enabled/*
+  - sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n  Require all granted\n </Directory>' /etc/apache2/sites-enabled/*
+  - sudo ls /etc/apache2/sites-enabled
+  - sudo cat /etc/apache2/sites-enabled/*
   - sudo cp -r * /var/www/
   - sudo a2enmod rewrite
-  - sudo a2enmod headers
+    #- sudo a2enmod headers
   - sudo service apache2 restart
   - mkdir -p ~/.linkchecker
   - echo -e "[filtering]\nignorewarnings=http-moved-permanent,http-empty-content" > ~/.linkchecker/linkcheckerrc
