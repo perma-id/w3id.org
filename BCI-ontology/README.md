@@ -8,6 +8,10 @@ Its structure depicts a conceptual framework that BCI applications can extend an
 
 - Namespace URI: `https://w3id.org/BCI-ontology#`
 
+## Linked Open Vocabularies Registry
+
+- [Brain Computing Interface (BCI) Ontology: (bci)](http://lov.okfn.org/dataset/lov/vocabs/bci)
+
 ## Overview Presentation
 
 - [Brain Computing Interface (BCI) Ontology: Overview Presentation](http://prezi.com/rbzrzgr2wgdi/?utm_campaign=share&utm_medium=copy&rc=ex0share)
