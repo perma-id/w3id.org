@@ -18,8 +18,7 @@ OWL/RDF contexts:
 * https://w3id.org/media/dma/JamesBond_CaseStudy
 
 References:
-* Description of Digital Media Asset (in Spanish and English): https://w3id.org/media/dma/desc
-* Documentation of Digital Media Asset (in English): https://w3id.org/media/dma/doc
+* Description of Media Contents (in Spanish and English): https://w3id.org/media/dma/desc
 
 Contacts: 
  
