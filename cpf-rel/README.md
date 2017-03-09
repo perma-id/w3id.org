@@ -4,5 +4,5 @@ An ontology for describing roles and relations between corporate bodies, persons
 
 ## Contacts
 
-  - [Marilena Daquino](marilena.daquino2@unibo.it)
-  - [Valentina Anita Carriero](valentina.carriero2@studio.unibo.it)
+  - [Marilena Daquino](mailto:marilena.daquino2@unibo.it)
+  - [Valentina Anita Carriero](mailto:valentina.carriero2@studio.unibo.it)
