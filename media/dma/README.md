@@ -14,8 +14,10 @@ Instances:
 * https://w3id.org/media/dma/JamesBond_CaseStudy (@prefix JamesBond_CaseStudy: https://w3id.org/media/dma/JamesBond_CaseStudy#)
 
 OWL/RDF contexts:
-* https://w3id.org/media/dma/1.1
-* https://w3id.org/media/dma/JamesBond_CaseStudy/1.1
+* https://w3id.org/media/dma
+* https://w3id.org/media/dma/1.0
+* https://w3id.org/media/dma/JamesBond_CaseStudy
+* https://w3id.org/media/dma/JamesBond_CaseStudy/1.0
 
 References:
 * Description of Digital Media Asset (in Spanish and English): https://w3id.org/media/dma/desc
