@@ -1,4 +1,4 @@
-Eneregy Ontology
+Energy Ontology
 ===================
 
 The energy ontology repository:
