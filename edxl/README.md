@@ -14,6 +14,7 @@ Vocabularies:
 
 References:
 * Barros, Rebeca, et al. "Edxl-rescuer ontology: Conceptual model for semantic integration." Proceedings of the 12th International ISCRAM Conference. 2015.
+* Ontology based on EDXL standard: https://www.oasis-open.org/standards
 
 Contacts:
 * Lais Salvador (UFBA) <laisns@dcc.ufba.br>
