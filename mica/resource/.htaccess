@@ -12,7 +12,7 @@ RewriteEngine on
 ####################################################################################
 #                  Resource rules for web negociation                             #
 ####################################################################################
-#Rewrite rules for Resource HTML content from the vocabulary URI if requested 
+#Rewrite rules for Resource HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -24,8 +24,8 @@ RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(.+) http://lig-coin.imag.fr/MICAURI/resource/data/$1?type=rdf  [R=303,NE,L]
 
 # Rewrite rule to serve TURTLE content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} text/turtle 
+RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(.+) http://lig-coin.imag.fr/MICAURI/resource/data/$1?type=ttl  [R=303,NE,L]
 
-#default response 
+#default response
 RewriteRule ^(.+) http://lig-coin.imag.fr/MICAURI/resource/data/$1?type=rdf  [R=303,NE,L]
