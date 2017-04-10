@@ -53,11 +53,19 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/$1  [R=303,NE,L]
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/page/$1  [R=303,NE,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.rdf [R=303,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/data/$1?type=rdf  [R=303,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle 
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/data/$1?type=rdf  [R=303,NE,L]
 
 # Rewrite rule to serve TURTLE content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle 
