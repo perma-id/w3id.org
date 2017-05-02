@@ -29,6 +29,11 @@ RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://jpcik.github.io/medred/onto/medred/ontology.xml [R=303,L]
 
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://jpcik.github.io/medred/onto/medred/ontology.xml [R=303,L]
+
 # Rewrite rule to serve TTL content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
