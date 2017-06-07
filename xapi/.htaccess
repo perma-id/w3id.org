@@ -8,8 +8,8 @@ Header always set Access-Control-Allow-Methods "GET, OPTIONS"
 
 # VOCAB SERVER and SPARQL ENDPOINT
 # ---------------------------------------------
-#Rewrite base to xAPI vocab server
-RewriteRule ^$ http://xapi.vocab.pub [L]
+#Rewrite base to ADL server
+RewriteRule ^$ https://adlnet.gov/xapi [L]
 
 # Rewrite for SPARQL IRI
 # ---------------------------
@@ -33,10 +33,15 @@ RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.rdf [R=303]
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
 
-# JSON-LD VOCABULARY CONTEXT
+# JSON-LD xAPI VOCABULARY CONTEXT
 # Context for xAPI Vocabulary Datasets published as Constrained JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^vocabulary/context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
+RewriteRule ^vocabulary-context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
+
+# JSON-LD xAPI STATEMENT CONTEXT
+# Context for xAPI Statements published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^statement-context$ http://xapi.vocab.pub/statement-context.jsonld [R=303]
 
 # ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
 # ---------------------------------------------
@@ -98,46 +103,46 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^seriousgames/?$ http://www.e-ucm.es/xapi/seriousgames [R=303]
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames [R=303]
 
 # Serve HTML content at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^seriousgames/(.*)/(.*)$ http://www.e-ucm.es/xapi/seriousgames#$1/$2 [R=303,NE]
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames/#$2 [R=303,NE]
 
 # Serve HTML content at type IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^seriousgames/(.*)$ http://www.e-ucm.es/xapi/seriousgames#$1 [R=303,NE]
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames#$1 [R=303,NE]
 
 # Serve JSON-LD at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/?$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/(.*)$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/(.*)/(.*)$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/?$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/(.*)$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/(.*)/(.*)$ http://www.e-ucm.es/xapi/seriousgames.jsonld [R=303]
-# SERIOUS GAMES VOCABULARY RULES
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
+# END SERIOUS GAMES VOCABULARY RULES
 
 
 # XAPI VOCABULARY DATASET REWRITE RULES BELOW THIS POINT
