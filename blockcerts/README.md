@@ -9,8 +9,9 @@ https://w3id.org/blockcerts
 JSON-LD contexts:
 
 https://w3id.org/blockcerts/v1
+https://w3id.org/blockcerts/v2
 
 
 Contacts:
 
-certs@mit.edu
+info@blockcerts.org
