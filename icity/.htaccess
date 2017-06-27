@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+# AddType text/turtle .ttl
+
+RewriteEngine on
+
+#Rewrite rules for iCity-Activity
+#default response: owl
+RewriteRule ^iCity-Activity$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/iCity-Activity.owl [R=302,L]
+
+#Rewrite rules for iCity-Change
+#default response: owl
+RewriteRule ^iCity-Change$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/iCity-Change.owl [R=302,L]
