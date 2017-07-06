@@ -18,7 +18,7 @@ Vocabularies:
 
 
 References:
-* Description of vehicles dataset (in Dutch): http://www.rdw.nl/SiteCollectionDocuments/Over%20RDW/Naslagwerk/Beschrijving%20dataset%20Voertuigen.pdf
+* Description of version 1 of the iCity Ontology: https://github.com/EnterpriseIntegrationLab/icity/raw/master/iCityOntology_v1%20Report.pdf
 
 Contacts: 
 * Megan Katsumi <katsumi@mie.utoronto.ca>
