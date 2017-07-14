@@ -6,12 +6,6 @@ Options -MultiViews
 
 AddType text/turtle .ttl
 
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ http://www.student.dtu.dk/~mhoras/bot/index-en.html  [R=303,NE,L]
-
 # In case of accept header <text/turtle>
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^$ https://raw.githubusercontent.com/w3c-lbd-cg/bot/master/bot.ttl [R=303,NE,L]
