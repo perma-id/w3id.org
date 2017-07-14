@@ -2,10 +2,8 @@
 
 Ontology
 
-* Docs      http://www.student.dtu.dk/~mhoras/bot/index-en.html
-* RDF/XML   http://www.student.dtu.dk/~mhoras/bot/ontology.xml
-* Turtle    http://www.student.dtu.dk/~mhoras/bot/ontology.ttl
-* N Triples http://www.student.dtu.dk/~mhoras/bot/ontology.n3
+* Docs      https://github.com/w3c-lbd-cg/bot/blob/master/README.md
+* Turtle    https://raw.githubusercontent.com/w3c-lbd-cg/bot/master/bot.ttl
 
 
 Contact
