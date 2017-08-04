@@ -1,7 +1,43 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
+# Directive to allow Cross origin requests
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept, Accept-Language"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS"
+
+
+# xAPI PROFILES ONTOLOGY
+# ---------------------------------------------
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ http://xapi.vocab.pub/profiles/ontology [R=303]
+
+# Ontology Rewrite rule to serve RDF/XML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ http://xapi.vocab.pub/profiles/ontology.rdf [R=303]
+
+# Ontology Rewrite rule to serve Turtle content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/?$ http://xapi.vocab.pub/profiles/ontology.ttl [R=303]
+
+# xAPI PROFILES CONTEXT
+# ---------------------------------------------
+# Context for xAPI Profiles published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^context/?$ http://xapi.vocab.pub/profiles/context.jsonld [R=303]
+
+# xAPI PROFILES ACTIVITY CONTEXT
+# ---------------------------------------------
+# Context for xAPI Profile Activities published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^activity-context/?$ http://xapi.vocab.pub/profiles/activity-context.jsonld [R=303]
+
+
+# cmi-5 Rewrite rule to serve HTML content from the URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -11,7 +47,7 @@ RewriteRule ^cmi5/CourseStructure/$ https://github.com/AICC/CMI-5_Spec_Current/ 
 RewriteRule ^cmi5/CourseStructure.xsd$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
 RewriteRule ^cmi5/v1/CourseStructure.xsd$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
 
-# Rewrite rule to serve XML content from the vocabulary URI if requested
+# cmi-5 Rewrite rule to serve XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/xml
 RewriteRule ^cmi5/CourseStructure$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
 RewriteRule ^cmi5/v1/CourseStructure$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
