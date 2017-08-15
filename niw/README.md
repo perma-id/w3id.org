@@ -2,7 +2,7 @@ NiW - Notebook into Workflows
 ===
 
 Links:
-* Homepage: http://w3id.org/niw
+* Homepage: https://w3id.org/niw
 * the WORKS'2017 paper submission: https://w3id.org/niw/papers/WORKS2017
 
 Organization: 
