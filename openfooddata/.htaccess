@@ -1,3 +1,8 @@
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+Header always set Access-Control-Max-Age "1000"
+Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token"
+
 AddType application/rdf+xml .rdf
 AddType application/ld+json .jsonld
 AddType application/n-quads .nq
@@ -45,5 +50,45 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^onto/(.*)(#.*)?$ https://openfooddata.github.io/onto/ofd-$1.html$2 [R=303,L]
 
+RewriteRule ^onto/(.+)(#.*)?$ https://openfooddata.github.io/onto/ofd-$1.html$2 [R=303,L]
+
+# generic rewrite to core onto
+RewriteRule ^onto/?$ https://openfooddata.github.io/onto/ofd-core.html [R=303,L]
+
+
+##generic rewrites for URIs for resources, ex: actors/coolfarmer
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.rdf$3 [R=303,L]
+
+# Rewrite rule to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.jsonld$3 [R=303,L]
+
+# Rewrite rule to serve N-Quads content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.nq$3 [R=303,L]
+
+# Rewrite rule to serve N-Triples content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.nt$3 [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.ttl$3 [R=303,L]
+
+# Rewrite rule to serve RDF/JSON content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+json
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.rj$3 [R=303,L]
+
+# Rewrite rule to serve TriG content if requested
+RewriteCond %{HTTP_ACCEPT} text/trig
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.trig$3 [R=303,L]
+
+# Rewrite rule to serve TriX content if requested
+RewriteCond %{HTTP_ACCEPT} application/trix
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2/$2.trix$3 [R=303,L]
+
+RewriteRule ^(.+)/(.+)(#.*)?$ https://openfooddata.github.io/$1/$2$3 [R=303,L]
 
 RewriteRule ^(.*)$ https://openfooddata.github.io/$1 [R=303,L]

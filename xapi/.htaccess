@@ -23,25 +23,28 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology [R=303]
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology [R=303]
 
 # Ontology Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.rdf [R=303]
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology/ontology.rdf [R=303]
 
 # Ontology Rewrite rule to serve Turtle content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
-
-# JSON-LD xAPI VOCABULARY CONTEXT
-# Context for xAPI Vocabulary Datasets published as Constrained JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^vocabulary-context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology/ontology.ttl [R=303]
 
 # JSON-LD xAPI STATEMENT CONTEXT
 # Context for xAPI Statements published as constrained JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^statement-context$ http://xapi.vocab.pub/statement-context.jsonld [R=303]
+RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement-context.jsonld [R=303]
+
+# JSON-LD xAPI STATEMENT CONTEXT
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement-context.jsonld [R=303]
+
 
 # ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
 # ---------------------------------------------
@@ -119,29 +122,6 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames#$1 [R=303,NE]
 
-# Serve JSON-LD at vocabulary IRI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
-
-# Serve JSON-LD at vocabulary type IRI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
-
-# Serve JSON-LD at vocabulary term IRI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
-
-# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
-
-# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
-
-# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 # END SERIOUS GAMES VOCABULARY RULES
 
 
@@ -172,26 +152,25 @@ RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1/ [R=303,NE
 
 # Serve JSON-LD at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
-
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
 
 
 # Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary type IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-profiles/profiles/$1.jsonld [R=303]
