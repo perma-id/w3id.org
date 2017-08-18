@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: bash
 
-before_install:  
+before_install:
   - sudo apt-get update
   - sudo apt-get -s upgrade
   #- sudo apt-get -qq upgrade
@@ -20,17 +20,17 @@ before_script:
   - sudo cat /etc/apache2/sites-enabled/*
   - sudo cp -r * /var/www/html
   - sudo a2enmod rewrite
-    #- sudo a2enmod headers
+  - sudo a2enmod headers
   - sudo service apache2 restart
   - mkdir -p ~/.linkchecker
   - echo -e "[filtering]\nignorewarnings=http-moved-permanent,http-empty-content" > ~/.linkchecker/linkcheckerrc
   - sudo tail -f /var/log/apache2/error.log >&2 &
 
 script:
-  - cat $(find . -name 'README.md') | 
-    grep https://w3id.org | 
+  - cat $(find . -name 'README.md') |
+    grep https://w3id.org |
     sed 's,.*https://w3id.org/,http://localhost/,'  |
-    sed 's,[ )].*,,' > checking-uris.txt ; 
+    sed 's,[ )].*,,' > checking-uris.txt ;
     echo "About to test locally:" ; cat checking-uris.txt | sed s,http://localhost,https://w3id.org,
   - cat checking-uris.txt | linkchecker -v --stdin -r 0
 
