@@ -24,6 +24,17 @@ RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-profiles/ontology/ontolog
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-profiles/ontology/ontology.ttl [R=303]
 
+# xAPI PROFILE SPEC VERSION
+# ---------------------------------------------
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^#([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-profiles/ [R=303]
+
+
+
 # xAPI PROFILES CONTEXT
 # ---------------------------------------------
 
