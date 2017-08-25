@@ -5,43 +5,33 @@ Options -MultiViews
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
 AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
+AddType application/owl+xml .owl
 # AddType text/turtle .ttl
 
 RewriteEngine on
 
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([A-Za-z-\d]*)(\.owl)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
+# Rewrite rule to make sure we serve HTML content from the namespace URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml+xml
+RewriteRule ^iCity-UrbanSystem/ https://enterpriseintegrationlab.github.io/icity/iCity-UrbanSystem.htm [R=302,L]
 
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([A-Za-z-\d]*)(/)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
-
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([A-Za-z-\d]*)/([0-9.]*)/$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
-
-# Rewrite rule to serve HTML content
-# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# Rewrite rule to make sure we serve HTML content from the namespace URI if requested
 # RewriteCond %{HTTP_ACCEPT} text/html [OR]
-# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-# RewriteRule ^([A-Za-z-\d]*)(\.owl)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.html [R=302,L]
+# RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml+xml
+# RewriteRule ^([A-Za-z-\d]*)(/)?$ https://enterpriseintegrationlab.github.io/icity/$1.htm [R=302,L]
 
-# Rewrite rule to serve HTML content
-# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# Rewrite rule to make sure we serve HTML content from the namespace URI if requested
 # RewriteCond %{HTTP_ACCEPT} text/html [OR]
-# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-# RewriteRule ^([A-Za-z-\d]*)(/)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.html [R=302,L]
+# RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml+xml
+# RewriteRule ^([A-Za-z-\d]*)/([0-9.]*)/$ https://enterpriseintegrationlab.github.io/icity/$1.htm [R=302,L]
 
-# Rewrite rule to serve HTML content
-# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-# RewriteCond %{HTTP_ACCEPT} text/html [OR]
-# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-# RewriteRule ^([A-Za-z-\d]*)/([0-9.]*)/$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.html [R=302,L]
-
-#Rewrite rules for iCity-X (Ontology IRI and Version IRI)
-#default response: owl
+# Rewrite rule to make sure we serve the RDF/XML content from the namespace URI by default 
 RewriteRule ^([A-Za-z-\d]*)(\.owl)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
 RewriteRule ^([A-Za-z-\d]*)(/)?$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
 RewriteRule ^([A-Za-z-\d]*)/([0-9.]*)/$ https://raw.githubusercontent.com/EnterpriseIntegrationLab/icity/master/$1.owl [R=302,L]
