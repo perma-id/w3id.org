@@ -11,4 +11,4 @@ Source:
 * https://github.com/thesmartenergy/pep
 
 Contacts: 
-* Maxime Lefrançois <maxime.lefrancois@emse.com>
+* Maxime Lefrançois <maxime.lefrancois@emse.fr>
