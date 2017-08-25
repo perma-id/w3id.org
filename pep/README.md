@@ -5,10 +5,10 @@ Specification and demonstration of Process Execution Platform: A RESTful API to 
 ===
 
 Homepage:
-* https://w3id.org/pep --> http://ci.emse.fr/pep/
+* https://w3id.org/pep --> https://ci.mines-stetienne.fr/pep/
 
 Source:
 * https://github.com/thesmartenergy/pep
 
 Contacts: 
-* Maxime Lefrançois <maxime.lefrancois.86@gmail.com>
+* Maxime Lefrançois <maxime.lefrancois@emse.com>
