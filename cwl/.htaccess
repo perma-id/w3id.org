@@ -1,5 +1,10 @@
 RewriteEngine on
 
+# https://github.com/common-workflow-language/cwlviewer/wiki/Permalinks
+ReWriteRule ^view/git/(.*) https://view.commonwl.org/git/$1 [R=302,L]
+ReWriteRule ^view(/)?$ https://github.com/common-workflow-language/cwlviewer/wiki/Permalinks [R=303,L]
+## Note - ^view rules must be ABOVE the greedy ^v(.*) rules below
+
 # Current draft (FIXME: Should use cdn.rawgit.com once draft is released)
 RewriteRule ^$ http://www.commonwl.org/v1.0/ [R=302,L]
 RewriteRule ^salad/context$ http://www.commonwl.org/v1.0/salad-context.json [R=302,L]
@@ -22,7 +27,3 @@ RewriteRule ^v(.*)/context http://www.commonwl.org/v$1/cwl-context.json [R=302,L
 RewriteRule ^v(.*)/cwl.ttl http://www.commonwl.org/v$1/cwl.ttl [R=302,L]
 RewriteRule ^v(.*)/salad.ttl http://www.commonwl.org/v$1/salad.ttl [R=302,L]
 RewriteRule ^v(.*) http://www.commonwl.org/v$1 [R=302,L]
-
-# https://github.com/common-workflow-language/cwlviewer/wiki/Permalinks
-ReWriteRule ^view/git/(.*) https://view.commonwl.org/git/$1 [R=302,L]
-ReWriteRule ^view(/)?$ https://github.com/common-workflow-language/cwlviewer/wiki/Permalinks [R=303,L]
