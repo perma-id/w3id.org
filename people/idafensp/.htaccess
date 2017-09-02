@@ -1,4 +1,10 @@
 Options +FollowSymLinks
 RewriteEngine on
-#Rewrite rules for w3id.org/people/idafensp. Content negotiation still pending
-RewriteRule ^$ http://idafen.wordpress.com/ [R=303,L]
+#A set of rewrite rules with content negotiation for w3id.org/people/idafensp
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^foaf$ https://idafensp.github.io/foaf.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^foaf$ https://idafensp.github.io/foaf.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^foaf$ https://idafensp.github.io/foaf.jsonld [R=303,L]
+RewriteRule ^foaf$ https://idafen.wordpress.com/ [R=303,L]
