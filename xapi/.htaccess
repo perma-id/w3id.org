@@ -6,18 +6,22 @@ Header always set Access-Control-Allow-Origin "*"
 Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept, Accept-Language"
 Header always set Access-Control-Allow-Methods "GET, OPTIONS"
 
-# VOCAB SERVER and SPARQL ENDPOINT
-# ---------------------------------------------
-#Rewrite base to ADL server
-RewriteRule ^$ https://adlnet.gov/xapi [L]
+#######################################################################################################
+################################ PROFILE SERVER and SPARQL ENDPOINT ###################################
+#######################################################################################################
+
+#Rewrite base to xAPI Profile server
+RewriteRule ^$ http://xapi.vocab.pub:8890/fct/ [L]
 
 # Rewrite for SPARQL IRI
 # ---------------------------
 RewriteRule ^sparql$ http://xapi.vocab.pub:8890/sparql [R=302]
 
 
-# xAPI ONTOLOGY
-# ---------------------------------------------
+#######################################################################################################
+################################ xAPI Ontology & Statement Context ####################################
+#######################################################################################################
+
 # Ontology Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -45,6 +49,17 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement-context.jsonld [R=303]
 
+
+#######################################################################################################
+###################################### OLD adlnet.gov IRI RULES #######################################
+#######################################################################################################
+
+# Serve HTML content at vocabulary IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=http://adlnet.gov/expapi/$1/$2 [R=303]
 
 
 #######################################################################################################
@@ -115,9 +130,10 @@ RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-authored-
 
 
 
+#######################################################################################################
+################################ ACROSS X LANGUAGE NEGOTIATION RULES ##################################
+#######################################################################################################
 
-# ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
-# ---------------------------------------------
 # Serve zh-tw HTML content at vocabulary IRI if requested
 RewriteCond %{HTTP:Accept-Language} ^zh-tw [NC]
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
