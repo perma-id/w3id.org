@@ -54,11 +54,14 @@ RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement
 ###################################### OLD adlnet.gov IRI RULES #######################################
 #######################################################################################################
 
-# Serve HTML content at vocabulary IRI if requested
+# Serve HTML content at vocabulary IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^adl/verbs/abandoned/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/verbs/abandoned [R=303]
+RewriteRule ^adl/verbs/satisfied/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/verbs/satisfied [R=303]
+RewriteRule ^adl/verbs/waved/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/verbs/waived [R=303]
 RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=http://adlnet.gov/expapi/$1/$2 [R=303]
 
 
