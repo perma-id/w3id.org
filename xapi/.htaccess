@@ -101,17 +101,29 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1/$2/$3 [R=303]
 
+# Serve HTML content at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1/$2/$3/$4 [R=303]
+
+
 # Serve Turtle at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
 
 # Serve Turtle at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
 
 # Serve Turtle at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
+
+# Serve Turtle at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
 
 
 # Serve JSON-LD at vocabulary IRI if requested
@@ -120,11 +132,20 @@ RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles
 
 # Serve JSON-LD at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
 
 
 # Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
@@ -133,11 +154,15 @@ RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles
 
 # Serve Constrained JSON-LD at vocabulary type IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
 
 
 
