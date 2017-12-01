@@ -1,0 +1,20 @@
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+# AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+
+RewriteEngine on
+
+#w3id.org/quality/qskos
+# set of rewrite providing stable URI for latest version of dump w3id.org/quality/qskos
+#qskos
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^qskos$ http://pers.ge.imati.cnr.it/albertoni/qskos/DQVMetricsDimensionForQSKOS.ttl
+#default response: ttl
+RewriteRule ^qskos$ http://pers.ge.imati.cnr.it/albertoni/qskos/DQVMetricsDimensionForQSKOS.ttl  [R=303,NE,L]
+
+#set of rewrite to get a specific qskos entities
+RewriteRule ^qskos/(.*)$ http://pers.ge.imati.cnr.it/albertoni/qskos/DQVMetricsDimensionForQSKOS.ttl#$1 [R=303,NE,L]
