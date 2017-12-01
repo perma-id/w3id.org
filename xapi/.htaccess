@@ -1,17 +1,23 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-#Rewrite base to xAPI vocab server
-RewriteRule ^$ http://xapi.vocab.pub [L]
+# Directive to allow Cross origin requests
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept, Accept-Language"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS"
+
+# VOCAB SERVER and SPARQL ENDPOINT
+# ---------------------------------------------
+#Rewrite base to ADL server
+RewriteRule ^$ https://adlnet.gov/xapi [L]
 
 # Rewrite for SPARQL IRI
 # ---------------------------
 RewriteRule ^sparql$ http://xapi.vocab.pub:8890/sparql [R=302]
 
-# Rewrite rule to serve vocabulary context from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^vocabulary/context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
 
+# xAPI ONTOLOGY
+# ---------------------------------------------
 # Ontology Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -27,41 +33,172 @@ RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.rdf [R=303]
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/?$ http://xapi.vocab.pub/ontology.ttl [R=303]
 
+# JSON-LD xAPI VOCABULARY CONTEXT
+# Context for xAPI Vocabulary Datasets published as Constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^vocabulary-context$ http://xapi.vocab.pub/vocabulary/context.jsonld [R=303]
 
-# PUT ALL VOCABULARY DATASET REWRITE RULES BELOW THIS POINT
+# JSON-LD xAPI PROFILES CONTEXT
+# Context for xAPI Vocabulary Datasets published as Constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^profiles/context$ http://xapi.vocab.pub/profiles/profile-context.jsonld [R=303]
 
-# Consolidated Vocabulary Rewrite Rules
+# JSON-LD xAPI STATEMENT CONTEXT
+# Context for xAPI Statements published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^statement-context$ http://xapi.vocab.pub/statement-context.jsonld [R=303]
+
+
+
+# ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
+# ---------------------------------------------
+# Serve English HTML content at vocabulary IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/?$ http://xapi-cop.net/vocab/en [R=303]
+
+# Serve English HTML content at vocabulary term IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/(.*)/(.*)$ http://xapi-cop.net/vocab/en/#$2 [R=303,NE]
+
+# Serve zh-tw HTML content at vocabulary IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^zh-tw [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/?$ http://xapi-cop.net/vocab/zh-tw [R=303]
+
+# Serve zh-tw content at vocabulary term IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^zh-tw [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/(.*)/(.*)$ http://xapi-cop.net/vocab/zh-tw/#$2 [R=303,NE]
+
+# Serve zh-cn HTML content at vocabulary IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^zh-cn [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/?$ http://xapi-cop.net/vocab/zh-cn [R=303]
+
+# Serve zh-cn content at vocabulary term IRI if requested
+RewriteCond %{HTTP:Accept-Language} ^zh-cn [NC]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^acrossx/(.*)/(.*)$ http://xapi-cop.net/vocab/zh-cn/#$2 [R=303,NE]
+
+# END ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
 # ---------------------------
 
+# SERIOUS GAMES VOCABULARY RULES
+# ---------------------------
 # Serve HTML content at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/$1/ [R=303]
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames [R=303]
 
 # Serve HTML content at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1/#$3 [R=303,NE]
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames/#$2 [R=303,NE]
 
 # Serve HTML content at type IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1/ [R=303,NE]
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames#$1 [R=303,NE]
 
 # Serve JSON-LD at vocabulary IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([a-z-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([a-z-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([a-z-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^seriousgames/?$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^seriousgames/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^seriousgames/(.*)/(.*)$ http://xapi.e-ucm.es/vocab/seriousgames.jsonld [R=303]
+# END SERIOUS GAMES VOCABULARY RULES
+
+
+# XAPI VOCABULARY DATASET REWRITE RULES BELOW THIS POINT
+# Consolidated HTML/RDFa & JSON-LD Rules to account for vocab/profile pattern match and two child paths after
+# ---------------------------
+# Serve HTML content at vocabulary IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/datasets/$1/ [R=303]
+
+# Serve HTML content at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1/#$3 [R=303,NE]
+
+# Serve HTML content at type IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1/ [R=303,NE]
+
+
+# Serve JSON-LD at vocabulary IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve JSON-LD at vocabulary type IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+
+
+# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary type IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/(.*)/(.*)$ http://xapi.vocab.pub/datasets/$1.jsonld [R=303]
