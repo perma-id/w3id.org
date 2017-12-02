@@ -1,6 +1,5 @@
 RewriteEngine on
 
-
 Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
@@ -15,7 +14,14 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\*
-RewriteRule ^([A-Za-z0-9-]+)/?$ https://intuit.crs4.it/ttla/$1 [R=302,L]
+RewriteRule ^(.*)/?$ https://intuit.crs4.it/ttla/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/owl\-manchester.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.omn [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
@@ -23,14 +29,6 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/turtle.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/ntriples.*
-RewriteRule ^([A-Za-z0-9-]+)/?$ https://api.intuit.crs4.it/ttla/v1/concepts/$1 [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^/?$ https://intuit.crs4.it/ttla.rdf [R=302,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^/?$ https://intuit.crs4.it/ttla.ttl [R=302,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/owl\-manchester.*
-RewriteRule ^/?$ https://intuit.crs4.it/ttla.omn [R=302,L]
-
+RewriteRule ^(.*)/?$ https://api.intuit.crs4.it/ttla/v1.1/concepts/$1 [R=302,L]
 
 RewriteRule ^/?$ https://intuit.crs4.it/ttla [R=302,L]
