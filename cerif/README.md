@@ -1,6 +1,6 @@
 ## Common European Research Information Format (CERIF)
 
-Developed and maintained by euroCRIS (http://eurocris.org/) 
+Developed and maintained by euroCRIS (https://eurocris.org/) 
 
 Contacts
 
