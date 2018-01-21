@@ -1,3 +1,4 @@
+
 Repository created to store the redirections of the vocabularies for Industry 4.0
 ===================
 
@@ -28,7 +29,29 @@ TTL: http://i40.semantic-interoperability.org/automationml/aml.ttl
 RDF/XML: http://i40.semantic-interoperability.org/automationml/aml.owl
 
 
+i40/smo/:
+
+HTML: http://i40.semantic-interoperability.org/smo/
+
+TTL: http://i40.semantic-interoperability.org/smo/smo.ttl 
+
+RDF/XML: http://i40.semantic-interoperability.org/smo/smo.owl
+
+
+i40/sto/:
+
+HTML: http://i40.semantic-interoperability.org/sto/
+
+TTL: http://i40.semantic-interoperability.org/smo/sto.ttl 
+
+RDF/XML: http://i40.semantic-interoperability.org/smo/sto.xml
+
 
 Contacts
 
 * Irlan Grangel <grangel@cs.uni-bonn.de>
+
+* Niklas Petersen <petersen@informatik.uni-bonn.de>
+
+* Steffen Lohmann <Steffen.Lohmann@iais.fraunhofer.de>
+
