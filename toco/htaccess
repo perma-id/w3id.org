@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+
+RewriteEngine On
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^toco$ https://qianruzhou333.github.io/toco_ontology/toco_doc.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^toco$ https://qianruzhou333.github.io/toco_ontology/toco.rdf [R=303,L]
+
+# Default Rule
+RewriteRule ^toco$ https://qianruzhou333.github.io/toco_ontology/toco_doc.html [R=303,L]
+
+
+
