@@ -2,13 +2,13 @@ TOUCAN Ontology -- ToCo
 =======================
 
 Ontology:
-* https://w3id.org/toucan_ontology
+* https://w3id.org/toco/toco.rdf
 
 Ontology IRI:
-* https://w3id.org/toucan_ontology/
+* https://w3id.org/toco/toco/
 
 Documents:
-* https://w3id.org/toucan_ontology/
+* https://w3id.org/toco/toco.html
 
 
 Contacts:
