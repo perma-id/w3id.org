@@ -12,6 +12,8 @@ Source:
 * https://w3id.org/ibp/StateGraphOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateGraphOntology/StateGraphOntology.ttl
 * https://w3id.org/ibp/ScheduleOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ScheduleOntology/ScheduleOntology.ttl
 * https://w3id.org/ibp/ConditionOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ConditionOntology/ConditionOntology.ttl
+* https://w3id.org/ibp/FMUont --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/FMUont/FMUont.ttl
+
 
 Similar for html documentation.
 
