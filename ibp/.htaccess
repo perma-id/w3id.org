@@ -82,6 +82,20 @@ RewriteRule ^StateGraphOntology$ https://raw.githubusercontent.com/TechnicalBuil
 # Default provide .ttl
 RewriteRule ^StateGraphOntology$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateGraphOntology/StateGraphOntology.ttl [R=303]
 
+# FMUont
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^FMUont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/FMUont/FMUont.ttl [R=303]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^FMUont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/FMUont/FMUont.html [R=303]
+
+# Default provide .ttl
+RewriteRule ^FMUont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/FMUont/FMUont.ttl [R=303]
 
 # Default rewrite if only namespace is accessed
 RewriteRule ^$ https://github.com/TechnicalBuildingSystems/Ontologies/ [R=302,L]
