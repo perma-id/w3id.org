@@ -1,0 +1,10 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1/latest/$1-AP_IT.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1/latest/$1-AP_IT.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json-ld.*
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1/latest/$1-AP_IT.jsonld [R=302,L]
