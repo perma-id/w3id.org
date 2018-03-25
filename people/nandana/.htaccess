@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine on
+#A set of rewrite rules with content negotiation for w3id.org/people/nandana
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^foaf$ http://nandana.github.io/foaf/card.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^foaf$ http://nandana.github.io/foaf/card.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^foaf$ http://nandana.github.io/foaf/card.jsonld [R=303,L]
+RewriteRule ^foaf$ http://nandana.github.io/foaf/card.html [R=303,L]

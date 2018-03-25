@@ -1,0 +1,57 @@
+language: bash
+
+#before_install:
+#  - sudo apt-get -qq update
+#
+#install:
+#  - sudo apt-get -qq install linkchecker apache2
+#
+#before_script:
+#  - sudo sed -i '/<\/VirtualHost/ i\ <Directory /var/www/>\n  AllowOverride All\n </Directory>' /etc/apache2/sites-enabled/*
+#  - sudo cp -r * /var/www/
+#  - sudo a2enmod rewrite
+#  - sudo a2enmod headers
+#  - sudo service apache2 restart
+#  - mkdir -p ~/.linkchecker
+#  - echo -e "[filtering]\nignorewarnings=http-moved-permanent,http-empty-content" > ~/.linkchecker/linkcheckerrc
+#  - sudo tail -f /var/log/apache2/error.log >&2 &
+#
+#script:
+#  - cat $(find . -name 'README.md') |
+#    grep https://w3id.org |
+#    sed 's,.*https://w3id.org/,http://localhost/,' |
+#    sed 's,[ )].*,,' | sort | uniq |
+#    grep -v 'http://localhost/charity-organization#' |
+#    grep -v 'http://localhost/edxl/edxl_cap/' |
+#    grep -v 'http://localhost/edxl/edxl_de/' |
+#    grep -v 'http://localhost/edxl/edxl_rm/' |
+#    grep -v 'http://localhost/edxl/edxl_sitrep/' |
+#    grep -v 'http://localhost/icity/iCity-Activity' |
+#    grep -v 'http://localhost/icity/iCity-Change' |
+#    grep -v 'http://localhost/illusnip' |
+#    grep -v 'http://localhost/laas-iot/sparql' |
+#    grep -v 'http://localhost/media/dma/sam' |
+#    grep -v 'http://localhost/niw/papers/WORKS2017' |
+#    grep -v 'http://localhost/ontop' |
+#    grep -v 'http://localhost/people/jennybc/' |
+#    grep -v 'http://localhost/people/clarepaul/' |
+#    grep -v 'http://localhost/people/lucascarvalho/me' |
+#    grep -v 'http://localhost/people/nxg/' |
+#    grep -v 'http://localhost/people/vshia/' |
+#    grep -v 'http://localhost/pep' |
+#    grep -v 'http://localhost/rdfp' |
+#    grep -v 'http://localhost/seas' |
+#    grep -v 'http://localhost/squap' |
+#    grep -v 'http://localhost/ttla/Accommodation' |
+#    grep -v 'http://localhost/unit/lro/schema' |
+#    grep -v 'http://localhost/unit/lro/sparql' |
+#    grep -v 'http://localhost/unit/organizations/sparql' |
+#    grep -v 'http://localhost/vsat/' > checking-uris.txt ;
+#    echo "About to test locally:" ; cat checking-uris.txt | sed s,http://localhost,https://w3id.org,
+#  - cat checking-uris.txt | linkchecker --stdin -r 0 -v
+#
+#after_script:
+#  - sudo cat /var/log/apache2/access.log
+#
+#after_failure:
+#  - sudo cat /var/log/apache2/error.log >&2
