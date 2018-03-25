@@ -1,0 +1,33 @@
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+# AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld\+json .jsonld
+
+
+RewriteEngine on
+
+#w3id.org/lustre/earth
+# set of rewrite providing stable URI for latest version of dump w3id.org/lustre/earth
+#EARTh
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^earth$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/EARTh20140604.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^earth$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/EARTh20140604.jsonld [R=303,NE,L]
+#default response: ttl
+RewriteRule ^earth$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/EARTh20140604.ttl  [R=303,NE,L]
+
+#w3id.org/lustre/thist
+##ThIST
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^thist$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/ThIST20140804.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^thist$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/ThIST20140804.jsonld [R=303,NE,L]
+#default response: ttl
+RewriteRule ^thist$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/ThIST20140804.ttl  [R=303,NE,L]
+
+#set of rewrite to get a specific dump
+RewriteRule ^(.*)$ http://pers.ge.imati.cnr.it/albertoni/LUSTRE-DWBP/dump/$1 [R=303,NE,L]
+

@@ -1,0 +1,49 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType application/n-quads .nq
+AddType application/n-triples .nt
+AddType text/turtle .ttl
+AddType application/rdf+json .rj
+AddType text/trig .trig
+AddType application/trix .trix
+RewriteEngine on
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.rdf [R=303,L]
+
+# Rewrite rule to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Quads content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.nq [R=303,L]
+
+# Rewrite rule to serve N-Triples content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.nt [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.ttl [R=303,L]
+
+# Rewrite rule to serve RDF/JSON content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+json
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.rj [R=303,L]
+
+# Rewrite rule to serve TriG content if requested
+RewriteCond %{HTTP_ACCEPT} text/trig
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.trig [R=303,L]
+
+# Rewrite rule to serve TriX content if requested
+RewriteCond %{HTTP_ACCEPT} application/trix
+RewriteRule ^$ https://valueflows.github.io/valueflows/vf.trix [R=303,L]
+
+# Rewrite rule to serve Html content for ontology
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^onto$ https://valueflows.github.io/valueflows [R=303,L]
+
+RewriteRule ^\/?(.*)$ https://valueflo.ws/$1 [R=303,L]
