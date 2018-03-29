@@ -1,0 +1,14 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://raw.githubusercontent.com/w3c-lbd-cg/opm/master/opm.ttl [R=303,NE,L]
+
+#default response: ttl
+RewriteRule ^$ https://raw.githubusercontent.com/w3c-lbd-cg/opm/master/opm.ttl [R=303,NE,L]
