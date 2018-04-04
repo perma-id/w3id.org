@@ -27,4 +27,7 @@ RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.rd
 # Rewrite rule to serve Turtle content if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.ttl [R=303,L]
-RewriteRule ^extension/classification/(.*) http://eecs.qmul.ac.uk/~thomasw/aufx/extension/classification/$1/classification.ttl [R=303,L]
+
+## Fallback if Accept is missing: Turtle
+RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.ttl [R=303,L]
+
