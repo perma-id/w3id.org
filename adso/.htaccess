@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine On
+
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+			
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/adso/ontology/0.1/adso.ttl [R=303,L]
+
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/adso/ontology/0.1/adso.ttl [R=303,L]
+
+## Fallback if Accept is missing: Turtle
+RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/adso/ontology/0.1/adso.ttl [R=303,L]
+
