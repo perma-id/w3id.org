@@ -1,6 +1,8 @@
 The Function Ontology
 ===
 
+More info at https://fno.io
+
 Ontology:
 * https://w3id.org/function/ontology
 
