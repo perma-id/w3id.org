@@ -6,5 +6,3 @@ URL: https://w3id.org/adso/ontology/
 Contact: <thomas . wilmering @ gmail . com>
 
 ![alt text](http://eecs.qmul.ac.uk/~thomasw/adso/html/images/agave_small.jpg)
-
-
