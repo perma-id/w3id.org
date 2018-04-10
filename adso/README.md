@@ -1,5 +1,8 @@
-# AGAVE AND DASYLIRION SPIRIT ONTOLOGY
+# THE AGAVE AND DASYLIRION SPIRIT ONTOLOGY
+by Thomas Wilmering and György Fazekas
 
-Contacts:
+https://w3id.org/adso/ontology/
+
+Contact:
 
 * Thomas Wilmering <thomas . wilmering @ gmail . com>
