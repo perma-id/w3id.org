@@ -3,19 +3,19 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # Redirect any module w/o version in IRI to latest version (at time of writing 2.2)
-RewriteRule ^(\w+?)/$ http://w3id.org/rec/$1/2.2/ [R=303,NE,L]
+RewriteRule ^(\w+?)/(\w*?)$ http://w3id.org/rec/$1/2.2/$2 [R=303,NE,L]
 
 # Redirect any versioned module request for RDF+XML to serialised file
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^(\w+?)/([\d.]+)/(.*) http://realestatecore.io/ontology/$2/$1.xml#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ http://realestatecore.io/ontology/$2/$1.xml#$3 [R=303,NE,L]
 
 # Ditto for Turtle
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^(\w+?)/([\d.]+)/(.*) http://realestatecore.io/ontology/$2/$1.ttl#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ http://realestatecore.io/ontology/$2/$1.ttl#$3 [R=303,NE,L]
 
 # Ditto for N-Triples
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
-RewriteRule ^(\w+?)/([\d.]+)/(.*) http://realestatecore.io/ontology/$2/$1.nt#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ http://realestatecore.io/ontology/$2/$1.nt#$3 [R=303,NE,L]
 
 # Redirect any versioned module request with other resonable accept type to the documentation
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
@@ -24,7 +24,7 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(\w+?)/([\d.]+)/(.*) http://realestatecore.io/doc/$2/$1/index-en.html#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ http://realestatecore.io/doc/$2/$1/index-en.html#$3 [R=303,NE,L]
 
 # Default redirect for any still unmatched patterns to REC website
 RewriteRule ^.* http://realestatecore.io [R=303,NE,L]
