@@ -2,11 +2,11 @@
 
 URI Patterns:
 
-Vocab: http://w3id.org/sri-lanka/tourism/vocab/
-Data structure: http://w3id.org/sri-lanka/tourism/structure/
-Observations: http://w3id.org/sri-lanka/tourism/values/
+* Vocab: http://w3id.org/sri-lanka/tourism/vocab/
+* Data structure: http://w3id.org/sri-lanka/tourism/structure/
+* Observations: http://w3id.org/sri-lanka/tourism/values/
 
-Contact negociation is performed through the .htaccess file.
+Content negociation for turtle, rdf/xml, and jsonld is performed through the .htaccess file.
 
 
 ## Contacts
