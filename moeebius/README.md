@@ -11,11 +11,11 @@ Parts of this work have been developed with funding from the European Union's Ho
 
 ## Source:
 
-* https://w3id.org/moeebius/MOEEBIUSOntology --> https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUS-0.0.1.ttl
+* https://w3id.org/moeebius/MOEEBIUSOntology --> https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUS-0.0.2.ttl
 
 ## Documentation of ontology
 
-* https://w3id.org/moeebius/MOEEBIUSOntology --> https://htmlpreview.github.io/?https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/Documentation/index-en.html
+* https://w3id.org/moeebius/MOEEBIUSOntology --> https://htmlpreview.github.io/?https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUSOntology.html
 
 
 ## Contact:
