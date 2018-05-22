@@ -25,6 +25,10 @@ Ontology:
 * https://w3id.org/cwl/v1.0/cwl.ttl (for owl:import)
 * https://w3id.org/cwl/v1.0/salad.ttl (for owl:import)
 
+Permalinks:
+* https://w3id.org/cwl/view/
+* https://w3id.org/cwl/view/git/933bf2a1a1cce32d88f88f136275535da9df0954/workflows/hello/hello.cwl#main
+
 References:
 * http://www.commonwl.org/
 * https://github.com/common-workflow-language/common-workflow-language
