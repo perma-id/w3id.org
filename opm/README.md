@@ -2,8 +2,8 @@
 
 Ontology
 
-* Docs      https://github.com/w3c-lbd-cg/opm
-* Turtle    https://raw.githubusercontent.com/w3c-lbd-cg/opm/master/opm.ttl
+* Docs      https://w3c-lbd-cg.github.io/opm
+* Turtle    https://w3c-lbd-cg.github.io/opm/opm.ttl
 
 Extends
 
