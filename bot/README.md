@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://w3c-lbd-cg.github.io/lbd/bot
-* Turtle    https://raw.githubusercontent.com/w3c-lbd-cg/bot/master/bot.ttl
+* Doc      https://w3c-lbd-cg.github.io/bot/
+* Turtle   https://w3c-lbd-cg.github.io/bot/bot.ttl
 
 
 Contacts
