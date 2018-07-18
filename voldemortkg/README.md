@@ -5,7 +5,8 @@ Homepage:
 * http://voldemort.exascale.info
 
 Datasets:
-* http://voldemort.exascale.info/data/
+* License: http://voldemort.exascale.info/#license
+* Data: http://voldemort.exascale.info/data/
 
 Contacts:
 * Alberto Tonon <alberto.tonon@exascale.info>
