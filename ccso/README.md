@@ -4,7 +4,7 @@
 
 <ul>
   <li>Documentation: <br />
-    <a href="https://vkreations.github.io/CCSO/index.html" target="_blank">https://vkreations.github.io/CCSO.index.html</a> </li>
+    <a href="https://vkreations.github.io/CCSO/index.html" target="_blank">https://vkreations.github.io/CCSO/index.html</a> </li>
   <li>RDF/XML: <br />
     <a href="https://vkreations.github.io/CCSO/ccso.owl" target="_blank">https://vkreations.github.io/CCSO/ccso.owl</a><br />
     (@prefix ccso: https://w3id.org/ccso/ccso#)  </li>
