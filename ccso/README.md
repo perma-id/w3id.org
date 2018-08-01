@@ -1,15 +1,11 @@
-<h1>Redirections to Curriculum Course Syllabus Ontology (CCSO)</h1>
+# Redirections to Curriculum Course Syllabus Ontology (CCSO)
 
-<h4>A repository for storing the perma-link redirections to the Curriculum Course Syllabus Ontology (CCSO)</h4>
+#### A repository for storing the perma-link redirections to the Curriculum Course Syllabus Ontology (CCSO)
 
-<ul>
-  <li>Documentation: <br />
-    <a href="https://vkreations.github.io/CCSO/index.html" target="_blank">https://vkreations.github.io/CCSO/index.html</a> </li>
-  <li>RDF/XML: <br />
-    <a href="https://vkreations.github.io/CCSO/ccso.owl" target="_blank">https://vkreations.github.io/CCSO/ccso.owl</a><br />
-    (@prefix ccso: https://w3id.org/ccso/ccso#)  </li>
-</ul>
+* Documentation:
+    https://vkreations.github.io/CCSO/index.html
+ * RDF/XML:
+    https://vkreations.github.io/CCSO/ccso.owl
+    (@prefix ccso: https://w3id.org/ccso/ccso#)
 
-Contact:<br />
-  Evangelos Katis <br />
-  <a href="mailto:merocknyxta@gmail.com">merocknyxta@gmail.com</a>
+Contact: Evangelos Katis
