@@ -4,9 +4,9 @@
 
 * Documentation:
     https://vkreations.github.io/CCSO/index.html
- * RDF/XML:
+* RDF/XML:
     https://vkreations.github.io/CCSO/ccso.owl
-     (@prefix ccso: https://w3id.org/ccso/ccso#)
+* prefix ccso: https://w3id.org/ccso/ccso#
 
-Contact: 
+###### Contact: 
 Evangelos Katis, merocknyxta@gmail.com
