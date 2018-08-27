@@ -3,11 +3,13 @@ CoCoOn
 
 # Homepage
 
-https://w3id.org/cocoon/def
+GitHub https://w3id.org/cocoon/home
 
-# Vocabularies
+Specification https://w3id.org/cocoon/v1.0
 
-    @prefix : <https://w3id.org/cocoon/def#>
+# Latest Vocabularies
+
+    @prefix cocoon: <https://w3id.org/cocoon/v1.0#>
 
 # Contacts
 * Miranda <miranda.zhang.q@gmail.com>
