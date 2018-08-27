@@ -20,10 +20,13 @@ RewriteEngine On
 
 # flag https://httpd.apache.org/docs/2.4/rewrite/flags.html
 # L|last If the rule matches, no further rules will be processed
-# NE|noescape Do not convert to hexcode equivalent, i.e. # to %23
+# NE|noescape Do not convert to hexcode equivalent
 # OR Combine rule conditions with a local OR instead of the implicit AND
 
 # http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriterule
+
+# Homepage
+RewriteRule ^$ https://github.com/miranda-zhang/cloud-computing-schema [R=308,L]
 
 # make sure we don't have the file or a directory index to serve
 # the rest fails to redirect if we do
@@ -79,9 +82,6 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^v1\.0$ https://miranda-zhang.github.io/cloud-computing-schema/v1.0/ontology.ttl [R=308,L]
-
-# Temporary homepage
-RewriteRule ^home$ https://github.com/miranda-zhang/cloud-computing-schema [R=308,L]
 
 # Default response
 ErrorDocument 406 https://miranda-zhang.github.io/cloud-computing-schema/v1.0/406.html
