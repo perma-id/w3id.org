@@ -1,0 +1,618 @@
+{
+  "_comment" : "Created with OWL2VOWL (version 0.3.2-SNAPSHOT), http://vowl.visualdataweb.org",
+  "header" : {
+    "languages" : [ "en", "undefined" ],
+    "baseIris" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns", "http://purl.org/vocommons/voaf", "http://www.w3.org/2000/01/rdf-schema", "http://www.w3.org/2001/XMLSchema", "https://w3id.org/eep", "https://w3id.org/affectedBy" ],
+    "title" : {
+      "undefined" : "Execution-Executor-Procedure ODP"
+    },
+    "iri" : "https://w3id.org/eep",
+    "version" : "1.0",
+    "author" : [ "Iker Esnaola-Gonzalez <mailto:iker.esnaola@tekniker.es>\nJesús Bermúdez <mailto:jesus.bermudez@ehu.eus>" ],
+    "description" : {
+      "en" : "The Execution-Executor-Procedure (EEP) ODP imports the AffectedBy ODP (https://w3id.org/affectedBy), that involves classes for Features of Interest and their intrinsic Properties/Qualities. \n\nThe EEP ODP is an adaptation of the Procedure Execution Ontology (PEP) (https://w3id.org/pep/pep-1.1) from the SEAS ontology which, in turn, is a generalization of the Observation-Sensor-Procedure and Actuation-Actuator-Procedure patterns used in the SOSA (http://www.w3.org/ns/sosa/) and SSN (http://www.w3.org/ns/ssn/) ontologies.\n\nFrom the AffectedBy ODP, the EEP ODP imports the notion that a property/quality is intrinsic to the feature of interest that it belongs to (i.e., according to the definition of the class Quality in the DUL ontology http://www.ontologydesignpatterns.org/ont/dul/DUL.owl).\nApart from the two classes imported from the AffectedBy ODP (aff:FeatureOfIntetest and aff:Quality), the EEP ODP consists of three more classes: Execution, Executor, and Procedure. The class Execution and their three functional object properties: eep:madeBy, eep:usedProcedure, and eep:onQuality, forms the backbone of the ODP. The property eep:madeBy links an execution to its executor, the property eep:usedProcedure links an execution to its procedure, and the property eep:onQuality links an execution to the quality/property concerned by the execution. Therefore, an execution jointly with their three object values of the three aforementioned properties can be considered as a n-ary relationship. Note that every quality belongs to unique feature of interest. Therefore, a feature of interest is involved in the n-ary relationship.\n\nThe remaining object properties: eep:implements, that links executors to  procedures, eep:hasFeatureOfInteres, that links executions to features of interest, eep:forQuality, that links executors to qualities, and eep:forFeatureOfInterest, that links executors to features of interest, are defined in terms of the functional object properties using property chain axioms."
+    },
+    "other" : {
+      "creator" : [ {
+        "identifier" : "creator",
+        "language" : "undefined",
+        "value" : "Iker Esnaola-Gonzalez <mailto:iker.esnaola@tekniker.es>\nJesús Bermúdez <mailto:jesus.bermudez@ehu.eus>",
+        "type" : "label"
+      } ],
+      "relatedCPs" : [ {
+        "identifier" : "relatedCPs",
+        "language" : "undefined",
+        "value" : "https://w3id.org/pep/pep-1.1",
+        "type" : "iri"
+      } ],
+      "created" : [ {
+        "identifier" : "created",
+        "language" : "undefined",
+        "value" : "2018-05-20",
+        "type" : "label"
+      } ],
+      "reengineeredFrom" : [ {
+        "identifier" : "reengineeredFrom",
+        "language" : "undefined",
+        "value" : "PEP: https://w3id.org/pep/pep-1.1\n\nSOSA: http://www.w3.org/ns/sosa/\n\nSSN: http://www.w3.org/ns/ssn/\n\nDUL: http://www.ontologydesignpatterns.org/ont/dul/DUL.owl",
+        "type" : "label"
+      } ],
+      "versionInfo" : [ {
+        "identifier" : "versionInfo",
+        "language" : "undefined",
+        "value" : "1.0",
+        "type" : "label"
+      } ],
+      "title" : [ {
+        "identifier" : "title",
+        "language" : "undefined",
+        "value" : "Execution-Executor-Procedure ODP",
+        "type" : "label"
+      } ],
+      "coversRequirements" : [ {
+        "identifier" : "coversRequirements",
+        "language" : "en",
+        "value" : "(CQ1). What are the observations/actuations performed by a given procedure?    \n(CQ2). What are the observations/actuations performed by a given sensor/actuator?    \n(CQ3). What are the procedures implemented by a given sensor/actuator?    \n(CQ4). What are the features of interest on a given observation/actuation?    \n(CQ5). What are the properties/qualities sensed/actuated by a given observations/actuations?    \n(CQ6). What are the features of interest of a given sensor/actuator?    \n(CQ7). What are the properties/qualities sensed/actuated by a given executor?",
+        "type" : "label"
+      } ],
+      "license" : [ {
+        "identifier" : "license",
+        "language" : "undefined",
+        "value" : "http://creativecommons.org/licenses/by/3.0/",
+        "type" : "iri"
+      } ],
+      "hasComponent" : [ {
+        "identifier" : "hasComponent",
+        "language" : "undefined",
+        "value" : "https://w3id.org/AffectedBy/",
+        "type" : "iri"
+      } ],
+      "hasIntent" : [ {
+        "identifier" : "hasIntent",
+        "language" : "en",
+        "value" : "To represent executions made by executors that implement procedures. Executions are events like observations or actuations. Executors are systems like sensors or actuators that produce executions. Executors implement procedures to carry out their goals. Executions and executors are taken over features of interest and their intrinsic properties/qualities.",
+        "type" : "label"
+      } ],
+      "hasConsequences" : [ {
+        "identifier" : "hasConsequences",
+        "language" : "en",
+        "value" : "Axioms included in the EEP ODP provide inferences that allow to answer the competency questions properly. Therefore, solving some weaknesses of the sosa/ssn ontologies.\n\nNote that only triples about the four functional object properties: eep:madeBy, eep:usedProcedure, eep:onQuality, and aff:belongsTo, needs to be asserted, the remaining triples are inferred by the property axioms.",
+        "type" : "label"
+      } ],
+      "preferredNamespacePrefix" : [ {
+        "identifier" : "preferredNamespacePrefix",
+        "language" : "undefined",
+        "value" : "eep",
+        "type" : "label"
+      } ],
+      "preferredNamespaceUri" : [ {
+        "identifier" : "preferredNamespaceUri",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ]
+    }
+  },
+  "namespace" : [ ],
+  "metrics" : {
+    "classCount" : 6,
+    "objectPropertyCount" : 8,
+    "datatypePropertyCount" : 0,
+    "individualCount" : 1
+  },
+  "class" : [ {
+    "id" : "6",
+    "type" : "owl:Class"
+  }, {
+    "id" : "8",
+    "type" : "owl:Class"
+  }, {
+    "id" : "4",
+    "type" : "owl:Class"
+  }, {
+    "id" : "1",
+    "type" : "owl:Class"
+  }, {
+    "id" : "15",
+    "type" : "owl:Class"
+  }, {
+    "id" : "2",
+    "type" : "owl:Class"
+  } ],
+  "classAttribute" : [ {
+    "iri" : "https://w3id.org/affectedBy#Quality",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "instances" : 0,
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Quality",
+      "en" : "Quality"
+    },
+    "comment" : {
+      "undefined" : "A quality of a feature of interest. An aspect of a feature of interest that is intrinsec to and cannot exist without the feature of interest. Every quality belongs to the feature of interest it is intrinsic to."
+    },
+    "attributes" : [ "external" ],
+    "id" : "6"
+  }, {
+    "iri" : "https://w3id.org/eep#Execution",
+    "baseIri" : "https://w3id.org/eep",
+    "instances" : 0,
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Execution",
+      "en" : "Execution"
+    },
+    "comment" : {
+      "undefined" : "An event made by an agent executing a task implemented by a procedure."
+    },
+    "id" : "8"
+  }, {
+    "iri" : "https://w3id.org/eep#Procedure",
+    "baseIri" : "https://w3id.org/eep",
+    "instances" : 0,
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Procedure",
+      "en" : "Procedure"
+    },
+    "comment" : {
+      "undefined" : "A workflow, protocol, plan, algorithm, or computational method specifying how to produce an event."
+    },
+    "id" : "4"
+  }, {
+    "iri" : "https://w3id.org/eep#Executor",
+    "baseIri" : "https://w3id.org/eep",
+    "instances" : 0,
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Executor",
+      "en" : "Executor"
+    },
+    "comment" : {
+      "undefined" : "An agent that produces an event (Execution) by implementing a procedure."
+    },
+    "id" : "1"
+  }, {
+    "iri" : "http://purl.org/vocommons/voaf#Vocabulary",
+    "baseIri" : "http://purl.org/vocommons/voaf",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Vocabulary"
+    },
+    "individuals" : [ {
+      "iri" : "https://w3id.org/eep/",
+      "baseIri" : "https://w3id.org",
+      "labels" : { }
+    }, {
+      "iri" : "https://w3id.org/affectedBy/",
+      "baseIri" : "https://w3id.org",
+      "labels" : { }
+    } ],
+    "attributes" : [ "external" ],
+    "id" : "15"
+  }, {
+    "iri" : "https://w3id.org/affectedBy#FeatureOfInterest",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "instances" : 0,
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "FeatureOfInterest",
+      "en" : "FeatureOfInterest"
+    },
+    "comment" : {
+      "undefined" : "A feature of interest is an abstraction of a real world phenomena (object, event, etc). A feature of interest is then described in terms of its properties or qualities, which are qualifiable, quantifiable, observable or operable qualities of the feature of interest."
+    },
+    "attributes" : [ "external" ],
+    "id" : "2"
+  } ],
+  "property" : [ {
+    "id" : "0",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "3",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "5",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "9",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "10",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "11",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "12",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "13",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "14",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "16",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "7",
+    "type" : "owl:objectProperty"
+  } ],
+  "propertyAttribute" : [ {
+    "iri" : "https://w3id.org/eep#forFeatureOfInterest",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "2",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "forFeatureOfInterest",
+      "en" : "forFeatureOfInterest"
+    },
+    "domain" : "1",
+    "comment" : {
+      "undefined" : "Relation that links an executor to the features of interest of the executions it made."
+    },
+    "attributes" : [ "object" ],
+    "id" : "0"
+  }, {
+    "iri" : "https://w3id.org/eep#implements",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "4",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "implements",
+      "en" : "implements"
+    },
+    "domain" : "1",
+    "comment" : {
+      "undefined" : "Relation that links an agent (Executor) to a procedure that it implements."
+    },
+    "attributes" : [ "object" ],
+    "id" : "3"
+  }, {
+    "iri" : "https://w3id.org/affectedBy#belongsTo",
+    "inverse" : "7",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "range" : "2",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "belongsTo",
+      "en" : "belongsTo"
+    },
+    "domain" : "6",
+    "comment" : {
+      "undefined" : "A relation between qualities and features of interest. Every quality belongs to the feature of interest it is intrinsic to."
+    },
+    "attributes" : [ "functional", "external", "object" ],
+    "id" : "5"
+  }, {
+    "iri" : "https://w3id.org/affectedBy#belongsTo",
+    "inverse" : "7",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "range" : "2",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "belongsTo",
+      "en" : "belongsTo"
+    },
+    "domain" : "6",
+    "comment" : {
+      "undefined" : "A relation between qualities and features of interest. Every quality belongs to the feature of interest it is intrinsic to."
+    },
+    "attributes" : [ "functional", "someValues", "external", "object" ],
+    "id" : "9"
+  }, {
+    "iri" : "https://w3id.org/eep#hasFeatureOfInterest",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "2",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "hasFeatureOfInterest",
+      "en" : "hasFeatureOfInterest"
+    },
+    "domain" : "8",
+    "comment" : {
+      "undefined" : "Relation that links an execution to the feature of interest it is acting upon."
+    },
+    "attributes" : [ "object" ],
+    "id" : "10"
+  }, {
+    "iri" : "https://w3id.org/affectedBy#affectedBy",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "range" : "6",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "affectedBy",
+      "en" : "affectedBy"
+    },
+    "domain" : "6",
+    "comment" : {
+      "undefined" : "A relation between qualities. A quality is affected by another quality if the value of the latter affects the value of the former."
+    },
+    "attributes" : [ "external", "object" ],
+    "id" : "11"
+  }, {
+    "iri" : "https://w3id.org/eep#madeBy",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "1",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "madeBy",
+      "en" : "madeBy"
+    },
+    "domain" : "8",
+    "comment" : {
+      "undefined" : "Relation that links an execution to the executor that made the execution."
+    },
+    "attributes" : [ "functional", "object" ],
+    "id" : "12"
+  }, {
+    "iri" : "https://w3id.org/eep#usedProcedure",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "4",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "usedProcedure",
+      "en" : "usedProcedure"
+    },
+    "domain" : "8",
+    "comment" : {
+      "undefined" : "A relation that links an execution to the procedure used in making the execution through an executor agent."
+    },
+    "attributes" : [ "functional", "object" ],
+    "id" : "13"
+  }, {
+    "iri" : "https://w3id.org/eep#forQuality",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "6",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "forQuality",
+      "en" : "forQuality"
+    },
+    "domain" : "1",
+    "comment" : {
+      "undefined" : "Relation that links an executor to the qualities acted upon by the executions it made."
+    },
+    "attributes" : [ "object" ],
+    "id" : "14"
+  }, {
+    "iri" : "https://w3id.org/eep#onQuality",
+    "baseIri" : "https://w3id.org/eep",
+    "range" : "6",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/eep/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "onQuality",
+      "en" : "onQuality"
+    },
+    "domain" : "8",
+    "comment" : {
+      "undefined" : "Relation that links an execution to the quality it is acting upon."
+    },
+    "attributes" : [ "functional", "object" ],
+    "id" : "16"
+  }, {
+    "iri" : "https://w3id.org/affectedBy#hasQuality",
+    "baseIri" : "https://w3id.org/affectedBy",
+    "range" : "6",
+    "annotations" : {
+      "isDefinedBy" : [ {
+        "identifier" : "isDefinedBy",
+        "language" : "undefined",
+        "value" : "https://w3id.org/affectedBy/",
+        "type" : "iri"
+      } ],
+      "term_status" : [ {
+        "identifier" : "term_status",
+        "language" : "undefined",
+        "value" : "stable",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "hasQuality",
+      "en" : "hasQuality"
+    },
+    "domain" : "2",
+    "comment" : {
+      "undefined" : "A relation between features of interest and qualities."
+    },
+    "attributes" : [ "external", "object" ],
+    "id" : "7"
+  } ]
+}
