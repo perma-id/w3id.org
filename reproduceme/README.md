@@ -11,5 +11,5 @@ Download Ontology
 * https://w3id.org/reproduceme/ontology
 
 Contact: 
-Sheeba Samuel <sheeba.samuel@uni-jena.de>, Friedrich-Schiller University Jena, Germany
-Birgitta König-Ries <Birgitta.Koenig-Ries@uni-jena.de> , Friedrich-Schiller University Jena, Germany
+* Sheeba Samuel <sheeba.samuel@uni-jena.de>, Friedrich-Schiller University Jena, Germany
+* Birgitta König-Ries <Birgitta.Koenig-Ries@uni-jena.de> , Friedrich-Schiller University Jena, Germany
