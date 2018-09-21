@@ -1,4 +1,4 @@
-GA4GH
+# GA4GH
 
 Homepage
 https://ga4gh.org
