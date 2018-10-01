@@ -6,6 +6,7 @@ Homepage:
 
 Redirections:
 * https://w3id.org/idsa --> https://www.internationaldataspaces.org/ 
+* https://w3id.org/idsa/core, https://w3id.org/idsa/code --> https://github.com/IndustrialDataSpace/InformationModel/releases/download/v1.0.0/IDS-InformationModel_v1.0.0.ttl
 
 Support:
 * [Information Model GitHub Repository](https://github.com/IndustrialDataSpace/InformationModel)
@@ -13,4 +14,3 @@ Support:
 Contacts: 
 * Christian Mader <christian.mader@iais.fraunhofer.de>
 * Jaroslav Pullmann <jaroslav.pullmann@fit.fraunhofer.de>
-* Steffen Lohmann <Steffen.Lohmann@iais.fraunhofer.de>
