@@ -127,5 +127,35 @@ RewriteRule ^MealeyMachineOntology$ https://htmlpreview.github.io/?https://raw.g
 # Default provide .ttl
 RewriteRule ^MealeyMachineOntology$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/MealeyMachineOntology/MealeyMachineOntology.ttl [R=303]
 
+# HEX
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/hex$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/Hex.owl [R=303]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/hex$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/Hex.html [R=303]
+
+# Default provide .owl
+RewriteRule ^hbc/hex$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/Hex.owl [R=303]
+
+# bim4hex
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/bim4hex$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/bim4hex.owl [R=303]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/bim4hex$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/bim4Hex.html [R=303]
+
+# Default provide .owl
+RewriteRule ^hbc/bim4hex$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/hbc/bim4hex.owl [R=303]
+
 # Default rewrite if only namespace is accessed
 RewriteRule ^$ https://github.com/TechnicalBuildingSystems/Ontologies/ [R=302,L]
