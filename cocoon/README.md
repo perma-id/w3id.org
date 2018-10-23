@@ -3,11 +3,11 @@ CoCoOn
 
 # Homepage
 
-GitHub https://w3id.org/cocoon/home
+GitHub https://w3id.org/cocoon
 
 Specification https://w3id.org/cocoon/v1.0
 
-# Latest Vocabularies
+# Latest Vocabulary
 
     @prefix cocoon: <https://w3id.org/cocoon/v1.0#>
 
