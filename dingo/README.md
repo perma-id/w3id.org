@@ -1,4 +1,4 @@
-#DINGO - Data INtegration for Grants Ontology
+# DINGO - Data INtegration for Grants Ontology
 
 Contacts
 
