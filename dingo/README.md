@@ -1,4 +1,6 @@
-# DINGO - Data INtegration for Grants Ontology
+# DINGO - Data INtegration for Grants, Ontology
+
+Ontology for grants funding and projects.
 
 Contacts
 
