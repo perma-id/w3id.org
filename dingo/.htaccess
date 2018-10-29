@@ -11,10 +11,10 @@ RewriteEngine on
 
 #Rewrite rules for DINGO ontology.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} text/html [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR,NC]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR,NC]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR,NC]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://dcodings.github.io/DINGO/ [R=303,NE,L]
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
