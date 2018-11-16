@@ -7,7 +7,8 @@ Homepage:
 GitHub:
 * https://github.com/biocompute-objects/
 
-BioCompute standardized bioinformatics pipelines/workflows in the High-Throughput Sequencing (HTS) space. The US Food and Drug Administration (FDA) and George Washington University (GW) have partnered to establish a framework for community-based standards development and harmonization of HTS computations and data formats. Standardized HTS data processing and data formats will promote interoperability and simplify the verification of bioinformatics protocols. 
+BioCompute standardized bioinformatics pipelines/workflows in the High-Throughput Sequencing (HTS) space. 
+This permalink is to the stable BioCompute releases. 
 
 ## Contact:
 * Raja Mazumder <mazumder@gwu.edu>
