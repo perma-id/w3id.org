@@ -1,8 +1,8 @@
 BioCompute
 ==========
 
-Homepage: 
-* http://biocomputeobject.org/
+Specification: 
+* https://w3id.org/biocompute/spec/v1.2
 
 GitHub:
 * https://github.com/biocompute-objects/
