@@ -1,12 +1,10 @@
 # OntoPBM
-===
+
 An ontology for process based modeling of dynamical systems
 
 ## Project home
 
-* <source.ijs.si/itolovski/OntoPBM>
-
-
+* source.ijs.si/itolovski/OntoPBM
 
 ### Contacts
 
