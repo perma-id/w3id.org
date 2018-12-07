@@ -11,6 +11,7 @@ It resolves the following
 * https://w3id.org/quality/exp/AHPOnSKOSTemplate
 * https://w3id.org/quality/exp/preferences
 * https://w3id.org/quality/DQV/implementations
+* https://w3id.org/quality/DQV/examples
 
 
 ## Contact
