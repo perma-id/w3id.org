@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ http://linkedbuildingdata.net/OMG/omg.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^omg.ttl$ http://linkedbuildingdata.net/OMG/omg.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^omg.html$ http://linkedbuildingdata.net/OMG/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^omg.rdf$ http://linkedbuildingdata.net/OMG/omg.rdf [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^omg.jsonld$ http://linkedbuildingdata.net/OMG/omg.jsonld [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^omg.nt$ http://linkedbuildingdata.net/OMG/omg.nt [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ http://linkedbuildingdata.net/OMG/ [R=303,NE,L]
