@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ http://linkedbuildingdata.net/FOG/fogOnto.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^fog.ttl$ http://linkedbuildingdata.net/FOG/fogOnto.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^fog.html$ http://linkedbuildingdata.net/FOG/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^fog.rdf$ http://linkedbuildingdata.net/FOG/fogOnto.rdf [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^fog.jsonld$ http://linkedbuildingdata.net/FOG/fogOnto.jsonld [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^fog.nt$ http://linkedbuildingdata.net/FOG/fogOnto.nt [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ http://linkedbuildingdata.net/FOG/ [R=303,NE,L]
