@@ -1,10 +1,14 @@
 BioCompute
 ==========
 
-Specification: 
-* https://w3id.org/biocompute/spec/v1.2
+##Specification: 
+* https://w3id.org/biocompute/v1.2/specification/
+* https://w3id.org/biocompute/1.3.0/
 
-GitHub:
+##Examples: 
+* https://w3id.org/biocompute/1.3.0/examples/
+
+##GitHub:
 * https://github.com/biocompute-objects/
 
 BioCompute standardized bioinformatics pipelines/workflows in the High-Throughput Sequencing (HTS) space. 
