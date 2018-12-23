@@ -1,0 +1,46 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# IDO
+RewriteRule ^/?onto/?([0-9]+(\.[0-9]+)+)\.(html|xml|json|ttl|nt)$ https://rawgit.com/essepuntato/ido/master/model/ido/$1/onto.$3 [R=303,L]
+RewriteRule ^/?onto/?\.(html|xml|json|ttl|nt)$ https://rawgit.com/essepuntato/ido/master/model/ido/current/onto.$1 [R=303,L]
+
+# IDO modules
+RewriteRule ^/?onto/?(.+)/([0-9]+(\.[0-9]+)+)\.(html|xml|json|ttl|nt)$ https://rawgit.com/essepuntato/ido/master/model/$1/$2/onto.$4 [R=303,L]
+RewriteRule ^/?onto/?(.+)\.(html|xml|json|ttl|nt)$ https://rawgit.com/essepuntato/ido/master/model/$1/current/onto.$2 [R=303,L]
+
+
+### CONFIGURATION redir ontology/data: begin ########################
+
+# Rewrite rule for no content
+RewriteRule ^(.*)\.(html|xml|json|ttl|nt)$ - [R=404,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^(.*)$ /ido/onto$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(.*)$ /ido/onto$1.xml [R=303,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl
+RewriteRule ^(.*)$ /ido/onto$1.ttl [R=303,L]
+
+# Rewrite rule to serve Notation3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^(.*)$ /ido/onto$1.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)$ /ido/onto$1.json [R=303,L]
+
+######################## CONFIGURATION redir ontology/data: end #####
+
+# Default behaviour
+RewriteRule ^(.*)$ https://github.com/essepuntato/ido [R=302,L]

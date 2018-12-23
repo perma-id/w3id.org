@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+#RewriteRule ^$ http://ontology.tno.nl/saref [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://ontology.tno.nl/saref  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ http://ontology.tno.nl/saref.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ http://ontology.tno.nl/saref.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^$ http://ontology.tno.nl/saref.ttl [R=303,NE,L]

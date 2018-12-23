@@ -1,0 +1,41 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+
+
+# Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(vocab)$ https://joernhees.github.io/associations/$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the URI
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(vocab)$ https://joernhees.github.io/associations/$1.rdf [R=303,L]
+
+# Rewrite rule to serve TURTLE content from the URI
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(vocab)$ https://joernhees.github.io/associations/$1.ttl [R=303,L]
+
+# Rewrite rule to serve RDF/XML content by default
+RewriteRule ^(vocab)$ https://joernhees.github.io/associations/$1.rdf [R=303,L]
+
+
+
+RewriteRule ^(mapping_eat_dbpedia)$ https://joernhees.github.io/associations/$1.rdf [R=303,L]
+
+
+# everything else:
+RewriteRule ^(.*)$ https://joernhees.github.io/associations/$1 [R=303,NE,L]
+

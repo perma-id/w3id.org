@@ -1,8 +1,9 @@
-Research Object specification
-=============================
+Research Object specifications
+==============================
 
-Specification:
+Specifications:
 * https://w3id.org/ro/
+* https://w3id.org/ro/bagit
 
 Ontologies:
 * https://w3id.org/ro/ro (namespace: http://purl.org/wf4ever/ro#)
@@ -15,7 +16,11 @@ JSON-LD contexts:
 * https://w3id.org/ro/wfdesc/context
 * https://w3id.org/ro/wf4ever/context
 
-Note that the ontology namespaces are at http://purl.org/wf4ever/
+
+BagIt profile:
+* https://w3id.org/ro/bagit/profile
+
+Note that the ontology namespaces are under http://purl.org/wf4ever/
 for historical reasons, while the ontologies can also be retrieved using
 https://w3id.org/ro/
 
@@ -27,6 +32,6 @@ References:
 
 Contacts: 
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Graham Klyne <GK@ninebynine.org>
-* Jun Zhao <j.zhao5@lancaster.ac.uk>
 * Sean Bechhofer <sean.bechhofer@manchester.ac.uk>
+* Daniel Garijo <dgarijov@gmail.com>
+* Raul Palma <rpalma@man.poznan.pl>
