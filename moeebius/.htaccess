@@ -1,0 +1,26 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# MOEEBIUS Ontology
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^MOEEBIUSOntology$ https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUS-0.0.2.ttl [R=303]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MOEEBIUSOntology$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUSOntology.html [R=303]
+
+# Default provide .ttl
+RewriteRule ^MOEEBIUSOntology$ https://raw.githubusercontent.com/MOEEBIUS/MOEEBIUS_Ontology/master/MOEEBIUSOntology/MOEEBIUS-0.0.2.ttl [R=303]
+
+# Default rewrite if only namespace is accessed
+RewriteRule ^$ https://github.com/MOEEBIUS/MOEEBIUS_Ontology [R=302,L]
