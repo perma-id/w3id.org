@@ -4,11 +4,23 @@ RewriteEngine on
 # Turn off MultiViews
 Options -MultiViews
 
+AddType application/rdf+xml .rdf
 AddType text/turtle .ttl
+
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://linkedbuildingdata.net/OMG/ [R=302,NE,L]
 
 # In case of accept header <text/turtle>
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ http://linkedbuildingdata.net/OMG/omg.ttl [R=303,NE,L]
+RewriteRule ^$ http://linkedbuildingdata.net/OMG/omg.ttl [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ http://linkedbuildingdata.net/OMG/omg.rdf [R=302,NE,L]
 
 # If suffix ttl, redirect to turtle version
 RewriteRule ^omg.ttl$ http://linkedbuildingdata.net/OMG/omg.ttl [R=302,NE,L]
