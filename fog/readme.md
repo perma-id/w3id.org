@@ -1,4 +1,4 @@
-##File Format Ontology for Geometry (FOG)
+## File Format Ontology for Geometry (FOG)
 
 Ontology
 
