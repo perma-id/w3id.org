@@ -1,4 +1,4 @@
-##The DM (Data Mining) for EEPSA (Energy Efficiency Prediction Semantic Assistant) Ontology
+## The DM (Data Mining) for EEPSA (Energy Efficiency Prediction Semantic Assistant) Ontology
 
 Contact
 
