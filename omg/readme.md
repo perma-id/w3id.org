@@ -1,4 +1,4 @@
-##Ontology for Managing Geometry (OMG)
+## Ontology for Managing Geometry (OMG)
 
 Ontology
 
