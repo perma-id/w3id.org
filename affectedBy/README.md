@@ -1,4 +1,4 @@
-##The AffectedBy ODP (Ontology Design Pattern)
+## The AffectedBy ODP (Ontology Design Pattern)
 
 Contact
 
