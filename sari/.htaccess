@@ -10,10 +10,11 @@ AddType text/turtle .ttl
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^$ https://schema.swissartresearch.net/ontology/sari.ttl [R=303,NE,L]
 
-# If suffix ttl, redirect to turtle version
-RewriteRule ^$ https://schema.swissartresearch.net/ontology/sari.ttl [R=302,NE,L]
 
 # If suffix html, redirect to html version
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://schema.swissartresearch.net/ontology/index.html [R=302,NE,L]
 
 # Default response: html
