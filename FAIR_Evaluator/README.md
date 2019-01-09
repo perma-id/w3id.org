@@ -7,4 +7,4 @@ from the w3id to achieve this stability.
 
 see more at:  http://fairmetrics.org
 
-maintainer of this w3ide: mark.wilkinson@upm.es
+maintainer of this w3id:  Mark D Wilkinson:  mark.wilkinson@upm.es
