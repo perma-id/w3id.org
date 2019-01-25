@@ -1,7 +1,7 @@
-==OntoSoft-VFF==
+== OntoSoft-VFF ==
 Ontology framework for Version, Function and Functionality.
 
 Website project: https://lucasaugustomcc.github.io/ontosoft-vff/
 
-#Maintainer
+# Maintainer
 - Lucas Carvalho (https://github.com/lucasaugustomcc)

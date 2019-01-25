@@ -2,4 +2,8 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^(.*)$ http://wit.istc.cnr.it/lodview/$1 [R=303,L]
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/ICCD-MiBACT/ArCo/master/ArCo-release/ontologie/
+
+RewriteRule ^resource/(.+)$ http://wit.istc.cnr.it/lodview/resource/$1 [R=303,L]
+RewriteRule ^(.+)/(.+)\.owl$ %{ENV:ROOT_URL}$1/$1.owl [R=303,L]
+RewriteRule ^(.+)$ http://wit.istc.cnr.it/lodview/$1 [R=303,L]
