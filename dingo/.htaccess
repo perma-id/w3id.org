@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+#Rewrite rules for DINGO ontology.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR,NC]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR,NC]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR,NC]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://dcodings.github.io/DINGO/ [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://dcodings.github.io/DINGO/DINGO-OWL.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^$ https://dcodings.github.io/DINGO/DINGO-OWL.ttl [R=303,NE,L]
