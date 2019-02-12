@@ -1,4 +1,4 @@
-##The Execution-Executor-Procedure (EEP) ODP (Ontology Design Pattern)
+## The Execution-Executor-Procedure (EEP) ODP (Ontology Design Pattern)
 
 Contact
 

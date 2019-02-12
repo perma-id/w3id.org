@@ -1,4 +1,4 @@
-##The Result-Context (RC) ODP (Ontology Design Pattern)
+## The Result-Context (RC) ODP (Ontology Design Pattern)
 
 Contact
 
