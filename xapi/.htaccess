@@ -12,16 +12,6 @@ Header always set Access-Control-Allow-Methods "GET, OPTIONS"
 RewriteRule ^$ http://xapi.vocab.pub [R=302]
 
 #######################################################################################################
-################################ SPARQL ENDPOINT ######################################################
-#######################################################################################################
-
-
-# Rewrite for SPARQL IRI
-# ---------------------------
-RewriteRule ^sparql$ http://xapi.vocab.pub:8890/sparql [R=302]
-
-
-#######################################################################################################
 ################################ xAPI Ontology & Statement Context ####################################
 #######################################################################################################
 
@@ -57,64 +47,78 @@ RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement
 ###################################### OLD adlnet.gov IRI RULES #######################################
 #######################################################################################################
 
-# Serve HTML content at vocabulary IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
+# Serve HTML content at profile IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^adl/verbs/abandoned/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/adl/verbs/abandoned [R=303]
-RewriteRule ^adl/verbs/satisfied/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/adl/verbs/satisfied [R=303]
-RewriteRule ^adl/verbs/waived/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/adl/verbs/waived [R=303]
-RewriteRule ^adl/verbs/logged-in/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/adl/verbs/logged-in [R=303]
-RewriteRule ^adl/verbs/logged-out/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/adl/verbs/logged-out [R=303]
+RewriteRule ^adl/verbs/abandoned/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/adl/verbs/abandoned [R=303]
+RewriteRule ^adl/verbs/satisfied/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/adl/verbs/satisfied [R=303]
+RewriteRule ^adl/verbs/waived/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/adl/verbs/waived [R=303]
+RewriteRule ^adl/verbs/logged-in/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/adl/verbs/logged-in [R=303]
+RewriteRule ^adl/verbs/logged-out/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/adl/verbs/logged-out [R=303]
 
 
-# Serve HTML content at vocabulary IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
+# Serve HTML content at profile IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=http://adlnet.gov/expapi/$1/$2 [R=303]
+RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=http://adlnet.gov/expapi/$1/$2 [R=303]
 
 
 #######################################################################################################
-######################## XAPI Published Profiles Content Negotiation RULES ############################
+#################### XAPI Published Profiles | HTML Content Negotiation RULES #########################
 #######################################################################################################
 
 # Consolidated HTML Rules to account for vocab/profile pattern match and two child paths after
 # ---------------------------
-# Serve HTML content at vocabulary IRI if requested
+# Serve HTML content at profile IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1 [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/$1 [R=303]
+
+# Serve HTML content at profile IRI if x.x.x version requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/$1 [R=303]
 
 # Serve HTML content at type IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1 [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/$1 [R=303]
 
 # Serve HTML content at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1/$2/$3 [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/$1/$2/$3 [R=303]
 
 # Serve HTML content at vocabulary term IRI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub:8890/describe/?url=https://w3id.org/xapi/$1/$2/$3/$4 [R=303]
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=https://w3id.org/xapi/$1/$2/$3/$4 [R=303]
 
+#######################################################################################################
+##################### XAPI Authored Profiles | RDF Content Negotiation RULES ##########################
+#######################################################################################################
 
-# Serve Turtle at vocabulary IRI if requested
+# Serve Turtle at profile IRI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
+
+# Serve Turtle for the x.x.x version of the profile if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$2/$1.ttl [R=303]
 
 # Serve Turtle at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -129,9 +133,13 @@ RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.ttl [R=303]
 
 
-# Serve JSON-LD at vocabulary IRI if requested
+# Serve JSON-LD at profile IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
+# Serve JSON-LD for the x.x.x version of the profile
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$2/$1.jsonld [R=303]
 
 # Serve JSON-LD at vocabulary type IRI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
@@ -151,9 +159,13 @@ RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)
 
 
 
-# Serve Constrained JSON-LD at vocabulary IRI if JSON is requested
+# Serve Constrained JSON-LD at profile IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$1.jsonld [R=303]
+
+# Serve Constrained JSON-LD at profile IRI if x.x.x version and JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://adlnet.github.io/xapi-authored-profiles/$1/$2/$1.jsonld [R=303]
 
 # Serve Constrained JSON-LD at vocabulary type IRI if JSON is requested
 RewriteCond %{HTTP_ACCEPT} application/json
@@ -208,4 +220,3 @@ RewriteRule ^acrossx/(.*)/(.*)$ http://xapi-cop.net/vocab/zh-cn/#$2 [R=303,NE]
 
 # END ACROSSX VOCABULARY LANGUAGE NEGOTIATION RULES
 # ---------------------------
-

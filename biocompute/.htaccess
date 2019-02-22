@@ -1,0 +1,19 @@
+Header set Access-Control-Allow-Origin *
+
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Any specific version
+RewriteRule ^(\d+.\d+.\d+)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1 [R=302,L]
+
+# All releases 
+RewriteRule ^releases$ https://github.com/biocompute-objects/BCO_Specification/releases [R=302,L]
+
+#specific version 'v1.2'
+RewriteRule ^spec/v1.2$ https://github.com/biocompute-objects/BCO_Specification/tree/v1.2 [R=302,L]
+
+# Any example 
+RewriteRule ^(\d+.\d+.\d+)/examples/(.*)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1/examples [R=302,L]

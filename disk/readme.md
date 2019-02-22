@@ -1,4 +1,4 @@
-##DISK Permanent IDs
+## DISK Permanent IDs
 
 Research object for ACS conference: https://w3id.org/disk/acs2016
 
