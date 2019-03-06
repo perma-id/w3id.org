@@ -10,4 +10,4 @@ https://trustlens.github.io/EP-PLAN/ep-plan.xml
 
 https://trustlens.github.io/EP-PLAN/ep-plan.n3 
 
-https://trustlens.github.io/EP-PLAN/ep-plan.ttl 
+
