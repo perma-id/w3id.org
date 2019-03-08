@@ -6,4 +6,4 @@ DEER is a modular, extensible software system for efficient computation of arbit
 
 | w3id.org URL | Meaning | Redirected to |
 |---|---|---|
-| https://w3id.org/deer/(.*) | Vocabulary (RDFS) in Turtle serialization | https://dice-group.github.io/deer/deer.ttl |
+| https://w3id.org/deer/(.*) | Vocabulary (RDFS) in Turtle serialization | https://dice-group.github.io/deer/ |
