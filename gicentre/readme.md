@@ -1,10 +1,10 @@
 Repository for redirecting to disaster ontologies and ontology patterns created by the GICentre members .
 ===================
 
-EventCore:
+Event:
 http://w3id.org/gicentre/onto/event ==> http://mazimweal.github.io/onto/event.owl
 
-SpatioTemporalExtent:
+QualityCausation:
 http://w3id.org/gicentre/onto/qualitycausation ==> http://mazimweal.github.io/onto/qualitycausation.owl
 
 
