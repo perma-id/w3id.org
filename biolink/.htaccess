@@ -1,3 +1,9 @@
+Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^vocab/(.*)$ https://biolink.github.io/biolink-model/docs/$1 [R=302,L]
-RewriteRule ^(.*)$ https://biolink.github.io/biolink-model/$1  [R=302,L]
+
+# vocab/ --> biolink-model/docs
+RewriteRule ^vocab\/(.*)$ biolink-model/docs
+
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://biolink.github.io/$1 [R=302]
