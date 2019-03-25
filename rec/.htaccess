@@ -10,7 +10,7 @@ RewriteRule ^(\w+?)/(\w*?)$ https://w3id.org/rec/$1/2.3/$2 [R=303,NE,L]
 
 # Redirect versioned request for application/rdf+xml MIME  type to a suitable serialised file
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ https://raw.githubusercontent.com/RealEstateCore/rec/v$2/$1.rdf#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\w.-]+)/(\w*)$ https://raw.githubusercontent.com/RealEstateCore/rec/v$2/$1.rdf#$3 [R=303,NE,L]
 
 # Redirect versioned request for any text-oriented MIME type to the documentation
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
@@ -19,7 +19,7 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(\w+?)/([\d.]+)/(\w*)$ https://git.realestatecore.io/doc/$2/$1/index-en.html#$3 [R=303,NE,L]
+RewriteRule ^(\w+?)/([\w.-]+)/(\w*)$ https://doc.realestatecore.io/$2/$1/index-en.html#$3 [R=303,NE,L]
 
 # Default redirect for any still unmatched patterns to REC website
 RewriteRule ^.* https://realestatecore.io [R=303,NE,L]
