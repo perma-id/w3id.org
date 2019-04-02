@@ -36,43 +36,46 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
 
+# https://stackoverflow.com/a/52842618/646732
+# $0 is the whole string, $1 is the first captured group, and so on
+
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
-# http://localhost/cocoon/v1.0.1
+# curl -L http://localhost/cocoon/v1.0.1
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$0/index-en.html [R=308,NE,L] 
+RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/index-en.html [R=308,NE,L] 
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 # curl -H "Accept: application/ld+json" -L http://localhost/cocoon/v1.0.1
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$0/ontology.json [R=308,L]
+RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.json [R=308,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 # curl -LH "Accept: application/rdf+xml" http://localhost/cocoon/v0.1
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$0/ontology/cocoon.rdf [R=308,L]
+RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology/cocoon.rdf [R=308,L]
 
 # Rewrite rule to serve N-Triples content from the vocabulary URI if requested
 # curl -LH "Accept: application/n-triples" http://localhost/cocoon/v1.0
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$0/ontology.nt [R=308,L]
+RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.nt [R=308,L]
 
 # Rewrite rule to serve TTL content from the vocabulary URI if requested
 # curl -LH "Accept: text/turtle" http://localhost/cocoon/v0.1
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$0/ontology/cocoon.ttl [R=308,L]
+RewriteRule ^(v[0-9]\.[0-9]\.?[0-9]?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology/cocoon.ttl [R=308,L]
 
 # The dataset index
-# http://localhost/cocoon/data
-RewriteRule ^data$ http://35.231.131.100:5000 [L,R=308,NC,NE]
+# curl -L http://localhost/cocoon/data
+RewriteRule ^data/?$ http://35.231.131.100:5000 [L,R=308,NC,NE]
 
 # Versioned datasets
-RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/?$ http://35.231.131.100:5000/cocoon_$0 [L,R=308,NC,NE]
+# curl -L http://localhost/cocoon/data/v1.0.1
+RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/?$ http://35.231.131.100:5000/cocoon_$1 [L,R=308,NC,NE]
 
-# https://stackoverflow.com/a/52842618/646732
-RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/.*$ http://35.231.131.100:5000/cocoon_$0?subject=https://w3id.org/cocoon/$1 [L,R=308,NC,NE,QSA]
+RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/.*$ http://35.231.131.100:5000/cocoon_$1?subject=https://w3id.org/cocoon/$0 [L,R=308,NC,NE,QSA]
