@@ -3,6 +3,7 @@
 SEO, the scientific events ontology, is a reference ontology for modelling data about scientific events such as conferences, symposioums and workshops.
 Documentation is available at: http://sda.tech/SEOontology/Documentation/SEO.html.
 The ontology is available in three serializations:
+
 TTL: https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.ttl
 OWL: https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.owl
 RDF/XML: https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.rdf
