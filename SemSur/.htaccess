@@ -1,0 +1,49 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure .rdf files served as appropriate content type,
+# if not present in main apache config
+AddType applicationrdf+xml .rdf
+AddType applicationrdf+xml .owl
+ 
+
+RewriteEngine on
+
+#Rewrite rules for Asteroids vocabulary extension 
+RewriteCond %{HTTP_ACCEPT} !applicationrdf+xml.(texthtmlapplicationxhtml+xmltext)
+RewriteCond %{HTTP_ACCEPT} texthtml [OR]
+RewriteCond %{HTTP_ACCEPT} applicationxhtml+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text [OR]
+RewriteCond %{HTTP_ACCEPT}  [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla.
+RewriteRule ^semsur$ https://github.com/saidfathalla/SemSur/tree/master/Documentation  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.applicationrdf+xml. 
+RewriteRule ^semsur$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl [R=303,NE,L]
+#default response owl
+RewriteRule ^semsur$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl [R=303,NE,L]
+
+#Rewrite rules for Coil vocabulary extension
+RewriteCond %{HTTP_ACCEPT} !applicationrdf+xml.(texthtmlapplicationxhtml+xmltext)
+RewriteCond %{HTTP_ACCEPT} texthtml [OR]
+RewriteCond %{HTTP_ACCEPT} applicationxhtml+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text [OR]
+RewriteCond %{HTTP_ACCEPT}  [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla.
+RewriteRule ^semsur$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl  [R=303,NE,L]
+#default response owl
+RewriteRule ^semsur$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl [R=303,NE,L]
+
+#Rewrite rules for browserquest vocabulary extension
+RewriteCond %{HTTP_ACCEPT} !applicationrdf+xml.(texthtmlapplicationxhtml+xmltext)
+RewriteCond %{HTTP_ACCEPT} texthtml [OR]
+RewriteCond %{HTTP_ACCEPT} applicationxhtml+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text [OR]
+RewriteCond %{HTTP_ACCEPT}  [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla.
+RewriteRule ^browserquest$ https://github.com/saidfathalla/SemSur/tree/master/Documentation [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.applicationrdf+xml. 
+RewriteRule ^browserquest$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl [R=303,NE,L]
+
+#default response owl
+RewriteRule ^browserquest$ https://github.com/saidfathalla/SemSur/blob/master/SemSur.owl [R=303,NE,L]
