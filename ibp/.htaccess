@@ -5,7 +5,45 @@ RewriteEngine on
 # Turn off MultiViews
 Options -MultiViews
 
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^CTRLont$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/index-en.html [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^CTRLont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CTRLont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.xml [R=302,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^CTRLont.ttl$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^CTRLont.html$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/index-en.html [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^CTRLont.rdf$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.xml [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^CTRLont.jsonld$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.json [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^CTRLont.nt$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/ontology.nt [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^CTRLont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/index-en.html [R=303,NE,L]
 
 # StateMachineOntology
 # If application looks for .ttl
@@ -21,21 +59,6 @@ RewriteRule ^StateMachineOntology$ https://htmlpreview.github.io/?https://raw.gi
 
 # Default provide .ttl
 RewriteRule ^StateMachineOntology$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateMachineOntology/StateMachineOntology.ttl [R=303]
-
-# CTRLont
-# If application looks for .ttl
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^CTRLont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/CTRLont.ttl [R=303]
-
-# If application looks for .html
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^CTRLont$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/CTRLont.html [R=303]
-
-# Default provide .ttl
-RewriteRule ^CTRLont$ https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/CTRLont.ttl [R=303]
 
 # ConditionOntology
 # If application looks for .ttl
