@@ -1,5 +1,6 @@
 ATM Information Reference Model Ontology (AIRM-O)
 ===
+This project maintains an OWL representation of the ATM Information Reference Model Ontolgy (AIRM).
 
 Resources:
 ---
