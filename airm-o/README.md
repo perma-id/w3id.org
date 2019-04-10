@@ -4,9 +4,9 @@ This project maintains an OWL representation of the ATM Information Reference Mo
 
 Resources:
 ---
-* https://github.com/airm-o (project website)
-* https://github.com/airm-o/airm-o (AIRM-O ontology and support material)
-* https://github.com/airm-o/atmonto2airm (mapping between ATMONTO and AIRM-O)
+* https://w3id.org/airm-o (project website)
+* https://w3id.org/airm-o/airm-o (AIRM-O ontology and support material)
+* https://w3id.org/airm-o/atmonto2airm (mapping between ATMONTO and AIRM-O)
 
 Contacts:
 ---
