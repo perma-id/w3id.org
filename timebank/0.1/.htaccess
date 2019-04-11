@@ -7,6 +7,7 @@ AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
 AddType application/n-triples .nt
+AddType application/ld+json .json
 
 # Rewrite engine setup
 RewriteEngine On
@@ -32,6 +33,10 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^(.*)$ https://tobiasgrubenmann.github.io/Ontologies/Timebank/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://tobiasgrubenmann.github.io/Ontologies/Timebank/ontology.json [R=303,L]
 
 # Choose the default response
 # ---------------------------
