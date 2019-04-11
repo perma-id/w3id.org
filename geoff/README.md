@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://w3c-adapt-osi/geoff/
-* Turtle   https://w3c-adapt-osi/geoff/geoff.ttl
+* Doc      http://theme-e.adaptcentre.ie/geoff/
+* Turtle   http://theme-e.adaptcentre.ie/geoff/geoffv1.1.rdf
 
 
 Contacts
