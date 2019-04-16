@@ -7,13 +7,11 @@ Documentation:
 
 Source:
 
-* https://w3id.org/ibp/CTRLont --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/CTRLont.ttl
-* https://w3id.org/ibp/StateMachineOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateMachineOntology/StateMachineOntology.ttl
-* https://w3id.org/ibp/StateGraphOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateGraphOntology/StateGraphOntology.ttl
-* https://w3id.org/ibp/ScheduleOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ScheduleOntology/ScheduleOntology.ttl
-* https://w3id.org/ibp/ConditionOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ConditionOntology/ConditionOntology.ttl
+* https://w3id.org/ibp/$OntologyName$ --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/$OntologyName$/$OntologyName$.ttl
 
-Similar for html documentation.
+Documentation of ontology
+
+* https://w3id.org/ibp/$OntologyName$ --> https://htmlpreview.github.io/?https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/$OntologyName$/$OntologyName$.html 
 
 Contact:
 
