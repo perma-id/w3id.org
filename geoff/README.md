@@ -3,8 +3,8 @@
 Ontology
 
 * Doc      http://theme-e.adaptcentre.ie/geoff/
-* Turtle   http://theme-e.adaptcentre.ie/geoff/geoffv1.1.ttl
-
+* Turtle   http://theme-e.adaptcentre.ie/geoff/geoffv1.02.006.ttl
+* RDF/XML   http://theme-e.adaptcentre.ie/geoff/geoffv1.02.006.rdf
 
 Contacts
 
