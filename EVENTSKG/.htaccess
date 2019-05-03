@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .json
+
+RewriteEngine on
+
+#Rewrite rules for ekg
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ekg$ http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^ekg$ http://kddste.sda.tech/EVENTSKG-Dataset/EVENTKG_R2.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^ekg$ http://kddste.sda.tech/EVENTSKG-Dataset/EVENTKG_R2.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.*
+RewriteRule ^ekg$ http://kddste.sda.tech/EVENTSKG-Dataset/EVENTKG_R2.json [R=303,NE,L]
+#default response: ttl
+RewriteRule ^ekg$ http://kddste.sda.tech/EVENTSKG-Dataset/EVENTKG_R2.ttl [R=303,NE,L]
