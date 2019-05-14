@@ -2,8 +2,8 @@ Header set Access-Control-Allow-Origin *
 AddType application/rdf+xml .rdf
 Options +FollowSymLinks
 RewriteEngine on
+
 RewriteRule ^$ http://ecodigit.dtclazio.it [R=302,L]
-RewriteRule ^(.+)$ http://ecodigit.dtclazio.it/$1 [R=302,L]
 
 # Rewrite rule to serve HTML content
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -18,3 +18,5 @@ RewriteRule ^ontology(.*)$ https://raw.githubusercontent.com/ecodigit/workspace/
 
 # Choose the default response
 RewriteRule ^ontology(.*)$ https://raw.githubusercontent.com/ecodigit/workspace/master/ontology/$1/latest/$1.owl [R=303,L]
+
+RewriteRule ^(.+)$ http://ecodigit.dtclazio.it/$1 [R=302,L]
