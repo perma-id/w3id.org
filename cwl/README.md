@@ -29,6 +29,12 @@ Permalinks:
 * https://w3id.org/cwl/view/
 * https://w3id.org/cwl/view/git/933bf2a1a1cce32d88f88f136275535da9df0954/workflows/hello/hello.cwl#main
 
+CWLProv profile:
+* https://w3id.org/cwl/prov
+* https://w3id.org/cwl/prov/0.1.0
+* https://w3id.org/cwl/prov/0.2.0
+* https://w3id.org/cwl/prov/0.3.0
+
 References:
 * http://www.commonwl.org/
 * https://github.com/common-workflow-language/common-workflow-language
