@@ -1,0 +1,12 @@
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^/?$ http://theme-e.adaptcentre.ie/dave/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$  http://theme-e.adaptcentre.ie/dave/dave.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$  http://theme-e.adaptcentre.ie/dave/dave.ttl [R=303,NE,L]

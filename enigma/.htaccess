@@ -118,6 +118,21 @@ RewriteRule ^wg/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntolog
 #default response: owl
 RewriteRule ^wg/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntology/release/workingGroup/1.0.0/ontology.ttl [R=303,NE,L]
 
+#Rewrite rules for roles module
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^roles/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntology/release/roles/1.0.0/index-en.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^roles/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntology/release/roles/1.0.0/ontology.xml [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^roles/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntology/release/roles/1.0.0/ontology.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^roles/.*$ https://knowledgecaptureanddiscovery.github.io/EnigmaOntology/release/roles/1.0.0/ontology.ttl [R=303,NE,L]
+
 
 #Rewrite rules for ENIGMA aggregated ontology (default) 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)

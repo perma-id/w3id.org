@@ -5,83 +5,180 @@ RewriteEngine on
 # Turn off MultiViews
 Options -MultiViews
 
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^CTRLont.ttl$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^CTRLont.html$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^CTRLont.rdf$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^CTRLont.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^CTRLont.nt$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
 
 # StateMachineOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^StateMachineOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateMachineOntology/StateMachineOntology.ttl [R=303]
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/StateMachineOntology.ttl [R=303,L]
 
 # If application looks for .html
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^StateMachineOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateMachineOntology/StateMachineOntology.html [R=303]
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/StateMachineOntology.html [R=303,L]
 
 # Default provide .ttl
-RewriteRule ^StateMachineOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateMachineOntology/StateMachineOntology.ttl [R=303]
-
-# CTRLont
-# If application looks for .ttl
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^CTRLont$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/CTRLont/CTRLont.ttl [R=303]
-
-# If application looks for .html
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^CTRLont$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/CTRLont/CTRLont.html [R=303]
-
-# Default provide .ttl
-RewriteRule ^CTRLont$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/CTRLont/CTRLont.ttl [R=303]
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/StateMachineOntology.ttl [R=303,L]
 
 # ConditionOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^ConditionOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ConditionOntology/ConditionOntology.ttl [R=303]
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.ttl [R=303,L]
 
 # If application looks for .html
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ConditionOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ConditionOntology/ConditionOntology.html [R=303]
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.html [R=303,L]
 
 # Default provide .ttl
-RewriteRule ^ConditionOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ConditionOntology/ConditionOntology.ttl [R=303]
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.ttl [R=303,L]
 
 # ScheduleOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^ScheduleOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ScheduleOntology/ScheduleOntology.ttl [R=303]
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ScheduleOntology.ttl [R=303,L]
 
 # If application looks for .html
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ScheduleOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ScheduleOntology/ScheduleOntology.html [R=303]
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ScheduleOntology.html [R=303,L]
 
 # Default provide .ttl
-RewriteRule ^ScheduleOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/ScheduleOntology/ScheduleOntology.ttl [R=303]
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ScheduleOntology.ttl [R=303,L]
 
 # StateGraphOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^StateGraphOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateGraphOntology/StateGraphOntology.ttl [R=303]
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/StateGraphOntology.ttl [R=303,L]
 
 # If application looks for .html
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^StateGraphOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateGraphOntology/StateGraphOntology.html [R=303]
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/StateGraphOntology.html [R=303,L]
 
 # Default provide .ttl
-RewriteRule ^StateGraphOntology$ https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/StateGraphOntology/StateGraphOntology.ttl [R=303]
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/StateGraphOntology.ttl [R=303,L]
 
+# FMUont
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.ttl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.html [R=303,L]
+
+# Default provide .ttl
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.ttl [R=303,L]
+
+# MooreMachineOntology
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/MooreMachineOntology.ttl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/MooreMachineOntology.html [R=303,L]
+
+# Default provide .ttl
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/MooreMachineOntology.ttl [R=303,L]
+
+# MealeyMachineOntology
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^MealeyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealeyMachineOntology/MealeyMachineOntology.ttl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MealeyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealeyMachineOntology/MealeyMachineOntology.html [R=303,L]
+
+# Default provide .ttl
+RewriteRule ^MealeyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealeyMachineOntology/MealeyMachineOntology.ttl [R=303,L]
+
+# HEX
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.owl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.html [R=303,L]
+
+# Default provide .owl
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.owl [R=303,L]
+
+# bim4hex
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4hex.owl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4Hex.html [R=303,L]
+
+# Default provide .owl
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4hex.owl [R=303,L]
 
 # Default rewrite if only namespace is accessed
-RewriteRule ^$ https://github.com/TechnicalBuildingSystems/Ontologies/ [R=302,L]
+RewriteRule ^$ https://technicalbuildingsystems.github.io/Ontologies/ [R=303,L]
