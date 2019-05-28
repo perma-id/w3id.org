@@ -8,8 +8,6 @@ AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .json
 
-RewriteRule ^$ http://sepses.ifs.tuwien.ac.at [R=302,L]
-RewriteRule ^(.*)$ http://sepses.ifs.tuwien.ac.at/$1 [R=302,L]
 
 #Rewrite rules for sepses vocabulary 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
@@ -34,3 +32,5 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^vocab/ref/$ http://sepses.ifs.tuwien.ac.at/vocab/ref/$1/ontology.ttl [R=303,NE,L]
 
+RewriteRule ^$ http://sepses.ifs.tuwien.ac.at [R=302,L]
+RewriteRule ^(.*)$ http://sepses.ifs.tuwien.ac.at/$1 [R=302,L]
