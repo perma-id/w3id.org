@@ -1,9 +1,13 @@
 Repository for redirecting to SARO ontology
 
 
-Original Specs: https://github.com/elisasibarani/SARO/blob/master/saro.html
+Original Specs: hhttps://elisasibarani.github.io/SARO/ 
 Description and Viz instance on VOCOL: https://vocol.iais.fraunhofer.de/saro/visualization
 
 Raw files:
-https://github.com/elisasibarani/SARO/blob/master/saro.rdfs
-https://github.com/elisasibarani/SARO/blob/master/saro.ttl
+https://elisasibarani.github.io/SARO/saro.rdf
+https://elisasibarani.github.io/SARO/saro.ttl
+
+Contact info: scerrisimon.academia@gmail.com
+
+
