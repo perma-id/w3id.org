@@ -1,0 +1,34 @@
+RewriteEngine on
+
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType text/owl-manchester .omn
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(.*)/?$ https://intuit.crs4.it/ttla/$1 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/owl\-manchester.*
+RewriteRule ^/?$ https://intuit.crs4.it/ttla1.1.omn [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x\-json\+ld.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/ntriples.*
+RewriteRule ^(.*)/?$ https://api.intuit.crs4.it/ttla/v1.1/concepts/$1 [R=302,L]
+
+RewriteRule ^/?$ https://intuit.crs4.it/ttla [R=302,L]

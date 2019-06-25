@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine on
+#A set of rewrite rules with content negotiation for w3id.org/people/jpcik
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^me$ http://jpcik.github.io/me/card.xml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^me$ http://jpcik.github.io/me/card.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^me$ http://jpcik.github.io/me/card.json [R=303,L]
+RewriteRule ^me$ http://jeanpi.org [R=303,L]

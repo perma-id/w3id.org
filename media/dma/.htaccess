@@ -1,0 +1,104 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine on
+#RewriteRule ^$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/v1.0/dma.owl [R=302,L]
+#RewriteRule ^1.0$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/v1.0/dma.owl [R=302,L]
+#RewriteRule ^JamesBond_CaseStudy$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/V1.0/JamesBond_CaseStudy.owl [R=302,L]
+#RewriteRule ^JamesBond_CaseStudy/1.0$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/V1.0/JamesBond_CaseStudy.owl [R=302,L]
+RewriteRule ^doc$ https://knowledge-learning.github.io/Digital-Media-Asset/ [R=302,L]
+RewriteRule ^desc$ https://knowledge-learning.github.io/Digital-Media-Asset/ [R=302,L]
+RewriteRule ^JamesBond_CaseStudy/doc$ https://knowledge-learning.github.io/Digital-Media-Asset/Casino_Royale/ [R=302,L]
+RewriteRule ^JamesBond_CaseStudy/desc$ https://knowledge-learning.github.io/Digital-Media-Asset/Casino_Royale/ [R=302,L]
+RewriteRule ^sam$ https://gplsi.dlsi.ua.es/gplsi13/es/node/259 [R=302,L]
+RewriteRule ^redes$ https://gplsi.dlsi.ua.es/redes [R=302,L]
+RewriteRule ^siia$ https://gplsi.dlsi.ua.es/prometeu [R=302,L]
+
+
+
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.OWL files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .owl
+
+# Rewrite engine setup
+RewriteEngine On
+#RewriteBase /examples
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://knowledge-learning.github.io/Digital-Media-Asset/ [R=303]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/v1.0/dma.owl [R=303]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^1.0$ https://knowledge-learning.github.io/Digital-Media-Asset/ [R=303]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^1.0$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/v1.0/dma.owl [R=303]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^JamesBond_CaseStudy$ https://knowledge-learning.github.io/Digital-Media-Asset/Casino_Royale/ [R=303]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^JamesBond_CaseStudy$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/V1.0/JamesBond_CaseStudy.owl [R=303]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^JamesBond_CaseStudy/1.0$ https://knowledge-learning.github.io/Digital-Media-Asset/Casino_Royale/ [R=303]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^JamesBond_CaseStudy/1.0$ https://github.com/knowledge-learning/Digital-Media-Asset/releases/download/V1.0/JamesBond_CaseStudy.owl [R=303]
+
+
+
+
+
+
+## Rewrite rule to serve directed HTML content from class/prop URIs
+#RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+#RewriteCond %{HTTP_ACCEPT} text/html [OR]
+#RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+#RewriteRule ^example4/(.+) example4-content/2005-10-31.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if requested
+#RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+#RewriteRule ^example4/ example4-content/2005-10-31.rdf [R=303]
+
+# Choose the default response
+# ---------------------------
+
+# Rewrite rule to serve RDF/XML content by default
+#RewriteRule ^example4/ example4-content/2005-10-31.rdf [R=303]
+
+# Rewrite rules to serve HTML content by default (disabled)
+# (To enable this option, uncomment the two rewrite rules below,
+# and comment out the rewrite rule directly above)
+# RewriteRule ^example4/$ example4-content/2005-10-31.html [R=303]
+# RewriteRule ^example4/(.+) example4-content/2005-10-31.html#$1 [R=303,NE]
+
+
+
