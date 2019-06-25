@@ -1,4 +1,4 @@
-### Permanent ID for Edwin
+### Permanent ID for edwin
 
 A framework for computing and analyising Equivalence Set Graphs.
 
