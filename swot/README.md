@@ -1,4 +1,4 @@
-# IOMUST: internet of musical things ontology
+# SWOT: Semantic Web of Things Ontology
 
 Contact: Francesco Antoniazzi (francesco.antoniazzi AT unibo.it)
 
