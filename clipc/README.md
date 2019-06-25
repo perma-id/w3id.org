@@ -2,10 +2,15 @@ CLIPC
 =====
 
 Homepage:
-* http://w3id.org/clipc
+ * http://w3id.org/clipc
 
-Meetings:
-* http://w3id.org/clipc/meetings/copenhagen_may2015
+Sub-directories
+---------------
+ * docs: Miscellaneous documents, including presentations and posters
+ * forms: Forms
+ * meetings: Meeting minutes etc
+ * proc: Papers, posters and proceedings
+ * schemas: schema documents.
 
 Contacts:
 * Martin Juckes <martin.juckes@stfc.ac.uk>
