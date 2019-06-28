@@ -1,0 +1,51 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+
+# meta/ --> docs
+RewriteRule ^meta\/(.*)$ docs
+
+# type/ --> docs/types
+RewriteRule ^type\/(.*)$ docs/types
+
+# types --> includes/types
+RewriteRule ^types(\/?)$ includes/types
+
+# types.sfx --> includes/types.sfx
+RewriteRule ^(types\.)(.+)$ includes/types.$2
+
+
+# Poor man's conneg
+# ------------------------------------
+RewriteCond %{HTTP_ACCEPT} ^text/turtle
+RewriteRule ^(.*/)([^./]+)$ $1$2.ttl [L]
+
+RewriteCond %{HTTP_ACCEPT} ^text/turtle
+RewriteRule ^(meta)$ meta.ttl [L]
+
+RewriteCond %{HTTP_ACCEPT} ^text/yaml
+RewriteRule ^(.*/)([^./]+)$ $1$2.yaml [L]
+
+RewriteCond %{HTTP_ACCEPT} ^text/yaml
+RewriteRule ^(meta)$ meta.yaml [L]
+
+RewriteCond %{HTTP_ACCEPT} ^application/json
+RewriteRule ^(.*/)([^./]+)$ $1$2.jsonld [L]
+
+RewriteCond %{HTTP_ACCEPT} ^application/json
+RewriteRule ^(meta)$ meta.jsonld [L]
+
+RewriteCond %{HTTP_ACCEPT} ^text/shex
+RewriteRule ^(.*/)([^./]+)$ $1$2.shex [L]
+
+RewriteCond %{HTTP_ACCEPT} ^text/shex
+RewriteRule ^(meta)$ meta.shex [L]
+
+# RewriteCond %{HTTP_ACCEPT} ^text/html
+# RewriteRule ^(.*/)[^./]+)$ $1$2.html [L]
+
+# RewriteCond %{HTTP_ACCEPT} ^text/html
+# RewriteRule ^(meta)$ meta.html [L]
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://biolink.github.io/biolinkml/$1 [R=302,L]

@@ -3,13 +3,13 @@ The Linked Datatype Ontology, and multiple Linked Datatypes
 ===
 
 Homepage:
-* https://w3id.org/lindt/ --> http://ci.emse.fr/lindt/
+* https://w3id.org/lindt/ --> https://ci.mines-stetienne.fr/lindt/
 
 Paper:
-* http://ci.emse.fr/lindt/LefrancoisZimmermann-ESWC2016-Supporting.pdf
+* https://ci.mines-stetienne.fr/lindt/LefrancoisZimmermann-ESWC2016-Supporting.pdf
 
 Source:
 * https://github.com/thesmartenergy/lindt-site
 
 Contacts: 
-* Maxime Lefrançois <maxime.lefrancois.86@gmail.com>
+* Maxime Lefrançois <maxime.lefrancois@emse.fr>
