@@ -6,17 +6,17 @@ Options +FollowSymLinks
 
 RewriteEngine on
 
+#specific version 'v1.2'
+RewriteRule ^1.2.0$ https://github.com/biocompute-objects/BCO_Specification/tree/v1.2 [R=302,L]
+
 # Any specific version
 RewriteRule ^(\d+.\d+.\d+)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1 [R=302,L]
 
+# Any file in specific version tree 
+RewriteRule ^(\d+.\d+.\d+)/(.*)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1 [R=302,L]
+
 # All releases 
 RewriteRule ^releases$ https://github.com/biocompute-objects/BCO_Specification/releases [R=302,L]
-
-#specific version 'v1.2'
-RewriteRule ^spec/v1.2$ https://github.com/biocompute-objects/BCO_Specification/tree/v1.2 [R=302,L]
-
-# Any example 
-RewriteRule ^(\d+.\d+.\d+)/examples/(.*)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1/examples [R=302,L]
 
 # Any example on the current branch
 RewriteRule ^/examples/(.*)$ https://github.com/biocompute-objects/examples/blob/master/$1 [R=302,L]
