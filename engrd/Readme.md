@@ -1,6 +1,6 @@
 # Engineering Ingegneria Informatica SpA <br/> 
 ## Research and Development Department
-<hr>
+
 
 Homepage:
 * https://www.eng.it
