@@ -4,5 +4,11 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
-
-RewriteRule ^(.*)$ https://essepuntato.github.io/lode/$1 [R=303,L]
+RewriteRule owlapi/ owlapi=true& [NE,QSA]
+RewriteRule imported/ imported=true& [NE,QSA]
+RewriteRule reasoner/ reasoner=true& [NE,QSA]
+RewriteRule closure/ closure=true& [NE,QSA]
+RewriteRule lang=([^/]+)/ lang=$1& [NE,QSA]
+RewriteRule http url=http [NE,QSA]
+RewriteRule ^(.)  http://150.146.207.114/lode/extract?$1 [QSA,L,R=303]
+RewriteRule ^$ http://essepuntato.it/lode [L,R=303]
