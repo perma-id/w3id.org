@@ -6,5 +6,8 @@ Provides links to the Survey Ontology designed by the Knowledge Technologies gro
 Vocabulary:
 * https://w3id.org/so-ontology (@prefix so: https://w3id.org/so-ontology#)
 
+Vocabulary diagram:
+* https://w3id.org/so-ontology/ontology.png
+
 Contacts: 
-* <coney@cefriel.com>
+* Authors mailing list: <coney@cefriel.com>
