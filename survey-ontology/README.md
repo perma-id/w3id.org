@@ -1,13 +1,13 @@
-so-ontology
+survey-ontology
 ===
 
 Provides links to the Survey Ontology designed by the Knowledge Technologies group at Cefriel, Milan.
 
 Vocabulary:
-* https://w3id.org/so-ontology (@prefix so: https://w3id.org/so-ontology#)
+* https://w3id.org/survey-ontology (@prefix sur: https://w3id.org/survey-ontology#)
 
 Vocabulary diagram:
-* https://w3id.org/so-ontology/diagram
+* https://w3id.org/survey-ontology/diagram
 
 Contacts: 
 * Authors mailing list: <coney@cefriel.com>
