@@ -4,6 +4,8 @@ Research Object specifications
 Specifications:
 * https://w3id.org/ro/
 * https://w3id.org/ro/bagit
+* https://w3id.org/ro/crate
+* https://w3id.org/ro/crate/0.2
 
 Ontologies:
 * https://w3id.org/ro/ro (namespace: http://purl.org/wf4ever/ro#)
@@ -13,6 +15,7 @@ Ontologies:
 * https://w3id.org/ro/roevo (namespace: http://purl.org/wf4ever/roevo#)
 
 JSON-LD contexts:
+* https://w3id.org/ro/crate/0.2/context
 * https://w3id.org/ro/wfdesc/context
 * https://w3id.org/ro/wf4ever/context
 
@@ -31,7 +34,10 @@ References:
 * https://w3id.org/bundle
 
 Contacts: 
-* Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Sean Bechhofer <sean.bechhofer@manchester.ac.uk>
+* Stian Soiland-Reyes <stain@apache.org>
+* Peter Sefton <Peter.Sefton@uts.edu.au>
+* Eoghan Ó Carragáin <eoghan.ocarragain@ucc.ie>
 * Daniel Garijo <dgarijov@gmail.com>
 * Raul Palma <rpalma@man.poznan.pl>
+* Sean Bechhofer <sean.bechhofer@manchester.ac.uk>
+
