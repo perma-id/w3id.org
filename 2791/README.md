@@ -2,7 +2,7 @@ IEEE 2791
 ==========
 
 ## Specification: 	
-* https://w3id.org/2791/1.0.0
+* https://w3id.org/2791/
 
 ## GitLab Orginizations:
 * https://gitlab.com/IEEE-SA/BioCompute/bco-schema/
