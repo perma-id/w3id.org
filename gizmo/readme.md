@@ -9,7 +9,7 @@ Demonstration of a Customizable Representation Model for
 Graph-Based Visualizations of Ontologies – GizMO
 
 Abstract. Visualizations can facilitate the development, exploration, communication,
-and sense-making of ontologies. Suitable visualizations,however, are highly dependent
+and sense-making of ontologies. Suitable visualizations, however, are highly dependent
 on individual use cases and targeted user groups. In this demo, we present a methodology 
 that enables customizable definitions for ontology visualizations. 
 We showcase its applicability by introducing GizMO, a representation model for
