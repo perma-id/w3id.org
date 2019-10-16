@@ -11,10 +11,10 @@ Graph-Based Visualizations of Ontologies – GizMO
 Abstract. Visualizations can facilitate the development, exploration,
 communication, and sense-making of ontologies. Suitable visualizations,
 however, are highly dependent on individual use cases and targeted user
-groups. In this demo, we present a methodology that enables customiz-
-able definitions for ontology visualizations. We showcase its applicability
-by introducing GizMO, a representation model for graph-based visual-
-izations in the form of node-link diagrams. Additionally, we present two
+groups. In this demo, we present a methodology that enables customizable
+definitions for ontology visualizations. We showcase its applicability
+by introducing GizMO, a representation model for graph-based visualizations
+ in the form of node-link diagrams. Additionally, we present two
 applications that operate on the GizMO representation model and enable
 individual customizations for ontology visualizations.
 
