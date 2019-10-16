@@ -8,7 +8,7 @@ This w3id entry is created for the ISWC 2019 Demo:
 Demonstration of a Customizable Representation Model for 
 Graph-Based Visualizations of Ontologies – GizMO
 
-Abstract. Visualizations can facilitate the development, exploration, communication,
+Abstract: Visualizations can facilitate the development, exploration, communication,
 and sense-making of ontologies. Suitable visualizations, however, are highly dependent
 on individual use cases and targeted user groups. In this demo, we present a methodology 
 that enables customizable definitions for ontology visualizations. 
