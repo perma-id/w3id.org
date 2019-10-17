@@ -13,6 +13,8 @@ AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .json
 
+###   ###   ###   ###   ###   ###   ###   
+# CTRLont
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -45,6 +47,41 @@ RewriteRule ^CTRLont.nt$ https://technicalbuildingsystems.github.io/Ontologies/C
 # Default response: html
 RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
+# BasicDataTypeOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^BasicDataTypeOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^BasicDataTypeOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^BasicDataTypeOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^BasicDataTypeOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^BasicDataTypeOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
 # StateMachineOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -60,6 +97,7 @@ RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/On
 # Default provide .ttl
 RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/StateMachineOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # ConditionOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -75,6 +113,7 @@ RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontol
 # Default provide .ttl
 RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # ScheduleOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -90,6 +129,7 @@ RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontolo
 # Default provide .ttl
 RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ScheduleOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # StateGraphOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -105,6 +145,7 @@ RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Onto
 # Default provide .ttl
 RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/StateGraphOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # FMUont
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -120,6 +161,7 @@ RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUon
 # Default provide .ttl
 RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # MooreMachineOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -135,6 +177,7 @@ RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/On
 # Default provide .ttl
 RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/MooreMachineOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # MealeyMachineOntology
 # If application looks for .ttl
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -150,6 +193,7 @@ RewriteRule ^MealeyMachineOntology$ https://technicalbuildingsystems.github.io/O
 # Default provide .ttl
 RewriteRule ^MealeyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealeyMachineOntology/MealeyMachineOntology.ttl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # HEX
 # If application looks for .owl
 RewriteCond %{HTTP_ACCEPT} application/rdf+xml
@@ -165,6 +209,7 @@ RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/
 # Default provide .owl
 RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.owl [R=303,L]
 
+###   ###   ###   ###   ###   ###   ###   
 # bim4hex
 # If application looks for .owl
 RewriteCond %{HTTP_ACCEPT} application/rdf+xml
