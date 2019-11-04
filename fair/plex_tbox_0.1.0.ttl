@@ -1,0 +1,894 @@
+@prefix : <https://w3id.org/fair/plex#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix mls: <http://www.w3.org/ns/mls#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pwo: <http://purl.org/spar/pwo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bpmn: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix edam: <http://edamontology.org/> .
+@prefix opmw: <http://www.opmw.org/ontology/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix p-plan: <http://purl.org/net/p-plan#> .
+@prefix reprod: <https://w3id.org/reproduceme#> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/fair/plex> .
+
+<https://w3id.org/fair/plex> rdf:type owl:Ontology ;
+                             
+                             owl:versionInfo "0.1.0" ;
+                             
+                             dc:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://purl.org/dc/terms/description
+
+dc:description rdfs:isDefinedBy "http://purl.org/dc/terms/description" .
+
+
+
+###  http://purl.org/net/p-plan#correspondsToStep
+
+p-plan:correspondsToStep rdf:type owl:AnnotationProperty ;
+                         
+                         rdfs:seeAlso "http://purl.org/net/p-plan#correspondsToStep" ;
+                         
+                         rdfs:domain p-plan:Activity ;
+                         
+                         rdfs:range p-plan:Step .
+
+
+
+###  http://purl.org/net/p-plan#hasInputVar
+
+p-plan:hasInputVar rdf:type owl:AnnotationProperty ;
+                   
+                   rdfs:isDefinedBy "http://purl.org/net/p-plan#hasInputVar" .
+
+
+
+###  http://purl.org/net/p-plan#hasOutputVar
+
+p-plan:hasOutputVar rdf:type owl:AnnotationProperty ;
+                    
+                    rdfs:isDefinedBy "http://purl.org/net/p-plan#hasOutputVar" .
+
+
+
+###  http://purl.org/net/p-plan#isStepOfPlan
+
+p-plan:isStepOfPlan rdf:type owl:AnnotationProperty ;
+                    
+                    rdfs:isDefinedBy p-plan:isStepOfPlan .
+
+
+
+###  http://schema.org/URL
+
+schema:URL rdf:type owl:AnnotationProperty .
+
+
+
+###  http://www.w3.org/ns/dcat#mediaType
+
+dcat:mediaType rdf:type owl:AnnotationProperty ;
+               
+               rdfs:seeAlso "https://www.w3.org/ns/dcat#mediaType" .
+
+
+
+###  http://www.w3.org/ns/mls#specifiedBy
+
+mls:specifiedBy rdf:type owl:AnnotationProperty ;
+                
+                rdfs:seeAlso "http://www.w3.org/ns/mls#specifiedBy" .
+
+
+
+###  http://www.w3.org/ns/prov#generated
+
+prov:generated rdf:type owl:AnnotationProperty ;
+               
+               rdfs:seeAlso "http://www.w3.org/ns/prov#generated" .
+
+
+
+###  http://www.w3.org/ns/prov#hadPlan
+
+prov:hadPlan rdf:type owl:AnnotationProperty ;
+             
+             rdfs:seeAlso "https://www.w3.org/TR/prov-o/#hadPlan" .
+
+
+
+###  http://www.w3.org/ns/prov#hadRole
+
+prov:hadRole rdf:type owl:AnnotationProperty ;
+             
+             rdfs:seeAlso "https://www.w3.org/TR/prov-o/#hadRole" .
+
+
+
+###  http://www.w3.org/ns/prov#qualifiedGeneration
+
+prov:qualifiedGeneration rdf:type owl:AnnotationProperty ;
+                         
+                         rdfs:comment "Generation is the completion of production of a new entity by an activity. This entity did not exist before generation and becomes available for usage after this generation." ;
+                         
+                         rdfs:seeAlso "http://www.w3.org/ns/prov#qualifiedGeneration" .
+
+
+
+###  http://www.w3.org/ns/prov#wasAttributedTo
+
+prov:wasAttributedTo rdf:type owl:AnnotationProperty .
+
+
+
+###  http://www.w3.org/ns/prov#wasRevisionOf
+
+prov:wasRevisionOf rdf:type owl:AnnotationProperty ;
+                   
+                   rdfs:seeAlso "http://www.w3.org/ns/prov#wasRevisionOf" .
+
+
+
+###  http://www.w3.org/ns/shacl#select
+
+sh:select rdf:type owl:AnnotationProperty ;
+          
+          rdfs:domain sh:SPARQLConstraint .
+
+
+
+###  http://www.w3.org/ns/shacl#sparql
+
+sh:sparql rdf:type owl:AnnotationProperty .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://purl.org/dc/terms/language
+
+dc:language rdf:type owl:ObjectProperty ;
+            
+            rdfs:range dc:LinguisticSystem ;
+            
+            rdfs:isDefinedBy dc:language .
+
+
+
+###  http://purl.org/net/p-plan#hasInputVar
+
+p-plan:hasInputVar rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:isDefinedBy "http://purl.org/net/p-plan#hasInputVar" ;
+                   
+                   rdfs:domain p-plan:Step ;
+                   
+                   rdfs:range p-plan:Variable .
+
+
+
+###  http://purl.org/net/p-plan#hasOutputVar
+
+p-plan:hasOutputVar rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:isDefinedBy "http://purl.org/net/p-plan#hasOutputVar" ;
+                    
+                    rdfs:domain p-plan:Step ;
+                    
+                    rdfs:range p-plan:Variable .
+
+
+
+###  http://purl.org/net/p-plan#isStepOfPlan
+
+p-plan:isStepOfPlan rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:range p-plan:Plan ;
+                    
+                    rdfs:domain p-plan:Step ;
+                    
+                    rdfs:isDefinedBy p-plan:isStepOfPlan .
+
+
+
+###  http://purl.org/spar/pwo#hasFirstStep
+
+pwo:hasFirstStep rdfs:isDefinedBy "http://purl.org/spar/pwo/hasFirstStep" .
+
+
+
+###  http://www.w3.org/ns/dcat#mediaType
+
+dcat:mediaType rdf:type owl:ObjectProperty ;
+               
+               rdfs:seeAlso "https://www.w3.org/ns/dcat#mediaType" ;
+               
+               rdfs:range edam:format_1915 ;
+               
+               rdfs:domain dcat:Distribution .
+
+
+
+###  http://www.w3.org/ns/mls#specifiedBy
+
+mls:specifiedBy rdf:type owl:ObjectProperty ;
+                
+                rdfs:seeAlso "http://www.w3.org/ns/mls#specifiedBy" ;
+                
+                rdfs:range mls:EvaluationMeasure ;
+                
+                rdfs:domain mls:ModelEvaluation .
+
+
+
+###  http://www.w3.org/ns/prov#agent
+
+prov:agent rdf:type owl:ObjectProperty ;
+           
+           rdfs:seeAlso "https://www.w3.org/TR/prov-o/#p_agent" ;
+           
+           rdfs:range prov:Agent .
+
+
+
+###  http://www.w3.org/ns/prov#generated
+
+prov:generated rdf:type owl:ObjectProperty ;
+               
+               rdfs:seeAlso "http://www.w3.org/ns/prov#generated" ;
+               
+               rdfs:domain prov:Activity ;
+               
+               rdfs:range prov:Entity .
+
+
+
+###  http://www.w3.org/ns/prov#hadPlan
+
+prov:hadPlan rdf:type owl:ObjectProperty ;
+             
+             rdfs:seeAlso "https://www.w3.org/TR/prov-o/#hadPlan" ;
+             
+             rdfs:domain prov:Association ;
+             
+             rdfs:range prov:Plan .
+
+
+
+###  http://www.w3.org/ns/prov#hadRole
+
+prov:hadRole rdf:type owl:ObjectProperty ;
+             
+             rdfs:seeAlso "https://www.w3.org/TR/prov-o/#hadRole" ;
+             
+             rdfs:domain prov:Association ;
+             
+             rdfs:range prov:Role .
+
+
+
+###  http://www.w3.org/ns/prov#qualifiedGeneration
+
+prov:qualifiedGeneration rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:comment "Generation is the completion of production of a new entity by an activity. This entity did not exist before generation and becomes available for usage after this generation." ;
+                         
+                         rdfs:seeAlso "http://www.w3.org/ns/prov#qualifiedGeneration" ;
+                         
+                         rdfs:domain prov:Entity ;
+                         
+                         rdfs:range prov:Generation .
+
+
+
+###  http://www.w3.org/ns/prov#qualifiedUsage
+
+prov:qualifiedUsage rdf:type owl:ObjectProperty ;
+                    
+                    rdfs:isDefinedBy "http://www.w3.org/ns/prov#qualifiedUsage" ;
+                    
+                    rdfs:range prov:Usage .
+
+
+
+###  http://www.w3.org/ns/prov#wasAttributedTo
+
+prov:wasAttributedTo rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:range prov:Agent ;
+                     
+                     rdfs:domain prov:Entity .
+
+
+
+###  http://www.w3.org/ns/prov#wasRevisionOf
+
+prov:wasRevisionOf rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:seeAlso "http://www.w3.org/ns/prov#wasRevisionOf" ;
+                   
+                   rdfs:domain prov:Entity ;
+                   
+                   rdfs:range prov:Entity .
+
+
+
+###  http://www.w3.org/ns/shacl#sparql
+
+sh:sparql rdf:type owl:ObjectProperty ;
+          
+          rdfs:domain sh:NodeShape ;
+          
+          rdfs:range sh:SPARQLConstraint .
+
+
+
+###  http://www.w3.org/ns/shacl#targetClass
+
+sh:targetClass rdf:type owl:ObjectProperty ;
+               
+               rdfs:range owl:Thing ;
+               
+               rdfs:domain sh:NodeShape .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://purl.org/dc/terms/created
+
+dc:created rdf:type owl:DatatypeProperty ;
+           
+           rdfs:seeAlso "http://purl.org/dc/terms/created" ;
+           
+           rdfs:range rdfs:Literal .
+
+
+
+###  http://purl.org/dc/terms/modified
+
+dc:modified rdf:type owl:DatatypeProperty ;
+            
+            rdfs:seeAlso "http://purl.org/dc/terms/modified" ;
+            
+            rdfs:range rdfs:Literal .
+
+
+
+###  http://schema.org/URL
+
+schema:URL rdf:type owl:DatatypeProperty ;
+           
+           rdfs:range xsd:string .
+
+
+
+###  http://www.w3.org/ns/prov#atTime
+
+prov:atTime rdf:type owl:DatatypeProperty ;
+            
+            rdfs:seeAlso "http://www.w3.org/ns/prov#atTime" ;
+            
+            rdfs:comment "The PROV data model is implicitly based on a notion of instantaneous events (or just events), that mark transitions in the world. Events include generation, usage, or invalidation of entities, as well as starting or ending of activities. This notion of event is not first-class in the data model, but it is useful for explaining its other concepts and its semantics." ;
+            
+            rdfs:range xsd:dateTime .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://dkm.fbk.eu/index.php/BPMN2_Ontology#ManualTask
+
+bpmn:ManualTask rdf:type owl:Class ;
+                
+                rdfs:subClassOf p-plan:Step ;
+                
+                rdfs:isDefinedBy "http://dkm.fbk.eu/index.php/BPMN2_Ontology#manualTask" .
+
+
+
+###  http://dkm.fbk.eu/index.php/BPMN2_Ontology#ScriptTask
+
+bpmn:ScriptTask rdf:type owl:Class ;
+                
+                rdfs:subClassOf p-plan:Step ;
+                
+                rdfs:isDefinedBy "http://dkm.fbk.eu/index.php/BPMN2_Ontology#scriptTask" .
+
+
+
+###  http://edamontology.org/format_1915
+
+edam:format_1915 rdf:type owl:Class ;
+                 
+                 rdfs:label "Data format" ;
+                 
+                 rdfs:subClassOf owl:Thing ;
+                 
+                 rdfs:isDefinedBy "http://edamontology.org/format_1915" .
+
+
+
+###  http://edamontology.org/format_2330
+
+edam:format_2330 rdf:type owl:Class ;
+                 
+                 rdfs:label "Plain text format" ;
+                 
+                 rdfs:subClassOf edam:format_1915 ;
+                 
+                 rdfs:isDefinedBy "http://edamontology.org/format_2330" .
+
+
+
+###  http://edamontology.org/format_2376
+
+edam:format_2376 rdf:type owl:Class ;
+                 
+                 rdfs:label "Resource Description Framework (RDF)" ;
+                 
+                 rdfs:subClassOf edam:format_1915 ;
+                 
+                 rdfs:isDefinedBy "http://edamontology.org/format_2376" .
+
+
+
+###  http://edamontology.org/format_3256
+
+edam:format_3256 rdf:type owl:Class ;
+                 
+                 rdfs:label "N-Triples" ;
+                 
+                 rdfs:subClassOf edam:format_2376 ;
+                 
+                 rdfs:isDefinedBy "http://edamontology.org/format_3256" .
+
+
+
+###  http://edamontology.org/operation_0224
+
+edam:operation_0224 rdf:type owl:Class ;
+                    
+                    rdfs:label "Query and retrieval (EDAM)" ;
+                    
+                    rdfs:subClassOf p-plan:Step ;
+                    
+                    rdfs:isDefinedBy "http://edamontology.org/operation_0224" .
+
+
+
+###  http://edamontology.org/operation_2409
+
+edam:operation_2409 rdf:type owl:Class ;
+                    
+                    rdfs:label "Data handling (EDAM)" ;
+                    
+                    rdfs:subClassOf p-plan:Step ;
+                    
+                    rdfs:seeAlso "http://edamontology.org/operation_2409" .
+
+
+
+###  http://purl.org/dc/terms/LinguisticSystem
+
+dc:LinguisticSystem rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf owl:Thing ;
+                    
+                    rdfs:isDefinedBy "http://purl.org/dc/terms/LinguisticSystem" .
+
+
+
+###  http://purl.org/net/p-plan#Activity
+
+p-plan:Activity rdf:type owl:Class ;
+                
+                rdfs:subClassOf prov:Activity ;
+                
+                rdfs:isDefinedBy "http://purl.org/net/p-plan#Activity" ;
+                
+                rdfs:comment "A p-plan:Activity represents the execution of the process planned in a p-plan:Step. p-plan:Activity is a subclass of prov:Activity" .
+
+
+
+###  http://purl.org/net/p-plan#Plan
+
+p-plan:Plan rdf:type owl:Class ;
+            
+            rdfs:subClassOf prov:Plan ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty pwo:hasFirstStep ;
+                              owl:allValuesFrom p-plan:Step
+                            ] ;
+            
+            rdfs:isDefinedBy "http://purl.org/net/p-plan#Plan" .
+
+
+
+###  http://purl.org/net/p-plan#Step
+
+p-plan:Step rdf:type owl:Class ;
+            
+            rdfs:subClassOf owl:Thing ;
+            
+            rdfs:isDefinedBy "http://purl.org/net/p-plan#Step" .
+
+
+
+###  http://purl.org/net/p-plan#Variable
+
+p-plan:Variable rdf:type owl:Class ;
+                
+                rdfs:subClassOf owl:Thing ;
+                
+                rdfs:isDefinedBy "http://purl.org/net/p-plan#Variable" .
+
+
+
+###  http://purl.org/spar/fabio/Triplestore
+
+fabio:Triplestore rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf owl:Thing ;
+                  
+                  rdfs:isDefinedBy "http://purl.org/spar/fabio/Triplestore" .
+
+
+
+###  http://schema.org/ComputerLanguage
+
+schema:ComputerLanguage rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf dc:LinguisticSystem ;
+                        
+                        rdfs:isDefinedBy "http://schema.org/ComputerLanguage" .
+
+
+
+###  http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Workflow
+
+dul:Workflow rdf:type owl:Class ;
+             
+             rdfs:subClassOf owl:Thing ;
+             
+             rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Workflow" ;
+             
+             rdfs:comment "A Plan that defines Role(s), Task(s), and a specific structure for tasks to be executed, usually supporting the work of an Organization" .
+
+
+
+###  http://www.opmw.org/ontology/WorkflowExecutionArtifact
+
+opmw:WorkflowExecutionArtifact rdf:type owl:Class ;
+                               
+                               rdfs:subClassOf prov:Entity ;
+                               
+                               rdfs:isDefinedBy "http://www.opmw.org/ontology/WorkflowExecutionArtifact" .
+
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+
+rdfs:Resource rdf:type owl:Class .
+
+
+
+###  http://www.w3.org/ns/dcat#Dataset
+
+dcat:Dataset rdf:type owl:Class ;
+             
+             rdfs:subClassOf owl:Thing ;
+             
+             rdfs:isDefinedBy "http://www.w3.org/ns/dcat#Dataset" .
+
+
+
+###  http://www.w3.org/ns/dcat#Distribution
+
+dcat:Distribution rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf owl:Thing ;
+                  
+                  rdfs:isDefinedBy "http://www.w3.org/ns/dcat#Distribution" .
+
+
+
+###  http://www.w3.org/ns/mls#EvaluationMeasure
+
+mls:EvaluationMeasure rdf:type owl:Class ;
+                      
+                      rdfs:subClassOf owl:Thing ;
+                      
+                      rdfs:isDefinedBy "http://www.w3.org/ns/mls#EvaluationMeasure" .
+
+
+
+###  http://www.w3.org/ns/mls#ModelEvaluation
+
+mls:ModelEvaluation rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf opmw:WorkflowExecutionArtifact ;
+                    
+                    rdfs:isDefinedBy "http://www.w3.org/ns/mls#ModelEvaluation" .
+
+
+
+###  http://www.w3.org/ns/mls#Run
+
+mls:Run rdf:type owl:Class ;
+        
+        rdfs:subClassOf p-plan:Activity ;
+        
+        rdfs:isDefinedBy "http://www.w3.org/ns/mls#Run" .
+
+
+
+###  http://www.w3.org/ns/prov#Activity
+
+prov:Activity rdf:type owl:Class ;
+              
+              rdfs:subClassOf owl:Thing ;
+              
+              rdfs:isDefinedBy "https://www.w3.org/ns/prov#Activity" .
+
+
+
+###  http://www.w3.org/ns/prov#Agent
+
+prov:Agent rdf:type owl:Class ;
+           
+           rdfs:subClassOf owl:Thing ;
+           
+           rdfs:isDefinedBy "https://www.w3.org/TR/prov-o/#Agent" .
+
+
+
+###  http://www.w3.org/ns/prov#Association
+
+prov:Association rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf owl:Thing ;
+                 
+                 rdfs:isDefinedBy "https://www.w3.org/TR/prov-o/#Association" .
+
+
+
+###  http://www.w3.org/ns/prov#Bundle
+
+prov:Bundle rdf:type owl:Class ;
+            
+            rdfs:subClassOf prov:Entity ;
+            
+            rdfs:isDefinedBy "http://www.w3.org/ns/prov#Bundle" .
+
+
+
+###  http://www.w3.org/ns/prov#Entity
+
+prov:Entity rdf:type owl:Class ;
+            
+            rdfs:subClassOf owl:Thing ;
+            
+            rdfs:isDefinedBy "https://www.w3.org/TR/prov-o/#Entity" .
+
+
+
+###  http://www.w3.org/ns/prov#EntityInfluence
+
+prov:EntityInfluence rdf:type owl:Class ;
+                     
+                     rdfs:isDefinedBy "http://www.w3.org/ns/prov#EntityInfluence" .
+
+
+
+###  http://www.w3.org/ns/prov#Generation
+
+prov:Generation rdf:type owl:Class ;
+                
+                rdfs:subClassOf owl:Thing ;
+                
+                rdfs:isDefinedBy "http://www.w3.org/ns/prov#Generation" ;
+                
+                rdfs:comment "Generation is the completion of production of a new entity by an activity. This entity did not exist before generation and becomes available for usage after this generation." .
+
+
+
+###  http://www.w3.org/ns/prov#InstantaneousEvent
+
+prov:InstantaneousEvent rdf:type owl:Class ;
+                        
+                        rdfs:isDefinedBy "http://www.w3.org/ns/prov#InstantaneousEvent" .
+
+
+
+###  http://www.w3.org/ns/prov#Plan
+
+prov:Plan rdf:type owl:Class ;
+          
+          rdfs:subClassOf prov:Entity ;
+          
+          rdfs:isDefinedBy "https://www.w3.org/TR/prov-o/#Plan" .
+
+
+
+###  http://www.w3.org/ns/prov#Role
+
+prov:Role rdf:type owl:Class ;
+          
+          rdfs:subClassOf owl:Thing ;
+          
+          rdfs:isDefinedBy "https://www.w3.org/TR/prov-o/#Role" .
+
+
+
+###  http://www.w3.org/ns/prov#SoftwareAgent
+
+prov:SoftwareAgent rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf prov:Agent ;
+                   
+                   rdfs:isDefinedBy "http://www.w3.org/ns/prov#SoftwareAgent" .
+
+
+
+###  http://www.w3.org/ns/prov#Usage
+
+prov:Usage rdf:type owl:Class ;
+           
+           rdfs:subClassOf owl:Thing ,
+                           prov:EntityInfluence ,
+                           prov:InstantaneousEvent ;
+           
+           rdfs:isDefinedBy "http://www.w3.org/ns/prov#Usage" .
+
+
+
+###  http://www.w3.org/ns/shacl#NodeShape
+
+sh:NodeShape rdf:type owl:Class ;
+             
+             rdfs:subClassOf owl:Thing ;
+             
+             rdfs:isDefinedBy "http://www.w3.org/ns/shacl#NodeShape" .
+
+
+
+###  http://www.w3.org/ns/shacl#SPARQLConstraint
+
+sh:SPARQLConstraint rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf owl:Thing ;
+                    
+                    rdfs:isDefinedBy "http://www.w3.org/ns/shacl#SPARQLConstraint" .
+
+
+
+###  https://w3id.org/reproduceme#Cell
+
+reprod:Cell rdf:type owl:Class ;
+            
+            rdfs:subClassOf owl:Thing ;
+            
+            dc:description "A cell is a multiline text input field in an Interactive Notebook which can either be code cells where code can be excuted or markdown cells where a descriptive text can be provided or raw cells where output can directly be entered. For example, a Jupyter Notebook cell." ;
+            
+            rdfs:isDefinedBy "https://w3id.org/reproduceme#Cell" .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://purl.org/plex#ComputerLanguage_Python_3.7
+
+<http://purl.org/plex#ComputerLanguage_Python_3.7> rdf:type schema:ComputerLanguage ,
+                                                            owl:NamedIndividual ;
+                                                   
+                                                   rdfs:label "Python 3.7" ;
+                                                   
+                                                   owl:versionInfo "3.7" .
+
+
+
+###  http://purl.org/plex#LinguisticSystem_xsd_language_English
+
+<http://purl.org/plex#LinguisticSystem_xsd_language_English> rdf:type dc:LinguisticSystem ,
+                                                                      owl:NamedIndividual ;
+                                                             
+                                                             rdfs:label "en" ;
+                                                             
+                                                             rdfs:seeAlso "http://www.datypic.com/sc/xsd/t-xsd_language.html" .
+
+
+
+
+
+#################################################################
+#
+#    Annotations
+#
+#################################################################
+
+
+dul:isDescribedBy rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#isDescribedBy" .
+
+
+
+dcat:downloadURL rdfs:isDefinedBy "http://www.w3.org/ns/dcat#downloadURL" .
+
+
+
+dc:hasVersion rdfs:isDefinedBy "http://purl.org/dc/terms/hasVersion" .
+
+
+
+dc:publisher rdfs:seeAlso "http://purl.org/dc/elements/1.1/publisher" .
+
+
+
+dul:precedes rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#precedes" .
+
+
+
+dc:creator rdfs:seeAlso "http://purl.org/dc/elements/1.1/creator" .
+
+
+
+prov:entity rdfs:isDefinedBy "http://www.w3.org/ns/prov#entity" .
+
+
+
+dcat:distribution rdfs:isDefinedBy "http://www.w3.org/ns/dcat#distribution" .
+
+
+
+prov:used rdfs:isDefinedBy "http://www.w3.org/ns/prov#used" .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+
