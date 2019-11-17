@@ -3,16 +3,19 @@ Common Workflow Language
 
 Specification:
 * https://w3id.org/cwl/
-* https://w3id.org/cwl/draft-3/
+* https://w3id.org/cwl/v1.1/
 * https://w3id.org/cwl/v1.0/
+* https://w3id.org/cwl/draft-3/
 
 JSON-LD context:
 * https://w3id.org/cwl/context
 * https://w3id.org/cwl/salad/context
-* https://w3id.org/cwl/draft-3/salad/context
-* https://w3id.org/cwl/draft-3/context
+* https://w3id.org/cwl/v1.1/salad/context
+* https://w3id.org/cwl/v1.1/context
 * https://w3id.org/cwl/v1.0/salad/context
 * https://w3id.org/cwl/v1.0/context
+* https://w3id.org/cwl/draft-3/salad/context
+* https://w3id.org/cwl/draft-3/context
 
 
 Ontology:
@@ -20,10 +23,12 @@ Ontology:
 * https://w3id.org/cwl/salad#
 * https://w3id.org/cwl/cwl.ttl (for owl:import)
 * https://w3id.org/cwl/salad.ttl (for owl:import)
-* https://w3id.org/cwl/draft-3/cwl.ttl (for owl:import)
-* https://w3id.org/cwl/draft-3/salad.ttl (for owl:import)
+* https://w3id.org/cwl/v1.1/cwl.ttl (for owl:import)
+* https://w3id.org/cwl/v1.1/salad.ttl (for owl:import)
 * https://w3id.org/cwl/v1.0/cwl.ttl (for owl:import)
 * https://w3id.org/cwl/v1.0/salad.ttl (for owl:import)
+* https://w3id.org/cwl/draft-3/cwl.ttl (for owl:import)
+* https://w3id.org/cwl/draft-3/salad.ttl (for owl:import)
 
 Permalinks:
 * https://w3id.org/cwl/view/
@@ -31,9 +36,12 @@ Permalinks:
 
 CWLProv profile:
 * https://w3id.org/cwl/prov
-* https://w3id.org/cwl/prov/0.1.0
-* https://w3id.org/cwl/prov/0.2.0
+* https://w3id.org/cwl/prov/0.6.0
+* https://w3id.org/cwl/prov/0.5.0
+* https://w3id.org/cwl/prov/0.4.0
 * https://w3id.org/cwl/prov/0.3.0
+* https://w3id.org/cwl/prov/0.2.0
+* https://w3id.org/cwl/prov/0.1.0
 
 References:
 * http://www.commonwl.org/
@@ -42,7 +50,9 @@ References:
 * https://groups.google.com/d/forum/common-workflow-language
 
 Contacts:
+
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
 * Peter Amstutz <peter.amstutz@curoverse.com>
 * Nebosja Tijanic <nebojsa.tijanic@sbgenomics.com>
 * Michael Crusoe <michael.crusoe@gmail.com>
+
