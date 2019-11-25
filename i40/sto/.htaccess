@@ -4,13 +4,30 @@ Options -MultiViews
 
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
-AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
-AddType application/n-triples .n3
 AddType application/ld+json .json
 # Rewrite engine setup
 RewriteEngine On
 
+
+# TURTLE
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ http://i40.semantic-interoperability.org/sto/ontology.ttl [R=301,NE,L]
+
+RewriteRule ^(.*).ttl http://i40.semantic-interoperability.org/sto/ontology.ttl [R=301,NE,L]
+RewriteRule ^(.*).n3 http://i40.semantic-interoperability.org/sto/ontology.ttl [R=301,NE,L]
+
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^$ http://i40.semantic-interoperability.org/sto/ontology.owl  [R=301,NE,L]
+
+RewriteRule ^(.*).xml http://i40.semantic-interoperability.org/sto/ontology.owl [R=301,NE,L]
+RewriteRule ^(.*).rdf http://i40.semantic-interoperability.org/sto/ontology.owl [R=301,NE,L]
+
+# Default: HTML
 RewriteRule ^(.+)$ http://i40.semantic-interoperability.org/sto/$1 [R=301,NE,L]
 RewriteRule ^$ http://i40.semantic-interoperability.org/sto/ [R=301,NE,L]

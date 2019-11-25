@@ -51,7 +51,7 @@ Contacts
 
 * Irlan Grangel <grangel@cs.uni-bonn.de>
 
-* Niklas Petersen <petersen@informatik.uni-bonn.de>
+* Sebastian Bader <sebastian.bader@iais.fraunhofer.de>
 
-* Steffen Lohmann <Steffen.Lohmann@iais.fraunhofer.de>
+* Steffen Lohmann <steffen.lohmann@iais.fraunhofer.de>
 
