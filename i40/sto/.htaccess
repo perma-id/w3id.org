@@ -4,8 +4,9 @@ Options -MultiViews
 
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
-AddType application/rdf+xml .owl
+AddType application/rdf+xml .rdf
 AddType text/turtle .ttl
+AddType application/n-triples .nt
 AddType application/ld+json .json
 # Rewrite engine setup
 RewriteEngine On
@@ -27,6 +28,21 @@ RewriteRule ^$ https://i40-tools.github.io/I40KG/docs/serializations/ontology.xm
 
 RewriteRule ^(.*).xml https://i40-tools.github.io/I40KG/docs/serializations/ontology.xml [R=303,NE,L]
 RewriteRule ^(.*).rdf https://i40-tools.github.io/I40KG/docs/serializations/ontology.xml [R=303,NE,L]
+
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^$ https://i40-tools.github.io/I40KG/docs/serializations/ontology.json [R=303,NE,L]
+
+RewriteRule ^(.+).json https://i40-tools.github.io/I40KG/docs/serializations/ontology.json [R=303,L]
+RewriteRule ^(.+).jsonld https://i40-tools.github.io/I40KG/docs/serializations/ontology.json [R=303,L]
+
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^$ https://i40-tools.github.io/I40KG/docs/serializations/ontology.nt [R=303,NE,L]
+RewriteRule ^(.+).nt https://i40-tools.github.io/I40KG/docs/serializations/ontology.nt [R=303,NE,L]
+
 
 # Default: HTML
 RewriteRule ^(.+)$ https://i40-tools.github.io/I40KG/$1 [R=303,NE,L]
