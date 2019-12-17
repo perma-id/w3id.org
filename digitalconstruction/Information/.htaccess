@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options -MultiViews
+AddType text/turtle .ttl
+
+# Redirect based on file suffix (ttl, xml, owl, json, jsonld, html)
+RewriteRule ^ontology.ttl$ https://digitalconstruction.github.io/Information/ontology.ttl [R=302,NE,L]
+RewriteRule ^ontology.xml$ https://digitalconstruction.github.io/Information/ontology.xml [R=302,NE,L]
+RewriteRule ^ontology.owl$ https://digitalconstruction.github.io/Information/ontology.xml [R=302,NE,L]
+RewriteRule ^ontology.json$ https://digitalconstruction.github.io/Information/ontology.json [R=302,NE,L]
+RewriteRule ^ontology.jsonld$ https://digitalconstruction.github.io/Information/ontology.json [R=302,NE,L]
+RewriteRule ^ontology.html$ https://digitalconstruction.github.io/Information [R=302,NE,L]
+
+# If accept <text/turtle>, redirect to .ttl
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://digitalconstruction.github.io/Information/ontology.ttl [R=303,NE,L]
+
+# If accept <application/json> or <application/ld+json>, redirect to .json 
+RewriteCond %{HTTP_ACCEPT} ^.*json.*
+RewriteRule ^$ https://digitalconstruction.github.io/Information/ontology.json [R=303,NE,L]
+
+# If accept <application/xml>, <application/rdf+xml> or <application/owl+xml>, redirect to .xml 
+RewriteCond %{HTTP_ACCEPT} ^.*xml.*
+RewriteRule ^$ https://digitalconstruction.github.io/Information/ontology.xml [R=303,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://digitalconstruction.github.io/Information [R=303,NE,L]
