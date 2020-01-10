@@ -40,20 +40,28 @@ RDF/XML: http://i40.semantic-interoperability.org/smo/smo.owl
 
 i40/sto/:
 
-HTML: http://i40.semantic-interoperability.org/sto/
+HTML: https://i40-tools.github.io/I40KG/
 
-TTL: http://i40.semantic-interoperability.org/smo/sto.ttl 
+TTL: https://i40-tools.github.io/I40KG/docs/serializations/ontology.ttl 
 
-RDF/XML: http://i40.semantic-interoperability.org/smo/sto.xml
+RDF/XML: https://i40-tools.github.io/I40KG/docs/serializations/ontology.xml 
+
+JSON-LD: https://i40-tools.github.io/I40KG/docs/serializations/ontology.json
+
+N-TRIPLES: https://i40-tools.github.io/I40KG/docs/serializations/ontology.nt
 
 
 i40/sto_iot/:
 
-HTML: http://i40.semantic-interoperability.org/sto/
+HTML: https://i40-tools.github.io/I40KG/
 
-TTL: http://i40.semantic-interoperability.org/smo/sto.ttl 
+TTL: https://i40-tools.github.io/I40KG/docs/serializations/ontology.ttl 
 
-RDF/XML: http://i40.semantic-interoperability.org/smo/sto.xml
+RDF/XML: https://i40-tools.github.io/I40KG/docs/serializations/ontology.xml 
+
+JSON-LD: https://i40-tools.github.io/I40KG/docs/serializations/ontology.json
+
+N-TRIPLES: https://i40-tools.github.io/I40KG/docs/serializations/ontology.nt
 
 
 
