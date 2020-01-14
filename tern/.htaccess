@@ -86,6 +86,48 @@ RewriteRule ^ontologies/ssn.owl$ https://raw.githack.com/ternaustralia/ontology_
 # HTML
 RewriteRule ^ontologies/ssn/?$ https://ternaustralia.github.io/ontology_tern-ssn/ [R=303,L]
 
+
+##################################
+# https://w3id.org/tern/resources/
+##################################
+
+# Turtle
+RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=text/turtle
+RewriteRule ^resources\/(.+).ttl$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=text/turtle
+
+# RDF/XML
+RewriteCond %{QUERY_STRING} ^_format=application/rdf+xml$ [OR]
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/rdf+xml
+RewriteRule ^resources\/(.+).rdf$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/rdf+xml
+
+# N-Triples
+RewriteCond %{QUERY_STRING} ^_format=application/n-triples$ [OR]
+RewriteCond %{HTTP:Accept} application/n-triples [NC]
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/n-triples
+RewriteRule ^resources\/(.+).nt$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/n-triples
+
+# JSON-LD
+RewriteCond %{QUERY_STRING} ^_format=application/ld+json$ [OR]
+RewriteCond %{HTTP:Accept} application/ld+json [NC]
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/ld+json
+RewriteRule ^resources\/(.+).jsonld$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=application/ld+json
+
+# Notation3
+RewriteCond %{QUERY_STRING} ^_format=text/n3$ [OR]
+RewriteCond %{HTTP:Accept} text/n3 [NC]
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=text/n3
+RewriteRule ^resources\/(.+).n3$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=text/n3
+
+# .owl file extension
+RewriteRule ^resources\/(.+).owl$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core&output=text/turtle
+
+# HTML
+RewriteRule ^resources\/(.+)$ https://lodview.it/lodview/?IRI=$1&sparql=https://graphdb-850.tern.org.au/repositories/knowledge_graph_core
+
+
 #######################
 # https://w3id.org/tern
 #######################
