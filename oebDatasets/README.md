@@ -12,4 +12,3 @@ This project is managed by [INB](https://www.bsc.es/discover-bsc/organisation/sc
 @jmfernandez
 @sthhher
 @scapella
-
