@@ -1,5 +1,15 @@
-## Redirect for FAIR Data Stewardship Training Course LDP Server
+## Permanent identifier for ontological datasets in OpenEBench
 
-The root LDP Container for the students of the FAIR Data Stewardship course.
+This space is a data resource for the OpenEBench project, the benchmarking platform developed for [ELIXIR](https://elixir-europe.org/). Describes the different types of datasets involved in OpenEBench platform. **OEBdatasets** imports oebDataFormats' ontology to better define dataset's files adding 'file_type' properties.
 
-maintainer of this w3id:  Mark D Wilkinson:  mark.wilkinson@upm.es
+OpenEBench information: https://openebench.bsc.es/ 
+
+This project is managed by [INB](https://www.bsc.es/discover-bsc/organisation/scientific-structure/spanish-national-bioinformatics-institute-inbelixir) (Spanish National Institute of Bioinformatics), at the Barcelona Supercomputing Center.
+
+### Maintainers
+
+@lcodo
+@jmfernandez
+@sthhher
+@scapella
+
