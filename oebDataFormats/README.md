@@ -6,4 +6,10 @@ OpenEBench information: https://openebench.bsc.es/
 
 This project is managed by [INB](https://www.bsc.es/discover-bsc/organisation/scientific-structure/spanish-national-bioinformatics-institute-inbelixir) (Spanish National Institute of Bioinformatics), at the Barcelona Supercomputing Center.
 
+### Maintainers
+
+@lcodo
+@jmfernandez
+@sthhher
+@scapella
 
