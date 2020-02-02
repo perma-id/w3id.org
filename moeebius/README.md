@@ -5,10 +5,6 @@
 
 Parts of this work have been developed with funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. 680517 (MOEEBIUS)
 
-## Documentation:
-
-* https://w3id.org/moeebius/ --> https://github.com/MOEEBIUS/MOEEBIUS_Ontology
-
 ## Sources:
 
 * https://w3id.org/moeebius/MOEEBIUSOntology[ .ttl etc. ] --> https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology [ .ttl, etc. ]
