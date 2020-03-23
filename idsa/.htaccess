@@ -1,12 +1,57 @@
 Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
 RewriteEngine on
-RewriteRule ^$ https://www.internationaldataspaces.org/ [R=302]
-RewriteRule ^(core|code)/?$ https://industrialdataspace.github.io/InformationModel/ [R=302]
-RewriteRule ^(core|code).ttl https://github.com/IndustrialDataSpace/InformationModel/releases/download/v1.0.0/IDS-InformationModel_v1.0.0.ttl [R=302]
-RewriteRule ^(core|code).rdf https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.xml [R=302]
-RewriteRule ^(core|code).xml https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.xml [R=302]
-RewriteRule ^(core|code).json https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.json [R=302]
-RewriteRule ^(core|code).nt https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.nt [R=302]
-RewriteRule ^contexts/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/1.0.2/context.jsonld [R=302]
-RewriteRule ^contexts/context-dev.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/1.0.3/context.jsonld [R=302] 
-RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/$1/context.jsonld [R=302]
+
+
+# HTML
+RewriteRule ^$ https://www.internationaldataspaces.org/ [R=303]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* 
+RewriteRule ^(core|code)/?$ https://industrialdataspace.github.io/InformationModel/ [R=303]
+
+# TURTLE
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^(core|code)(/|#)* https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
+RewriteRule ^(core|code).ttl https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^(core|code)(/|#)*(.*) https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.xml  [R=303]
+RewriteRule ^(core|code).rdf https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.xml [R=303]
+RewriteRule ^(core|code).xml https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.xml [R=303]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(core|code)(/|#)*(.*) https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.json [R=303]
+RewriteRule ^(core|code).json https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.json [R=303]
+RewriteRule ^(core|code).jsonld https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.json [R=303]
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^(core|code)(/|#)* https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
+RewriteRule ^(core|code).nt https://industrialdataspace.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
+
+# context.json(ld)
+RewriteRule ^contexts/context.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/2.0.1/context.jsonld [R=303]
+RewriteRule ^contexts/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/2.0.1/context.jsonld [R=303]
+RewriteRule ^contexts/context-dev.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/2.0.1/context.jsonld [R=303] 
+RewriteRule ^contexts/context-dev.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/2.0.1/context.jsonld [R=303] 
+RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/$1/context.jsonld [R=303]
+RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/$1/context.jsonld [R=303]
+
+# 
+RewriteRule ^(core|code)/(.+) https://industrialdataspace.github.io/InformationModel/docs/index.html#/$2 [R=303,NE]
