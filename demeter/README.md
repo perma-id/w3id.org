@@ -9,4 +9,5 @@ References:
 * https://h2020-demeter.eu/
 
 Contacts: 
-* Raul Palma <rpalma@man.poznan.pl>
+* Raul Palma <rpalma@man.poznan.pl> (https://github.com/rapw3k/)
+
