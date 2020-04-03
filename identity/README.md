@@ -1,6 +1,7 @@
 # Identity Vocabulary
 
 https://web-payments.org/vocabs/identity
+https://github.com/web-payments/web-payments.org
 
 ## Maintainers
 
