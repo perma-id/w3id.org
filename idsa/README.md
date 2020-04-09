@@ -15,6 +15,7 @@ Redirections:
 * https://w3id.org/idsa/contexts/[a.b.c]/context.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/[a.b.c]/context.jsonld
 * https://w3id.org/idsa/contexts/context-dev.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/3.1.0/context.jsonld
 * https://w3id.org/idsa/ids-messages --> http://htmlpreview.github.io/?https://github.com/International-Data-Spaces-Association/InformationModel/blob/feature/message_taxonomy_description/model/communication/Message_Description.htm
+* https://w3id.org/idsa/shacl/* --> https://raw.githubusercontent.com/International-Data-Spaces-Association/InformationModel/develop/testing/*
 
 Support:
 * [Information Model GitHub Repository](https://github.com/International-Data-Spaces-Association/InformationModel)
