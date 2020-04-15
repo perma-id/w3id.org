@@ -7,4 +7,4 @@ References:
 https://h2020-demeter.eu/
 
 Contacts:
-Georgios Routis georgios.routis@hotmail.com (https://github.com/gero84)
+Georgios Routis groutis@mail.ntua.gr (https://github.com/gero84)
