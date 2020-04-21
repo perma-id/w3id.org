@@ -1,4 +1,4 @@
-# OPENEDUHUB
+# OpenEduHub
 
 The OpenEduHub-project is project funded by the German Federal Ministry of Education and Research and offers a platform to search for resources, platforms and tools in the context of education(<https://wirlernenonline.de>).
 
