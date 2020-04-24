@@ -1,6 +1,6 @@
 Drug Action Ontology (DAO)
 
-An ontology to describe drug action from the Semanticscience GitHub repository http://graphdb.dumontierlab.com/
+An ontology to describe drug actions, their provenance, and their evidence.
 
 Contact
 Michel Dumontier @micheldumontier
