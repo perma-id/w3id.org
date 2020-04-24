@@ -7,3 +7,4 @@ One of the goals of this project is to provide machine readable metadata and voc
 ## Contacts
 
 - wlo@edu-sharing-network.org
+- Steffen Rörtgen: steffen.roertgen@gwdg.de
