@@ -1,4 +1,4 @@
-==README ==
+== README ==
 
 This repository contains some vocabularies for /vocab/{vocab-prefix}
 

@@ -3,19 +3,15 @@
 
 Documentation:
 
-* https://w3id.org/ibp/ --> https://github.com/TechnicalBuildingSystems/Ontologies/
+* https://w3id.org/ibp/ --> https://technicalbuildingsystems.github.io/Ontologies/
 
 Source:
 
-* https://w3id.org/ibp/CTRLont --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/CTRLont/CTRLont.ttl
-* https://w3id.org/ibp/StateMachineOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateMachineOntology/StateMachineOntology.ttl
-* https://w3id.org/ibp/StateGraphOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/StateGraphOntology/StateGraphOntology.ttl
-* https://w3id.org/ibp/ScheduleOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ScheduleOntology/ScheduleOntology.ttl
-* https://w3id.org/ibp/ConditionOntology --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/ConditionOntology/ConditionOntology.ttl
-* https://w3id.org/ibp/FMUont --> https://raw.githubusercontent.com/TechnicalBuildingSystems/Ontologies/master/FMUont/FMUont.ttl
+* https://w3id.org/ibp/$OntologyName$ --> https://technicalbuildingsystems.github.io/Ontologies/$OntologyName$/$OntologyName$.ttl
 
+Documentation of ontology
 
-Similar for html documentation.
+* https://w3id.org/ibp/$OntologyName$ --> https://technicalbuildingsystems.github.io/Ontologies/$OntologyName$/$OntologyName$.html 
 
 Contact:
 
