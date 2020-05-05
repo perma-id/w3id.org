@@ -66,5 +66,6 @@ See [this repository](https://github.com/ternaustralia/w3id-tern-tests) for the 
 
 ## Contact
 
-Edmond Chuc  
+**Edmond Chuc**  
 e.chuc@uq.edu.au  
+edmondchuc on GitHub  
