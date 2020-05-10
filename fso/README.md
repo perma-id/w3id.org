@@ -1,9 +1,9 @@
-## The Building Topology Ontology (BOT)
+## Flow Systems Ontology (FSO)
 
 Ontology
 
-* Doc      https://w3c-lbd-cg.github.io/fso/
-* Turtle   https://w3c-lbd-cg.github.io/fso/fso.ttl
+* Doc      https://alikucukavci.github.io/FSO
+* Turtle   https://raw.githubusercontent.com/alikucukavci/FSO/master/fso.ttl
 
 
 Contacts

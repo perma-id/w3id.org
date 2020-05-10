@@ -1,0 +1,58 @@
+# Name of the project: Progetto Irnerio
+#
+# Description: The core part of this project consists of digitizing and classifying the vast collection 
+# of legal and theological-philosophical codices making up the rare-books collection of the Reale Collegio 
+# di Spagna in Bologna: with this digital catalogue, built under the guidance of Professors Domenico 
+# Maffei and Andrea Padovani, not only can the fragile codices be readily accessed and studied, but their 
+# preservation for future use is guaranteed, too. The project - named for the primus illuminator of 
+# legal science studies in Bologna, the Italian jurist Irnerius - have been possible by the Collegio di Spagna that 
+# made its rare-books collection available. Funding for the project comes from the Fondazione Cassa di Risparmio 
+# in Bologna, and also from the Italian Ministry of Higher Education and Scientific Research. The digital images 
+# have been reproduced under the editorship of the publishing house CLUEB. 
+#
+# Contacts:
+# - Monica Palmirani <monica.palmirani@unibo.it>
+# - Silvio Peroni <silvio.peroni@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# MEMO
+RewriteRule ^ontology/memo\.(html|xml|json|ttl|nt)$ https://irnerio-opendata.github.io/memo/current/memo.$1 [R=303,L]
+RewriteRule ^ontology/memo/([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])\.(html|xml|json|ttl|nt)$ https://irnerio-opendata.github.io/memo/$1/memo.$2 [R=303,L]
+
+
+### CONFIGURATION redir ontology/data: begin ########################
+
+# Rewrite rule for no content
+RewriteRule ^(ontology/.+|data/.+)\.(html|xml|json|ttl|nt)$ - [R=404,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^(ontology/.+|data/.+)$ /irnerio/$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(ontology/.+|data/.+)$ /irnerio/$1.xml [R=303,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl
+RewriteRule ^(ontology/.+|data/.+)$ /irnerio/$1.ttl [R=303,L]
+
+# Rewrite rule to serve Notation3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^(ontology/.+|data/.+)$ /irnerio/$1.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(ontology/.+|data/.+)$ /irnerio/$1.json [R=303,L]
+
+######################## CONFIGURATION redir ontology/data: end #####
+
+# Default behaviour
+RewriteRule ^/?$ http://irnerio.cirsfid.unibo.it/ [R=303,L]
