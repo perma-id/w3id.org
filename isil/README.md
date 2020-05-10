@@ -4,12 +4,15 @@ ISIL is the International Standard Identifier for Libraries and Related Organisa
 ISIL is being supervised by the [ISIL Registration Authority](http://biblstandard.dk/isil/) in Kopenhagen.
 
 ## W3ID for ISIL
-W3IDs are currently supported for AT-\*, AU-\*, DE-\*, IT-\*, JP-\*, NZ-\*, US-\* and ZDB-\* ISILs.
+W3IDs are currently supported for AT-\*, AU-\*, DE-\*, FI-\*, FR-\*, IT-\*, JP-\*, NZ-\*, US-\* and ZDB-\* ISILs.
 
 ## Examples
 
 ### US
 https://w3id.org/isil/US-NNM -> http://id.loc.gov/vocabulary/organizations/nnm.html
+
+### FR
+https://w3id.org/isil/FR-740106201 -> http://www.sudoc.abes.fr/cbs/xslt//DB=2.2/CMD?ACT=SRCHA&IKT=8888&SRT=RLV&TRM=740106201
 
 ### IT
 https://w3id.org/isil/IT-BO0001 -> http://anagrafe.iccu.sbn.it/opencms/opencms/ricerche/dettaglio.html?monocampo=IT-BO0001
@@ -30,6 +33,9 @@ https://w3id.org/isil/AU-NBANJ -> http://www.nla.gov.au/apps/ilrs/?action=IlrsSe
 
 ## NZ
 https://w3id.org/isil/NZ-AUEL -> http://natlib.govt.nz/directory-of-new-zealand-libraries/AUEL
+
+## FI
+https://w3id.org/isil/FI-Aalto -> https://isil.kansalliskirjasto.fi/api/query?isil=FI-Aalto
 
 ## Contact
 [Carsten Klee](mailto:mailme.klee@yahoo.de)
