@@ -24,17 +24,17 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ontology/readi-Z018-requirement$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/XYZ  [R=303,NE,L]
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/  [R=303,NE,L]
 
-#This is the content type that Protege will ask for - for now we serve ontology
+#This is the content type that Protege will ask for - for now we serve ontology.ttl
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
-RewriteRule ^ontology/readi-Z018-requirement$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/ontology.ttl  [R=303,NE,L]
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/ontology.ttl  [R=303,NE,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^ontology/readi-Z018-requirement$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/ontology.ttl  [R=303,NE,L]
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/ontology.ttl  [R=303,NE,L]
 
 #For versioned ontologies 
-RewriteRule ^ontology/readi-Z018-requirement$/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/$1  [R=303,NE,L]
+RewriteRule ^ontology/(.*)/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/$2  [R=303,NE,L]
 
 #Serving information for individual URIs
 # Rewrite rule to serve HTML content from class or prop URIs if requested
@@ -44,12 +44,13 @@ RewriteCond %{HTTP_ACCEPT} application/xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml+xml [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* 
 
-#When we get linked data, use the mapping below. 
+#When we get linked data, mappings as below. 
 #RewriteRule ^z018-requirements/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/XXXPointerToLinkedDataView/requirement-ontology/z018-requirements/$1 [R=303,NE,L]
 
 #For now we just map to the ontology itself:
+#this must be done for each ontology 
 RewriteRule ^z018-requirements/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/ontology.ttl [R=303,NE,L]
-
-
-#RewriteRule ^documentation/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/requirement-ontology/documentation/$1 [R=303,NE,L]
+# NB This will not work in general yet. Since entities with e.g. the prefix http://w3id.org/readi/z018-rdl/, may occur in different ontologies, e.g: both in:
+# http://w3id.org/readi/ontology/readi-Z018-document and http://w3id.org/readi/ontology/readi-Z018-product
+# RewriteRule ^z018-rdl/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/readi-Z018-requirement/ontology.ttl [R=303,NE,L]
 
