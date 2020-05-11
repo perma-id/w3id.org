@@ -6,15 +6,17 @@ This ontology models the concepts, relationships for the materials design domain
 
 Redirection for project repository: https://w3id.org/mdo -> https://github.com/huanyu-li/Materials-Design-Ontology
 
-Redirection for full ontology's specification: https://w3id.org/mdo/full/1.0 -> https://huanyu-li.github.io/full/1.0/index-en.html
+Redirection for latest specification: https://w3id.org/mdo/1.0 -> https://huanyu-li.github.io/mdo/full/1.0/index-en.html
 
-Redirection for core module's specification: https://w3id.org/mdo/core/1.0 -> https://huanyu-li.github.io/core/1.0/index-en.html
+Redirection for full ontology's specification: https://w3id.org/mdo/full/1.0 -> https://huanyu-li.github.io/mdo/full/1.0/index-en.html
 
-Redirection for structure module's specification: https://w3id.org/mdo/structure/1.0 -> https://huanyu-li.github.io/structure/1.0/index-en.html
+Redirection for core module's specification: https://w3id.org/mdo/core/1.0 -> https://huanyu-li.github.io/mdo/core/1.0/index-en.html
 
-Redirection for calculation module's specification: https://w3id.org/mdo/calculation/1.0 -> https://huanyu-li.github.io/calculation/1.0/index-en.html
+Redirection for structure module's specification: https://w3id.org/mdo/structure/1.0 -> https://huanyu-li.github.io/mdo/structure/1.0/index-en.html
 
-Redirection for provenance module's specification: https://w3id.org/mdo/provenance/1.0 -> https://huanyu-li.github.io/provenance/1.0/index-en.html
+Redirection for calculation module's specification: https://w3id.org/mdo/calculation/1.0 -> https://huanyu-li.github.io/mdo/calculation/1.0/index-en.html
+
+Redirection for provenance module's specification: https://w3id.org/mdo/provenance/1.0 -> https://huanyu-li.github.io/mdo/provenance/1.0/index-en.html
 
 # Contact
 
