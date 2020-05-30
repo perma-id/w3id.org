@@ -43,3 +43,4 @@ https://w3id.org/isil/CH-000001-5 -> https://culture.ld.admin.ch/isil/CH-000001-
 
 ## Contact
 [Carsten Klee](mailto:mailme.klee@yahoo.de)
+[Michael Luggen](mailto:michael.luggen@zazuko.com)
