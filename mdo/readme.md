@@ -20,8 +20,8 @@ Redirection for provenance module's specification: https://w3id.org/mdo/provenan
 
 # Contact
 
-* Author: Huanyu Li huanyu.li@liu.se / huanyu.li9206@gmail.com
-* Author: Rickard Armiento rickard.armiento@liu.se
-* Author: Patrick Lambrix patrick.lambrix@liu.se
+* Author: [Huanyu Li](huanyu.li@liu.se)
+* Author: [Rickard Armiento](rickard.armiento@liu.se)
+* Author: [Patrick Lambrix](patrick.lambrix@liu.se)
 
 [//]: <> (This is also a comment.)
