@@ -1,20 +1,46 @@
-Options +FollowSymLinks
 RewriteEngine on
 
 # Turn off MultiViews
 Options -MultiViews
 
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
 
-# In case of accept header <text/turtle>
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ https://w3c-lbd-cg.github.io/bot/bot.ttl [R=303,NE,L]
+### internal redirection for home page
 
-# If suffix ttl, redirect to turtle version
-RewriteRule ^bot.ttl$ https://w3c-lbd-cg.github.io/bot/bot.ttl [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json
+RewriteRule  ^/?$  bot
 
-# If suffix html, redirect to html version
-RewriteRule ^bot.html$ https://w3c-lbd-cg.github.io/bot [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteRule  ^/?$  index.html
 
-# Default response: html
-RewriteRule ^$ https://w3c-lbd-cg.github.io/bot [R=303,NE,L]
+### internal redirection to append extension for content negotiation
+
+# redirects .*/abcd to .*/abcd.html
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.html [L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.ttl [L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.jsonld [L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.rdf [L]
+
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.n3 [L]
+
+RewriteCond %{HTTP_ACCEPT} text/n-triples
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.nt [L]
+
+### external redirections
+
+RewriteRule ^(.*)$ https://w3c-lbd-cg.github.io/bot/$1 [R=302,L]
