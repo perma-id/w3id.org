@@ -3,6 +3,7 @@
 
 Contact:
 
-* Anna Ngyuen (anna.nguyen(at)aifb.kit.edu)
-* Tobias Weller (tobias.weller(at)aifb.kit.edu)
-* York Sure-Vetter (york.sure-vetter(at)aifb.kit.edu)
+* Anna Ngyuen (anna.nguyen(at)kit.edu)
+* Tobias Weller (tobias.weller(at)kit.edu)
+* York Sure-Vetter (york.sure-vetter(at)kit.edu)
+* Michael Färber (michael.faerber(at)kit.edu)
