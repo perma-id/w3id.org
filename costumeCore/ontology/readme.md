@@ -7,8 +7,8 @@ The ontology is available in HTML, TTL, and RDF/XML formats:
 
 Html: http://ardenkirkland.com/ontologies/costumeCore/costumeCoreDoc/
 
-TTL: http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.3.4.ttl
+TTL: http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.0.ttl
 
-RDF/XML: http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.3.4.owl
+RDF/XML: http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.0.owl
 
 contact: arden@ardenkirkland.com
