@@ -3,12 +3,15 @@
 
 Documentation:
 
-* https://w3id.org/ibp/ --> https://github.com/TechnicalBuildingSystems/Ontologies/blob/master/README.md
+* https://w3id.org/ibp/ --> https://technicalbuildingsystems.github.io/Ontologies/
 
 Source:
 
-* https://github.com/TechnicalBuildingSystems/Ontologies
+* https://w3id.org/ibp/$OntologyName$ --> https://technicalbuildingsystems.github.io/Ontologies/$OntologyName$/$OntologyName$.ttl
 
+Documentation of ontology
+
+* https://w3id.org/ibp/$OntologyName$ --> https://technicalbuildingsystems.github.io/Ontologies/$OntologyName$/$OntologyName$.html 
 
 Contact:
 
