@@ -8,7 +8,8 @@ At the moment we are still develpoing the ontology 0.0:
 
 Contact: 
 ===================
-developing POC: https://www.llin.org/
+developing POC: @llin-csiss llin2@masonlive.gmu.edu
+https://www.llin.org/
 
 
 
