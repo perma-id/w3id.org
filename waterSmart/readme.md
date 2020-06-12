@@ -5,4 +5,4 @@ Repository created to store the irrigation Ontology used in waterSmart project: 
 
 At the moment we are still develpoing the ontology 0.0:
 
-referernce: https://irstea.github.io/irrig/OnToology/ontology/irrig.owl/documentation/index-en.html
+referernces: https://irstea.github.io/irrig/OnToology/ontology/irrig.owl/documentation/index-en.html
