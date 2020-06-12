@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# one-off redirect for the DCAT Dataset identifier for this Media Types dataset
+RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule "^dataset$" "https://conneg.info/mediatypes.ttl" [R=303,L]
+RewriteRule "^dataset.ttl$" "https://conneg.info/mediatypes.ttl" [R=303,L]
+RewriteRule "^dataset$" "https://conneg.info/mediatypes" [R=303,L,QSA]
+
+# this redirect forwards on URIs like https://w3id.org/mediatype/text/html to https://conneg.info/mediatypes-service/object?uri=https://w3id.org/mediatype/text/html
+# where a Linked Data API handles the call for text/html
+RewriteRule   "^(.+)$"  "https://conneg.info/mediatypes-service/object?uri=https://w3id.org/mediatype/$1"  [R=303,L,QSA]
+
+# this redirect forwards on the request for the medaitypes register to the Linked Data API which delivers it
+RewriteRule   "^$"     "https://conneg.info/mediatypes-service/mediatype/" [R=303,L,QSA]

@@ -1,14 +1,46 @@
-Options +FollowSymLinks
 RewriteEngine on
-Options +FollowSymLinks
+
 # Turn off MultiViews
 Options -MultiViews
 
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
 
-# In case of accept header <text/turtle>
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ https://raw.githubusercontent.com/w3c-lbd-cg/bot/master/bot.ttl [R=303,NE,L]
+### internal redirection for home page
 
-#default response: ttl
-RewriteRule ^$ https://raw.githubusercontent.com/w3c-lbd-cg/bot/master/bot.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json
+RewriteRule  ^/?$  bot
+
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteRule  ^/?$  index.html
+
+### internal redirection to append extension for content negotiation
+
+# redirects .*/abcd to .*/abcd.html
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.html [L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.ttl [L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.jsonld [L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.rdf [L]
+
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.n3 [L]
+
+RewriteCond %{HTTP_ACCEPT} text/n-triples
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.nt [L]
+
+### external redirections
+
+RewriteRule ^(.*)$ https://w3c-lbd-cg.github.io/bot/$1 [R=302,L]
