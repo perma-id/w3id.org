@@ -37,5 +37,10 @@ https://w3id.org/isil/NZ-AUEL -> http://natlib.govt.nz/directory-of-new-zealand-
 ## FI
 https://w3id.org/isil/FI-Aalto -> https://isil.kansalliskirjasto.fi/api/query?isil=FI-Aalto
 
+## CH
+https://w3id.org/isil/CH-000001-5 -> https://culture.ld.admin.ch/isil/CH-000001-5
+
+
 ## Contact
 [Carsten Klee](mailto:mailme.klee@yahoo.de)
+[Michael Luggen](mailto:michael.luggen@zazuko.com)
