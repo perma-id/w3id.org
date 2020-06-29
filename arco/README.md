@@ -12,7 +12,7 @@ the building of a constant dialogue and a cooperation with private and public ac
 All releases of the project will be published on GitHub.
 
 
-# Mainteainers
+# Maintainers
 
 - [Luigi Asprino](http://luigiasprino.it)
 - [Andrea Giovanni Nuzzolese](https://www.istc.cnr.it/it/people/andrea-giovanni-nuzzolese)
