@@ -17,7 +17,11 @@ RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:ROOT_URL}/ontologie/
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
+
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
 RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/patterns/$1.owl [R=303,L]
