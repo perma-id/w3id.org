@@ -1,7 +1,6 @@
 # Artificial Intelligence Knowledge Graph (AIKG)
 
-## Scholarly Knowledge Graph
-===================
+### Scholarly Knowledge Graph
 
 *Scientific knowledge* has been traditionally disseminated and preserved through research articles published in journals, conference proceedings, and online archives. However, this article-centric paradigm has been often criticized for not allowing to automatically process, categorize, and reason on this knowledge. An alternative vision is to generate a semantically rich and interlinked description of the content of research publications.
 
