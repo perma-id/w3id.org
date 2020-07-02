@@ -1,4 +1,4 @@
-Artificial Intelligence Knowledge Graph (AIKG)
+# Artificial Intelligence Knowledge Graph (AIKG)
 
 ## Scholarly Knowledge Graph
 ===================
