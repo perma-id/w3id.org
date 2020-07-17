@@ -235,12 +235,22 @@ RewriteRule ^$ http://linkeddata.tern.org.au/ [R=303,L]
 ##############################
 
 # Shortened persistent URL to TERN static web assets served from Nectar object store. 
-# http://localhost:8000/tern/static/ausplots-manual/point-intercept-method/step-1.png         -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/latest/point-intercept-method/step-1.png
-# http://localhost:8000/tern/static/ausplots-manual/v1.2.9/point-intercept-method/step-1.png  -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/v1.2.9/point-intercept-method/step-1.png
-# http://localhost:8000/tern/static/ausplots-manual/latest/point-intercept-method/step-1.png  -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/latest/point-intercept-method/step-1.png
+# http://localhost:8000/tern/static/ausplots-manual/point-intercept-method/step-1.png           -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/latest/point-intercept-method/step-1.png
+# http://localhost:8000/tern/static/ausplots-manual/v1.2.9/point-intercept-method/step-1.png    -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/v1.2.9/point-intercept-method/step-1.png
+# http://localhost:8000/tern/static/ausplots-manual/latest/point-intercept-method/step-1.png    -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/latest/point-intercept-method/step-1.png
+# http://localhost:8000/tern/static/ausplots-manual/v1.2.9-1/point-intercept-method/step-1.png  -> https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/ausplots-manual/v1.2.9-1/point-intercept-method/step-1.png
 
-# Rule does not match second-level directory containing "latest" or a semantic version (e.g. v1.2.9).
-RewriteRule static\/([a-zA-Z-_]+)\/(?!latest|v[0-9]+\.[0-9]+\.[0-9]+)\/?(.+)$ https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/$1/latest/$2 [R=303,L]
+# Rule does not match second-level directory containing "latest" or a semver (e.g. v1.2.9). This includes semver with dashes (e.g. v1.2.9-1).
+RewriteRule static\/([a-zA-Z-_]+)\/(?!latest|v[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9]+)?)\/?(.+)$ https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/$1/latest/$2 [R=303,L]
 
 # Rule matches all.
 RewriteRule static\/(.+)$ https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/$1 [R=303,L]
+
+#
+# Another alternate version
+#
+# Is it a url with version included?
+#RewriteCond "%{REQUEST_URI}" "static/([a-zA-Z-_]+)/(latest|v[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9]+)?)/.*$"
+#RewriteRule static/(.+)$ https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/$1 [R=303,L]
+# No version in url, just serve latest
+#RewriteRule static/([a-zA-Z-_]+)/?(.+)$ https://swift.rc.nectar.org.au/v1/AUTH_05bca33fce34447ba7033b9305947f11/static-web-assets/$1/latest/$2 [R=303,L]
