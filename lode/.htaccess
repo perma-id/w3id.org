@@ -1,0 +1,68 @@
+# Name of the project: LODE (Live OWL Documentation Environment, https://essepuntato.github.io/lode/)
+# Maintainer: Silvio Peroni (essepuntato@gmail.com)
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} closure/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&closure=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} imported/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&imported=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} owlapi/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&owlapi=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} closure/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?closure=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} imported/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?imported=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} owlapi/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?owlapi=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} closure/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&closure=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} imported/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&imported=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} owlapi/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&owlapi=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} closure/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?closure=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} imported/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?imported=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} owlapi/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?owlapi=true&url=$1://$2 [NE,QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ http://150.146.207.114/lode/extract?%1&url=$1://$2 [QSA,L,R=303]
+
+RewriteRule ^(https?)://?(.+)$  http://150.146.207.114/lode/extract?url=$1://$2 [NE,QSA,L,R=303]
+
+RewriteRule ^.*$ http://essepuntato.it/lode [L,R=303]

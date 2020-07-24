@@ -1,0 +1,15 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
+SetEnvIf Accept ^.*text/owl-manchester.* SYNTAX=omn
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/anuzzolese/haps/master/ont/
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld|omn)$
+RewriteRule ^([a-zA-Z-_0-9]+)(/?)$ %{ENV:ROOT_URL}$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)(/?)$ http://wit.istc.cnr.it/arco/lode/extract?lang=en&url=%{ENV:ROOT_URL}$1.rdf [R=303,L]
