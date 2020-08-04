@@ -5,11 +5,16 @@ RewriteEngine on
 # meta/ --> docs
 RewriteRule ^meta\/(.*)$ docs
 
-# type/ --> docs/types
 RewriteRule ^type\/(.*)$ docs/types
 
-# mapping/ --> docs/types
+# mapping/ --> docs/mappings
 RewriteRule ^mapping\/(.*)$ docs/mappings
+
+# extension/ --> docs/extensions
+RewriteRule ^extension\/(.*)$ docs/extensions
+
+# annotation/ --> docs/annotations
+RewriteRule ^annotation\/(.*)$ docs/annotations
 
 # types --> includes/types
 RewriteRule ^types(\/?)$ includes/types
@@ -17,11 +22,23 @@ RewriteRule ^types(\/?)$ includes/types
 # mappings --> includes/mappings
 RewriteRule ^mappings(\/?)$ includes/mappings
 
+# extensions --> includes/extensions
+RewriteRule ^extensions(\/?)$ includes/extensions
+
+# annotations --> includes/annotations
+RewriteRule ^annotations(\/?)$ includes/annotations
+
 # types.sfx --> includes/types.sfx
 RewriteRule ^(types\.)(.+)$ includes/types.$2
 
 # mappings.sfx --> includes/mappings.sfx
 RewriteRule ^(mappings\.)(.+)$ includes/mappings.$2
+
+# extensions.sfx --> includes/extensions.sfx
+RewriteRule ^(extensions\.)(.+)$ includes/extensions.$2
+
+# annotations.sfx --> includes/annotations.sfx
+RewriteRule ^(annotations\.)(.+)$ includes/annotations.$2
 
 
 # Poor man's conneg
@@ -58,4 +75,3 @@ RewriteRule ^(meta)$ meta.shex [L]
 
 # Rewrite Base URL
 RewriteRule ^(.*)$ https://biolink.github.io/biolinkml/$1 [R=302,L]
-
