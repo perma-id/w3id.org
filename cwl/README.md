@@ -52,7 +52,5 @@ References:
 Contacts:
 
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Peter Amstutz <peter.amstutz@curoverse.com>
-* Nebosja Tijanic <nebojsa.tijanic@sbgenomics.com>
-* Michael Crusoe <michael.crusoe@gmail.com>
-
+* Michael Crusoe, CWL Project Lead <mrc@commonwl.org>
+* CWL Leadership Team <commonworkflowlanguage@sfconservancy.org>
