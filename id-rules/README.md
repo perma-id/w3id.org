@@ -32,5 +32,5 @@ References:
 
 Contacts: 
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Julie McMurry <mcmurry.julie@gmail.com> 
+* Julie McMurry mcmurryj at oregonstate dot edu
 
