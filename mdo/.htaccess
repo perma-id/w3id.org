@@ -36,24 +36,8 @@ RewriteRule ^(\w+)/(\w+)$ https://huanyu-li.github.io/mdo/$1/1.0/index.html [R=3
 
 
 
-# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
-# RewriteCond %{HTTP_ACCEPT} application/n-triples
-# RewriteRule ^(\w+)/([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/mdo/$1/$2/ontology.nt [R=303,NE,L]
-
-# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
-# RewriteCond %{HTTP_ACCEPT} application/ld\+json
-# RewriteRule ^(\w+)/([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/mdo/$1/$2/ontology.json [R=303,NE,L]
-
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-# RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-# RewriteRule ^(\w+)/([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/mdo/$1/$2/ontology.xml [R=303,NE,L]
-
-# Rewrite rule to serve TTL content from the vocabulary URI if requested
-# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-# RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-# RewriteCond %{HTTP_ACCEPT} \*/turtle
-# RewriteRule ^(\w+)/([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/mdo/$1/$2/ontology.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^(\w+)/([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/mdo/$1/$2/mdo-$1.owl [R=303,NE,L]
 
 # Default redirect for unmatched patterns to MDO website
 RewriteRule ^.* https://github.com/huanyu-li/Materials-Design-Ontology [R=303,NE,L]
