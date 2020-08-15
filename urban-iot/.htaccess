@@ -1,0 +1,47 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Accept ^.* SYNTAX=none
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=xml
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=json
+SetEnvIf Accept ^.*application/n-triples.* SYNTAX=nt
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/Comune-Milano/ontologie-iot-urbani/master/onto/
+SetEnvIf Request_URI ^(.*)kos/(.*)$ ROOT_URL=https://raw.githubusercontent.com/Comune-Milano/ontologie-iot-urbani/master/kos/
+SetEnvIf Request_URI ^(.*)kos/(.*)$ FILE=kos
+
+RewriteCond %{ENV:SYNTAX} ^none$
+RewriteRule ^$ https://comune-milano.github.io/ontologie-iot-urbani/docs/406.html [R=406,L]
+
+RewriteCond %{ENV:FILE} ^kos$
+RewriteCond %{ENV:SYNTAX} ^(xml|ttl|json|nt)$
+RewriteRule ^(.*)kos/(.*)/(.*)$ %{ENV:ROOT_URL}$2/$3/$3.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^(xml|ttl|json|nt)$
+RewriteRule ^(.*)/([0-9].[0-9].[0-9])$ %{ENV:ROOT_URL}$1/$2/$1.%{ENV:SYNTAX} [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^(xml|ttl|json|nt)$
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1/latest/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:FILE} ^kos$
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.*)kos/(.*)/(.*)/$ https://comune-milano.github.io/ontologie-iot-urbani/docs/kos/$2/$3/index-en.html [R=303,L]
+RewriteCond %{ENV:FILE} ^kos$
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.*)kos/(.*)/(.*)$ https://comune-milano.github.io/ontologie-iot-urbani/docs/kos/$2/$3/index-en.html [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^/?$ https://github.com/Comune-Milano/ontologie-iot-urbani [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.*)/([0-9].[0-9].[0-9])(/?)$ https://comune-milano.github.io/ontologie-iot-urbani/docs/$1/index-en.html [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.*)/$ https://comune-milano.github.io/ontologie-iot-urbani/docs/$1/index-en.html [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.*)$ https://comune-milano.github.io/ontologie-iot-urbani/docs/$1/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ https://comune-milano.github.io/ontologie-iot-urbani/docs/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+RewriteRule ^$ %{ENV:ROOT_URL}core/latest/core.xml [R=303,L]
