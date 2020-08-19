@@ -2,7 +2,12 @@ RewriteEngine on
 # Documentation
 RewriteRule ^$ https://h2020-demeter.eu/ [R=302,L]
 
+# main entry in OGC
+RewriteRule ^agri$ https://defs-dev.opengis.net/def/schema/demeter_aim [R=302,L]
+
 # Ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=302,L]
 RewriteRule ^agri/agriFeature$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriFeature.ttl [R=302,L]
 RewriteRule ^agri/agriCrop$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCrop.ttl [R=302,L]
 RewriteRule ^agri/agriCommon$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCommon.ttl [R=302,L]
@@ -13,7 +18,6 @@ RewriteRule ^agri/agriProperty$ https://raw.githubusercontent.com/rapw3k/DEMETER
 RewriteRule ^agri/agriSystem$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriSystem.ttl [R=302,L]
 RewriteRule ^agri/agriPest$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriPest.ttl [R=302,L]
 RewriteRule ^agri/farmAnimal$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/farmAnimal.ttl [R=302,L]
-RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=302,L]
 RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore.ttl [R=302,L]
 RewriteRule ^crossDomain$ https://gitlab.com/demeterproject/wp2/agriculturalinformationmodel/crossdomainontology/-/raw/master/cross-domain.ttl [R=302,L]
 RewriteRule ^metadata$ https://gitlab.com/demeterproject/wp2/agriculturalinformationmodel/metadataschema/-/raw/master/metadata.ttl [R=302,L]
