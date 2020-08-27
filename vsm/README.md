@@ -1,8 +1,7 @@
 VSM (Visual Syntax Method)
 ==========================
 
-Intuitive Representation of Knowledge in Computable Form.
-
+Intuitive Representation of Computable Knowledge.  
 
 Docs
 * [https://vsm.github.io](https://vsm.github.io)
