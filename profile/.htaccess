@@ -1,8 +1,23 @@
 Options +FollowSymLinks
 RewriteEngine on
 
+RewriteRule ^$ https://profcat.conneg.info/resource/ [R=302,L]
+RewriteRule catalogue.ttl https://profcat.conneg.info/object?uri=https://w3id.org/profile?_mediatype=text/turtle [R=302,L,NE]
+
 RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
 RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule (.*) https://kurrawong.net/profile/$1?_mediatype=text/turtle [R=302,L]
-RewriteRule (.*).ttl$ https://kurrawong.net/profile/$1?_mediatype=text/turtle [R=302,L]
-RewriteRule (.*) https://kurrawong.net/profile/$1 [R=302,L]
+RewriteRule (.*) https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1$1?_mediatype=text/turtle [R=302,L]
+RewriteRule (.*).ttl$ https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1?_mediatype=text/turtle [R=302,L,NE]
+RewriteRule (.*) https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1 [R=302,L,QSA]
+
+
+# Example URIs handled
+#
+# https://w3id.org/profile
+# https://w3id.org/profile/catalogue.ttl
+# https://w3id.org/profile/
+#
+# https://w3id.org/profile/dcatnull
+# https://w3id.org/profile/ontdoc
+# https://w3id.org/profile/vocpub
+# etc...
