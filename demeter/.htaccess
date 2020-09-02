@@ -1,4 +1,14 @@
 RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
 # Documentation
 RewriteRule ^$ https://h2020-demeter.eu/ [R=302,L]
 
@@ -12,21 +22,32 @@ RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/model
 
 
 # Ontologies
+### DOMAIN LAYER #####
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^agri/agriCrop$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCrop.ttl [R=303,L]
-RewriteRule ^agri/agriCrop$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri/agriCrop [R=303,L]
+RewriteRule ^agri/([^\./]*)$  https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/$1.ttl [R=303,L]
+RewriteRule ^agri/([^\./]*)$  https://defs-dev.opengis.net/def/w3id.org/demeter/agri/$1 [R=303,L]
 
-RewriteRule ^agri/agriFeature$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriFeature.ttl [R=302,L]
-RewriteRule ^agri/agriCommon$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCommon.ttl [R=302,L]
-RewriteRule ^agri/agriIntervention$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriIntervention.ttl [R=302,L]
-RewriteRule ^agri/agriAlert$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriAlert.ttl [R=302,L]
-RewriteRule ^agri/agriProduct$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriProduct.ttl [R=302,L]
-RewriteRule ^agri/agriProperty$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriProperty.ttl [R=302,L]
-RewriteRule ^agri/agriSystem$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriSystem.ttl [R=302,L]
-RewriteRule ^agri/agriPest$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriPest.ttl [R=302,L]
-RewriteRule ^agri/farmAnimal$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/farmAnimal.ttl [R=302,L]
-RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore.ttl [R=302,L]
+#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+#RewriteRule ^agri/agriCrop$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCrop.ttl [R=303,L]
+#RewriteRule ^agri/agriCrop$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri/agriCrop [R=303,L]
+
+#RewriteRule ^agri/agriFeature$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriFeature.ttl [R=302,L]
+#RewriteRule ^agri/agriCommon$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCommon.ttl [R=302,L]
+#RewriteRule ^agri/agriIntervention$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriIntervention.ttl [R=302,L]
+#RewriteRule ^agri/agriAlert$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriAlert.ttl [R=302,L]
+#RewriteRule ^agri/agriProduct$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriProduct.ttl [R=302,L]
+#RewriteRule ^agri/agriProperty$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriProperty.ttl [R=302,L]
+#RewriteRule ^agri/agriSystem$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriSystem.ttl [R=302,L]
+#RewriteRule ^agri/agriPest$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriPest.ttl [R=302,L]
+#RewriteRule ^agri/farmAnimal$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/farmAnimal.ttl [R=302,L]
+
+### CROSS-DOMAIN LAYER #####
 RewriteRule ^crossDomain$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/cross-domain.ttl [R=302,L]
+
+### CORE LAYER #####
+RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore.ttl [R=302,L]
+
+### METADATA LAYER #####
 RewriteRule ^metadata$ https://gitlab.com/demeterproject/wp2/agriculturalinformationmodel/metadataschema/-/raw/master/metadata.ttl [R=302,L]
 
 # JSON-LD contexts
