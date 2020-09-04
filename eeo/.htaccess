@@ -1,0 +1,16 @@
+# Turn off MultiViews
+Options -MultiViews
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf *.owl files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Default Rule
+RewriteRule ^$ https://gitlab.com/mzax/experimental-evaluation-ontology/-/raw/master/eeo.owl [R=302,L]
