@@ -1,4 +1,4 @@
-experimental evaluation ontology
+experimental evaluation ontology (eeo)
 ===
 
 Homepage:
