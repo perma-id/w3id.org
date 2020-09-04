@@ -1,0 +1,19 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf *.owl files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve RDF/XML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)$ https://gitlab.com/mzax/experimental-evaluation-ontology/-/blob/master/eeo.owl [R=303,L]
+
+# Choose the default response
+# ---------------------------
+
+# Default Rule
+RewriteRule ^$ https://gitlab.com/mzax/experimental-evaluation-ontology/-/blob/master/eeo.owl [R=302,L]
