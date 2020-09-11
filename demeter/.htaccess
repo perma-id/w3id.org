@@ -36,12 +36,13 @@ RewriteRule ^crossDomain-context.jsonld$ https://raw.githubusercontent.com/rapw3
 
 ## Root level
 # Ontology
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^agri$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
 RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/rdf/demeterAgriProfile.rdf [R=303,L]
-#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=303,L]
+#RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^agri$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri [R=303,L]
+
 # JSON-LD context
 RewriteRule ^agri-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/demeterAgriProfile-context.jsonld [R=302,L]
 
