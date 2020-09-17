@@ -9,8 +9,6 @@ https://w3id.org/codo redirects to https://isibang.ac.in/ns/codo/index.html
 
 ## Contacts    
 **Biswanath Dutta (Indian Statistical Institute)** 
-
-(@biswanathdutta) 
  <dutta2005@gmail.com>, 
  <bisu@drtc.isibang.ac.in>  
 
