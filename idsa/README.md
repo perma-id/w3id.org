@@ -10,7 +10,7 @@ Redirections:
 * https://w3id.org/idsa/core, https://w3id.org/idsa/code with "Accept: text/turtle" --> https://International-Data-Spaces-Association.github.io/InformationModel/docs/serializations/ontology.ttl
 * https://w3id.org/idsa/core.ttl, https://w3id.org/idsa/code.ttl --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl
 * https://w3id.org/idsa/core[.rdf|.xml|.json|.nt], https://w3id.org/idsa/code[.rdf|.xml|.json|.nt] --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology[.rdf|.xml|.json|.nt]
-* https://w3id.org/idsa/core, https://w3id.org/idsa/code with "Accept: application/[rdf+xml|xml|json|ld+json|n-triples]" or "Accept: text/xml" --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology[.rdf|.xml|.json|.nt]
+* https://w3id.org/idsa/core, https://w3id.org/idsa/code with "Accept: application/[rdf+xml|xml|json|ld+json|n-triples]" or "Accept: text/[turtle|n3]" --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology[.rdf|.xml|.json|.nt]
 * https://w3id.org/idsa/contexts/context.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld
 * https://w3id.org/idsa/contexts/[a.b.c]/context.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/[a.b.c]/context.jsonld
 * https://w3id.org/idsa/contexts/context-dev.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld
