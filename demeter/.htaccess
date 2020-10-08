@@ -19,13 +19,19 @@ RewriteRule ^metadata$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/m
 # JSON-LD context
 RewriteRule ^metadata-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/metadata-context.jsonld [R=302,L]
 
+
 ### AIM CORE METAMODEL LAYER #####
+# Version
+RewriteRule ^core/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$1/demeterCore_v$1.ttl [R=302,L]
 # Ontology
 RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore.ttl [R=302,L]
 # JSON-LD context
 RewriteRule ^core-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/core-context.jsonld [R=302,L]
 
+
 ### AIM CROSS-DOMAIN LAYER #####
+# Version
+RewriteRule ^crossDomain/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$1/cross-domain_v$1.ttl [R=302,L]
 # Ontology
 RewriteRule ^crossDomain$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/cross-domain.ttl [R=302,L]
 # JSON-LD context
@@ -35,6 +41,9 @@ RewriteRule ^crossDomain-context.jsonld$ https://raw.githubusercontent.com/rapw3
 ### AIM DOMAIN LAYER #####
 
 ## Root level
+# Version
+RewriteRule ^agri/(.*)/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$2/$1_v$2.ttl [R=302,L]
+
 # Ontology
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=303,L]
