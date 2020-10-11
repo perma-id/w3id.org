@@ -6,8 +6,12 @@ https://www.imdb.com/name/nm0148728/
 
 cerrotti@protonmail.com  
 
-Maintainer 
+Maintainers 
 
 https://github.com/pantoner 
 
 erichorozco@protonmail.com
+
+https://github.com/adrioro 
+
+cerrotti@protonmail.com
