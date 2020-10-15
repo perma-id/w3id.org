@@ -4,9 +4,9 @@ RewriteEngine on
 RewriteRule ^$ https://profcat.conneg.info/resource/ [R=302,L]
 RewriteRule catalogue.ttl https://profcat.conneg.info/object?uri=https://w3id.org/profile?_mediatype=text/turtle [R=302,L,NE]
 
-RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
+RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]  # legacy QSA
 RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule (.*) https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1?_mediatype=text/turtle [R=302,L]
+RewriteRule (.*) https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1?_mediatype=text/turtle [R=302,L,NE]
 RewriteRule (.*).ttl$ https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1?_mediatype=text/turtle [R=302,L,NE]
 RewriteRule (.*) https://profcat.conneg.info/object?uri=https://w3id.org/profile/$1 [R=302,L,QSA]
 
