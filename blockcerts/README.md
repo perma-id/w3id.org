@@ -19,3 +19,7 @@ https://w3id.org/blockcerts/v3.0-alpha
 Contacts:
 
 info@blockcerts.org
+
+Maintainers:
+@lemoustachiste
+@lparkerlm
