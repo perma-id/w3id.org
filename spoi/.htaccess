@@ -1,0 +1,28 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://sdi4apps.eu/spoi/ [R=302,L]
+
+
+### INSTANCES 
+
+RewriteRule ^(.*)$  https://www.foodie-cloud.org/describe/?url=http://www.sdi4apps.eu/poi/#$1 [R=303,L]
+
+
+
+
+
+
+
+
+
+

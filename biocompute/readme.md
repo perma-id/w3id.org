@@ -1,6 +1,9 @@
 BioCompute
 ==========
 
+## Object Links
+* BioCompute Object portal	https://w3id.org/biocompute/portal/*****
+
 ## Specification: 
 * BCO_Spec_V1.0.1	https://w3id.org/biocompute/1.0.1
 * BCO_Spec_V1.2 	https://w3id.org/biocompute/1.2.0
@@ -9,6 +12,8 @@ BioCompute
 * BCO_Spec_1.3.1 	https://w3id.org/biocompute/1.3.1
 * IEEE_2791_1.0.0	https://w3id.org/biocompute/2791
 
+## Extension Domain: 
+* https://w3id.org/biocompute/extension_domain
 
 ## Examples: 
 * https://w3id.org/biocompute/examples
