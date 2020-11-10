@@ -28,23 +28,26 @@ RewriteRule ^(core|code).ttl https://international-data-spaces-association.githu
 
 # N3
 RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* 
-RewriteRule ^(core|code)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
-RewriteRule ^(core|code).ttl https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
+RewriteRule ^(core|code)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+RewriteRule ^(core|code).n3 https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
-RewriteRule ^(core|code)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.xml  [R=303]
-RewriteRule ^(core|code).rdf https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.xml [R=303]
-RewriteRule ^(core|code).xml https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.xml [R=303]
+RewriteRule ^(core|code)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf  [R=303]
+RewriteRule ^(core|code).rdf https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
+RewriteRule ^(core|code).xml https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
 
 # JSON-LD
-RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(core|code)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
+RewriteRule ^(core|code).jsonld https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
+
+# JSON
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
 RewriteRule ^(core|code)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
 RewriteRule ^(core|code).json https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
-RewriteRule ^(core|code).jsonld https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
 
 # N-TRIPLES
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
