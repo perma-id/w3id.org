@@ -1,7 +1,16 @@
-# Legal History Vocabularies
+# MPI for Legal History
 
-- https://github.com/rg-mpg-de/vocabs-polmat/
+Homepage:
 
-## Maintainers
+* <https://www.rg.mpg.de/en>
 
-- Andreas Wagner (@anwagnerdreas)
+Vocabularies:
+
+* <https://w3id.org/rg-mpg-de/polmat>
+  * @prefix polmat: <https://w3id.org/rg-mpg-de/polmat/>
+  * source: <https://github.com/rg-mpg-de/vocabs-polmat/>
+  * seeAlso: <https://www.rg.mpg.de/research-project/repertory-of-policeyordnungen>
+
+## Contacts
+
+* Andreas Wagner (@awagner-mainz) <wagner@rg.mpg.de>
