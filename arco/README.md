@@ -10,3 +10,9 @@ the definition of a network of ontologies for representing the informations cont
 the publication of the data processed in the SiGeC (Sistema Generale del Catalogo, following the Linked Open Data principles, to populate the MiBACT SDL (semantic digital library).
 the building of a constant dialogue and a cooperation with private and public actors, who want to be early adopters.
 All releases of the project will be published on GitHub.
+
+
+# Maintainers
+
+- [Luigi Asprino](http://luigiasprino.it)
+- [Andrea Giovanni Nuzzolese](https://www.istc.cnr.it/it/people/andrea-giovanni-nuzzolese)

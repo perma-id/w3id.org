@@ -1,0 +1,33 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+##
+## ^ieee-2791-schema
+##
+
+# match any json file in directory
+RewriteRule ^ieee-2791-schema/(.+)\.json$ https://opensource.ieee.org/2791-object/ieee-2791-schema/raw/master/$1.json [R=302,L]
+
+## quasi-semantic version strings -- we use semver strings but extend it 
+## to allow one or two placeholders (e.g., 0, 1-alpha, and 1.2 are valid) 
+## as well as some other invalid semver strings 
+
+# one placeholder: e.g., version 1 or version 1-alpha
+RewriteRule ^ieee-2791-schema/((0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?)$ https://opensource.ieee.org/2791-object/ieee-2791-schema/-/tree/version-$1 [R=302,L]
+
+# two placeholders: e.g, version 1.0-alpha
+RewriteRule ^ieee-2791-schema/((0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?)$ https://opensource.ieee.org/2791-object/ieee-2791-schema/-/tree/version-$1 [R=302,L]
+
+# three placeholders (true semver): e.g., version 1.0.1-alpha
+RewriteRule ^ieee-2791-schema/((0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?)$ https://opensource.ieee.org/2791-object/ieee-2791-schema/-/tree/version-$1 [R=302,L]
+
+# match all other files in directory that aren't a quasi-semver strings (e.g., README file)
+RewriteRule ^ieee-2791-schema/(.+)$ https://opensource.ieee.org/2791-object/ieee-2791-schema/raw/master/$1 [R=302,L]
+
+## link to only ^ieee-2791-schema or ^ieee-2791-schema/
+RewriteRule ^ieee-2791-schema(/)?$ https://opensource.ieee.org/2791-object/ieee-2791-schema/ [R=302,L]
+
+## 
+## ieee
+###
+RewriteRule ^$ https://www.ieee.org/ [R=302,L]
