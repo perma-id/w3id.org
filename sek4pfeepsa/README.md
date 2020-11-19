@@ -1,4 +1,4 @@
-##The SEK (Space-related Expert Knowledge) for PFEEPSA (Poultry Farm Energy Efficiency Prediction Semantic Assistant) Ontology
+## The SEK (Space-related Expert Knowledge) for PFEEPSA (Poultry Farm Energy Efficiency Prediction Semantic Assistant) Ontology
 
 Contact
 
