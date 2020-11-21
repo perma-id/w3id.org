@@ -27,3 +27,4 @@ museology, HCI, Linked Data, narratology, ontologies, visualisation and user mod
 **Contacts:**
 * Silvio Peroni <silvio.peroni@unibo.it> - GitHub: https://github.com/essepuntato
 * Aldo Gangemi <aldo.gangemi@unibo.it>
+* Luigi Asprino <luigi.asprino@unibo.it> - GitHub: https://github.com/luigi-asprino
