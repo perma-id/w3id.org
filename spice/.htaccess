@@ -27,10 +27,26 @@
 # Contacts:
 # - Silvio Peroni <silvio.peroni@unibo.it>
 # - Aldo Gangemi <aldo.gangemi@unibo.it>
+# - Luigi Asprino <luigi.asprino@unibo.it>
 
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
+
+### SON behaviour
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/spice-h2020/SON/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/([0-9].[0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/([0-9].[0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+
+# Rules for latest version
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/latest/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/latest/$1/ontology.owl [R=303,L]
 
 # Default behaviour
 RewriteRule ^.*$ https://cordis.europa.eu/project/id/870811 [R=303,L]
