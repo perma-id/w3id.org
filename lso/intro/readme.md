@@ -1,4 +1,4 @@
 INTRO - the intertextual relationships ontology
 
-contact: bernhard.oberreither@univie.ac.at
+contact: bernhard.oberreither@oeaw.ac.at
 
