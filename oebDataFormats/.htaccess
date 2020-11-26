@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+
+Options -Indexes
+
+RewriteEngine on
+
+#Unversioned
+RewriteRule ^$ https://raw.githubusercontent.com/inab/OEB-ontologies/master/oebDataFormats.owl [R=302,L]
+
+#Unversioned, complete
+RewriteRule ^complete$ https://raw.githubusercontent.com/inab/OEB-ontologies/master/oebDataFormats.owl [R=302,L]
+
+#Latest version
+RewriteRule ^latest$ https://raw.githubusercontent.com/inab/OEB-ontologies/master/oebDataFormats.owl [R=302,L]
+
+#Latest version, complete
+RewriteRule ^complete/latest$ https://raw.githubusercontent.com/inab/OEB-ontologies/master/oebDataFormats.owl [R=302,L]
+
+# Any version, like 0.1
+RewriteRule ^([0-9]+\.[0-9]+(.[0-9]+)*)$ https://raw.githubusercontent.com/inab/OEB-ontologies/$1/oebDataFormats.owl [R=302,L]
+
+# Any version, like 0.1, complete
+RewriteRule ^complete/([0-9]+\.[0-9]+(.[0-9]+)*)$ https://raw.githubusercontent.com/inab/OEB-ontologies/$1/oebDataFormats.owl [R=302,L]
