@@ -1,4 +1,4 @@
-# La Syntaxe du Codex Ontology
+# Bridging the <gap> in Ancient Writing Cultures: ENhance COmpetences in the Digital Era
 
 https://w3id.org/encode is the namespace for the ontology and vocabulary of competences of the Erasmus+ Project Bridging the <gap> in Ancient Writing Cultures: ENhance COmpetences in the Digital Era. https://site.unibo.it/encode/it
 
