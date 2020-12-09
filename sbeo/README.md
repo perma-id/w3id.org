@@ -1,5 +1,4 @@
 # SBEO : Smart Building Evacuation Ontology
-===
 
 ## Ontology
 https://w3id.org/sbeo#
