@@ -19,9 +19,8 @@ The ontology is aimed at providing a high level vocabulary for planning and coll
 ## Contact
 This space is administered by:  
 
-**Milan Markovic**  
-*Research fellow* 
-GIthub ID: m-markovic
-https://www.abdn.ac.uk/ncs/profiles/milan.markovic/
+**Milan Markovic**  ,
+GIthub ID: m-markovic,
+https://www.abdn.ac.uk/ncs/profiles/milan.markovic/,
 University of Aberdeen, UK 
 
