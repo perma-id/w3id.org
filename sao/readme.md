@@ -5,16 +5,16 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the System
 
 Redirects: 
 
-https://rains-uoa.github.io/RAInS-Ontology/index-en.html
+https://rains-uoa.github.io/SAO-Ontology/index-en.html
 
-https://rains-uoa.github.io/RAInS-Ontology/ontology.json
+https://rains-uoa.github.io/SAO-Ontology/ontology.json
 
-https://rains-uoa.github.io/RAInS-Ontology/ontology.xml
+https://rains-uoa.github.io/SAO-Ontology/ontology.xml
 
-https://rains-uoa.github.io/RAInS-Ontology/ontology.ttl
+https://rains-uoa.github.io/SAO-Ontology/ontology.ttl
 
 ## Uses
-The ontology is aimed at providing a  vocabulary for planning and collection of accountability related information of AI systems.  
+The ontology is aimed at providing a high level vocabulary for planning and collection of accountability related information of systems.  
 
 ## Contact
 This space is administered by:  
