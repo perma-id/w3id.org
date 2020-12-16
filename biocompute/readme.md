@@ -22,7 +22,7 @@ BioCompute
 ## Examples: 
 * https://w3id.org/biocompute/examples
 
-## GitHub Orginization:
+## GitHub Organization:
 * https://github.com/biocompute-objects/
 
 BioCompute standardized bioinformatics pipelines/workflows in the High-Throughput Sequencing (HTS) space. 
