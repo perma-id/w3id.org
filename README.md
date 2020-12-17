@@ -23,7 +23,11 @@ Web applications that deal with [Linked Data](http://en.wikipedia.org/wiki/Linke
 
 ### Management
 
-There are a growing group of organizations that have pledged responsibility to ensure the operation of this website. These organizations are: [Digital Bazaar](http://digitalbazaar.com/), [3 Round Stones](http://3roundstones.com/), [OpenLink Software](http://www.openlinksw.com/), [Applied Testing and Technology](http://www.aptest.com/), [Openspring](http://openspring.net/), and [Bosatsu Consulting](http://bosatsu.net/). They are responsible for all administrative tasks associated with operating the service. The social contract between these organizations gives each of them full access to all information required to maintain and operate the website. The agreement is setup such that a number of these companies could fail, lose interest, or become unavailable for long periods of time without negatively affecting the operation of the site.
+There is a growing group of organizations in a consortium that have pledged responsibility to ensure the operation of this website. These organizations are: [Digital Bazaar](http://digitalbazaar.com/), [3 Round Stones](http://3roundstones.com/), [OpenLink Software](http://www.openlinksw.com/), [Applied Testing and Technology](http://www.aptest.com/), [Openspring](http://openspring.net/), and [Bosatsu Consulting](http://bosatsu.net/). They are responsible for all administrative tasks associated with operating the service. The social contract between these organizations gives each of them full access to all information required to maintain and operate the website. The agreement is setup such that a number of these companies could fail, lose interest, or become unavailable for long periods of time without negatively affecting the operation of the site.
+
+#### Joining the Management consortium 
+
+To join the management consortium, please make yourself known to the W3ID comminuty via participation in the mailing list (see the [W3ID Community](#w3id-community) section below) and then, if you are still keen to join, please submit an Issue to the [GitHub Issue Tracker](https://github.com/perma-id/w3id.org/issues) with the title *Seeking to join the W3ID Consortium* and include your details.
 
 ### System Operations
 
@@ -31,6 +35,7 @@ This website operates in HTTPS-only mode to ensure end-to-end security. This mea
 
 All identifiers associated with this website are intended to be around for as long as the Web is around. This means decades, if not centuries. If the final destination for popular identifiers used by this service fail in such a way as to be a major inconvenience or danger to the Web, the community will mirror the information for the popular identifier and setup a working redirect to restore service to the rest of the Web.
 
+<a id="new"></a>
 ## Creating a New Identifier
 
 If you would like to add or update a permanent identifier of the form `https://w3id.org/...`, the preferred procedure is to perform the following steps:
