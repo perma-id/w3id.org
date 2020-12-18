@@ -17,23 +17,61 @@ This repository holds the website source code for <https://w3id.org/>.
 
 ### Purpose
 
-The purpose of this website is to provide a secure, permanent [URL](http://en.wikipedia.org/wiki/URL) re-direction service for Web applications. This service is run by the [W3C Permanent Identifier Community Group](http://www.w3.org/community/perma-id/).
+The purpose of this website is to provide a secure, permanent
+[URL](http://en.wikipedia.org/wiki/URL) re-direction service for Web
+applications. This service is run by the
+[W3C Permanent Identifier Community Group](http://www.w3.org/community/perma-id/).
 
-Web applications that deal with [Linked Data](http://en.wikipedia.org/wiki/Linked_data) often need to specify and use URLs that are very stable. They utilize services such as this one to ensure that applications using their URLs will always be re-directed to a working website. This website operates like a [switchboard](http://en.wikipedia.org/wiki/Telephone_switchboard), connecting requests for information with the true location of the information on the Web. The switchboard can be reconfigured to point to a new location if the old location stops working.
+Web applications that deal with
+[Linked Data](http://en.wikipedia.org/wiki/Linked_data) often need to
+specify and use URLs that are very stable. They utilize services such
+as this one to ensure that applications using their URLs will always
+be re-directed to a working website. This website operates like a
+[switchboard](http://en.wikipedia.org/wiki/Telephone_switchboard),
+connecting requests for information with the true location of the
+information on the Web. The switchboard can be reconfigured to point
+to a new location if the old location stops working.
 
 ### Management
 
-There is a growing group of organizations in a consortium that have pledged responsibility to ensure the operation of this website. These organizations are: [Digital Bazaar](http://digitalbazaar.com/), [3 Round Stones](http://3roundstones.com/), [OpenLink Software](http://www.openlinksw.com/), [Applied Testing and Technology](http://www.aptest.com/), [Openspring](http://openspring.net/), and [Bosatsu Consulting](http://bosatsu.net/). They are responsible for all administrative tasks associated with operating the service. The social contract between these organizations gives each of them full access to all information required to maintain and operate the website. The agreement is setup such that a number of these companies could fail, lose interest, or become unavailable for long periods of time without negatively affecting the operation of the site.
+There is a growing group of organizations in a consortium that have pledged
+responsibility to ensure the operation of this website. These organizations
+are: [Digital Bazaar](http://digitalbazaar.com/),
+[3 Round Stones](http://3roundstones.com/),
+[OpenLink Software](http://www.openlinksw.com/),
+[Applied Testing and Technology](http://www.aptest.com/),
+[Openspring](http://openspring.net/), and
+[Bosatsu Consulting](http://bosatsu.net/). They are responsible for all
+administrative tasks associated with operating the service. The social
+contract between these organizations gives each of them full access to
+all information required to maintain and operate the website. The
+agreement is setup such that a number of these companies could fail,
+lose interest, or become unavailable for long periods of time without
+negatively affecting the operation of the site.
 
 #### Joining the Management consortium 
 
-To join the management consortium, please make yourself known to the W3ID comminuty via participation in the mailing list (see the [W3ID Community](#w3id-community) section below) and then, if you are still keen to join, please submit an Issue to the [GitHub Issue Tracker](https://github.com/perma-id/w3id.org/issues) with the title *Seeking to join the W3ID Consortium* and include your details.
+To join the management consortium, please make yourself known to the
+W3ID community via participation in the mailing list (see the
+[W3ID Community](#w3id-community) section below) and then, if you are
+still keen to join, please submit an Issue to the
+[GitHub Issue Tracker](https://github.com/perma-id/w3id.org/issues)
+with the title *Seeking to join the W3ID Consortium* and include
+your details.
 
 ### System Operations
 
-This website operates in HTTPS-only mode to ensure end-to-end security. This means that it may be used for Linked Data applications that require high levels of security such as those found in the financial, medical, and public infrastructure sectors.
+This website operates in HTTPS-only mode to ensure end-to-end security.
+This means that it may be used for Linked Data applications that require
+high levels of security such as those found in the financial, medical,
+and public infrastructure sectors.
 
-All identifiers associated with this website are intended to be around for as long as the Web is around. This means decades, if not centuries. If the final destination for popular identifiers used by this service fail in such a way as to be a major inconvenience or danger to the Web, the community will mirror the information for the popular identifier and setup a working redirect to restore service to the rest of the Web.
+All identifiers associated with this website are intended to be around
+for as long as the Web is around. This means decades, if not centuries.
+If the final destination for popular identifiers used by this service
+fail in such a way as to be a major inconvenience or danger to the Web,
+the community will mirror the information for the popular identifier
+and setup a working redirect to restore service to the rest of the Web.
 
 <a id="new"></a>
 ## Creating a New Identifier
