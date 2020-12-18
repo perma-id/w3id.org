@@ -76,31 +76,50 @@ and setup a working redirect to restore service to the rest of the Web.
 <a id="new"></a>
 ## Creating a New Identifier
 
-If you would like to add or update a permanent identifier of the form `https://w3id.org/...`, the preferred procedure is to perform the following steps:
+If you would like to add or update a permanent identifier of the form
+`https://w3id.org/...`, the preferred procedure is to perform the
+following steps:
 
-1.  _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org) on Github.
-2.  Add or update a new redirect entry and commit your changes.
-3.  Submit a _Pull Request_ for your changes.
+1. _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org) 
+   on Github.
+2. Add or update a new redirect entry and commit your changes.
+3. Submit a _Pull Request_ for your changes.
 
-The maintainers of this system will then act on that _Pull Request_ and merge it into this system's content. You will then be able to see your changes in the repository and via resolution of the identifier you created or edited.
+The maintainers of this system will then act on that _Pull Request_ and 
+merge it into this system's content. You will then be able to see your 
+changes in the repository and via resolution of the identifier you 
+created or edited.
 
-If the terms _Fork_ and _Pull Request_ are new to you, you need to familiarize yourself with the [Git](https://git-scm.com/) version control system and [GitHub](https://github.com/), the platform used to host this system. Please see this documentation:
+If the terms _Fork_ and _Pull Request_ are new to you, you need to 
+familiarize yourself with the [Git](https://git-scm.com/) version 
+control system and [GitHub](https://github.com/), the platform used 
+to host this system. Please see this documentation:
 
-*   [Forking a Repository](https://docs.github.com/en/github-ae@latest/github/getting-started-with-github/fork-a-repo)
-*   [Creating a Pull Request across Forks](https://docs.github.com/en/github-ae@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+* [Forking a Repository](https://docs.github.com/en/github-ae@latest/github/getting-started-with-github/fork-a-repo)
+* [Creating a Pull Request across Forks](https://docs.github.com/en/github-ae@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
 
 #### Suitable PR content
 
-Please help out the maintainers of the service with the following in your Pull Requests:
+Please help out the maintainers of the service with the following in your 
+Pull Requests:
 
-*   **contact info** in a README.md or .htaccess comment.
-    *   See this example of a good README file: [w3id.org/dggs/ README](https://github.com/perma-id/w3id.org/tree/master/dggs)
-*   **test your changes** with a local checkout of the site.
-*   **_Squash_ multiple commits** into one commit before a pull request if appropriate.
-    *   here is information on _squashing_ commits: [How to Squash Commits in Git](https://www.git-tower.com/learn/git/faq/git-squash/)
-*   **use descriptive commit messages**. In particular, include your project name in the commit message. For those using the GitHub interface, please modify the default "Create/Update/Delete .htaccess" message.
+* **contact info** in a README.md or .htaccess comment.
+  * See this example of a good README file: 
+    [w3id.org/dggs/ README](https://github.com/perma-id/w3id.org/tree/master/dggs)
+* **test your changes** with a local checkout of the site.
+* **_Squash_ multiple commits** into one commit before a pull request 
+  if appropriate.
+  * here is information on _squashing_ commits: 
+    [How to Squash Commits in Git](https://www.git-tower.com/learn/git/faq/git-squash/)
+* **use descriptive commit messages**. In particular, include your project 
+  name in the commit message. For those using the GitHub interface, please 
+  modify the default "Create/Update/Delete `.htaccess`" message.
 
-You can also send a request to add a redirect to the [public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/) mailing list. Make sure to include the URL that you want on w3id.org, the URL that you want to redirect to, and the HTTP code that you want to use when redirecting. An administrator will then create the redirect for you.
+You can also send a request to add a redirect to the 
+[public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/) 
+mailing list. Make sure to include the URL that you want on w3id.org, the 
+URL that you want to redirect to, and the HTTP code that you want to use 
+when redirecting. An administrator will then create the redirect for you.
 
 #### Link checking
 A simple [Travis-CI](https://travis-ci.org/perma-id/w3id.org) job
