@@ -38,7 +38,7 @@ There is a growing group of organizations in a consortium that have pledged
 responsibility to ensure the operation of this website. These organizations
 are: [Digital Bazaar](http://digitalbazaar.com/),
 [3 Round Stones](http://3roundstones.com/),
-[OpenLink Software](http://www.openlinksw.com/),
+[OpenLink Software](https://www.openlinksw.com/),
 [Applied Testing and Technology](http://www.aptest.com/),
 [Openspring](http://openspring.net/), and
 [Bosatsu Consulting](http://bosatsu.net/). They are responsible for all
