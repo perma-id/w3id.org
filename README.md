@@ -120,14 +120,27 @@ your modification.
 
 ### Naming Policy
 
-There is no official policy on identifier names. The current practice is to claim a top-level directory name and add project specific second level identifiers. For instance, `https://w3id.org/PROJECT-ID/SUB-ID...`. Shared top-levels are also available such as `https://w3id.org/people/PERSON-ID`. There is no official list or policy for reserved identifiers. However, the administrators may deny requests for identifiers that are too generic, could cause confusion, are inappropriate or offensive, or otherwise may be needed for future service expansion.
+There is no official policy on identifier names. The current practice
+is to claim a top-level directory name and add project specific second
+level identifiers. For instance, `https://w3id.org/PROJECT-ID/SUB-ID...`.
+Shared top-levels are also available such as
+`https://w3id.org/people/PERSON-ID`. There is no official list or policy
+for reserved identifiers. However, the administrators may deny requests
+for identifiers that are too generic, could cause confusion, are
+inappropriate or offensive, or otherwise may be needed for future
+service expansion.
 
 ### W3ID Community
 
-If you wish to engage the community in discussion about this service for your Web application, please send an e-mail to the [public-perma-id@w3.org mailing list](http://lists.w3.org/Archives/Public/public-perma-id/).
+If you wish to engage the community in discussion about this service for
+your Web application, please send an e-mail to the
+[public-perma-id@w3.org mailing list](http://lists.w3.org/Archives/Public/public-perma-id/).
 
 * * *
 
 ### Disclaimer
 
-The letters 'w3' in the domain name for this site stand for "World Wide Web". Other than hosting the software for the Permanent Identifier Community Group, the "World Wide Web Consortium" (W3C) is not involved in the support or management of this website in any way.
+The letters 'w3' in the domain name for this site stand for "World Wide
+Web". Other than hosting the software for the Permanent Identifier
+Community Group, the "World Wide Web Consortium" (W3C) is not involved
+in the support or management of this website in any way.
