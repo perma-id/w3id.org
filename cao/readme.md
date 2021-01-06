@@ -1,5 +1,9 @@
-# Repository for redirecting to CAO (Critical Apparatus Ontolgy)
+# CAO (Critical Apparatus Ontolgy)
 
-The Critical Apparatus Ontology (CAO) is an OWL 2 DL ontology for the representation of the apparatus that accompanies a digital critical edition.
+The Critical Apparatus Ontology (CAO) is an ontology for representing the critical apparatus that accompanies a digital scholarly edition.
 
-Contact info: Francesca Giovannetti francesc.giovannett5@studio.unibo.it
+Vocabulary
+- https://w3id.org/cao
+
+Contacts
+- Francesca Giovannetti francesc.giovannett6@unibo.it
