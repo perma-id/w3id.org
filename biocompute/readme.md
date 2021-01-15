@@ -1,8 +1,12 @@
 BioCompute
 ==========
 
-## Portal Links
-* BioCompute Object portal	https://w3id.org/biocompute/portal*****
+## Object Links
+* BioCompute Object portal	https://w3id.org/biocompute/portal/*****
+
+## Registry
+
+* BioCompute Object Registry: https://w3id.org/biocompute/registry
 
 ## Specification: 
 * BCO_Spec_V1.0.1	https://w3id.org/biocompute/1.0.1
@@ -18,11 +22,11 @@ BioCompute
 ## Examples: 
 * https://w3id.org/biocompute/examples
 
-## GitHub Orginizations:
+## GitHub Organization:
 * https://github.com/biocompute-objects/
 
 BioCompute standardized bioinformatics pipelines/workflows in the High-Throughput Sequencing (HTS) space. 
-This permalink is to the stable BioCompute releases. 
+
 
 ## Contact:
 * Raja Mazumder <mazumder@gwu.edu>
