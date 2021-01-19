@@ -10,4 +10,4 @@ We are planning to create:
 The redirect will be to the [GitHub repository](https://github.com/Bluarancio/Leo-OpenData) we are using as working repo, open to all communities.
 
 Contacts:
-* Bluarancio (**indicare un indirizzo email**)
+Progetto-LEO@bluarancio.com
