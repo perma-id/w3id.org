@@ -17,15 +17,12 @@ RewriteEngine On
 #If no specific ontology is requested, return the HTML ontology catalogue 
 RewriteRule ^.*$ https://oeg-upm.github.io/devops-infra/index.html [R=302,L]
 
-#Change the path to the folder here
-RewriteBase /core 
-
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ index-en.html [R=302,L]
+RewriteRule ^core$ ontology/core/index-en.html [R=302,L]
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
