@@ -14,9 +14,6 @@ AddType application/ld+json .json
 # Rewrite engine setup
 RewriteEngine On
 
-#If no specific ontology is requested, return the HTML ontology catalogue 
-RewriteRule ^.*$ https://oeg-upm.github.io/devops-infra/index.html [R=302,L]
-
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -45,4 +42,8 @@ RewriteRule ^core$ ontology/core/ontology.ttl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} .+
 RewriteRule ^core$ ontology/core/406.html [R=406,L]
+
+#If no specific ontology is requested, return the HTML ontology catalogue 
+RewriteRule ^.*$ https://oeg-upm.github.io/devops-infra/index.html [R=302,L]
+
 
