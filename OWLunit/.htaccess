@@ -19,8 +19,11 @@ RewriteRule ^ontology/([0-9].[0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/$1/ontology/ontol
 
 # Rules for latest version
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/0.0.1/ontology/ontology.owl [R=303,L]
-RewriteRule ^ontology(/)?$ %{ENV:ROOT_URL}/0.0.1/ontology/ontology.owl [R=303,L]
+RewriteRule ^ontology(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/0.0.2/ontology/ontology.owl [R=303,L]
+RewriteRule ^ontology(/)?$ %{ENV:ROOT_URL}/0.0.2/ontology/ontology.owl [R=303,L]
 
 # Default behaviour
 RewriteRule ^$ https://github.com/luigi-asprino/owl-unit/ [R=303,L]
+
+# Default behaviour
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/luigi-asprino/owl-unit/main/$1 [R=303,L]
