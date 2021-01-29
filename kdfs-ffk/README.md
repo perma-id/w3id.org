@@ -7,5 +7,5 @@ This space is administered by:
 
 **Vivien Petras**  
 [Berlin School of Library and Information Science](https://www.ibi.hu-berlin.de/de/ueber-uns/personen/petras)  
-Berlin, Germany 
+Berlin, Germany  
 Contact: <vivien.petras@ibi.hu-berlin.de>
