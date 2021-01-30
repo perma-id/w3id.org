@@ -1,4 +1,4 @@
-# KDSF-FFK
+# kdsf-ffk
 
 This [w3id](https://w3id.org) provides a persistent URI namespace for the classification of interdisciplinary research fields for the „Research Core Dataset“ (Kerdatensatz Forschung).
 
