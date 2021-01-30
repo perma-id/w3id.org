@@ -9,3 +9,6 @@ This space is administered by:
 [Berlin School of Library and Information Science](https://www.ibi.hu-berlin.de/de/ueber-uns/personen/petras)  
 Berlin, Germany  
 Contact: <vivien.petras@ibi.hu-berlin.de>
+
+**Sophia Dörner**
+GitHub: [doerners](https://github.com/doerners)
