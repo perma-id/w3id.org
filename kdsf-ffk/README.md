@@ -10,5 +10,5 @@ This space is administered by:
 Berlin, Germany  
 Contact: <vivien.petras@ibi.hu-berlin.de>
 
-**Sophia Dörner**
+**Sophia Dörner**  
 GitHub: [doerners](https://github.com/doerners)
