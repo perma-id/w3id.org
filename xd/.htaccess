@@ -1,0 +1,30 @@
+# Name of the project: eXtreme Design
+# Description: eXtreme Design is a pattern-based methodology for ontology building. This is a persistent identifier for the XD documentation and tools.
+#
+# Contacts:
+# Luigi Asprino luigi.asprino@unibo.it - GitHub: https://github.com/luigi-asprino
+
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ XD=https://raw.githubusercontent.com/extreme-design/
+SetEnvIf Request_URI ^.*$ VERSION_MANAGER=https://raw.githubusercontent.com/extreme-design/ontology.versionmanager/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Default behaviour
+RewriteRule ^$ http://extremedesign.info/ [R=303,L]
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^version.manager/example/(.*)/([0-9].[0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:VERSION_MANAGER}/main/example/$1/ontology.owl [R=303,L]
+RewriteRule ^version.manager/example/(.*)/([0-9].[0-9].[0-9])(/)?$ %{ENV:VERSION_MANAGER}/main/example/$1/ontology.owl [R=303,L]
+
+RewriteRule ^version.manager/example/(.*)(/)?$ %{ENV:LODE_URL}%{ENV:VERSION_MANAGER}/main/example/$1/ontology.owl [R=303,L]
+RewriteRule ^version.manager/example/(.*)(/)?$ %{ENV:VERSION_MANAGER}/main/example/$1/ontology.owl [R=303,L]
+
+RewriteRule ^version.manager(/)?$ https://github.com/extreme-design/ontology.versionmanager [R=303,L]
+RewriteRule ^version.manager/(.*)$ %{ENV:VERSION_MANAGER}$1 [R=303,L]
+
+RewriteRule ^(.*)$ %{ENV:XD}$1 [R=303,L]
