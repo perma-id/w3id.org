@@ -5,6 +5,6 @@
 
 ## Maintainers
 
-- Sam Curran (@telegramsam)
+- Sam Curren (@telegramsam)
 - Tobias Looker (@tplooker)
 - Oliver Terbu (@awoie)
