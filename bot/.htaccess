@@ -14,22 +14,26 @@ AddType application/ld+json .json
 
 ### internal redirection for home page
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld\+json
 RewriteRule  ^/?$  bot
 
-RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld\+json)
 RewriteRule  ^/?$  index.html
 
 ### internal redirection to append extension for content negotiation
 
+# redirects requests for a particular bot version to the canonical Turtle representation
+RewriteCond %{HTTP_ACCEPT} !(text/html)
+RewriteRule  ^/?-?([0-9]+\.[0-9]+\.[0-9]+)$  bot-$1.ttl [L]
+
 # redirects .*/abcd to .*/abcd.html
-RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld+json)
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|text/turtle|text/n3|application/n-triples|application/ld\+json)
 RewriteRule  ^(.*/)?([^\./]*)$  $1$2.html [L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule  ^(.*/)?([^\./]*)$  $1$2.ttl [L]
 
-RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule  ^(.*/)?([^\./]*)$  $1$2.jsonld [L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -38,7 +42,7 @@ RewriteRule  ^(.*/)?([^\./]*)$  $1$2.rdf [L]
 RewriteCond %{HTTP_ACCEPT} text/n3
 RewriteRule  ^(.*/)?([^\./]*)$  $1$2.n3 [L]
 
-RewriteCond %{HTTP_ACCEPT} text/n-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule  ^(.*/)?([^\./]*)$  $1$2.nt [L]
 
 ### external redirections
