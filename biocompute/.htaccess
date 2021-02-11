@@ -6,11 +6,22 @@ Options +FollowSymLinks
 
 RewriteEngine on
 
+# Any specific portal object 
+RewriteRule ^portal/(.*)$ https://portal.aws.biochemistry.gwu.edu/bco/$1 [R=302,L]
+
+RewriteRule ^portal(.*)$ https://portal.aws.biochemistry.gwu.edu/$1 [R=302,L]
+
 # Any specific version - 
 RewriteRule ^(\d+.\d+.\d+)$ https://github.com/biocompute-objects/BCO_Specification/tree/$1 [R=302,L]
 
 # Any file in specific version tree 
 RewriteRule ^(\d+.\d+.\d+.*)$ https://github.com/biocompute-objects/BCO_Specification/blob/$1 [R=302,L]
+
+# registry 1
+RewriteRule ^registry$ https://portal.aws.biochemistry.gwu.edu/registry [R=302,L]
+
+# registry 2
+RewriteRule ^registry.html$ https://portal.aws.biochemistry.gwu.edu/registry [R=302,L]
 
 # All releases 
 RewriteRule ^releases$ https://github.com/biocompute-objects/BCO_Specification/releases [R=302,L]
@@ -21,5 +32,8 @@ RewriteRule ^examples$ https://github.com/biocompute-objects/BCO_Specification/t
 # Any file in specific version tree for IEEE
 RewriteRule ^2791/(.*)$ https://gitlab.com/IEEE-SA/BioCompute/bco-schema/blob/master/$1 [R=302,L]
 
-# Master repo for 2791 for IEEE
-RewriteRule ^2791$ https://gitlab.com/IEEE-SA/BioCompute/bco-schema [R=302,L]
+# Master open source repo for IEEE-2791-2020
+RewriteRule ^2791$ https://opensource.ieee.org/2791-object/ieee-2791-schema [R=302,L]
+
+# Raw schema definition for extension domains
+RewriteRule ^extension_domain/(.*)$ https://raw.githubusercontent.com/biocompute-objects/extension_domain/$1 [R=302,L]
