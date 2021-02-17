@@ -1,9 +1,9 @@
-HeLiS (Healthy Lifestyles Support) Ontology
+OntoSenticNet 2
 ===
 
 Homepage:
-* https://w3id.org/helis
+* https://w3id.org/ontosenticnet
 
 Contacts:
 * Mauro Dragoni (dragoni AT fbk DOT eu)
-* Claudio Eccher (cleccher AT fbk DOT eu)
+* Erik Cambria (cambria AT sentic DOT net)
