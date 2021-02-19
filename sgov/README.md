@@ -3,11 +3,11 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Seman
 
 ## Uses
 This namespace is further split according to the particular part of the Semantic Government Vocabulary, namely:
-- /basic - basic vocabulary
-- /public-sector - public sectory vocabulary
-- /legal - legal vocabularies
-- /agenda - Czech public sector agenda vocabularies
-- /data - data vocabularies
+- https://w3id.org/sgov/basic - basic vocabulary
+- https://w3id.org/sgov/public-sector - public sectory vocabulary
+- https://w3id.org/sgov/legal - legal vocabularies
+- https://w3id.org/sgov/agenda - Czech public sector agenda vocabularies
+- https://w3id.org/sgov/data - data vocabularies
 
 ## Contact
 This space is administered by:  
