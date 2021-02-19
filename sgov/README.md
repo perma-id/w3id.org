@@ -14,4 +14,4 @@ This space is administered by:
 
 **Petr Křemen**  
 *Ontology Expert*  
-GitHub: [nicholascar](https://github.com/psiotwo)
+GitHub: [psiotwo](https://github.com/psiotwo)
