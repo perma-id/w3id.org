@@ -1,23 +1,50 @@
 Options +FollowSymLinks
-RewriteEngine on
-Options +FollowSymLinks
-# Turn off MultiViews
-Options -MultiViews
 
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType text/n3 .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
 
-#RewriteRule ^$ https://qasimkhalid.github.io/SBEO/ [R=302,L]
+RewriteEngine on
 
+# HTML
+RewriteRule ^$ https://www.internationaldataspaces.org/ [R=303]
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://qasimkhalid.github.io/SBEO/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^$ http://www.ia.urjc.es/ontologies/building/sbeo [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* 
+RewriteRule ^$ https://qasimkhalid.github.io/SBEO/ [NE,R=303]
+
+# TURTLE
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ http://www.ia.urjc.es/ontologies/building/sbeo_turtle [R=303,NE,L]
-#default response: owl
-RewriteRule ^$ http://www.ia.urjc.es/ontologies/building/sbeo [R=303,NE,L]
+RewriteRule ^(/|#)* https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.ttl [R=303]
+RewriteRule ^.ttl https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.ttl [R=303]
+
+# N3
+# RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* 
+# RewriteRule ^(/|#)*  https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+# RewriteRule ^.n3 https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^(/|#)*(.*) https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.rdf  [R=303]
+RewriteRule ^.rdf https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.rdf [R=303]
+RewriteRule ^.xml https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.rdf [R=303]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(/|#)*(.*) https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.json [R=303]
+RewriteRule ^.json https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.json [R=303]
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^(/|#)* https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.nt [R=303]
+RewriteRule ^.nt https://raw.githubusercontent.com/qasimkhalid/SBEO/master/Serialization/sbeo.nt [R=303]
+
