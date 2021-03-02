@@ -1,13 +1,7 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
-SetEnvIf Request_URI ^.*$ ROOT_URL=https://ckan-geo.daf.teamdigitale.it
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://dati.gov.it
 
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
 RewriteRule ^$ %{ENV:ROOT_URL}/catalog.rdf  [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^$ %{ENV:ROOT_URL}/catalog.ttl  [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} ^.*application/json-ld.*
-RewriteRule ^$ %{ENV:ROOT_URL}/catalog.jsonld [R=303,L]
