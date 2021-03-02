@@ -1,0 +1,59 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+AddType application/json .json
+AddType text/owl-manchester .omn
+
+
+RewriteEngine on
+
+#simplified setup, only ttl and html served for now, for other content types see the .htaccess file of https://w3id.org/requirement-ontology/  
+
+#### ontology/readi-Z018-requirement, i.e:
+#### http://w3id.org/readi/ontology/readi-Z018-requirement
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/  [R=303,NE,L]
+
+#This is the content type that Protege will ask for - for now we serve ontology.ttl
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/ontology.ttl  [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^ontology/(.*)$ https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/ontology.ttl  [R=303,NE,L]
+
+#For versioned ontologies 
+RewriteRule ^ontology/(.*)/(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/readi/$1/$2  [R=303,NE,L]
+
+#Serving information for individual URIs
+# Rewrite rule to serve HTML content from class or prop URIs if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld+json [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* 
+
+#For linked data we want to map URIS susch as: 
+#http://w3id.org/readi/rdl/Z101012633
+#http://w3id.org/readi/z018-requirements/Z-018_reqPT_NOZTI_P0002_NOZTI_1
+#http://w3id.org/readi/z018-rdl/NOZTI_10
+#http://w3id.org/readi/z018-asset/someasset
+
+RewriteRule ^(.*) https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/readi/$1 [R=303,NE,L]
+
+
+

@@ -1,0 +1,37 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options -MultiViews
+AddType text/turtle .ttl
+
+# Redirect based on file suffix (ttl, xml, owl, json, jsonld, nt, html)
+RewriteRule ^ontology.ttl$ https://digitalconstruction.github.io/Processes/ontology.ttl [R=302,NE,L]
+RewriteRule ^ontology.xml$ https://digitalconstruction.github.io/Processes/ontology.xml [R=302,NE,L]
+RewriteRule ^ontology.owl$ https://digitalconstruction.github.io/Processes/ontology.xml [R=302,NE,L]
+RewriteRule ^ontology.json$ https://digitalconstruction.github.io/Processes/ontology.json [R=302,NE,L]
+RewriteRule ^ontology.jsonld$ https://digitalconstruction.github.io/Processes/ontology.json [R=302,NE,L]
+RewriteRule ^ontology.nt$ https://digitalconstruction.github.io/Processes/ontology.nt [R=302,NE,L]
+RewriteRule ^ontology.html$ https://digitalconstruction.github.io/Processes [R=302,NE,L]
+
+# If accept <text/turtle>, redirect to .ttl
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://digitalconstruction.github.io/Processes/ontology.ttl [R=303,NE,L]
+
+# If accept <application/n-triples>, redirect to .nt
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* 
+RewriteRule ^$ https://digitalconstruction.github.io/Processes/ontology.nt [R=303,NE,L]
+
+# If accept <application/json> or <application/ld+json>, redirect to .json 
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^$ https://digitalconstruction.github.io/Processes/ontology.json [R=303,NE,L]
+
+# If accept <application/rdf+xml> or <application/owl+xml>, redirect to .xml 
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/owl\+xml.*
+RewriteRule ^$ https://digitalconstruction.github.io/Processes/ontology.xml [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.
+RewriteRule ^$ https://digitalconstruction.github.io/Processes [R=303,L]
