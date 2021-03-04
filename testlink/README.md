@@ -11,7 +11,7 @@ This ontology tests concepts, features, attributes for Computer Sciences.
 * https://biolink.github.io/biolinkml/docs
 
 # Vocabulary Usage
-    @prefix cocoon: <https://w3id.org/cocoon/v0.0.1#>
+    @prefix testlink: <https://w3id.org/testlink/v0.0.1#>
 
 # Contact
 * noel McLoughlin @gmail.com
