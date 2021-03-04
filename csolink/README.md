@@ -11,14 +11,11 @@ This ontology defines concepts, features, attributes for Computer Sciences.
 * https://biolink.github.io/biolinkml/docs
 
 # Vocabulary Usage
-    @prefix cocoon: <https://w3id.org/cocoon/v0.0.1#>
+    @prefix csolink: <https://w3id.org/csolink/v0.0.1#>
 
 # Contact
 * noel McLoughlin @gmail.com
 
-# Status
-* EXPERIMENTAL
-
 # Notes
 Csolink was originally forked of biolink-model for computer science domain.
-Csolink leverages `biolinkml` modeling language.
+Csolink leverages `biolinkml` (alias `linkml`) for model transformations.
