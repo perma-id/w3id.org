@@ -16,9 +16,6 @@ This ontology defines concepts, features, attributes for Computer Sciences.
 # Contact
 * noel McLoughlin @gmail.com
 
-# Status
-* EXPERIMENTAL
-
 # Notes
 Csolink was originally forked of biolink-model for computer science domain.
-Csolink leverages `biolinkml` modeling language.
+Csolink leverages `biolinkml` (alias `linkml`) for model transformations.

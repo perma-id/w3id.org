@@ -16,9 +16,6 @@ This ontology tests concepts, features, attributes for Computer Sciences.
 # Contact
 * noel McLoughlin @gmail.com
 
-# Status
-* EXPERIMENTAL
-
 # Notes
 testlink was originally forked of biolink-model for computer science domain.
-testlink leverages `biolinkml` modeling language.
+testlink leverages `biolinkml` (alias `linkml`) for model transformations.
