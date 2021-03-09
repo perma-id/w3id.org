@@ -13,42 +13,52 @@ Options +FollowSymLinks
 
 RewriteEngine on
 
-# HTML
+# BASE: Visit homepage
 RewriteRule ^$ https://data-infrastructure.eu/ [R=303]
+
+# Direct ontology access: Access respective ontology
+RewriteRule ^core.ttl       https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl [L,R=303]
+RewriteRule ^core.rdf       https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [L,R=303]
+RewriteRule ^core.xml       https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [L,R=303]
+RewriteRule ^core.jsonld    https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
+RewriteRule ^core.json      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
+RewriteRule ^core.nt        https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.nt [L,R=303]
+
+# HTML: Visit documentation
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\*
-RewriteRule ^(core)/?$ https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html#$2 [NE,R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html [L,NE,R=303]
+RewriteRule ^core/(.*)$     https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html#$1 [L,NE,R=303]
 
-# TURTLE
+# TURTLE: Access TTL ontology
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^(core)(/|#)* https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl [NE,R=303]
-RewriteRule ^(core).ttl https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl [R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl [L,R=303]
+RewriteRule ^core/(.+)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl [L,R=303]
 
-# RDF/XML
+# RDF/XML: Access XML ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
-RewriteRule ^(core)(/|#)*(.*) https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [NE,R=303]
-RewriteRule ^(core).rdf https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [R=303]
-RewriteRule ^(core).xml https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [L,R=303]
+RewriteRule ^core/(.*)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.xml [L,R=303]
 
-# JSON-LD
+# JSON-LD: Access JSON(-LD) ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
-RewriteRule ^(core)(/|#)*(.*) https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [NE,R=303]
-RewriteRule ^(core).jsonld https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
+RewriteRule ^core/(.*)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
 
-# JSON
+# JSON: Access JSON ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
-RewriteRule ^(core)(/|#)*(.*) https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [NE,R=303]
-RewriteRule ^(core).json https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
+RewriteRule ^core/(.*)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.json [L,R=303]
 
-# N-TRIPLES
+# N-TRIPLES: Access NT ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
-RewriteRule ^(core)(/|#)* https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.nt [NE,R=303]
-RewriteRule ^(core).nt https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.nt [R=303]
+RewriteRule ^core           https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.nt [L,R=303]
+RewriteRule ^core/(.*)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.nt [L,R=303]
 
-#
-RewriteRule ^(core)/(.+) https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html#/$2 [NE,R=303]
+# No matching content type: Visit documentation
+RewriteRule ^core/(.*)      https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html#$1 [L,NE,R=303]
