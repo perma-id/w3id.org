@@ -22,7 +22,7 @@ Redirections:
   * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl (or rdf, json, ...)
 
 Support:
-* [GitLab Repository (currently restricted to the GAIA-X community)](https://gitlab.com/gaia-x/gaia-x-community/gaia-x-self-descriptions)
+* GAIA-X Open Work Package "Self-Description" and their [GitLab Repository (currently restricted to the GAIA-X community)](https://gitlab.com/gaia-x/gaia-x-community/gaia-x-self-descriptions)
 
 Contacts:
 * [Johannes Lipp](https://gitlab.com/JohannesL) <johannes.lipp@fit.fraunhofer.de>
