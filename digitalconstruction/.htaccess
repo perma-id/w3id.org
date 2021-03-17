@@ -7,26 +7,26 @@ Options -MultiViews
 # 2. each ontology version directory contains symbolic links to different serializations ('ttl', 'json', 'xml', 'nt')
 
 # Minor translations
-RewriteRule ^(.+)/$                                         $1                                                          [N]
-RewriteRule ^(.+).owl$                                      $1.xml                                                      [N]
-RewriteRule ^(.+).jsonld$                                   $1.json                                                     [N]
+RewriteRule ^(.+)/$                                         $1                                                          [R=302,NE,L]
+RewriteRule ^(.+).owl$                                      $1.xml                                                      [R=302,NE,L]
+RewriteRule ^(.+).jsonld$                                   $1.json                                                     [R=302,NE,L]
 
 # Accept headers
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt)      [NC]
-RewriteRule ^(.+)([\/\.]?)$                                 $1/ttl                                                      [R=302,NE,L]
+RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
+RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/ttl                                                  [R=302,NE,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*application/(.*)json.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt)      [NC]
-RewriteRule ^(.+)([\/\.]?)$                                 $1/json                                                     [R=302,NE,L]
+RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
+RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/json                                                 [R=302,NE,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt)      [NC]
-RewriteRule ^(.+)([\/\.]?)$                                 $1/nt                                                       [R=302,NE,L]
+RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
+RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/nt                                                   [R=302,NE,L]
 
-RewriteCond %{HTTP_ACCEPT} ^.*application/([^h]*)xml.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt)      [NC]
-RewriteRule ^(.+)([\/\.]?)$                                 $1/xml                                                      [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/(rdf|owl)\+xml.*
+RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
+RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/xml                                                  [R=302,NE,L]
 
 # URI patterns
 RewriteRule ^index.html$                                    https://digitalconstruction.github.io/latest/index.html     [R=302,NE,L]
