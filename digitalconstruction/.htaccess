@@ -7,9 +7,9 @@ Options -MultiViews
 # 2. each ontology version directory contains symbolic links to different serializations ('ttl', 'json', 'xml', 'nt')
 
 # Minor translations
-RewriteRule ^(.+)/$                                         $1                                                          [R=302,NE,L]
-RewriteRule ^(.+).owl$                                      $1.xml                                                      [R=302,NE,L]
-RewriteRule ^(.+).jsonld$                                   $1.json                                                     [R=302,NE,L]
+RewriteRule ^(.+)/$                                         $1                                                          [N]
+RewriteRule ^(.+).owl$                                      $1.xml                                                      [N]
+RewriteRule ^(.+).jsonld$                                   $1.json                                                     [N]
 
 # Accept headers
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
@@ -29,11 +29,13 @@ RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt)      [NC]
 RewriteRule ^(.+)([\/\.]?)$                                 $1/xml                                                      [R=302,NE,L]
 
 # URI patterns
-RewriteRule ^index.html$                                    https://digitalconstruction.github.io/index.html            [R=302,NE,L]
+RewriteRule ^index.html$                                    https://digitalconstruction.github.io/latest/index.html     [R=302,NE,L]
+RewriteRule ^([0-9]+\.[0-9]+)/index.html$                   https://digitalconstruction.github.io/v/$1/index.html       [R=302,NE,L]
 RewriteRule ^([0-9]+\.[0-9]+)/Alignment/([A-Za-z0-9]+)(.*)$ https://digitalconstruction.github.io/Alignment/$2/v/$1$3   [R=302,NE,L]
 RewriteRule ^([0-9]+\.[0-9]+)/([A-Za-z0-9]+)(.*)$           https://digitalconstruction.github.io/$2/v/$1$3             [R=302,NE,L]
 RewriteRule ^Alignment/([A-Za-z0-9]+)(.*)$                  https://digitalconstruction.github.io/Alignment/$1/latest$2 [R=302,NE,L]
+RewriteRule ^([0-9]+\.[0-9]+)[\/]?$			    https://digitalconstruction.github.io/v/$1/index.html       [R=302,NE,L]
 RewriteRule ^([A-Za-z0-9]+)(.*)$                            https://digitalconstruction.github.io/$1/latest$2           [R=302,NE,L]
-RewriteRule ^$                                              https://digitalconstruction.github.io/index.html            [R=302,NE,L]
+RewriteRule ^$                                              https://digitalconstruction.github.io/latest/index.html     [R=302,NE,L]
 
 
