@@ -1,7 +1,10 @@
 # Building Performance Ontology (BOP)
 
+* Namespace: https://w3id.org/bop#
+* Prefix: bop
+
 Ontology
-* Documentation: https://alexdonkers.github.io/bop/
+* HTML documentation: https://alexdonkers.github.io/bop/
 * Turtle: https://alexdonkers.github.io/bop/ontology.ttl
 
 Contact information
