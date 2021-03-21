@@ -36,12 +36,17 @@ to a new location if the old location stops working.
 
 There is a growing group of organizations in a consortium that have pledged
 responsibility to ensure the operation of this website. These organizations
-are: [Digital Bazaar](http://digitalbazaar.com/),
-[3 Round Stones](http://3roundstones.com/),
-[OpenLink Software](https://www.openlinksw.com/),
-[Applied Testing and Technology](http://www.aptest.com/),
-[Openspring](http://openspring.net/), and
-[Bosatsu Consulting](http://bosatsu.net/). They are responsible for all
+are: 
+
+* [Digital Bazaar](http://digitalbazaar.com/)
+* [3 Round Stones](http://3roundstones.com/)
+* [OpenLink Software](https://www.openlinksw.com/)
+* [Applied Testing and Technology](http://www.aptest.com/)
+* [Openspring](http://openspring.net/)
+* [Bosatsu Consulting](http://bosatsu.net/)
+* [SURROUND Australia](https://surroundaustralia.com)
+
+They are responsible for all
 administrative tasks associated with operating the service. The social
 contract between these organizations gives each of them full access to
 all information required to maintain and operate the website. The
