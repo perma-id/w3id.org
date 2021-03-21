@@ -1,0 +1,14 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# vocab/ --> testlink-model/docs
+RewriteRule ^vocab$ testlink-model/docs
+RewriteRule ^vocab\/(.*)$ testlink-model/docs
+
+# / --> testlink-model/
+RewriteRule ^$ testlink-model/
+RewriteRule ^([^\/]*)$ testlink-model/$1
+
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://csolink.github.io/$1 [R=302]
