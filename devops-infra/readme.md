@@ -1,6 +1,6 @@
-## Repository for maintaining an ontology network around DevOps infrastructure
+## Repository for maintaining an ontology network around the ICT infrastructure required for DevOps operations
 
-This is a repository that will allow maintaining an ontology network (in progress) around DevOps infrastructure
+This is a repository that allows maintaining an ontology network around the ICT infrastructure required for DevOps operations
 
 Maintainer: Oscar Corcho @ocorcho 
 
