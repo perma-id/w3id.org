@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule "^(.*)$" "https://ec-jrc.github.io/datacite-to-dcat-ap/citedcat-ap.rdf" [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule "^(.*)$" "https://ec-jrc.github.io/datacite-to-dcat-ap/citedcat-ap.ttl" [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule "^(.*)$" "https://ec-jrc.github.io/datacite-to-dcat-ap/citedcat-ap.jsonld" [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xslt\+xml.* 
+RewriteRule "^(.*)$" "https://raw.githubusercontent.com/ec-jrc/datacite-to-dcat-ap/master/datacite-to-dcat-ap.xsl" [R=303,L]
+RewriteRule "^(.+)$" "https://ec-jrc.github.io/datacite-to-dcat-ap/#$1" [NE,R=303,L,QSA]
+RewriteRule "^$" "https://ec-jrc.github.io/datacite-to-dcat-ap/" [R=303,L,QSA]
