@@ -1,0 +1,20 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+#This will change and move into the HTML of the SKOS codelists. For the time being, a redirect to the main HTML page
+RewriteRule ^.*$ https://oeg-upm.github.io/devops-infra/index.html [R=302,L]
+
+
