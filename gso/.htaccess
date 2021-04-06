@@ -1,12 +1,5 @@
 Options +FollowSymLinks
-RewriteEngine on
-
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule       qudt/voc\/           https://raw.githack.com/Loop3D/GKM/master/docs/qudt_voc.html  [R=303,L]
-RewriteRule       skos/annotation\/ https://raw.githack.com/Loop3D/GKM/master/docs/skos_annotation.html  [R=303,L]
-RewriteRule ([a-z-]*)\/  https://raw.githack.com/Loop3D/GKM/master/docs/$1.html   [R=303,L]
- 
+RewriteEngine on 
 
 # Rewrite rule to serve turtle content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
@@ -66,5 +59,4 @@ RewriteRule       skos/annotation\/           https://raw.githack.com/Loop3D/GKM
 
 # Choose the default response
 # ---------------------------
-# Default Rule
-RewriteRule common\/ https://github.com/Loop3D/GKM/blob/master/Loop3D-GSO/GSO-Common.ttl [R=303,L]
+RewriteRule       ([a-z-]*)/          https://raw.githack.com/Loop3D/GKM/master/docs/$1.html   [R=303,L]
