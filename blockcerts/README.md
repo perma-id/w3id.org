@@ -16,6 +16,8 @@ https://w3id.org/blockcerts/v2.1
 
 https://w3id.org/blockcerts/v3.0-alpha
 
+https://w3id.org/blockcerts/v3.0-beta
+
 Contacts:
 
 info@blockcerts.org
@@ -23,3 +25,4 @@ info@blockcerts.org
 Maintainers:
 @lemoustachiste
 @lparkerlm
+@raiseandfall
