@@ -7,5 +7,5 @@ This ontology provides concepts in reliability analysis of structural systems.
 **Lini Xiang**  
 *Department of Engineering Mechanics, DLUT, China*  
 <xln01214@mail.dlut.edu.cn>  
-GitHub: [LiniXiang](https://github.com/LiniXiang)
+GitHub: <https://github.com/LiniXiang>
 
