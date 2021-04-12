@@ -1,8 +1,6 @@
 # Structure Reliability Representation (SRR)
 This ontology provides concepts in reliability analysis of structural systems. 
 
-## Documents
-<> 
 
 ## Contact me
 
