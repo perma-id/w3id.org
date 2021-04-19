@@ -13,3 +13,5 @@ With these goals in mind, we designed the URW Ontology to answer the following C
 <h2>The Under-represented Writers dataset</h2>
 <p>A first version of the dataset has been published on <a href="https://datahub.io/marcoantonio.stranisci/underrepresentedkg-green-grasshopper-19">Data Hub</a><p>
 <p>The dataset contains 11,216 TimeIndexedPersonStatus, and Migration items about 2,218 authors biographies</p>
+<h2>Mantainer</h2>
+Marco Antonio Stranisci, PhD student at the University of Turin (marcoantonio.stranisci@unito.it)
