@@ -15,5 +15,5 @@ RML-FnO-Spec:
 
 Contacts: 
 * David Chaves-Fraga <dchaves@fi.upm.es>
-* Pieter Heyvaert <pheyvaer.heyvaert@ugent.be>
+* Pieter Heyvaert <pieter.heyvaert@ugent.be>
 * Anastasia Dimou <anastasia.dimou@ugent.be>
