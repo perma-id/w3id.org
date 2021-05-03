@@ -36,8 +36,14 @@ RewriteEngine on
 ### SON behaviour
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/spice-h2020/SON/
+SetEnvIf Request_URI ^.*$ DEV_ROOT_URL=https://raw.githubusercontent.com/spice-h2020/SON/main/
 SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
 SetEnvIf Request_URI ^.*$ LATEST_STABLE_RELEASE=0.0.1
+
+# Rules for release under development, currently 0.0.2
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/0.0.2(/)?$ %{ENV:LODE_URL}%{ENV:DEV_ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/0.0.2(/)?$ %{ENV:DEV_ROOT_URL}/$2/$1/ontology.owl [R=303,L]
 
 # Rules for version-aware URIs of ontologies
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
