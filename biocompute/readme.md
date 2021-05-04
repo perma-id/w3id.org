@@ -3,6 +3,8 @@ BioCompute
 
 ## Object Links
 * BioCompute Object portal	https://w3id.org/biocompute/portal/*****
+* GlyGen dsBCOO portal	https://w3id.org/biocompute/portal/GLY*****
+* OncoMX dsBCOO portal	https://w3id.org/biocompute/portal/OMX*****
 
 ## Registry
 
