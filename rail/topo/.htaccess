@@ -7,7 +7,7 @@ AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
 AddType application/n-triples .n3
-AddType application/ld+json .json
+AddType application/ld+json .jsonld
 # Rewrite engine setup
 RewriteEngine On
 
@@ -20,12 +20,12 @@ RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/inde
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.json [R=303,L]
+RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.jsonld [R=303,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.xml [R=303,L]
+RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.rdf [R=303,L]
 
 # Rewrite rule to serve N-Triples content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/n-triples
@@ -44,4 +44,4 @@ RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/406.html 
 # Default response
 # ---------------------------
 # Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
-RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.xml [R=303,L]
+RewriteRule ^$ https://siemens.github.io/ProductConfigurationWithSHACL/topo/ontology.rdf [R=303,L]
