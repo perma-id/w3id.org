@@ -4,7 +4,7 @@ ISIL is the International Standard Identifier for Libraries and Related Organisa
 ISIL is being supervised by the [ISIL Registration Authority](http://biblstandard.dk/isil/) in Kopenhagen.
 
 ## W3ID for ISIL
-W3IDs are currently supported for AT-\*, AU-\*, DE-\*, FI-\*, FR-\*, IT-\*, JP-\*, NZ-\*, US-\* and ZDB-\* ISILs.
+W3IDs are currently supported for AT-\*, AU-\*, DE-\*, FI-\*, FR-\*, IT-\*, JP-\*, NZ-\*, BE-\*, CA-\*, US-\* and ZDB-\* ISILs.
 
 ## Examples
 
@@ -39,6 +39,12 @@ https://w3id.org/isil/FI-Aalto -> https://isil.kansalliskirjasto.fi/api/query?is
 
 ## CH
 https://w3id.org/isil/CH-000001-5 -> https://culture.ld.admin.ch/isil/CH-000001-5
+
+## BE
+https://w3id.org/isil/BE-BUE02 -> http://isil.kbr.be/search.php?query=BE-BUE02&type=ISIL
+
+## CA
+https://w3id.org/isil/CA-ACU -> https://sigles-symbols.bac-lac.gc.ca/eng/Search/Lookup?LibrarySymbol=ACU
 
 
 ## Contact
