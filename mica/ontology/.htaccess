@@ -1,0 +1,93 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+####################################################################################
+#                  MICAModel rules for web negociation                             #
+####################################################################################
+#Rewrite rules for MicaModel HTML content from the vocabulary URI if requested 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) 
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* 
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.html  [R=303,NE,L]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) 
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* 
+RewriteRule ^MicaModel#(.+) http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.html#$1 [R=303,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml 
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.rdf [R=303,NE,L]
+
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle  
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.ttl [R=303,NE,L]
+
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json  
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.json [R=303,NE,L]
+
+#default response 
+RewriteRule ^MicaModel$ http://lig-coin.imag.fr/mica/ontology/MicaModel/MicaModel.rdf [R=303,NE,L]
+
+
+####################################################################################
+#                  MICAOntology rules for web negociation                          #
+####################################################################################
+#Rewrite rules for MICAOntology HTML content from the vocabulary URI if requested 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) 
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* 
+RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.html  [R=303,NE,L]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) 
+RewriteCond %{HTTP_ACCEPT} text/html [OR] 
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR] 
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* 
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/page/$1  [R=303,NE,L] 
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml 
+RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.rdf [R=303,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml 
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/data/$1?type=rdf  [R=303,NE,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle  
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/data/$1?type=rdf  [R=303,NE,L]
+
+# Rewrite rule to serve JSON content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json 
+RewriteRule ^MicaOntology/(.+) http://lig-coin.imag.fr/MICAURI/ontology/data/$1?type=json  [R=303,NE,L]
+
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle  
+RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.ttl [R=303,NE,L]
+
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json 
+RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.json [R=303,NE,L]
+
+#default response 
+RewriteRule ^MicaOntology/$ http://lig-coin.imag.fr/mica/ontology/MicaOntology/MicaOntology.rdf [R=303,NE,L]
+
+
+
+
+
+
