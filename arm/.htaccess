@@ -12,8 +12,8 @@ RewriteRule ^$ https://art-and-rare-materials-bf-ext.github.io/arm/ [R=302,L]
 ### Setup for https://w3id.org/arm/core/ontology
 
 # Version 1.0
-RewriteRule ^ontology/1.0/ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=302,L]
-RewriteRule ^ontology/1.0/arm.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=302,L]
+RewriteRule ^ontology/1.0/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=303,L]
+RewriteRule ^ontology/1.0/arm.rdf$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=302,L]
 
 # Version 0.1
 RewriteRule ^core/ontology/0.1/core.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.rdf [R=302,L]
@@ -67,7 +67,8 @@ RewriteRule ^activity/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ex
 #any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^activity/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.rdf [R=303]
 
-# Unversioned -> latest version
+# Unversioned -> latest version (note also wierd pattern as published without ontology component)
+RewriteRule ^activity/?$ https://w3id.org/arm/activity/ontology/0.1/ [R=302,L]
 RewriteRule ^activity/ontology/?$ https://w3id.org/arm/activity/ontology/0.1/ [R=302,L]
 RewriteRule ^activity/ontology/activity.rdf$ https://w3id.org/arm/activity/ontology/0.1/activity.rdf [R=302,L]
 RewriteRule ^activity/ontology/activity.html$ https://w3id.org/arm/activity/ontology/0.1/activity.html [R=302,L]
