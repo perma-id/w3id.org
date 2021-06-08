@@ -8,4 +8,6 @@
 
 ## Maintainers
 
-https://github.com/w3c-ccg/vc-http-api/blob/main/CODEOWNERS
+@peacekeeper @msporny @mavarley @OR13 @mkhraisha
+
+
