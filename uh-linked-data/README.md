@@ -9,3 +9,4 @@ Dictionary introduction:
 
 Contacts: 
 * Jana L Dambrogio <jld@mit.edu>
+* Athanasios Velios (@natuk) <a.velios@arts.ac.uk>
