@@ -4,8 +4,8 @@ Letterlocking - Unlocking History
 Homepage:
 * http://letterlocking.org
 
-Vocabulary definitions:
-* http://letterlocking.org/uh-linked-data
+Dictionary introduction:
+* http://letterlocking.org/dictionary
 
 Contacts: 
 * Jana L Dambrogio <jld@mit.edu>
