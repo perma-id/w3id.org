@@ -11,5 +11,6 @@ This space is administered by:
 
 **Go Sugimoto**  
 *Donau University Krems*  
-<go.sugimoto@donau-uni.ac.at>  
+<go.sugimoto@donau-uni.ac.at>
+GitHub: [GO5IT](https://github.com/GO5IT)
 ORCID: [0000-0003-2646-6784](https://orcid.org/0000-0003-2646-6784)
