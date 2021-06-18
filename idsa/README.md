@@ -27,3 +27,4 @@ Contacts:
 * [Christoph Lange](https://github.com/clange/) <christoph.lange-bever@fit.fraunhofer.de>
 * [Sebastian Bader](https://github.com/sebbader) <sebastian.bader@iais.fraunhofer.de>
 * [Haydar Akyuerek](https://github.com/HaydarAk) <haydar.akyuerek@fit.fraunhofer.de>
+* [Johannes Lipp](https://github.com/JohannesLipp) <johannes.lipp@fit.fraunhofer.de>
