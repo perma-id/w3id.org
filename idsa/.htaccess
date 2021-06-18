@@ -18,16 +18,19 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* 
+RewriteCond %{HTTP_ACCEPT} \*/\*
 RewriteRule ^(core|code|metamodel)/?$ https://international-data-spaces-association.github.io/InformationModel/docs/index.html#$2 [NE,R=303]
 
+# Includes versioning
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/index.html [L,R=303]
+
 # TURTLE
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
 RewriteRule ^(core|code|metamodel).ttl https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
 
 # N3
-RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* 
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.*
 RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
 RewriteRule ^(core|code|metamodel).n3 https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
 
@@ -57,12 +60,12 @@ RewriteRule ^(core|code|metamodel).nt https://international-data-spaces-associat
 # context.json(ld)
 RewriteRule ^contexts/context.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303]
 RewriteRule ^contexts/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303]
-RewriteRule ^contexts/context-dev.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303] 
-RewriteRule ^contexts/context-dev.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303] 
+RewriteRule ^contexts/context-dev.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303]
+RewriteRule ^contexts/context-dev.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303]
 RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/$1/context.jsonld [R=303]
 RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.jsonld$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/$1/context.jsonld [R=303]
 
-# 
+#
 RewriteRule ^(core|code|metamodel)/(.+) https://international-data-spaces-association.github.io/InformationModel/docs/index.html#/$2 [R=303,NE]
 RewriteRule ^shacl/(.+) https://raw.githubusercontent.com/International-Data-Spaces-Association/InformationModel/develop/testing/$1.ttl [R=303,NE]
 RewriteRule ^shacl https://github.com/International-Data-Spaces-Association/InformationModel/releases/download/v4.0.0/ValidationShapesv400.zip [R=303]
