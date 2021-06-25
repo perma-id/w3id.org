@@ -1,14 +1,14 @@
 # MoJo additive creations permalink
 
-##Homepage:
+## Homepage:
 
    - https://w3id.org/mojo-ac
 
-##mojo-ac Ontologies
+## mojo-ac Ontologies
 
   -  Blog https://w3id.org/mojo-ac/Blog
 
 
-##Contacts:
+## Contacts:
 
    - MoJo mojo-ac@gmx.net
