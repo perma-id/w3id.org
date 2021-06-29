@@ -2,11 +2,11 @@
 
 The ASB-ING Ontology is for infrastructure documentation in Germany.
 
-html:
+html: https://github.com/AnneGoebels/ASB-ING_Ontology/blob/main/CoreOnt/index-en.html
 json-ld:
 rdf/xml:
 N-Triples:
-ttl:
+ttl: https://github.com/AnneGoebels/ASB-ING_Ontology/blob/main/CoreOnt/ontology.ttl
 
 Contact:
 Anne Göbels
