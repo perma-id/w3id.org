@@ -1,6 +1,7 @@
 /asbing/
-
 The ASB-ING Ontology is for infrastructure documentation in Germany.
+
+Ontology resources
 
 html: https://github.com/AnneGoebels/ASB-ING_Ontology/blob/main/CoreOnt/index-en.html
 json-ld:
