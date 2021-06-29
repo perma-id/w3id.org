@@ -3,7 +3,7 @@ The ASB-ING Ontology is for infrastructure documentation in Germany.
 It consists of one core ontology, and two sub-ontologies.
 
 
-/asbing/2016/
+/asbingowl/2016/
 
 Core Ontology :
 
@@ -18,7 +18,7 @@ Keys Sub-Ontology:
 ttl: https://annegoebels.github.io/SubOntNewKeys.ttl
 
 
-/asbing/2013/
+/asbingowl/2013/
 
 Old Keys Sub-Ontology:
 
