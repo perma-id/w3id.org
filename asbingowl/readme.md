@@ -13,14 +13,14 @@ json-ld: https://annegoebels.github.io/ontology.json
 N-Triples: https://annegoebels.github.io/ontology.nt
 rdf/xml: https://annegoebels.github.io/ontology.xml
 
-Keys Ontology:
+Keys Sub-Ontology:
 
 ttl: https://annegoebels.github.io/SubOntNewKeys.ttl
 
 
 /asbing/2013/
 
-Old Keys Ontology:
+Old Keys Sub-Ontology:
 
 ttl: https://annegoebels.github.io/SubOntOldKeys.ttl
 
