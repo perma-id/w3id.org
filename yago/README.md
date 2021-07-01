@@ -4,4 +4,4 @@
 Contact:
 
 * Fabian Suchanek (fabian AT suchanek.name)
-* Thomas Rebele (rebele @ enst.fr)
+* Thomas Rebele (rebele AT enst.fr)

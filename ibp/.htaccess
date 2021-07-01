@@ -1,0 +1,1008 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+###   ###   ###   ###   ###   ###   ###   
+# CTRLont
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^CTRLont.ttl$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^CTRLont.html$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^CTRLont.rdf$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^CTRLont.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^CTRLont.nt$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^CTRLont$ https://technicalbuildingsystems.github.io/Ontologies/CTRLont/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# CTRLontEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^CTRLontEval$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^CTRLontEval$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CTRLontEval$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^CTRLontEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^CTRLontEval.html$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^CTRLontEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^CTRLontEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^CTRLontEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^CTRLontEval$ https://technicalbuildingsystems.github.io/Ontologies/CTRLontEval/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# BasicDataTypeOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^BasicDataTypeOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^BasicDataTypeOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^BasicDataTypeOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^BasicDataTypeOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^BasicDataTypeOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^BasicDataTypeOntology$ https://technicalbuildingsystems.github.io/Ontologies/BasicDataTypeOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# ExpressionOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ExpressionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ExpressionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ExpressionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ExpressionOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ExpressionOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ExpressionOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ExpressionOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ExpressionOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^ExpressionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# ExpressionOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ExpressionOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ExpressionOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ExpressionOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ExpressionOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ExpressionOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ExpressionOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ExpressionOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ExpressionOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^ExpressionOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ExpressionOntologyEval/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesAcrossControl
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesAcrossControl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesAcrossControl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesAcrossControl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesAcrossControl.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesAcrossControl.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesAcrossControl.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesAcrossControl.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesAcrossControl.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesAcrossControl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAcrossControl/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesAutoVerification
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesAutoVerification$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesAutoVerification$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesAutoVerification$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesAutoVerification.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesAutoVerification.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesAutoVerification.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesAutoVerification.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesAutoVerification.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesAutoVerification$ https://technicalbuildingsystems.github.io/Ontologies/InstancesAutoVerification/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesGuardFromFork
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesGuardFromFork$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesGuardFromFork$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesGuardFromFork$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesGuardFromFork.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesGuardFromFork.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesGuardFromFork.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesGuardFromFork.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesGuardFromFork.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesGuardFromFork$ https://technicalbuildingsystems.github.io/Ontologies/InstancesGuardFromFork/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesPlantData
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesPlantData$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesPlantData$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesPlantData$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesPlantData.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesPlantData.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesPlantData.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesPlantData.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesPlantData.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesPlantData$ https://technicalbuildingsystems.github.io/Ontologies/InstancesPlantData/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesQuantityMismatch
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesQuantityMismatch$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesQuantityMismatch$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesQuantityMismatch$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesQuantityMismatch.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesQuantityMismatch.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesQuantityMismatch.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesQuantityMismatch.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesQuantityMismatch.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesQuantityMismatch$ https://technicalbuildingsystems.github.io/Ontologies/InstancesQuantityMismatch/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesSensorExerpt
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesSensorExerpt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesSensorExerpt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesSensorExerpt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesSensorExerpt.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesSensorExerpt.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesSensorExerpt.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesSensorExerpt.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesSensorExerpt.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesSensorExerpt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesSensorExerpt/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# InstancesTwoTranFromIni
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^InstancesTwoTranFromIni$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^InstancesTwoTranFromIni$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^InstancesTwoTranFromIni$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^InstancesTwoTranFromIni.ttl$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^InstancesTwoTranFromIni.html$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^InstancesTwoTranFromIni.rdf$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^InstancesTwoTranFromIni.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^InstancesTwoTranFromIni.nt$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^InstancesTwoTranFromIni$ https://technicalbuildingsystems.github.io/Ontologies/InstancesTwoTranFromIni/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# MealyMachineOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MealyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^MealyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^MealyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^MealyMachineOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^MealyMachineOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^MealyMachineOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^MealyMachineOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^MealyMachineOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^MealyMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MealyMachineOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# MooreMachineOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^MooreMachineOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^MooreMachineOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^MooreMachineOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^MooreMachineOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^MooreMachineOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^MooreMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/MooreMachineOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# ScheduleOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ScheduleOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ScheduleOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ScheduleOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ScheduleOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ScheduleOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^ScheduleOntology$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# ScheduleOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ScheduleOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ScheduleOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ScheduleOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ScheduleOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ScheduleOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ScheduleOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ScheduleOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ScheduleOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^ScheduleOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/ScheduleOntologyEval/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# SequenceControlOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^SequenceControlOntology$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^SequenceControlOntology$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^SequenceControlOntology$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^SequenceControlOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^SequenceControlOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^SequenceControlOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^SequenceControlOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^SequenceControlOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^SequenceControlOntology$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# SequenceControlOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^SequenceControlOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^SequenceControlOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^SequenceControlOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^SequenceControlOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^SequenceControlOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^SequenceControlOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^SequenceControlOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^SequenceControlOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^SequenceControlOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/SequenceControlOntologyEval/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# StateGraphOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^StateGraphOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^StateGraphOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^StateGraphOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^StateGraphOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^StateGraphOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^StateGraphOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# StateGraphOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^StateGraphOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^StateGraphOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^StateGraphOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^StateGraphOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^StateGraphOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^StateGraphOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^StateGraphOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^StateGraphOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^StateGraphOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateGraphOntologyEval/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# StateMachineOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^StateMachineOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^StateMachineOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^StateMachineOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^StateMachineOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^StateMachineOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^StateMachineOntology$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntology/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# StateMachineOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^StateMachineOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^StateMachineOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^StateMachineOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^StateMachineOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^StateMachineOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^StateMachineOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^StateMachineOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^StateMachineOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^StateMachineOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/StateMachineOntologyEval/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# TransferFunctionElement
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^TransferFunctionElement$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^TransferFunctionElement$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^TransferFunctionElement$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^TransferFunctionElement.ttl$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^TransferFunctionElement.html$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^TransferFunctionElement.rdf$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^TransferFunctionElement.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^TransferFunctionElement.nt$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^TransferFunctionElement$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElement/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# TransferFunctionElementEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^TransferFunctionElementEval$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^TransferFunctionElementEval$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^TransferFunctionElementEval$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^TransferFunctionElementEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^TransferFunctionElementEval.html$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^TransferFunctionElementEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^TransferFunctionElementEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^TransferFunctionElementEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^TransferFunctionElementEval$ https://technicalbuildingsystems.github.io/Ontologies/TransferFunctionElementEval/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# TwoPointDiscreteOntology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^TwoPointDiscreteOntology$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^TwoPointDiscreteOntology$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^TwoPointDiscreteOntology$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^TwoPointDiscreteOntology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^TwoPointDiscreteOntology.html$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^TwoPointDiscreteOntology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^TwoPointDiscreteOntology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^TwoPointDiscreteOntology.nt$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^TwoPointDiscreteOntology$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntology/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# TwoPointDiscreteOntologyEval
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^TwoPointDiscreteOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^TwoPointDiscreteOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^TwoPointDiscreteOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^TwoPointDiscreteOntologyEval.ttl$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^TwoPointDiscreteOntologyEval.html$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^TwoPointDiscreteOntologyEval.rdf$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^TwoPointDiscreteOntologyEval.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^TwoPointDiscreteOntologyEval.nt$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^TwoPointDiscreteOntologyEval$ https://technicalbuildingsystems.github.io/Ontologies/TwoPointDiscreteOntologyEval/index-en.html [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# ConditionOntology
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.ttl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.html [R=303,L]
+
+# Default provide .ttl
+RewriteRule ^ConditionOntology$ https://technicalbuildingsystems.github.io/Ontologies/ConditionOntology/ConditionOntology.ttl [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# ISO60050Ontology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ISO60050Ontology$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ISO60050Ontology$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ISO60050Ontology$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ISO60050Ontology.ttl$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ISO60050Ontology.html$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ISO60050Ontology.rdf$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ISO60050Ontology.jsonld$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ISO60050Ontology.nt$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^ISO60050Ontology$ https://technicalbuildingsystems.github.io/Ontologies/ISO60050Ontology/index-en.html [R=303,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# FMUont
+# If application looks for .ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.ttl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.html [R=303,L]
+
+# Default provide .ttl
+RewriteRule ^FMUont$ https://technicalbuildingsystems.github.io/Ontologies/FMUont/FMUont.ttl [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# HEX
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.owl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.html [R=303,L]
+
+# Default provide .owl
+RewriteRule ^hbc/hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/Hex.owl [R=303,L]
+
+
+###   ###   ###   ###   ###   ###   ###   
+# bim4hex
+# If application looks for .owl
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4hex.owl [R=303,L]
+
+# If application looks for .html
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4Hex.html [R=303,L]
+
+# Default provide .owl
+RewriteRule ^hbc/bim4hex$ https://technicalbuildingsystems.github.io/Ontologies/hbc/bim4hex.owl [R=303,L]
+
+# Default rewrite if only namespace is accessed
+RewriteRule ^$ https://technicalbuildingsystems.github.io/Ontologies/ [R=303,L]

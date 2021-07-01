@@ -28,9 +28,9 @@ Also:
 
 References:
 * http://dx.doi.org/10.5281/zenodo.31765 
-* http://researchobject.org/
+* https://github.com/identifiercommons/identifier-rules/
 
 Contacts: 
 * Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Julie McMurry <mcmurry.julie@gmail.com> 
+* Julie McMurry mcmurryj at oregonstate dot edu
 

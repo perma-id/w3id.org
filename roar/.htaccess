@@ -1,0 +1,31 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+RewriteEngine on
+
+#Rewrite rules for roar vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/docs/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/roar.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/roar.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/roar.json [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/roar.nt [R=303,NE,L]
+#default response: turtle
+RewriteRule ^$ https://leonvanwissen.nl/vocab/roar/roar.ttl [R=303,NE,L]
