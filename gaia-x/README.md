@@ -9,17 +9,17 @@ Redirections:
   * https://w3id.org/gaia-x
   * --> https://data-infrastructure.eu/
 * Direct ontology access: Access respective ontology
-  * https://w3id.org/gaia-x/core.ttl (or rdf, json, ...)
-  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl (or rdf, json, ...)
+  * https://w3id.org/gaia-x/[core|asset|...].ttl (or rdf, json, ...)
+  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/[core|asset|...]/ontology.ttl (or rdf, json, ...)
 * HTML: Visit documentation
-  * https://w3id.org/gaia-x/core
-  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html
+  * https://w3id.org/gaia-x/[core|asset|...]
+  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/[core|asset|...]/*.html
   * ...and...
-  * https://w3id.org/gaia-x/core/Class
-  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/index.html#Class (jumps to position for convenience)
+  * https://w3id.org/gaia-x/[core|asset|...]/Class
+  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/[core|asset|...]/*.html#Class (jumps to position for convenience)
 * Accept [ttl/rdf/xml/json-ld/json/nt]: Access respective ontology as whole
-  * https://w3id.org/gaia-x/core or https://w3id.org/gaia-x/core/Class
-  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/ontology.ttl (or rdf, json, ...)
+  * https://w3id.org/gaia-x/[core|asset|...] or https://w3id.org/gaia-x/[core|asset|...]/Class
+  * --> https://gaia-x.gitlab.io/gaia-x-community/gaia-x-self-descriptions/[core|asset|...]/ontology.ttl (or rdf, json, ...)
 
 Support:
 * GAIA-X Open Work Package "Self-Description" and their [GitLab Repository (currently restricted to the GAIA-X community)](https://gitlab.com/gaia-x/gaia-x-community/gaia-x-self-descriptions)
