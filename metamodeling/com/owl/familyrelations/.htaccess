@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+RewriteEngine on
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.owl file served as appropriate content type
+AddType application/rdf+xml .owl
+
+
+# #Rewrite rules for frsr vocabulary
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+RewriteRule ^frsr$ https://datahub.io/hmqq/lod-frsr-witty-swan-49 [R=303,L]
+
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^frsr$ https://datahub.io/hmqq/lod-frsr-witty-swan-49/r/frsr.owl [R=303,NE,L]
+
+
+# If suffix owl, download the owl version
+RewriteRule ^frsr.owl$ https://datahub.io/hmqq/lod-frsr-witty-swan-49/r/frsr.owl [R=303,NE,L]
+
+
+# Default response: html
+RewriteRule ^frsr$ https://datahub.io/hmqq/lod-frsr-witty-swan-49 [R=303,NE,L]
