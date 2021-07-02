@@ -1,4 +1,4 @@
-##The BIM (Building Information Modelling) for EEPSA (Energy Efficiency Prediction Semantic Assistant) Ontology
+## The BIM (Building Information Modelling) for EEPSA (Energy Efficiency Prediction Semantic Assistant) Ontology
 
 Contact
 

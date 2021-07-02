@@ -6,6 +6,7 @@ Homepage:
 
 JSON-LD contexts:
 * https://w3id.org/woleet/signature/v1
+* https://w3id.org/woleet/signature/v2
 
 Contacts: 
 * conctact@woleet.com

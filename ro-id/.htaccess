@@ -1,0 +1,52 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# entry point
+# this will point to rohub main page
+RewriteRule ^$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ [R=302,L]
+
+# Research Object resource
+# download resource
+RewriteRule ^(.*)/resources/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$2/download/ [R=302,L]
+RewriteRule ^resources/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$1/download/ [R=302,L]
+
+# Research Object annotation
+# download annotation
+RewriteRule ^(.*)/annotations/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L]
+RewriteRule ^annotations/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$1/download/ [R=302,L]
+
+# Research Object folder
+# download folder
+RewriteRule ^(.*)/folders/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$2/download/ [R=302,L]
+RewriteRule ^folders/(.*)$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$1/download/ [R=302,L]
+
+# Research Object activities
+# download activities
+RewriteRule ^(.*)/activities$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/activities/ [R=302,L]
+
+# Research Object geolocation
+# download geolocation
+RewriteRule ^(.*)/geolocation$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/geolocation/ [R=302,L]
+
+# Research Object research areas
+# download research areas
+RewriteRule ^(.*)/research-areas$ http://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/research-areas/ [R=302,L]
+
+# Research Object crate
+# download ro-crate
+RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=303,L]
+
+# Research Object
+# open RO in ROHub portal
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ros/$1 [R=303,L]
+# download RO as RDF (manifest), ZIP or PDF
+RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=303,L]

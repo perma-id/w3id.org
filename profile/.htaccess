@@ -1,0 +1,32 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Items
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^$ https://profcat.conneg.info/profile/?_mediatype=text/turtle [R=302,L]
+RewriteRule ^$ https://profcat.conneg.info/profile/ [R=302,L]
+
+# Item
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule (.*) "https://profile.conneg.info/$1?_mediatype=text/turtle" [R=302,L,NE]
+RewriteRule (.*).ttl$ "https://profile.conneg.info/$1?_mediatype=text/turtle" [R=302,L,NE]
+RewriteRule (.*) https://profile.conneg.info/$1 [R=302,L,QSA]
+
+
+# Example URIs handled
+#
+# https://w3id.org/profile
+# https://w3id.org/profile/catalogue.ttl
+# https://w3id.org/profile/
+#
+# https://w3id.org/profile/dcatnull
+# https://w3id.org/profile/ontdoc
+# https://w3id.org/profile/vocpub
+# https://w3id.org/profile/vocpub.ttl
+# https://w3id.org/profile/vocpub?_mediatype=text/turtle
+# https://w3id.org/profile/vocpub?_profile=dcat&_mediatype=text/turtle
+# https://w3id.org/profile/vocpub, Accept: text/turtle
+# https://w3id.org/profile/vocpub, Accept-Profile: <https://www.w3.org/TR/vocab-dcat/>, Accept: text/turtle
+# etc...
