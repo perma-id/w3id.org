@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# Match anything that does not contain '.', assume to be request to OWL file.
+RewriteRule ^([^.]+)$ http://mazimweal.github.io/onto/$1.owl [R=303,L]
+
+# Match anything that ends with .owl
+RewriteRule ^(.+)\.owl$ http://mazimweal.github.io/onto/$1.owl [R=303,L]

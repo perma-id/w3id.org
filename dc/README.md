@@ -7,5 +7,4 @@ Homepage
 Contacts
 
 * Tom Baker <tom@tombaker.org>
-* Stuart Sutton <sasutton@dublincore.net>
-
+* Paul Walk <paul@paulwalk.net>
