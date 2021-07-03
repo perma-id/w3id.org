@@ -2,4 +2,8 @@ Header set Access-Control-Allow-Origin *
 Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
 Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^$ http://aligned.cs.ox.ac.uk/ontologies/dio [R=302,L]
+RewriteRule ^$ https://nimonika.github.io/ontologies/dio/doc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^$ https://nimonika.github.io/ontologies/dio/dio.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$ https://nimonika.github.io/ontologies/dio/dio.ttl [R=303,NE,L]
