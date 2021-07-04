@@ -10,6 +10,10 @@ Specification:
 YARRRML's Matey:
 * https://w3id.org/yarrrml/matey
 
+YARRRML's screencasts:
+* https://w3id.org/yarrrml/matey/screencast
+* https://w3id.org/yarrrml/matey/screencast-target
+
 Contacts: 
 * Pieter Heyvaert <pheyvaer.heyvaert@ugent.be>
 * Ben De Meester <ben.demeester@ugent.be>
