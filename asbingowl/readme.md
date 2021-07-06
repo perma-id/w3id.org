@@ -8,7 +8,7 @@ It consists of one core ontology, and two sub-ontologies.
 
 Core Ontology :
 
-html: https://annegoebels.github.io/index-en.html
+html: https://annegoebels.github.io/index.html
 ttl: https://annegoebels.github.io/ontology.ttl
 json-ld: https://annegoebels.github.io/ontology.json
 N-Triples: https://annegoebels.github.io/ontology.nt
@@ -16,8 +16,6 @@ rdf/xml: https://annegoebels.github.io/ontology.xml
 
 /asbingowl/keys/
 
-=======
->>>>>>> 80a47fef08555372976a55a46d0647762d8dfb58
 Keys Sub-Ontology:
 
 ttl: https://annegoebels.github.io/SubOntNewKeys.ttl
