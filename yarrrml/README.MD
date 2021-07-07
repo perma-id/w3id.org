@@ -14,6 +14,9 @@ YARRRML's screencasts:
 * https://w3id.org/yarrrml/matey/screencast
 * https://w3id.org/yarrrml/matey/screencast-target
 
+YARRRML's tutorial:
+* https://w3id.org/yarrrml/tutorial/getting-started
+
 Contacts: 
 * Dylan Van Assche <dylan.vanassche@ugent.be>
 * Pieter Heyvaert <pheyvaer.heyvaert@ugent.be>
