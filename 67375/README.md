@@ -5,7 +5,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the Thesau
 The scope of the Thesaurus de la Science Ouverte is to explicitly define terms of french Open Science.
 
 ## Links
-<https://w3id.org/67375/TSO> will redirect to <https://test.skohub.io/raphlap/test_so/heads/main/w3id.org/67375/TSO.fr.html>.
+<https://w3id.org/67375/TSO> will redirect to <https://skohub.io/raphlap/test_so/heads/main/w3id.org/67375/TSO.fr.html>.
 
 ## Contacts
 
