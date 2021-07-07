@@ -10,3 +10,4 @@ The scope of the Thesaurus de la Science Ouverte is to explicitly define terms o
 ## Contacts
 
 * Raphaëlle Lapôtre <raphaelle.lapotre@campus-condorcet.fr>
+* Github : raphlap@github.com
