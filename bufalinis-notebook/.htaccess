@@ -1,0 +1,29 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+
+# Default behaviour
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^$ http://projects.dharc.unibo.it/bufalini-notebook/ [R=302,L]
+RewriteRule ^sparql$ http://projects.dharc.unibo.it/bufalini-notebook/sparql [R=302,L]
+RewriteRule ^viewer$ http://projects.dharc.unibo.it/bufalini-notebook/viewer [R=302,L]
+RewriteRule ^viewer_$1 http://projects.dharc.unibo.it/bufalini-notebook/viewer_$1 [R=302,L]
+RewriteRule ^excerpt/$1 http://projects.dharc.unibo.it/bufalini-notebook/excerpt/$1 [R=302,L]
+RewriteRule ^indexes$ http://projects.dharc.unibo.it/bufalini-notebook/indexes [R=302,L]
+RewriteRule ^library$ http://projects.dharc.unibo.it/bufalini-notebook/library [R=302,L]
+RewriteRule ^introduction$ http://projects.dharc.unibo.it/bufalini-notebook/introduction [R=302,L]
+RewriteRule ^biblio$ http://projects.dharc.unibo.it/bufalini-notebook/biblio [R=302,L]
+RewriteRule ^(.+)$ http://projects.dharc.unibo.it/bufalini-notebook/resource/$1 [R=303,L]
+
+# Rewrite rule to serve RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.+)$ http://projects.dharc.unibo.it/bufalini-notebook/sparql?query=DESCRIBE%20<https://w3id.org/bufalinis-notebook/$1> [R=303,L]

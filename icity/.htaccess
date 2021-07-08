@@ -1,0 +1,35 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/owl+xml .owl
+# AddType text/turtle .ttl
+
+RewriteEngine on
+
+# Rewrite rules to make sure we serve HTML content from the namespace URI if requested
+#ontology IRI
+RewriteCond %{HTTP_ACCEPT} text/html
+# [OR] RewriteCond %{HTTP_ACCEPT} application/xhtml+xml
+RewriteRule ^([A-Za-z-\d]+)(\/)?$ https://enterpriseintegrationlab.github.io/icity/$1/doc/index-en.html [R=302,L]
+
+#version IRI
+# Rewrite rule to make sure we serve HTML content from the namespace URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html 
+# [OR] RewriteCond %{HTTP_ACCEPT} application/xhtml+xml
+RewriteRule ^([A-Za-z-\d]+)\/([0-9.]+)(\/)?$ https://enterpriseintegrationlab.github.io/icity/$1/$1_$2/doc/index-en.html [R=302,L]
+
+# Rewrite rule to make sure we serve the RDF/XML content from the namespace URI by default
+#version specified
+RewriteRule ^([A-Za-z-\d]+)\/([0-9.]+)(\/)?$ https://enterpriseintegrationlab.github.io/icity/$1/$1_$2.owl [R=302,L]
+RewriteRule ^([A-Za-z-\d]+)\/([0-9.]+)(\.owl)?$ https://enterpriseintegrationlab.github.io/icity/$1/$1_$2.owl [R=302,L]
+
+#no version specified (latest)
+RewriteRule ^([A-Za-z-\d]+)(\.owl)?$ https://enterpriseintegrationlab.github.io/icity/$1.owl [R=302,L]
+RewriteRule ^([A-Za-z-\d]+)(\/)?$ https://enterpriseintegrationlab.github.io/icity/$1.owl [R=302,L]
+
+#pdf doc
+RewriteRule ^([A-Za-z-\d_.]+).pdf$ https://enterpriseintegrationlab.github.io/icity/$1.pdf [R=302,L]
