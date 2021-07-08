@@ -1,0 +1,44 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+RewriteRule ^$ https://www.projekt-scope.de/ontologies/oop/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://www.projekt-scope.de/ontologies/oop/oop.ttl [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://www.projekt-scope.de/ontologies/oop/oop.rdf [R=302,NE,L]
+
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^oop.ttl$ https://www.projekt-scope.de/ontologies/oop/oop.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^oop.html$ https://www.projekt-scope.de/ontologies/oop/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^oop.rdf$ https://www.projekt-scope.de/ontologies/oop/oop.rdf [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^oop.jsonld$ https://www.projekt-scope.de/ontologies/oop/oop.jsonld [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^oop.nt$ https://www.projekt-scope.de/ontologies/oop/oop.nt [R=302,NE,L]
+
+# Default response: html
+
+RewriteRule ^$ https://www.projekt-scope.de/ontologies/oop/ [R=303,NE,L]
