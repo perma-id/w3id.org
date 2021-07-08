@@ -22,6 +22,10 @@ RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
 RewriteRule ^$ http://bci.pet.cs.nctu.edu.tw/ontology/BCI_(plain).owl [R=303,L]
 
+# Rewrite rule to serve turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ http://bci.pet.cs.nctu.edu.tw/ontology/BCI.ttl [R=303,L]
+
 # Choose the default response
 # ---------------------------
 # Default Rule

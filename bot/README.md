@@ -1,14 +1,14 @@
-##The Building Topology Ontology (BOT)
+## The Building Topology Ontology (BOT)
 
 Ontology
 
-* Docs      http://www.student.dtu.dk/~mhoras/bot/index-en.html
-* RDF/XML   http://www.student.dtu.dk/~mhoras/bot/ontology.xml
-* Turtle    http://www.student.dtu.dk/~mhoras/bot/ontology.ttl
-* N Triples http://www.student.dtu.dk/~mhoras/bot/ontology.n3
+* Doc      https://w3c-lbd-cg.github.io/bot/
+* Turtle   https://w3c-lbd-cg.github.io/bot/bot.ttl
 
 
-Contact
+Contacts
 
 * Mads Holten Rasmussen <mhoras@byg.dtu.dk>
 * Pieter Pauwels <pipauwel.pauwels@ugent.be>
+* Maxime Lefrançois <maxime.lefrancois@emse.fr>
+* Georg Schneider <georg.schneider@ibp.fraunhofer.de>
