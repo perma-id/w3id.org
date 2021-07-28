@@ -1,1 +1,0 @@
-../synthmorph/README.md
