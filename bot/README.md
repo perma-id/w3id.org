@@ -15,4 +15,4 @@ Contacts
 * Mathias Bonduel <mathias.bonduel@kuleuven.be>
 * Anna Wagner <annawagner1337@gmail.com>
 * Katja Breitenfelder <katja.breitenfelder@ibp.fraunhofer.de>
-* Karl Hammer <karl.hammar@ju.se>
+* Karl Hammar <karl.hammar@ju.se>
