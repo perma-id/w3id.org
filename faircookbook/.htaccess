@@ -1,15 +1,94 @@
 RewriteEngine On
 
-# define individual identifiers for recipes, manually:
-RewriteRule "^FCB000$" https://fairplus.github.io/the-fair-cookbook/content/home.html [R=303,L,QSA]
-RewriteRule ^FCB001$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/identifiers.html [R=303,L,QSA]
-RewriteRule "^FCB002$" https://fairplus.github.io/the-fair-cookbook/content/recipes/accessibility/anonymization.html [R=303,L,QSA]
-
-# catch w3id.org/faircookbook
+# The cookbook itself
+# -------------------
+# The identifier https://w3id.org/faircookbook is for the cookbook itself:
+#
 RewriteRule ^$   https://fairplus.github.io/the-fair-cookbook/content/home.html [R=303,L]
+#
+# Catch https://w3id.org/faircookbook/ and remove the slash; the slashed version shall not have meaning 
+RewriteRule ^\/$   https://w3id.org/faircookbook [R=301,L]
 
-# catch w3id.org/faircookbook/
-RewriteRule ^\/$   https://fairplus.github.io/the-fair-cookbook/content/home.html [R=303,L]
 
-# catch the rest and redirect to custom 404 page:
-RewriteRule ^(.+)$   https://fairplus.github.io/the-fair-cookbook/custom404.html [R=404,L]
+# Identifiers
+# ------------------
+# In the following block: define individual identifiers for recipes, of the form https://w3id.org/faircookbook/FCBxxx 
+# The order is arbitrary and does not have meaning.
+# Structure them in blocks of 10 (i.e. [000...009], [010...020], ...) for better human-readability.
+# If an identifier becomes obsolete, move them to the very bottom, there is a separate block for this purpose.
+#
+RewriteRule ^FCB003$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/vocabularies/technical-and-architectural-selection-criteria-of-ontology-lookup-services.html [R=303,L,QSA]
+RewriteRule ^FCB004$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/vocabularies/Selecting_and_using_ontology_lookup_services.html [R=303,L,QSA]
+RewriteRule ^FCB005$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/vocabularies/UC3_R13_local_ontology_services.html [R=303,L,QSA]
+RewriteRule ^FCB006$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/identifiers.html [R=303,L,QSA]
+RewriteRule ^FCB007$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/chemical-identities.html [R=303,L,QSA]
+RewriteRule ^FCB008$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/identifiers-minids.html [R=303,L,QSA]
+RewriteRule ^FCB009$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/zenodo-deposition.html [R=303,L,QSA]
+#
+RewriteRule ^FCB010$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/seo.html [R=303,L,QSA]
+RewriteRule ^FCB011$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/seo/bioschemas-data-page.html [R=303,L,QSA]
+RewriteRule ^FCB012$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/seo/bioschemas-dataset.html [R=303,L,QSA]
+RewriteRule ^FCB013$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/seo/bioschemas-datacatalog.html [R=303,L,QSA]
+RewriteRule ^FCB014$ https://fairplus.github.io/the-fair-cookbook/content/recipes/accessibility/sftp.html [R=303,L,QSA]
+RewriteRule ^FCB015$ https://fairplus.github.io/the-fair-cookbook/content/recipes/accessibility/aspera.html [R=303,L,QSA]
+RewriteRule ^FCB016$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/identifier-mapping.html [R=303,L,QSA]
+RewriteRule ^FCB017$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/bridgedb-recipe.html [R=303,L,QSA]
+RewriteRule ^FCB018$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/bridgedb/bridgedb-example.html [R=303,L,QSA]
+RewriteRule ^FCB019$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/introduction-terminologies-ontologies.html [R=303,L,QSA]
+#
+RewriteRule ^FCB020$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/selecting-ontologies.html [R=303,L,QSA]
+RewriteRule ^FCB021$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/ontology-new-term-request-recipe.html [R=303,L,QSA]
+RewriteRule ^FCB022$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/ontology-operations-tools.html [R=303,L,QSA]
+RewriteRule ^FCB023$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/ontology-robot-recipe.html [R=303,L,QSA]
+RewriteRule ^FCB024$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/ontology-robot/MSIO-robot-build-process.html [R=303,L,QSA]
+RewriteRule ^FCB025$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/creating-data-dictionary.html [R=303,L,QSA]
+RewriteRule ^FCB026$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/creating-minimal-metadata-profiles.html [R=303,L,QSA]
+RewriteRule ^FCB027$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/transcriptomics-metadata.html [R=303,L,QSA]
+RewriteRule ^FCB028$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/covid19-sample-metadata-profile-shex-use-case.html [R=303,L,QSA]
+RewriteRule ^FCB029$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/from-proprietary-to-open-standard-mzml-exemplar.html [R=303,L,QSA]
+#
+RewriteRule ^FCB030$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/fastq-file-format-validators.html [R=303,L,QSA]
+RewriteRule ^FCB031$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/ETL-tools.html [R=303,L,QSA]
+RewriteRule ^FCB032$ https://fairplus.github.io/the-fair-cookbook/content/recipes/reusability/ATI-licensing.html [R=303,L,QSA]
+RewriteRule ^FCB033$ https://fairplus.github.io/the-fair-cookbook/content/recipes/reusability/ATI_licensing_software.html [R=303,L,QSA]
+RewriteRule ^FCB034$ https://fairplus.github.io/the-fair-cookbook/content/recipes/reusability/ATI_licensing_data.html [R=303,L,QSA]
+RewriteRule ^FCB035$ https://fairplus.github.io/the-fair-cookbook/content/recipes/reusability/expressing-data-use.html [R=303,L,QSA]
+RewriteRule ^FCB036$ https://fairplus.github.io/the-fair-cookbook/content/recipes/reusability/provenance.html [R=303,L,QSA]
+RewriteRule ^FCB037$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/fair-data-matrix-recipe.html [R=303,L,QSA]
+RewriteRule ^FCB038$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/fair-data-matrix/0-rose-metabolites-Python-data-handling.html [R=303,L,QSA]
+RewriteRule ^FCB039$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/fair-data-matrix/1-rose-metabolites-Python-analysis.html [R=303,L,QSA]
+#
+RewriteRule ^FCB040$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/fair-data-matrix/2-rose-metabolites-Python-RDF-querying-analysis.html [R=303,L,QSA]
+RewriteRule ^FCB041$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/fair-data-matrix/3-rose-metabolites-R-analysis.html [R=303,L,QSA]
+RewriteRule ^FCB042$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/etox.html [R=303,L,QSA]
+RewriteRule ^FCB043$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/nd4bb.html [R=303,L,QSA]
+RewriteRule ^FCB044$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/oncotrack_raw/rawRecipe-oncotrack.html [R=303,L,QSA]
+RewriteRule ^FCB045$ https://fairplus.github.io/the-fair-cookbook/content/recipes/applied-examples/resolute_raw/resolute.html [R=303,L,QSA]
+RewriteRule ^FCB046$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/id-resolution.html [R=303,L,QSA]
+RewriteRule ^FCB047$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/data-catalog.html [R=303,L,QSA]
+RewriteRule ^FCB048$ https://fairplus.github.io/the-fair-cookbook/content/recipes/infrastructure/data-catalog-deployment.html [R=303,L,QSA]
+RewriteRule ^FCB049$ https://fairplus.github.io/the-fair-cookbook/content/recipes/assessing-fairness/fair-assessment-fairevaluator.html [R=303,L,QSA]
+#
+RewriteRule ^FCB050$ https://fairplus.github.io/the-fair-cookbook/content/recipes/assessing-fairness/fair-assessment-fairshake.html [R=303,L,QSA]
+RewriteRule ^FCB051$ https://fairplus.github.io/the-fair-cookbook/content/recipes/interoperability/rdf-conversion.html [R=303,L,QSA]
+RewriteRule ^FCB052$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/checksum-create.html [R=303,L,QSA]
+RewriteRule ^FCB053$ https://fairplus.github.io/the-fair-cookbook/content/recipes/findability/checksum-validate.html [R=303,L,QSA]
+
+# Obsolete Identifiers 
+# --------------------
+# Obsolete Identifiers have been minted once, and are gone now. 
+# Best-practice handling to communicate this and around this fact is not specified yet.
+# We redirect to a page explaining what happened to inform the user.
+#
+ErrorDocument 410 https://fairplus.github.io/the-fair-cookbook/resource_gone.html
+RewriteRule "^FCB000$" "-" [R=410,L]
+RewriteRule "^FCB001$" "-" [R=410,L]
+RewriteRule "^FCB002$" "-" [R=410,L]
+
+
+# Requests to resources that are not defined
+# ------------------------------------------
+# Catch identifers not yet caught until here, and redirect the user to a custom 404 page to explain this fact:
+#
+ErrorDocument 404 https://fairplus.github.io/the-fair-cookbook/custom404.html
+RewriteRule "^\/(.+)$" "-" [R=404,L]

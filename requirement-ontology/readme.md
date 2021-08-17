@@ -10,7 +10,10 @@ serves RDF serializations according to the accept header (text/turtle, applicati
 https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/requirement-ontology/core/req-ont.omn
 https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/requirement-ontology/core/req-ont.ttl
 https://demo-irm-dnvgl.northeurope.cloudapp.azure.com/ontology/requirement-ontology/core/req-ont.owl
-etc. furtehr formats may be added. (xml,n3, etc.) 
+
+serves OTTR templates from  http://w3id.org/requirement-ontology/tpl/
+
+etc. further formats may be added. (xml,n3, etc.) 
 
 Contact
 Arild Braathen Torjusen  Arild.Braathen.Torjusen@dnvgl.com
