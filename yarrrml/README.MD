@@ -10,6 +10,9 @@ Specification:
 YARRRML's Matey:
 * https://w3id.org/yarrrml/matey
 
+YARRRML's Matey repository:
+* https://w3id.org/yarrrml/matey/repository
+
 YARRRML's screencasts:
 * https://w3id.org/yarrrml/matey/screencast
 * https://w3id.org/yarrrml/matey/screencast-target
