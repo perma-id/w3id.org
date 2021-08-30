@@ -3,7 +3,7 @@
 Ontology
 
 * Doc      https://alhakam.github.io/srmo/
-* Turtle   https://alhakam.github.io/srmo/srmo.ttl
+* Turtle   https://alhakam.github.io/srmo/ontology.ttl
 
 
 Contacts
