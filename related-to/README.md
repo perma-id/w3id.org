@@ -26,4 +26,4 @@ If you want to contact a single person about this namespace, please refer to:
 Berlin, Germany  \
 <rgiessmann@gmail.com>  \
 GitHub: [rgiessmann](https://github.com/rgiessmann)  \
-ORCID: [0000-0002-0254-1500](https://orcid.org/0000-0002-0254-1500)  \
+ORCID: [0000-0002-0254-1500](https://orcid.org/0000-0002-0254-1500)
