@@ -1,7 +1,7 @@
 # /related-to/doi.org/10.5281/zenodo.3978439/
 This [W3ID](https://w3id.org) namespace provides a persistent URI namespace for entities that are somehow related to the entity with the DOI:
 
-https://doi.org/10.5281/zenodo.3978439/
+https://doi.org/10.5281/zenodo.3978439
 
 
 ## Pool of maintainers of this namespace
@@ -25,4 +25,4 @@ If you want to contact a single person about this namespace, please refer to:
 Berlin, Germany  \
 <rgiessmann@gmail.com>  \
 GitHub: [rgiessmann](https://github.com/rgiessmann)  \
-ORCID: [0000-0002-0254-1500](https://orcid.org/0000-0002-0254-1500)  \
+ORCID: [0000-0002-0254-1500](https://orcid.org/0000-0002-0254-1500)
