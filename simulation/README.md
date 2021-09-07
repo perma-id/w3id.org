@@ -3,7 +3,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the simula
 
 ## Uses
 This namespace is broken down into different different parts:
-* [https://w3id.org/simulation/ontologyvis/](https://w3id.org/simulation/ontologydocs/) leads to a [widoco](https://github.com/dgarijo/Widoco) visualization of the ontology.
+* [https://w3id.org/simulation/ontologyvis/](https://w3id.org/simulation/ontologyvis/) leads to a [widoco](https://github.com/dgarijo/Widoco) visualization of the ontology.
 * [https://w3id.org/simulation/ontology/](https://w3id.org/simulation/ontology/) leads to a raw owl file of the ontology (useful for imports)
 * [https://w3id.org/simulation/data/](https://w3id.org/simulation/data/) leads to a knowledge graph of cultural symbols that follows the ontology pattern serialized in [turtle](https://www.w3.org/TR/turtle/) 
 * https://w3id.org/simulation/query/ will lead to a future queryable SPARQL portal of the knowledge graph. (**not active yet**)
