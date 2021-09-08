@@ -27,12 +27,28 @@ No official change policy in place (yet). We are trying to be sensible, though.
 
 ## Internal: Instruction to keep aminimalistic w3id.org repo on one's hard disk
 ```
+echo '''
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+*
+**/*
+!opentecr/
+!opentecr/**
+!related-to/
+!related-to/**
+''' > .git/info/exclude
+
 find .  -not -path '.'                                      \
         -not -path './.*'                                   \
         -not -path './.*/*'                                 \
         -not -path './README.md'                            \
         -not -path './index.html'                           \
         -not -path './opentecr' -not -path './opentecr/*'   \
+        -not -path './related-to' -not -path './related-to/*'   \
         -not -path './deleted_files.txt'                    \
         -type f -delete -print > deleted_files.txt
 
@@ -49,8 +65,8 @@ See above for persons who are supposed to change this namespace.
 
 If you want to contact a single person about this namespace, please refer to:
 
-**Robert Giessmann**
-Berlin, Germany
-<rgiessmann@gmail.com>
-GitHub: [rgiessmann](https://github.com/rgiessmann)
+**Robert Giessmann**  \
+Berlin, Germany  \
+<rgiessmann@gmail.com>  \
+GitHub: [rgiessmann](https://github.com/rgiessmann)  \
 ORCID: [0000-0002-0254-1500](https://orcid.org/0000-0002-0254-1500)
