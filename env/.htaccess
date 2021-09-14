@@ -1,3 +1,18 @@
 Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^\/?(.*)$ http://environment.data.gov.au/def/$1 [R=307,L]
+
+# PUV ontology
+# match 'puv' followed by optional #{name} or /{name}
+# Turtle representation
+RewriteCond %{QUERY_STRING} ^(_format|_mediatype)=text/turtle$
+RewriteRule ^puv(\/\S+)?$ https://rawcdn.githack.com/CSIRO-enviro-informatics/PUV-ont/dd2d8762f80a58e618269593e99d3f840de0f150/rdf/puv.ttl [R=303,L]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^puv(\/\S+)?$ https://rawcdn.githack.com/CSIRO-enviro-informatics/PUV-ont/dd2d8762f80a58e618269593e99d3f840de0f150/rdf/puv.ttl [R=303,L]
+# HTML representation
+RewriteCond %{QUERY_STRING} ^(_format|_mediatype)=text/html$
+RewriteRule ^puv(\/\S+)?$ https://rawcdn.githack.com/CSIRO-enviro-informatics/PUV-ont/dd2d8762f80a58e618269593e99d3f840de0f150/puv.html [R=303,L]
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule ^puv(\/\S+)?$ https://rawcdn.githack.com/CSIRO-enviro-informatics/PUV-ont/dd2d8762f80a58e618269593e99d3f840de0f150/puv.html [R=303,L]
+
+# other ENV definitions fall through to old definitions server
+RewriteRule ^\/?(.*)$ http://environment.data.gov.au/def/$1 [R=303,L]
