@@ -1,0 +1,20 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://ssstolk.github.io/onto/lemon-tree/lemon-tree.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^lemon-tree.ttl$ https://ssstolk.github.io/onto/lemon-tree/lemon-tree.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^lemon-tree.html$ https://ssstolk.github.io/onto/lemon-tree/ [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://ssstolk.github.io/onto/lemon-tree/ [R=303,NE,L]

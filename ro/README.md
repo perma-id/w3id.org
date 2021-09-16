@@ -1,8 +1,12 @@
-Research Object specification
-=============================
+Research Object specifications
+==============================
 
-Specification:
+Specifications:
 * https://w3id.org/ro/
+* https://w3id.org/ro/bagit
+* https://w3id.org/ro/crate
+* https://w3id.org/ro/crate/1.0
+* https://w3id.org/ro/crate/0.2
 
 Ontologies:
 * https://w3id.org/ro/ro (namespace: http://purl.org/wf4ever/ro#)
@@ -12,10 +16,20 @@ Ontologies:
 * https://w3id.org/ro/roevo (namespace: http://purl.org/wf4ever/roevo#)
 
 JSON-LD contexts:
+* https://w3id.org/ro/crate/1.0/context
+* https://w3id.org/ro/crate/0.2/context
 * https://w3id.org/ro/wfdesc/context
 * https://w3id.org/ro/wf4ever/context
 
-Note that the ontology namespaces are at http://purl.org/wf4ever/
+
+BagIt profile:
+* https://w3id.org/ro/bagit/profile
+
+RO-Crates:
+* https://w3id.org/ro/crate/1.0/crate
+
+
+Note that the ontology namespaces are under http://purl.org/wf4ever/
 for historical reasons, while the ontologies can also be retrieved using
 https://w3id.org/ro/
 
@@ -26,7 +40,9 @@ References:
 * https://w3id.org/bundle
 
 Contacts: 
-* Stian Soiland-Reyes <stian@soiland-reyes.com>
-* Graham Klyne <GK@ninebynine.org>
-* Jun Zhao <j.zhao5@lancaster.ac.uk>
+* Stian Soiland-Reyes <stain@apache.org>
+* Peter Sefton <Peter.Sefton@uts.edu.au>
+* Daniel Garijo <dgarijov@gmail.com>
+* Raul Palma <rpalma@man.poznan.pl>
 * Sean Bechhofer <sean.bechhofer@manchester.ac.uk>
+

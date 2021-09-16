@@ -1,0 +1,222 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://lsarni.github.io/OntoCIS/ [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^competences$ https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^competences$ https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^competences$  https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^competences$  https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^competences$ https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^competences$  https://lsarni.github.io/OntoCIS/OnToology/competences.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^composition$ https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^composition$ https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^composition$  https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^composition$  https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^composition$ https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^composition$  https://lsarni.github.io/OntoCIS/OnToology/composition.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^curricula$ https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^curricula$ https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^curricula$  https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^curricula$  https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^curricula$ https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^curricula$  https://lsarni.github.io/OntoCIS/OnToology/curricula.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^degrees$ https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^degrees$ https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^degrees$  https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^degrees$  https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^degrees$ https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^degrees$  https://lsarni.github.io/OntoCIS/OnToology/degrees.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^professors$ https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^professors$ https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^professors$  https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^professors$  https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^professors$ https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^professors$  https://lsarni.github.io/OntoCIS/OnToology/professors.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^topics$ https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^topics$ https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^topics$  https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^topics$  https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^topics$ https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^topics$  https://lsarni.github.io/OntoCIS/OnToology/topics.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^courses$ https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^courses$ https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/ontology.xml [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^courses$  https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^courses$  https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^courses$ https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^courses$  https://lsarni.github.io/OntoCIS/OnToology/courses.owl/documentation/ontology.xml [R=303,L]
