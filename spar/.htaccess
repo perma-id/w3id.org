@@ -1,0 +1,62 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# JATS2RDF [start]
+RewriteRule ^jats2rdf/mapping-paper/rdf.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/From-Markup-to-Linked-Data.rdf?format=raw [R=302,L]
+RewriteRule ^jats2rdf/mapping-paper.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/From-Markup-to-Linked-Data.xml?format=raw [R=302,L]
+RewriteRule ^jats2rdf/example/rdf.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/example.rdf?format=raw [R=302,L]
+RewriteRule ^jats2rdf/example.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/example.xml?format=raw [R=302,L]
+RewriteRule ^jats2rdf/xslt.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/jats2spar.xsl?format=raw [R=302,L]
+RewriteRule ^jats2rdf.*$ https://sourceforge.net/p/sempublishing/code/HEAD/tree/JATS2RDF/jats2rdf.pdf?format=raw [R=302,L]
+# JATS2RDF [end]
+
+# Mediatype dataset [start]
+RewriteRule ^mediatype/?$ http://www.sparontologies.net/mediatype [R=302,L]
+RewriteRule ^mediatype/(.+)$ http://www.sparontologies.net/mediatype/$1 [R=302,L]
+# Mediatype dataset [end]
+
+# Articles and presentations [start]
+RewriteRule ^(article|presentation)/?$ https://sparontologies.github.io/$1/ [R=302,L]
+RewriteRule ^(article|presentation)/(.+)$ https://sparontologies.github.io/$1/$2 [R=302,L]
+# Articles and presentations [end]
+
+# SPAR Ontologies - generic [start]
+RewriteRule ^(.+)/([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])\.(html|xml|json|ttl|nt)$ https://sparontologies.github.io/$1/$2/$1.$3 [R=303,L]
+RewriteRule ^([^/]+)(/.+)?\.(html|xml|json|ttl|nt)$ https://sparontologies.github.io/$1/current/$1.$3 [R=303,L]
+# SPAR Ontologies - generic [end]
+
+
+### CONFIGURATION redir: begin ########################
+
+# Rewrite rule for no content
+RewriteRule ^.+\.(html|xml|json|ttl|nt)$ - [R=404,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^([^/]+)(/.+)?$ /spar/$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^([^/]+)(/.+)?$ /spar/$1.xml [R=303,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([^/]+)(/.+)?$ /spar/$1.ttl [R=303,L]
+
+# Rewrite rule to serve Notation3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^([^/]+)(/.+)?$ /spar/$1.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([^/]+)(/.+)?$ /spar/$1.json [R=303,L]
+
+######################## CONFIGURATION redir: end #####
+
+# Default behaviour
+RewriteRule ^([^/]*)(/.+)?$ /spar/$1.html [R=303,L]

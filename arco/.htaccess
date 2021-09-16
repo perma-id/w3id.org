@@ -1,0 +1,35 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/ICCD-MiBACT/ArCo/master/ArCo-release
+SetEnvIf Request_URI ^.*$ LODE_URL=http://dati.beniculturali.it/lode/extract?url=
+
+RewriteRule ^resource/(.+)$ http://dati.beniculturali.it/lodview-arco/resource/$1 [R=303,L]
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
+
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/(.+)$ http://dati.beniculturali.it/lodview-arco-onto/ontology/$1/$2 [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
+
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
+
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
+
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/patterns/$1.owl [R=303,L]
+
+RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/pattern/$1.owl [R=303,L]
+
+RewriteRule ^test/(.+)$ %{ENV:ROOT_URL}/test/$1 [R=303,L]
+RewriteRule ^(.+)$ http://dati.beniculturali.it/lodview-arco/$1 [R=303,L]
+RewriteRule ^$ http://dati.beniculturali.it/arco [R=303,L] 

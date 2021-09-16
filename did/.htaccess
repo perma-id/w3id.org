@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine on
+
+# https://w3id.org/did -> https://www.w3.org/TR/did-core/
+
+RewriteRule ^$ https://www.w3.org/TR/did-core/ [R=302,L]
+
+# https://w3id.org/did/ns -> https://www.w3.org/ns/did
+
+RewriteRule ^ns$ https://www.w3.org/ns/did/ [R=302,L]
+
+# https://w3id.org/did/v1 -> https://www.w3.org/ns/did/v1
+
+RewriteRule ^v(.+)$ https://www.w3.org/ns/did/v$1 [R=302,L]
+
+# Old CCG Redirects
+
+# https://w3id.org/did/v0.11 -> https://w3c-ccg.github.io/did-spec/contexts/did-v0.11.jsonld
+
+RewriteRule ^v0.11$ https://w3c-ccg.github.io/did-spec/contexts/did-v0.11.jsonld [R=302,L]

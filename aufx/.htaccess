@@ -1,0 +1,35 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine On
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+			
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+RewriteRule ^ontology/(.*) http://eecs.qmul.ac.uk/~thomasw/aufx/doc/1.0/ [R=303,L]
+# RewriteRule ^ http://isophonics.org/content/aufx [R=303,L]
+# RewriteRule ^extension/classification/(.*) http://www.essepuntato.it/lode/owlapi/http://eecs.qmul.ac.uk/~thomasw/aufx/extension/classification/$1/classification.ttl [R=303,L]
+RewriteRule ^extension/classification/(.*) http://isophonics.org/content/aufx [R=303,L]
+
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.rdf [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.ttl [R=303,L]
+
+## Fallback if Accept is missing: Turtle
+RewriteRule ^ontology/(.*) https://muddymudskipper.github.io/aufx/$1/rdf/aufx.ttl [R=303,L]
+
