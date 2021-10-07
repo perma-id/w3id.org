@@ -1,5 +1,5 @@
 # /stahl/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the simulation, worflow and steel ontology StahlDigital.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the simulation, workflow, and steel ontology, StahlDigital.
 
 ## Uses
 This namespace represents a general ontology and rdf lookup an resolution.
