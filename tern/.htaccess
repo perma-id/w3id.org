@@ -180,6 +180,7 @@ RewriteRule ^ontologies/loc/?$ https://ternaustralia.github.io/ontology_tern-loc
 # Turtle
 RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
 RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^ontologies/tern\/(.+)$ https://lodview-proxy.deta.dev/api/v1/lodview?IRI=https://w3id.org/tern/resources/$1&sparql=https://graphdb.tern.org.au/repositories/knowledge_graph_core?infer=false&output=text/turtle [R=303,L]
 RewriteRule ^ontologies/tern/?$ https://raw.githack.com/ternaustralia/ontology_tern/master/docs/tern.ttl [R=303,L]
 RewriteRule ^ontologies/tern.ttl$ https://raw.githack.com/ternaustralia/ontology_tern/master/docs/tern.ttl [R=303,L]
 
@@ -198,6 +199,7 @@ RewriteRule ^ontologies/tern.nt$ https://raw.githack.com/ternaustralia/ontology_
 # JSON-LD
 RewriteCond %{QUERY_STRING} ^_format=application/ld\+json$ [OR]
 RewriteCond %{HTTP:Accept} application/ld\+json [NC]
+RewriteRule ^ontologies/tern\/(.+)$ https://lodview-proxy.deta.dev/api/v1/lodview?IRI=https://w3id.org/tern/resources/$1&sparql=https://graphdb.tern.org.au/repositories/knowledge_graph_core?infer=false&output=application/ld+json [R=303,L]
 RewriteRule ^ontologies/tern/?$ https://raw.githack.com/ternaustralia/ontology_tern/master/docs/tern.jsonld [R=303,L]
 RewriteRule ^ontologies/tern.jsonld$ https://raw.githack.com/ternaustralia/ontology_tern/master/docs/tern.jsonld [R=303,L]
 
