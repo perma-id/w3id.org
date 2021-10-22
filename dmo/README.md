@@ -9,11 +9,11 @@ Namespace URI:
 https://www.w3.org/IRIT/MELODI/Semantics4FAIR/DMO/Core/1.0.0#
 
 
-* Doc https://www.irit.fr/recherches/MELODI/ontologies/dmo/
-* Turtle https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/ontology.ttl
-* RDF/XML https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/ontology.xml
-* JSON-LD https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/ontology.json
-* N-Triples https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/ontology.nt
+* Doc https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/1.0.0/
+* Turtle https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/1.0.0/ontology.ttl
+* RDF/XML https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/1.0.0/ontology.xml
+* JSON-LD https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/1.0.0/ontology.json
+* N-Triples https://www.irit.fr/recherches/MELODI/ontologies/dmo/core/1.0.0/ontology.nt
 
 ## Maintainer
 Nathalie Aussenac-Gilles (nathalie.aussenac-gilles@irit.fr)
