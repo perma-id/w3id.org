@@ -1,6 +1,6 @@
 # Request
 
-We want to create the identifier https://www.w3.org/IRIT/MELODI/Semantics4FAIR/DMO/ that redirects to https://www.w3.org/IRIT/MELODI/Semantics4FAIR/DMO/
+We want to create the identifier https://www.w3.org/IRIT/MELODI/Semantics4FAIR/DMO/ that redirects to https://www.irit.fr/recherches/MELODI/ontologies/DMO/
 
 We are developping an ontology for representing metadata that includes several parts and the files of the first part are provided hereafter.
 
