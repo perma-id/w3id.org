@@ -4,10 +4,10 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for controlled
 
 ## Uses
 
-The namespaces has these sub-spaces:
+The namespace has these sub-spaces:
 
-* **/diga/terms/** is used for the art-historical thesaurus for the description of Buddhist sculptures from Gandhara.
-* **/diga/source/** is used for bibliographical references to source works.
+* **`/diga/terms/`** is used for the art-historical thesaurus for the description of Buddhist sculptures from Gandhara.
+* **`/diga/source/`** is used for bibliographical references to source works.
 
 ## Contact
 
