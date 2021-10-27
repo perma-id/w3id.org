@@ -12,3 +12,4 @@ Redirections:
 Contacts:
 * [Vineet Singh](https://github.com/vineetsingh09/) <vineet@digitalgreen.org>
 * [Razak KM](https://github.com/razak0405/) <razak@digitalgreen.org>
+* [Mayank Gautam](https://github.com/mgautam099/) <mayank@digitalgreen.org>
