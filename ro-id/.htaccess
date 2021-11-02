@@ -9,6 +9,77 @@ AddType text/n3 .n3
 AddType application/n-triples .nt
 AddType application/ld+json .jsonld
 
+### DEV links
+
+# entry point
+# this will point to rohub main page
+RewriteRule ^/dev$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ [R=302,L]
+
+# Research Object resource
+# download resource
+RewriteRule ^/dev/(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$2/download/ [R=302,L]
+RewriteRule ^/dev/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$1/download/ [R=302,L]
+
+# Research Object manifest body
+# download manifest
+RewriteRule ^/dev/(.*)/.ro/manifest.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=303,L]
+
+# Research Object evo info 
+# download evo info annotation
+RewriteRule ^/dev/(.*)/annotations/evo_info$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+# download evo info body
+RewriteRule ^/dev/(.*)/.ro/evo_info.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+
+# Research Object enrichment info 
+# download enrichment annotation
+RewriteRule ^/dev/(.*)/annotations/enrichment$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+# download enrichment body
+RewriteRule ^/dev/(.*)/.ro/annotations/enrichment.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+
+# Research Object annotation bodies
+# download annotation body
+RewriteRule ^/dev/(.*)/.ro/annotations/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L]
+
+# Research Object annotation
+# download annotation
+RewriteRule ^/dev/(.*)/annotations/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L]
+RewriteRule ^/dev/annotations/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$1/download/ [R=302,L]
+
+# Research Object folder
+# folder manifest
+RewriteRule ^/dev/(.*)/folders/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2.ttl [R=302,L]
+# download folder using path
+RewriteRule ^/dev/(.*)/folders/(.*)/$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2/download/ [R=302,L]
+# download folder using identifier
+RewriteRule ^/dev/(.*)/folders/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$2/download/ [R=302,L]
+RewriteRule ^/dev/folders/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$1/download/ [R=302,L]
+
+# Research Object activities
+# download activities
+RewriteRule ^/dev/(.*)/activities$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/activities/ [R=302,L]
+
+# Research Object geolocation
+# download geolocation
+RewriteRule ^/dev/(.*)/geolocation$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/geolocation/ [R=302,L]
+
+# Research Object research areas
+# download research areas
+RewriteRule ^/dev/(.*)/research-areas$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/research-areas/ [R=302,L]
+
+# Research Object crate
+# download ro-crate
+RewriteRule ^/dev/(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=303,L]
+
+# Research Object
+# open RO in ROHub portal
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^/dev/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/overview?$1 [R=303,L]
+# download RO as RDF (manifest), ZIP or PDF
+RewriteRule ^/dev/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=303,L]
+
+
+### PROD links
+
 # entry point
 # this will point to rohub main page
 RewriteRule ^$ https://reliance.rohub.org/ [R=302,L]
@@ -19,7 +90,7 @@ RewriteRule ^(.*)/resources/(.*)$ https://api.rohub.org/api/resources/$2/downloa
 RewriteRule ^resources/(.*)$ https://api.rohub.org/api/resources/$1/download/ [R=302,L]
 
 # Research Object manifest body
-# download evo info body
+# download manifest
 RewriteRule ^(.*)/.ro/manifest.ttl$ https://api.rohub.org/api/ros/$1/download/ [R=303,L]
 
 # Research Object evo info 
