@@ -41,6 +41,11 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
 RewriteRule ^(core|member|service|compliance)/(.*)      https://compliance4cispe.byo-networks.net/cispe-definitions/$1/ontology.xml [L,R=303]
 
+
+# JSON-LD: Access JSON(-LD) Object
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(member|service|compliance)#(Member|CISPEOrganization|ComplianceResource|Service|ComplianceCredential)/([0-9a-f])*           https://compliance4cispe.byo-networks.net/cispe-definitions/$1/registry/$2/$3.json [L,R=303]
+
 # JSON-LD: Access JSON(-LD) ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
 RewriteRule ^(core|member|service|compliance)           https://compliance4cispe.byo-networks.net/cispe-definitions/$1/ontology.json [L,R=303]
@@ -48,12 +53,20 @@ RewriteRule ^(core|member|service|compliance)           https://compliance4cispe
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
 RewriteRule ^(core|member|service|compliance)/(.*)      https://compliance4cispe.byo-networks.net/cispe-definitions/$1/ontology.json [L,R=303]
 
+
+# JSON: Access JSON Object
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(member|service|compliance)#(Member|CISPEOrganization|ComplianceResource|Service|ComplianceCredential)/([0-9a-f])*           https://compliance4cispe.byo-networks.net/cispe-definitions/$1/registry/$2/$3.json [L,R=303]
+
 # JSON: Access JSON ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
 RewriteRule ^(core|member|service|compliance)           https://compliance4cispe.byo-networks.net/cispe-definitions/$1/ontology.json [L,R=303]
 
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
 RewriteRule ^(core|member|service|compliance)/(.*)      https://compliance4cispe.byo-networks.net/cispe-definitions/$1/ontology.json [L,R=303]
+
+
+
 
 # N-TRIPLES: Access NT ontology
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
