@@ -1,8 +1,8 @@
-Research Objects IDs
+Research Objects IDs (DEV INSTANCE)
 ==============================
 
 References:
-* https://reliance.rohub.org/
+* https://rohub2020-rohub.apps.paas-dev.psnc.pl/
 * https://www.researchobject.org/
 
 Contacts: 
