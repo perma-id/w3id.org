@@ -1,7 +1,9 @@
 Permanent ID for MigrationsKB
-* Webpage: https://migrationskb.github.io/MGKB/
-* Sparql Endpoint: https://mgkb.fiz-karlsruhe.de/sparql/
-* Zenodo: https://zenodo.org/record/5206820#.YRqF1nUza0o
+* Webpage: https://w3id.org/mgkb
+* Sparql Endpoint: https://w3id.org/mgkb/sparql
+* Zenodo: https://w3id.org/mgkb/data
+* Codes: https://w3id.org/mgkb/codes
+* Schema: https://w3id.org/mgkb/schema
 
 Contact: 
 - EMail for the project: migrationsKB@protonmail.com
