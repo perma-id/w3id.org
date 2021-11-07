@@ -1,0 +1,54 @@
+Header set Access-Control-Allow-Origin *
+Options -MultiViews
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+SetEnvIf Accept ^.* SYNTAX=none
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=json
+SetEnvIf Accept ^.*application/n-triples.* SYNTAX=nt
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Accept ^\*/\*$ SYNTAX=ttl
+SetEnvIf Accept ^\*/\*$ MARKER=all
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://comune-milano.github.io/ontologie-iot-urbani/onto/
+SetEnvIf Request_URI ^(.*)kos/(.*)$ ROOT_URL=https://comune-milano.github.io/ontologie-iot-urbani/kos/
+SetEnvIf Request_URI ^(.*)kos/(.*)$ FILE=kos
+
+# KOS files
+RewriteCond %{ENV:FILE} ^kos$
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|json|nt)$
+RewriteRule ^kos/(.+)/([^/]+)/?$ %{ENV:ROOT_URL}$1/$2/$2.%{ENV:SYNTAX} [R=303,L]
+
+# Versioned onto modules
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|json|nt)$
+RewriteRule ^(.+)/([0-9].[0-9].[0-9])/?$ %{ENV:ROOT_URL}$1/$2/$1.%{ENV:SYNTAX} [R=303,L]
+
+# Latest onto modules
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|json|nt)$
+RewriteRule ^([^/]+)/?$ %{ENV:ROOT_URL}$1/latest/$1.%{ENV:SYNTAX} [R=303,L]
+
+# KOS documentation
+RewriteCond %{ENV:FILE} ^kos$
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^kos/(.+)/([^/]+)/?$ https://comune-milano.github.io/ontologie-iot-urbani/docs/kos/$1/$2/index-en.html [R=303,L]
+
+# Onto documentation
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^([^/]+)/?$ https://comune-milano.github.io/ontologie-iot-urbani/docs/$1/index-en.html [R=303,L]
+
+# Onto repo
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^.*$ https://github.com/Comune-Milano/ontologie-iot-urbani [R=303,L]
+RewriteCond %{ENV:MARKER} ^all$
+RewriteRule ^.*$ https://github.com/Comune-Milano/ontologie-iot-urbani [R=303,L]
+
+# Default response
+RewriteRule ^.*$ https://comune-milano.github.io/ontologie-iot-urbani/docs/406.html [R=406,L]

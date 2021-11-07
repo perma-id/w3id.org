@@ -1,7 +1,7 @@
 ASSET: Augmented Safety through Smart EnvironmenTs
 ===
 
-Alternative project homepage:
+Project homepage:
 * https://www.ecs.soton.ac.uk/research/projects/960
 
 Maintainer:

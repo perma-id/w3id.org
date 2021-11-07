@@ -25,6 +25,10 @@ JSON-LD contexts:
 BagIt profile:
 * https://w3id.org/ro/bagit/profile
 
+RO-Crates:
+* https://w3id.org/ro/crate/1.0/crate
+
+
 Note that the ontology namespaces are under http://purl.org/wf4ever/
 for historical reasons, while the ontologies can also be retrieved using
 https://w3id.org/ro/

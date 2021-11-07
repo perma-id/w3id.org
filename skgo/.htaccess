@@ -93,3 +93,21 @@ RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^modsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ModSci.ttl [R=303,NE,L]
 #default response: ttl
 RewriteRule ^modsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ModSci.ttl [R=303,NE,L]
+
+
+#Rewrite rules for semsur vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^semsur$ https://saidfathalla.github.io/SemSur/doc/index.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^semsur$ https://saidfathalla.github.io/SemSur/doc/index.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.ttl [R=303,NE,L]

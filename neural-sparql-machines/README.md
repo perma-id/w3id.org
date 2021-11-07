@@ -3,9 +3,10 @@ A LSTM-based Machine Translation Approach for Question Answering.
 
 ## Links
 
-* http://w3id.org/neural-sparql-machines/soru-marx-semantics2017.html
-* https://arxiv.org/abs/1708.07624
-* https://twitter.com/theLiberAI
+* **Permanent ID**: http://w3id.org/neural-sparql-machines/soru-marx-semantics2017.html
+* **Paper**: https://arxiv.org/abs/1708.07624
+* **Source code**: https://github.com/AKSW/NSpM
+* **Connect**: https://twitter.com/theLiberAI
 
 ## Cite
 
