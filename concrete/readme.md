@@ -8,5 +8,5 @@ This is a work in progress Ontology for concrete material.
 This space is administered by:
 
 **Material Digital / LeBeDigital group**
-[Material Digital](https://material-digital.de) 
+[Material Digital] (https://material-digital.de) 
 
