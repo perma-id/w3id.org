@@ -17,3 +17,5 @@ Support:
 
 Contacts:
 * [Olivier TIRAT](https://gitlab.byo-networks.net/otirat) <olivier.tirat@byo-networks.com>
+* [Olivier TIRAT](https://gitlab.byo-networks.net/otitat) <olivier.tirat@free.fr>
+
