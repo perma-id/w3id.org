@@ -2,7 +2,7 @@ Compliance for CISPE
 =========================
 
 Homepage:
-* https://comply.cispe.cloud/cispe-definitions/index.html
+* https://comply.cispe.cloud/cispe-definitions/compliance/index-en.html
 
 Redirections:
 * Direct ontology access: Access respective ontology
