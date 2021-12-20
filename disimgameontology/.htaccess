@@ -2,12 +2,6 @@ Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
-AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
-AddType text/turtle .ttl
-
 RewriteEngine on
 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
@@ -17,7 +11,5 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^ontology$ https://dangeloandrea14.github.io/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^ontology$ https://github.com/dangeloandrea14/videogameontology/blob/main/videogames273214.owl [R=303,NE,L]
 #default response: owl
-RewriteRule ^ontology$ https://github.com/dangeloandrea14/videogameontology/blob/main/videogames273214.owl [R=303,NE,L]
+RewriteRule ^ontology$ https://dangeloandrea14.github.io/ontologies/videogames273214.owl [R=303,NE,L]
