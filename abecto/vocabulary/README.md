@@ -8,10 +8,10 @@ Provides access to the HTML and RDF representations of the latest and specific v
 
 ## Example URLs
 
-* Latest version, whole vocabulary: http://w3id.org/abecto/vocabulary
-* Latest version, specific resource: http://w3id.org/abecto/vocabulary#Plan
-* Specific version, whole vocabulary:http://w3id.org/abecto/vocabulary/0.1
-* Specific version, specific resource: http://w3id.org/abecto/vocabulary/0.1#Plan
+* Latest version, whole vocabulary: <http://w3id.org/abecto/vocabulary>
+* Latest version, specific resource: <http://w3id.org/abecto/vocabulary#Plan>
+* Specific version, whole vocabulary: <http://w3id.org/abecto/vocabulary/0.1>
+* Specific version, specific resource: <http://w3id.org/abecto/vocabulary/0.1#Plan>
 
 ## Contact
 This space is administered by:
