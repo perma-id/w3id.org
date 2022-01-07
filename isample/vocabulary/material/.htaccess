@@ -5,6 +5,10 @@ RewriteEngine on
 SetEnvIf Request_URI "^.*" currentversion=0.9
 # 
 
+# ../isample/vocabulary/material get vocabulary ttl format with text/turtle accept header
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^/?$   http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/vocabulary/material/%{ENV:currentversion}/materialsvocabulary
+
 # just ../isample/vocabulary/material  gets the pylode view of the current version of the vocab, from ESIP COR
 RewriteRule       ^/?$  http://cor.esipfed.org/pylode?url=http://cor.esipfed.org/ont/api/v0/ont%3Firi=https://w3id.org/isample/vocabulary/material/%{ENV:currentversion}/materialsvocabulary
 
@@ -13,6 +17,6 @@ RewriteRule       ^/?$  http://cor.esipfed.org/pylode?url=http://cor.esipfed.org
 RewriteCond ^\d+.\d+\/ "=0.9/"
 RewriteRule       ^(^\d+.\d+\/.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/material/$1 [R=303,L]
 
-
+# no version number gets currentversion
 RewriteRule       ^(.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/material/%{ENV:currentversion}/$1 [R=303,L]
 
