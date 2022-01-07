@@ -4,11 +4,15 @@ RewriteEngine on
 # set environmental variable for the current version
 SetEnvIf Request_URI "^.*" currentversion=0.9
 # 
+
+# just ../isample/vocabulary/material  gets the pylode view of the current version of the vocab, from ESIP COR
+RewriteRule       ^/?$  http://cor.esipfed.org/pylode?url=http://cor.esipfed.org/ont/api/v0/ont%3Firi=https://w3id.org/isample/vocabulary/material/%{ENV:currentversion}/materialsvocabulary
+
 #need condition to check if there is a version number
 # will need to update with new versions
 RewriteCond ^\d+.\d+\/ "=0.9/"
-RewriteRule       ^(^\d+.\d+\/.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/$1 [R=303,L]
+RewriteRule       ^(^\d+.\d+\/.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/material/$1 [R=303,L]
 
 
-RewriteRule       ^(.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/%{ENV:currentversion}/$1 [R=303,L]
+RewriteRule       ^(.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/material/%{ENV:currentversion}/$1 [R=303,L]
 
