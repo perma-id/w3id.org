@@ -1,9 +1,9 @@
 
-# /isample/vocabulary/sampledFeature/
+# /isample/vocabulary/sampledfeature/
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 
-**Description:** redirects for version 0.9 of the iSamples sampled feature vocabulary
+**Description:** redirects for the iSamples sampled feature vocabulary
 
 request to https://w3id.org/isample/vocabulary/sampledfeature will return the ESIP COR pylode view of the vocabulary
 
