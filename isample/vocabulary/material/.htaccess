@@ -4,4 +4,11 @@ RewriteEngine on
 # set environmental variable for the current version
 SetEnvIf Request_URI "^.*" currentversion=0.9
 # 
-RewriteRule       ^(.+)$               http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/%{ENV:currentversion}/$1 [R=303,L]
+#need condition to check if there is a version number
+# will need to update with new versions
+RewriteCond ^\d+.\d+\/ "=0.9/"
+RewriteRule       ^(^\d+.\d+\/.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/$1 [R=303,L]
+
+
+RewriteRule       ^(.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/%{ENV:currentversion}/$1 [R=303,L]
+
