@@ -13,19 +13,21 @@ directory structure-- there are folders for each resource type, subfolders for s
 We are starting with vocabularies.
 
 Example:
+```
 -isample
     -- vocabulary
         --- material
            ---- 0.9
+```
 the corresponding URIs are then like 
-http://w3id.org/isample/vocabulary/material/0.9/{termtoken}
+https://w3id.org/isample/vocabulary/material/0.9/{termtoken}
 
 uris without the version number will be redirected to the most current version. 
-e.g. http://w3id.org/isample/vocabulary/material/{termtoken}
+e.g. https://w3id.org/isample/vocabulary/material/{termtoken}
 This will require updating redirects when new vocabs are published
 
 This would redirect to the Earth Science Information Partners (ESIP) Community Ontology Repository (COR) where the vocabularies are hosted:
-http://cor.esipfed.org/ont?iri=http://w3id.org/isamples/vocabulary/material/0.9/{termtoken}
+http://cor.esipfed.org/ont?iri=https://w3id.org/isamples/vocabulary/material/0.9/{termtoken}
 
 **Contacts:**
 * Stephen Richard <smrTucson@gmail.com> - GitHub: https://github.com/smrgeoinfo
