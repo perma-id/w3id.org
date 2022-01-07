@@ -14,10 +14,12 @@ We are starting with vocabularies.
 
 Example:
 ```
+```
 -isample
     -- vocabulary
         --- material
            ---- 0.9
+```
 ```
 the corresponding URIs are then like 
 https://w3id.org/isample/vocabulary/material/0.9/{termtoken}
