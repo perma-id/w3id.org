@@ -1,8 +1,8 @@
 # /td/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for Toronto-Domion Bank resources.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for Toronto-Dominion Bank resources.
 
 ## Uses
-This namespace is broken down into different parts for TD identifiers, whole TD datasets and a few other things. See <https://www.td.com> for full details.
+This namespace is broken down into different parts for TD identifiers, whole TD datasets, and a few other things. See <https://www.td.com> for full details.
 
 ## Contact
 This space is administered by:  
