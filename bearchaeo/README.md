@@ -10,8 +10,13 @@ Contact
 This space is administered by:
 
 Vincenzo Lombardo 
+
 Università degli Studi di Torino 
+
 Torino, Italy 
-vincenzo.lombardo@unito.it 
+
+Email: vincenzo.lombardo@unito.it 
+
 GitHub: vlombard 
+
 ORCID: 0000-0002-8166-9827
