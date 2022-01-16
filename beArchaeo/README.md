@@ -2,7 +2,7 @@
 
 This W3ID provides a persistent URI namespace for BeArchaeo merged ontology.
 
-URI: URI: https://github.com/vlombard/bearchaeo
+URI: https://github.com/vlombard/bearchaeo
 
 Contact
 
