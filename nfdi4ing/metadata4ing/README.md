@@ -1,4 +1,4 @@
-Metadata4Ing Self-Descriptions
+Metadata4Ing
 ==============================
 
 Documentation:
