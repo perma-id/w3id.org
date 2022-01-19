@@ -1,4 +1,4 @@
-NFDI4Ing Self-Descriptions
+NFDI4Ing
 ==============================
 
 Homepage:
