@@ -2,12 +2,12 @@ Metadata4Ing
 ==============================
 
 Documentation:
-* https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/
+* https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing
 
 Redirections:
 * HTML: Visit documentation
   * https://w3id.org/nfdi4ing/metadata4ing
-  * --> https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/
+  * --> https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing
 * Turtle/XML/nt/json-ld: Access respective ontology
   * https://w3id.org/nfdi4ing/metadata4ing/metadata4ing.ttl (or rdf, json, ...)
   * --> https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl (or xml/nt/jsonld)
