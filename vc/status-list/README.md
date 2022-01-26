@@ -1,4 +1,4 @@
-# VC Status List 2021 Vocabulary
+# VC Status List Vocabulary
 
 - https://w3c-ccg.github.io/vc-status-list-2021/
 
