@@ -10,7 +10,7 @@ https://w3id.org/mod
 
 
 ## License
-This repository is licensed under Creative Commons 4.0 International. See the [LICENSE deed](LICENSE) for details.
+This repository is licensed under Creative Commons 4.0 International. 
 
 ## Contacts
 **Biswanath Dutta (Indian Statistical Institute)**  
