@@ -3,7 +3,7 @@
 Ontology
 
 * Doc      https://lbdserver.github.io/vocabulary/
-* Turtle   https://lbdserver.github.io/vocabulary/ontology.ttl
+* Turtle   https://lbdserver.github.io/vocabulary/lbds.ttl
 
 
 Contacts
