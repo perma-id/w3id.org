@@ -29,10 +29,18 @@ RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
 RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
 RewriteRule ^(core|code|metamodel).ttl https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
 
+# TURTLE with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.ttl [L,R=303]
+
 # N3
 RewriteCond %{HTTP_ACCEPT} ^.*text/n3.*
 RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
 RewriteRule ^(core|code|metamodel).n3 https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+
+# N3 with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.n3 [L,R=303]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
@@ -42,20 +50,38 @@ RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-a
 RewriteRule ^(core|code|metamodel).rdf https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
 RewriteRule ^(core|code|metamodel).xml https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
 
+# RDF/XML with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.xml [L,R=303]
+
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
 RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
 RewriteRule ^(core|code|metamodel).jsonld https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
+
+# JSON-LD with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.jsonld [L,R=303]
 
 # JSON
 RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
 RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
 RewriteRule ^(core|code|metamodel).json https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
 
+# JSON with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.json [L,R=303]
+
 # N-TRIPLES
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
 RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
 RewriteRule ^(core|code|metamodel).nt https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.nt [L,R=303]
 
 # context.json(ld)
 RewriteRule ^contexts/context.json$ https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld [R=303]
