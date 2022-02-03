@@ -4,8 +4,8 @@ Ontology
 
 URI: https://w3id.org/ocqa (@prefix `ocqa`)
 
-* Doc      https://sebseis.github.io/ocqa
-* Turtle   https://sebseis.github.io/ocqa.ttl
+* Doc      https://sebseis.github.io/ocqa/
+* Turtle   https://sebseis.github.io/ocqa/ocqa.ttl
 
 ## Contacts
 
