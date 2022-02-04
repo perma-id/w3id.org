@@ -11,4 +11,4 @@ Docs
 Contact
 * David Osumi-Sutherland davidos AT ebi DOT ac DOT uk @dosumis
 * Jim Balhoff balhoff AT renci DOT org @balhoff
-* Nicolas Matentzoglu nicolas DOT matentzoglu AT gmail DOT com @balhoff
+* Nicolas Matentzoglu nicolas DOT matentzoglu AT gmail DOT com @matentzn
