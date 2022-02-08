@@ -1,0 +1,44 @@
+# Name of the project: DPV
+# Description: Data Privacy Vocabulary (DPV) provides concepts to describe and represent information about processing of personal data.
+# Contacts:
+# - Harshvardhan J. Pandit (me@harshp.com)
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# w3id.org/dpv
+RewriteRule ^$ https://w3c.github.io/dpv/dpv [R=302,L]
+# w3id.org/dpv/*
+RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1 [R=302,L]
+
+
+#|-------------------+----------------------------------------+---------------------------------------------|
+#| prefix            | w3id                                   | url                                         |
+#|-------------------+----------------------------------------+---------------------------------------------|
+#| dpv               | https://w3id.org/dpv/dpv               | https://w3c.github.io/dpv/dpv               |
+#| dpv-skos          | https://w3id.org/dpv/dpv-skos          | https://w3c.github.io/dpv/dpv-skos          |
+#| dpv-owl           | https://w3id.org/dpv/dpv-owl           | https://w3c.github.io/dpv/dpv-owl           |
+#| dpv-pd            | https://w3id.org/dpv/dpv-pd            | https://w3c.github.io/dpv/dpv-pd            |
+#| dpv-skos/dpv-pd   | https://w3id.org/dpv/dpv-skos/dpv-pd   | https://w3c.github.io/dpv/dpv-skos/dpv-pd   |
+#| dpv-owl/dpv-pd    | https://w3id.org/dpv/dpv-owl/dpv-pd    | https://w3c.github.io/dpv/dpv-owl/dpv-pd    |
+#| dpv-gdpr          | https://w3id.org/dpv/dpv-gdpr          | https://w3c.github.io/dpv/dpv-gdpr          |
+#| dpv-skos/dpv-gdpr | https://w3id.org/dpv/dpv-skos/dpv-gdpr | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr |
+#| dpv-owl/dpv-gdpr  | https://w3id.org/dpv/dpv-owl/dpv-gdpr  | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr  |
+#| primer            | https://w3id.org/dpv/primer            | https://w3c.github.io/dpv/primer            |
+#| guides            | https://w3id.org/dpv/guides            | https://w3c.github.io/dpv/guides            |
+#| examples          | https://w3id.org/dpv/examples          | https://w3c.github.io/dpv/examples          |
+#| use-cases         | https://w3id.org/dpv/use-cases         | https://w3c.github.io/dpv/use-cases         |
+#|-------------------+----------------------------------------+---------------------------------------------|
+#
