@@ -8,7 +8,9 @@ AddType text/turtle .ttl
 AddType text/n3 .ttl
 AddType application/n-triples .nt
 AddType application/ld+json .json
+AddType application/json .json
 AddType application/n-triples .n3
+AddType text/n3 .n3
 
 Options +FollowSymLinks
 
@@ -29,7 +31,6 @@ RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\*
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/index.html [R=303,L,NE]
-
 
 # Specific content-type -> Access respective ontology
 
@@ -53,16 +54,24 @@ RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metad
 
 # N-triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteCond %{HTTP_ACCEPT} text/n3
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.nt [R=303,L,NE]
 
 # N-triples with versioning
 RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteCond %{HTTP_ACCEPT} text/n3
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.nt [R=303,L,NE]
 
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.jsonld [R=303,L,NE]
 
 # JSON-LD with versioning
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.jsonld [R=303,L,NE]
+
+# No content-negotiation at all: Fallback to HTML for both versioned and non-versioned
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/index.html [R=303,L,NE]
