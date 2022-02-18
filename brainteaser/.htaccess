@@ -33,5 +33,9 @@ RewriteRule ^ontology$ http://brainteaser.dei.unipd.it/ontology/brainteaser.owl 
 # Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
 RewriteRule ^ontology$ http://brainteaser.dei.unipd.it/ontology/brainteaser.owl [R=303]
 
+# Rewrite rule to deal with two namespaces: schema and named-individual
+RewriteRule ^ontology/schema/(.*)$ http://brainteaser.dei.unipd.it/ontology/#$1 [R=302,L,NE]
+RewriteRule ^ontology/named-individual/(.*)$ http://brainteaser.dei.unipd.it/ontology/#https://w3id.org/brainteaser/ontology/named-individual/$1 [R=302,L,NE]
+
 RewriteRule ^ontology(.*)$ http://brainteaser.dei.unipd.it/ontology$1 [R=302,L]
 RewriteRule ^resource(.*)$ http://brainteaser.dei.unipd.it/resource/$1 [R=302,L]
