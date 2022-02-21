@@ -11,7 +11,7 @@ https://w3id.org/locolligo/contexts/linkedplaces.jsonld -> https://docuracy.gith
 
 
 ### Datasets
-Any URL not matching the above patterns is assumed to be a Linked Places (.lp.json) dataset. If the path includes another component after the name of the dataset, then the URL is assumed to be a reference to a feature within the dataset.
+Any URL not matching the above patterns is assumed to be a Linked Places (filename.lp.json) dataset. If the path includes another component after the name of the dataset, then the URL is assumed to be a reference to a feature within the dataset.
 
 https://w3id.org/locolligo/Hollar-1660 -> https://docuracy.github.io/Locolligo/datasets/Hollar-1660.lp.json
 
