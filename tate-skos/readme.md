@@ -5,4 +5,4 @@ This repository features a [SKOS](https://www.w3.org/2004/02/skos/) taxonomy gen
 Documentation and specification found [here](https://github.com/catalink-eu/tate-skos).
 
 ## Contact Details
-For any queries or remarks on the Tate SKOS taxonomy, or if you would like to deploy CASPAR for your use case, please feel free to [contact us](mailto:caspar@catalink.eu?subject=Tate%20SKOS).
+This w3id is maintained by [Stratos Kontopoulos](https://github.com/skontopo). For any queries or remarks on the Tate SKOS taxonomy, or if you would like to deploy CASPAR for your use case, please feel free to [contact us](mailto:caspar@catalink.eu?subject=Tate%20SKOS).
