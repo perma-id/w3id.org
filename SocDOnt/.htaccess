@@ -21,12 +21,12 @@ RewriteEngine On
 # Redirects - w/o version number
 RewriteRule ^/?\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.$1 [R=303,L]
 RewriteRule ^/?\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.owl [R=303,L]
-RewriteRule ^/?\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/index.html [R=303,L]
+RewriteRule ^/?\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]
 
 # Redirects - w/ version number
 RewriteRule ^/?(\d+(\.\d+)+)\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.$3 [R=303,L]
 RewriteRule ^/?(\d+(\.\d+)+)\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.owl [R=303,L]
-RewriteRule ^/?(\d+(\.\d+)+)\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/index.html [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/SocDOnt.html [R=303,L]
 
 ## END: Redirects using extension
 
@@ -37,7 +37,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/index.html [R=303,L]
+RewriteRule ^$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]
 
 # Serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/json [OR]
@@ -67,7 +67,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^/?(\d+(\.\d+)+)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/index.html [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/SocDOnt.html [R=303,L]
 
 # Serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/json [OR]
@@ -90,4 +90,4 @@ RewriteRule ^/?(\d+(\.\d+)+)$ https://raw.githubusercontent.com/ceir-koblenz/ont
 ## END: content negotiation - w/ version number
 
 # Default response: redirect everthing the the github pages site
-RewriteRule ^(.*)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/index.html [R=303,L]
+RewriteRule ^(.*)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]
