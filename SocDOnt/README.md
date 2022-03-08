@@ -7,5 +7,9 @@ The Social Document Ontology (SocDOnt) expresses the generic structure of social
 [Petra Schubert](https://www.uni-koblenz-landau.de/en/campus-koblenz/fb4/iwvi/rgschubert/team/petra-schubert/petra-schubert)
 
 ## CEIR
-The SocDOnt was created by the [CEIR - Center for Enterprise Information Research](https://ceir.de).
+The SocDOnt was created by the [CEIR - Center for Enterprise Information Research](https://ceir.de).\
 All CEIR ontologies can be found in the [ontologies repository](https://github.com/ceir-koblenz/ontologies).
+
+## Maintainers
+[Martin Just](https://github.com/Muffexx)\
+[Julian Mosen](https://github.com/jmosen)
