@@ -7,7 +7,7 @@ The OSDU Ontology is licensed under the Apache License 2.0 - see [License](./Lic
 
 
 ## Homepage
-[OSDU Ontology: ](https://github.com/Accenture/OSDU-Ontology/)
+[OSDU Ontology](https://github.com/Accenture/OSDU-Ontology/)
 
 ## Vocabulary Usage
 
