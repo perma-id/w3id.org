@@ -1,0 +1,7 @@
+**Name of the project:** [Highly Abstract](https://github.com/delfimpandiani/highly-abstract/)
+
+**Description:** Highly Abstract is a project surrounding High Level Abstract Concepts (HLACs) evoked by images. This project aims to investigate, model, and experiment with how and why HLACs (such as violence, power, peace, or destruction) are detected by humans and machines in images. It specifically focuses on the detection of such concepts in (visual) art images. Goals of this work include: Identification of a set of HLACs that is consistently used to tag the non-concrete content of (art) images; Creation of a dataset of images and HLACs evoked by them.
+Creation of an HLAC Knowledge Graph (KG); Identification of common features of images tagged by experts with the same HLACs; Automatic detection of highly abstract concepts in previously unseen (art) images; Automatic generation of new images that evoke specific highly abstract concepts.
+
+**Contacts:**
+* Delfina Sol Martinez Pandiani <delfinasol.martinez2@unibo.it> - GitHub: https://github.com/delfimpandiani
