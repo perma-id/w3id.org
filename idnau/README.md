@@ -10,6 +10,7 @@ Management:
 
 **Sandra Silcot**  
 *Indigenous Data Network*  
+<ssilcot@unimelb.edu.au>  
 <https://www.idnau.org>  
 <https://orcid.org/0000-0003-1983-6687>  
 
