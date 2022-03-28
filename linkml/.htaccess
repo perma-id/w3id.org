@@ -1,0 +1,50 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ docs/ [L]
+
+RewriteRule ^([^/]+)\.html$ $1.html
+RewriteRule ^(.*)\.yaml$ linkml_model/model/schema/$1.yaml
+RewriteRule ^(.*)\.graphql$ linkml_model/graphql/$1.graphql
+RewriteRule ^(.*\.?)context.json$ linkml_model/jsonld/$1context.jsonld
+RewriteRule ^(.*\.?)context.jsonld$ linkml_model/jsonld/$1context.jsonld
+RewriteRule ^(.*)\.schema.json$ linkml_model/jsonschema/$1.schema.json
+RewriteRule ^(.*)\.json$ linkml_model/json/$1.json
+RewriteCond %{REQUEST_URI} !\.owl\.
+RewriteRule ^(.*)\.ttl$ linkml_model/rdf/$1.ttl
+RewriteRule ^(.*)\.owl$ linkml_model/owl/$1.owl.ttl
+RewriteRule ^(.*)\.shex$ linkml_model/shex/$1.shex
+RewriteRule ^(.*)\.shexc$ linkml_model/shex/$1.shex
+RewriteRule ^(.*)\.shexj$ linkml_model/shex/$1.shexj
+
+
+# Poor man's conneg
+# ------------------------------------
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*[^/])$ $1.ttl [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/yaml
+RewriteRule ^(.*[^/])$ $1.yaml [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*[^/])$ $1.json [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} ^text/shex
+RewriteRule ^(.*[^/])$ $1.shex [L]
+
+RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+RewriteCond %{REQUEST_URI} !/docs/
+RewriteCond %{HTTP_ACCEPT} ^text/html
+RewriteRule ^(.*[^/])$ docs/$1 [L]
+
+# TODO: Look at how to apply the profile from https://w3c.github.io/json-ld-syntax/#dfn-context-document
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} ^application/ld\+json
+RewriteRule ^(.*[^/])$ $1.context.jsonld [L]
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://linkml.github.io/linkml-model/$1 [R=302,L]
