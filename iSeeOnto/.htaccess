@@ -8,32 +8,51 @@ AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 
 RewriteEngine on
+#Change the path to the folder here
+RewriteBase https://isee4xai.github.io/iSeeOnto/ 
 
-#Rewrite rules for aimodel ontology
+##Rewrite rules for aimodel ontology
+# Rewrite rule to serve HTML content from the vocabulary URI 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ docs/aimodel-en.html [R=303,L]
 #default response owl rdf
-RewriteRule ^aimodel$ https://isee4xai.github.io/iSeeOnto/aimodel.rdf [R=303,NE,L]
+RewriteRule ^aimodel$ aimodel.rdf [R=303,NE,L]
 
-#Rewrite rules for aimethodevaluation ontology
+##Rewrite rules for aimethodevaluation ontology
 #default response: owl rdf
 RewriteRule ^aimethodevaluation$ https://isee4xai.github.io/iSeeOnto/aimethodevaluation.rdf [R=303,NE,L]
 
-#Rewrite rules for evaluation ontology
+##Rewrite rules for evaluation ontology
 #default response: owl rdf
 RewriteRule ^evaluation$ https://isee4xai.github.io/iSeeOnto/evaluation.rdf [R=303,NE,L]
 
-#Rewrite rules for explainer ontology 
+##Rewrite rules for explainer ontology 
 #default response: owl rdf
 RewriteRule ^explainer$ https://isee4xai.github.io/iSeeOnto/explainer.rdf [R=303,NE,L]
 
-
-#Rewrite rules for user ontology
+##Rewrite rules for user ontology
 #default response: owl rdf
 RewriteRule ^user$ https://isee4xai.github.io/iSeeOnto/user.rdf [R=303,NE,L]
 
-#Rewrite rules for userevaluation ontology
+##Rewrite rules for userevaluation ontology
 #default response: owl rdf
 RewriteRule ^userevaluation$ https://isee4xai.github.io/iSeeOnto/userevaluation.rdf [R=303,NE,L]
 
-#Rewrite rules for workflow ontology
+##Rewrite rules for workflow ontology
 #default response: owl rdf
 RewriteRule ^workflow$ https://isee4xai.github.io/iSeeOnto/workflow.rdf [R=303,NE,L]
+
+##Rewrite rules for Explanation Experience ontology
+#default response: owl rdf
+RewriteRule ^explanationexperience$ https://isee4xai.github.io/iSeeOnto/explanationexperience.rdf [R=303,NE,L]
+
+##Rewrite rules for Similarity Knowledge ontology
+#default response: owl rdf
+RewriteRule ^SimilarityKnowledge$ https://isee4xai.github.io/iSeeOnto/explanationexperience.rdf [R=303,NE,L]
+
+##Rewrite rules for Behaviour Tree ontology
+#default response: owl rdf
+RewriteRule ^SimilarityKnowledge$ https://isee4xai.github.io/iSeeOnto/BehaviourTree.owl [R=303,NE,L]
