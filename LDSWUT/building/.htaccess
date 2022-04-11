@@ -1,0 +1,15 @@
+
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+#default response: owl
+RewriteRule ^bmeas$ https://github.com/HuntedSouls/buildingmeasurementOntology/blob/main/buildingMeasurements.owl [R=303,NE,L]
