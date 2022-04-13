@@ -13,3 +13,4 @@ Contacts:
 * Ademar Crotti Junior <ademar.crotti@adaptcentre.ie>
 * Rob Brennan <rob.brennan@dcu.ie>
 * Junli Liang <junli.liang@adaptcentre.ie>
+* Lucy McKenna <lucymckenna12@gmail.com>
