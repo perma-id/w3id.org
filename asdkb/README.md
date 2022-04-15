@@ -1,8 +1,8 @@
-ASD-KG: A Chinese Knowledge Graph for Autism spectrum disorder
+ASD-KG: A Chinese Knowledge Base for Autism spectrum disorder
 =======
 
 ## Homepage:
-* https://w3id.org/asdkg
+* https://w3id.org/asdkb
 
 ## Contacts:
 * Cao Xudong <220214801@seu.edu.cn>
