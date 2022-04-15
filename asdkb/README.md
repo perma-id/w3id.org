@@ -1,4 +1,4 @@
-ASD-KG: A Chinese Knowledge Graph for Autism spectrum disorder
+ASD-KG: A Chinese Knowledge Base for Autism spectrum disorder
 =======
 
 ## Homepage:
