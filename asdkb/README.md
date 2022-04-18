@@ -1,4 +1,4 @@
-ASD-KG: A Chinese Knowledge Base for Autism spectrum disorder
+ASD-KB: A Chinese Knowledge Base for Autism spectrum disorder
 =======
 
 ## Homepage:
