@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ <link rel="stylesheet" href="resources/primer.css" media="screen" />    <link rel="stylesheet" href="resources/rec.css" media="screen" />    <link rel="stylesheet" href="resources/extra.css" media="screen" />    <link rel="stylesheet" href="resources/owl.css" media="screen" />    <title>Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0","image":"http://vowl.visualdataweb.org/webvowl/#iri=http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0","name":"Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios", "headline":"El propósito de este vocabulario es describir de forma semántica todo lo que hace alusión a los presupuestos de ingresos, su estructura, su situación inicial y el nivel de ejecución durante el año correspondiente.", "datePublished":"Thu Apr 21 12:23:21 CEST 2022", "version":"Esta es la versión inicial de la ontología de Presupuesto de Ingresos que ha sido implementada en el contexto de un trabajo fin de grado con el objetivo de crear un grafo de conocimientos que reúna información acerca de las universidades públicas españolas", "license":"http://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}], "contributor":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Tabla de contenidos</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
+<h1>Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios</h1>
+
+
+<dl>
+<dt>Versi&oacute;n:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0">http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0</a></dd>
+<!-- <dt>&Uacute;ltima Versi&oacute;n:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0">http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0</a></dd> -->
+<dt>Revisi&oacute;n n&uacute;mero:</dt>
+<dd>Esta es la versión inicial de la ontología de Presupuesto de Ingresos que ha sido implementada en el contexto de un trabajo fin de grado con el objetivo de crear un grafo de conocimientos que reúna información acerca de las universidades públicas españolas</dd>
+<dt>Autores:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Colaboradores:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Publicado por:</dt>
+<dd>Víctor Morcuende</dd>
+<dt>Descargar serializaci&oacute;n:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.rdf" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>Licencia:</dt><dd><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-http://creativecommons.org/licenses/by/4.0/-blue.svg" alt="http://creativecommons.org/licenses/by/4.0/" /></a>
+</dd>
+<dt>Citar como:</dt>
+<dd>Víctor Morcuende, Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata). Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios. Revision: Esta es la versión inicial de la ontología de Presupuesto de Ingresos que ha sido implementada en el contexto de un trabajo fin de grado con el objetivo de crear un grafo de conocimientos que reúna información acerca de las universidades públicas españolas. http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0</dd>
+</dl>
+<br>
+<a href="provenance/provenance-es.html" target="_blank">Provenance de esta p&aacute;gina</a><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology Specification Draft</span>
+</div>
+</div>     <div id="abstract"><h2>S&iacute;ntesis</h2><span class="markdown">
+El propósito de este vocabulario es describir de forma semántica todo lo que hace alusión a los presupuestos de ingresos, su estructura, su situación inicial y el nivel de ejecución durante el año correspondiente.</span>
+</div>
+<div id="toc"></div> 
+
+<!--INTRODUCTION SECTION-->
+<div id="introduction"><h2 id="intro" class="list">Introducci&oacute;n <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+   <p>
+      Este vocabulario representa la información de los datos sobre los presupuestos de ingresos universitarios. 
+      Estos datos provienen de un conjunto de universidades públicas españolas, más concretamente, pertenecen a la Universidad Autónoma de Madrid (UAM), 
+      a la Universidad Carlos III de Madrid (UC3M), a la Universidad Complutense de Madrid (UCM), a la Universidad Rey Juan Carlos (URJC), a la Universidad de Valladolid (UVa) y a la 
+      Universidad de Huelva (UHU). De esta forma, este vocabulario describe información pertinente a los presupuestos de ingresos universitarios, los cuales están asociados a una universidad.
+   </p>
+   <p>
+      Además, para la representación de la ubicación de la universidad en la que los presupuestos de ingresos universitarios se vinculan, se reutilizan términos de las ontologías 
+      <a target="_blank" href="https://datos.ign.es/def/geo_core/index-es.html">geo</a> y 
+      <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a> 
+      que permiten especificar los datos de localización geográfica según el sistema de coordenadas de referencia. Por último, se reutiliza el vocabulario 
+      de <a target="_blank" href="https://www.w3.org/ns/org#">organizaciones</a> para representar la entidad de la universidad, que recoge todos los presupuestos de ingresos universitarios.
+   </p>
+<div id="namespacedeclarations">
+<h3 id="ns" class="list">Declaraci&oacute;n de namespaces</h3>
+<div id="ns" align="center">
+<table>
+<caption> <a href="#ns"> Tabla 1</a>: Namespaces utilizados en el documento </caption>
+<tbody>
+<!-- <tr><td><b>univPrIng</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos/1.0.0&gt;</td></tr> -->
+<tr><td><b>univPrIng</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresos&gt;</td></tr>
+<tr><td><b>org</b></td><td>&lt;http://www.w3.org/ns/org#&gt;</td></tr>
+<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>
+<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>
+<tr><td><b>skos</b></td><td>&lt;http://www.w3.org/2004/02/skos/core#&gt;</td></tr>
+<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>
+<tr><td><b>geo</b></td><td>&lt;http://www.owl-ontologies.com/geo#&gt;</td></tr>
+<tr><td><b>geosparql</b></td><td>&lt;http://www.owl-ontologies.com/geosparql#&gt;</td></tr>
+<tr><td><b>dct</b></td><td>&lt;http://purl.org/dc/terms/&gt;</td></tr>
+<tr><td><b>rdf</b></td><td>&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns&gt;</td></tr>
+<tr><td><b>xml</b></td><td>&lt;http://www.w3.org/XML/1998/namespace#&gt;</td></tr>
+<tr><td><b>dc</b></td><td>&lt;http://purl.org/dc/elements/1.1/&gt;</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+  
+
+<!--OVERVIEW SECTION-->
+    <div id="overview"><h2 id="overv" class="list">Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios: Resumen <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+<span class="markdown">La ontolog&iacute;a se compone de las siguientes clases y propiedades:</span>
+<h4>Clases</h4>
+<ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio">Anio</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+         title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad">Universidad</a>
+   </li>
+</ul><h4>Propiedades de objeto</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo">articulo</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+         <span>as w k t</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo">capitulo</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto">concepto</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA">esta asociado a</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+         title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1">organica libre1</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2">organica libre2</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida">partida</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion">seccion</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio">servicio</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto">subconcepto</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste">unidad de coste</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA">vinculado a</a>
+   </li>
+</ul><h4>Propiedades de datos</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial">credito inicial</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal">credito total</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos">derechos reconocidos netos</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia">fecha referencia</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones">modificaciones</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta"
+         title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta">recaudacion neta</a>
+   </li>
+</ul>
+</div>
+  
+
+<!--DESCRIPTION SECTION-->
+<div id="description"><h2 id="desc" class="list">Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios: Descripci&oacute;n <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+   <span class="markdown">La Figura 1 muestra las clases y propiedades del vocabulario que representan los datos sobre los presupuestos de ingresos universitarios:</span>
+   <center>
+      <img src="resources/images/PresIngr Diagrama.png" width="986px" height="599px">
+      <figcaption>Figura 1. Modelo conceptual para la representación de los presupuestos de ingresos universitarios</figcaption>
+   </center>
+   <p>
+      Como se mencionó previamente, el objetivo de este vocabulario es representar los datos sobre los presupuestos de ingresos universitarios. Para ello, como se puede observar 
+      en la figura, se han definido varias clases y propiedades que permitan describir estos datos, como la clase Ingreso, que recoge información de la fecha de referencia, del crédito inicial 
+      para ese presupuesto de ingresos, de la modificaciones realizadas al mismo, del crédito final, de los derechos reconocidos netos y de la recaudación neta. A su vez, posee varios esquemas de 
+      conceptos SKOS para representar la sección del presupuesto de ingresos, el servicio, la unidad de coste, los niveles de orgánica libre 1 y 2, el capítulo del presupuesto de ingresos, el 
+      artículo, el concepto, el subconcepto y la partida. Por último, se han reutilizado las clases y propiedades del vocabulario 
+      <a target="_blank" href="https://www.w3.org/ns/org#">org:Organization</a>, para describir la clase Universidad, a la cual están vinculados una serie de presupuestos de ingresos en un año 
+      determinado. Esta clase, posee una localización geográfica, representada por el vocabulario <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>.
+   </p>
+   <h3 id="use-examples" class="list">Ejemplos de uso</h3>
+   <p>Con la finalidad de facilitar la comprensión del uso de algunas clases y propiedades de este vocabulario se proporciona a continuación el siguiente ejemplo:</p>
+   <pre>
+      univPrIng:Ingreso_0128 a univPrIng:Ingreso ;
+         univPrIng:fechaReferencia "2022-01-24"^^xsd:date ;
+         univPrIng:creditoInicial "350000"^^xsd:integer ;
+         univPrIng:modificaciones "2000"^^xsd:integer ;
+         univPrIng:creditoTotal "352000"^^xsd:integer ;
+         univPrIng:derechosReconocidosNetos "13000"^^xsd:integer ;
+         univPrIng:recaudacionNeta "12570"^^xsd:integer ;
+         univPrIng:capitulo <<!---->http://vocab.universidadesabiertas.es/kos/capitulo/tasas-precios-publicos-y-otros-ingresos> ;
+         univPrIng:articulo <<!---->http://vocab.universidadesabiertas.es/kos/articulo/precios-publicos> ;
+         univPrIng:concepto <<!---->http://vocab.universidadesabiertas.es/kos/concepto/derechos-de-matricula-en-ensenianza-oficial> ;
+         univPrIng:subconcepto <<!---->http://vocab.universidadesabiertas.es/kos/subconcepto/grado-primer-y-segundo-ciclo> ;
+         univPrIng:partida <<!---->http://vocab.universidadesabiertas.es/kos/partida/derechos-de-matricula-en-ingenieria-informatica> ;
+         univPrIng:seccion <<!---->http://vocab.universidadesabiertas.es/kos/seccion/campus-y-centros> ;
+         univPrIng:servicio <<!---->http://vocab.universidadesabiertas.es/kos/servicio/campus-de-montegancedo> ;
+         univPrIng:unidadDeCoste <<!---->http://vocab.universidadesabiertas.es/kos/unidad-de-coste/investigacion-campus-montegancedo> ;
+         univPrIng:organicaLibre1 <<!---->http://vocab.universidadesabiertas.es/kos/organica-libre-1/centros-de-investigacion> ;
+         univPrIng:organicaLibre2 <<!---->http://vocab.universidadesabiertas.es/kos/organica-libre-2/centro-de-tecnologia-biomedica> ;
+         univPrIng:vinculadoA univPrIng:UPM ;
+         univPrIng:tieneAsociado univPrIng:2022 .
+         
+      univPrIng:UPM a univPrIng:Universidad ;
+         dct:identifier "025"^^xsd:string ;
+         rdfs:subClassOf org:Organization .
+   
+      univPrIng:2022 a univPrIng:Anio .
+   </pre>
+</div>
+   
+
+<!--CROSSREF SECTION-->
+   <div id="crossref"><h2 id="crossreference" class="list">T&eacute;rminos de Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios para clases, propiedades de objeto y propiedades de datos <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+Esta secci&oacute;n introduce m&aacute;s detalles sobre cada clase y propiedad definida por Vocabulario para la representación de los datos sobre los presupuestos de ingresos universitarios.
+<div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+   <h3 id="classes-headline" class="list">Clases</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio">Anio</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+            title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad">Universidad</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio">
+      <h3>Anio<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio</p>
+      <dl class="description">
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Feature">
+      <h3>Feature<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Feature</p>
+      <dl class="description">
+         <dt>tiene superclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>tiene subclases</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en rango de</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Geometry">
+      <h3>Geometry<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Geometry</p>
+      <dl class="description">
+         <dt>tiene superclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>tiene subclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">as w k t</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">
+      <h3>Ingreso<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso</p>
+      <dl class="description">
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo">articulo</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo">capitulo</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto">concepto</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial">credito inicial</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal">credito total</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos">derechos reconocidos netos</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia">fecha referencia</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones">modificaciones</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1">organica libre1</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2">organica libre2</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida">partida</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta">recaudacion neta</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion">seccion</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio">servicio</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto">subconcepto</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste">unidad de coste</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA">vinculado a</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+         <dt>en rango de</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Organization">
+      <h3>Organization<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Organization</p>
+      <dl class="description">
+         <dt>tiene subclases</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad"
+               title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad">Universidad</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Point">
+      <h3>Point<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Point</p>
+      <dl class="description">
+         <dt>tiene superclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>, <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Site">
+      <h3>Site<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Site</p>
+      <dl class="description">
+         <dt>tiene superclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en rango de</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="Propiedad entre objetos">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#SpatialObject">
+      <h3>Spatial Object<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#SpatialObject</p>
+      <dl class="description">
+         <dt>tiene subclases</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="clase">c</sup>, <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad">
+      <h3>Universidad<sup class="type-c" title="clase">c</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#classes">Índice de clases</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad</p>
+      <dl class="description">
+         <dt>tiene superclases</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+            <sup class="type-c" title="clase">c</sup>
+         </dd>
+         <dt>en dominio de</dt>
+         <dd>
+            <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+            <sup class="type-dp" title="Propiedad de datos">dp</sup>
+         </dd>
+      </dl>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+   <h3 id="objectproperties-headline" class="list">Propiedades entre objetos</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo">articulo</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+            <span>as w k t</span>
+         </a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo">capitulo</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto">concepto</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA">esta asociado a</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+            title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1">organica libre1</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2">organica libre2</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida">partida</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion">seccion</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio">servicio</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto">subconcepto</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste">unidad de coste</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA">vinculado a</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo">
+      <h3>articulo<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosarticulo</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#asWKT">
+      <h3>as w k t<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#asWKT</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#wKTLiteral"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#wKTLiteral">w k t literal</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>también definida por</dt>
+            <dd>Propiedad de datos</dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo">
+      <h3>capitulo<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscapitulo</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto">
+      <h3>concepto<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosconcepto</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA">
+      <h3>esta asociado a<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosestaAsociadoA</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosAnio">Anio</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#hasGeometry">
+      <h3>has geometry<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#hasGeometry</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#hasSite">
+      <h3>has site<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#hasSite</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1">
+      <h3>organica libre1<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre1</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2">
+      <h3>organica libre2<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosorganicaLibre2</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida">
+      <h3>partida<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresospartida</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion">
+      <h3>seccion<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosseccion</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio">
+      <h3>servicio<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosservicio</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto">
+      <h3>subconcepto<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresossubconcepto</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste">
+      <h3>unidad de coste<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosunidadDeCoste</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA">
+      <h3>vinculado a<sup class="type-op" title="Propiedad entre objetos">op</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#objectproperties">Índice de propiedades de objetos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosvinculadoA</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+   <h3 id="dataproperties-headline" class="list">Propiedades de datos</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial">credito inicial</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal">credito total</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos">derechos reconocidos netos</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia">fecha referencia</a>
+      </li>
+      <li>
+         <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones">modificaciones</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta"
+            title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta">recaudacion neta</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial">
+      <h3>credito inicial<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoInicial</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal">
+      <h3>credito total<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresoscreditoTotal</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos">
+      <h3>derechos reconocidos netos<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosderechosReconocidosNetos</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia">
+      <h3>fecha referencia<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosfechaReferencia</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#date"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#date">date</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://purl.org/dc/terms/identifier">
+      <h3>identifier<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://purl.org/dc/terms/identifier</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosUniversidad">Universidad</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#string"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#string">string</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#lat">
+      <h3>lat<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#lat</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#long">
+      <h3>long<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#long</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones">
+      <h3>modificaciones<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosmodificaciones</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta">
+      <h3>recaudacion neta<sup class="type-dp" title="Propiedad de datos">dp</sup>
+         <span class="backlink"> Volver a <a href="#toc">índice</a> o <a href="#dataproperties">Índice de propiedades de datos</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosrecaudacionNeta</p>
+      <div class="description">
+         <dl>
+            <dt>dominio</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso"
+                  title="http://vocab.universidadesabiertas.es/ontology/economia-y-patrimonio#PresupuestoIngresosIngreso">Ingreso</a>
+               <sup class="type-c" title="clase">c</sup>
+            </dd>
+            <dt>rango</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div id="legend">
+<h2>Leyenda <span class="backlink"> volver a <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Clases">c</sup>: Clases <br/>
+<sup class="type-op" title="Propiedades de objeto">op</sup>: Propiedades de objeto <br/>
+<sup class="type-dp" title="Propiedades de datos">dp</sup>: Propiedades de datos <br/>
+</div>
+</div>
+</div>
+    
+
+<!--REFERENCES SECTION-->
+  <div id="references">
+<h2 id="ref" class="list">Referencias <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+<span class="markdown">A&ntilde;ade aqu&iacute; tus referencias, a ser posible en una lista.</span>
+
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Agradecimientos <span class="backlink"> volver a <a href="#toc">&iacute;ndice</a></span></h2>
+<p>Los autores agradecen a <a href="http://www.essepuntato.it/">Silvio Peroni</a> el desarrollo de <a href="http://www.essepuntato.it/lode">LODE</a>, un entorno de documentaci&oacute;n para OWL que es usado para generar la descripci&oacute;n de t&eacute;rminos de la ontolog&iacute;a de este documento; y a  <a href="http://purl.org/net/dgarijo">Daniel Garijo</a> por desarrollar <a href="https://github.com/dgarijo/Widoco">Widoco</a>, el programa utilizado para producir la plantilla en la que se basa este documento.</p>
+</div>
+
+
+</div>
+</body>
+</html>
