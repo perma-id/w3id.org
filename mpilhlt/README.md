@@ -4,8 +4,6 @@ Homepage:
 
 * <https://www.lhlt.mpg.de/en>
 
-*Note that after the renaming of the MPI, URIs beginning with `https://w3id.org/rg-mpg-de/` are maintained only for backwards compatibility. They are in fact redirections to the new URIs beginning with `https://w3id.org/mpilhlt/`. If possible, it is preferable to use the new ones (mpilhlt) now.*
-
 Vocabularies:
 
 * <https://w3id.org/rhonda/polmat>
