@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ <link rel="stylesheet" href="resources/primer.css" media="screen" />    <link rel="stylesheet" href="resources/rec.css" media="screen" />    <link rel="stylesheet" href="resources/extra.css" media="screen" />    <link rel="stylesheet" href="resources/owl.css" media="screen" />    <title>Vocabulary for the representation of university Teaching and Research Staff (PDI)</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0","image":"http://vowl.visualdataweb.org/webvowl/#iri=http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0","name":"Vocabulary for the representation of university Teaching and Research Staff (PDI)", "headline":"The purpose of this vocabulary is to describe in a semantic manner information related to university Teaching and Research Staff (PDI).", "datePublished":"Wed Apr 20 00:13:53 CEST 2022", "version":"This is the initial version of the ontology of University Teaching and Research Staff (PDI), that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities", "license":"http://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}], "contributor":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index.html"><b>es</b></a> </div>
+<h1>Vocabulary for the representation of university Teaching and Research Staff (PDI)</h1>
+
+
+<dl>
+<dt>This version:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0">http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0</a></dd>
+<!-- <dt>Latest version:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0">http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0</a></dd> -->
+<dt>Revision:</dt>
+<dd>This is the initial version of the ontology of University Teaching and Research Staff (PDI), that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities</dd>
+<dt>Authors:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Contributors:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Publisher:</dt>
+<dd>Víctor Morcuende</dd>
+<dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.rdf" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-http://creativecommons.org/licenses/by/4.0/-blue.svg" alt="http://creativecommons.org/licenses/by/4.0/" /></a>
+</dd>
+<dt>Cite as:</dt>
+<dd>Víctor Morcuende, Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata). Vocabulary for the representation of university Teaching and Research Staff (PDI). Revision: This is the initial version of the ontology of University Teaching and Research Staff (PDI), that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities. http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0</dd>
+</dl>
+<br>
+<a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology Specification Draft</span>
+</div>
+</div>     <div id="abstract"><h2>Abstract</h2><span class="markdown">
+The purpose of this vocabulary is to describe in a semantic manner information related to university Teaching and Research Staff (PDI).</span>
+</div>
+<div id="toc"></div> 
+
+<!--INTRODUCTION SECTION-->
+<div id="introduction"><h2 id="intro" class="list">Introduction <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+   <p>
+      This vocabulary represents information related to university Teaching and Research Staff (PDI). The data used in it comes from a set of public spanish universities, more specifically, 
+      they belong to: the Automonous University of Madrid (UAM), the Carlos III University of Madrid (UC3M), the Complutense University of Madrid (UCM), the King Juan Carlos University (URJC),
+      the University of Valladolid (UVa) and the University of Huelva (UHU). In this way, this vocabulary describes information about the PDI, which works in a university, belonging to a 
+      responsible unit as well as a specific knowledge area.
+   </p>
+   <p>
+      Moreover, it uses the <a target="_blank" href="https://datos.ign.es/def/geo_core/index-es.html">geo</a> and 
+      <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a> vocabularies to represent the geographical location of the university where the 
+      PDI carries out his work, according to different coordinate reference systems commonly used for this type of data. Additionally, it reuses terms from the 
+      <a target="_blank" href="https://schema.org">schema.org</a> vocabulary for the representation of concepts and relations that are used to describe people. Finally, it also reuses the 
+      <a target="_blank" href="https://www.w3.org/ns/org#">organizations</a> vocabulary to represent the university entity, which gathers all the Teaching and Research Staff (PDI) that work in it.
+   </p>
+<div id="namespacedeclarations">
+<h3 id="ns" class="list">Namespace declarations</h3>
+<div id="ns" align="center">
+<table>
+<caption> <a href="#ns"> Table 1</a>: Namespaces used in the document </caption>
+<tbody>
+<!-- <tr><td><b>univPDI</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI/1.0.0&gt;</td></tr> -->
+<tr><td><b>univPDI</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDI&gt;</td></tr>
+<tr><td><b>schema</b></td><td>&lt;http://schema.org/&gt;</td></tr>
+<tr><td><b>org</b></td><td>&lt;http://www.w3.org/ns/org#&gt;</td></tr>
+<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>
+<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>
+<tr><td><b>skos</b></td><td>&lt;http://www.w3.org/2004/02/skos/core#&gt;</td></tr>
+<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>
+<tr><td><b>geo</b></td><td>&lt;http://www.owl-ontologies.com/geo#&gt;</td></tr>
+<tr><td><b>geosparql</b></td><td>&lt;http://www.owl-ontologies.com/geosparql#&gt;</td></tr>
+<tr><td><b>dct</b></td><td>&lt;http://purl.org/dc/terms/&gt;</td></tr>
+<tr><td><b>rdf</b></td><td>&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns&gt;</td></tr>
+<tr><td><b>xml</b></td><td>&lt;http://www.w3.org/XML/1998/namespace#&gt;</td></tr>
+<tr><td><b>dc</b></td><td>&lt;http://purl.org/dc/elements/1.1/&gt;</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+  
+
+<!--OVERVIEW SECTION-->
+    <div id="overview"><h2 id="overv" class="list">Vocabulary for the representation of university Teaching and Research Staff (PDI): Overview <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+This ontology has the following classes and properties.</span>
+<h4>Classes</h4>
+<ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado">Agregacion Paises Doctorado</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad">Agregacion Paises Nacionalidad</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio">Anio</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento">Area Conocimiento</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia">Comunidad Residencia</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">Continente Doctorado</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">Continente Nacionalidad</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">Municipio Residencia</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">Pais Doctorado</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">Pais Nacionalidad</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">Provincia Residencia</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+         title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable">Unidad Responsable</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">Universidad Doctorado</a>
+   </li>
+</ul><h4>Object Properties</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+         <span>as w k t</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala">categoria cuerpo escala</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion">dedicacion</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA">esta asociado a</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn">estudio en</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe">forma parte de</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero">genero</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+         title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA">pertenece a</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa">situacion administrativa</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato">tipo contrato</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal">tipo personal</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable">tipo unidad responsable</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado">titulo doctorado</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn">trabaja en</a>
+   </li>
+</ul><h4>Data Properties</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor">anio expedicion titulo doctor</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente">anio incorpora cuerpo docente</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion">anio incorporacion</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp">anio incorporacion ap</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis">anio lectura tesis</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento">anio nacimiento</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/birthDate" title="http://schema.org/birthDate">birth date</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/familyName" title="http://schema.org/familyName">family name</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/gender" title="http://schema.org/gender">gender</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/givenName" title="http://schema.org/givenName">given name</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/identifier" title="http://schema.org/identifier">identifier</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado">ind cargo remunerado</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal">ind investigador principal</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea">mencion europea</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial">num horas semanales tiempo parcial</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios">num quinquenios</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios">num sexenios</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis">num tesis</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios"
+         title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios">num trienios</a>
+   </li>
+</ul>
+</div>
+  
+
+<!--DESCRIPTION SECTION-->
+<div id="description"><h2 id="desc" class="list">Vocabulary for the representation of university Teaching and Research Staff (PDI): Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+   <span class="markdown">Figure 1 shows the classes and properties of the vocabulary that represents the data of university Teaching and Research Staff (PDI):
+   </span>
+   <center>
+      <img src="resources/images/PDI Diagrama.png" width="781px" height="676px">
+      <figcaption>Figure 1. Conceptual model for the representation of university Teaching and Research Staff (PDI)</figcaption>
+   </center>
+   <p>
+      As mentioned before, the scope of this vocabulary is the representation of data from university Teaching and Research Staff (PDI). To accomplish this purpose, as it can be seen in 
+      the figure, several classes and properties have been defined in order to describe these data, such as the PersonalDocenteInvestigador class, which collects information about his date 
+      of birth, his year of incorporation, his year of incorporation to the public administration (AP), his year of incorporation to the teaching staff, the year in which the PDI got his 
+      doctorate degree (in case he has one), his year of thesis lecture, his number of weekly hours with a part-time job, if his job is paid or not, if he has a european honorable mention or not, 
+      if he has been the main researcher in a project, his number of three year periods, his number of five year periods, his number of six year periods and his number of thesis written. 
+      Furthermore, the PersonalDocenteInvestigador class has several SKOS concept schemes to represent his gender, his dedication, his contract type, the staff type, the doctorate degree, the 
+      category of the scale corp and his administrative situation. Besides, it is described for each PDI his nationality country (which is also represented by the vocabulary 
+      <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>), continent and aggregation of countries, and also his residence municipality 
+      (which is also represented by the vocabulary <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>), province and autonomous community. 
+      Regarding the other classes, the PDI works in a university being part of a specific knowledge area during a given year, as well as he also belongs to a responsible unit, for example, a 
+      department. Moreover, if the PDI studied a doctorate degree, information about the doctorate university is also collected, such as the nationality of the country (which is also represented 
+      by the vocabulary <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>), continent and aggregation of countries where the university 
+      is located in. Additionally, it has been reused the vocabulary <a target="_blank" href="https://schema.org/Person">schema:Person</a> to describe the PDI. Finally, it has been also reused 
+      the vocabulary of <a target="_blank" href="https://www.w3.org/ns/org#">org:Organization</a> to show how the classes Universidad and UniversidadDoctorado (in case it exists) have a 
+      geographical location, represented by the vocabulary <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>.
+   </p>
+   <h3 id="use-examples" class="list">Examples of use</h3>
+   <p>In order to understand the use of some classes and properties in this vocabulary some examples have been provided:</p>
+   <pre>
+      univPDI:Juan_Mata a univPDI:PersonalDocenteInvestigador ;
+         univPDI:anioNacimiento "1969"^^xsd:integer ;
+         univPDI:anioIncorporacion "2003"^^xsd:integer ;
+         univPDI:anioIncorporacionAp "2000"^^xsd:integer ;
+         univPDI:anioIncorporaCuerpoDocente "2003"^^xsd:integer ;
+         univPDI:anioExpedicionTituloDoctor "2001"^^xsd:integer ;
+         univPDI:anioLecturaTesis "2001"^^xsd:integer ;
+         univPDI:numHorasSemanalesTiempoParcial "25"^^xsd:integer ;
+         univPDI:mencionEuropea "true"^^xsd:boolean ;
+         univPDI:indCargoRemunerado "true"^^xsd:boolean ;
+         univPDI:indInvestigadorPrincipal "false"^^xsd:boolean ;
+         univPDI:numTrienios "3"^^xsd:integer ;
+         univPDI:numQuinquenios "2"^^xsd:integer ;
+         univPDI:numSexenios "1"^^xsd:integer ;
+         univPDI:numTesis "1"^^xsd:integer ;
+         univPDI:genero <<!---->http://vocab.universidadesabiertas.es/kos/genero/hombre> ;
+         univPDI:dedicacion <<!---->http://vocab.universidadesabiertas.es/kos/dedicacion/tiempo-completo> ;
+         univPDI:tipoContrato <<!---->http://vocab.universidadesabiertas.es/kos/tipo-contrato/indefinido> ;
+         univPDI:tipoPersonal <<!---->http://vocab.universidadesabiertas.es/kos/tipo-personal/funcionario-de-carrera> ;
+         univPDI:tituloDoctorado <<!---->http://vocab.universidadesabiertas.es/kos/titulo-doctorado/uno> ;
+         univPDI:categoriaCuerpoEscala <<!---->http://vocab.universidadesabiertas.es/kos/categoria-cuerpo-escala/catedratico> ;
+         univPDI:situacionAdministrativa <<!---->http://vocab.universidadesabiertas.es/kos/situacion-administrativa/servicio-activo> ;
+         univPDI:trabajaEn univPDI:UPM ;
+         univPDI:estudioEn univPDI:UCM ;
+         univPDI:perteneceA univPDI:DATSI ;
+         univPDI:formaParteDe univPDI:Arquitectura_y_Tecnologia_de_Computadores ;
+         univPDI:posee univPDI:Espagna ;
+         univPDI:posee univPDI:Europa ;
+         univPDI:posee univPDI:UnionEuropea ;
+         univPDI:posee univPDI:Getafe ;
+         univPDI:posee univPDI:Madrid ;
+         univPDI:posee univPDI:Comunidad_de_Madrid ;
+         rdfs:subClassOf schema:Person .
+         
+      univPDI:UPM a univPDI:Universidad ;
+         dct:identifier "025"^^xsd:string ;
+         univPDI:tieneAsociado univPDI:2022 ;
+         rdfs:subClassOf org:Organization .
+   
+      univPDI:UCM a univPDI:UniversidadDoctorado ;
+         dct:identifier "010"^^xsd:string ;
+         univPDI:estaUbicadaEn univPDI:Espagna ;
+         univPDI:estaUbicadaEn univPDI:Europa ;
+         univPDI:estaUbicadaEn univPDI:UnionEuropea ;
+         rdfs:subClassOf org:Organization .
+   
+      univPDI:2022 a univPDI:Anio .
+   
+      univPDI:DATSI a univPDI:UnidadResponsable ;
+         dct:identifier "0250003" ;
+         univPDI:tipoUnidadResponsable <<!---->http://vocab.universidadesabiertas.es/kos/tipo-unidad-responsable/departamento> .
+   
+      univPDI:Arquitectura_y_Tecnologia_de_Computadores a univPDI:AreaConocimiento ;
+         dct:identifier "014" .
+   
+      univPDI:Espagna a univPDI:PaisNacionalidad ;
+         a univPDI:PaisDoctorado ;
+         dct:identifier "108" ;
+         rdfs:subClassOf univPDI:ContinenteNacionalidad ;
+         rdfs:subClassOf univPDI:ContinenteDoctorado ;
+         rdfs:subClassOf geosparql:Feature_Espagna .
+   
+      univPDI:Europa a univPDI:ContinenteNacionalidad ;
+         a univPDI:ContinenteDoctorado ;
+         dct:identifier "01" .
+   
+      univPDI:UnionEuropea a univPDI:AgregacionPaisesNacionalidad ;
+         a univPDI:AgregacionPaisesDoctorado ;
+         dct:identifier "11" ;
+         rdfs:subClassOf univPDI:ContinenteNacionalidad ;
+         rdfs:subClassOf univPDI:ContinenteDoctorado .
+   
+      univPDI:Getafe a univPDI:MunicipioResidencia ;
+         dct:identifier "065" ;
+         rdfs:subClassOf univPDI:ProvinciaResidencia ;
+         rdfs:subClassOf geosparql:Feature_Getafe .
+   
+      univPDI:Madrid a univPDI:ProvinciaResidencia ;
+         dct:identifier "28" ;
+         rdfs:subClassOf univPDI:ComunidadResidencia .
+   
+      univPDI:Comunidad_de_Madrid a univPDI:ComunidadResidencia ;
+         dct:identifier "13" .
+   
+      geosparql:Feature_Espagna geosparql:hasGeometry geosparql:Geometry_Espagna .
+   
+      geosparql:Geometry_Espagna a geosparql:Point_Espagna ;
+         geosparql:asWKT "POINT (1.601554,42.546245)"^^geosparql:wktLiteral .
+   
+      univPDI:Point_Espagna a geosparql:Point ;
+         geo:long "1.601554"^^xsd:double ;
+         geo:lat "42.546245"^^xsd:double .
+   
+      geosparql:Feature_Getafe geosparql:hasGeometry geosparql:Geometry_Getafe .
+   
+      geosparql:Geometry_Getafe a geosparql:Point_Getafe ;
+         geosparql:asWKT "POINT (-3.732585,40.308263)"^^geosparql:wktLiteral .
+   
+      univPDI:Point_Getafe a geosparql:Point ;
+         geo:long "-3.732585"^^xsd:double ;
+         geo:lat "40.308263"^^xsd:double .
+   </pre>
+</div>
+   
+
+<!--CROSSREF SECTION-->
+   <div id="crossref"><h2 id="crossreference" class="list">Cross-reference for Vocabulary for the representation of university Teaching and Research Staff (PDI) classes, object properties and data properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+This section provides details for each class and property defined by Vocabulary for the representation of university Teaching and Research Staff (PDI).
+<div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+   <h3 id="classes-headline" class="list">Classes</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado">Agregacion Paises Doctorado</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad">Agregacion Paises Nacionalidad</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio">Anio</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento">Area Conocimiento</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia">Comunidad Residencia</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">Continente Doctorado</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">Continente Nacionalidad</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">Municipio Residencia</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">Pais Doctorado</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">Pais Nacionalidad</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">Provincia Residencia</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+            title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable">Unidad Responsable</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">Universidad Doctorado</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado">
+      <h3>Agregacion Paises Doctorado<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">Continente Doctorado</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad">
+      <h3>Agregacion Paises Nacionalidad<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">Continente Nacionalidad</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio">
+      <h3>Anio<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento">
+      <h3>Area Conocimiento<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento</p>
+      <dl class="description">
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe">forma parte de</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia">
+      <h3>Comunidad Residencia<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">Provincia Residencia</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">
+      <h3>Continente Doctorado<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado">Agregacion Paises Doctorado</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">Pais Doctorado</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">
+      <h3>Continente Nacionalidad<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesNacionalidad">Agregacion Paises Nacionalidad</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">Pais Nacionalidad</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Feature">
+      <h3>Feature<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Feature</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">Municipio Residencia</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">Pais Doctorado</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">Pais Nacionalidad</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Geometry">
+      <h3>Geometry<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Geometry</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">as w k t</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">
+      <h3>Municipio Residencia<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">Provincia Residencia</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Organization">
+      <h3>Organization<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Organization</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">Universidad Doctorado</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">
+      <h3>Pais Doctorado<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">Continente Doctorado</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">
+      <h3>Pais Nacionalidad<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">Continente Nacionalidad</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://schema.org/Person">
+      <h3>Person<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/Person</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://schema.org/birthDate" title="http://schema.org/birthDate">birth date</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://schema.org/familyName" title="http://schema.org/familyName">family name</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://schema.org/gender" title="http://schema.org/gender">gender</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://schema.org/givenName" title="http://schema.org/givenName">given name</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://schema.org/identifier" title="http://schema.org/identifier">identifier</a>
+            <sup class="type-dp" title="data property">dp</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">
+      <h3>Personal Docente Investigador<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor">anio expedicion titulo doctor</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente">anio incorpora cuerpo docente</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion">anio incorporacion</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp">anio incorporacion ap</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis">anio lectura tesis</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento">anio nacimiento</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala">categoria cuerpo escala</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion">dedicacion</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn">estudio en</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe">forma parte de</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero">genero</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado">ind cargo remunerado</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal">ind investigador principal</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea">mencion europea</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial">num horas semanales tiempo parcial</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios">num quinquenios</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios">num sexenios</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis">num tesis</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios">num trienios</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA">pertenece a</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa">situacion administrativa</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato">tipo contrato</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal">tipo personal</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado">titulo doctorado</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn">trabaja en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Point">
+      <h3>Point<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Point</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+            <sup class="type-dp" title="data property">dp</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">
+      <h3>Provincia Residencia<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIComunidadResidencia">Comunidad Residencia</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">Municipio Residencia</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Site">
+      <h3>Site<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Site</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#SpatialObject">
+      <h3>Spatial Object<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#SpatialObject</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable">
+      <h3>Unidad Responsable<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable">tipo unidad responsable</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA">pertenece a</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">
+      <h3>Universidad<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+            <sup class="type-dp" title="data property">dp</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn">trabaja en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">
+      <h3>Universidad Doctorado<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn"
+               title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn">estudio en</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+   <h3 id="objectproperties-headline" class="list">Object Properties</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+            <span>as w k t</span>
+         </a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala">categoria cuerpo escala</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion">dedicacion</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA">esta asociado a</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">esta ubicada en</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn">estudio en</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe">forma parte de</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero">genero</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+            title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA">pertenece a</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">posee</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa">situacion administrativa</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato">tipo contrato</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal">tipo personal</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable">tipo unidad responsable</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado">titulo doctorado</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn">trabaja en</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#asWKT">
+      <h3>as w k t<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#asWKT</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#wKTLiteral"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#wKTLiteral">w k t literal</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>is also defined as</dt>
+            <dd>data property</dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala">
+      <h3>categoria cuerpo escala<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIcategoriaCuerpoEscala</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion">
+      <h3>dedicacion<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIdedicacion</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA">
+      <h3>esta asociado a<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaAsociadoA</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAnio">Anio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn">
+      <h3>esta ubicada en<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestaUbicadaEn</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">Universidad Doctorado</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAgregacionPaisesDoctorado">Agregacion Paises Doctorado</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteDoctorado">Continente Doctorado</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisDoctorado">Pais Doctorado</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn">
+      <h3>estudio en<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIestudioEn</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidadDoctorado">Universidad Doctorado</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe">
+      <h3>forma parte de<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIformaParteDe</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIAreaConocimiento">Area Conocimiento</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero">
+      <h3>genero<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIgenero</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#hasGeometry">
+      <h3>has geometry<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#hasGeometry</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#hasSite">
+      <h3>has site<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#hasSite</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA">
+      <h3>pertenece a<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIperteneceA</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable">Unidad Responsable</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee">
+      <h3>posee<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIposee</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIContinenteNacionalidad">Continente Nacionalidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIMunicipioResidencia">Municipio Residencia</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPaisNacionalidad">Pais Nacionalidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIProvinciaResidencia">Provincia Residencia</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa">
+      <h3>situacion administrativa<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIsituacionAdministrativa</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato">
+      <h3>tipo contrato<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoContrato</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal">
+      <h3>tipo personal<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoPersonal</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable">
+      <h3>tipo unidad responsable<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItipoUnidadResponsable</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUnidadResponsable">Unidad Responsable</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado">
+      <h3>titulo doctorado<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItituloDoctorado</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn">
+      <h3>trabaja en<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDItrabajaEn</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+   <h3 id="dataproperties-headline" class="list">Data Properties</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor">anio expedicion titulo doctor</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente">anio incorpora cuerpo docente</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion">anio incorporacion</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp">anio incorporacion ap</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis">anio lectura tesis</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento">anio nacimiento</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/birthDate" title="http://schema.org/birthDate">birth date</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/familyName" title="http://schema.org/familyName">family name</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/gender" title="http://schema.org/gender">gender</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/givenName" title="http://schema.org/givenName">given name</a>
+      </li>
+      <li>
+         <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+      </li>
+      <li>
+         <a href="#http://schema.org/identifier" title="http://schema.org/identifier">identifier</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado">ind cargo remunerado</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal">ind investigador principal</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea">mencion europea</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial">num horas semanales tiempo parcial</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios">num quinquenios</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios">num sexenios</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis">num tesis</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios"
+            title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios">num trienios</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor">
+      <h3>anio expedicion titulo doctor<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioExpedicionTituloDoctor</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente">
+      <h3>anio incorpora cuerpo docente<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporaCuerpoDocente</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion">
+      <h3>anio incorporacion<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacion</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp">
+      <h3>anio incorporacion ap<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioIncorporacionAp</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis">
+      <h3>anio lectura tesis<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioLecturaTesis</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento">
+      <h3>anio nacimiento<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIanioNacimiento</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://schema.org/birthDate">
+      <h3>birth date<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/birthDate</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://schema.org/familyName">
+      <h3>family name<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/familyName</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://schema.org/gender">
+      <h3>gender<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/gender</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://schema.org/givenName">
+      <h3>given name<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/givenName</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://purl.org/dc/terms/identifier">
+      <h3>identifier<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://purl.org/dc/terms/identifier</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#string"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#string">string</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://schema.org/identifier">
+      <h3>identifier<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://schema.org/identifier</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://schema.org/Person" title="http://schema.org/Person">Person</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado">
+      <h3>ind cargo remunerado<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindCargoRemunerado</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#boolean"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal">
+      <h3>ind investigador principal<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIindInvestigadorPrincipal</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#boolean"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#lat">
+      <h3>lat<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#lat</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#long">
+      <h3>long<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#long</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea">
+      <h3>mencion europea<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDImencionEuropea</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#boolean"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial">
+      <h3>num horas semanales tiempo parcial<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumHorasSemanalesTiempoParcial</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios">
+      <h3>num quinquenios<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumQuinquenios</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios">
+      <h3>num sexenios<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumSexenios</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis">
+      <h3>num tesis<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTesis</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios">
+      <h3>num trienios<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDInumTrienios</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador"
+                  title="http://vocab.universidadesabiertas.es/ontology/recursos-humanos#PDIPersonalDocenteInvestigador">Personal Docente Investigador</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div id="legend">
+<h2>Legend <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Classes">c</sup>: Classes <br/>
+<sup class="type-op" title="Object Properties">op</sup>: Object Properties <br/>
+<sup class="type-dp" title="Data Properties">dp</sup>: Data Properties <br/>
+</div>
+</div>
+</div>
+    
+
+<!--REFERENCES SECTION-->
+  <div id="references">
+<h2 id="ref" class="list">References <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+Add your references here. It is recommended to have them as a list.</span>
+
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>
+The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+
+
+</div>
+</body>
+</html>
