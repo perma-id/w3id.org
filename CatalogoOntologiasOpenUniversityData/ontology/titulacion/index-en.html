@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ <link rel="stylesheet" href="resources/primer.css" media="screen" />    <link rel="stylesheet" href="resources/rec.css" media="screen" />    <link rel="stylesheet" href="resources/extra.css" media="screen" />    <link rel="stylesheet" href="resources/owl.css" media="screen" />    <title>Vocabulary for the representation of university degrees</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0","image":"http://vowl.visualdataweb.org/webvowl/#iri=http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0","name":"Vocabulary for the representation of university degrees", "headline":"The purpose of this vocabulary is to describe in a semantic manner information related to university degrees, including details about official degrees, master degrees and doctorate degrees.", "datePublished":"Fri Apr 15 12:09:16 CEST 2022", "version":"This is the initial version of the ontology of University Degrees, that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities", "license":"http://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}], "contributor":[{"@type":"Person","name":"Víctor Morcuende"},{"@type":"Person","name":"Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index.html"><b>es</b></a> </div>
+<h1>Vocabulary for the representation of university degrees</h1>
+
+
+<dl>
+<dt>This version:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0">http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0</a></dd>
+<!-- <dt>Latest version:</dt>
+<dd><a href="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0">http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0</a></dd> -->
+<dt>Revision:</dt>
+<dd>This is the initial version of the ontology of University Degrees, that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities</dd>
+<dt>Authors:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Contributors:</dt>
+<dd>Víctor Morcuende</dd><dd>Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata)</dd>
+
+<dt>Publisher:</dt>
+<dd>Víctor Morcuende</dd>
+<dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.rdf" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-http://creativecommons.org/licenses/by/4.0/-blue.svg" alt="http://creativecommons.org/licenses/by/4.0/" /></a></dd>
+<dt>Cite as:</dt>
+<dd>Víctor Morcuende, Oscar Corcho (Ontology Engineering Group - Universidad Politécnica de Madrid, Localidata). Vocabulary for the representation of university degrees. Revision: This is the initial version of the ontology of University Degrees, that has been implemented in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities. http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0</dd>
+</dl>
+<br>
+<a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology Specification Draft</span>
+</div>
+</div>     <div id="abstract"><h2>Abstract</h2><span class="markdown">
+The purpose of this vocabulary is to describe in a semantic manner information related to university degrees, including details about official degrees, master degrees and doctorate degrees.</span>
+</div>
+<div id="toc"></div> 
+
+<!--INTRODUCTION SECTION-->
+<div id="introduction"><h2 id="intro" class="list">Introduction <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+   <p>
+      This vocabulary represents information related to university degrees. The data used in it comes from a set of public spanish universities, more specifically, they belong to: 
+      the Automonous University of Madrid (UAM), the Carlos III University of Madrid (UC3M), the Complutense University of Madrid (UCM), the King Juan Carlos University (URJC),
+      the University of Valladolid (UVa) and the University of Huelva (UHU).
+      In this way, this vocabulary describes information about a degree and its university, the responsible unit which the degree belongs to and the enrollment fee. Additionally, 
+      the vocabulary also indicates whether the degree is inter-university or not.
+   </p>
+   <p>
+      Moreover, it uses the <a target="_blank" href="https://datos.ign.es/def/geo_core/index-es.html">geo</a> and 
+      <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a> vocabularies to represent the geographical location of the university 
+      associated to each degree, according to different coordinate reference systems commonly used for this type of data. 
+      Finally, it also reuses the <a target="_blank" href="https://www.w3.org/ns/org#">organizations</a> vocabulary to represent the university entity, which gathers all the degrees 
+      that exist in it.
+   </p>
+<div id="namespacedeclarations">
+<h3 id="ns" class="list">Namespace declarations</h3>
+<div id="ns" align="center">
+<table>
+<caption> <a href="#ns"> Table 1</a>: Namespaces used in the document </caption>
+<tbody>
+<!-- <tr><td><b>univTitul</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion/1.0.0&gt;</td></tr> -->
+<tr><td><b>univTitul</b></td><td>&lt;http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacion&gt;</td></tr>
+<tr><td><b>org</b></td><td>&lt;http://www.w3.org/ns/org#&gt;</td></tr>
+<tr><td><b>owl</b></td><td>&lt;http://www.w3.org/2002/07/owl#&gt;</td></tr>
+<tr><td><b>xsd</b></td><td>&lt;http://www.w3.org/2001/XMLSchema#&gt;</td></tr>
+<tr><td><b>skos</b></td><td>&lt;http://www.w3.org/2004/02/skos/core#&gt;</td></tr>
+<tr><td><b>rdfs</b></td><td>&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</td></tr>
+<tr><td><b>geo</b></td><td>&lt;http://www.owl-ontologies.com/geo#&gt;</td></tr>
+<tr><td><b>geosparql</b></td><td>&lt;http://www.owl-ontologies.com/geosparql#&gt;</td></tr>
+<tr><td><b>dct</b></td><td>&lt;http://purl.org/dc/terms/&gt;</td></tr>
+<tr><td><b>rdf</b></td><td>&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns&gt;</td></tr>
+<tr><td><b>xml</b></td><td>&lt;http://www.w3.org/XML/1998/namespace#&gt;</td></tr>
+<tr><td><b>dc</b></td><td>&lt;http://purl.org/dc/elements/1.1/&gt;</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+  
+
+<!--OVERVIEW SECTION-->
+    <div id="overview"><h2 id="overv" class="list">Vocabulary for the representation of university degrees: Overview <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+This ontology has the following classes and properties.</span>
+<h4>Classes</h4>
+<ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico">Curso Academico</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario">Interuniversitario</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+         title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable">Unidad Responsable</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+   </li>
+</ul><h4>Object Properties</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+         <span>as w k t</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta">cuesta</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones">es</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA">esta asociada a</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA">esta asociado a</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad">grado presencialidad</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+         title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece">ofrece</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama">rama</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion">rol coordinacion</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual">situacion actual</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio">tipo estudio</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable">tipo unidad responsable</a>
+   </li>
+</ul><h4>Data Properties</h4><ul xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="hlist">
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada">anio creada</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero">idioma extranjero</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida">impartida</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+   </li>
+   <li>
+      <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios">num creditos necesarios</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados">num creditos ofertados</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1">precio cred matr1</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2">precio cred matr2</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3">precio cred matr3</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4">precio cred matr4</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5">precio cred matr5</a>
+   </li>
+   <li>
+      <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela"
+         title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela">precio tutela</a>
+   </li>
+</ul>
+</div>
+  
+
+<!--DESCRIPTION SECTION-->
+<div id="description"><h2 id="desc" class="list">Vocabulary for the representation of university degrees: Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+   <span class="markdown">Figure 1 shows the classes and properties of the vocabulary that represents the data of university degrees:
+   </span>
+   <center>
+      <img src="resources/images/Titulacion Diagrama.png" width="905px" height="640px">
+      <figcaption>Figure 1. Conceptual model for the representation of university degrees</figcaption>
+   </center>
+   <p>
+      As mentioned before, the scope of this vocabulary is the representation of data from university degrees. To accomplish this purpose, as it can be seen in the figure, 
+      several classes and properties have been defined in order to describe these data, such as the Titulacion class, which explains if the degree is taught in another 
+      language, the number of credits of the degree, the year it was created and if it is taught in the year of reference. Furthermore, the Titulacion class has several 
+      SKOS concept schemes to represent the type of study, the field of study to which it belongs, its level of attendance and its current situation. Moreover, each 
+      degree has a price, represented by the class Precio, which contains the credit price for each enrollment. Additionally, the degrees are associated to a responsible unit, 
+      which can be a center or department. Finally, it has been also reused the vocabulary of <a target="_blank" href="https://www.w3.org/ns/org#">org:Organization</a> to show 
+      how the class Universidad is an organization, which has a geographical location, represented by the vocabulary 
+      <a target="_blank" href="http://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf#">geosparql</a>.
+   </p>
+   <h3 id="use-examples" class="list">Examples of use</h3>
+   <p>In order to understand the use of some classes and properties in this vocabulary some examples have been provided:</p>
+   <pre>
+      univTitul:Grado_en_Ingenieria_Informatica a univTitul:Titulacion ;
+         dct:identifier "2500397" ;
+         univTitul:idiomaExtranjero "Ingles"^^xsd:string ;
+         univTitul:impartida "true"^^xsd:boolean ;
+         univTitul:numCreditosNecesarios "240"^^xsd:integer ;
+         univTitul:numCreditosOfertados "470"^^xsd:integer ;
+         univTitul:anioCreada "20070701"^^xsd:date ;
+         univTitul:tipoEstudio <<!---->http://vocab.universidadesabiertas.es/kos/tipo-estudio/grado> ;
+         univTitul:rama <<!---->http://vocab.universidadesabiertas.es/kos/rama/ingenieria-y-arquitectura> ;
+         univTitul:situacionActual <<!---->http://vocab.universidadesabiertas.es/kos/situacion-actual/activo> ;
+         univTitul:gradoPresencialidad <<!---->http://vocab.universidadesabiertas.es/kos/grado-presencialidad/presencial> ;
+         univTitul:es univTitul:Interuniversitario ;
+         univTitul:cuesta univTitul:Precio ;
+         univTitul:estaAsociadaA univTitul:ETSIINF .
+         
+      univTitul:UPM a univTitul:Universidad ;
+         dct:identifier "025"^^xsd:string ;
+         univTitul:ofrece univTitul:Grado_en_Ingenieria_Informatica ;
+         univTitul:tieneAsociado univTitul:2021_22 ;
+         rdfs:subClassOf org:Organization .
+
+      univTitul:2021_22 a univTitul:CursoAcademico .
+
+      univTitul:ETSIINF a univTitul:UnidadResponsable ;
+         dct:identifier "28027114" ;
+         univTitul:tipoUnidadResponsable <<!---->http://vocab.universidadesabiertas.es/kos/tipo-unidad-responsable/centro> .
+
+      univTitul:Interuniversitario dct:identifier "1"^^xsd:string ;
+         univTitul:rolCoordinacion <<!---->http://vocab.universidadesabiertas.es/kos/rol-coordinacion/universidad-es-coordinadora> .
+
+      univTitul:Precio univTitul:precioCredMatr1 "21,94"^^xsd:double ;
+         univTitul:precioCredMatr2 "41,05"^^xsd:double ;
+         univTitul:precioCredMatr3 "82,3"^^xsd:double ;
+         univTitul:precioCredMatr4 "113,71"^^xsd:double ;
+         univTitul:precioCredMatr5 "201,94"^^xsd:double .
+   </pre>
+</div>
+   
+
+<!--CROSSREF SECTION-->
+   <div id="crossref"><h2 id="crossreference" class="list">Cross-reference for Vocabulary for the representation of university degrees classes, object properties and data properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+This section provides details for each class and property defined by Vocabulary for the representation of university degrees.
+<div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+   <h3 id="classes-headline" class="list">Classes</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico">Curso Academico</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario">Interuniversitario</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+            title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable">Unidad Responsable</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico">
+      <h3>Curso Academico<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Feature">
+      <h3>Feature<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Feature</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Geometry">
+      <h3>Geometry<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Geometry</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#SpatialObject"
+               title="http://www.owl-ontologies.com/geosparql#SpatialObject">Spatial Object</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">as w k t</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+               title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario">
+      <h3>Interuniversitario<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion">rol coordinacion</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones">es</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Organization">
+      <h3>Organization<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Organization</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#Point">
+      <h3>Point<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#Point</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+            <sup class="type-dp" title="data property">dp</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">
+      <h3>Precio<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1">precio cred matr1</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2">precio cred matr2</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3">precio cred matr3</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4">precio cred matr4</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5">precio cred matr5</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela">precio tutela</a>
+            <sup class="type-dp" title="data property">dp</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta">cuesta</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#Site">
+      <h3>Site<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#Site</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#SpatialObject">
+      <h3>Spatial Object<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#SpatialObject</p>
+      <dl class="description">
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+            <sup class="type-c" title="class">c</sup>, <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">
+      <h3>Titulacion<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd/>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada">anio creada</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta">cuesta</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones">es</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA">esta asociada a</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad">grado presencialidad</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero">idioma extranjero</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida">impartida</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios">num creditos necesarios</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados">num creditos ofertados</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama">rama</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual">situacion actual</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio">tipo estudio</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece">ofrece</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable">
+      <h3>Unidad Responsable<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable</p>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable">tipo unidad responsable</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA">esta asociada a</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">
+      <h3>Universidad<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad</p>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece">ofrece</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+         <dt>is in range of</dt>
+         <dd>
+            <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA"
+               title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA">esta asociado a</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+   <h3 id="objectproperties-headline" class="list">Object Properties</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#asWKT" title="http://www.owl-ontologies.com/geosparql#asWKT">
+            <span>as w k t</span>
+         </a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta">cuesta</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones">es</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA">esta asociada a</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA">esta asociado a</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad">grado presencialidad</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geosparql#hasGeometry"
+            title="http://www.owl-ontologies.com/geosparql#hasGeometry">has geometry</a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/org#hasSite" title="http://www.w3.org/ns/org#hasSite">has site</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece">ofrece</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama">rama</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion">rol coordinacion</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual">situacion actual</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio">tipo estudio</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable">tipo unidad responsable</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#asWKT">
+      <h3>as w k t<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#asWKT</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#wKTLiteral"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#wKTLiteral">w k t literal</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>is also defined as</dt>
+            <dd>data property</dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta">
+      <h3>cuesta<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacioncuesta</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones">
+      <h3>es<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulaciones</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario">Interuniversitario</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA">
+      <h3>esta asociada a<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadaA</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable">Unidad Responsable</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA">
+      <h3>esta asociado a<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionestaAsociadoA</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionCursoAcademico">Curso Academico</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad">
+      <h3>grado presencialidad<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciongradoPresencialidad</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geosparql#hasGeometry">
+      <h3>has geometry<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geosparql#hasGeometry</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Geometry" title="http://www.owl-ontologies.com/geosparql#Geometry">Geometry</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Feature" title="http://www.owl-ontologies.com/geosparql#Feature">Feature</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/org#hasSite">
+      <h3>has site<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/org#hasSite</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Organization" title="http://www.w3.org/ns/org#Organization">Organization</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/org#Site" title="http://www.w3.org/ns/org#Site">Site</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece">
+      <h3>ofrece<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionofrece</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama">
+      <h3>rama<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionrama</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion">
+      <h3>rol coordinacion<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionrolCoordinacion</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionInteruniversitario">Interuniversitario</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual">
+      <h3>situacion actual<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionsituacionActual</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio">
+      <h3>tipo estudio<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoEstudio</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable">
+      <h3>tipo unidad responsable<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulaciontipoUnidadResponsable</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUnidadResponsable">Unidad Responsable</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+   <h3 id="dataproperties-headline" class="list">Data Properties</h3>
+   <ul class="hlist">
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada">anio creada</a>
+      </li>
+      <li>
+         <a href="#http://purl.org/dc/terms/identifier" title="http://purl.org/dc/terms/identifier">identifier</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero">idioma extranjero</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida">impartida</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#lat" title="http://www.owl-ontologies.com/geo#lat">lat</a>
+      </li>
+      <li>
+         <a href="#http://www.owl-ontologies.com/geo#long" title="http://www.owl-ontologies.com/geo#long">long</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios">num creditos necesarios</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados">num creditos ofertados</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1">precio cred matr1</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2">precio cred matr2</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3">precio cred matr3</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4">precio cred matr4</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5">precio cred matr5</a>
+      </li>
+      <li>
+         <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela"
+            title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela">precio tutela</a>
+      </li>
+   </ul>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada">
+      <h3>anio creada<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionanioCreada</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://purl.org/dc/terms/identifier">
+      <h3>identifier<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://purl.org/dc/terms/identifier</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionUniversidad">Universidad</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#string"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#string">string</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero">
+      <h3>idioma extranjero<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionidiomaExtranjero</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#string"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#string">string</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida">
+      <h3>impartida<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Titulacionimpartida</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#boolean"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#lat">
+      <h3>lat<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#lat</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.owl-ontologies.com/geo#long">
+      <h3>long<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.owl-ontologies.com/geo#long</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.owl-ontologies.com/geosparql#Point" title="http://www.owl-ontologies.com/geosparql#Point">Point</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios">
+      <h3>num creditos necesarios<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosNecesarios</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados">
+      <h3>num creditos ofertados<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionnumCreditosOfertados</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionTitulacion">Titulacion</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1">
+      <h3>precio cred matr1<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr1</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2">
+      <h3>precio cred matr2<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr2</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3">
+      <h3>precio cred matr3<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr3</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4">
+      <h3>precio cred matr4<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr4</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5">
+      <h3>precio cred matr5<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioCredMatr5</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#double"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#double">double</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela">
+      <h3>precio tutela<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionprecioTutela</p>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio"
+                  title="http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#TitulacionPrecio">Precio</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <a href="http://www.w3.org/2001/XMLSchema#integer"
+                  target="_blank"
+                  title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+</div><div id="legend">
+<h2>Legend <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Classes">c</sup>: Classes <br/>
+<sup class="type-op" title="Object Properties">op</sup>: Object Properties <br/>
+<sup class="type-dp" title="Data Properties">dp</sup>: Data Properties <br/>
+</div>
+</div>
+</div>
+    
+
+<!--REFERENCES SECTION-->
+  <div id="references">
+<h2 id="ref" class="list">References <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+Add your references here. It is recommended to have them as a list.</span>
+
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>
+The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+
+
+</div>
+</body>
+</html>

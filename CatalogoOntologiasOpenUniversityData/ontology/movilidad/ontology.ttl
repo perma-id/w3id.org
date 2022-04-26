@@ -1,0 +1,426 @@
+@prefix : <http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidad> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidad> .
+
+<http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidad> rdf:type owl:Ontology ;
+                                                                                   <http://purl.org/dc/elements/1.1/creator> "Víctor Morcuende" ;
+                                                                                   <http://purl.org/dc/elements/1.1/description> "Ontology code created by Chowlk" ;
+                                                                                   <http://purl.org/dc/elements/1.1/title> "Template Ontology" ;
+                                                                                   owl:versionInfo "0.0.1" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadambitoUnivDestino
+:ambitoUnivDestino rdf:type owl:ObjectProperty ;
+                   rdfs:domain :UniversidadDestino ;
+                   rdfs:label "ambito univ destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadambitoUnivProcedencia
+:ambitoUnivProcedencia rdf:type owl:ObjectProperty ;
+                       rdfs:domain :UniversidadProcedencia ;
+                       rdfs:label "ambito univ procedencia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadcursa
+:cursa rdf:type owl:ObjectProperty ;
+       rdfs:domain :Estudiante ;
+       rdfs:range :Titulacion ;
+       rdfs:label "cursa" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadestaAsociadoA
+:estaAsociadoA rdf:type owl:ObjectProperty ;
+               rdfs:domain :CursoAcademico ;
+               rdfs:range :Universidad ;
+               rdfs:label "esta asociado a" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadestaUbicada
+:estaUbicada rdf:type owl:ObjectProperty ;
+             rdfs:domain :UniversidadDestino ,
+                         :UniversidadProcedencia ;
+             rdfs:range :AgregacionPaisesUnivProcedencia ,
+                        :ContinenteUnivDestino ,
+                        :ContinenteUnivProcedencia ,
+                        :MunicipioDestino ,
+                        :MunicipioUnivProcedencia ,
+                        :PaisUnivDestino ,
+                        :PaisUnivProcedencia ,
+                        :ProvinciaDestino ;
+             rdfs:label "esta ubicada" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadestudia
+:estudia rdf:type owl:ObjectProperty ;
+         rdfs:domain :Estudiante ;
+         rdfs:range :Universidad ;
+         rdfs:label "estudia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadgenero
+:genero rdf:type owl:ObjectProperty ;
+        rdfs:domain :Estudiante ;
+        rdfs:label "genero" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadnivelFormativo
+:nivelFormativo rdf:type owl:ObjectProperty ;
+                rdfs:domain :Estudiante ;
+                rdfs:label "nivel formativo" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadposee
+:posee rdf:type owl:ObjectProperty ;
+       rdfs:domain :Estudiante ;
+       rdfs:range :AgregacionPaisesNacionalidad ,
+                  :ContinenteNacionalidad ,
+                  :PaisNacionalidad ;
+       rdfs:label "posee" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadproporciona
+:proporciona rdf:type owl:ObjectProperty ;
+             rdfs:domain :Universidad ;
+             rdfs:range :ProgramaMovilidad ;
+             rdfs:label "proporciona" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#Movilidadtiene
+:tiene rdf:type owl:ObjectProperty ;
+       rdfs:domain :Estudiante ;
+       rdfs:range :UniversidadDestino ,
+                  :UniversidadProcedencia ;
+       rdfs:label "tiene" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadtipoProgramaMov
+:tipoProgramaMov rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ProgramaMovilidad ;
+                 rdfs:label "tipo programa mov" .
+
+
+###  http://www.owl-ontologies.com/geosparql#asWKT
+<http://www.owl-ontologies.com/geosparql#asWKT> rdf:type owl:ObjectProperty ;
+                                                rdfs:domain <http://www.owl-ontologies.com/geosparql#Geometry> ;
+                                                rdfs:range xsd:wKTLiteral .
+
+
+###  http://www.owl-ontologies.com/geosparql#hasGeometry
+<http://www.owl-ontologies.com/geosparql#hasGeometry> rdf:type owl:ObjectProperty ;
+                                                      rdfs:domain <http://www.owl-ontologies.com/geosparql#Geometry> ;
+                                                      rdfs:range <http://www.owl-ontologies.com/geosparql#Feature> ;
+                                                      rdfs:label "has geometry" .
+
+
+###  http://www.w3.org/ns/org#hasSite
+<http://www.w3.org/ns/org#hasSite> rdf:type owl:ObjectProperty ;
+                                   rdfs:domain <http://www.w3.org/ns/org#Organization> ;
+                                   rdfs:range <http://www.w3.org/ns/org#Site> ;
+                                   rdfs:label "has site" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/terms/identifier
+<http://purl.org/dc/terms/identifier> rdf:type owl:DatatypeProperty ;
+                                      rdfs:domain :Universidad ;
+                                      rdfs:range xsd:string ;
+                                      rdfs:label "identifier" .
+
+
+###  http://schema.org/birthDate
+<http://schema.org/birthDate> rdf:type owl:DatatypeProperty ;
+                              rdfs:domain <http://schema.org/Person> ;
+                              rdfs:label "birth date" .
+
+
+###  http://schema.org/familyName
+<http://schema.org/familyName> rdf:type owl:DatatypeProperty ;
+                               rdfs:domain <http://schema.org/Person> ;
+                               rdfs:label "family name" .
+
+
+###  http://schema.org/gender
+<http://schema.org/gender> rdf:type owl:DatatypeProperty ;
+                           rdfs:domain <http://schema.org/Person> ;
+                           rdfs:label "gender" .
+
+
+###  http://schema.org/givenName
+<http://schema.org/givenName> rdf:type owl:DatatypeProperty ;
+                              rdfs:domain <http://schema.org/Person> ;
+                              rdfs:label "given name" .
+
+
+###  http://schema.org/identifier
+<http://schema.org/identifier> rdf:type owl:DatatypeProperty ;
+                               rdfs:domain <http://schema.org/Person> ;
+                               rdfs:label "identifier" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadanioNacimiento
+:anioNacimiento rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Estudiante ;
+                rdfs:range xsd:integer ;
+                rdfs:label "anio nacimiento" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadmesFinPrograma
+:mesFinPrograma rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Estudiante ;
+                rdfs:range xsd:date ;
+                rdfs:label "mes fin programa" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadmesInicioPrograma
+:mesInicioPrograma rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Estudiante ;
+                   rdfs:range xsd:date ;
+                   rdfs:label "mes inicio programa" .
+
+
+###  http://www.owl-ontologies.com/geo#lat
+<http://www.owl-ontologies.com/geo#lat> rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain <http://www.owl-ontologies.com/geosparql#Point> ;
+                                        rdfs:range xsd:double ;
+                                        rdfs:label "lat" .
+
+
+###  http://www.owl-ontologies.com/geo#long
+<http://www.owl-ontologies.com/geo#long> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain <http://www.owl-ontologies.com/geosparql#Point> ;
+                                         rdfs:range xsd:double ;
+                                         rdfs:label "long" .
+
+
+###  http://www.owl-ontologies.com/geosparql#asWKT
+<http://www.owl-ontologies.com/geosparql#asWKT> rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://schema.org/Person
+<http://schema.org/Person> rdf:type owl:Class ;
+                           rdfs:label "Person" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadAgregacionPaisesNacionalidad
+:AgregacionPaisesNacionalidad rdf:type owl:Class ;
+                              rdfs:subClassOf :ContinenteNacionalidad ;
+                              rdfs:label "Agregacion Paises Nacionalidad" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadAgregacionPaisesUnivDestino
+:AgregacionPaisesUnivDestino rdf:type owl:Class ;
+                             rdfs:subClassOf :ContinenteUnivDestino ;
+                             rdfs:label "Agregacion Paises Univ Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadAgregacionPaisesUnivProcedencia
+:AgregacionPaisesUnivProcedencia rdf:type owl:Class ;
+                                 rdfs:subClassOf :ContinenteUnivProcedencia ;
+                                 rdfs:label "Agregacion Paises Univ Procedencia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadComunidadDestino
+:ComunidadDestino rdf:type owl:Class ;
+                  rdfs:label "Comunidad Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadContinenteNacionalidad
+:ContinenteNacionalidad rdf:type owl:Class ;
+                        rdfs:label "Continente Nacionalidad" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadContinenteUnivDestino
+:ContinenteUnivDestino rdf:type owl:Class ;
+                       rdfs:label "Continente Univ Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadContinenteUnivProcedencia
+:ContinenteUnivProcedencia rdf:type owl:Class ;
+                           rdfs:label "Continente Univ Procedencia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadCursoAcademico
+:CursoAcademico rdf:type owl:Class ;
+                rdfs:label "Curso Academico" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadEstudiante
+:Estudiante rdf:type owl:Class ;
+            rdfs:subClassOf <http://schema.org/Person> ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :estudia ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :cursa ;
+                              owl:cardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :posee ;
+                              owl:cardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :tiene ;
+                              owl:cardinality "1"^^xsd:nonNegativeInteger
+                            ] ;
+            rdfs:label "Estudiante" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadMunicipioDestino
+:MunicipioDestino rdf:type owl:Class ;
+                  rdfs:subClassOf :ProvinciaDestino ,
+                                  <http://www.owl-ontologies.com/geosparql#Feature> ;
+                  rdfs:label "Municipio Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadMunicipioUnivProcedencia
+:MunicipioUnivProcedencia rdf:type owl:Class ;
+                          rdfs:subClassOf :PaisUnivProcedencia ;
+                          rdfs:label "Municipio Univ Procedencia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadPaisNacionalidad
+:PaisNacionalidad rdf:type owl:Class ;
+                  rdfs:subClassOf :ContinenteNacionalidad ,
+                                  <http://www.owl-ontologies.com/geosparql#Feature> ;
+                  rdfs:label "Pais Nacionalidad" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadPaisUnivDestino
+:PaisUnivDestino rdf:type owl:Class ;
+                 rdfs:subClassOf :ContinenteUnivDestino ,
+                                 <http://www.owl-ontologies.com/geosparql#Feature> ;
+                 rdfs:label "Pais Univ Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadPaisUnivProcedencia
+:PaisUnivProcedencia rdf:type owl:Class ;
+                     rdfs:subClassOf :ContinenteUnivProcedencia ,
+                                     <http://www.owl-ontologies.com/geosparql#Feature> ;
+                     rdfs:label "Pais Univ Procedencia" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadProgramaMovilidad
+:ProgramaMovilidad rdf:type owl:Class ;
+                   rdfs:label "Programa Movilidad" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadProvinciaDestino
+:ProvinciaDestino rdf:type owl:Class ;
+                  rdfs:subClassOf :ComunidadDestino ;
+                  rdfs:label "Provincia Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadTitulacion
+:Titulacion rdf:type owl:Class ;
+            rdfs:label "Titulacion" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadUniversidad
+:Universidad rdf:type owl:Class ;
+             rdfs:subClassOf <http://www.w3.org/ns/org#Organization> ;
+             rdfs:label "Universidad" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadUniversidadDestino
+:UniversidadDestino rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty :estaUbicada ;
+                                      owl:cardinality "1"^^xsd:nonNegativeInteger
+                                    ] ;
+                    rdfs:label "Universidad Destino" .
+
+
+###  http://vocab.universidadesabiertas.es/ontology/estudios-y-estudiantes#MovilidadUniversidadProcedencia
+:UniversidadProcedencia rdf:type owl:Class ;
+                        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                          owl:onProperty :estaUbicada ;
+                                          owl:cardinality "1"^^xsd:nonNegativeInteger
+                                        ] ;
+                        rdfs:label "Universidad Procedencia" .
+
+
+###  http://www.owl-ontologies.com/geosparql#Feature
+<http://www.owl-ontologies.com/geosparql#Feature> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.owl-ontologies.com/geosparql#SpatialObject> ;
+                                                  rdfs:label "Feature" .
+
+
+###  http://www.owl-ontologies.com/geosparql#Geometry
+<http://www.owl-ontologies.com/geosparql#Geometry> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.owl-ontologies.com/geosparql#SpatialObject> ;
+                                                   rdfs:label "Geometry" .
+
+
+###  http://www.owl-ontologies.com/geosparql#Point
+<http://www.owl-ontologies.com/geosparql#Point> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.owl-ontologies.com/geosparql#Geometry> ;
+                                                rdfs:label "Point" .
+
+
+###  http://www.owl-ontologies.com/geosparql#SpatialObject
+<http://www.owl-ontologies.com/geosparql#SpatialObject> rdf:type owl:Class ;
+                                                        rdfs:label "Spatial Object" .
+
+
+###  http://www.w3.org/2001/XMLSchema#wKTLiteral
+xsd:wKTLiteral rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/org#Organization
+<http://www.w3.org/ns/org#Organization> rdf:type owl:Class ;
+                                        rdfs:label "Organization" .
+
+
+###  http://www.w3.org/ns/org#Site
+<http://www.w3.org/ns/org#Site> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://www.owl-ontologies.com/geosparql#Feature> ;
+                                rdfs:label "Site" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://www.owl-ontologies.com/geosparql#asWKT> rdfs:label "as w k t" .
+
+
+###  Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/
