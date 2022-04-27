@@ -1,0 +1,37 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# RewriteCond %{HTTP_ACCEPT} text/html [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^PAS(.*) /CatalogoOntologiasOpenUniversityData/def/PAS$1 [L]
+RewriteRule ^PDI(.*) /CatalogoOntologiasOpenUniversityData/def/PDI$1 [L]
+RewriteRule ^PI(.*) /CatalogoOntologiasOpenUniversityData/def/PI$1 [L]
+RewriteRule ^acceso(.*) /CatalogoOntologiasOpenUniversityData/def/acceso$1 [L]
+RewriteRule ^centro(.*) /CatalogoOntologiasOpenUniversityData/def/centro$1 [L]
+RewriteRule ^departamento(.*) /CatalogoOntologiasOpenUniversityData/def/departamento$1 [L]
+RewriteRule ^matricula(.*) /CatalogoOntologiasOpenUniversityData/def/matricula$1 [L]
+RewriteRule ^movilidad(.*) /CatalogoOntologiasOpenUniversityData/def/movilidad$1 [L]
+RewriteRule ^pres-gast(.*) /CatalogoOntologiasOpenUniversityData/def/pres-gast$1 [L]
+RewriteRule ^pres-ingr(.*) /CatalogoOntologiasOpenUniversityData/def/pres-ingr$1 [L]
+RewriteRule ^titulacion(.*) /CatalogoOntologiasOpenUniversityData/def/titulacion$1 [L]
+
+RewriteRule ^kos(.*) /CatalogoOntologiasOpenUniversityData/kos$1 [L]
+
+#If no specific ontology or SKOS codelist is requested, return the HTML ontology catalogue 
+RewriteRule ^.*$ https://openuniversitydata.github.io/CatalogoOntologiasOpenUniversityData/index.html [R=302,L]
