@@ -1,5 +1,18 @@
-# CatalogoOntologiasOpenUniversityData
-Página web que sostiene todos los vocabularios y SKOS del proyecto UniversiDATA.
+# Repository for maintaining ontologies related to spanish public universities
+This is a repository that has been created in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities.
 <br>
+Manteiner: Víctor Morcuende @vcuende and Oscar Corcho @ocorcho
 <br>
-Este repositorio, junto con la página web asociada, se ha construido basándose en el siguiente repositorio: https://github.com/oeg-upm/devops-infra perteneciente al proyecto DevOps Infrastructure Ontology Network.
+Links:
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/PAS
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/PDI
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/PI
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/acceso
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/centro
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/departamento
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/matricula
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/movilidad
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/pres-gast
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/pres-ingr
+* http://w3id.org/CatalogoOntologiasOpenUniversityData/titulacion
