@@ -1,8 +1,8 @@
 # Repository for maintaining ontologies related to spanish public universities
 This is a repository that has been created in the context of a Bachelor Thesis with the aim of creating a knowledge graph containing information about public spanish universities.
-<br>
+
 Manteiner: Víctor Morcuende @vcuende and Oscar Corcho @ocorcho
-<br>
+
 Links:
 * http://w3id.org/CatalogoOntologiasOpenUniversityData/
 * http://w3id.org/CatalogoOntologiasOpenUniversityData/PAS
