@@ -2,33 +2,26 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/ICCD-MiBACT/ArCo/master/ArCo-release
+https://raw.githubusercontent.com/polifonia-project/core-ontology/main/core.owl
+SetEnvIf Request_URI ^.*$ CORE_URL=https://raw.githubusercontent.com/polifonia-project/core-ontology/main/core.owl
+SetEnvIf Request_URI ^.*$ COMPOSITION_URL=https://raw.githubusercontent.com/polifonia-project/musical-composition-ontology/main/musical-composition.owl
+SetEnvIf Request_URI ^.*$ PERFORMANCE_URL=https://raw.githubusercontent.com/polifonia-project/musical-performance-ontology/main/musical-performance.owl
+SetEnvIf Request_URI ^.*$ FEATURE_URL=https://raw.githubusercontent.com/polifonia-project/musical-feature-ontology/main/musical-feature.owl
+SetEnvIf Request_URI ^.*$ JAMS_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/jams.owl
 
 RewriteRule ^resource/(.+)$ http://dati.beniculturali.it/lodview-arco/resource/$1 [R=303,L]
 
 # Rules for version-aware URIs of ontologies
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
-
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)/(.+)$ http://dati.beniculturali.it/lodview-arco-onto/ontology/$1/$2 [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
-
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
+RewriteRule ^ontology/core/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
+RewriteRule ^ontology/musical-composition/([a-zA-Z-_0-9]+)(/)?$ %{ENV:COMPOSITION_URL} [R=303,L]
+RewriteRule ^ontology/musical-performance/([a-zA-Z-_0-9]+)(/)?$ %{ENV:PERFORMANCE_URL} [R=303,L]
+RewriteRule ^ontology/musical-feature/([a-zA-Z-_0-9]+)(/)?$ %{ENV:FEATURE_URL} [R=303,L]
+RewriteRule ^ontology/jams/([a-zA-Z-_0-9]+)(/)?$ %{ENV:JAMS_URL} [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
 
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
+RewriteRule ^ontology/resource/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
 
-
-RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/patterns/$1.owl [R=303,L]
-
-RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/pattern/$1.owl [R=303,L]
-
-RewriteRule ^test/(.+)$ %{ENV:ROOT_URL}/test/$1 [R=303,L]
-RewriteRule ^(.+)$ http://dati.beniculturali.it/lodview-arco/$1 [R=303,L]
-RewriteRule ^$ http://dati.beniculturali.it/arco [R=303,L] 
+RewriteRule ^(.+)$ https://github.com/polifonia-project/ontology-network/ [R=303,L]
+RewriteRule ^$ https://github.com/polifonia-project/ontology-network/ [R=303,L] 
