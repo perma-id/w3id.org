@@ -10,7 +10,11 @@ The top-level redirects to the primary GitLab repository for the ontology projec
 This space is administered by:  
 
 **Ramona Walls**  
+
 *Associate Director of Data Science*  
+
 [Critical Path Institute](https://c-path.org/)
+
 Tucson, AZ
+
 <rwalls@c-path.org>
