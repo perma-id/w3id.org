@@ -1,0 +1,20 @@
+# === Directory: /noria/ ======================================================
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# === Rewrite Rules ===========================================================
+
+# Main reference: https://github.com/Orange-OpenSource/noria-ontology
+RewriteRule ^$ https://github.com/Orange-OpenSource/noria-ontology [R=302,L]
+
+# Direct access to versioned ontology file
+RewriteRule ^ontology/(.*-\d+\.\d+)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/main/ontology/$1.ttl [R=302,L]
+
+# Redirect for documentation
+RewriteRule ^doc/?$ https://genears.github.io/pubs/noria/doc/index-en.html [R=302,L]
+
+# Redirect anything to code repo
+RewriteRule (.*) https://github.com/Orange-OpenSource/noria-ontology/$1 [R=302,L]
+
+# === END =====================================================================
