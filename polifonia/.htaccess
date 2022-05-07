@@ -1,0 +1,26 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ CORE_URL=https://raw.githubusercontent.com/polifonia-project/core-ontology/main/core.owl
+SetEnvIf Request_URI ^.*$ COMPOSITION_URL=https://raw.githubusercontent.com/polifonia-project/musical-composition-ontology/main/musical-composition.owl
+SetEnvIf Request_URI ^.*$ PERFORMANCE_URL=https://raw.githubusercontent.com/polifonia-project/musical-performance-ontology/main/musical-performance.owl
+SetEnvIf Request_URI ^.*$ FEATURE_URL=https://raw.githubusercontent.com/polifonia-project/musical-feature-ontology/main/musical-feature.owl
+SetEnvIf Request_URI ^.*$ JAMS_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/jams.owl
+
+RewriteRule ^resource/(.+)$ http://dati.beniculturali.it/lodview-arco/resource/$1 [R=303,L]
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/core/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
+RewriteRule ^ontology/musical-composition/([a-zA-Z-_0-9]+)(/)?$ %{ENV:COMPOSITION_URL} [R=303,L]
+RewriteRule ^ontology/musical-performance/([a-zA-Z-_0-9]+)(/)?$ %{ENV:PERFORMANCE_URL} [R=303,L]
+RewriteRule ^ontology/musical-feature/([a-zA-Z-_0-9]+)(/)?$ %{ENV:FEATURE_URL} [R=303,L]
+RewriteRule ^ontology/jams/([a-zA-Z-_0-9]+)(/)?$ %{ENV:JAMS_URL} [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+
+RewriteRule ^ontology/resource/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
+
+RewriteRule ^(.+)$ https://github.com/polifonia-project/ontology-network/ [R=303,L]
+RewriteRule ^$ https://github.com/polifonia-project/ontology-network/ [R=303,L] 
