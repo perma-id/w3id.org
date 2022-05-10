@@ -7,10 +7,12 @@ The w3id.org/cpont redirect is used to direct URIs for terms, documentation, and
 The top-level redirects to the primary GitLab repository for the ontology project, [here](https://gitlab.c-path.org/c-pathontology/critical-path-ontology/).
 
 ## Contact
-This space is administered by:  
+This space is primarily administered by:  
 
 **Ramona Walls**  
 *Associate Director of Data Science*  
 [Critical Path Institute](https://c-path.org/)  
 Tucson, AZ  
 <rwalls@c-path.org>  
+
+**GitHub IDs of Maintainers**: `ramonawalls`, `ehartley`, `irbraun`
