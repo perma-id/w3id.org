@@ -1,5 +1,4 @@
 # Cultural Knowledge Graph
-
 https://w3id.org/CulturalKnowledgeGraph -> https://abhiseksharma.github.io/CulturalKnowledgeGraphDoc
 
 
