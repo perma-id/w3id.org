@@ -9,7 +9,8 @@ This space is administered by:
 
 **Material Digital / LeBeDigital group**
 
-[Material Digital](https://material-digital.de) 
+[Material Digital](https://material-digital.de/project/3) 
 
-Sven Iwaszko <sven.iwaszko@bam.de>
-
+Mainteners:
+* Sven Iwaszko <sven.iwaszko@bam.de>
+* [@StephanPirskawetz](https://github.com/StephanPirskawetz)
