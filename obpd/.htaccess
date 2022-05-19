@@ -1,0 +1,23 @@
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .owl
+
+
+### Rewrite rules for latest version
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/PerformanceInformatics/OBPD [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://github.com/PerformanceInformatics/OBPD/blob/main/OBPD.owl [R=303,L]
