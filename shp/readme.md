@@ -15,7 +15,7 @@ https://safehavenprovenance.github.io/SHP-ontology/ontology.xml
 https://safehavenprovenance.github.io/SHP-ontology/ontology.ttl
 
 ## Uses
-The ontology is aimed at providing a  vocabulary for provenance of the dat alinkage process in a Safe Haven environment (https://www.abdn.ac.uk/it/service-portfolio/sc-systems-safe-haven.php) that is used to link and anonymise medical data for research.  
+The ontology is aimed at providing a  vocabulary for provenance of the data linkage process in a Safe Haven environment (https://www.abdn.ac.uk/it/service-portfolio/sc-systems-safe-haven.php) that is used to link and anonymise medical data for research.  
 
 ## Contact
 This space is administered by:  
