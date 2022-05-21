@@ -2,8 +2,8 @@
 
 Ontology
 
-* Docs https://www.projekt-scope.de/ontologies/bpo/
-* Turtle https://www.projekt-scope.de/ontologies/bpo/bpo.ttl
+* Docs 
+* Turtle 
 
 Extends
 
