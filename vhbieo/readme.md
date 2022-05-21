@@ -6,7 +6,7 @@ Ontology
 
 Extends
 
-* The ontology of scientific experiments (EXPO
+* The ontology of scientific experiments (EXPO)
 
 Reuses
 
