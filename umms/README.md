@@ -9,5 +9,5 @@ Uses:
 
 Contacts: 
 * Rajas.Gokhale <Rajas.Gokhale@umm.edu>
-* Daniel Villa <daniel.villa@umm.edu>
+* Daniel Villa <daniel.villa@umm.edu> @dv-at-umms
 * Chaitrali Kher <Chaitrali.Kher@umm.edu>
