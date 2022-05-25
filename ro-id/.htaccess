@@ -17,6 +17,8 @@ AddType application/ld+json .jsonld
 RewriteRule ^$ https://reliance.rohub.org/ [R=302,L]
 
 # Research Object resource
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)/resources/(.*)$ https://reliance.rohub.org/overview?ro=$1&activetab=content&resource=$2 [R=303,L]
 # download resource
 RewriteRule ^(.*)/resources/(.*)$ https://api.rohub.org/api/resources/$2/download/ [R=302,L]
 RewriteRule ^resources/(.*)$ https://api.rohub.org/api/resources/$1/download/ [R=302,L]
@@ -74,6 +76,6 @@ RewriteRule ^(.*)/crate$ https://api.rohub.org/api/ros/$1/crate/download/ [R=303
 # Research Object
 # open RO in ROHub portal
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://reliance.rohub.org/overview?$1 [R=303,L]
+RewriteRule ^(.*)$ https://reliance.rohub.org/overview?ro=$1&activetab=overview [R=303,L]
 # download RO as RDF (manifest), ZIP or PDF
 RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=303,L]
