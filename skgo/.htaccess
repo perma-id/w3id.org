@@ -1,0 +1,113 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+
+#Rewrite rules for physci vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^physci$ https://aysegulsay.github.io/PhySci.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^physci$ https://raw.githubusercontent.com/aysegulsay/PhySci/master/PhySci.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^physci$ https://raw.githubusercontent.com/aysegulsay/PhySci/master/PhySci.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^physci$ https://raw.githubusercontent.com/aysegulsay/PhySci/master/PhySci.ttl [R=303,NE,L]
+
+
+#Rewrite rules for pharmsci vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^pharmsci$ https://zeynepsay.github.io/PharmSci.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^pharmsci$ https://raw.githubusercontent.com/Zeisem/PharmSci/Ontology/PharmSci.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^pharmsci$ https://raw.githubusercontent.com/Zeisem/PharmSci/Ontology/PharmSci.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^pharmsci$ https://raw.githubusercontent.com/Zeisem/PharmSci/Ontology/PharmSci.ttl [R=303,NE,L]
+
+#Rewrite rules for chemsci vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^chemsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/ChemSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^chemsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/ChemSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^chemsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ChemSci.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^chemsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ChemSci.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^chemsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ChemSci.ttl [R=303,NE,L]
+
+#Rewrite rules for dentsci vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^dentsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/DentSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^dentsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/DentSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^dentsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/DentSci.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^dentsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/DentSci.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^dentsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/DentSci.ttl [R=303,NE,L]
+
+
+#Rewrite rules for modsci vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^modsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/ModSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^modsci$ https://saidfathalla.github.io/Science-knowledge-graph-ontologies/doc/ModSci_doc/index-en.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^modsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ModSci.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^modsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ModSci.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^modsci$ https://raw.githubusercontent.com/saidfathalla/Science-knowledge-graph-ontologies/master/ModSci.ttl [R=303,NE,L]
+
+
+#Rewrite rules for semsur vocabulary 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^semsur$ https://saidfathalla.github.io/SemSur/doc/index.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^semsur$ https://saidfathalla.github.io/SemSur/doc/index.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.ttl [R=303,NE,L]
+#default response: ttl
+RewriteRule ^semsur$ https://raw.githubusercontent.com/saidfathalla/SemSur/master/SemSur.ttl [R=303,NE,L]

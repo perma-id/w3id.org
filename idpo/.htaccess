@@ -1,0 +1,52 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://icdd.vm.rub.de/ontology/idpo/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://icdd.vm.rub.de/ontology/idpo/idpo.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://icdd.vm.rub.de/ontology/idpo/idpo.rdf [R=303,NE,L]
+
+# In case of accept header <application/ld+json>
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^$ https://icdd.vm.rub.de/ontology/idpo/idpo.jsonld [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^idpo.ttl$ https://icdd.vm.rub.de/ontology/idpo/idpo.ttl [R=303,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^idpo.html$ https://icdd.vm.rub.de/ontology/idpo/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^idpo.rdf$ https://icdd.vm.rub.de/ontology/idpo/idpo.rdf [R=303,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^idpo.jsonld$ https://icdd.vm.rub.de/ontology/idpo/idpo.jsonld [R=303,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^idpo.nt$ https://icdd.vm.rub.de/ontology/idpo/idpo.nt [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^4537_instances$ https://icdd.vm.rub.de/ontology/idpo/instances.html [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^4537_instances$ https://icdd.vm.rub.de/ontology/idpo/instances.ttl [R=303,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://icdd.vm.rub.de/ontology/idpo/ [R=303,NE,L]
