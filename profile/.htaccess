@@ -1,0 +1,32 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Items
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^$ http://203.100.30.55/w3id.org/profile?_mediatype=text/turtle [R=302,L]
+RewriteRule ^$ http://203.100.30.55/w3id.org/profile [R=302,L]
+
+# Item
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule (.*) "http://203.100.30.55/w3id.org/profile/$1?_mediatype=text/turtle" [R=302,L,NE]
+RewriteRule (.*).ttl$ "http://203.100.30.55/w3id.org/profile/$1?_mediatype=text/turtle" [R=302,L,NE]
+RewriteRule (.*) http://203.100.30.55/w3id.org/profile/$1 [R=302,L,QSA]
+
+
+# Example URIs handled
+#
+# https://w3id.org/profile
+# https://w3id.org/profile/catalogue.ttl
+# https://w3id.org/profile/
+#
+# https://w3id.org/profile/dcatnull
+# https://w3id.org/profile/ontdoc
+# https://w3id.org/profile/vocpub
+# https://w3id.org/profile/vocpub.ttl
+# https://w3id.org/profile/vocpub?_mediatype=text/turtle
+# https://w3id.org/profile/vocpub?_profile=dcat&_mediatype=text/turtle
+# https://w3id.org/profile/vocpub, Accept: text/turtle
+# https://w3id.org/profile/vocpub, Accept-Profile: <https://www.w3.org/TR/vocab-dcat/>, Accept: text/turtle
+# etc...

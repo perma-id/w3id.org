@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage
+RewriteRule ^$ https://git.material-digital.de/kbulert1/stahldigitalpublictest [R=308,L]
+
+
+# Redirect versioned request for any text-oriented MIME type to the documentation
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^.* https://git.material-digital.de/kbulert1/stahldigitalpublictest [R=302,NE,L]
+
+
+# Redirect to turtle file
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^.* https://git.material-digital.de/kbulert1/stahldigitalpublictest/-/raw/main/stahl.ttl [R=302,NE,L]
+
+# Redirect to rdf file
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^.* https://git.material-digital.de/kbulert1/stahldigitalpublictest/-/raw/main/stahl.owl [R=302,NE,L]
+
+# Default redirect for unmatched patterns to MDO website
+RewriteRule ^.* https://git.material-digital.de/kbulert1/stahldigitalpublictest [R=302,NE,L]

@@ -5,8 +5,8 @@ Homepage
 * http://graphdb.dumontierlab.com/
 
 Docs
-* http://github.com/MaastrichtU-IDS/data2services-pipeline
+* http://d2s.semanticscience.org/
 
 Contact
-* Alexander Malic @amalic
 * Vincent Emonet @vemonet
+* Michel Dumontier @dumontier
