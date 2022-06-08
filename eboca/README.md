@@ -1,5 +1,5 @@
 # EBOCA Ontologies
-This W3ID provides a persistent URI namespace for EBOCA Ontologies.
+This W3ID provides a persistent URI namespace for EBOCA Ontology.
 
 ## Contact
 This space is administered by:
