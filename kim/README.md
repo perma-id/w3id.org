@@ -11,4 +11,5 @@ KIM promotes and supports through workshops and committee work the development o
 The w3id.org URIs are used as permanent URLs for standards (specifications of application profiles, schemas etc.).
 
 * [KIM Wiki](https://wiki.dnb.de/x/5xuYAg)
-* Contact: [Adrian Pohl](http://lobid.org/team/ap#!)
+* Contact: [Adrian Pohl](http://lobid.org/team/ap#!), [Steffen Rörtgen](https://github.com/sroertgen)
+

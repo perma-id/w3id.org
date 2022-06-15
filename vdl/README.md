@@ -1,7 +1,9 @@
 # Verifiable Driver's License Vocabulary
 
-- https://digitalbazaar.github.io/vdl-vocab/
+- https://w3c-ccg.github.io/vdl-vocab/
 
 ## Maintainers
 
 - Manu Sporny (@msporny)
+- Tobias Looker (@tplooker)
+- Charles Lehner (@clehner)
