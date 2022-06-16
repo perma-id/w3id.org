@@ -1,7 +1,7 @@
 # Network Embedding All the Things (NEAT)
 
 Homepages
-* https://github.com/Knowledge-Graph-Hub/neat-ml - 
+* https://github.com/Knowledge-Graph-Hub/neat-ml
 * https://github.com/Knowledge-Graph-Hub/neat-ml-schema
 
 Docs
