@@ -8,4 +8,4 @@ OWL: https://raw.githubusercontent.com/ProyectoAether/OntoGraphDB/main/OntoGraph
 
 Contact: 
 
-Manuel Paneque Romero <mpaneque@uma.es>
+Manuel Paneque Romero <mpaneque@uma.es> (https://github.com/fenixdreamer)
