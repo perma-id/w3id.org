@@ -1,6 +1,6 @@
 # OntoGraphDB - Graph Databases Ontology
 
-Documentation is available at: https://proyectoaether.github.io/ontographdb.html
+Documentation is available at: https://proyectoaether.github.io/OntoGraphDB/index-en.html
 
 The ontology is available in:
 
