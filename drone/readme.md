@@ -1,6 +1,6 @@
 ## Linked-data API for Networked Drones (LANDRS), Drone Ontology
 
-This permanent w3id is meant to provide a persistent namespace for the [LANDRS](https://www.landrs.org) project. The drone ontology provides support for using linked data collection on unmanned, remotely piloted or robotic vehicles. We provide two namespaces, in these redirects. One for rdf/owl ontologies at https://w3id.org/drone/ont, and one for SHACL shapes https://w3id.org/drone/shapes/shacl. The URIs are structured to support Shex versions of the shapes at a later date.
+This permanent w3id is meant to provide a persistent namespace for the [LANDRS](https://www.landrs.org) project. The drone ontology provides support for using linked data collection on unmanned, remotely piloted, or robotic vehicles. We provide two namespaces in these redirects: one for RDF/OWL ontologies at <https://w3id.org/drone/ont>; and one for SHACL shapes <https://w3id.org/drone/shapes/shacl>. The URIs are structured to support ShEx versions of the shapes at a later date.
 
 Ontology development and issue submissions are in the Github repository [https://github.com/landrs-toolkit/drone](https://github.com/landrs-toolkit/drone). For more information on the project see our homepage [LANDRS](https://www.landrs.org).
 
