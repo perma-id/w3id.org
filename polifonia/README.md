@@ -11,3 +11,5 @@ The Polifonia consortium is an interdisciplinary team of passionate researchers 
 - [Enrico Daga](https://www.open.ac.uk/people/ed4565)
 - [Valentina Presutti](https://www.unibo.it/sitoweb/valentina.presutti)
 - [Albert Meroño Peñuela](https://www.kcl.ac.uk/people/albert-merono-penuela-1)
+- [Fiorela Ciroku](https://www.unibo.it/sitoweb/fiorela.ciroku2/)
+- [Valentina Anita Carriero](https://www.unibo.it/sitoweb/valentina.carriero3/)
