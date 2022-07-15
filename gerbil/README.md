@@ -1,5 +1,9 @@
 # GERBIL
-GERBIL is a general entity annotator benchmark, GERBIL QA is a benchmarking framework for question answering systems and GERBIL SW is a benchmark framework for other semantic web systems such as attribute prediction. This redirect links to the instances of GERBIL, GERBIL QA, GERBIL SW and their SPARQL endpoints hosted by AKSW.
+* GERBIL is a general entity annotator benchmark,
+* GERBIL QA is a benchmarking framework for question answering systems, and
+* GERBIL KBC is a benchmark framework for tasks related to knowledge graph curation.
+
+This redirect links to the instances of GERBIL, GERBIL QA, GERBIL SW and their SPARQL endpoints hosted by Paderborn University.
 
 ## Links
 
