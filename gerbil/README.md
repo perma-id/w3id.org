@@ -3,7 +3,7 @@
 * GERBIL QA is a benchmarking framework for question answering systems, and
 * GERBIL KBC is a benchmark framework for tasks related to knowledge graph curation.
 
-This redirects the following links to the instances of GERBIL, GERBIL QA, GERBIL KBC and their SPARQL endpoints hosted by Paderborn University:
+This redirects the following links to the instances of GERBIL, GERBIL QA, GERBIL KBC, and their SPARQL endpoints hosted by Paderborn University:
 * http://w3id.org/gerbil
 * http://w3id.org/gerbil/qa
 * http://w3id.org/gerbil/kbc
