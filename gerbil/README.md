@@ -8,11 +8,18 @@ This redirects the following links to the instances of GERBIL, GERBIL QA, GERBIL
 * http://w3id.org/gerbil/qa
 * http://w3id.org/gerbil/kbc
 
+## Maintainer
+
+This project is maintained by the DICE research group (https://dice-research.org). The main maintainers are
+
+* [MichaelRoeder](https://github.com/MichaelRoeder)
+* [bigerl](https://github.com/bigerl)
+* [denkv](https://github.com/denkv)
+
 ## Links
 
 * [Project page](http://gerbil.aksw.org/)
-* [Source code](https://github.com/AKSW/gerbil)
-* [Maintainer](https://dice-research.org/MichaelRoeder)
+* [Source code](https://github.com/dice-group/gerbil)
 
 ## Citation
 
