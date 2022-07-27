@@ -1,4 +1,4 @@
-# /FAIRplus Dataset Maturity (DSM) Model/
+# FAIRplus Dataset Maturity (DSM) Model
 The DSM model is part of the IMI project FAIRplus (see <https://www.imi.europa.eu/projects-results/project-factsheets/fairplus>). This [W3ID](https://w3id.org) provides a persistent URI namespace for FAIRplus Dataset Maturity (DSM) Model indicators.
 
 ## Uses
