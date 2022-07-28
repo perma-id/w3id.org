@@ -15,3 +15,4 @@ Links:
 * http://w3id.org/devops-infra/database
 * http://w3id.org/devops-infra/hardware
 * http://w3id.org/devops-infra/certificate
+* http://w3id.org/devops-infra/workflow
