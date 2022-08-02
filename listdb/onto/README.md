@@ -24,7 +24,7 @@ This space is administered by
 - Mail: Susanne.Arndt[at]tib.eu
 - ORCID: [0000-0002-1019-9151](https://orcid.org/0000-0002-1019-9151)
 
-_Maximilian Bäumler_
+**Maximilian Bäumler**
 - Research Associate at [Technische Universität Dresden (Germany)](https://tu-dresden.de/)
 - Mail: maximilian.baeumler[at]tu-dresden.de
 - ORCID: [0000-0003-4052-0572](https://orcid.org/0000-0003-4052-0572)
