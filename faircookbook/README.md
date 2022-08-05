@@ -8,7 +8,7 @@ This namespace is used to mint GUPRIs for individual recipes which are part of t
 See <https://fairplus.github.io/the-fair-cookbook> for more details on the FAIR cookbook. 
 
 ## Pool of maintainers of this namespace
-The FAIR cookbook is part of the IMI project FAIRplus (see <https://www.imi.europa.eu/projects-results/project-factsheets/fairplus>). As such, there is a Consortium Agreement in place which describes the Governance of the project and appoints a designated representative.
+The FAIR cookbook is part of the IMI FAIRplus project (see <https://www.imi.europa.eu/projects-results/project-factsheets/fairplus>). As such, a Consortium Agreement is in place which describes the Governance of the project and appoints a designated representative.
 
 For the sake of simplicity, all people involved and interested in managing this namespace from the FAIRplus consortium can enter the pool of persons intended to be able to make changes in this namespace of w3id.org by being appointed by one of the current members of this pool.
 
@@ -25,6 +25,7 @@ The pool consists of (alphabetical order):
 * https://github.com/robertgiessmann
 * https://github.com/tburdett
 * https://github.com/weiguUL
+* https://github.com/terazus
 
 ## Change policy in this namespace
 No official change policy in place. Be sensible, please.
@@ -32,7 +33,16 @@ No official change policy in place. Be sensible, please.
 ## Contact
 See above for persons who are supposed to change this namespace. 
 
-If you want to contact a single person about this namespace, please refer to:
+If you want to contact a person about this namespace, please refer to:
+
+**Philippe Rocca-Serra**  
+[University of Oxford e-Research Centre](https://oerc.ox.ac.uk/)  
+Oxford, UK.
+<proccaserra@gmail.com>  
+GitHub: [proccaserra](https://github.com/proccaserra)
+ORCID: [0000-0001-9853-5668](https://orcid.org/0000-0001-9853-5668) 
+
+or 
 
 **Robert Giessmann**  
 [Bayer AG](https://www.bayer.com)  
