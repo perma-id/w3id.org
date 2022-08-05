@@ -1,5 +1,5 @@
-# /sona
-This [W3ID](https://w3id.org) provides a persistent URI namespace for RDF and Ontologies created for Comune di Sona.
+# /ontoim
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the Italian Municipality Ontology.
 
 ## Contact
 This space is administered by:  
