@@ -1,4 +1,4 @@
-# /nsdra/
+# /psnpbind/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for PSnpBind, a database built to study the effects of binding site single point mutations on protein-ligand binding affinity.
 
 ## Uses
