@@ -1,6 +1,8 @@
 Homepage:
 
-https://w3id.org/ee4i
+The ontology is available in:
+OWL: https://github.com/jdmarinj/ee4i/blob/main/EE4I_V13.owl
+
 
 
 Abstract
