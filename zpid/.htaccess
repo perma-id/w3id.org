@@ -4,15 +4,15 @@ Options +FollowSymLinks
 RewriteEngine On
 
 # Redirect to our Skosmos homepage for the root URI w3id.org/zpid/
-RewriteRule	^$ http://skosmos.dev.zpid.de:9090 [R=302,L]
+RewriteRule	^$ https://skosmos.stg.zpid.org [R=302,L]
 
 # Redirect vocabulary concept uris (e.g. /vocabs/terms/5) to our Skosmos instance's concept page: 
-RewriteRule ^vocabs/(.+)/(.+)$	http://skosmos.dev.zpid.de:9090/$1/page/$2 [R=302,L]
+RewriteRule ^vocabs/(.+)/(.+)$	https://skosmos.stg.zpid.org/$1/page/$2 [R=302,L]
 
 # Redirect vocabulary scheme uris (e.g. /zpid/vocabs/terms/) to the vocabulary's/scheme's homepage on skosmos:
-RewriteRule ^vocabs/(.+)$	http://skosmos.dev.zpid.de:9090/$1 [R=302,L]
+RewriteRule ^vocabs/(.+)$	https://skosmos.stg.zpid.org/$1 [R=302,L]
 
 # Note: We should probably add content negotiation some day, so people will be served JSON, Turtle, RDF/XML as desired, since Skosmos already offers it. 
 # Here are example api calls for json-ld and turtle:
-# - http://skosmos.dev.zpid.de:9090/rest/v1/terms/data?uri=https%3A%2F%2Fpsyndex.de%2Fvocab%2Fterms%2F5&format=application/ld%2Bjson
-# - http://skosmos.dev.zpid.de:9090/rest/v1/terms/data?uri=https%3A%2F%2Fpsyndex.de%2Fvocab%2Fterms%2F5&format=text/turtle
+# - https://skosmos.stg.zpid.org/rest/v1/terms/data?uri=https%3A%2F%2Fpsyndex.de%2Fvocab%2Fterms%2F5&format=application/ld%2Bjson
+# - https://skosmos.stg.zpid.org/rest/v1/terms/data?uri=https%3A%2F%2Fpsyndex.de%2Fvocab%2Fterms%2F5&format=text/turtle
