@@ -1,0 +1,85 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# Rewrite engine setup
+RewriteEngine On
+
+#
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/index-en.html [R=303,L]
+
+#
+# Rewrite rule to serve HTML content if requested a term URI is requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^/(.+)  http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/index-en.html#$1 [R=303,NE,L]
+
+#
+# Rewrite rule to serve JSON-LD content from the vocabulary URI is requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.jsonld [R=303,NE,L]
+
+#
+# Rewrite rule to serve JSON-LD content if requested a term URI is requested
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^/(.+)$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.jsonld [R=303,NE,L]
+
+#
+# Rewrite rule to serve RDF/XML content from the vocabulary URI is requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.rdf [R=303,L]
+
+#
+# Rewrite rule to serve RDF/XML content from the term URI is requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/(.+)$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.rdf [R=303,NE,L]
+
+#
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.nt [R=303,L]
+
+#
+# Rewrite rule to serve N-Triples content from the term URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^/(.+)$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.nt [R=303,NE,L]
+
+#
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.ttl [R=303,L]
+
+#
+# Rewrite rule to serve TTL content from the term URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^/(.+)$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.ttl [R=303,NE,L]
+
+#
+# Rewrite rule to serve 406.html page for other content requests
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ http://metashare.ilsp.gr/ontologies/lex-meta/lex-meta/documentation/ontology.rdf [R=303,L]
