@@ -7,6 +7,7 @@ Homepage:
 Contacts:
 
 * Maximilian Bäumler (maximilian.baeumler[at]tu-dresden.de)
+* Susanne Arndt (susanne.arndt[at]tib.eu)
 
 ## Redirections & status
 
