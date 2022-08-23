@@ -51,6 +51,10 @@ RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.
 # N-triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^$ https://listdb.gitlab.io/onto/ontology.nt [R=303,L,NE]
+# Notation3
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://gitlab.com/listdb/onto/-/raw/main/serializations/ontology.n3 [R=303,L,NE]
 
 # N-triples with versioning
 # will point to a dedicated directory for serializations at our repo
@@ -68,7 +72,8 @@ RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.jsonld [R=303,L,NE]
 
 # Notation3 with versioning
-RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.n3 [R=303,L,NE]
 
 # Trig with versioning
