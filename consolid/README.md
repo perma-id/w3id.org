@@ -8,5 +8,5 @@ Ontology
 
 Contacts
 
-* Jeroen Werbrouck <jeroen [dot] werbrouck [at] ugent.be>
+* Jeroen Werbrouck <jeroen [dot] werbrouck [at] ugent.be> (Github: JWerbrouck)
 
