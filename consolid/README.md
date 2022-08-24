@@ -1,4 +1,4 @@
-## The ConSolid Vocabulary (LBDS)
+## The ConSolid Vocabulary
 
 Ontology
 
