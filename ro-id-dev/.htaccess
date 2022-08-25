@@ -15,6 +15,9 @@ AddType application/ld+json .jsonld
 # this will point to rohub main page
 RewriteRule ^$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ [R=302,L]
 
+# ROHub user (imported)
+RewriteRule ^users/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/userprofile?username=$1 [R=303,L]
+
 # Research Object resource
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/overview?ro=$1&activetab=content&resource=$2 [R=303,L]
