@@ -1,0 +1,551 @@
+@prefix : <http://www.semanticweb.org/ontologies/BMO#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@base <http://www.semanticweb.org/ontologies/BMO> .
+
+<http://www.semanticweb.org/ontologies/BMO> rdf:type owl:Ontology ;
+                                             rdfs:comment "The purpose of this ontology is to provide more valuable information to support bridge maintenance operations." ;
+                                             owl:title "Bridge Maintenance Ontology (BMO)" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#author
+owl:author rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#title
+owl:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/BMO#build
+:build rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf owl:topObjectProperty ;
+       owl:inverseOf :builtBy ;
+       rdfs:domain :Organization ;
+       rdfs:range :Bridge .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#builtBy
+:builtBy rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Bridge ;
+         rdfs:range :Organization .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#design
+:design rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        owl:inverseOf :designedBy ;
+        rdfs:domain :Organization ;
+        rdfs:range :Bridge .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#designedBy
+:designedBy rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Bridge ;
+            rdfs:range :Organization .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasCapacity
+:hasCapacity rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :BridgeStructure ;
+             rdfs:range :BearingCapacity .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasComponent
+:hasComponent rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :BridgeStructure ;
+              rdfs:range :BridgeComponent .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasHazard
+:hasHazard rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           owl:inverseOf :hazardOn ;
+           rdfs:domain :BridgeStructure ;
+           rdfs:range :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasMaterialCondition
+:hasMaterialCondition rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdfs:domain :BridgeStructure ;
+                      rdfs:range :MaterialCondition .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasMaterialType
+:hasMaterialType rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdfs:domain :BridgeStructure ;
+                 rdfs:range :Material .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasMember
+:hasMember rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :BridgeComponent ;
+           rdfs:range :BridgeMember .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasReason
+:hasReason rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :Hazard ;
+           rdfs:range :PotentialReason .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasStrengthening
+:hasStrengthening rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:domain :BridgeStructure ;
+                  rdfs:range :StrengtheningDesign .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasStructure
+:hasStructure rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Bridge ;
+              rdfs:range :BridgeStructure .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hasVisualCondition
+:hasVisualCondition rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:domain :BridgeStructure ;
+                    rdfs:range :VisualCondition .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#hazardOn
+:hazardOn rdf:type owl:ObjectProperty ;
+          rdfs:domain :Hazard ;
+          rdfs:range :BridgeStructure .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#manage
+:manage rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        owl:inverseOf :managedBy ;
+        rdfs:domain :Organization ;
+        rdfs:range :Bridge .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#managedBy
+:managedBy rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:InverseFunctionalProperty ;
+           rdfs:domain :Bridge ;
+           rdfs:range :Organization .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/BMO#Dj
+:Dj rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :BridgeStructure ;
+    rdfs:range xsd:float ;
+    rdfs:comment "Visual condition level: 1,2,3,4,5" .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Dr
+:Dr rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :BridgeStructure ;
+    rdfs:range xsd:float ;
+    rdfs:comment "visualCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Hd
+:Hd rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :CarbonizationDepthOfConcrete ;
+    rdfs:range xsd:float ;
+    rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Hj
+:Hj rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :CarbonizationDepthOfConcrete ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Carbonization Depth level:1,2,3,4,5" .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Hp
+:Hp rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :CarbonizationDepthOfConcrete ;
+    rdfs:range xsd:float ;
+    rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Kbt
+:Kbt rdf:type owl:DatatypeProperty ;
+     rdfs:subPropertyOf owl:topDataProperty ;
+     rdfs:domain :ConcreteStrength ;
+     rdfs:range xsd:float ;
+     rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Kc
+:Kc rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :CarbonizationDepthOfConcrete ;
+    rdfs:range xsd:float ;
+    rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Rd
+:Rd rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :ConcreteStrength ;
+    rdfs:range xsd:float ;
+    rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Rit
+:Rit rdf:type owl:DatatypeProperty ;
+     rdfs:subPropertyOf owl:topDataProperty ;
+     rdfs:domain :ConcreteStrength ;
+     rdfs:range xsd:float ;
+     rdfs:comment "materialCondition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Sj
+:Sj rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdf:type owl:FunctionalProperty ;
+    rdfs:domain :ConcreteStrength ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Concrete strength level:1,2,3,4,5" .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#bridgeTotalLength
+:bridgeTotalLength rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Bridge ;
+                   rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#level
+:level rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :Hazard ;
+       rdfs:range xsd:integer ;
+       rdfs:comment "level 1 to level 5" .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#maxLength
+:maxLength rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Crack ;
+           rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#maxSpanLength
+:maxSpanLength rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :Bridge ;
+               rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#maxWidth
+:maxWidth rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain :Crack ;
+          rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#name
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:domain :Bridge ;
+      rdfs:range xsd:Name .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/ontologies/BMO#Abutment
+:Abutment rdf:type owl:Class ;
+          rdfs:subClassOf :BridgeComponent .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BarSteel
+:BarSteel rdf:type owl:Class ;
+          rdfs:subClassOf :Steel ;
+          owl:disjointWith :SteelPlate .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Bearing
+:Bearing rdf:type owl:Class ;
+         rdfs:subClassOf :BridgeComponent ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasMember ;
+                           owl:someValuesFrom :BoxGirder
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasMember ;
+                           owl:someValuesFrom :Slab
+                         ] .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BearingCapacity
+:BearingCapacity rdf:type owl:Class ;
+                 rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BoxGirder
+:BoxGirder rdf:type owl:Class ;
+           rdfs:subClassOf :BridgeMember .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Break
+:Break rdf:type owl:Class ;
+       rdfs:subClassOf :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Bridge
+:Bridge rdf:type owl:Class ;
+        rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BridgeComponent
+:BridgeComponent rdf:type owl:Class ;
+                 rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BridgeMember
+:BridgeMember rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#BridgeStructure
+:BridgeStructure rdf:type owl:Class ;
+                 rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#CarbonizationDepthOfConcrete
+:CarbonizationDepthOfConcrete rdf:type owl:Class ;
+                              rdfs:subClassOf :MaterialCondition .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Cloumn
+:Cloumn rdf:type owl:Class ;
+        rdfs:subClassOf :BridgeMember .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Concrete
+:Concrete rdf:type owl:Class ;
+          rdfs:subClassOf :Material ;
+          owl:disjointWith :Steel .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#ConcreteStrength
+:ConcreteStrength rdf:type owl:Class ;
+                  rdfs:subClassOf :MaterialCondition .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#CornerDrop
+:CornerDrop rdf:type owl:Class ;
+            rdfs:subClassOf :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Crack
+:Crack rdf:type owl:Class ;
+       rdfs:subClassOf :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Footing
+:Footing rdf:type owl:Class ;
+         rdfs:subClassOf :BridgeMember .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Foundation
+:Foundation rdf:type owl:Class ;
+            rdfs:subClassOf :BridgeComponent .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Hazard
+:Hazard rdf:type owl:Class ;
+        rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Maintenance
+:Maintenance rdf:type owl:Class ;
+             rdfs:subClassOf :Solution .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Material
+:Material rdf:type owl:Class ;
+          rdfs:subClassOf :StrengtheningDesign .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#MaterialCondition
+:MaterialCondition rdf:type owl:Class ;
+                   rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Pavement
+:Pavement rdf:type owl:Class ;
+          rdfs:subClassOf :BridgeComponent .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Peeling
+:Peeling rdf:type owl:Class ;
+         rdfs:subClassOf :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Pier
+:Pier rdf:type owl:Class ;
+      rdfs:subClassOf :BridgeComponent ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasMember ;
+                        owl:someValuesFrom :Cloumn
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :hasMember ;
+                        owl:someValuesFrom :Footing
+                      ] .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#PittedSurface
+:PittedSurface rdf:type owl:Class ;
+               rdfs:subClassOf :Hazard .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#PotentialReason
+:PotentialReason rdf:type owl:Class ;
+                 rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#ServiceabilityLimitStates
+:ServiceabilityLimitStates rdf:type owl:Class ;
+                           rdfs:subClassOf :BearingCapacity .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Slab
+:Slab rdf:type owl:Class ;
+      rdfs:subClassOf :BridgeMember .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Solution
+:Solution rdf:type owl:Class ;
+          rdfs:subClassOf :StrengtheningDesign .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Steel
+:Steel rdf:type owl:Class ;
+       rdfs:subClassOf :Material .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#SteelPlate
+:SteelPlate rdf:type owl:Class ;
+            rdfs:subClassOf :Steel .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#StrengtheningDesign
+:StrengtheningDesign rdf:type owl:Class ;
+                     rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#StrengtheningWithBondedSteelPlate
+:StrengtheningWithBondedSteelPlate rdf:type owl:Class ;
+                                   rdfs:subClassOf :Solution .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#StrengtheningWithExternalPrestressing
+:StrengtheningWithExternalPrestressing rdf:type owl:Class ;
+                                       rdfs:subClassOf :Solution .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#StrengtheningWithFRP
+:StrengtheningWithFRP rdf:type owl:Class ;
+                      rdfs:subClassOf :Solution .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Substructure
+:Substructure rdf:type owl:Class ;
+              rdfs:subClassOf :BridgeStructure .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#Superstructure
+:Superstructure rdf:type owl:Class ;
+                rdfs:subClassOf :BridgeStructure .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#SurfaceStructure
+:SurfaceStructure rdf:type owl:Class ;
+                  rdfs:subClassOf :BridgeStructure .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#UltimateLimitStates
+:UltimateLimitStates rdf:type owl:Class ;
+                     rdfs:subClassOf :BearingCapacity .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#VisualCondition
+:VisualCondition rdf:type owl:Class ;
+                 rdfs:subClassOf owl:Thing .
+
+
+###  http://www.semanticweb.org/ontologies/BMO#StrengtheningWithR.C&P.C
+<http://www.semanticweb.org/ontologies/BMO#StrengtheningWithR.C&P.C> rdf:type owl:Class ;
+                                                                     rdfs:subClassOf :Solution .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :BoxGirder
+                :Cloumn
+                :Footing
+                :Slab
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Break
+                :CornerDrop
+                :Crack
+                :Peeling
+                :PittedSurface
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Substructure
+                :Superstructure
+                :SurfaceStructure
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
