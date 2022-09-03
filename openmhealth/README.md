@@ -7,7 +7,7 @@ Permanent [base URIs](https://json-schema.org/understanding-json-schema/structur
 https://w3id.org/openmhealth/schemas/<schema_namespace>/<schema_name>-<schema_version>.json
 ```
 
-e.g.
+Here are some examples:
 
 ```
 https://w3id.org/openmhealth/schemas/omh/blood-pressure-3.0.json
