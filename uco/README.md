@@ -6,5 +6,8 @@ Can be used for Linked Data prefixes.
 
 ## Contact
 
-UCO Community
 https://unifiedcyberontology.org/contact.html
+
+## Maintainer
+
+Noel McLoughlin (noel.mcloughlin AT gmail.com)
