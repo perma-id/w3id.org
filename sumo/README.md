@@ -1,6 +1,6 @@
 # /sumo/
 
-The Suggested Upper Merged Ontology (SUMO) and its domain ontologies form the largest formal public ontology in existence today. They are being used for research and applications in search, linguistics and reasoning. SUMO is the only formal ontology that has been mapped to all of the WordNet lexicon. Sumo is maintained by https://www.ontologyportal.org
+The Suggested Upper Merged Ontology (SUMO) and its domain ontologies form the largest collective formal public ontology in existence today. It is being used for research and applications in search, linguistics, and reasoning. SUMO is the only formal ontology that has been mapped to the entire WordNet lexicon. Sumo is maintained by <https://www.ontologyportal.org>.
 
 
 ## Uses
