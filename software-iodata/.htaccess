@@ -17,7 +17,6 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://softwareUnderstanding.github.io/software-iodata/release/1.0.0/ [R=303,L]
 
-
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://softwareUnderstanding.github.io/software-iodata/release/1.0.0/software-iodata.jsonld [R=303,L]
@@ -53,7 +52,9 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^(.+)$ https://softwareUnderstanding.github.io/software-iodata/release/$1/software-iodata.ttl  [R=303,L]
 
+
 # Default response
 # ---------------------------
 # Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
 RewriteRule ^$ https://softwareUnderstanding.github.io/software-iodata/release/$1/software-iodata.jsonld  [R=303,L]
+

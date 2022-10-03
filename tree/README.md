@@ -1,11 +1,11 @@
-The Tree Ontology
+TREE specification
 ===
 
-Ontology:
+Vocabulary:
  * https://w3id.org/tree
 
 Specification:
- * https://github.com/pietercolpaert/TreeOntology
+ * https://w3id.org/tree/specification
 
 Contact:
  * Pieter Colpaert <pieter.colpaert@ugent.be>
