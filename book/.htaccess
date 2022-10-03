@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology$ https://jucola98.github.io/  [R=303,NE,L]
+#default response: owl
+RewriteRule ^ontology$ https://jucola98.github.io/Book_Ontology/hm2_final.owl [R=303,NE,L]
