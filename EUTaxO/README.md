@@ -1,10 +1,19 @@
 # EUdaphobase Taxonomy Ontology
 
-Documentation is available at: [https://jfaldanam.gitlab.io/EUTaxO/](https://jfaldanam.gitlab.io/EUTaxO/)
+## Documentation
 
-The ontology is available in:
+The base ontology documentation is available at: [https://jfaldanam.gitlab.io/EUTaxO/](https://jfaldanam.gitlab.io/EUTaxO/).
 
-OWL: [https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl](https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl)
-Contact: 
+The complete hierarchy of taxa classes documentation is available at: [https://jfaldanam.gitlab.io/EUTaxO/hierarchy/](https://jfaldanam.gitlab.io/EUTaxO/hierarchy/).
 
-José F. Aldana Martín @jfaldanam <jfaldanam@uma.es>
+> **Warning**: The complete hierarchy in html or owl format can be >50MB.
+
+## Ontology
+
+Available in:
+
+* **Base OWL:** [https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl](https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl)
+* **Complete hierarchy OWL:** [https://jfaldanam.gitlab.io/EUTaxO/hierarchy/EUTaxO.owl](https://jfaldanam.gitlab.io/EUTaxO/hierarchy/EUTaxO.owl)
+
+## Contact
+José F. Aldana Martín, @jfaldanam, <jfaldanam@uma.es>
