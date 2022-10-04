@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://igsn.org/ [R=302,L]
+
+# Don't force protocol switch, leave that to the resource server
+RewriteCond %{HTTPS} off
+RewriteRule ^(\d+)/(.+)$  http://hdl.handle.net/$1/$2 [R=303,L]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.+)$      http://hdl.handle.net/10273/$1 [R=303,L]
+
+# Support new pattern with DOI prefix
+RewriteRule ^(\d+)/(.+)$  https://hdl.handle.net/$1/$2 [R=303,L]
+# General pattern if nothing above matches
+RewriteRule     ^(.+)$    https://hdl.handle.net/10273/$1 [R=303,L]
