@@ -1,4 +1,4 @@
-# /ontoim
+# /digitalpeople
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the Digital People resources.
 
 ## Contact
