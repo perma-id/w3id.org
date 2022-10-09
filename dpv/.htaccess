@@ -8,7 +8,8 @@ Options -MultiViews
 
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
-AddType application/rdf+xml .rdf .owl
+AddType application/rdf+xml .rdf
+AddType text/owl-manchester .owl
 AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .jsonld
@@ -20,6 +21,9 @@ RewriteEngine on
 # DPV
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.ttl [R=302,L]
@@ -35,6 +39,9 @@ RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
 
@@ -47,6 +54,9 @@ RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.jsonld [R=302
 # DPV-PD
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.ttl [R=302,L]
@@ -61,6 +71,9 @@ RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.ttl [R=302,L]
 
@@ -73,6 +86,9 @@ rewriterule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.jsonld [r=302
 # DPV-legal
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.ttl [R=302,L]
@@ -87,6 +103,9 @@ rewriterule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.jsonld [r=
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.ttl [R=302,L]
 
@@ -99,6 +118,9 @@ rewriterule ^risk$ https://w3c.github.io/dpv/risk/risk.jsonld [r=302,l]
 # rights-eu
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.ttl [R=302,L]
@@ -115,6 +137,9 @@ rewriterule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.jsonld [r=302,l]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.ttl [R=302,L]
 
@@ -129,6 +154,9 @@ RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
 
@@ -141,6 +169,9 @@ RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-
 # DPV-SKOS/DPV-PD
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.ttl [R=302,L]
@@ -155,6 +186,9 @@ RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.j
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.ttl [R=302,L]
 
@@ -167,6 +201,9 @@ RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-
 # DPV-SKOS/DPV-legal
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.ttl [R=302,L]
@@ -181,6 +218,9 @@ RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dp
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.ttl [R=302,L]
 
@@ -193,6 +233,9 @@ rewriterule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.jsonld 
 # rights-eu
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.ttl [R=302,L]
@@ -209,6 +252,9 @@ rewriterule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.js
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.ttl [R=302,L]
 
@@ -223,6 +269,9 @@ RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
 
@@ -235,6 +284,9 @@ RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gd
 # DPV-OWL/DPV-PD
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.ttl [R=302,L]
@@ -249,6 +301,9 @@ RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.jso
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.ttl [R=302,L]
 
@@ -261,6 +316,9 @@ RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-te
 # DPV-OWL/DPV-legal
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.ttl [R=302,L]
@@ -275,6 +333,9 @@ RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.ttl [R=302,L]
 
@@ -287,6 +348,9 @@ rewriterule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.jsonld [r
 # rights-eu
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.ttl [R=302,L]
@@ -301,6 +365,9 @@ rewriterule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.json
 # Default content type paths
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.ttl [R=302,L]
