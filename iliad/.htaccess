@@ -17,17 +17,24 @@ RewriteRule ^$ https://www.ocean-twin.eu/ [R=302,L]
 # OIM
 RewriteRule ^oim$ https://github.com/ILIAD-ocean-twin/oim [R=302,L]
 
-# API
+### API
+# Base
 RewriteRule ^api$ https://grlc.io/api-git/ILIAD-ocean-twin/api/base [R=302,L]
 RewriteRule ^api/v1.0$ https://grlc.io/api-git/ILIAD-ocean-twin/api/base [R=302,L]
+
+# Observations
 #RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)00$
 RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
 RewriteRule ^api/v1.0/Observations$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations?page=%1 [R=302,L]
 RewriteRule ^api/v1.0/Observations$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations?page=1 [R=302,L]
 RewriteRule ^api/v1.0/Observations\((.*)\)$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations(id)?id=$1 [R=302,L]
 
-
-
+# Datastreams
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Datastreams$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)\)$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams_Observations?sensor=$1&?property=$2 [R=302,L]
 
 
 
