@@ -1,0 +1,12 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+RewriteRule ^$ https://raw.githubusercontent.com/CLARIAH/tool-discovery/master/schemas/research-technology-readiness-levels.jsonld [R=303,L]
+RewriteRule ^(.*).svg$ https://raw.githubusercontent.com/CLARIAH/tool-discovery/master/static/trl/$1.svg [R=303,L]
+RewriteRule ^(.*).png$ https://raw.githubusercontent.com/CLARIAH/tool-discovery/master/static/trl/$1.png [R=303,L]

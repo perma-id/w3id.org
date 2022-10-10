@@ -8,7 +8,8 @@ Options -MultiViews
 
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
-AddType application/rdf+xml .rdf .owl
+AddType application/rdf+xml .rdf
+AddType text/owl-manchester .owl
 AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .jsonld
@@ -21,6 +22,9 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.ttl [R=302,L]
 
@@ -31,8 +35,12 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.jsonld [R=302,L]
 
 # DPV-GDPR
+# also covers /dpv/dpv-gdpr/dpia
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
@@ -47,6 +55,9 @@ RewriteRule ^dpv-gdpr$ https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.jsonld [R=302
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.ttl [R=302,L]
 
@@ -59,6 +70,9 @@ RewriteRule ^dpv-pd$ https://w3c.github.io/dpv/dpv-pd/dpv-pd.jsonld [R=302,L]
 # DPV-TECH
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.ttl [R=302,L]
@@ -73,6 +87,9 @@ rewriterule ^dpv-tech$ https://w3c.github.io/dpv/dpv-tech/dpv-tech.jsonld [r=302
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.ttl [R=302,L]
 
@@ -82,11 +99,46 @@ RewriteRule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.n3 [R=302,
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 rewriterule ^dpv-legal$ https://w3c.github.io/dpv/dpv-legal/dpv-legal.jsonld [r=302,l]
 
+# risk
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^risk$ https://w3c.github.io/dpv/risk/risk.jsonld [r=302,l]
+
+# rights-eu
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^rights/eu$ https://w3c.github.io/dpv/rights/eu.jsonld [r=302,l]
+
 ### DPV-SKOS ###
 
 # DPV-SKOS/DPV
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.ttl [R=302,L]
@@ -98,8 +150,12 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^dpv-skos$ https://w3c.github.io/dpv/dpv-skos/dpv.jsonld [R=302,L]
 
 # DPV-SKOS/DPV-GDPR
+# also covers /dpv/dpv-skos/dpv-gdpr/dpia
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
@@ -114,6 +170,9 @@ RewriteRule ^dpv-skos/dpv-gdpr$ https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.ttl [R=302,L]
 
@@ -126,6 +185,9 @@ RewriteRule ^dpv-skos/dpv-pd$ https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.j
 # DPV-SKOS/DPV-TECH
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.ttl [R=302,L]
@@ -140,6 +202,9 @@ RewriteRule ^dpv-skos/dpv-tech$ https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.ttl [R=302,L]
 
@@ -149,11 +214,46 @@ RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dp
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^dpv-skos/dpv-legal$ https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.jsonld [R=302,L]
 
+# dpv-skos/risk
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^dpv-skos/risk$ https://w3c.github.io/dpv/dpv-skos/risk/risk.jsonld [r=302,l]
+
+# rights-eu
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^dpv-skos/rights/eu$ https://w3c.github.io/dpv/dpv-skos/rights/eu.jsonld [r=302,l]
+
 ### DPV-OWL ###
 
 # DPV-OWL/DPV
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.ttl [R=302,L]
@@ -165,8 +265,12 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^dpv-owl$ https://w3c.github.io/dpv/dpv-owl/dpv.jsonld [R=302,L]
 
 # DPV-OWL/DPV-GDPR
+# also covers /dpv/dpv-owl/dpv-gdpr/dpia
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.ttl [R=302,L]
@@ -181,6 +285,9 @@ RewriteRule ^dpv-owl/dpv-gdpr$ https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gd
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.ttl [R=302,L]
 
@@ -193,6 +300,9 @@ RewriteRule ^dpv-owl/dpv-pd$ https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.jso
 # DPV-OWL/DPV-TECH
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.ttl [R=302,L]
@@ -207,6 +317,9 @@ RewriteRule ^dpv-owl/dpv-tech$ https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-te
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.rdf [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.owl [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.ttl [R=302,L]
 
@@ -216,10 +329,45 @@ RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^dpv-owl/dpv-legal$ https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.jsonld [R=302,L]
 
+# dpv-owl/risk
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^dpv-owl/risk$ https://w3c.github.io/dpv/dpv-owl/risk/risk.jsonld [r=302,l]
+
+# rights-eu
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+rewriterule ^dpv-owl/rights/eu$ https://w3c.github.io/dpv/dpv-owl/rights/eu.jsonld [r=302,l]
+
 # --- #
 # Default content type paths
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.ttl [R=302,L]
@@ -237,31 +385,40 @@ RewriteRule ^$ https://w3c.github.io/dpv/dpv [R=302,L]
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1 [R=302,L]
 
 # --- Paths to test --- #
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| prefix             | w3id                                    | HTML                                         | RDF                                                        |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| dpv                | https://w3id.org/dpv/dpv                | https://w3c.github.io/dpv/dpv                | https://w3c.github.io/dpv/dpv.rdf                          |
-#| dpv-skos           | https://w3id.org/dpv/dpv-skos           | https://w3c.github.io/dpv/dpv-skos           | https://w3c.github.io/dpv/dpv-skos/dpv.rdf                 |
-#| dpv-owl            | https://w3id.org/dpv/dpv-owl            | https://w3c.github.io/dpv/dpv-owl            | https://w3c.github.io/dpv/dpv-owl/dpv.rdf                  |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| dpv-pd             | https://w3id.org/dpv/dpv-pd             | https://w3c.github.io/dpv/dpv-pd             | https://w3c.github.io/dpv/dpv-pd/dpv-pd.rdf                |
-#| dpv-skos/dpv-pd    | https://w3id.org/dpv/dpv-skos/dpv-pd    | https://w3c.github.io/dpv/dpv-skos/dpv-pd    | https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.rdf       |
-#| dpv-owl/dpv-pd     | https://w3id.org/dpv/dpv-owl/dpv-pd     | https://w3c.github.io/dpv/dpv-owl/dpv-pd     | https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.rdf        |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| dpv-gdpr           | https://w3id.org/dpv/dpv-gdpr           | https://w3c.github.io/dpv/dpv-gdpr           | https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.rdf            |
-#| dpv-skos/dpv-gdpr  | https://w3id.org/dpv/dpv-skos/dpv-gdpr  | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr  | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.rdf   |
-#| dpv-owl/dpv-gdpr   | https://w3id.org/dpv/dpv-owl/dpv-gdpr   | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr   | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.rdf    |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| dpv-tech           | https://w3id.org/dpv/dpv-tech           | https://w3c.github.io/dpv/dpv-tech           | https://w3c.github.io/dpv/dpv-tech/dpv-tech.rdf            |
-#| dpv-skos/dpv-tech  | https://w3id.org/dpv/dpv-skos/dpv-tech  | https://w3c.github.io/dpv/dpv-skos/dpv-tech  | https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.rdf   |
-#| dpv-owl/dpv-tech   | https://w3id.org/dpv/dpv-owl/dpv-tech   | https://w3c.github.io/dpv/dpv-owl/dpv-tech   | https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.rdf    |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| dpv-legal          | https://w3id.org/dpv/dpv-legal          | https://w3c.github.io/dpv/dpv-legal          | https://w3c.github.io/dpv/dpv-legal/dpv-legal.rdf          |
-#| dpv-skos/dpv-legal | https://w3id.org/dpv/dpv-skos/dpv-legal | https://w3c.github.io/dpv/dpv-skos/dpv-legal | https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.rdf |
-#| dpv-owl/dpv-legal  | https://w3id.org/dpv/dpv-owl/dpv-legal  | https://w3c.github.io/dpv/dpv-owl/dpv-legal  | https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.rdf  |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
-#| primer             | https://w3id.org/dpv/primer             | https://w3c.github.io/dpv/primer             | NIL                                                        |
-#| guides             | https://w3id.org/dpv/guides             | https://w3c.github.io/dpv/guides             | NIL                                                        |
-#| examples           | https://w3id.org/dpv/examples           | https://w3c.github.io/dpv/examples           | https://w3c.github.io/dpv/examples/.*X.rdf                 |
-#| use-cases          | https://w3id.org/dpv/use-cases          | https://w3c.github.io/dpv/use-cases          | https://w3c.github.io/dpv/use-cases/.*X.rdf                |
-#|--------------------+-----------------------------------------+----------------------------------------------+------------------------------------------------------------|
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| prefix                 | w3id                                        | HTML                                             | RDF                                                        |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv                    | https://w3id.org/dpv/dpv                    | https://w3c.github.io/dpv/dpv                    | https://w3c.github.io/dpv/dpv.rdf                          |
+#| dpv-skos               | https://w3id.org/dpv/dpv-skos               | https://w3c.github.io/dpv/dpv-skos               | https://w3c.github.io/dpv/dpv-skos/dpv.rdf                 |
+#| dpv-owl                | https://w3id.org/dpv/dpv-owl                | https://w3c.github.io/dpv/dpv-owl                | https://w3c.github.io/dpv/dpv-owl/dpv.rdf                  |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv-pd                 | https://w3id.org/dpv/dpv-pd                 | https://w3c.github.io/dpv/dpv-pd                 | https://w3c.github.io/dpv/dpv-pd/dpv-pd.rdf                |
+#| dpv-skos/dpv-pd        | https://w3id.org/dpv/dpv-skos/dpv-pd        | https://w3c.github.io/dpv/dpv-skos/dpv-pd        | https://w3c.github.io/dpv/dpv-skos/dpv-pd/dpv-pd.rdf       |
+#| dpv-owl/dpv-pd         | https://w3id.org/dpv/dpv-owl/dpv-pd         | https://w3c.github.io/dpv/dpv-owl/dpv-pd         | https://w3c.github.io/dpv/dpv-owl/dpv-pd/dpv-pd.rdf        |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv-gdpr               | https://w3id.org/dpv/dpv-gdpr               | https://w3c.github.io/dpv/dpv-gdpr               | https://w3c.github.io/dpv/dpv-gdpr/dpv-gdpr.rdf            |
+#| dpv-skos/dpv-gdpr      | https://w3id.org/dpv/dpv-skos/dpv-gdpr      | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr      | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.rdf   |
+#| dpv-owl/dpv-gdpr       | https://w3id.org/dpv/dpv-owl/dpv-gdpr       | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr       | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.rdf    |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv-gdpr/dpia          | https://w3id.org/dpv/dpv-gdpr/dpia          | https://w3c.github.io/dpv/dpv-gdpr/dpia          | NIL                                                        |
+#| dpv-skos/dpv-gdpr/dpia | https://w3id.org/dpv/dpv-skos/dpv-gdpr/dpia | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpia | NIL                                                        |
+#| dpv-owl/dpv-gdpr/dpia  | https://w3id.org/dpv/dpv-owl/dpv-gdpr/dpia  | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpia  | NIL                                                        |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv-tech               | https://w3id.org/dpv/dpv-tech               | https://w3c.github.io/dpv/dpv-tech               | https://w3c.github.io/dpv/dpv-tech/dpv-tech.rdf            |
+#| dpv-skos/dpv-tech      | https://w3id.org/dpv/dpv-skos/dpv-tech      | https://w3c.github.io/dpv/dpv-skos/dpv-tech      | https://w3c.github.io/dpv/dpv-skos/dpv-tech/dpv-tech.rdf   |
+#| dpv-owl/dpv-tech       | https://w3id.org/dpv/dpv-owl/dpv-tech       | https://w3c.github.io/dpv/dpv-owl/dpv-tech       | https://w3c.github.io/dpv/dpv-owl/dpv-tech/dpv-tech.rdf    |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| dpv-legal              | https://w3id.org/dpv/dpv-legal              | https://w3c.github.io/dpv/dpv-legal              | https://w3c.github.io/dpv/dpv-legal/dpv-legal.rdf          |
+#| dpv-skos/dpv-legal     | https://w3id.org/dpv/dpv-skos/dpv-legal     | https://w3c.github.io/dpv/dpv-skos/dpv-legal     | https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.rdf |
+#| dpv-owl/dpv-legal      | https://w3id.org/dpv/dpv-owl/dpv-legal      | https://w3c.github.io/dpv/dpv-owl/dpv-legal      | https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.rdf  |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| rights                 | https://w3id.org/dpv/rights                 | https://w3c.github.io/dpv/rights                 | NIL                                                        |
+#| rights-eu              | https://w3id.org/dpv/rights/eu              | https://w3c.github.io/dpv/rights/eu              | https://w3c.github.io/dpv/rights/eu.rdf                    |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| risk                   | https://w3id.org/dpv/risk                   | https://w3c.github.io/dpv/risk                   | https://w3c.github.io/dpv/risk/risk.rdf                    |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+#| primer                 | https://w3id.org/dpv/primer                 | https://w3c.github.io/dpv/primer                 | NIL                                                        |
+#| guides                 | https://w3id.org/dpv/guides                 | https://w3c.github.io/dpv/guides                 | NIL                                                        |
+#| examples               | https://w3id.org/dpv/examples               | https://w3c.github.io/dpv/examples               | https://w3c.github.io/dpv/examples/.*X.rdf                 |
+#| use-cases              | https://w3id.org/dpv/use-cases              | https://w3c.github.io/dpv/use-cases              | https://w3c.github.io/dpv/use-cases/.*X.rdf                |
+#|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
