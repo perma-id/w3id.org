@@ -2,7 +2,7 @@
 This [W3ID](https://w3id.org) provides a persistent URI namespace for Semantic Environmental and Rare Disease data Integration Framework (SERDIF) resources.
 
 ## Uses
-This namespace is broken down into different parts for SERDIF components, sparql endpoint (sparql), user interface (ui) and others. 
+This namespace is broken down into different parts for SERDIF components, SPARQL endpoint (SPARQL), user interface (UI) and others. 
 
 See <https://github.com/navarral/serdif/> for full details.
 
