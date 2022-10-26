@@ -15,4 +15,4 @@ Dublin, Ireland
 
 GitHub: [navarral](https://github.com/navarral)
 
-ORCID: [0000-0002-8742-7730](https://orcid.org/0000-0002-2336-753X)   
+ORCID: [0000-0002-2336-753X](https://orcid.org/0000-0002-2336-753X)   
