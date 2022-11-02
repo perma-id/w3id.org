@@ -6,3 +6,4 @@ This work is supported by the project DAEKIN (KK-2020/00035), funded by the SPRI
 
 # Contact
 Cristina Aceta (cristina.aceta AT tekniker.es)
+Izaskun Fernández (izaskun.fernandez AT tekniker.es)
