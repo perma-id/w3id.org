@@ -8,4 +8,4 @@ Ontology
 
 Contacts
 
-*yali Jiang <Jiangy61@cardiff.ac.uk>, @JYL61 (#112478488)
+*yali Jiang <Jiangy61@cardiff.ac.uk>, @JYL61, @#112478488
