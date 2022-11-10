@@ -9,7 +9,7 @@ This space is administered by:
 
 **Bert Droesbeke**  
 *Developer*  
-[ELIXIR Belgium](https://www.elixir-belgium.org/) 
+[ELIXIR Belgium](https://www.elixir-belgium.org/)  
 <bedro@psb.ugent.be>  
-GitHub: [bedroesb](https://github.com/bedroesb)
+GitHub: [bedroesb](https://github.com/bedroesb)  
 ORCID: [0000-0003-0522-5674](https://orcid.org/0000-0003-0522-5674)  
