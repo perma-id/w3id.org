@@ -1,0 +1,36 @@
+<h2 id="desc" class="list">Mapping Quality Vocabulary: Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+The Mapping Quality Vocabulary (MQV), provides a vocabulary for expressing information relating to the quality assessment, refinement and validation of mapping definitions. 
+The goal is to make this information easier to publish, exchange and consume, thus improving the overall quality of the resulting Linked data datasets, created by these mappings. 
+Furthermore, providing data quality information to the users, will allow them to assess the suitability of the mapping, for their application. 
+</span> 
+
+<center> 
+<figure>
+  <img src="./images/model.png" alt="Model diagram">
+  <figcaption>Fig.1 - Model Diagram.</figcaption>
+</figure> 
+</center>
+
+<p>
+Fig. 1 provides a general overview of our model, demonstrating the class interaction within our model. The model describes 3 stages of mapping definition creation. 
+These stages are categorized as  mapping quality assessment,  mapping quality refinement and mapping quality validation. 
+</p>
+
+<p> 
+<strong>Mapping quality assessment.</strong>In this stage, the mapping document (mqv:MappingDocument) is assessed. As assessment activity is captured through the mqv:MappingAssessment class. 
+The agent who initiated the process is also captured (mqv:Agent). A mapping assessment activity may have quality requirements, which are captured through the mqv:QualityRequirement 
+class. This information allows the model to validate whether such quality requirements have been satisfied in the assessment and refinement stage. The model draws inspiration from 
+previous work where data quality was classified into categories (dqv:Category), dimensions (dqv:Dimension) and metrics (dqv:Metric) <a href="#bib-ZaveriEtAl">[ZaveriEtAl]</a>. 
+The DQV  <a href="#bib-DQV">[DQV]</a> defines these quality categories in a machine-readable format. In our model we also allow for refinements to be described. The model uses the information in such classes 
+to generate a mapping validation report (mqv:MappingValidationReport). Each violation identified is then represented with the mqv:MappingViolation class. 
+</p>
+<p> 
+<strong>Mapping quality refinement.</strong>This stage captures mapping refinements executed in the mapping. Each metric described using our model may have multiple refinements (mqv:MappingRefinement) associated with depending on the quality aspect being measured. The refinement executed in the mapping is associated to the identified violation through the property mqv:wasRefinedBy.
+</p>
+<p> 
+<strong>Mapping quality validation.</strong>Finally, our model provides quality information on the original mapping being assessed, and the mapping which has been refined in the process. As mentioned, each mapping assessment process may have quality requirements which can be validated at this stage. For instance, one may define a quality requirement for understandability related quality metrics to be of a particular value. In this stage, this can be validated by comparing the defined quality requirement and the resulted one.
+</p>
+
+
+

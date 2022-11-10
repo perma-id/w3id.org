@@ -1,0 +1,1011 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://alex-randles.github.io/MQV/#"
+     xml:base="https://alex-randles.github.io/MQV/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:bibo="http://purl.1122org/ontology/bibo/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="https://alex-randles.github.io/MQV/#">
+        <bibo:status>Draft</bibo:status>
+        <terms:abstract>The Mapping Quality Vocabulary (MQV) provides a set of classes, properties, and restrictions that can be used to represent and interchange provenance and metadata information relating to the quality assessment, quality refinement and quality validation of mapping definitions used to generate Linked data datasets. It can also be specialized to create new classes and properties to model provenance and metadata information for domain specific mapping languages</terms:abstract>
+        <terms:created>1 June 2020</terms:created>
+        <terms:title>Mapping Quality Vocabulary</terms:title>
+        <vann:preferredNamespacePrefix>mqv</vann:preferredNamespacePrefix>
+        <vann:preferredNamespaceUri>https://alex-randles.github.io/MQV/#</vann:preferredNamespaceUri>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://purl.1122org/ontology/bibo/status -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.1122org/ontology/bibo/status"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/abstract -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/abstract"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespacePrefix -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+    
+
+
+    <!-- http://purl.org/vocab/vann/preferredNamespaceUri -->
+
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#example -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#example"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/prov#generated -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#generated"/>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#assessedMapping -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#assessedMapping">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:comment>The quality assessment of the mapping document created by the refinement process.</rdfs:comment>
+        <rdfs:label xml:lang="en">assessedMapping</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:assessedMapping :mappingDocument;
+.
+
+:mappingDocument
+	a mqv:MappingDocument;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#assessmentPerformedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#assessmentPerformedBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+        <rdfs:comment>The agent who performed the assessment of the mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">assessmentPerformedBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:assessmentPerformedBy :AlexRandles;
+.
+
+:AlexRandles
+	a prov:Agent;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#createdBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#createdBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/prov#Agent"/>
+                    <rdf:Description rdf:about="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:comment>The agent or mapping quality refinement process who produced the mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">createdBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;	a mqv:MappingAssessment ;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingDocument
+	a mqv:MappingDocument;
+	mqv:createdBy :mappingEngineer;
+.
+
+:mappingEngineer
+	a prov:Agent;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#executes -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#executes">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/dqv#Metric"/>
+        <rdfs:comment>The quality metric being executed by the mapping quality assessment process.</rdfs:comment>
+        <rdfs:label xml:lang="en">executes</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:executes :qualityMetric;
+.
+
+:qualityMetric
+	a mqv:QualityMetric;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasMetricType -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasMetricType">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/dqv#Metric"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#QualityMetricType"/>
+        <rdfs:comment>A type assigned to a mapping quality metric. For instance, vocabulary type, for a mapping quality metric, which relates to the vocabulary being used within the mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasMetricType</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:qualityMetric
+	a dqv:Metric;
+	mqv:hasMetricType :dataQualityMetric;
+.
+
+:dataQualityMetric
+	a mqv:QualityMetricType;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasQualityMeasurement -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasQualityMeasurement">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://alex-randles.github.io/MQV/#MappingDocument"/>
+                    <rdf:Description rdf:about="https://alex-randles.github.io/MQV/#QualityRequirement"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/dqv#Category"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/dqv#Dimension"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/dqv#Metric"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/dqv#QualityMeasurement"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:comment>A measurement calculated  by a quality metric on a mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasQualityMeasurement</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingDocument
+	a mqv:MappingDocument;
+	mqv:hasQualityMeasurement :qualityMeasurement;
+.
+
+:qualityMeasurement
+	a dqv:QualityMeasurement;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasQualityRequirement -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasQualityRequirement">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#QualityRequirement"/>
+        <rdfs:comment>The quality requirement of a quality assessment process.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasQualityRequirement</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:hasQualityRequirement :qualityRequirement;
+.
+
+:qualityRequirement
+	a mqv:QualityRequirement;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasRefinement -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasRefinement">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/dqv#Metric"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:comment>The refinement used for refining a quality violation detcted by a particular quality metric.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasRefinement</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:qualityMetric
+	a dqv:Metric;
+	mqv:hasRefinement :mappingRefinement;
+.
+
+:mappingRefinement
+	a mqv:MappingRefinement;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasValidationReport -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasValidationReport">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingValidationReport"/>
+        <rdfs:comment>The mapping quality validation report generated by the quality assessment process.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasValidationReport</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:hasValidationReport :mappingValidationReport;
+.
+
+:mappingValidationReport
+	a mqv:MappingValidationReport;
+	mqv:hasViolation :mappingViolation;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasViolation -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#hasViolation">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingValidationReport"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:comment>A mapping quality violation contained within a mapping validation report.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasViolation</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingValidationReport
+	a mqv:MappingValidationReport;
+	mqv:hasViolation :mappingViolation;
+.
+
+:mappingViolation
+	a mqv:MappingViolation;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#inTripleMap -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#inTripleMap">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:comment>The triple map which contains the violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">inTripleMap</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+	a mqv:MappingViolation;
+	mqv:inTripleMap &lt;#TripleMap1&gt;;
+.
+</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#isDescribedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#isDescribedBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/dqv#Metric"/>
+        <rdfs:comment>The quality metric which detected a quality violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">isDescribedBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+	a mqv:MappingViolation;
+	mqv:isDescribedBy :qualityMetric;
+.
+
+:qualityMetric
+	a dqv:Metric;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#mappingSource -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#mappingSource">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:comment>The original mapping document, which the refined mapping document was created from.</rdfs:comment>
+        <rdfs:label xml:lang="en">mappingSource</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:refinedMappingDocument
+	a mqv:MappingDocument;
+	mqv:mappingSource :originalMappingDocument;
+.
+
+:originalMappingDocument
+	a mqv:MappingDocument;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#performedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#performedBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+        <rdfs:comment>The agent who executes the mapping quality assessment process.</rdfs:comment>
+        <rdfs:label xml:lang="en">performedBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:performedBy :mappingEngineer;
+.
+
+:mappingEngineer
+	a prov:Agent;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#performedOn -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#performedOn">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:comment>The original mapping document which the quality assessment process was performed on.</rdfs:comment>
+        <rdfs:label xml:lang="en">performedOn</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:performedOn :mappingDocument;
+.
+
+:mappingDocument
+	a mqv:MappingDocument;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#refinedViolation -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#refinedViolation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#generated"/>
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:comment>The refinement which refined the violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">refinedViolation</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:refinement-0
+	a mqv:MappingRefinement;
+	mqv:refinedViolation :mappingViolation.
+
+:mappingViolation
+    a mqv:MappingViolation .
+
+</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#refinementPerformedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#refinementPerformedBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Agent"/>
+        <rdfs:comment>The agent who performed the refinement of the mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">refinementPerformedBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+	mqv:refinementPerformedBy :AlexRandles;
+.
+
+:AlexRandles
+	a prov:Agent;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#toolsUsed -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#toolsUsed">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingTool"/>
+        <rdfs:comment>Mapping tools which have been used to create a mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">toolsUsed</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingDocument
+	a mqv:MappingDocument;
+	mqv:toolsUsed :mappingTool;
+.
+
+:mappingTool
+	a mqv:MappingTool;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#wasDerivedFrom -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#wasDerivedFrom">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/dqv#QualityMeasurement"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingAssessment"/>
+        <rdfs:comment>The quality measurement calculated by the mapping quality assessment process.</rdfs:comment>
+        <rdfs:label>wasDerivedFrom</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:qualityMeasurement
+	a dqv:QualityMeasurement;
+	mqv:wasDerivedFrom :mappingAssessment;
+.
+
+:mappingAssessment
+	a mqv:MappingAssessment;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#wasRefinedBy -->
+
+
+    <owl:ObjectProperty rdf:about="https://alex-randles.github.io/MQV/#wasRefinedBy">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:range rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:comment>The refinement used to refine a quality violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">wasRefinedBy</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+	a mqv:MappingViolation;
+	mqv:wasRefinedBy :mappingRefinement;
+.
+
+:mappingRefinement
+	a mqv:MappingRefinement;
+.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/prov#value -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/prov#value"/>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasConfidenceScore -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#hasConfidenceScore">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>The confidence score of a mapping refinement.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasConfidenceScore</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingRefinement
+	a mqv:MappingRefinement;
+	mqv:hasConfidenceScore &quot;0.8&quot;^^xsd:double;
+.</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasLocation -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#hasLocation">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The location of a violation within the mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasLocation</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+	a mqv:MappingViolation;
+	mqv:hasLocation &quot;Predicate Object Map&quot;^^xsd:string.
+</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasRefinementQuery -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#hasRefinementQuery">
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>A query executed during by a refinement.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasRefinementQuery</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:refinement1 a mqv:MappingRefinement;
+	mqv:hasRefinementQuery &apos;&apos;&apos;
+		PREFIX rr: &lt;http://www.w3.org/ns/r2rml#&gt;
+		PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+		PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+		DELETE{?om rr:datatype ?datatype}
+		INSERT{?om rr:datatype xsd:string }
+		WHERE
+		{
+		?sub rr:predicateObjectMap ?pom.
+		?pom rr:predicate foaf:name.
+		?pom rr:objectMap ?om.
+		?om rr:datatype ?datatype.
+		}&apos;&apos;&apos;^^xsd:string .
+</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#hasValue -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#hasValue">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#value"/>
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The value associated with the violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">hasValue</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+	a mqv:MappingViolation;
+	mqv:hasValue &quot;en-GB&quot;.
+</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#mappingPurpose -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#mappingPurpose">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#value"/>
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingDocument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The rationale for the mapping document being created.</rdfs:comment>
+        <rdfs:label xml:lang="en">mappingPurpose</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingDocument
+	a mqv:MappingDocument;
+	mqv:mappingPurpose &apos;A mapping for mapping personnel information to RDF.^^xsd:string&apos;</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#refinementName -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#refinementName">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#value"/>
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingRefinement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>A textual description of a refinement.</rdfs:comment>
+        <rdfs:label xml:lang="en">refinementName</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:refinement-0
+	a mqv:MappingRefinement;
+	mqv:refinementName &quot;Remove Language Tag&quot;^^xsd:string.
+</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#resultMessage -->
+
+
+    <owl:DatatypeProperty rdf:about="https://alex-randles.github.io/MQV/#resultMessage">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#value"/>
+        <rdfs:domain rdf:resource="https://alex-randles.github.io/MQV/#MappingViolation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>A textual description of the violation.</rdfs:comment>
+        <rdfs:label xml:lang="en">resultMessage</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingViolation
+    a mqv:MappingViolation;
+    mqv:resultMessage &quot;Usage of undefined Property.&quot;
+.
+
+</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/dqv#Category -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/dqv#Category"/>
+    
+
+
+    <!-- http://www.w3.org/ns/dqv#Dimension -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/dqv#Dimension"/>
+    
+
+
+    <!-- http://www.w3.org/ns/dqv#Metric -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/dqv#Metric"/>
+    
+
+
+    <!-- http://www.w3.org/ns/dqv#QualityMeasurement -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/dqv#QualityMeasurement"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Activity -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Activity"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Agent -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Agent"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Collection -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Collection"/>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#Entity -->
+
+
+    <owl:Class rdf:about="http://www.w3.org/ns/prov#Entity"/>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingAssessment -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingAssessment">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+        <rdfs:comment>An activity in which the quality of a mapping document is assessed, generating information on quality issues within the mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingAssessment</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+:mappingQualityAssessement
+	a mqv:MappingAssessment ;
+	mqv:perfomedBy :mappingEngineer;
+.
+
+:mappingEngineer
+    a  prov:Agent;
+</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingDocument -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingDocument">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment>A mapping document is a document which contains information on how non-RDF data will be transformed to RDF.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingDocument</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:mappingDocument
+	a mqv:MappingDocument;
+	mqv:createdBy :mappingEngineer
+.
+
+:mappingEngineer
+	a prov:Agent ;
+.
+</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingRefinement -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingRefinement">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Activity"/>
+        <rdfs:comment>An activity which involves removing quality violations contained within a mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingRefinement</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:mappingRefinement
+	a mqv:MapppingRefinement;
+.
+
+:mappingViolation
+	a mqv:Violation ;
+	mqv:wasRefinedBy :mappingRefinement ;
+.
+</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingTool -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingTool">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment>A tool which is used to create or refine a mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingTool</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:mappingTool
+	a mqv:MappingTool;
+.
+
+:mappingDocument
+	a mqv:MappingDocument ;
+	mqv:toolsUsed :mappingTool ;
+.</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingValidationReport -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingValidationReport">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment>A mapping validation report contains information about quality violations contained within a mapping document.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingValidationReport</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:mappingValidationReport
+	a mqv:MappingValidationReport;
+.
+
+:mappingAssessment
+	a mqv:MappingAssessment ;
+	mqv:hasValidationReport :mappingValidationReport ;
+.
+</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#MappingViolation -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#MappingViolation">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment>A mapping violation is a quality issue present within a mapping.</rdfs:comment>
+        <rdfs:label xml:lang="en">MappingViolation</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:mappingViolation
+	a mqv:MappingViolation;
+.
+
+:mappingValidationReport
+	a mqv:MappingValidationReport ;
+	mqv:hasViolation :mappingViolation;
+.</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#QualityMetricType -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#QualityMetricType">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Collection"/>
+        <rdfs:comment>Quality metrics may be grouped into type&apos;s, such as mapping, data and vocabulary.</rdfs:comment>
+        <rdfs:label xml:lang="en">QualityMetricType</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:dataQualityType
+	a mqv:QualityMetricType;
+.
+
+:mappingViolation
+	a mqv:MappingViolation ;
+	mqv:hasMetricType :dataQualityType ;
+.
+</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://alex-randles.github.io/MQV/#QualityRequirement -->
+
+
+    <owl:Class rdf:about="https://alex-randles.github.io/MQV/#QualityRequirement">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+        <rdfs:comment>A quality requirement is a requirement a mapping should satisfy.</rdfs:comment>
+        <rdfs:label xml:lang="en">QualityRequirement</rdfs:label>
+        <skos:example>@prefix :     &lt;http://example.com/&gt;.;
+@prefix mqv: &lt;https://alex-randles.github.io/MQV/#&gt;.;
+
+
+:qualityRequirement
+	a mqv:QualityRequirement;
+.
+
+:mappingAssessment
+	a mqv:MappingAssessment ;
+	mqv:hasQualityRequirement :qualityRequirement ;
+.</skos:example>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 5.1.14) https://github.com/owlcs/owlapi/ -->
+
+
