@@ -2,7 +2,7 @@
 This [W3ID](https://w3id.org) provides a persistent URI namespace for RDMkit resources.
 
 ## Uses
-This namespace will redirect all urls from https://w3id.org/rdmkit/**ID** to https://bedroesb.github.io/rdmkit/**ID** 
+This namespace will redirect all urls from https://w3id.org/people/bedroesb/rdmkit/**ID** to https://bedroesb.github.io/rdmkit/pid/**ID** 
 
 ## Contact
 This space is administered by:  
