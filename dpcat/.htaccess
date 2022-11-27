@@ -1,0 +1,37 @@
+# Name of the project: DPCat
+# Description: Data Processing Catalogue
+# Contacts:
+# - Harshvardhan J. Pandit (me@harshp.com)
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# https://w3id.org/dpcat - spec
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://coolharsh55.github.io/DPCat/dpcat.ttl [R=302,L]
+
+# https://w3id.org/dpcat/repo - GitHub repo
+RewriteRule ^repo$ https://github.com/coolharsh55/DPCat [R=302,L]
+
+# https://w3id.org/dpcat/csm-ropa - CSM-ROPA specification
+RewriteRule ^csm-ropa$ https://coolharsh55.github.io/DPCat/csm-ropa/ [R=302,L]
+
+# https://w3id.org/dpcat/csm-ropa/analysis - ROPA DPA templates and analysis
+RewriteRule ^csm-ropa/analysis$ https://coolharsh55.github.io/DPCat/csm-ropa/analysis [R=302,L]
+
+# https://w3id.org/dpcat/demo/edps-ropa - EDPS ROPA demo
+RewriteRule ^demo/edps-ropa$ https://coolharsh55.github.io/DPCat/demo [R=302,L]
+
+# Generic Catch All
+RewriteRule ^(.*)$ https://coolharsh55.github.io/DPCat/$1 [R=302,L]
