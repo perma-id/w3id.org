@@ -1,0 +1,44 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ CORE_URL=https://raw.githubusercontent.com/polifonia-project/core-ontology/main/core.owl
+SetEnvIf Request_URI ^.*$ COMPOSITION_URL=https://raw.githubusercontent.com/polifonia-project/musical-composition-ontology/main/musical-composition.owl
+SetEnvIf Request_URI ^.*$ PERFORMANCE_URL=https://raw.githubusercontent.com/polifonia-project/musical-performance-ontology/main/musical-performance.owl
+SetEnvIf Request_URI ^.*$ FEATURE_URL=https://raw.githubusercontent.com/polifonia-project/musical-feature-ontology/main/musical-feature.owl
+SetEnvIf Request_URI ^.*$ JAMS_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/jams.owl
+SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://github.com/smashub/choco/tree/main/choco/kg-generation/knowledge-graph
+SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_SCORE_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/wikifonia.ttl?token=GHSAT0AAAAAABY7PLR6TRVFU6PCM3V6AI64Y2EG5RA
+SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_AUDIO_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/isophonics.ttl?token=GHSAT0AAAAAABY7PLR7YRI74SFL5PZPGIV2Y2EG6IA
+SetEnvIf Request_URI ^.*$ ROMAN_URL=https://raw.githubusercontent.com/polifonia-project/roman-chord-ontology/main/roman-chord.owl
+# ROMAN CHORD API
+SetEnvIf Request_URI ^.*$ ROMAN_API=https://roman-chord-api.herokuapp.com/roman-chord-ontology/
+
+# Rules for version-aware URIs of ontologies
+# CORE
+RewriteRule ^ontology/core(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CORE_URL} [R=303,L]
+# MUSICAL COMPOSITION
+RewriteRule ^ontology/musical-composition(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:COMPOSITION_URL} [R=303,L]
+# MUSICAL PERFORMANCE
+RewriteRule ^ontology/musical-performance(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:PERFORMANCE_URL} [R=303,L]
+# MUSICAL FEATURE
+RewriteRule ^ontology/musical-feature(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:FEATURE_URL} [R=303,L]
+# JAMS
+RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_URL} [R=303,L]
+# CHOCO
+RewriteRule ^resource/choco/score-example(/)?$ %{ENV:CHOCO_EXAMPLE_SCORE_URL} [R=303,L]
+RewriteRule ^resource/choco/audio-example(/)?$ %{ENV:CHOCO_EXAMPLE_AUDIO_URL} [R=303,L]
+RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CHOCO_DATA_URL} [R=303,L]
+# ROMAN
+RewriteRule ^ontology/roman-chord(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ROMAN_URL} [R=303,L]
+RewriteRule ^resource/roman-chord(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:ROMAN_API}$2 [R=303,L]
+
+# TODO: to define where to redirect resources
+RewriteRule ^resource/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
+
+# example for reusing classes/properties names
+# base URIs must edited if this option will be implemented
+# RewriteRule ^ontology/core/([a-zA-Z-_0-9]+)(/[0-9].[0-9])?(/)?$ %{ENV:CORE_URL}/$1$2.owl [R=303,L]
+
+RewriteRule ^(.+)$ https://github.com/polifonia-project/ontology-network/ [R=303,L]
+RewriteRule ^$ https://github.com/polifonia-project/ontology-network/ [R=303,L]

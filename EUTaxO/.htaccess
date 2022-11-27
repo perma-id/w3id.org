@@ -1,0 +1,37 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .owl
+
+RewriteEngine on
+
+# Rewrite rules for hierarchy
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^hierarchy$ https://jfaldanam.gitlab.io/EUTaxO/hierarchy [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^hierarchy$ https://jfaldanam.gitlab.io/EUTaxO/hierarchy/EUTaxO.owl [R=302,NE,L]
+
+
+# Default response for hierarchy: html
+RewriteRule ^hierarchy$ https://jfaldanam.gitlab.io/EUTaxO/ [R=303,NE,L]
+
+
+# Rewrite rules
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/ [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/ [R=303,NE,L]
