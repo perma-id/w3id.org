@@ -1,4 +1,4 @@
-# Knowledge Graph of
+# Knowledge Graph of ADHD
 https://w3id.org/ADHD-KG -> https://emmanuelpapadakis.github.io/ADHD-KG
 
 
