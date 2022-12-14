@@ -5,4 +5,5 @@ The Wind Farm Ontology (wfont) describes wind farms and their components. It is 
 This work is supported by the project DAEKIN (KK-2020/00035), funded by the SPRI-Basque Government through the ELKARTEK.
 
 # Contact
-Iker Esnaola-Gonzalez (iker.esnaola AT tekniker.es)
+Cristina Aceta (cristina.aceta AT tekniker.es)
+Izaskun Fernández (izaskun.fernandez AT tekniker.es)

@@ -1,0 +1,51 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://www.ocean-twin.eu/ [R=302,L]
+
+
+### FIRST LAYER #####
+# OIM
+RewriteRule ^oim$ https://github.com/ILIAD-ocean-twin/oim [R=302,L]
+
+### API
+# Base
+RewriteRule ^api$ https://grlc.io/api-git/ILIAD-ocean-twin/api/base [R=302,L]
+RewriteRule ^api/v1.0$ https://grlc.io/api-git/ILIAD-ocean-twin/api/base [R=302,L]
+RewriteRule ^api/v1.0/$ https://grlc.io/api-git/ILIAD-ocean-twin/api/base [R=302,L]
+
+# Observations
+#RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)00$
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Observations$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Observations$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)\)$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/Datastream$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations_Datastream?id=$1&location=$1&sensor=$3&species=$4 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Observations_FeatureOfInterest?id=$1&location=$1&sensor=$3&species=$4 [R=302,L]
+
+# Datastreams
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Datastreams$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)\)$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams_Observations?sensor=$1&property=$2&page=1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/ObservedProperty$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams_ObservedProperty?sensor=$1&property=$2 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Sensor$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams_Sensor?sensor=$1&property=$2 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Thing$ https://grlc.io/api-git/ILIAD-ocean-twin/api/Datastreams_Thing?sensor=$1&property=$2 [R=302,L]
+
+
+
+
+
+
+
+
