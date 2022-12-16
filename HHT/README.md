@@ -10,4 +10,3 @@ Ontology documentation redirection: https://w3id.org/IRIT/MELODI/HHT -> https://
 * William Charles (william.charles@irit.fr) (GitHub ID : Brainchain09)
 * Nathalie Aussenac-Gilles (nathalie.aussenac-gilles@irit.fr) ORCID 0000-0003-3653-3223
 * Nathalie Hernandez (nathalie.hernandez@irit.fr)
-.
