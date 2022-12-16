@@ -4,7 +4,7 @@
 
 HHT is an ontology to represent historical territories involved in multiple overlaying hierarchies and their evolutions.
 
-Ontology documentation redirection : https://w3id.org/IRIT/MELODI/HHT ->  https://www.irit.fr/recherches/MELODI/ontologies/HHT/
+Ontology documentation redirection: https://w3id.org/IRIT/MELODI/HHT -> https://www.irit.fr/recherches/MELODI/ontologies/HHT/
 
 ## Maintainer
 William Charles (william.charles@irit.fr)
