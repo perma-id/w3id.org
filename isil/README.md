@@ -26,7 +26,7 @@ https://w3id.org/isil/ZDB-1-TDA -> http://ld.zdb-services.de/resource/organisati
 https://w3id.org/isil/JP-1000046 -> http://id.ndl.go.jp/vocab/isil/JP-1000046
 
 ## AT
-https://w3id.org/isil/AT-GSA -> http://aleph21-test-acc.obvsg.at/F?func=find-b&find_code=ISIL&request=AT-GSA&local_base=acc09
+https://w3id.org/isil/AT-OBVSG -> https://permalink.obvsg.at/isil/AT-OBVSG
 
 ## AU
 https://w3id.org/isil/AU-NBANJ -> http://www.nla.gov.au/apps/ilrs/?action=IlrsSearch&nuc=NBANJ
