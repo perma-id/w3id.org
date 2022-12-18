@@ -1,0 +1,91 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://www.ocean-twin.eu/ [R=302,L]
+
+
+### FIRST LAYER #####
+# OIM
+RewriteRule ^oim$ https://github.com/ILIAD-ocean-twin/oim [R=302,L]
+
+### API
+# Base
+RewriteRule ^api$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/base [R=302,L]
+RewriteRule ^api/v1.0/?$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/base [R=302,L]
+
+# Observations
+#RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)00$
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Observations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Observations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)\)/Datastream$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations_Datastream?obs=$1 [R=302,L]
+RewriteRule ^api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/FeatureOfInterest(id)?id=$1-$2 [R=302,L]
+
+#RewriteRule ^api/v1.0/Observations\((.*)\)/Datastream$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations_Datastream?obs=$1 [R=302,L]
+#RewriteRule ^api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Observations_FeatureOfInterest?id=$1&location=$1&sensor=$3&species=$4 [R=302,L]
+
+# Datastreams
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Datastreams$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Datastreams?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Datastreams?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Datastreams(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Datastreams_Observations?sensor=$1&property=$2&page=1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/ObservedProperty$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties(id)?id=$2 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Sensor$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Datastreams\((.*)-(.*)\)/Thing$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+
+# FeaturesOfInterest
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/FeaturesOfInterest$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/FeaturesOfInterest$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest?page=1 [R=302,L]
+RewriteRule ^api/v1.0/FeaturesOfInterest\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/FeatureOfInterest_Observations?foi=$1-$2&page=1 [R=302,L]
+
+#HistoricalLocations
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/HistoricalLocations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/HistoricalLocations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations?page=1 [R=302,L]
+RewriteRule ^api/v1.0/HistoricalLocations\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/HistoricalLocations\((.*)-(.*)\)/Locations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$2 [R=302,L]
+RewriteRule ^api/v1.0/HistoricalLocations\((.*)-(.*)\)/Things$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$2 [R=302,L]
+
+#Locations
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Locations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Locations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Locations\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations_HistoricalLocations?loc=$1 [R=302,L]
+RewriteRule ^api/v1.0/Locations\((.*)\)/Things$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+
+#sensors
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Sensors$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Sensors$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Sensors\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Sensors\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1 [R=302,L]
+
+#things
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/Things$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/Things$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things?page=1 [R=302,L]
+RewriteRule ^api/v1.0/Things\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/Things\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1 [R=302,L]
+RewriteRule ^api/v1.0/Things\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Things_HistoricalLocations?thing=$1 [R=302,L]
+RewriteRule ^api/v1.0/Things\((.*)\)/Locations$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$1 [R=302,L]
+
+#observedProperties
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^api/v1.0/ObservedProperties$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties?page=%1 [R=302,L]
+RewriteRule ^api/v1.0/ObservedProperties$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties?page=1 [R=302,L]
+RewriteRule ^api/v1.0/ObservedProperties\((.*)\)$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties(id)?id=$1 [R=302,L]
+RewriteRule ^api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties_Datastreams?obp=$1 [R=302,L]

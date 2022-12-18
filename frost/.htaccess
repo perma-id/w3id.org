@@ -1,0 +1,70 @@
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+
+### Rewrite rules for latest version
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://research.mondeca.com/frost/index-en.html [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.n3 [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.n3 [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^frost.ttl$ https://research.mondeca.com/frost/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^frost.html$ https://research.mondeca.com/frost/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^frost.rdf$ https://research.mondeca.com/frost/ontology.rdf [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^frost.jsonld$ https://research.mondeca.com/frost/ontology.jsonld [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^frost.nt$ https://research.mondeca.com/frost/ontology.nt [R=303,L]
+
+# If suffix n3, redirect to N3 version
+RewriteRule ^frost.n3$ https://research.mondeca.com/frost/ontology.n3 [R=303,L]
+
+
+
+### Default response
+RewriteRule ^$ https://research.mondeca.com/frost/ontology.ttl [R=303,L]

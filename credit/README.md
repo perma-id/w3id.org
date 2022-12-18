@@ -1,6 +1,11 @@
 # CRediT
 
-CRediT is a high-level taxonomy, including 14 roles, that can be used to represent the roles typically played by contributors to scientific scholarly output. The roles describe each contributor’s specific contribution to the scholarly output.  The CRediT Ontology is an OWL implementation of the taxonomy.
+CRediT is a high-level taxonomy, including 14 roles, that can be used to represent the roles 
+typically played by contributors to scientific scholarly output. The roles describe each 
+contributor’s specific contribution to the scholarly output. Originally created by CASRAI, 
+the maintenance of CRediT was taken over by NISO in 2022. The CRediT Ontology is an OWL 
+implementation of the taxonomy created under the purview of the NIH CTSA Program National Center 
+for Data to Health (CD2H) to support development of the Contribtutor Role Ontology (CRO).
 
 
 CRediT Homepage:
