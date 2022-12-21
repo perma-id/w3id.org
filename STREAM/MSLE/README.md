@@ -4,6 +4,7 @@ It does link to the RDF formats and the HTML based documentation.
 
 
 ## Maintainers
+* [@tboonx](https://github.com/TBoonX)
 * [@MehrdadJalali-KIT](https://github.com/MehrdadJalali-KIT)
 
 ## Contact
