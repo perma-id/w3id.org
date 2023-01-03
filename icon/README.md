@@ -16,3 +16,13 @@ Bologna, italy
 <bruno.sartini3@unibo.it>  
 GitHub: [br0ast](https://github.com/br0ast)
 ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0002-9152-4402)  
+
+
+and
+
+**Sofia Baroncini**
+*PhD Student*
+[University of Bologna](https://www.unibo.it)
+Bologna, Italy
+<sofia.baroncini4@unibo.it>
+GitHub: [SofiBar](https://github.com/SofiBar)
