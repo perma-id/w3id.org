@@ -4,7 +4,7 @@ tags: []
 
 ---
 
-# The ontology for building permit authorities provides a vocabulary to describe the organization of building authorities.
+# OBPA — The Ontology for Building Permit Authorities
 
 ## Description
 The ontology for building permit authorities outlines the organization, activities, and personnel of a building authority. It can also be specialized to describe other types of authorities. Additionally, the ontology uses SHACL to semi-automate various processes.
