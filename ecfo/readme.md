@@ -1,6 +1,6 @@
 
 
-# /rains
+# /ecfo
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the Emission Conversion Factors Ontology (ECFO).
 
 
@@ -26,4 +26,8 @@ This space is administered by:
 GIthub ID: m-markovic,
 https://www.abdn.ac.uk/ncs/profiles/milan.markovic/,
 University of Aberdeen, UK 
+
+**Daniel Garijo**  ,
+GIthub ID: dgarijo,
+
 
