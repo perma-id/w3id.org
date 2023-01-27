@@ -5,7 +5,7 @@ spread, impact and management of species outside of their native ranges, where t
 needed to describe twelve major invasion hypotheses building the hierarchical hypothesis network (see also Jeschke JM, Heger T (Eds) (2018) Invasion Biology: Hypotheses and Evidence. CABI, Wallingford, UK).
 
 Homepage:
-* https://bioportal.bioontology.org/ontologies/INBIO
+* https://fusion-jena.github.io/INBIO/
 
 
 
