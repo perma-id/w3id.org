@@ -27,3 +27,4 @@ Support:
 Contacts:
 * [Johannes Lipp](https://gitlab.com/JohannesL) <johannes.lipp@fit.fraunhofer.de>
 * [Christoph Lange](https://gitlab.com/langec) <christoph.lange-bever@fit.fraunhofer.de>
+* [Pierre Gronlier](https://github.com/ticapix)
