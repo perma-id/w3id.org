@@ -1,4 +1,4 @@
-# The Collaborative Oriented RElation Extraction (CORE) system for building Knowledge Bases (KBs) 
+# The Collaborative Oriented Relation Extraction (CORE) system for building Knowledge Bases (KBs) 
 
 Contact:
 
