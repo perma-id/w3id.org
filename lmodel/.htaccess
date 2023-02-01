@@ -1,25 +1,49 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Rewrite root URLs
-RewriteRule ^core(.*)$ https://lmodel.github.io/core/$1 [R=302]
-RewriteRule ^sample(.*)$ https://lmodel.github.io/sample/$1 [R=302]
-RewriteRule ^base(.*)$ https://lmodel.github.io/base/$1 [R=302]
-RewriteRule ^zzz(.*)$ https://lmodel.github.io/zzz/$1 [R=302]
+# Schemas
+RewriteRule ^(.*)/schema/(.*)$ https://github.com/lmodel/$1/blob/main/src/$1/schema/$2.yaml [R=302,L]
 
-# Rewrite UCO URLs
-RewriteRule ^uco-marking(.*)$ https://lmodel.github.io/uco-marking/$1 [R=302]
-RewriteRule ^uco-time(.*)$ https://lmodel.github.io/uco-time/$1 [R=302]
-RewriteRule ^uco-vocabulary(.*)$ https://lmodel.github.io/uco-vocabulary/$1 [R=302]
-RewriteRule ^uco-configuration(.*)$ https://lmodel.github.io/uco-configuration/$1 [R=302]
-RewriteRule ^uco-location(.*)$ https://lmodel.github.io/uco-location/$1 [R=302]
-RewriteRule ^uco-pattern(.*)$ https://lmodel.github.io/uco-pattern/$1 [R=302]
-RewriteRule ^uco-victim(.*)$ https://lmodel.github.io/uco-victim/$1 [R=302]
-RewriteRule ^uco-core(.*)$ https://lmodel.github.io/uco-core/$1 [R=302]
-RewriteRule ^uco-action(.*)$ https://lmodel.github.io/uco-action/$1 [R=302]
-RewriteRule ^uco-tool(.*)$ https://lmodel.github.io/uco-tool/$1 [R=302]
-RewriteRule ^uco-role(.*)$ https://lmodel.github.io/uco-role/$1 [R=302]
-RewriteRule ^uco-identity(.*)$ https://lmodel.github.io/uco-identity/$1 [R=302]
-RewriteRule ^uco-types(.*)$ https://lmodel.github.io/uco-types/$1 [R=302]
-RewriteRule ^uco-observable(.*)$ https://lmodel.github.io/uco-observable/$1 [R=302]
+# Artifacts
+RewriteRule ^(.*)/data/(.*)\.xlsx$ $1/project/excel/$2.xlsx [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.graphql$ $1/project/graphql/$2.graphql [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*\.?)context.json$ $1/project/jsonld/$2.context.jsonld [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*\.?)context.jsonld$ $1/project/jsonld/$2.context.jsonld [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.schema.json$ $1/project/jsonschema/$2.schema.json [E=rewritten:1]
+RewriteRule ^(.*)/data/([^\.]+)\.json$ $1/project/json/$2.json [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.shacl.ttl$ $1/project/shacl/$2.shacl.ttl [E=rewritten:1]
+RewriteCond %{REQUEST_URI} !\.owl\.
+RewriteRule ^(.*)/data/(.*)\.ttl$ $1/project/rdf/$2.ttl [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.owl$ $1/project/owl/$2.owl.ttl [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.yaml$ $1/project/prefixmap/$2.yaml [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.proto$ $1/project/protobuf/$2.proto [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.shex$ $1/project/shex/$2.shex [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.shexc$ $1/project/shex/$2.shex [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.shexj$ $1/project/shex/$2.shexj [E=rewritten:1]
+RewriteRule ^(.*)/data/(.*)\.sql$ $1/project/sqlschema/$2.sql [E=rewritten:1]
+RewriteCond "%{ENV:rewritten}" "=1"
+RewriteRule ^(.*)/project/(.*)$ https://github.com/lmodel/$1/blob/main/$2 [R=302,L]
 
+# Continue ...
+
+# Rewrite base URLs
+RewriteRule ^core(.*)$ https://lmodel.github.io/core/$1 [R=302,L]
+RewriteRule ^sample(.*)$ https://lmodel.github.io/sample/$1 [R=302,L]
+RewriteRule ^base(.*)$ https://lmodel.github.io/base/$1 [R=302,L]
+RewriteRule ^zzz(.*)$ https://lmodel.github.io/zzz/$1 [R=302,L]
+
+# Rewrite base UCO URLs
+RewriteRule ^uco-marking(.*)$ https://lmodel.github.io/uco-marking/$1 [R=302,L]
+RewriteRule ^uco-time(.*)$ https://lmodel.github.io/uco-time/$1 [R=302,L]
+RewriteRule ^uco-vocabulary(.*)$ https://lmodel.github.io/uco-vocabulary/$1 [R=302,L]
+RewriteRule ^uco-configuration(.*)$ https://lmodel.github.io/uco-configuration/$1 [R=302,L]
+RewriteRule ^uco-location(.*)$ https://lmodel.github.io/uco-location/$1 [R=302,L]
+RewriteRule ^uco-pattern(.*)$ https://lmodel.github.io/uco-pattern/$1 [R=302,L]
+RewriteRule ^uco-victim(.*)$ https://lmodel.github.io/uco-victim/$1 [R=302,L]
+RewriteRule ^uco-core(.*)$ https://lmodel.github.io/uco-core/$1 [R=302,L]
+RewriteRule ^uco-action(.*)$ https://lmodel.github.io/uco-action/$1 [R=302,L]
+RewriteRule ^uco-tool(.*)$ https://lmodel.github.io/uco-tool/$1 [R=302,L]
+RewriteRule ^uco-role(.*)$ https://lmodel.github.io/uco-role/$1 [R=302,L]
+RewriteRule ^uco-identity(.*)$ https://lmodel.github.io/uco-identity/$1 [R=302,L]
+RewriteRule ^uco-types(.*)$ https://lmodel.github.io/uco-types/$1 [R=302,L]
+RewriteRule ^uco-observable(.*)$ https://lmodel.github.io/uco-observable/$1 [R=302,L]
