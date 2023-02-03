@@ -11,6 +11,7 @@ List of ontologies that are currently redirected:
 - CSS: Ontology implementation of the abstract reference model for capabilities, skills and services
 - CaSk: An ontology detailing the concepts of the CSS ontology
 - CaSkMan: A more detailed ontology further extending the concepts of `CaSk` for the domain of manufacturing.
+- IEEE 1872.2: Ontology implementation of the Standard for Autonomous Robotics (AuR)
 
 
 ## Maintainers
