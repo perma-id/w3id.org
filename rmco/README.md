@@ -1,8 +1,8 @@
-# /ioc/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the Internet of Construction (IoC) Ontology.
+# /rmco/
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the Internet of Construction - Ready Mixed Concrete Ontology.
 
 ## Uses
-Interconnecting Data in Construction Processes.
+Interconnecting Data in Construction Processes - focus on ready mix concrete
 See http://www.internet-of-construction.com/index_en.html
 
 ## Contact

@@ -1,0 +1,56 @@
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+
+RewriteEngine on
+
+# Redirects to ontology page
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://opencs-ontology.github.io/releases/stable/index [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(\d+\.\d+\.\d+)$ https://opencs-ontology.github.io/releases/$1/index [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^dev$ https://opencs-ontology.github.io/releases/dev/index [R=303,L]
+
+# Serving RDF/XML
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ont$ https://opencs-ontology.github.io/releases/stable/opencs.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ont/(.+)$ https://opencs-ontology.github.io/releases/$1/opencs.rdf [R=303,L]
+
+# Serving N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ont$ https://opencs-ontology.github.io/releases/stable/opencs.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ont/(.+)$ https://opencs-ontology.github.io/releases/$1/opencs.nt [R=303,L]
+
+# Serving TTL
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^ont$ https://opencs-ontology.github.io/releases/stable/opencs.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^ont/(.+)$ https://opencs-ontology.github.io/releases/$1/opencs.ttl [R=303,L]
+
+# Default response - redirecting to ontology page
+RewriteRule ^(.*)$ https://opencs-ontology.github.io/releases/stable/index [R=303,L]
