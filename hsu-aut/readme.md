@@ -12,6 +12,7 @@ List of ontologies that are currently redirected:
 - CaSk: An ontology detailing the concepts of the CSS ontology
 - CaSkMan: A more detailed ontology further extending the concepts of `CaSk` for the domain of manufacturing.
 - IEEE 1872.2: Ontology implementation of the Standard for Autonomous Robotics (AuR)
+- VDI3682: Ontology implementation of the formalized process description based on VDI3682 guideline 
 
 
 ## Maintainers
