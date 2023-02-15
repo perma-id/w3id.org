@@ -2,9 +2,11 @@
 #
 # Maintainer: Jacco van Ossenbruggen (https://github.com/jrvosse, mailto:jacco.van.ossenbruggen@vu.nl)
 
+# redirect for WM KG
 RewriteRule ^wordsmatter/(.*)$ https://raw.githubusercontent.com/cultural-ai/wordsmatter/main/glossary.ttl [R=302,L]
 
-# code from WIDOCO https://github.com/dgarijo/Widoco
+# the code below is taken from WIDOCO https://github.com/dgarijo/Widoco
+
 # Turn off MultiViews
 Options -MultiViews
 
@@ -18,38 +20,37 @@ AddType application/ld+json .jsonld
 # Rewrite engine setup
 RewriteEngine On
 #Change the path to the folder here
-RewriteBase https://github.com/cultural-ai/wordsmatter/blob/main/culco_html
+# RewriteBase /docs
 
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ index-en.html [R=303,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/doc-en.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ ontology.jsonld [R=303,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/ontology.jsonld [R=303,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ ontology.rdf [R=303,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/ontology.rdf [R=303,L]
 
 # Rewrite rule to serve N-Triples content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ ontology.nt [R=303,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/ontology.nt [R=303,L]
 
 # Rewrite rule to serve TTL content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
-RewriteRule ^$ https://raw.githubusercontent.com/cultural-ai/wordsmatter/main/schema.ttl [R=303,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/ontology.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} .+
-RewriteRule ^$ 406.html [R=406,L]
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/406.html [R=406,L]
 # Default response
 # ---------------------------
-# ttl is by default
-RewriteRule ^$ https://raw.githubusercontent.com/cultural-ai/wordsmatter/main/schema.ttl [R=303,L]
-
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://github.com/cultural-ai/wordsmatter/blob/main/docs/ontology.rdf [R=303,L]
