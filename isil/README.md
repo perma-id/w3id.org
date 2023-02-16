@@ -32,7 +32,7 @@ https://w3id.org/isil/AT-OBVSG -> https://permalink.obvsg.at/isil/AT-OBVSG
 https://w3id.org/isil/AU-NBANJ -> http://www.nla.gov.au/apps/ilrs/?action=IlrsSearch&nuc=NBANJ
 
 ## NZ
-https://w3id.org/isil/NZ-AUEL -> https://natlib.govt.nz/librarians/directory-of-new-zealand-libraries/AUEL
+https://w3id.org/isil/NZ-ACA -> https://natlib.govt.nz/librarians/directory-of-new-zealand-libraries/ACA
 
 ## FI
 https://w3id.org/isil/FI-Aalto -> https://isil.kansalliskirjasto.fi/api/query?isil=FI-Aalto
