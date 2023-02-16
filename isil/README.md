@@ -49,6 +49,30 @@ https://w3id.org/isil/CA-ACU -> https://sigles-symbols.bac-lac.gc.ca/eng/Search/
 ## KR
 https://w3id.org/isil/KR-011001 -> https://lod.nl.go.kr/page/library/011001
 
+## NO
+https://w3id.org/isil/NO-4031302 -> https://www.nb.no/basebibliotek/search?q=NO-4031302
+
+## LU
+https://w3id.org/isil/LU-BESA  -> https://anlux.public.lu/fr/nous-connaitre/reseaux-internationaux/ISIL.html#LU-BESA
+
+## QA
+https://w3id.org/isil/QA-123 -> https://www.qnl.qa/en/explore/directories/directory-of-libraries#QA-123
+
+## RO
+https://w3id.org/isil/RO-B-011 -> https://www.bibnat.ro/biblioteci.php?q=&id_tip=false&judet=false#RO-B-011
+
+## SI
+https://w3id.org/isil/SI-55804 -> https://plus.cobiss.net/cobiss/si/en/libraries#SI-55804
+
+## SK
+https://w3id.org/isil/SK-1KABVA00270 -> https://www.snk.sk/en/information-for/libraries-and-librarians/isil.html#SK-1KABVA00270
+
+## RU
+https://w3id.org/isil/RU-10017011 -> https://www.gpntb.ru/rfid1/searchdb.php#RU-10017011
+
+## CY
+https://w3id.org/isil/CY-02-CUT -> https://library.cut.ac.cy/en/node/1194#CY-02-CUT
+
 
 ## Contact
 [Carsten Klee](mailto:mailme.klee@yahoo.de)
