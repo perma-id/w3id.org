@@ -12,5 +12,5 @@ This space is administered by:
 [Epsilon Italia srl](https://www.epsilon-italia.it)  
 Mendicino, Italy  
 <f.vinci@epsilon-italia.it>  
-GitHub: [nicholascar](https://github.com/fabiovinci)  
+GitHub: [fabiovinci](https://github.com/fabiovinci)  
 
