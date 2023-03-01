@@ -2,8 +2,8 @@
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the DSTV - Ontology for Steel construction.
 
 ## Uses
-Interconnecting Data in Construction Processes - focus on steel construction and usage of the DSTV-NC standard
-See http://www.internet-of-construction.com/index_en.html
+Interconnecting Data in Construction Processes - focus on steel construction and usage of the DSTV-NC standard  
+See http://www.internet-of-construction.com/index_en.html  
 
 ## Contact
 This space is administered by:  
@@ -11,6 +11,6 @@ This space is administered by:
 **Lukas Kirner**  
   *Researcher*  
 Individualized Production, RWTH Aachen, Germany.  
-https://github.com/kirner-ip
+https://github.com/kirner-ip  
 <kirner@ip.rwth-aachen.de>  
 ORCID: [0000-0001-9753-2422](https://orcid.org/0000-0001-9753-2422) 
