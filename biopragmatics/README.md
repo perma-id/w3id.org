@@ -16,7 +16,7 @@ Concretely, this W3ID entry makes ontology artifacts in the "export" folder (htt
 
 ## Contact
 
-Charles Tapley Hoyt
-Email: cthoyt@gmail.com
-GitHub: [@cthoyt](https://github.com/cthoyt/)
+Charles Tapley Hoyt  
+Email: cthoyt@gmail.com  
+GitHub: [@cthoyt](https://github.com/cthoyt/)  
 ORCID: [0000-0003-4423-4370](https://orcid.org/0000-0003-4423-4370)
