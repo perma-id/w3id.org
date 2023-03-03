@@ -12,7 +12,7 @@ Biomedical databases such as the [HUGO Gene Nomenclature Committee (HGNC)](https
 
 The https://github.com/biopragmatics/obo-db-ingest repository on GitHub solves this issue by converting these and several other databases into ontology formats, running updates on a chronological basis. W3ID PURLs make these ontology artifacts more accessible.
 
-Concretely, this W3ID entry makes ontology artifacts in the "export" folder (https://github.com/biopragmatics/obo-db-ingest/tree/main/export) resolvable. For example, https://w3id.org/biopragmatics/obo/interpro/92.0/interpro.obo redirects to https://github.com/biopragmatics/obo-db-ingest/raw/main/export/interpro/92.0/interpro.obo
+Concretely, this W3ID entry makes ontology artifacts in the "export" folder (https://github.com/biopragmatics/obo-db-ingest/tree/main/export) resolvable. For example, https://w3id.org/biopragmatics/resources/interpro/92.0/interpro.obo redirects to https://github.com/biopragmatics/obo-db-ingest/raw/main/export/interpro/92.0/interpro.obo
 
 ## Contact
 
