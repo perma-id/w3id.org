@@ -1,0 +1,32 @@
+# === Directory: /noria/ ======================================================
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# === Rewrite Rules ===========================================================
+
+# Main reference: https://github.com/Orange-OpenSource/noria-ontology
+RewriteRule ^$ https://github.com/Orange-OpenSource/noria-ontology [R=302,L]
+
+# Direct access to versioned ontology file
+# e.g. ontology/noria-0.1 => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.1.ttl
+RewriteRule ^ontology/(.*-\d+\.\d+)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1.ttl [R=302,L]
+
+# Direct access to named ontology file
+# e.g. ontology/noria-0.1.ttl => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.1.ttl
+RewriteRule ^ontology/(.*\.ttl)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1 [R=302,L]
+
+# Redirect ontology/<concept|property> to documentation
+# See also: https://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_ne
+# e.g. ontology/troubleTicketCategory => https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#troubleTicketCategory
+RewriteRule ^ontology/(.*)$ https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#$1 [R=302,NE,L]
+
+# Redirect for documentation (general case)
+# e.g. doc/ => https://orange-opensource.github.io/noria-ontology/
+RewriteRule ^doc/?$ https://orange-opensource.github.io/noria-ontology/ [R=302,L]
+
+# Redirect anything to code repo
+# e.g. evaluation => https://github.com/Orange-OpenSource/noria-ontology/tree/master/evaluation
+RewriteRule (.*) https://github.com/Orange-OpenSource/noria-ontology/tree/master/$1 [R=302,L]
+
+# === END =====================================================================

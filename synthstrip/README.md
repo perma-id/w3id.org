@@ -1,7 +1,7 @@
 # Code and data supporting scientific article
 
-SynthStrip: universal skull stripping for any brain image
+SynthStrip: skull-stripping for any brain image
 
-https://w3id.org/synthstrip -> https://github.com/adalca/neurite
+https://w3id.org/synthstrip -> https://surfer.nmr.mgh.harvard.edu/docs/synthstrip
 
 Malte Hoffmann (mhoffmann@mgh.harvard.edu)

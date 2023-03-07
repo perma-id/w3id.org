@@ -5,7 +5,7 @@ The SQuAP model (Software Quality, Architecture, Process) describes twenty- eigh
 Ontologies:
 * [https://w3id.org/squap](https://w3id.org/squap)
 
-Contacts:
+Maintainers:
 
 * Andrea Giovanni Nuzzolese <andrea.nuzzolese@gmail.com>
 
