@@ -1,0 +1,3 @@
+- Ontology for accademic purpose base on the book domain.
+- you can find the project on my github page
+- info : https://jucola98.github.io/
