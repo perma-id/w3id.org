@@ -1,4 +1,4 @@
-Repository for redirecting to ontologies and controlled vocabularies of the Italian Public Administrations.
+Persistent URIs for ontologies and controlled vocabularies of the Italian Public Sector
 ===================
 
 We intend to use w3id.org in order to obtain persistent URIs for the [Italian network of ontologies and controlled vocabularies for the Public Administrations](https://github.com/italia/daf-ontologie-vocabolari-controllati). The network is also currently maintained in collaboration with the Institute of Cognitive Sciences and Technologies (Semantic Technologies Laboratory - STLab) of the Italian National Research Council (ISTC-CNR).
