@@ -16,5 +16,5 @@ Contacts:
 + Matteo Fortini: github (https://github.com/mfortini) - email (matteo.fortini@teamdigitale.governo.it)
 + Giorgia Lodi: github (https://github.com/giorgialodi) - email (giorgia.lodi@aistc.cnr.it)
 
-For any other inquires, please contact contatti@developers.italia.it
+For any other enquiries, please contact contatti@developers.italia.it
 
