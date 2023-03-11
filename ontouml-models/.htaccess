@@ -1,0 +1,56 @@
+RewriteEngine on
+
+
+
+### REDIRECTION TO FOLDERS
+
+
+## Direct redirection to folders
+
+# 1st level folder (/root/) - Catalog's GitHub repository
+RedirectMatch 302 ^/ontouml-models/?$ https://github.com/OntoUML/ontouml-models
+RedirectMatch 302 ^/ontouml-models/git/?$ https://github.com/OntoUML/ontouml-models
+
+# MODELS - 2nd level folder (/root/models)
+RedirectMatch 302 ^/ontouml-models/models/?$ https://github.com/OntoUML/ontouml-models/tree/master/models
+
+# SHAPES - 2nd level folder (/root/shapes)
+RedirectMatch 302 ^/ontouml-models/shapes/?$ https://github.com/OntoUML/ontouml-models/tree/master/shapes
+
+
+## Generic redirection to models (datasets) folders
+
+RedirectMatch 302 ^/ontouml-models/dataset/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
+RedirectMatch 302 ^/ontouml-models/model/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
+
+
+## Generic redirection to every folder. Relative path must be provided. E.g., "/logo" or "/models/bank-model".
+
+RedirectMatch 302 ^/ontouml-models/folder/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/$1
+
+
+
+### REDIRECTION TO FILES
+
+
+## Redirection to releases (catalog's metadata)
+
+# Latest release
+RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontouml-models/releases/latest
+
+# Specific release (tag)
+RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
+
+
+## Direct redirection to TTL files inside folders
+
+# TTL files in 1st level folder (/root)
+RedirectMatch 302 ^/ontouml-models/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1.ttl
+
+# TTL files in 2nd level folders (/root/<FOLDER>)
+RedirectMatch 302 ^/ontouml-models/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1/$2.ttl
+
+
+## Generic redirection to every file. Complete relative path must be provided. E.g., "file/models/<DATASET_NAME>/ontology.ttl".
+
+RedirectMatch 302 ^/ontouml-models/file/(.*)$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1
