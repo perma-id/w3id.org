@@ -41,21 +41,16 @@ RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontou
 # Specific release (tag)
 RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
 
-
-## Direct redirection to TTL files inside folders
-
-# ontology.ttl file for every model
-RedirectMatch 302 ^/ontouml-models/ontology/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
-
-# TTL files in 1st level folder (/root)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1.ttl
-
-# TTL files in 2nd level folders (/root/<FOLDER>)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1/$2.ttl
-
-# TTL files in 3rd level folders (/root/<FOLDER>/<FOLDER>)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1/$2/$3.ttl
-
 ## Generic redirection to every file. Complete relative path must be provided. E.g., "file/models/<DATASET_NAME>/ontology.ttl".
 
 RedirectMatch 302 ^/ontouml-models/file/(.*)$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1
+
+## Direct redirection to distribution (TTL and JSON) files inside folders
+
+# ontology file for every model
+RedirectMatch 302 ^/ontouml-models/ontology/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
+RedirectMatch 302 ^/ontouml-models/json/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.json
+RedirectMatch 302 ^/ontouml-models/vpp/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.vpp
+
+# redirection to every TTL file
+RedirectMatch 302 ^/ontouml-models/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1.ttl
