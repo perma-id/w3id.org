@@ -7,7 +7,7 @@ RewriteEngine on
 
 ## Direct redirection to folders
 
-# 1st level folder (/root/) - Catalog's GitHub repository
+# REPOSITORY - 1st level folder (/root/) - Catalog's GitHub repository
 RedirectMatch 302 ^/ontouml-models/?$ https://github.com/OntoUML/ontouml-models
 RedirectMatch 302 ^/ontouml-models/git/?$ https://github.com/OntoUML/ontouml-models
 
@@ -45,12 +45,15 @@ RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/onto
 
 RedirectMatch 302 ^/ontouml-models/file/(.*)$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1
 
-## Direct redirection to distribution (TTL and JSON) files inside folders
+## Direct redirection to distributions (TTL, JSON, VPP and images) files inside folders
 
-# ontology distribution file for every model
+# COMPLETE ontology distribution files for every model (TTL, JSON, and VPP)
 RedirectMatch 302 ^/ontouml-models/turtle/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
 RedirectMatch 302 ^/ontouml-models/json/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.json
 RedirectMatch 302 ^/ontouml-models/vpp/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.vpp
+
+# PARTIAL ontology distribution files for every model (original or new diagrams image files)
+RedirectMatch 302 ^/ontouml-models/(original|new)-diagram/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$2/$1%20diagrams/$3.png
 
 # redirection to SHAPE TTL file
 RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/shapes/$1-shape.ttl
