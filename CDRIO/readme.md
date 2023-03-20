@@ -7,4 +7,4 @@ Ontology:
  Turtle https://github.com/EmadHHM/cdrio-ontology/ontology.ttl
 
 Contact:
-Emad Mohamed ehmohame@ualberta.ca
+Emad Mohamed https://github.com/EmadHHM/ ehmohame@ualberta.ca
