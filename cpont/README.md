@@ -4,7 +4,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Criti
 
 The `w3id.org/cpont` redirect is used to direct URIs for terms, documentation, and repositories related to CPONT.
 
-The `w3id.org/cpont/mappings` redirect is used to direct URIs for sssom mapping files in the CPONT Mapping Commons.
+The `w3id.org/cpont/mappings` redirect is used to direct URIs for [sssom](https://mapping-commons.github.io/sssom/) mapping files in the CPONT Mapping Commons.
 
 ### Homepages
 - CPONT: https://gitlab.c-path.org/c-pathontology/critical-path-ontology/
