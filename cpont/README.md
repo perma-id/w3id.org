@@ -7,8 +7,8 @@ The `w3id.org/cpont` redirect is used to direct URIs for terms, documentation, a
 The `w3id.org/cpont/mappings` redirect is used to direct URIs for sssom mapping files in the CPONT Mapping Commons.
 
 ### Homepages
-- https://gitlab.c-path.org/c-pathontology/critical-path-ontology/  --  CPONT
-- https://gitlab.c-path.org/c-pathontology/mapping-commons/  --  Mapping Commons
+- CPONT: https://gitlab.c-path.org/c-pathontology/critical-path-ontology/
+- Mapping Commons: https://gitlab.c-path.org/c-pathontology/mapping-commons/
 
 ## Contact
 This space is primarily administered by:  
