@@ -21,7 +21,7 @@ List of ontologies that are currently redirected:
 - VDI 2206: Ontology implementation of concepts for mechatronic systems based on VDI 2206 guideline
 - ISO 22400-2: Ontology implementation of description of KPIs based on ISO 22400-2 standard 
 - DIN EN 62264-2: 
-- VDI 5100: Ontology implementation of system architecutre of intralogistics plants based on VDI 5100
+- VDI 5100: Ontology implementation of system architecture of intralogistics plants based on VDI 5100
 
 ## Maintainers
 - Aljosha Köcher (@aljoshakoecher)
