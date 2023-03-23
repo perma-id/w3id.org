@@ -1,7 +1,7 @@
 Repository (italia/env) for redirecting to ontologies and data of the Linked ISPRA system (the Linked Open Data and the network of ontologies of the Italian Institute for Environmental Protection and Research, ISPRA)
 ===================
 
-We intend to use w3id.org in order to obtain persistent URIs for the network of ontologies and data we are developing in the context of the [Linked ISPRA](https://dati.isprambiente.it) system. The network is developed by ISPRA (The Italian Institute for Environmental Protection and Research, ISPRA - Istituto Superiore per la Protezione e la Ricerca Ambientale). We intend to use **w3id.org/italia/env** for national persistent URIs of the environmental information of public sector.
+We intend to use w3id.org to provide persistent URIs for the network of ontologies and data we are developing in the context of the [Linked ISPRA](https://dati.isprambiente.it) system. The network is developed by ISPRA (The Italian Institute for Environmental Protection and Research, ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale). We intend to use **w3id.org/italia/env** for national persistent URIs for environmental information of the public sector.
 
 We initially plan to create:
 + `w3id.org/italia/env/onto` for all the ontologies of the network mentioned above;
