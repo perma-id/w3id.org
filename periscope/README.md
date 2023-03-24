@@ -5,5 +5,7 @@ PERISCOPE European project investigates the broad socio-economic and behavioural
 [Manuel Ottaviano](mailto:mottaviano@lst.tfo.upm.es)
 
 ## Mantainer
-[Buhid Eduardo](mailto:ebuhid@lst.tfo.upm.es)
+**Buhid Eduardo (Universidad Politécnica de Madrid - Life Support Technologies)**  
+[e-mail](mailto:ebuhid@lst.tfo.upm.es)
 
+[GitHub Account](https://github.com/PeriscopeProject)
