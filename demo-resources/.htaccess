@@ -5,41 +5,62 @@ Options -MultiViews
 # Rewrite engine setup
 RewriteEngine On
 
-# redirect to overview
-RewriteRule ^/?$ https://jimjyang.github.io/showroom/ [R=302,L]
-
 #Rewrite rules for w3id.org/demo-resources/demo-classifications
+# text/turtle
+RewriteCond %{HTTP:Accept} text/turtle [NC] 
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1.ttl [R=302,L]
 # Norwegian Bokmål
 RewriteCond %{HTTP:Accept-Language} nb [NC]
-RewriteRule ^demo-classifications# https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications-nb#  [R=302,L]
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1-nb [R=302,L]
+# Norwegian Nynorsk
+RewriteCond %{HTTP:Accept-Language} nn [NC]
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1-nb [R=303,L]
+# Norwegian Norsk
+RewriteCond %{HTTP:Accept-Language} no [NC]
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1-nb [R=303,L]
 # English
 RewriteCond %{HTTP:Accept-Language} en [NC]
-RewriteRule ^demo-classifications# https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications-en#  [R=302,L]
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1-en [R=302,L]
 # English as default
-RewriteRule ^demo-classifications# https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications-en#  [R=303,L]
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule ^demo-classifications# https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications.ttl# [R=302,L]
+RewriteRule ^(demo-classifications)$ https://jimjyang.github.io/showroom/xkos-ap-no/files/$1-en [R=303,L] 
 
 #Rewrite rules for w3id.org/demo-resources/demo-concepts
+# text/turtle
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1.ttl [R=302,L]
 # Norwegian Bokmål
 RewriteCond %{HTTP:Accept-Language} nb [NC]
-RewriteRule ^demo-concepts# https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts-nb#  [R=302,L]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1-nb  [R=302,L]
+# Norwegian Nynorsk
+RewriteCond %{HTTP:Accept-Language} nn [NC]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1-nb  [R=303,L]
+# Norwegian Norsk
+RewriteCond %{HTTP:Accept-Language} no [NC]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1-nb  [R=303,L]
 # English
 RewriteCond %{HTTP:Accept-Language} en [NC]
-RewriteRule ^demo-concepts# https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts-en#  [R=302,L]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1-en  [R=302,L]
 # English as default
-RewriteRule ^demo-concepts# https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts-en#  [R=303,L]
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule ^demo-concepts# https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts# [R=302,L]
+RewriteRule ^(demo-concepts)$ https://jimjyang.github.io/showroom/skos-ap-no/files/$1-en [R=303,L]
 
 #Rewrite rules for w3id.org/demo-resources/demo-models
+# text/tutrle
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1.ttl [R=302,L]
 # Norwegian Bokmål
 RewriteCond %{HTTP:Accept-Language} nb [NC]
-RewriteRule ^demo-models# https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models-nb#  [R=302,L]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1-nb  [R=302,L]
+# Norwegian Nynorsk
+RewriteCond %{HTTP:Accept-Language} nn [NC]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1-nb  [R=303,L]
+# Norwegian Norsk
+RewriteCond %{HTTP:Accept-Language} no [NC]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1-nb  [R=303,L]
 # English
 RewriteCond %{HTTP:Accept-Language} en [NC]
-RewriteRule ^demo-models# https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models-en#  [R=302,L]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1-en  [R=302,L]
 # English as default
-RewriteRule ^demo-models# https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models-en#  [R=303,L]
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule ^demo-models# https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models.ttl# [R=302,L]
+RewriteRule ^(demo-models)$ https://jimjyang.github.io/showroom/modelldcat-ap-no/files/$1-en  [R=303,L]
+
+# redirect to overview
+RewriteRule ^$ https://jimjyang.github.io/showroom/ [R=302,L]
