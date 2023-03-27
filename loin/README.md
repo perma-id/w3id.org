@@ -1,5 +1,5 @@
-# /bcom/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for Building Concrete Monitoring Ontology (BCOM) resources.
+# /loin/
+This [W3ID](https://w3id.org) provides a persistent URI namespace for **Level of Information Need (LOIN)** Ontology resources.
 
 ## Ontology resources
 
