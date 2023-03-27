@@ -4,7 +4,7 @@ Flood Disaster Support Ontology (FDSO) provides an ontological data model to sup
 
 
 ## Persistent URI 
-https://w3id.org/amv redirects to https://www.isibang.ac.in/ns/fdso/index.html
+https://w3id.org/fdso redirects to https://www.isibang.ac.in/ns/fdso/index.html
 
 
 ## License
