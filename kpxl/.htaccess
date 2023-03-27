@@ -3,3 +3,35 @@ Options +FollowSymLinks
 RewriteEngine on
 
 RewriteRule ^$ https://knowledgepixels.com/ [R=302,L]
+
+
+RewriteRule ^rel(/(terms)?)?$ https://w3id.org/kpxl/rel/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.trig [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^rel/terms/([^/]+)$ https://knowledgepixels.com/kpxl-ontologies/rel/index-en.html#https://w3id.org/kpxl/rel/terms/$1 [R=302,L,NE]
+
+
+
+RewriteRule ^rel/terms/(.+)$ https://w3id.org/kpxl/rel/latest/$1 [R=302,L]
+RewriteRule ^rel/np/.+/(RA[A-Za-z0-9_\-]{43})$ http://purl.org/np/$1 [R=302,L]
+
+RewriteRule ^rel/latest/tendsToAffect$ http://purl.org/np/RA_AfyBiaU3qZBxQcbz_CFl_72HYx-OTvpsUlOUL9NSwg [R=302,L]
+RewriteRule ^rel/latest/tendsToBeCausedBy$ http://purl.org/np/RA_Ly1uhrEmTGTpMYuwJBuygHvNwSV4QzxwTIEfo99t8g [R=302,L]
+RewriteRule ^rel/latest/tendsToBeFollowedBy$ http://purl.org/np/RAS3v7BOCwItSSaMdtUkynoaCjfptRIhCAz2uqKGrzPxU [R=302,L]
+
+RewriteRule ^rel/latest/index$ http://purl.org/np/RAyRKWqEK_XSVJ_IrQVSU4PukxiqET5cV2lD9Cxf2t0Go [R=302,L]
