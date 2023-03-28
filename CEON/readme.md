@@ -15,5 +15,5 @@ The Circular Economy Ontology Network (CEON) provides a shared vocabulary in the
 
 * Robin Keskisärkkä <robin.keskisarkka@liu.se>
 * Huanyu Li <huanyu.li@liu.se>
-* Eva Blmoqvist <eva.blomqvist@liu.se>
+* Eva Blomqvist <eva.blomqvist@liu.se>
 * Mikael Lindecrantz <mikael.lindecrantz@ragnsells.com>
