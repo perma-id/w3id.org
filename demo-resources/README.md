@@ -8,9 +8,11 @@ To config and maintain the dereferencing of W3id-URIs for the demo resources use
 
 Currently the following dereferencings/redirections are created: 
 
-* w3id.org/demo-resources/demo-classifications -> https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications.ttl
-* w3id.org/demo-resources/demo-concepts -> https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts.ttl
-* w3id.org/demo-resources/demo-models -> https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models.ttl
+* https://w3id.org/demo-resources/demo-classifications -> https://jimjyang.github.io/showroom/xkos-ap-no/files/demo-classifications.ttl
+* https://w3id.org/demo-resources/demo-concepts -> https://jimjyang.github.io/showroom/skos-ap-no/files/demo-concepts.ttl
+* https://w3id.org/demo-resources/demo-datasets -> https://jimjyang.github.io/showroom/dcat-ap-no/files/demo-datasets.ttl
+* https://w3id.org/demo-resources/demo-models -> https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models.ttl
+* https://w3id.org/demo-resources/demo-services-events -> https://jimjyang.github.io/showroom/cpsv-ap-no/files/demo-services-events.ttl
 
 ## Contact  
 
