@@ -4,9 +4,10 @@ Linking Problems Type (LPT)
 Homepage:
 * https://w3id.org/LPT
 
-LPT Classification
+LPT Classification:
 * Ontology <https://w3id.org/LPT/Ontology>
 * Thesaurus <https://w3id.org/LPT/Thesaurus>
+
 Contacts: 
 * Our Github address https://github.com/DACE-DL
 * Raphaël Conde Salazar <rcondesalazar@free.fr>
