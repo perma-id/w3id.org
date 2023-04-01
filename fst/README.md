@@ -1,19 +1,19 @@
 # /fst/
 This W3ID provides a first test persistent URI namespace for resources of the Chair of Fluid Systems of the Technical University of Darmstadt.
 
-## Use Cases
+### Use Cases
 Furthermore this namespace is broken down into different parts that correspond to different ressources of different research groups of the Chair of Fluid Systems of the Technical University of Darmstadt.
 
-## Contact
-This space is currently administered by:
-**Sebastian Neumeier**
-*Research Aide (german: HiWi)*
-sebastian.neumeieratstud.tu-darmstadt.de
-GitHub: test123-all ORCID: https://orcid.org/0000-0001-9533-9004
-
-
-Technische Universitaet Darmstadt
-Institut für Fluidsystemtechnik
-Otto-Berndt-Strasse 2
-64287 Darmstadt - GERMANY
-ROR ID: https://ror.org/05n911h24
+### Contact
+This space is currently administered by: <br>
+**Sebastian Neumeier** <br>
+*Research Aide (german: HiWi)* <br>
+sebastian.neumeieratstud.tu-darmstadt.de <br>
+GitHub: test123-all ORCID: https://orcid.org/0000-0001-9533-9004 <br>
+<br>
+<br>
+Technische Universitaet Darmstadt <br>
+Institut für Fluidsystemtechnik <br>
+Otto-Berndt-Strasse 2 <br>
+64287 Darmstadt - GERMANY <br>
+ROR ID: https://ror.org/05n911h24 <br>
