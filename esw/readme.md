@@ -6,4 +6,4 @@ Contact:
 * Gianmaria Silvello (silvello AT dei.unipd.it)
 * Matteo Lissandrini (matteo AT cs.aau.dk)
 
-maintener for this w3id.org: Gianmarco Prando: gianmarcoprando@gmail.com
+maintainer for this w3id.org: Gianmarco Prando: gianmarcoprando@gmail.com
