@@ -1,9 +1,12 @@
 # ESW Ontology: Exploratory Search Workflow
 
-Contact:
+This [W3ID](https://w3id.org) provides a persistent URI namespace for Exploratory Search Workflow (ESW) resources.
 
-* Gianmarco Prando (gianmarco.prando AT studenti.unipd.it)
-* Gianmaria Silvello (silvello AT dei.unipd.it)
-* Matteo Lissandrini (matteo AT cs.aau.dk)
+## Contact
+This space is administered by:  
 
-maintener for this w3id.org: Gianmarco Prando: gianmarcoprando@gmail.com
+**Gianmarco Prando**  
+*Computer Engineer *
+Padua, Italy  
+<gianmarcoprando@gmail.com>  
+GitHub: [prapalu](https://github.com/prapalu)
