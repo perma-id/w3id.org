@@ -5,6 +5,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for Explorator
 ## Contact
 This space is administered by:  
 
+<<<<<<< HEAD
 **Gianmarco Prando**  
 *Computer Engineer *
 Padua, Italy  
