@@ -6,3 +6,4 @@ This work is supported by the AI-PROFICIENT project which has received funding f
 
 # Contact
 Cristina Aceta (cristina.aceta AT tekniker.es)
+Izaskun Fernández (izaskun.fernandez AT tekniker.es)
