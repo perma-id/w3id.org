@@ -5,7 +5,6 @@ Options -MultiViews
 # if not present in main apache config
 AddType application/rdf+xml .rdf .owl
 AddType text/turtle .ttl
-AddType application/n-triples .n3
 AddType application/ld+json .jsonld
 
 Header set Access-Control-Allow-Origin *
@@ -13,16 +12,13 @@ Options +FollowSymLinks
 RewriteEngine on
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://delaramglp.github.io/AIRO/AIRODocumentation/ontology.rdf [R=302,L]
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.rdf [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^$ https://delaramglp.github.io/AIRO/AIRODocumentation/ontology.ttl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^$ https://delaramglp.github.io/AIRO/AIRODocumentation/ontology.n3 [R=302,L]
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.ttl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://delaramglp.github.io/AIRO/AIRODocumentation/ontology.jsonld [R=302,L]
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.jsonld [R=302,L]
 
 # Default
 
