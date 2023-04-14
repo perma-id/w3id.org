@@ -59,8 +59,13 @@ curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:60
 
 | Value | Expected |
 | -- | -- |
-| https://w3id.org/n2t/ | https://n2t.net/ |
-| https://w3id.org/n2t/about.html | https://n2t.net/about.html |
-| https://w3id.org/n2t/ark:/13030/m5rx99d1 | https://n2t.net/ark:/13030/m5rx99d1 |
-| https://w3id.org/n2t/igsn:AU1243 | https://n2t.net/igsn:AU1243 |
+| https://w3id.org/arkid/ | https://arks.org/ |
+| https://w3id.org/arkid/spec | https://datatracker.ietf.org/doc/draft-kunze-ark/ |
+| https://w3id.org/arkid/ark[:] | https://datatracker.ietf.org/doc/draft-kunze-ark/ |
+| https://w3id.org/arkid/ark:/12148/bpt6k10733944 | https://n2t.net/ark:/12148/bpt6k10733944 |
+| https://w3id.org/arkid/12148/bpt6k10733944 | https://n2t.net/ark:12148/bpt6k10733944 |
+| https://w3id.org/arkid/naans | https://n2t.net/e/pub/naan_registry.txt |
+| https://w3id.org/arkid/register | http://n2t.net/e/naan_request |
+
+Anything not matching above patterns is directed to https://arks.org/
 
