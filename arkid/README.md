@@ -6,12 +6,30 @@ Provides a persistent, high level entry point for [Archival Resource Key (ARK) i
 
 ```yaml
 ---
-maintainer:
-  name: Dave Vieglais
-  id:
-    - email:vieglais@ku.edu
-    - github:datadavev
-    - orcid:0000-0002-6513-4996
+- maintainer:
+    name: Dave Vieglais
+    id:
+      - email:vieglais@ku.edu
+      - github:datadavev
+      - orcid:0000-0002-6513-4996
+- maintainer:
+    name: Donny Winston
+    id:
+      - email:donny@polyneme.xyz
+      - github:dwinston
+      - orcid:0000-0002-8424-0604
+- maintainer:
+    name: John Kunze
+    id:
+      - email:jakkbl@gmail.com
+      - github:jkunze
+      - orcid:0000-0001-7604-8041
+- maintainer:
+    name: Greg Janée
+    id:
+      - email:gjanee@ucsb.edu
+      - github:gjanee
+      - orcid:0000-0001-8785-0021
 ```
 
 ## Development and Testing
