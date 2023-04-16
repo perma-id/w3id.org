@@ -1,5 +1,16 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^protocol(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/ [R=302,L]
-RewriteRule ^context(.*)? https://github.com/ixofoundation/ns/tree/main/context/ [R=302,L]
-RewriteRule ^vocab(.*)? https://github.com/ixofoundation/ns/tree/master/vocab/ [R=302,L]
-RewriteRule ^(.*) https://github.com/ixofoundation/ [R=302,L]
+
+# https://w3id.org/ixo -> https://github.com/ixofoundation/
+
+RewriteRule ^$ https://github.com/ixofoundation/ [R=302,L]
+
+# https://w3id.org/ixo/context -> https://github.com/ixofoundation/ns/blob/main/context/
+
+RewriteRule ^context$ https://github.com/ixofoundation/ns/blob/main/context/ [R=302,L]
+
+# https://w3id.org/ixo/vocab -> https://github.com/ixofoundation/ns/tree/master/vocab/
+
+RewriteRule ^context$ https://github.com/ixofoundation/ns/tree/master/vocab/ [R=302,L]
