@@ -1,7 +1,7 @@
 # BBS Vocabulary
 
-- https://github.com/w3c-ccg/vc-di-bbs/
-- https://w3c-ccg.github.io/vc-di-bbs/
+- https://github.com/w3c/vc-di-bbs/
+- https://w3c.github.io/vc-di-bbs/
 
 ## Maintainers
 
