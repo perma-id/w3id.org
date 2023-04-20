@@ -1,3 +1,28 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.ttl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://delaramglp.github.io/airo/airo.jsonld [R=302,L]
+
+# Default
+
 RewriteRule ^$ https://delaramglp.github.io/airo [R=302,L]
+RewriteRule ^(.*)$ https://delaramglp.github.io/airo/$1 [R=302,L]
+
