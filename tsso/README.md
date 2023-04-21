@@ -19,4 +19,9 @@
 
 * The homepage including the documentation will be soon be available. At the moment only a local version is provided at the github repo.
 
+## Mantainer
+
+* Jose Illescas [jose.illescas@scch.at]
+* Github [JoseIllSCCH](https://github.com/JoseIllSCCH)
+
 
