@@ -11,6 +11,8 @@ SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://github.com/smashub/choco/tree/m
 SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_SCORE_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/wikifonia.ttl?token=GHSAT0AAAAAABY7PLR6TRVFU6PCM3V6AI64Y2EG5RA
 SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_AUDIO_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/isophonics.ttl?token=GHSAT0AAAAAABY7PLR7YRI74SFL5PZPGIV2Y2EG6IA
 SetEnvIf Request_URI ^.*$ ROMAN_URL=https://raw.githubusercontent.com/polifonia-project/roman-chord-ontology/main/roman-chord.owl
+SetEnvIf Request_URI ^.*$ MUSICMETA_URL=https://raw.githubusercontent.com/polifonia-project/musicmeta-ontology/main/ontology/musicmeta.owl
+SetEnvIf Request_URI ^.*$ ORGANS_URL=https://raw.githubusercontent.com/polifonia-project/organs-ontology/main/organs.owl
 # ROMAN CHORD API
 SetEnvIf Request_URI ^.*$ ROMAN_API=https://roman-chord-api.herokuapp.com/roman-chord-ontology/
 
@@ -32,6 +34,11 @@ RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CH
 # ROMAN
 RewriteRule ^ontology/roman-chord(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ROMAN_URL} [R=303,L]
 RewriteRule ^resource/roman-chord(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:ROMAN_API}$2 [R=303,L]
+# MUSICMETA
+RewriteRule ^ontology/music-meta(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:MUSICMETA_URL} [R=303,L]
+RewriteRule ^resource/music-meta(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:MUSICMETA_URL}$2 [R=303,L]
+# ORGANS
+RewriteRule ^ontology/organs(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ORGANS_URL} [R=303,L]
 
 # TODO: to define where to redirect resources
 RewriteRule ^resource/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
