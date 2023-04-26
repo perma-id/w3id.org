@@ -8,6 +8,6 @@ This space is administered by:
 **Ganesh Ramanathan**  
 *Doctoral Researcher*  
 [University of St. Gallen](https://unisg.ch)  
-Switzerland
+Switzerland  
 <ganesh.ramanathan@student.unisg.ch>  
 
