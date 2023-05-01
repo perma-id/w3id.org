@@ -38,6 +38,6 @@ Links in the form `https://w3id.org/z/$1/$2`
 ### Contacts
 
 * Sky Bristol
-* sbristol@usgs.gov
-* Github: [https://github.com/skybristol](skybristol)
-* ORCID: [https://orcid.org/0000-0003-1682-4031](0000-0003-1682-4031)
+  * sbristol@usgs.gov
+  * Github: [https://github.com/skybristol](skybristol)
+  * ORCID: [https://orcid.org/0000-0003-1682-4031](0000-0003-1682-4031)
