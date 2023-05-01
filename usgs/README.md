@@ -28,12 +28,12 @@ This W3ID namespace provides persistence to scientific reference assets that we 
 This namespace starts with the unique identifier for the Zotero Group Library containing bibliographic metadata and documents for  National Instrument (NI) 43-101 Technical Reports used as scientific references and in need of a persistent citation source.
 
 ### Links
-With "$1" being a unique Zotero library identifier and "$2" being a unique item identifier within that library...
+With `$1` being a unique Zotero library identifier and `$2` being a unique item identifier within that library...
 
-Links in the form <https://w3id.org/z/$1/$2>
-* No Accept header or text/html -> <https://www.zotero.org/groups/$1/usgs_ni_43-101_reports/items/$2>
-* Using Accept header application/json -> <https://api.zotero.org/groups/$1/items/$2?format=atom>
-* Using Accept header application/atom+xml -> <https://api.zotero.org/groups/$1/items/$2?format=atom>
+Links in the form `https://w3id.org/z/$1/$2`
+* No `Accept` header or `text/html` -> `https://www.zotero.org/groups/$1/usgs_ni_43-101_reports/items/$2`
+* Using `Accept` header `application/json` -> `https://api.zotero.org/groups/$1/items/$2?format=atom`
+* Using `Accept` header `application/atom+xml` -> `https://api.zotero.org/groups/$1/items/$2?format=atom`
 
 ### Contacts
 
