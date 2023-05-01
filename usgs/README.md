@@ -14,8 +14,8 @@ Handles dereferencing logic, redirection, and SPARQL query proxying for the GNIS
 
 With "$1" being a unique identifier from the GNIS-LD implementation of the GNIS ontology...
 
-Links in the form <https://w3id.org/usgs/$1>
-* Redirects to http://gnis-ld.org/lod/$1
+Links in the form `https://w3id.org/usgs/$1`
+* Redirect to `http://gnis-ld.org/lod/$1`
 
 ### Contacts
 
