@@ -24,6 +24,12 @@ RewriteRule ^(v/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/Rive
 # Main metadata – explicit extension for tagged releases
 RewriteRule ^v/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.$2 [R=302,L]
 
+# Profile metadata – explicit extension for dev release
+RewriteRule ^profiles/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.$3 [R=302,L]
+
+# Profile metadata – explicit extension for tagged releases
+RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
+
 # Dataset metadata – explicit extension for dev release
 RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/dev/metadata.$3 [R=302,L]
 
@@ -100,12 +106,6 @@ RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^v/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.ttl [R=302,L]
 
 ### SERVING PROFILES ###
-
-# Profile metadata – explicit extension for dev release
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.$3 [R=302,L]
-
-# Profile metadata – explicit extension for tagged releases
-RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
 
 # Profile metadata – RDF/XML for dev release
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
