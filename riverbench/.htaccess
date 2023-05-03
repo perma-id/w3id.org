@@ -38,6 +38,20 @@ RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https:/
 
 ### SERVING HTML ###
 
+# Redirect /v/dev* to /
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^v/dev(.*)$ https://riverbench.github.io$1 [R=302,L]
+
+# Redirect /schema/{name} to /schema/{name}/dev
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^schema/([a-z0-9-]+)/?$ https://riverbench.github.io/schema/dev/$1 [R=302,L]
+
 # Serve HTML if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -166,9 +180,6 @@ RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.ttl [R=302,L]
 
 ### SERVING DOCUMENTATION ###
-
-# Redirect /v/dev* to /
-RewriteRule ^v/dev(.*)$ https://riverbench.github.io/$1 [R=302,L]
 
 # Default response – redirect to documentation
 RewriteRule ^(.*)$ https://riverbench.github.io/$1 [R=302,L]
