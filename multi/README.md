@@ -3,7 +3,6 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the Model 
 
 ## Uses
 MULTI is a model for the representation of viewpoints specific to natural language, where each natural language is an embodiment of a culture. 
-
 This core version has been aligned to DOLCE+DnS Ultralite.
 
 ## Contact
