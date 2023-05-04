@@ -1,5 +1,5 @@
 # /kgraphx/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for kgraphx, which is a tool to make  knowledge graph creation and management easy.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for `kgraphx`, which is a tool to make knowledge graph creation and management easier.
 
 Homepage:
 * https://github.com/ahemaid/KGraphX
