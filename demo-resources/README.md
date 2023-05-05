@@ -13,6 +13,7 @@ Currently the following dereferencings/redirections are created:
 * https://w3id.org/demo-resources/demo-datasets -> https://jimjyang.github.io/showroom/dcat-ap-no/files/demo-datasets.ttl
 * https://w3id.org/demo-resources/demo-models -> https://jimjyang.github.io/showroom/modelldcat-ap-no/files/demo-models.ttl
 * https://w3id.org/demo-resources/demo-services-events -> https://jimjyang.github.io/showroom/cpsv-ap-no/files/demo-services-events.ttl
+* https://w3id.org/demo-resources/dummy-* -> https://jimjyang.github.io/showroom/dummy-assets/files/dummy-*.ttl
 
 ## Contact  
 
