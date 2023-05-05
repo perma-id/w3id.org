@@ -12,16 +12,23 @@ RewriteEngine on
 
 
 #Rewrite rules for seo vocabulary 
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://saidfathalla.github.io/SEOontology/Documentation/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+
+# Rewrite rule to serve RDF/XML content
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.owl [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+
+# Rewrite rule to serve TTL content 
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^$ https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.ttl [R=303,NE,L]
-#default response: ttl
-RewriteRule ^$ https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.ttl [R=303,NE,L]
+
+
+#default response: html
+RewriteRule ^$ https://raw.githubusercontent.com/saidfathalla/SEOontology/master/SEO.owl [R=303,NE,L]
