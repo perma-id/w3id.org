@@ -1,16 +1,13 @@
 
-# /gso/1.0
+# /geochem/1.0
 
-**Name of the project:** [GeoScienceOntology Loop3d version 1.0](https://github.com/Loop3D/GKM)
+**Name of the project:** EarthChem-GEOROC harmonization, part of the [OneGeochemistry initiative](https://onegeochemistry.github.io/)
 
-**Description:** redirects for Geoscience Ontology.  This ontology for describes Geologic features, properties and relationships.
+**Description:** redirects for geochemistry analytical techniques vocabulary.  Version 1.0 vocabulary includes one skos:ConceptScheme with 229 concepts. This concept scheme contains skos concepts for analysis methods used to produce observation results with information about the physical properties, chemical or isotopic composition, crystallography, or molecular structure of material samples. Based on spreadsheet compilation of method vocabularies from GeoX, GeoRock, PetDb and OSIRIS-REx. Definitions added and updated based on web research, and SKOS serialization by S.M. Richard.
 
-catches https://w3id.org/gso/1.0/....
+Redirects /, /analyticalmethod and /analyticalmethod.html to Australian Research Data Commons, Research Vocabularies Australia landing page for the concept scheme, and /{methodname} to the landing page for the {methodname} concept. 
 
-Redirects /, /ontology and /ontology.html to pyLODE generated html pages in the Loop3D.github.io/GKM site.
-/{class or property} gets redirected to the html page for the containing module
-Accept text/turtle in header or /ontology.ttl gets the turtle file for the module. Use [githack](https://raw.githack.com/) production URLs to return .ttl files with proper HTTP headers.
+
 
 **Contacts:**
 * Stephen Richard <smrTucson@gmail.com> - GitHub: https://github.com/smrgeoinfo
-* Boyan Brodaric  
