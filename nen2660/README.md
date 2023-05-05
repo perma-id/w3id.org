@@ -1,7 +1,9 @@
 # /nen2660/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the normative NEN 2660-2:2021 resources.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the normative NEN 2660-2:2022 resources.
 
-NEN 2660-2:2021 is the Dutch Norm “_Rules for information modelling of the built environment_”.
+[NEN 2660-2:2022][nen] is the Dutch Norm “_Rules for information modelling of the built environment_”.
+
+[nen]: https://www.nen.nl/nen-2660-2-2022-nl-291667
 
 ## Uses
 This namespace contains 

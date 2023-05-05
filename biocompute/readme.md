@@ -19,6 +19,10 @@
 - BCO_Spec_1.3.1 https://w3id.org/biocompute/1.3.1
 - IEEE_2791_1.0.0 https://w3id.org/biocompute/2791
 
+## Tutorials
+
+- https://w3id.org/biocompute/tutorials/
+
 ## Extension Domain:
 
 - https://w3id.org/biocompute/extension_domain

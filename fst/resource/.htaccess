@@ -1,0 +1,52 @@
+## This .htaccess is currently in the state of a first test to try out the w3ID service
+
+# PLEASE NOTE: This file is commented vigoursly to make it easier for succeeding researchers, research assistants and
+# research aides (german: HiWi) of the FST, that usually don't have a strong informatics background, but need to take
+# over in the future, to follow along.
+
+# The main goal of the commenting is to make them able to change and mainly add to this .htaccess file
+# and consequently make them able to extend, maintain and therefore reuse the service with minimal time efforts.
+
+
+RewriteEngine On
+
+# Directive to ensure files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/json .json
+AddType text/xml .xml
+AddType text/markdown .md
+
+# Set a environment variable to the data repository URL
+SetEnvIf REQUEST_URI ".*$" REPOSITORY_URL=https://git.rwth-aachen.de/sebastian.neumeier/test_w3id_redirect/-/tree/main
+
+
+# If the given URL doesn't contain a "." (like ".xml") use content negotiation
+# NOTE TODO: This still needs extensive testing and broader knowledge on content negotiation
+# .ttl (turtle)
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.ttl [NC,L]
+# .json
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.json [NC,L]
+# .xml
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.xml [NC,L]
+
+
+# If the given URL does contain a "." (like ".xml") the requested file type is explictly given by the requested URL
+# .ttl (turtle)
+RewriteRule ^/?([A-Za-z0-9-]+)(\.ttl)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.ttl [NC,L]
+# .json
+RewriteRule ^/?([A-Za-z0-9-]+)(\.json)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.json [NC,L]
+# .xml
+RewriteRule ^/?([A-Za-z0-9-]+)(\.xml)/?$ %{ENV:REPOSITORY_URL}/$1/rdf.xml [NC,L]
+# .md
+RewriteRule ^/?([A-Za-z0-9-]+)(\.md)/?$ %{ENV:REPOSITORY_URL}/$1/README.md [NC,L]
+
+# If nothing is given redirect to the main page of the repository
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:REPOSITORY_URL}/$1 [NC,L]
+

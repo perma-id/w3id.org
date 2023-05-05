@@ -9,6 +9,7 @@ The namespace has these sub-spaces:
 * **`/diga/terms/`** is used for the art-historical thesaurus for the description of Buddhist sculptures from Gandhara.
 * **`/diga/source/`** is used for bibliographical references to source works.
 * **`/diga/illustrations/`** is used for depictions of concepts from the thesaurus.
+* **`/diga/gazetteer/`** is used for place information on historical and archaeological sites in Gandhara.
 
 ## Contact
 
