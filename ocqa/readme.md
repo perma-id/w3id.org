@@ -11,6 +11,8 @@ The ontology for construction quality assurance, is designed to represent knowle
 ## Contacts
 * Sebastian Seiss <sebastian.seiss@uni-weimar.de>
 * Yuan Zheng <yuan.zheng@aalto.fi>
-This space is administered by:  
+
+
+*This space is administered by:  
 **Sebastian Seiß**  
 *Research Assistant, Bauhaus-University Weimar, Germany*  
