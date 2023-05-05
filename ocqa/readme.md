@@ -13,6 +13,6 @@ The ontology for construction quality assurance, is designed to represent knowle
 * Yuan Zheng <yuan.zheng@aalto.fi>
 
 
-*This space is administered by:  
+#This space is administered by:  
 **Sebastian Seiß**  
 *Research Assistant, Bauhaus-University Weimar, Germany*  
