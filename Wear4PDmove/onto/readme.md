@@ -8,3 +8,8 @@
 Location of .owl file: https://i-lab.aegean.gr/kotis/Ontologies/Wear4PDmove/Onto-v1.0.0/
 
 Previous version (v0.5): https://i-lab.aegean.gr/kotis/Ontologies/Wear4PDmove/
+
+Maintainers:
+- Sotiris Angelis (https://github.com/sotirisAng)
+- Nikos Zafeiropoulos (https://github.com/NikolasZaf1)
+- K. Kotis (https://github.com/KotisK)
