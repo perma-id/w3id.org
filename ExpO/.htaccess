@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
+RedirectMatch 302 ^/expo(/?)$ https://expo.eng.unibz.it
+RedirectMatch 302 ^/expo/expose/(.+)$ https://expose.eng.unibz.it/$1
+RedirectMatch 302 ^/expo/plugin(/?)$ https://github.com/mozzherina/ontouml-vp-plugin/tree/features/abstraction
