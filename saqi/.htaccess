@@ -1,32 +1,3 @@
-# Turn off MultiViews
-Options -MultiViews
-
-# Ensure ttl and json files are served correctly
-AddType text/turtle .ttl
-AddType application/ld+json .json
-
+Options +FollowSymLinks
 RewriteEngine on
-
-# Rewrite rule for latest version.
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://kracr.iiitd.edu.in/ontology/saqi [R=303,L]
-
-# Rewrite rule to serve JSON-LD content from the ontology URI if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://kracr.iiitd.edu.in/ontology/saqi/saqi.json [R=303,L]
-
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://kracr.iiitd.edu.in/ontology/saqi/saqi.xml [R=303,L]
-
-# Rewrite rule to serve TTL content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle 
-RewriteRule ^$ https://kracr.iiitd.edu.in/ontology/saqi/saqi.ttl [R=303,L]
-
-RewriteRule ^$ https://kracr.iiitd.edu.in/ontology/saqi [R=302,L]
+RewriteRule ^(.*) https://kracr.iiitd.edu.in/ontology/saqi/$1 [R=307,L]
