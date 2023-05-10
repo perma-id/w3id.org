@@ -1,0 +1,20 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Documentation/paper
+RewriteRule ^$ https://doi.org/10.1038/s41597-022-01537-6 [R=303,L]
+
+
+# CPM profile (versioned)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+# JSON-LD l
+RewriteRule ^ro-crate/(\d+\.\d+)$ https://by-covid.github.io/cpm-ro-crate/$1/ro-crate-metadata.jsonld [R=302,L]
+# HTML as fallback
+RewriteRule ^ro-crate/(\d+\.\d+)$ https://by-covid.github.io/cpm-ro-crate/$1/ [R=302,L]
+
+# CPM vocabulary (latest version)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^ro-crate$ https://by-covid.github.io/cpm-ro-crate/ro-crate-metadata.jsonld [R=303,L]
+RewriteRule ^ro-crate$ https://by-covid.github.io/cpm-ro-crate/ [R=303,L]
+
