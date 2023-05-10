@@ -1,7 +1,7 @@
 DigiTwin Ontology Centre
 =====
 
-Homepage: https://www.digitwin.ac.uk/ontology
+Homepage: https://github.com/Digital-Twin-Operational-Platform/DTHiveOntology
 * https://w3id.org/DigiTwin/TestRun
 
 

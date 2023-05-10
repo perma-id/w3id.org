@@ -1,0 +1,15 @@
+# Turn off MultiViews
+Options -MultiViews
+
+
+RewriteEngine On
+
+
+# Rewrite rule for latest version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://fusion-jena.github.io/INBIO/documentation/index-en.html [R=303,L]
+
+RewriteRule (.*) https://fusion-jena.github.io/INBIO/ [R=302,L,QSA]

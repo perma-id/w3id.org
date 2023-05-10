@@ -1,0 +1,46 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+####################################################
+#  Mobility Catalogue
+####################################################
+
+################
+# OSDM
+################
+RewriteRule ^osdm/core(.*) /mobility/osdm/core$1 [L]
+
+################
+# Transmodel
+################
+RewriteRule ^transmodel/commons(.*) /mobility/transmodel/commons$1 [L]
+RewriteRule ^transmodel/core(.*) /mobility/transmodel/core$1 [L]
+RewriteRule ^transmodel/facilities(.*) /mobility/transmodel/facilities$1 [L]
+RewriteRule ^transmodel/fares(.*) /mobility/transmodel/fares$1 [L]
+RewriteRule ^transmodel/journeys(.*) /mobility/transmodel/journeys$1 [L]
+
+################
+# Trias
+################
+
+RewriteRule ^trias/common(.*) /mobility/trias/common$1 [L]
+RewriteRule ^trias/fares(.*) /mobility/trias/fares$1 [L]
+RewriteRule ^trias/journey(.*) /mobility/trias/journey$1 [L]
+RewriteRule ^trias/location(.*) /mobility/trias/location$1 [L]
+RewriteRule ^trias/mode(.*) /mobility/trias/mode$1 [L]
+RewriteRule ^trias/trips(.*) /mobility/trias/trips$1 [L]
+RewriteRule ^trias/utility(.*) /mobility/trias/utility$1 [L]
+
+
+#If no specific ontology or SKOS codelist is requested, return the HTML ontology catalogue 
+RewriteRule ^.*$ https://oeg-upm.github.io/mobility/index.html [R=302,L]
+

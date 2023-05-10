@@ -7,6 +7,8 @@ Homepage:
 JSON-LD contexts:
 * https://w3id.org/chainpoint/v2
 * https://w3id.org/chainpoint/v3
+* https://w3id.org/chainpoint/v4
+* https://w3id.org/chainpoint/v5
 
 Contacts: 
-* Jason Bukowski <jason@tierion.com>
+* Jacob Henderson <jacob@tierion.com>

@@ -28,6 +28,18 @@ RewriteRule ^ieee-2791-schema/(.+)$ https://opensource.ieee.org/2791-object/ieee
 RewriteRule ^ieee-2791-schema(/)?$ https://opensource.ieee.org/2791-object/ieee-2791-schema/ [R=302,L]
 
 ##
+## ^ieee-1451.0-schema/
+##
+
+## redirects to xml schemas (.xsd files)
+## e.g. https://opensource.ieee.org/1451/1451.0-schema/-/raw/main/normative/CalibrationIdentificationTEDS.xsd
+RewriteRule ^ieee-1451.0-schema/(\w+).xsd$ https://opensource.ieee.org/1451/1451.0-schema/-/raw/main/normative/$1.xsd [R=302,L]
+
+## redirects to xml files implementing schema (.xml files)
+## e.g. https://opensource.ieee.org/1451/1451.0-schema/-/raw/main/normative/examples/E2.xml
+RewriteRule ^ieee-1451.0-schema/examples/(\w+).xml$ https://opensource.ieee.org/1451/1451.0-schema/-/raw/main/normative/examples/$1.xml [R=302,L]
+
+##
 ## ^ieee-1752-schema
 ##
 
@@ -79,6 +91,11 @@ RewriteRule ^ieee-1752-schema/physical-activity\.json$ https://opensource.ieee.o
 
 ## link to only ^ieee-1752-schema or ^ieee-1752-schema/
 RewriteRule ^ieee-1752-schema(/)?$ https://opensource.ieee.org/omh/1752/ [R=302,L]
+
+## IEEE 1588 Yang model
+## Redirects to raw yang file on gitlab. 1588.yang and ieee1588-ptp.yang should both resolve to ieee1588-ptp.yang should both resolve to raw file on gitlab
+RewriteRule ^1588.yang$ https://gitlab.com/IEEE-SA/1588/yang/-/raw/main/ieee1588-ptp.yang  [R=302,L]
+RewriteRule ^ieee1588-ptp.yang$ https://gitlab.com/IEEE-SA/1588/yang/-/raw/main/ieee1588-ptp.yang  [R=302,L]
 
 ##
 ## OSCom redirects
