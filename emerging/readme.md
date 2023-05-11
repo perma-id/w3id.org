@@ -4,4 +4,11 @@ The /emerging permalink dereferences Github repos containing namespace files and
 
 Contacts:
 
-Shaun Conway contact@emerging.eco
+- Shaun Conway
+
+  - email: contact@emerging.eco
+  - github: ig-shaun
+
+- Michael Pretorius
+  - email: michael@ixo.world
+  - github: Michael-Ixo
