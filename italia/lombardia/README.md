@@ -11,4 +11,5 @@ We initially plan to create:
 
 Contacts:
 
-+ Gianluca Carletti: email (gianluca.carletti@ariaspa.it)
++ Gianluca Carletti: github (https://github.com/gcarletti) - email (gianluca.carletti@ariaspa.it)
++ Enrico Le Coche: github (https://github.com/elecoche) - email (enrico.le.coche@accenture.com)
