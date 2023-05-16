@@ -7,3 +7,4 @@ This w3id points to the Building Product Property Ontology Network, one of the o
 
 * Project Annika.Moscati@ju.se
 * Ontologies He.Tan@ju.se
+* Github lafi21rx@ju.student.se (https://github.com/LarssonFilip)
