@@ -33,7 +33,9 @@ AddType text/markdown .md
 SetEnvIf REQUEST_URI ".*$" SECOND_REDIRECT_WEBPAGE_ROOT_URL=https://fst-tuda.pages.rwth-aachen.de/projects/rdm/metadata_hub/
 
 
-# If the given URL doesn't contain a "." (like ".xml") use content negotiation
+#*******************************************************************************************
+# 1. If the given URL doesn't contain a "." (like ".xml") use content negotiation.
+#*******************************************************************************************
 # NOTE TODO: STILL UNTESTED: Since there is a always a redirect to a .html file that
 # further redirects to the source the content negotiation of crawlers might get hickups.
 # .html
@@ -63,7 +65,11 @@ RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
 RewriteCond %{HTTP_ACCEPT} text/markdown
 RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.md.html [R=303,NC,L]
 
-# If the given URL does contain a "." (like ".xml") the requested file type is explictly given by the requested URL
+
+#*******************************************************************************************
+# 2. If the given URL does contain a "." (like ".xml") the requested file type is explictly
+# given by the requested URL
+#*******************************************************************************************
 # .ttl (turtle)
 RewriteRule ^/?([A-Za-z0-9-]+)(\.ttl)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.ttl.html [R=303,NC,L]
 # .json
@@ -74,7 +80,9 @@ RewriteRule ^/?([A-Za-z0-9-]+)(\.xml)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}
 RewriteRule ^/?([A-Za-z0-9-]+)(\.md)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.md.html [R=303,NC,L]
 
 
-# If nothing is given redirect to the main page of the repository
+#*******************************************************************************************
+# FALL BACK, redirect to the main fallback page of the repository redirect service
+#*******************************************************************************************
 # TODO: Add a index.html or similar to the service to be able to redirect to something
 # reasonable.
 RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1 [NC,L]
