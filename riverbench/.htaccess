@@ -24,6 +24,12 @@ RewriteRule ^(v/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/Rive
 # Main metadata – explicit extension for tagged releases
 RewriteRule ^v/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.$2 [R=302,L]
 
+# Profile metadata – explicit extension for dev release
+RewriteRule ^profiles/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.$3 [R=302,L]
+
+# Profile metadata – explicit extension for tagged releases
+RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
+
 # Dataset metadata – explicit extension for dev release
 RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/dev/metadata.$3 [R=302,L]
 
@@ -31,6 +37,34 @@ RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.$3 [R=302,L]
 
 ### SERVING HTML ###
+
+# Redirect /v/dev* to /
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^v/dev(.*)$ https://riverbench.github.io$1 [R=302,L]
+
+# Redirect /schema/{name} to /schema/{name}/dev
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^schema/([a-z0-9-]+)/?$ https://riverbench.github.io/schema/$1/dev [R=302,L]
+
+# Redirect /datasets/{name} to /datasets/{name}/dev
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^datasets/([a-z0-9-]+)/?$ https://riverbench.github.io/datasets/$1/dev [R=302,L]
+
+# Redirect /profiles/{name} to /profiles/{name}/dev
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^profiles/([a-z0-9-]+)/?$ https://riverbench.github.io/profiles/$1/dev [R=302,L]
 
 # Serve HTML if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -101,12 +135,6 @@ RewriteRule ^v/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBenc
 
 ### SERVING PROFILES ###
 
-# Profile metadata – explicit extension for dev release
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.$3 [R=302,L]
-
-# Profile metadata – explicit extension for tagged releases
-RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
-
 # Profile metadata – RDF/XML for dev release
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^profiles/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.rdf [R=302,L]
@@ -166,9 +194,6 @@ RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.ttl [R=302,L]
 
 ### SERVING DOCUMENTATION ###
-
-# Redirect /v/dev* to /
-RewriteRule ^v/dev(.*)$ https://riverbench.github.io/$1 [R=302,L]
 
 # Default response – redirect to documentation
 RewriteRule ^(.*)$ https://riverbench.github.io/$1 [R=302,L]
