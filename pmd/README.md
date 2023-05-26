@@ -15,4 +15,4 @@ This space is administered by:
 [Material Digital](https://material-digital.de)  
 Germany  
 <info@kit.edu>  
-GitHub: [meterialdigital](https://github.com/materialdigital)
+GitHub: [materialdigital](https://github.com/materialdigital)
