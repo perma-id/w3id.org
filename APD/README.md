@@ -17,5 +17,5 @@ The AusTraits Plant Dictionary (APD) is a vocabulary that formally defines the m
 
 ## Contact
 
-Space administered by *AusTraits team* <austraits.database@gmail.com>
+Space administered by Daniel Falster (http://github.com/dfalster) via <austraits.database@gmail.com>
 
