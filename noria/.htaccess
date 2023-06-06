@@ -9,17 +9,26 @@ RewriteEngine on
 RewriteRule ^$ https://github.com/Orange-OpenSource/noria-ontology [R=302,L]
 
 # Direct access to versioned ontology file
-# e.g. ontology/noria-0.1 => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.1.ttl
-RewriteRule ^ontology/(.*-\d+\.\d+)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1.ttl [R=302,L]
+# e.g. ontology/noria-0.3 => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+RewriteRule ^ontology/(.*-\d+\.\d+)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1/noria.ttl [R=302,L]
 
 # Direct access to named ontology file
-# e.g. ontology/noria-0.1.ttl => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.1.ttl
+# e.g. ontology/noria-0.3/noria.ttl => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
 RewriteRule ^ontology/(.*\.ttl)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1 [R=302,L]
 
-# Redirect ontology/<concept|property> to documentation
+# Redirect ontology/<concept|property> to full **latest ontology Turtle file** for computer access
+# See also: https://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_ne
+# See also: https://stackoverflow.com/questions/51959520/specify-and-test-htaccess-http-accept
+# e.g. ontology/troubleTicketCategory => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^ontology/?(.*)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl [R=302,L]
+
+# Redirect ontology/<concept|property> to documentation for user-friendly display
 # See also: https://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_ne
 # e.g. ontology/troubleTicketCategory => https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#troubleTicketCategory
-RewriteRule ^ontology/(.*)$ https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#$1 [R=302,NE,L]
+RewriteRule ^ontology/?(.*)$ https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#$1 [R=302,NE,L]
 
 # Redirect for documentation (general case)
 # e.g. doc/ => https://orange-opensource.github.io/noria-ontology/
