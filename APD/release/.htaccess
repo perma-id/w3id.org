@@ -6,7 +6,8 @@ Options -MultiViews
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
-AddType application/n-triples .n3
+AddType application/n-triples .nt
+AddType application/n-quads .nq
 AddType application/ld+json .json
 AddType application/ld+json .jsonld
 
@@ -19,31 +20,30 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteCond %{REQUEST_URI} /ontology/(\d+)\.(\d+)\.(\d+)
-RewriteRule ^ https://traitecoevo.github.io/APD/archive/%1.%2.%3/index.html [R=303,L]
+RewriteCond %{REQUEST_URI} /release/(\d+)\.(\d+)\.(\d+)
+RewriteRule ^ https://traitecoevo.github.io/APD/release/%1.%2.%3/index.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteCond %{REQUEST_URI} /ontology/(\d+)\.(\d+)\.(\d+)
-RewriteRule ^ https://traitecoevo.github.io/APD/archive/%1.%2.%3/APD.jsonld [R=303,L]
-
-# Rewrite rule to serve RDF/XML
-# RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-# RewriteCond %{REQUEST_URI} /ontology/(\d+)\.(\d+)\.(\d+)
-# RewriteRule ^ https://traitecoevo.github.io/APD/archive/%1.%2.%3/APD.xml [R=303,L]
+RewriteCond %{REQUEST_URI} /release/(\d+)\.(\d+)\.(\d+)
+RewriteRule ^ https://traitecoevo.github.io/APD/release/%1.%2.%3/APD.json [R=303,L]
 
 # Rewrite rule to serve N-Triples content
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteCond %{REQUEST_URI} /ontology/(\d+)\.(\d+)\.(\d+)
-RewriteRule ^ https://traitecoevo.github.io/APD/archive/%1.%2.%3/APD.nt [R=303,L]
+RewriteCond %{REQUEST_URI} /release/(\d+)\.(\d+)\.(\d+)
+RewriteRule ^ https://traitecoevo.github.io/APD/release/%1.%2.%3/APD.nt [R=303,L]
+
+# Rewrite rule to serve N-Quads
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteCond %{REQUEST_URI} /release/(\d+)\.(\d+)\.(\d+)
+RewriteRule ^ https://traitecoevo.github.io/APD/release/%1.%2.%3/APD.nq [R=303,L]
 
 # Rewrite rule to serve TTL content
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteCond %{REQUEST_URI} /ontology/(\d+)\.(\d+)\.(\d+)
-RewriteRule ^ https://traitecoevo.github.io/APD/archive/%1.%2.%3/APD.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} /release/(\d+)\.(\d+)\.(\d+)
+RewriteRule ^ https://traitecoevo.github.io/APD/release/%1.%2.%3/APD.ttl [R=303,L]
 
 ############################## Rules for Latest Versions ##############################
 
@@ -56,16 +56,15 @@ RewriteRule ^$ https://traitecoevo.github.io/APD/index.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://traitecoevo.github.io/APD/APD.jsonld [R=303,L]
-
-# Rewrite rule to serve RDF/XML
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://traitecoevo.github.io/APD/APD.xml [R=303,L]
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.json [R=303,L]
 
 # Rewrite rule to serve N-Triples content
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^$ https://traitecoevo.github.io/APD/APD.nt [R=303,L]
+
+# Rewrite rule to serve N-Quads content
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.nq [R=303,L]
 
 # Rewrite rule to serve TTL content
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
