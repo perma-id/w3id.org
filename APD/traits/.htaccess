@@ -1,0 +1,46 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/n-quads .nq
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Rewrite rule to serve HTML
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://traitecoevo.github.io/APD/#$1 [R=303,L,NE]
+
+# Omitting the [NE] in above will result in the # being converted to its hexcode equivalent, %23, which will then result in a 404 Not Found error condition.
+
+# Rewrite rule to serve JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.json [R=303,L]
+
+# Rewrite rule to serve N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.nt [R=303,L]
+
+# Rewrite rule to serve N-Quads
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.nq [R=303,L]
+
+# Rewrite rule to serve TTL
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://traitecoevo.github.io/APD/APD.ttl [R=303,L]
+
+# Default response
+# ---------------------------
+# default response is the documentation page
+RewriteRule ^$ https://traitecoevo.github.io/APD/ [R=303,L]
