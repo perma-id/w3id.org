@@ -8,7 +8,6 @@ The complete hierarchy of taxa classes documentation is available at the followi
 
 | Documentation                                   | Ontology                                               |
 | ----------------------------------------------- | ------------------------------------------------------ |
-
 | [https://w3id.org/EUTaxO](https://w3id.org/EUTaxO)                           | [https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl](https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl)                           |
 | [https://w3id.org/EUTaxO/animalia](https://w3id.org/EUTaxO/animalia)                           | [https://jfaldanam.gitlab.io/EUTaxO/animalia/EUTaxO-animalia.owl](https://jfaldanam.gitlab.io/EUTaxO/animalia/EUTaxO-animalia.owl)                           |
 | [https://w3id.org/EUTaxO/bacteria](https://w3id.org/EUTaxO/bacteria)                           | [https://jfaldanam.gitlab.io/EUTaxO/bacteria/EUTaxO-bacteria.owl](https://jfaldanam.gitlab.io/EUTaxO/bacteria/EUTaxO-bacteria.owl)                           |
