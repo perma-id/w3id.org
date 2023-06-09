@@ -30,3 +30,5 @@ The objective of **ThOR Ontology** is to provide a vocabulary for building lexic
 # Publication
 
 Barcelos, P. P. F., Sales, T. P., Kampert, E., Reniers, F., Segers, R., Guizzardi, G., Franke, W. (2023).  17th Terminology & Ontology: Theories and applications (TOTh 2023) International Conference. Chambéry, France.
+
+Available at https://www.researchgate.net/publication/371439612_A_Model-Driven_Transformation_from_Lexicons_to_Thesauri/
