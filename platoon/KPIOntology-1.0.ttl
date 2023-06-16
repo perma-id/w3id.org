@@ -1,0 +1,162 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix saref: <https://w3id.org/saref#> .
+@prefix s4city:<https://w3id.org/def/saref4city#>.
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:KPIOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon KPI Ontology"@en ;
+  dcterms:description "Links the Platoon KPI vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-02"^^xsd:date ;
+  dcterms:modified "2020-11-19"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/KPIOntology-1.0> ;
+  owl:imports <https://w3id.org/def/saref4city#> ,
+              seas:FeatureOfInterestOntology-1.0 ;   
+  owl:versionInfo "v1.0" .
+
+#######################################
+# Indicator                           #
+#######################################
+
+plt:Indicator  a owl:Class ;
+  rdfs:label "Indicator"@en ;
+  rdfs:comment """A Indicator means something that shows what a situation is like.(source:Cambridge dictionary)"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:OverHeatingIndicator  a owl:Class ;
+  rdfs:label "Over Heating Indicator"@en ;
+  rdfs:comment """A over heating indicator is a temperature measure by which a excessive heating may be determined."""@en ;
+  rdfs:subClassOf plt:Indicator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:OverCoolingIndicator  a owl:Class ;
+  rdfs:label "Over Cooling Indicator"@en ;
+  rdfs:comment """ A over cooling indicator is a temperature measure by which a excessive cooling may be determined."""@en ;
+  rdfs:subClassOf plt:Indicator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:EnergyLosses  a owl:Class ;
+  rdfs:label "Energy Losses"@en ;
+  rdfs:comment """The energy loss is the part of produced energy not used."""@en ;
+  rdfs:subClassOf plt:Indicator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:BenchmarkingAnalysis  a owl:Class ;
+  rdfs:label "Benchmarking Analysis"@en ;
+  rdfs:comment """Benchmarking analysis serves as a standard by which others may be measured or judged"""@en ;
+  rdfs:subClassOf plt:Indicator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:RankingIndicator  a owl:Class ;
+  rdfs:label "Ranking Indicator"@en ;
+  rdfs:comment """A Ranking Indicator indicate a rank or level of something"""@en ;
+  rdfs:subClassOf plt:BenchmarkingAnalysis;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:AnomalyIndicator  a owl:Class ;
+  rdfs:label "Anomaly Indicator"@en ;
+  rdfs:comment """An anomaly indicator is a indicator of the state of anomaly"""@en ;
+  rdfs:subClassOf plt:BenchmarkingAnalysis;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:AverageForTypologyIndicator  a owl:Class ;
+  rdfs:label "Average For Typology Indicator"@en ;
+  rdfs:comment """An average for typology indicator indicate an average for typology."""@en ;
+  rdfs:subClassOf plt:BenchmarkingAnalysis;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:DeviationIndicator  a owl:Class ;
+  rdfs:label "Deviation Indicator"@en ;
+  rdfs:comment """A deviation indicator is a indicator of the state of the deviation"""@en ;
+  rdfs:subClassOf plt:BenchmarkingAnalysis;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+
+plt:isRelativeTo rdf:type owl:ObjectProperty ;
+  rdfs:label "is relative to"@en ;
+  rdfs:comment "Links a feature of interest, such as a occupancy, to a its relative entity"@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:FeatureOfInterest ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:KPIOntology.
+#######################################
+#   reused concepts                   #
+#######################################
+
+s4city:KeyPerformanceIndicator a owl:Class.
+
+seas:FeatureOfInterest a owl:Class.
+
+saref:Occupancy a owl:Class.
+
+saref:FeatureOfInterest a owl:Class.
+
+s4city:KeyPerformanceIndicatorAssessment a owl:Class.
+
+#######################################
+#   reused relations                  #
+#######################################
+s4city:hasKPI a owl:ObjectProperty.
+
+s4city:isKPIOf a owl:ObjectProperty.
+
+s4city:quantifiesKPI a owl:ObjectProperty.
+
+s4city:hasCalculationPeriod  a owl:ObjectProperty.
+
+s4city:assesses a owl:ObjectProperty.
+
+s4city:refersToTime a owl:ObjectProperty.

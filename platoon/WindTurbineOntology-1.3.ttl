@@ -1,0 +1,706 @@
+# Copyright 2020  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix seas: <https://w3id.org/seas/> .
+@prefix ontowind: <http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#> .
+@prefix time: <http://www.w3.org/2006/time#>.
+@prefix s4bldg: <https://w3id.org/def/saref4bldg#> .
+@prefix saref: <https://w3id.org/saref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:WindTurbineOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon wind turbine Ontology"@en ;
+  dcterms:description "The platoon wind turbine vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-19"^^xsd:date ;
+  dcterms:modified "2022-02-18"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/WindTurbineOntology-1.3> ;
+  owl:imports  plt:AlignmentOntology,
+               <http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl>,
+               seas:ElectricPowerSystemOntology-1.1,
+               seas:ElectricPowerSystemOntology-1.0;           
+  owl:versionInfo "v1.3" .
+#######################################
+# WindTurbine                         #
+#######################################
+plt:WindTurbine a owl:Class;
+  rdfs:label "Wind Turbine"@en ;
+  rdfs:comment """A wind turbine is a device that converts the wind's kinetic energy into electrical energy(source wikipedia)."""@en ;
+  rdfs:subClassOf  plt:RenewableEnergySource,seas:ElectricPowerProducer,
+  [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom seas:ElectricPowerTransformer],
+                  [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:ElectricalGrid],
+                  [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Substation],
+                  [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:CableUtil],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Nacelle],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Converter],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Tower],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Vane],                 
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Motor],                 
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Blade] ;
+                  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Substation a owl:Class;
+  rdfs:label "Substation"@en ;
+  rdfs:comment """A substation is a part of an electrical generation, transmission, and distribution system. Substations transform voltage from high to low, or the reverse, or perform any of several other important functions.(source:wikipedia)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:ElectricalSubstation a owl:Class;
+  rdfs:label "Electrical Substation"@en ;
+  rdfs:comment """A electrical substation is a part of an electrical generation, transmission, and distribution system. Substations transform voltage from high to low, or the reverse, or perform any of several other important functions.(source:wikipedia)"""@en ;
+  rdfs:subClassOf plt:Substation;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:WindFarm a owl:Class;
+  rdfs:label "Wind Farm"@en ;
+  rdfs:comment "A wind farm  is a group of wind turbines in the same location used to produce electricity."@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:member ; owl:allValuesFrom plt:WindTurbine ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Rotor a owl:Class;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Generator],
+                  seas:ElectricPowerSystem ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:OnshoreWindTurbine a owl:Class ;
+  rdfs:label "Onshore Wind Turbine"@en ;
+  rdfs:comment """An onshore wind refers to turbines located on land."""@en ;
+  rdfs:subClassOf plt:WindTurbine, 
+              seas:ElectricPowerSystem ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:OffshoreWindTurbine a owl:Class ;
+  rdfs:label "Offshore Wind Turbine"@en ;
+  skos:altLabel "";
+  rdfs:comment """An offshore windturbine is located out at sea or in freshwater"""@en ;
+  rdfs:subClassOf  plt:WindTurbine, 
+              seas:ElectricPowerSystem ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Tower a owl:Class ;
+  rdfs:label "Tower"@en ;
+  rdfs:comment """The wind turbine tower is often made from steel or concrete. Generally, taller towers enable turbines to capture more kinetic wind energy because wind speed increases with height.(source:lexology.com) """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Transformer  ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:BottomBox  a owl:Class;
+  rdfs:label "Bottom Box"@en ;
+  skos:altLabel "Base Box"@en,"Power Box"@en,"Connection Box"@en ;
+  rdfs:comment """ A bottom Box or connection box is a place where electrical connections are made."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Transformer  ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Tower  ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:TopBox  a owl:Class;
+  rdfs:label "Top Box"@en ;
+  rdfs:comment """Topbox System is a cabinet for electrical equipment located in the nacelle of the wind turbine. It regulates the motors of the azimuth system, and controls the ventilation for cooling the generators. """@en ;
+  rdfs:subClassOf plt:BottomBox;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Nacelle  ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Motor a owl:Class ;
+  rdfs:label "Motor"@en ;
+  rdfs:comment """An electric motor is an electrical machine that converts electrical energy into mechanical energy. In a wind turbine, the motor is used to create electricity."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:CableUtil a owl:Class;
+  rdfs:label "cable util"@en ;
+  rdfs:comment """ """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+#######################################
+# Blade components                 #
+#######################################/
+plt:Blade a owl:Class;
+  rdfs:label "Blade";
+  rdfs:comment """ The windturbine blades are mounted on a rotor that sit horizontal to the ground. The turbine blades lift and rotate when the wind blows over them. (source:lexology.com)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:WindTurbine];
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Hub ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:PitchSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:PitchSystem a owl:Class;
+  rdfs:label "Pitch System"@en ;
+  rdfs:comment """The pitch system of the wind turbine generator system is used to change the upwind area of the blades when the rotor is facing the wind, thus controlling the rotation torque of the rotor."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem,
+                  ontowind:WindRelatedStructuralComponent;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:PitchControl];
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:PitchMotor];                  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:PitchControl a owl:Class;
+  rdfs:label "Pitch Control"@en ;
+  rdfs:comment """Pitch control is the technology used to operate and control the angle of the blades in a wind turbine."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem,
+                  ontowind:WindRelatedStructuralComponent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:PitchMotor a owl:Class;
+  rdfs:label "Pitch Motor"@en ;
+  rdfs:comment """The motor of the pitch System"""@en ;
+  rdfs:subClassOf plt:Motor;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Hub a owl:Class ;
+  rdfs:label "Hub"@en ;
+  rdfs:comment """ The hub of the wind turbine is that component that connects the blades to the main shaft and ultimately to the rest of the drive train."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:MainBearing a owl:Class ;
+  rdfs:label "Main Bearing"@en ;
+  rdfs:comment """The main bearing performs the critical role of supporting the turbine rotor, with replacements typically requiring its complete removal.(source:) """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Hub ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+#######################################
+plt:PitchAngleProperty a owl:Class ;
+  rdfs:label "Pitch AngleProperty"@en ;
+  rdfs:comment """The class of properties that are quantifiable and have a quantity kind pitch agle ."""@en ;
+  rdfs:subClassOf seas:AngleProperty;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology .
+
+plt:PitchAngleEvaluation a owl:Class ;
+  rdfs:label "Pitch Angle Evaluation"@en ;
+  rdfs:comment "The class of evaluation for pitch angle  properties"@en ;
+  rdfs:subClassOf seas:AngleEvaluation;    
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:PitchAngleProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology .
+ 
+plt:hasPitchAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has pitch angle"@en ;
+  rdfs:comment """Links the blade to its pitch angle."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+
+plt:hasPitchAngleSetpoint a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has pitch angle setpoint"@en ;
+  rdfs:comment """Links the feature of interest,like blade to its pitch angle setpoint."""@en ;
+  rdfs:subPropertyOf plt:hasPitchAngle ;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+
+plt:hasAveragePitchAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has average pitch angle"@en ;
+  rdfs:comment """Links the feature of interest,like blade to its pitch angle."""@en ;
+  rdfs:subPropertyOf plt:hasPitchAngle ;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+
+plt:hasMaximumPitchAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has maximum pitch angle"@en ;
+  rdfs:comment """Links the feature of interest,like blade, to its pitch angle."""@en ;
+  rdfs:subPropertyOf plt:hasPitchAngle;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+
+plt:hasMinimumPitchAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has minimum pitch angle"@en ;
+  rdfs:comment """Links the feature of interest,like blade to its pitch angle."""@en ;
+  rdfs:subPropertyOf plt:hasPitchAngle ;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+
+plt:hasStandardDeviationPitchAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has standard deviation pitch angle"@en ;
+  rdfs:comment """Links the feature of interest,like blade to its pitch angle."""@en ;
+  rdfs:subPropertyOf plt:hasPitchAngle;
+  rdfs:domain plt:Blade ;
+  rdfs:range plt:PitchAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology  .
+#######################################
+# Nacelle components                 #
+#######################################
+plt:Nacelle a owl:Class ;
+  rdfs:label "Nacelle"@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:comment """A nacelle /nəˈsɛl/ is a cover housing that houses all of the generating components in a wind turbine, including the generator, gearbox, drive train, and brake assembly """@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom seas:ElectricPowerTransformer],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Generator],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Controller],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:DriveTrain],
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:Gearbox ],
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:Brake ],
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:HighSpeedShaft ],
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:CPU_And_DisplayUnit ],                 
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:CoolingSystem ],
+                  [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:MainShaft ];
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:DriveTrain a owl:Class ;
+  rdfs:label "Drive Train"@en ;
+  rdfs:comment"""The drivetrain of a wind turbine is composed of the gearbox and the generator, the necessary components that a turbine needs to produce electricity. The gearbox is responsible for connecting the low-speed shaft attached to the turbine blades to the high-speed shaft attached to the generator. """;
+  rdfs:subClassOf seas:ElectricPowerSystem,
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Generator],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Brake ],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Shaft ],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Gearbox ];
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:WindTurbineController a owl:Class ;
+  rdfs:label "Controller"@en ;
+  rdfs:comment """Thewind turbine controller shuts off the wind turbine at about 90 km/h to protect the turbines from damaging winds. """@en ;
+  rdfs:subClassOf  s4bldg:Controller;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:Shaft a owl:Class ;
+  rdfs:label "Shaft"@en ;
+  rdfs:comment """its function is twofold. It serves as a mechanical support to support the rotor, as well as coupling to the mechanical transmission to be transformed.  """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:MainShaft a owl:Class ;
+  rdfs:label "Main Shaft"@en ;
+  skos:altLabel "Low Speed Shaft";
+  rdfs:comment """ A wind turbine’s main shaft arrangement is part of a geared, hybrid, or direct drive design.(source:SKF) """@en ;
+  rdfs:subClassOf plt:Shaft;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:MainBearing ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:Gearbox a owl:Class ;
+  rdfs:label "Gearbox"@en ;
+  rdfs:comment """A gearbox is typically used in a wind turbine to increase rotational speed from a low-speed rotor to a higher speed electrical generator. (source:windpower engineering)  """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:MainShaft ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:GearboxBearing a owl:Class ;
+  rdfs:label "Gearbox Bearing"@en ;
+  rdfs:comment """ A gearbox bearing is a type of rolling-element bearing similar to an epicyclic gear. (source wikipedia) """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Gearbox ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:Brake a owl:Class ;
+  rdfs:label "Brake"@en ;
+  rdfs:comment """Brake controls and positions the nacelle as it rotates with the wind to maximize power.(source:ICP Wind)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Gearbox ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:HighSpeedShaft a owl:Class ;
+  rdfs:label "High Speed Shaft"@en ;
+  rdfs:comment """ The high-speed shaft drives the generator which produces AC electrical current. (source:lexology) """@en ;
+  rdfs:subClassOf plt:Shaft;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Brake ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+
+plt:CPUAndDisplayUnit a owl:Class ;
+  rdfs:label "CPU And Display Unit"@en ;
+  rdfs:comment """A CPU and display unit is a device with a screenthat executes instructions and  displays characters or graphic representing data in a computer memory."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology . 
+#######################################
+# Converter                           #
+#######################################  
+plt:Converter a owl:Class ;
+  rdfs:label "Converter"@en ;
+  rdfs:comment """A  converter is a device for converting ."""@en ;
+  rdfs:subClassOf  seas:ElectricPowerSystem,
+                 [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:InsulatedGateBipolarTransistor];
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:InsulatedGateBipolarTransistors a owl:Class ;
+  rdfs:label "Insulated-gate bipolar transistors (IGBT)"@en ;
+  skos:altLabel "IGBT";
+  rdfs:comment """The IGBT (Insulated gate bipolar transistors) are the core elements of the power convertor (often also called frequency convertor). They are assembled as modules in an IGBT rack"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Convertor ] ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:isMemberOf; owl:someValuesFrom plt:InsulatedGateBipolarTransistorRack ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:InsulatedGateBipolarTransistorFan a owl:Class ;
+  rdfs:label "Insulated-gate bipolar transistor (IGBT) Fan "@en ;
+  rdfs:comment """The fan of IGBT ensure the cooling of all elements inside the power convertor cabine """@en ;
+  rdfs:subClassOf plt:Fan;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Convertor ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:InsulatedGateBipolarTransistorRack a owl:Class ;
+  rdfs:label "Insulated-gate bipolar transistor (IGBT) Rack"@en ;
+  rdfs:comment """IGBT are assembled as modules in an IGBT rack."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;    
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty s4bldg:isContainedIn; owl:someValuesFrom plt:Convertor ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Convertor ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:RotorConverter a owl:Class ;
+  rdfs:label "Rotor Converter"@en ;
+  skos:altLabel "RSC", 
+                "Rotor Side Converter";
+  rdfs:comment """ is a rotating element whose function is to induce the electromotive force necessary for the transformation of mechanical power into electrical. """@en ;
+  rdfs:subClassOf  plt:Converter;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:PowerConverter a owl:Class ;
+  rdfs:label "Power Converter"@en ;
+  rdfs:comment """A power converter is a electrical mechanical device for converting electric energy from on form to another. """@en ;
+  rdfs:subClassOf  plt:Converter;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:NetworkConverter a owl:Class ;
+  rdfs:label "Network Converter"@en ;
+  rdfs:comment """Network converter connects differents type of device."""@en ;
+  rdfs:subClassOf  plt:Converter;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+#######################################
+# Generator components                 #
+#######################################
+
+plt:Generator a owl:Class;
+  rdfs:label "Generator"@en ;
+  rdfs:comment """The generator  produces AC electrical current"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:HighSpeedShaft],
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:GeneratorCooling] ,
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:GeneratorBearing] ,
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Rotor] ,
+                  [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Stator]   ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:GeneratorWinding a owl:Class ;
+  rdfs:label " Generator Winding "@en ;
+  rdfs:comment """The generator windind is wherein recovering the electrical energy produced by the rotation of the rotor driven by the wind wheel. (source:heliciel.com)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Generator] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:GeneratorFan a owl:Class ;
+  rdfs:label "Generator Fan"@en ;
+  rdfs:comment """A generator fan is the fan of the generator"""@en ;
+  rdfs:subClassOf plt:Fan;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Generator] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:InductionGenerator a owl:Class;
+  rdfs:label "Induction Generator"@en ;
+  rdfs:comment """An induction generator has in charge of converting the rotational mechanical energy into electrical energy, with the phenomenon of induction."""@en ;
+  rdfs:subClassOf plt:Generator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:DoubleFedInductionGenerator a owl:Class;
+  rdfs:label "Double Fed Induction Generator"@en ;
+  rdfs:comment """Double-fed induction generator (DFIG),is a generating principle widely used in wind turbines. It is based on an induction generator with a multiphase wound rotor and a multiphase slip ring assembly with brushes for access to the rotor windings. (source:wikipedia)"""@en ;
+  rdfs:subClassOf plt:Generator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:GeneratorCooling a owl:Class ;
+  rdfs:label "Generator Cooling"@en ;
+  rdfs:comment """The generator cooling cools the wind turbine generator"""@en ;
+  rdfs:subClassOf plt:CoolingSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:GeneratorBearing a owl:Class ;
+  rdfs:label "Generator Bearing"@en ;
+  rdfs:comment """The bearing allows the required oscillation to control the loads and power of the wind turbine. (source: wikipedia)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:NonDriveEndBearing a owl:Class ;
+  rdfs:label "Non Drive End Bearing"@en ;
+  rdfs:comment """A drive end bearing is a bearing located at the non drive end"""@en ;
+  rdfs:subClassOf plt:GeneratorBearing  ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:DriveEndBearing a owl:Class ;
+  rdfs:label "Drive End Bearing"@en ;
+  rdfs:comment """A drive end bearing is a bearing located at the drive end"""@en ;
+  rdfs:subClassOf   plt:GeneratorBearing  ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:Stator a owl:Class ;
+  rdfs:label "Stator"@en ;
+  rdfs:comment """The stator is a static element in which the electrical energy resulting from the transformation is induced. It consists of a magnetic package formed by stacking insulated electrical steel grooved sheets, in which the corresponding winding is housed. This set is integrated inside the generator evolver."""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Generator ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Rotor] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:StatorWinding a owl:Class ;
+  rdfs:label " Stator Winding "@en ;
+  skos:altLabel "Stator Core";
+  rdfs:comment """The stator core uses an isolated thin silicon steel plate that consists of oxide and varnish. (source: https://www.sciencedirect.com/topics/engineering/stator-cores)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Stator] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:StatorFrame a owl:Class ;
+  rdfs:label "Stator Frame"@en ;
+  rdfs:comment """ The stator frame supports the core of the stator and protects their three-phase winding.(source: https://circuitglobe.com/difference-between-stator-and-rotor.html)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Stator ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+#######################################
+# Rotor                               #
+#######################################
+plt:Rotor a owl:Class ;
+  rdfs:label "Rotor"@en ;
+  rdfs:comment """The rotor is a moving component of an electromagnetic system in the electric motor, electric generator, or alternator. Its rotation is due to the interaction between the windings and magnetic fields which produces a torque around the rotor's axis. source:wikipedia"""@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Stator] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+
+plt:RotorWinding a owl:Class ;
+  rdfs:label "Rotor Winding"@en ;
+  skos:altLabel "Rotor Core";
+  rdfs:comment """A rotor winding is of the squirrel-cage type where solid conductors in the slots are shorted together at each end of the rotor iron by conducting end rings. In such machines there is no need to insulate the conductors from the iron.(source: https://www.britannica.com/technology/squirrel-cage-rotor-winding)"""@en ; 
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Rotor] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:RotorBearing a owl:Class ;
+  rdfs:label "Rotor Bearing"@en ;
+  rdfs:comment """A rotor bearing placed on the shaft, they are the elements that allow the rotor to rotate with respect to the stator. """@en ; 
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Rotor] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:SlipRing a owl:Class ;
+  rdfs:label "Slip Ring"@en ;
+  rdfs:comment """A slip ring passes electrical signals and power across a rotating interface using sliding electrical contacts. (source: https://www.moog.com/content/dam/moog/literature/MCG/FAQ_SlipRings.pdf)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Rotor] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+
+plt:RotorBrush a owl:Class ;
+  rdfs:label "Rotor Brush"@en ;
+  rdfs:comment """A rotor brush is a part of the rotor of the generator. The brushes ensure transfer of currents from the static part (power convertor) to the rotor of the generator."""@en ; 
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:Rotor] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+#######################################
+#   Properties and relations        #
+#######################################
+plt:hasTemperatureRotorSide a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  temperature rotor side"@en ;
+  rdfs:comment """Links the gearbox bearing to its   temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:GearboxBearing ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:hasTemperatureGeneratorSide a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  temperature generator side"@en ;
+  rdfs:comment """Links the gearbox bearing to its temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:GearboxBearing ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:hasInputOilMinimumTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has minimum temperature "@en ;
+  rdfs:comment """Links the gearbox to its input oil temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:Gearbox ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+
+plt:hasInputOilMaximumTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has maximum temperature "@en ;
+  rdfs:comment """Links the gearbox to its input oil temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:Gearbox ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:hasInputOilAverageTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has average temperature "@en ;
+  rdfs:comment """Links the gearbox to its input oil temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:Gearbox ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:hasInputOilStandardDeviationTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has standard deviation temperature "@en ;
+  rdfs:comment """Links the gearbox to its input oil temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain plt:Gearbox ;
+  rdfs:range seas:TemperatureProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WindTurbineOntology.
+
+plt:Vane  a owl:Class;
+  owl:equivalentClass plt:WeatherVane;
+  rdfs:subClassOf saref:Sensor;
+  rdfs:isDefinedBy plt:WindTurbineOntology .
+#######################################
+#   reused concepts                   #
+#######################################
+ontowind:WindTurbine a owl:Class.
+
+ontowind:Nacelle a owl:Class.
+
+ontowind:Blade a owl:Class.
+
+ontowind:Generator a owl:Class.
+
+ontowind:InductionGenerator a owl:Class.
+
+ontowind:Rotor a owl:Class.
+
+seas:ElectricPowerTransformer  a owl:Class;
+  rdfs:subClassOf seas:ElectricPowerTransmissionSystem.
+seas:ElectricPowerSystem a owl:Class;
+    rdfs:subClassOf seas:ElectricPowerSystem.
+
+
+seas:ElectricPowerProducer a owl:Class;
+    rdfs:subClassOf seas:ElectricPowerSystem. 
+
+seas:PowerBox a owl:Class.
+
+plt:CoolingSystem a owl:Class;
+    rdfs:subClassOf seas:ElectricPowerSystem;
+    rdfs:isDefinedBy plt:HVACOntology.
+
+plt:ElectricalGrid a owl:Class ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:isDefinedBy plt:GridOntology . 
+  
+s4bldg:Controller a owl:Class.
+
+
+
+
+#######################################
+#   reused relations                  #
+#######################################
+
+seas:subSystemOf a owl:ObjectProperty.
+
+seas:connectedTo a owl:ObjectProperty.
+
+seas:temperature a owl:ObjectProperty;
+           rdfs:subPropertyOf seas:hasProperty.
+
+

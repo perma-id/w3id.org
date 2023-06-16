@@ -1,0 +1,312 @@
+ # Copyright 2020  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:GridOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon grid Ontology"@en ;
+  dcterms:description "The platoon grid vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-20"^^xsd:date ;
+  dcterms:modified "2021-08-10"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/GridOntology-1.3> ;
+  owl:imports  plt:AlignmentOntology-1.3,
+  <https://w3id.org/saref> , 
+               plt:ElectricPowerSystemOntology-1.3;           
+  owl:versionInfo "v1.3" .
+
+#######################################
+# Grid               #
+####################################### 
+plt:ElectricalGrid a owl:Class ;
+  rdfs:label "Electrical Grid"@en ;
+  rdfs:comment """An electrical grid is an interconnected network for delivering electricity from producers to consumers. (source: wikipedia)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology . 
+
+plt:SmartMicroGrid a owl:Class ;
+  rdfs:label "Smart Micro Grid"@en ;
+  rdfs:comment """Micro grid refers to a distribution network for electrical energy, starting from electricity generation to its transmission and storage with the ability to respond to dynamic changes in energy supply through co-generation and demand adjustments. (source: https://ieeexplore.ieee.org/document/5763195)"""@en ;
+  rdfs:subClassOf plt:ElectricalGrid;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom plt:ElectricalGrid ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom plt:ChargingStation ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom seas:ElectricVehiculeChargingStation] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom plt:BikeChargingStation ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom plt:PowerCenter ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo ; owl:someValuesFrom seas:ElectricPowerProducer] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:hasState ;  owl:allValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( saref:OnState
+                                                                 saref:OffState
+                                                               )
+                                                 ]] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology .
+
+plt:ElectricGridSimulator a owl:Class ;
+  rdfs:label "Electric Grid Simulator"@en ;
+  rdfs:comment """An electric grid simulator is a system that simulates electrical grid"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem,
+                  plt:PowerConvertor;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty plt:simulates ;  owl:allValuesFrom  plt:ElectricalGrid] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology . 
+
+plt:ElectricVehiculeChargingStationGroup a owl:Class ;
+  rdfs:label "Electric Vehicule Charging Station Group"@en ;
+  rdfs:comment """Electric Vehicule Charging Station Group is a group system which has member only Electric Vehicule Charging Station. """@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:member ;  owl:allValuesFrom  seas:ElectricVehiculeChargingStation] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology . 
+
+ plt:connectsAtGridSide  a owl:ObjectProperty ;
+  rdfs:label "simulates"@en ;
+  rdfs:comment """Links a system to one of the connection points at which it connects grid Side."""@en ;
+  rdfs:subPropertyOf  seas:connectsAt ;
+  rdfs:domain seas:System;
+  rdfs:range seas:ConnectionPoint;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology .  
+
+
+#######################################
+#  set of connectors                 #
+#######################################
+plt:hasConnectorGood1 a owl:DatatypeProperty ;
+  rdfs:label "has connector good1"@en ;
+  rdfs:comment """name of the connector good 1."""@en ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range xsd:string ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasConnectorGood2 a owl:DatatypeProperty ;
+  rdfs:label "has connector good2"@en ;
+  rdfs:comment """name of the connector good 2."""@en ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range xsd:string ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasConnectorEfficiencyGood1to2 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has connector efficiency Good1to2"@en ;
+  rdfs:comment """Links the storage system to its connector efficiency from good 1 to good 2."""@en ;
+  rdfs:subPropertyOf seas:efficiency ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range seas:EfficiencyProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasConnectorEfficiencyGood2to1 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has connector efficiency Good2to1"@en ;
+  rdfs:comment """Links the storage system to its connector efficiency from good 2 to good 1."""@en ;
+  rdfs:subPropertyOf seas:efficiency ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range seas:EfficiencyProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasConnectorMaximumTransmissionPowerGood1 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has connector maximum transmission power good 1"@en ;
+  rdfs:comment """Links the storage system to its maximum transmission power of good 1."""@en ;
+  rdfs:subPropertyOf seas:electricPower ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range seas:ElectricPowerProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+#######################################
+#   set of networks                  #
+#######################################
+plt:NetworkGoodProperty a owl:Class ;
+  rdfs:label "Network Good Property"@en ;
+  rdfs:comment """A Network Good  Property is a property that describes the good exchanged in the network"""@en ;
+  rdfs:subClassOf seas:BooleanProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology..
+
+plt:hasNetworkGood a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Network Good"@en ;
+  rdfs:comment """Links the electrical grid to its good exchanged in the network."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range plt:NetworkGoodProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasNetworkMaximumBuy a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has network maximum buy"@en ;
+  rdfs:comment """Links the electrical grid to its maximum rate that can be bought from the network."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PercentageProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasNetworkMaximumSell a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has network maximum sell"@en ;
+  rdfs:comment """Links the electrical grid to its maximum rate that can be sold to the network."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain plt:ElectricalGrid;
+  rdfs:range seas:PercentageProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+
+plt:hasNetworkBuyPrice a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has network buy price"@en ;
+  rdfs:comment """Links the electrical grid to its purchase price."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:BuyingPriceProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasNetworkSellPrice a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has network sell price"@en ;
+  rdfs:comment """Links the electrical grid to its selling price."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain plt:ElectricalGrid;
+  rdfs:range seas:SellingPriceProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+
+#######################################
+#  set of non-dispatchable machines                #
+#######################################
+plt:hasNonDispatchableOutputGood a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has non dispatchable output good"@en ;
+  rdfs:comment """Links the electrical grid to its good produced by non-dispatchable machine."""@en ;
+  rdfs:subPropertyOf plt:hasEnergyProduction ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range plt:EnergyProductionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasDeltaNonDispatchable a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has delta non dispatchable"@en ;
+  rdfs:comment """Links the electrical grid to its maximum admissible variation of the non-dispatchable production"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PercentageProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasNonDispatchableCurtailmentCost a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has nondispatchable curtailment cost"@en ;
+  rdfs:comment """Links the electrical grid to its non dispatchable curtailment cost"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PriceProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+#######################################
+#               set of fuels      #
+#######################################
+plt:hasFuelCost a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has fuel cost"@en ;
+  rdfs:comment """Links the electrical grid to its fuel cost"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PriceProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+#######################################
+#           set of demands      #
+#######################################
+plt:DemandGoodProperty a owl:Class ;
+  rdfs:label "Demand Good Property"@en ;
+  rdfs:comment """A Demand Good  Property is a property that describes the good required by the demand."""@en ;
+  rdfs:subClassOf seas:BooleanProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology .
+
+plt:hasDemandGood a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has demand good"@en ;
+  rdfs:comment """Links the electrical grid to its good required by the demand"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range plt:DemandGoodProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+
+plt:hasDeltaDemand a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has delta demand"@en ;
+  rdfs:comment """Links the electrical grid to its maximum admissible variation of the demand respect to the forecasted value."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PercentageProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+
+plt:hasUnmetDemandCost a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has unmet demand cost"@en ;
+  rdfs:comment """Links the electrical grid to its unmet demand cost"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:ElectricalGrid;
+  rdfs:range seas:PriceProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GridOntology.
+#######################################
+#                reused concepts      #
+#######################################
+
+seas:PriceProperty a owl:Class;
+     rdfs:subClassOf seas:Property.
+seas:BooleanProperty a owl:Class;
+     rdfs:subClassOf seas:EnumeratedProperty.
+seas:PercentageProperty  a owl:Class;
+     rdfs:subClassOf seas:Property.
+seas:connectedTo a owl:ObjectProperty.
+
+saref:State  a owl:Class.
+
+saref:OnState a owl:Class.
+
+saref:OffState a owl:Class.

@@ -1,0 +1,99 @@
+# Copyright 2020  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix s4bldg: <https://w3id.org/def/saref4bldg#> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:MeterOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon meter ontology"@en ;
+  dcterms:description "Links the platoon meter and sensor vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-10-22"^^xsd:date ;
+  dcterms:modified "2022-02-11"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/MeterOntology-1.1> ;
+  owl:imports <https://w3id.org/saref> ,   
+              seas:SmartMeterOntology-1.1;  
+  owl:versionInfo "v1.1" .
+
+#######################################
+# Thermal Meter            #
+#######################################
+plt:ThermalMeter a owl:Class ;
+  rdfs:label "Thermal Meter"@en ;
+  rdfs:comment """A Thermal meter is a meter designed to measure thermal measure"""@en ;
+  rdfs:subClassOf  saref:Meter;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:MeterOntology .
+
+
+plt:ThermalEnergyMeter a owl:Class ;
+  rdfs:label "Thermal Energy Meter"@en ;
+  rdfs:comment "A Thermal energy meter is a meter designed to measure thermal energy."@en ;
+  rdfs:subClassOf plt:ThermalMeter;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:measuresProperty; owl:someValuesFrom plt:ThermalEnergyConsumptionProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:MeterOntology .
+
+
+
+#######################################
+#   reused concepts                   #
+#######################################
+saref:Meter a owl:Class.
+
+saref:EnergyMeter a owl:Class.
+
+s4bldg:FlowMeter a owl:Class.
+
+seas:GasMeter a owl:Class ;
+   rdfs:comment  """ can be linked to plt:GasFlowProperty with the relation  seas:measuresProperty""".
+
+seas:ElectricityMeter a owl:Class ;
+  rdfs:comment  """ can be linked to plt:ElectricityEnergyConsumptionProperty with the relation  seas:measuresProperty,
+                    can be linked to plt:ElectricityEnergyProductionProperty with the relation seas:measuresProperty"""  .
+
+

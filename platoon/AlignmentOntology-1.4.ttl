@@ -1,0 +1,405 @@
+# Copyright  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix s4city: <https://w3id.org/def/saref4city#> .
+@prefix s4bldg: <https://w3id.org/def/saref4bldg#> .
+@prefix dogont: <http://elite.polito.it/ontologies/dogont.owl#> .
+@prefix brick: <https://brickschema.org/schema/1.1/Brick#>.
+@prefix sch: <https://schema.org/> .
+@prefix fiemser: <http://sites.google.com/site/smartappliancesproject/ontologies/fiemser#> .
+@prefix gr: <http://purl.org/dc/elements/1.1/>.
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix semanco: <http://semanco02.hs-albsig.de/repository/ontology-releases/eu/semanco/ontology/SEMANCO/SEMANCO.owl#>.
+@prefix ontowind: <http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#> .
+@prefix pep: <https://w3id.org/pep/>.
+@prefix cim: <http://www.iec.ch/TC57/CIM#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@prefix th: <https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/EnergyResourceOntology.owl#>.
+@prefix ssn:<http://www.w3.org/ns/ssn/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+
+plt:AlignementOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon Alignment ontology"@en ;
+  dcterms:description "Defines relations between elements from existing energy ontologies reused on platoon."@en ;
+  dcterms:issued "2020-10-22"^^xsd:date ;
+  dcterms:modified "2022-06-13"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/AlignmentOntology-1.4> ;
+  owl:imports <https://w3id.org/saref> ,   
+              <https://w3id.org/pep>,          
+              seas:BuildingEnergyOntology-1.0,
+              seas:ElectricPowerSystemOntology-1.0,
+              seas:EvaluationOntology-1.0,
+              seas:FeatureOfInterestsOntology-1.0,
+              seas:ForecastingOntology-1.1,
+              seas:GenericPropertyOntology-1.0;
+
+  owl:versionInfo "v1.4" .
+#######################################
+# Building and location               #
+#######################################
+bot:Zone owl:equivalentClass seas:Zone, brick:Zone ;
+        rdfs:comment  """ can be linked to plt:EnergyConsumptionProperty  by the relation  plt:hasEnergyConsumption or plt:hasSelfEnergyConsumption,
+                    can be linked to s4bldg:Building  by the relation  bot:containsZone.""".
+
+s4bldg:Building owl:equivalentClass seas:Building, 
+                                    dogont:Building, 
+                                    bot:Building,
+                                    th:Building,
+                                    brick:Building,
+                                    fiemser:Building.
+
+plt:ResidentialBuilding  owl:equivalentClass seas:ResidentalBuilding.
+plt:NonResidentialBuilding owl:equivalentClass seas:NonResidentalBuilding.
+
+bot:Storey owl:equivalentClass seas:BuildingStorey,
+                               dogont:Storey,                              
+                               th:BuildingStorey,
+                               brick:Storey.
+
+cim:Location owl:equivalentClass sch:Place,
+                                 gr:Location,
+                                 brick:Location ,
+                                 th:Location;
+      rdfs:subClassOf bot:Zone .
+
+s4city:City owl:equivalentClass sch:City,
+                                seas:City;
+      rdfs:subClassOf  bot:Zone.
+
+
+bot:Site rdfs:subClassOf brick:Site . # Maybe equivalent as of other subclassings.
+
+brick:Space rdfs:subClassOf bot:Space. 
+
+brick:Equipment rdfs:subClassOf bot:Element . # In BOT, anything other than bot:Zone is bot:Element
+
+dogont:Building rdfs:subClassOf bot:Building .
+dogont:Storey rdfs:subClassOf bot:Storey .
+dogont:Room rdfs:subClassOf bot:Space .
+
+bot:Zone rdfs:subClassOf dogont:Environment .
+dogont:BuildingEnvironment rdfs:subClassOf bot:Zone .
+dogont:Room rdfs:subClassOf bot:Space .
+dogont:Balcony  rdfs:subClassOf bot:Zone .
+dogont:Terrace  rdfs:subClassOf bot:Zone .
+
+dogont:Controllable   rdfs:subClassOf bot:Element .
+dogont:Device       rdfs:subClassOf bot:Element .
+dogont:TechnicalSystem  rdfs:subClassOf bot:Element .
+
+dogont:Vertical     rdfs:subClassOf bot:Element .
+dogont:Furniture    rdfs:subClassOf bot:Element .
+
+dogont:Ceiling  rdfs:subClassOf bot:Interface .
+dogont:Floor  rdfs:subClassOf bot:Interface .
+
+s4bldg:Building         rdfs:subClassOf bot:Building .
+s4bldg:PhysicalObject   rdfs:subClassOf bot:Element .
+s4bldg:Sensor           rdfs:subClassOf bot:Element .
+s4bldg:Actuator         rdfs:subClassOf bot:Element .
+
+#################################################################
+#    Classes
+#################################################################
+
+th:Campus rdfs:subClassOf bot:Site .
+th:Building rdfs:subClassOf bot:Building .
+th:BuildingStorey rdfs:subClassOf bot:Storey .
+
+th:Opening rdfs:subClassOf bot:Element .
+th:Space rdfs:subClassOf bot:Space .
+
+th:Zone rdfs:subClassOf bot:Zone .
+
+th:Construction rdfs:subClassOf bot:Interface .
+th:Layer rdfs:subClassOf bot:Interface .
+th:Material rdfs:subClassOf bot:Interface .
+th:SpaceBoundary rdfs:subClassOf bot:Interface .
+th:Surface rdfs:subClassOf bot:Interface .
+
+th:Equipment rdfs:subClassOf bot:Element .
+
+#################################################################
+#    Object properties
+#################################################################
+th:containsBuilding rdfs:subPropertyOf bot:hasBuilding .
+th:containsBuildingStorey rdfs:subPropertyOf bot:hasStorey .
+th:containsSpace rdfs:subPropertyOf bot:hasSpace .
+th:containsSpaceBoundary rdfs:subPropertyOf bot:interfaceOf .
+th:containsLighting rdfs:subPropertyOf bot:containsElement .
+th:containsHydronicLoopEquipment rdfs:subPropertyOf bot:hasSubElement .
+th:containsAirLoopEquipment rdfs:subPropertyOf bot:hasSubElement .
+
+
+th:hasDefinedAdjacentSpace rdfs:subPropertyOf [ owl:inverseOf bot:adjacentZone ] .
+th:isDefinedAdjacentSurfaceOf rdfs:subPropertyOf bot:interfaceOf .
+th:isEquipmentOf rdfs:subPropertyOf [ owl:inverseOf bot:hasElement ] .
+
+bot:containsZone rdfs:subPropertyOf brick:hasPart . # Usage of brick:hasPart with brick:Location
+brick:isLocationOf rdfs:subPropertyOf bot:containsElement . # bot:containsElement does not have domain/ range, hence, a brick:Point will not be classified as bot:Element. This would be wrong
+bot:hasSubElement rdfs:subPropertyOf brick:hasPart . # Usage of brick:hasPart with brick:Equipment
+
+s4bldg:hasSpace         rdfs:subPropertyOf bot:containsZone .
+s4bldg:contains         rdfs:subPropertyOf bot:containsElement .
+#######################################
+# Systems                            #
+#######################################
+ssn:System owl:equivalentClass seas:System,
+                               brick:System, cim:System.
+
+seas:ElectricPowerSystem  owl:equivalentClass brick:Electrical_System,cim:PowerSystemResource;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty s4bldg:isContainedIn ; owl:someValuesFrom bot:Zone ] .
+
+
+plt:LightingSystem owl:equivalentClass brick:LightingSystem ,       seas:LightSource, th:LightingSystemResource, semanco:Lighting_System  .
+plt:Transformer owl:equivalentClass s4bldg:Transformer, seas:ElectricPowerTransformer. 
+
+saref:LightingDevice  owl:equivalentClass seas:LightActuator;
+  rdfs:comment  """ can be linked to  plt:ElectricityEnergyConsumptionProperty by the relation plt:hasElectricityEnergyConsumption """ .
+
+semanco:PVSystem  a owl:Class ;
+  skos:altLabel "Photovoltaic Plant", "Photovoltaic Power Plant", "Photovoltaic System";
+  rdfs:subClassOf seas:System, seas:ElectricPowerProducer;
+  rdfs:comment  """ can be linked to s4bldg:Building by the relation  s4bldg:isContainedIn;
+                    can be linked to plt:ForecastOfPhotovoltaicEnergyProductionProperty  by the relation  plt:hasPhotovoltaicEnergyProduction;
+                    can be linked to plt:ElectricityEnergyConsumptionProperty by the relation  plt:hasForecastOfPhotovoltaicEnergyProduction              
+                    can be linked to plt:EnergyProductionProperty by the relation saref:hasProduction"""  .
+
+brick:GasSystem a owl:Class ;
+  rdfs:subClassOf seas:System;
+  rdfs:comment  """ can be linked to  saref:HVAC  by the relation   seas:subSystemOf  ; 
+                    can be linked to  plt:ElectricityEnergyConsumptionProperty by the relation plt:hasElectricityEnergyConsumption,
+                    can be linked to  s4bldg:Building  by the relation s4bldg:isContainedIn]"""  .
+
+plt:HVAC owl:equivalentClass  saref:HVAC, th:HVACSystemResource .
+plt:Chiller owl:equivalentClass s4bldg:Chiller.
+plt:HeatingSystem owl:equivalentClass th:HeatingSystem,semanco:Heating_System .
+s4bldg:Valve rdfs:seeAlso brick:Valve ;
+  rdfs:subClassOf saref:Device.
+saref:Device  owl:equivalentClass seas:Device.
+plt:VentilationSystem  owl:equivalentClass  th:VentilatingSystem,semanco:Ventilation_System.
+plt:Boiler owl:equivalentClass s4bldg:Boiler, th:Boiler, dogont:Boiler,semanco:Boiler.
+plt:Pump owl:equivalentClass s4bldg:Pump.
+plt:Condenser owl:equivalentClass s4bldg:Condenser.
+plt:Compressor owl:equivalentClass s4bldg:Compressor.
+plt:Burner owl:equivalentClass s4bldg:Burner.
+plt:Evaporator  owl:equivalentClass s4bldg:Evaporator.
+plt:Fan  owl:equivalentClass th:Fan.
+
+plt:Controller rdfs:equivalentClass  s4bldg:Controller. 
+
+cim:ControlArea rdfs:subClassOf seas:ElectricPowerSystem.
+
+#######################################
+# energy source                       #
+#######################################
+th:EnergySource owl:equivalentClass cim:EnergySource, semanco:Energy_Source;
+    rdfs:comment  """ can be linked to plt:EnergyProductionProperty by the relation  saref:hasProduction """ .
+
+plt:RenewableEnergySource owl:equivalentClass semanco:Renewable_Energy_Source,th:Renewable;
+  rdfs:subClassOf cim:EnergySource .
+
+th:SolarEnergySource  owl:equivalentClass semanco:Solar_Energy ;
+  rdfs:subClassOf semanco:Renewable_Energy_Source;
+  rdfs:comment  """ can be linked to plt:EnergyProductionProperty  by the relation saref:hasProduction """.
+
+th:GeothermalEnergySource owl:equivalentClass semanco:Geothermal_Energy;
+  rdfs:subClassOf semanco:Renewable_Energy_Source.
+
+plt:SolarPanel a owl:Class ;
+  owl:equivalentClass brick:Solar_Panel, seas:SolarPanel, th:SolarPanel,semanco:PVSystem.
+#######################################
+# properties                            #
+#######################################
+plt:SolarRadiationProperty owl:equivalentClass ontowind:SolarRadiation.
+plt:HeatRateProperty owl:equivalentClass cim:HeatRate.
+saref:Property owl:equivalentClass seas:Property, 
+                                   ssn:Property.
+
+cim:Volume owl:equivalentClass seas:VolumeProperty;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:simpleValue; owl:someValuesFrom  xsd:decimal] .
+
+cim:Area owl:equivalentClass seas:AreaProperty;
+  skos:altLabel "sqm";
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:simpleValue; owl:someValuesFrom  xsd:decimal] .
+
+seas:ElectricPowerProperty rdfs:subClassOf saref:Power .
+
+saref:hasProduction owl:equivalentProperty seas:production.
+
+saref:Pressure owl:equivalentClass seas:PressureProperty , ontowind:Pressure.
+
+saref:Humidity owl:equivalentClass ontowind:Humidity, seas:HumidityProperty.
+
+saref:Temperature owl:equivalentClass  seas:TemperatureProperty, ontowind:Temperature.  
+
+seas:ElectricEnergyProperty rdfs:subClassOf saref:Energy.
+
+seas:WindDirectionProperty  owl:equivalentClass  ontowind:WindDirection, semanco:Wind_Direction, th:WindDirectionStateValue.  
+
+seas:WindSpeedProperty  owl:equivalentClass ontowind:WindSpeed, semanco:Speed, th:WindSpeedStateValue.  
+
+#######################################
+# Price                              #
+#######################################
+saref:Price owl:equivalentClass seas:PriceProperty, cim:Price.
+
+
+#######################################
+# Meter                               #
+#######################################
+saref:Meter owl:equivalentClass seas:Meter,
+                                cim:Meter,
+                                th:Meter,
+                                brick:Meter;
+    rdfs:seeAlso dogont:Meter.
+
+seas:GasMeter owl:equivalentClass brick:Gas_Meter;
+                                      rdfs:seeAlso dogont:GasMeter;
+  rdfs:subClassOf saref:Meter,
+      [ a owl:Restriction ; owl:onProperty  saref:measuresProperty; owl:someValuesFrom plt:GasFlowProperty ] .
+
+saref:EnergyMeter rdfs:subClassOf saref:Meter;
+  rdfs:seeAlso dogont:EnergyMeter;.
+
+seas:ElectricityMeter owl:equivalentClass brick:Electrical_Meter;
+                     rdfs:subClassOf saref:EnergyMeter,
+                                 [ a owl:Restriction ; owl:onProperty  saref:measuresProperty; owl:someValuesFrom plt:ElectricityEnergyConsumptionProperty,
+                                                                                                                  plt:ElectricityEnergyConsumptionProperty ]  .
+#######################################
+# Sensor                               #
+#######################################
+saref:Sensor owl:equivalentClass th:Sensor,
+          dogont:Sensor,
+          seas:Sensor,
+          ssn:Sensor,
+          brick:Sensor,
+          cim:Sensor,
+          sosa:Sensor,
+          s4bldg:Sensor,
+          ontowind:Sensor,
+         [ a owl:Restriction ; owl:onProperty saref:measuresProperty ; owl:someValuesFrom saref:Property ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty s4bldg:isContainedIn ; owl:someValuesFrom bot:Zone ] ,
+             [ a owl:Restriction ; owl:onProperty seas:observeProperty ; owl:someValuesFrom seas:Property ] ,
+             [ a owl:Restriction ; owl:onProperty saref:measuresProperty ; owl:someValuesFrom saref:Property] .
+
+dogont:HumiditySensor owl:equivalentClass th:HumiditySensor,
+          brick:Humidity_Sensor,
+          seas:HumiditySensor,
+          ontowind:HumiditySensor,
+          [ a owl:Restriction ; owl:onProperty saref:measuresProperty ; owl:someValuesFrom saref:Humidity] ;
+  rdfs:subClassOf saref:Sensor.
+
+saref:TemperatureSensor  owl:equivalentClass th:TemperatureSensor,
+          dogont:TemperatureSensor,
+          ontowind:TemperatureSensor,
+          brick:Temperature_Sensor,
+          [ a owl:Restriction ; owl:onProperty saref:measuresProperty ; owl:someValuesFrom saref:Temperature] ;
+  rdfs:subClassOf saref:Sensor.
+
+plt:WeatherVane  owl:equivalentClass  ontowind:WindVane.
+plt:Anemometer  owl:equivalentClass ontowind:Anemometer.
+plt:PyranoSensor owl:equivalentClass ontowind:SolarRadiationSensor.
+plt:PressureSensor  owl:equivalentClass ontowind:PressureSensor.
+
+seas:observesProperty rdfs:subPropertyOf ssn:measures.
+ssn:measures owl:equivalentProperty saref:measuresProperty.
+#######################################
+# KPI                                 #
+#######################################
+s4city:KeyPerformanceIndicator a owl:Class;
+  rdfs:subClassOf plt:Indicator.
+
+
+sch:Organization owl:equivalentClass cim:Organization.
+
+cim:ControlAreaOperator rdfs:subClassOf sch:Organization.
+cim:MktOrganization rdfs:subClassOf sch:Organization.
+cim:MarketParticipant rdfs:subClassOf sch:Organization.
+cim:SchedulingCoordinator rdfs:subClassOf sch:Organization.
+
+
+
+seas:Evaluation  owl:equivalentClass cim:Measure.
+#######################################
+# wind turbine                        #
+#######################################
+plt:WindTurbine owl:equivalentClass ontowind:WindTurbine.
+plt:WindFarm owl:equivalentClass ontowind:WindPowerPlant.
+plt:Rotor owl:equivalentClass ontowind:Rotor .
+plt:BottomBox  owl:equivalentClass seas:PowerBox.
+plt:Tower owl:equivalentClass ontowind:Tower.
+plt:Blade  owl:equivalentClass ontowind:Blade.
+plt:Hub owl:equivalentClass ontowind:Hub.
+plt:Nacelle  owl:equivalentClass ontowind:Nacelle.
+plt:Gearbox owl:equivalentClass ontowind:Gearbox.
+plt:Brake owl:equivalentClass ontowind:Brake.
+plt:Generator owl:equivalentClass ontowind:Generator .
+plt:Rotor owl:equivalentClass ontowind:Rotor. 
+plt:Tower owl:equivalentClass ontowind:Tower.
+plt:Generator owl:equivalentClass ontowind:Generator  .
+#######################################
+# storage                        #
+#######################################
+seas:Battery  owl:equivalentClass brick:Battery.
+
+dogont:OccupiedStateValue  owl:equivalentClass th:OccupiedStateValue.
+
+dogont:OccupiedState  owl:equivalentClass th:OccupiedState.
+
+seas:ElectricPowerStorageSystem owl:equivalentClass brick:Energy_Storage.
+
+
+plt:ScheduledEvent owl:equivalentClass sch:Event.
+plt:FailureEvent  owl:equivalentClass cim:FailureEvent.
+plt:Alert owl:equivalentClass saref:Alarm.
+
+plt:OccupancyStatusEvaluation owl:equivalentClass th:OccupiedState.
+plt:TiltAngleProperty owl:equivalentClass semanco:Tilt_Angle. 

@@ -1,0 +1,361 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix qudt: <http://data.qudt.org/qudt/owl/1.0.0/qudt.owl#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix s4bldg: <https://w3id.org/def/saref4bldg#> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix sch: <https://schema.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix cim: <http://ontology.tno.nl/cerise/cim-profile#> .
+@prefix gsp: <http://www.opengis.net/ont/geosparql#> .
+@prefix geonames: <http://www.geonames.org/ontology#>.
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:BuildingOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon Building Ontology"@en ;
+  dcterms:description "The  Building vocabulary for the  Platoon  project. It is an extension of seas Building module and the ontology saref for building (s4bldg)"@en ;
+  dcterms:issued "2020-10-21"^^xsd:date ;
+  dcterms:modified "2022-06-13"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/BuildingOntology-1.3> ;
+  owl:imports  #       plt:AlignmentOntology,
+              seas:BuildingOntology-1.0;       
+  owl:versionInfo "v1.3" .
+#######################################
+# Building                            #
+#######################################
+
+
+
+plt:hasConstructionDate a owl:DatatypeProperty;
+  rdfs:label "has construction cate"@en ;
+  rdfs:comment """Links a construction to its construction date"""@en ;
+  rdfs:domain seas:Construction ;
+  rdfs:range xsd:date;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .      
+
+plt:ResidentialBuilding a owl:Class ;
+  rdfs:label "Residential Building"@en ;
+  rdfs:comment """A residential building is a building containing separate residences where a person may live or regularly stay."""@en;
+  rdfs:subClassOf  seas:Building;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:NonResidentialBuilding a owl:Class ;
+  rdfs:label "Non Residential Building"@en ;
+  rdfs:comment """A  non-residential building means a building or part of a building that is not a place of residence."""@en;
+  rdfs:subClassOf  seas:Building;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:BuildingGroup a owl:Class ;
+  rdfs:label "Building Group"@en ;
+  rdfs:comment "A Building group is a group which has member only Buildings."@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:member ; owl:allValuesFrom seas:Building ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:DataCenter a owl:Class ;
+  rdfs:label "Data Center"@en ;
+  rdfs:comment "A data center is a building, dedicated space within a building used to house computer systems and associated components, such as telecommunications and storage systems. (source: Wikipedia)"@en ;
+  rdfs:subClassOf plt:NonResidentialBuilding;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:LogisticCenter a owl:Class ;
+  rdfs:label "Logistic Center"@en ;
+  rdfs:comment "A logistic center is a building that is administrated by one company and allows other companies to lease warehouse space to carry out warehousing and logistics services.(source: Wikipedia)"@en ;
+  rdfs:subClassOf plt:NonResidentialBuilding;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:Retail a owl:Class ;
+  rdfs:label "Retail"@en ;
+  rdfs:comment "A retail is a building dedicated to the sale of goods to the public in relatively small quantities for use or consumption rather than for resale.(source: Wikipedia)"@en ;
+  rdfs:subClassOf plt:NonResidentialBuilding;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:Canteen a owl:Class ;
+  rdfs:label "Canteen"@en ;
+  rdfs:comment "A Canteen is a small cafeteria or snack bar, especially one in a military establishment, school, or place of work. (source: Wikipedia)"@en ;
+  rdfs:subClassOf seas:BuildingSpace;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+
+plt:TranformerCenter a owl:Class ;
+  rdfs:label "Transformer Center"@en ;
+  rdfs:comment "Building dedicated to transformer"@en ;
+  rdfs:subClassOf plt:NonResidentialBuilding;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:ClimateZone a owl:Class ;
+  rdfs:label "Climate Zone"@en ;
+  rdfs:comment """A climate zones are areas with distinct climates, which occur in east-west direction around the Earth, and can be classified using different climatic parametres. Generally, climate zones are belt-shaped and circular around the Poles (see picture on the right). In some areas, climate zones can be interrupted by mountains or oceans.(source: meteoblue)
+                  Climate zone can cantain in place or/and contain Place. For Example:
+                  <climateZone1> sch:containedInPlace <France>  ,
+                  <climateZone1> sch:containsPlace <Paris> """@en ;
+  rdfs:subClassOf sch:Place;                      
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+  sch:City a owl:Class .
+
+plt:OutdoorZone a owl:Class ;
+  rdfs:label "Outdoor Zone"@en ;
+  rdfs:comment """Open Air Zone"""@en ;
+  rdfs:subClassOf seas:Zone;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:IndoorZone a owl:Class ;
+  rdfs:label "Indoor Zone"@en ;
+  rdfs:comment """An indoor zone is an under cover Zone"""@en ;
+  rdfs:subClassOf seas:Zone;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+
+plt:DaylightSavingsStatusProperty a owl:Class ;
+  rdfs:label "Daylight Savings Status Property"@en ;
+  rdfs:comment """The day light savings status property is class of properties that are quantifiable and have a day light Savings Status."""@en ;
+  rdfs:subClassOf seas:Property;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:DaylightSavingsStatusEvaluation a owl:Class ;
+  rdfs:label "Day Light Savings Status Evaluation"@en ;
+  rdfs:comment "The  day light savings status evaluation is theclass of evaluation for day light savings status.It indicates if the building is under daylight savings period (0 to 1). 0 indicates that the building has not changed its electricity consumption profiles due to daylight savings, while 1 indicates the period in which the building may have been affected."@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; a owl:Restriction ;
+            owl:onProperty seas:evaluationOf ; 
+            owl:someValuesFrom plt:DaylightSavingsStatusProperty ] ;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty seas:evaluatedSimpleValue; 
+                    owl:allValuesFrom [ a rdfs:Datatype ; 
+                                         owl:oneOf [ 
+                                               a  rdf:List ;
+                                               rdf:first  "1"^^xsd:integer ;
+                                               rdf:rest   [ a          rdf:List ;
+                                                    rdf:first  "0"^^xsd:integer ;
+                                                    rdf:rest   ()
+                                              ] ] ] ] ;          
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+plt:hasDayLightSavingsStatus a owl:ObjectProperty , owl:FunctionalProperty;
+  rdfs:label "has day light Savings Status"@en ;
+  rdfs:comment """Links the building to its day light Savings Status"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  bot:Building ;
+  rdfs:range   plt:DaylightSavingsStatusProperty;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology. 
+
+
+
+#######################################
+########performance label class########
+#######################################
+
+plt:PerformanceLabel a owl:Class;
+  rdfs:label "Performance Label";
+  rdfs:comment """ """;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClimatePerformanceLabel a owl:Class;
+  rdfs:label "climate label";
+  rdfs:comment """ """;
+  rdfs:subClassOf plt:PerformanceLabel;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:EnergyPerformanceLabel a owl:Class;
+  rdfs:label "energy label";
+  rdfs:comment """ """;
+    rdfs:subClassOf plt:PerformanceLabel;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+
+plt:energeticPerformanceClass a owl:ObjectProperty;
+  rdfs:label "energetic performance class"@en ;
+  rdfs:comment """Links a building space to its the energy performance label."""@en ;
+  rdfs:domain seas:FeatureOfInterest;
+  rdfs:range plt:EnergyPerformanceLabel;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology .
+
+#######################################
+#   performance label individuals                  #
+#######################################
+plt:ClassA a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class A"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassB a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label " class B"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassC a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class C"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassD a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class D"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassE a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class E"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassF a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class F"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .  
+
+plt:ClassG a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class G"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+
+plt:ClassN a owl:NamedIndividual ,
+                   plt:PerformanceLabel , plt:ClimatePerformanceLabel ,
+                   plt:EnergyPerformanceLabel ;
+  rdfs:label "class N"@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:BuildingOntology  .
+#######################################
+#   reused concepts                   #
+#######################################
+seas:Building a owl:Class.
+s4bldg:Building a owl:Class.
+
+seas:System a owl:Class.
+
+seas:Lobby  a owl:Class.
+
+bot:Zone  a owl:Class.
+
+seas:Zone a owl:Class.
+
+seas:Corridor a owl:Class.
+
+seas:ResidentalBuilding a owl:Class.
+
+seas:NonResidentalBuilding a owl:Class.
+
+seas:EducationalBuilding a owl:Class.
+
+seas:OfficeBuilding a owl:Class.
+
+
+cim:Location a owl:Class.
+
+sch:City a owl:Class.
+
+sch:Place a owl:Class.
+
+sch:Country a owl:Class.
+
+cim:Area a owl:Class.
+
+seas:AreaProperty a owl:Class.
+
+seas:Wall a owl:Class.
+
+seas:BuildingSpace a owl:Class.
+
+bot:Floor a owl:Class.
+
+seas:BuildingStorey a owl:Class.
+
+gsp:Geometry a owl:Class.
+
+geonames:Feature a owl:Class.
+
+
+#######################################
+#   reused relations                  #
+#######################################
+sch:containedInPlace a owl:ObjectProperty.
+
+sch:containsPlace a owl:ObjectProperty.
+
+s4bldg:contains  a owl:ObjectProperty.
+
+seas:isMemberOf  a owl:ObjectProperty.
+
+s4bldg:isContainedIn  a owl:ObjectProperty.
+
+seas:subSystemOf  a owl:ObjectProperty.
+
+bot:containsZone  a owl:ObjectProperty.
+
+bot:hasStorey  a owl:ObjectProperty.
+
+gsp:hasGeometry  a owl:ObjectProperty.
+

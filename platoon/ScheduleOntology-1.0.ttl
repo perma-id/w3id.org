@@ -1,0 +1,272 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sch: <https://schema.org/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@prefix gr: <http://purl.org/dc/elements/1.1/>.
+@prefix pep: <https://w3id.org/pep/>.
+
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:ScheduleOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon Schedule Ontology"@en ;
+  dcterms:description "Links the Platoon Schedule vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-02"^^xsd:date ;
+  dcterms:modified "2022-01-19"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/ScheduleOntology-1.0> ;
+  owl:imports  plt:EventOntology-1.0,
+                <http://purl.org/dc/elements/1.1/>;
+  owl:versionInfo "v1.0" .
+
+#######################################
+# Schedule                            #
+#######################################
+plt:OccupancySchedule a owl:Class ;
+  rdfs:label "Occupancy Schedule"@en ;
+  rdfs:comment "The schedule of the Occupancy"@en ;
+  rdfs:subClassOf sch:Schedule;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty plt:status; 
+                    owl:allValuesFrom [ a rdfs:Datatype ; 
+                                         owl:oneOf [ 
+                                               a  rdf:List ;
+                                               rdf:first  "Occupied" ;
+                                               rdf:rest   [ a          rdf:List ;
+                                                    rdf:first  "Unoccupied" ;
+                                                     rdf:rest   ()
+                                              ]]
+                                 ] ] ;
+  vs:term_status "testing" ;                              
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:hasOccupancySchedule a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Occupancy schedule"@en ;
+  rdfs:comment """Links the zone to its occupancy schedule."""@en ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:OccupancySchedule ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:status a owl:DatatypeProperty;
+  rdfs:label "status"@en ;
+  rdfs:comment """Links the feature of interest to its status."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:PowerLoadInterruptionCapacitySchedule a owl:Class ;
+  rdfs:label "Power Load Interruption Capacity Schedule"@en ;
+  rdfs:comment " The schedule of power load interruption capacity"@en ;
+  rdfs:subClassOf sch:Schedule;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+plt:hasPoweLoadInterruptionCapacitySchedule a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has power load interruption capacity schedule"@en ;
+  rdfs:comment """Links the entity, such as HVAC, to its load interruption capacity schedule."""@en ;
+  rdfs:range plt:PowerLoadInterruptionCapacitySchedule ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:MaintenanceSchedule a owl:Class ;
+  rdfs:label "Maintenance Schedule"@en ;
+  rdfs:comment " The schedule of maintenance"@en ;
+  rdfs:subClassOf sch:Schedule;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+plt:hasMaintenanceSchedule a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has maintenance schedule"@en ;
+  rdfs:comment """Links the feature of interest such as HVAC, to its maintenance schedule."""@en ;
+  rdfs:domain seas:FeatureOfInterest;
+  rdfs:range plt:MaintenanceSchedule ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:HVACOperationSchedule a owl:Class ;
+  rdfs:label "HVAC Operation Schedule"@en ;
+  rdfs:comment " The schedule of HVAC Operation"@en ;
+  rdfs:subClassOf sch:Schedule;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:CoolingExecutionSchedule a owl:Class ;
+  rdfs:label "Cooling Execution Schedule"@en ;
+  rdfs:comment " The schedule of cooling execution"@en ;
+  rdfs:subClassOf plt:HVACOperationSchedule;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:HeatingExecutionSchedule a owl:Class ;
+  rdfs:label "Heating Execution Schedule"@en ;
+  rdfs:comment " The schedule of heating execution"@en ;
+  rdfs:subClassOf plt:HVACOperationSchedule;
+   vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+#######################################
+# Calendar                            #
+####################################### 
+plt:Calendar a owl:Class ;
+  rdfs:label "Calendar"@en ;
+  rdfs:comment """A period of a year biginning and ending with the dates"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+
+plt:LocalCalendar a owl:Class ;
+  rdfs:label "Local Calendar"@en ;
+  rdfs:comment """Local Calendar designates a year and days in the form of sections different from generally accepted calendar"""@en ;
+  rdfs:subClassOf plt:Calendar;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty sch:name; 
+                    owl:someValuesFrom xsd:string ] ;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty sch:description; 
+                    owl:someValuesFrom xsd:string ] ;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty sch:startDate; 
+                    owl:someValuesFrom xsd:date ] ;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty sch:endDate; 
+                    owl:someValuesFrom xsd:date ] ;   
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty sch:duration; 
+                    owl:someValuesFrom xsd:duration ] ;     
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty plt:hasPublicHoliday; 
+                    owl:someValuesFrom plt:PublicHoliday ] ;   
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty plt:hasHoliday; 
+                    owl:someValuesFrom plt:Holiday ] ;     
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty plt:hasSchoolHoliday; 
+                    owl:someValuesFrom plt:SchoolHoliday ] ;     
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:hasLocalCalendar a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has local calendar"@en ;
+  rdfs:comment """Links the entity, such as schedule, to its local calendar."""@en ;
+  rdfs:range plt:LocalCalendar ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:Holiday a owl:Class ;
+  rdfs:label "Holiday"@en ;
+  rdfs:comment """Holiday means an extended period leisure and recreation especially on spent away from home or in travelling"""@en ;
+  rdfs:subClassOf plt:ScheduledEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:PublicHoliday a owl:Class ;
+  rdfs:label "Public Holiday"@en ;
+  rdfs:comment """Public Holiday corresponds of a day when almost everyone in a particular country does not have to go work or school."""@en ;
+  rdfs:subClassOf plt:Holiday;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:SchoolHoliday a owl:Class ;
+  rdfs:label "School Holiday"@en ;
+  rdfs:comment """School corresponds of a day when almost everyone in a particular country does not have to go school."""@en ;
+  rdfs:subClassOf plt:Holiday;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:hasHoliday a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Holiday"@en ;
+  rdfs:comment """Links the entity, such as local calendar, to  its holiday."""@en ;
+  rdfs:range plt:Holiday;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:hasPublicHoliday a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Public Holiday"@en ;
+  rdfs:comment """Links an entity, such as calendar,to its public Holiday."""@en ;
+  rdfs:range plt:PublicHoliday;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+
+plt:hasSchoolHoliday a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has School Holiday"@en ;
+  rdfs:comment """Links an entity, such as calendar,o its school Holiday."""@en ;
+  rdfs:range plt:SchoolHoliday;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:ScheduleOntology.
+
+#######################################
+#   reused concepts                   #
+#######################################
+gr:OpeningHoursSpecification a owl:Class.
+
+sch:Schedule a owl:Class.
+
+sch:Event a owl:Class.
+
+pep:ProcedureExecution a owl:Class.
+#######################################
+#   reused relations                  #
+#######################################
+
+gr:hasOpeningHoursSpecification  a owl:ObjectProperty.
+
+sch:eventSchedule a owl:ObjectProperty.

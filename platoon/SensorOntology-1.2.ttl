@@ -1,0 +1,196 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> . 
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix ontowind: <http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dogont: <http://elite.polito.it/ontologies/dogont.owl#> .
+@prefix brick: <https://brickschema.org/schema/1.1/Brick#>.
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:SensorOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon sensor ontology"@en ;
+  dcterms:description "Links the platoon sensor vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-10-22"^^xsd:date ;
+  dcterms:modified "2022-06-14"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/SensorOntology-1.2> ;
+  owl:imports <https://w3id.org/saref> ,  
+   plt:GenericPropertyOntology-1.1 ,
+              <https://w3id.org/seas/seas-1.1>;  
+  owl:versionInfo "v1.2" .
+#######################################
+# Weather sensors                     #
+#######################################
+plt:WeatherVane  a owl:Class;
+  rdfs:label "Weather Vane"@en ;
+  skos:altLabel "Weather Cock","Wind Vane";
+  rdfs:comment "A weather vane is an instrument used for showing the direction of the wind. (source wikipedia)";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom seas:WindDirectionProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:Anemometer  a owl:Class; 
+  rdfs:label "anemometer"@en ;
+  rdfs:comment "An anemometer is a  device used to measure wind speed. (source wikipedia";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom seas:WindSpeedProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:PyranoSensor  a owl:Class;
+  rdfs:label "Pyrano sensor"@en ;
+  rdfs:comment "A pyrano sensor is a  instrument used to measure solar radiation.";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:SolarRadiationProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology.
+
+plt:PressureSensor  a owl:Class;
+  rdfs:label "Pressure sensor"@en ;
+  rdfs:comment "A pressure sensor is a  instrument used to measure Pressure.";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:PressureProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology.
+#######################################
+#   sensors                           #
+#######################################
+plt:CurrentSensor a owl:Class;
+  rdfs:label "Current Sensor"@en ;
+  rdfs:comment "A current sensor is a  device used to measure current. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom seas:CurrentProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:VoltageSensor a owl:Class;
+  rdfs:label "Voltage Sensor"@en ;
+  rdfs:comment "A voltage sensor is a  device used to measure voltage. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom seas:VoltageProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:SpeedSensor a owl:Class;
+  rdfs:label "Speed Sensor"@en ;
+  rdfs:comment "A speed sensor is a  device used to measure speed. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom seas:SpeedProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:VibrationSensor a owl:Class;
+  rdfs:label "Vibration Sensor"@en ;
+  rdfs:comment "A vibration sensor is a  device used to measure vibration. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:VibrationProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:PressionSensor a owl:Class;
+  rdfs:label "Pression Sensor"@en ;
+  rdfs:comment "A pression sensor is a  device used to measure pression. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:PressionProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:PositionSensor a owl:Class;
+  rdfs:label "Position Sensor"@en ;
+  rdfs:comment "A position sensor is a  device used to measure position. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:PositionProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+plt:DeviationSensor a owl:Class;
+  rdfs:label "Deviation Sensor"@en ;
+  rdfs:comment "A deviation sensor is a  device used to measure deviation. ";
+  rdfs:subClassOf saref:Sensor,
+        [ a owl:Restriction ; owl:onProperty seas:observesProperty ; owl:someValuesFrom plt:DeviationProperty] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:SensorOntology .
+
+
+
+#######################################
+#   reused concepts                   #
+#######################################
+seas:CurrentProperty a owl:Class.
+
+saref:Sensor a owl:Class.
+
+dogont:TemperatureSensor a owl:Class.
+
+saref:TemperatureSensor  a owl:Class.
+
+brick:AirFlowSensor a owl:Class;
+ rdfs:subClassOf saref:Sensor.
+
+ontowind:SolarRadiationSensor a owl:Class;
+ rdfs:subClassOf saref:Sensor.
+
+ontowind:PressureSensor a owl:Class;
+ rdfs:subClassOf saref:Sensor.
+
+ontowind:WindVane a owl:Class;
+ rdfs:subClassOf saref:Sensor.
+
+ontowind:Anemometer a owl:Class;
+ rdfs:subClassOf saref:Sensor.
+
+seas:WindDirectionProperty a owl:Class.
+
+seas:WindSpeedProperty a owl:Class.
+
+seas:VoltageProperty a owl:Class.
+
+seas:SpeedProperty a owl:Class.
+
+
+
+seas:observesProperty a owl:ObjectProperty.

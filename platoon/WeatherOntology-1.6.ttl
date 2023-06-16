@@ -1,0 +1,2036 @@
+ # Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix qudt: <http://data.qudt.org/qudt/owl/1.0.0/qudt.owl#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix dogont: <http://elite.polito.it/ontologies/dogont.owl#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix cim: <http://ontology.tno.nl/cerise/cim-profile#> .
+@prefix ontowind: <http://www.semanticweb.org/ontologies/2011/9/Ontology1318785573683.owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:WeatherOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon Weather Ontology"@en ;
+  dcterms:description "The Platoon Weather vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-10-20"^^xsd:date ;
+  dcterms:modified "2022-06-07"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE " ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/WeatherOntology-1.6> ;
+  owl:imports <https://w3id.org/saref> ,
+              <https://w3id.org/bot> ,
+              <https://w3id.org/seas/seas-1.1>;     
+  owl:versionInfo "v1.6" .
+#######################################
+# Weather Station                     #
+#######################################
+
+plt:WeatherStation a owl:Class ;
+  rdfs:label "Weather Station"@en ;
+  rdfs:comment """A weather station is  instruments and equipment for measuring atmospheric conditions to provide information for weather forecasts and to study the weather and climate.(source : wikipedia) """@en ;
+  rdfs:subClassOf seas:System ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# Air Temperature                     #
+#######################################
+
+plt:WeatherProperty a owl:Class ;
+  rdfs:label "Weather  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity kind of Weather measure."@en ;
+   rdfs:subClassOf   seas:Property;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:AirTemperatureProperty a owl:Class ;
+  rdfs:label "Air Temperature Property"@en ;
+  rdfs:comment "Quantity of air temperature expressed in Kelvin, DegreeCelcius of Farenheit of some zone"@en ;
+  rdfs:subClassOf seas:TemperatureProperty;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:isPropertyOf ; owl:someValuesFrom bot:Zone ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:AirTemperatureEvaluation a owl:Class ;
+  rdfs:label "Air Temperature Evaluation"@en ;
+  rdfs:comment """The class of evaluation for air temperature properties 
+                    example : <zone/1/airTemperatureEvaluation> a plt:AirTemperatureEvaluation ;
+                                     seas:evaluatedSimpleValue 17.00 ;
+                                     qudt:unit unit:DEG_C ]"""@en ;
+  rdfs:subClassOf seas:TemperatureEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:AirTemperatureProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:AirTemperatureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  air temperature"@en ;
+  rdfs:comment """Links the feature of interest to its  air  temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+  
+plt:hasIndoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has indoor air temperature"@en ;
+  rdfs:comment """Links the feature of interest to its indoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasReturnAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has return air temperature"@en ;
+  rdfs:comment """Links the feature of interest to its return temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasSupplyAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has supply air temperature"@en ;
+  rdfs:comment """Links the feature of interest to supply temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has outdoor air temperature"@en ;
+  rdfs:comment """Links the feature of interes to its  outdoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:has6hAheadForecastOfOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 6h ahead forecast of outdoor air temperature property"@en ;
+  rdfs:comment """Links the zone to its  outdoor temperature predicted 6h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has12hAheadForecastOfOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 12h ahead forecast of outdoor air temperature property"@en ;
+  rdfs:comment """Links the zone to its outdoor temperature predicted 12h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:has24hAheadForecastOfOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 24h ahead forecast of outdoor air temperature property"@en ;
+  rdfs:comment """Links the zone to its outdoor temperature predicted 24h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasAverageOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Outdoor air temperature"@en ;
+  rdfs:comment """Links the feature of interes to its  outdoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasOutdoorAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasMaximumOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has maximum Outdoor air temperature"@en ;
+  rdfs:comment """Links the feature of interes to its  outdoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasOutdoorAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasMinimumOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has minimum Outdoor air temperature"@en ;
+  rdfs:comment """Links the feature of interes to its  outdoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasOutdoorAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasStandardDeviationOutdoorAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has standard deviation Outdoor air temperature"@en ;
+  rdfs:comment """Links the feature of interes to its  outdoor air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasOutdoorAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasDewPointTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has dewpoint temperature"@en ;
+  rdfs:comment """Links the feature of interest to its dewpoint  temperature."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range saref:Temperature ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasNormalAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has normal air temperature"@en ;
+  rdfs:comment """Links the feature of interest to its  normal air  temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasCoolingTemperatureSetpointStandByStatus a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cooling temperature setpoint standBy status"@en ;
+  rdfs:comment """Links the feature of interest to its cooling temperature setpoint for standBy status."""@en ;
+  rdfs:subPropertyOf seas:temperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasCoolingAirTemperatureSetpointForUnoccupiedStatus a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "The cooling air temperature setpoint for unoccupied status"@en ;
+  rdfs:comment """Links the the feature of interest of its cooling air temperature setpoint for unoccupied status."""@en ;
+  rdfs:subPropertyOf plt:hasCoolingAirTemperatureSetpoint  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasAverageUnmetCoolingAirTemperatureSetpointDifference a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "The  average unmet cooling air temperature setpoint"@en ;
+  rdfs:comment """Links the the feature of interest of its average unmet cooling air temperature setpoint. The average unmet cooling air temperature setpoint is the average difference between the indoor temperatures and the cooling temperature setpoints in the different zones of the building in Celcius degrees. sum((t_in - t_setpoint).clip(min=0) * zone_volumes)/total_volume"""@en ;
+  rdfs:subPropertyOf plt:hasCoolingAirTemperatureSetpoint  ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasInputAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has input air temperature"@en ;
+  rdfs:comment """The input air temperature of some feature of interest."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasCoolingAirTemperatureSetpointForOccupiedStatus a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cooling air temperature setpoint for occupied status"@en ;
+  rdfs:comment """has cooling air temperature setpoint for occupied status of some feature of interest."""@en ;
+  rdfs:subPropertyOf plt:hasCoolingAirTemperatureSetpoint  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasHeatingAirTemperatureSetpointForStandBy a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has heating air temperature setpoint for standBy"@en ;
+  rdfs:comment """has heating air temperature setpoint for standBy of some building."""@en ;
+  rdfs:subPropertyOf plt:hasHeatingAirTemperatureSetpoint  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology.
+
+plt:hasHeatingAirTemperatureSetpointForUnoccupied a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has heating air temperature setpoint for unoccupied"@en ;
+  rdfs:comment """Links the zone to its heating air temperature setpoint for unoccupied period."""@en ;
+  rdfs:subPropertyOf plt:hasHeatingAirTemperatureSetpoint  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasHeatingAirTemperatureSetpointForOccupied a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has heating air temperature setpoint for occupied"@en ;
+  rdfs:comment """Links the zone to its  heating air temperature setpoint for occupied period."""@en ;
+  rdfs:subPropertyOf plt:hasHeatingAirTemperatureSetpoint  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasCoolingAirTemperatureSetpoint a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cooling air temperature setpoint"@en ;
+  rdfs:comment """Links the feature of interest to its cooling air temperature setpoint."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasAirTemperatureSetpoint a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  air temperature setpoint"@en ;
+  rdfs:comment """Links the feature of interest to its air temperature setpoint."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasTargetAirTemperature a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has target air temperature"@en ;
+  rdfs:comment """Links the feature of interest to its target air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature  ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasHeatingAirTemperatureSetpoint a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has heating air temperature setpoint"@en ;
+  rdfs:comment """Links the zone to its heating air temperature setpoint"""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ForecastOfTemperatureProperty a owl:Class ;
+  rdfs:label "Forecast Of  Temperature Property"@en ;
+  rdfs:comment "The class for forecast of  temperature properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom seas:TemperatureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ForecastOfAirTemperatureProperty a owl:Class ;
+  rdfs:label "Forecast Of Air Temperature Property"@en ;
+  rdfs:comment "The class for forecast of air temperature properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:AirTemperatureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfAirTemperatureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of air temperature property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasDewPoint a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has dew point"@en ;
+  rdfs:comment """Links the zone to itsdew point property."""@en ;
+  rdfs:subPropertyOf plt:hasAirTemperature;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:AirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfDewPointProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of dew point property"@en ;
+  rdfs:comment """Links the zone to its  forecast of dew point property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfLowAirTemperatureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of low air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of low air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfMaximumAirTemperatureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of maximum air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of maximum air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasForecastOfMinimumAirTemperatureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of minimum air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of minimum air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfOutdoorAirTemperatureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of outdoor air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of outdoor air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfHighAirTemperatureProperty  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of high air temperature property"@en ;
+  rdfs:comment """Links the zone to its  forecast of high air temperature."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfAirTemperatureProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAirTemperatureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:HeatRateProperty a owl:Class ;
+  rdfs:label "Heat Rate Property"@en ;
+  rdfs:comment "Heat generated, in energy per time unit of elapsed time(source cim ontology (https://ontology.tno.nl/IEC_CIM/cim_HeatRate.html))"@en ;
+  rdfs:subClassOf seas:Property; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:HeatRateEvaluation a owl:Class ;
+  rdfs:label "Heat Rate Evaluation"@en ;
+  rdfs:comment "The class of evaluation for solar heat rate"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:HeatRateProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:HeatRateProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+#######################################
+# Solar Radiation                     #
+#######################################
+plt:SolarRadiationProperty a owl:Class ;
+  rdfs:label "Solar Radiation Property"@en ;
+  skos:altLabel "Irradiance"@en ;
+  rdfs:comment "Solar radiation presented as power in watts per square meter"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SolarRadiationEvaluation a owl:Class ;
+  rdfs:label "Solar Radiation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for solar radiation properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarRadiationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has solar radiation"@en ;
+  rdfs:comment """Links the zone to its solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasHorizontalSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has horizontal solar radiation"@en ;
+  rdfs:comment """Links the zone to its horizontal solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasTiltSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has tilt solar radiation"@en ;
+  rdfs:comment """Links the zone to its tilt solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasTotalSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has total solar radiation"@en ;
+  rdfs:comment """The total solar radiation of some zone."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasGlobalHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has global horizontal irradiance"@en ;
+  rdfs:comment """Links the zone to its solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasGlobalHorizontalIrradiancePercentile10 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has global horizontal irradiance percentile ten"@en ;
+  rdfs:comment """Links the zone to its percentile ten of solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasGlobalHorizontalIrradiance ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasGlobalHorizontalIrradiancePercentile90 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has global horizontal irradiance percentile ninety"@en ;
+  rdfs:comment """Links the zone to its percentile ninety of solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasGlobalHorizontalIrradiance ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:SolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+plt:ForecastOfSolarRadiationProperty a owl:Class ;
+  rdfs:label "Forecast Of Solar Radiation Property"@en ;
+  rdfs:comment "The class for forecast of Solar Radiation properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastSolarRadiationProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of solar radiation property"@en ;
+  rdfs:comment """Links the zone to its  forecast of Solar Radiation."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfGlobalHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of global horizontal irradiance property"@en ;
+  rdfs:comment """Links the zone to its  forecast of global horizontal irradiance property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfGlobalHorizontalIrradiancePercentile10 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of global horizontal irradiance percentile ten property"@en ;
+  rdfs:comment """Links the zone to its  forecast of percentile ten of global horizontal irradiance property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfGlobalHorizontalIrradiance ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfGlobalHorizontalIrradiancePercentile90 a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of global horizontal irradiance percentile ninety property"@en ;
+  rdfs:comment """Links the zone to its  forecast of percentile ninety of global horizontal irradiance property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfGlobalHorizontalIrradiance ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfGlobalSolarRadiationProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of global solar radiation property"@en ;
+  rdfs:comment """Links the zone to its  forecast of global horizontal irradiance property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:DirectSolarRadiationProperty a owl:Class ;
+  rdfs:label "Direct Solar Radiation"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity direct solar radiation"@en ;
+  rdfs:subClassOf plt:SolarRadiationProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:DirectSolarRadiationEvaluation a owl:Class ;
+  rdfs:label "Direct Solar Radiation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for direct solar radiation properties"@en ;
+  rdfs:subClassOf plt:SolarRadiationEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:DirectSolarRadiationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:DirectSolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasDirectHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has direct horizontal irradiance"@en ;
+  rdfs:comment """Links the zone to its  direct horizontal irradiance."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:DirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasDirectNormalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has direct normal irradiance"@en ;
+  rdfs:comment """Links the zone to its direct normal irradiance."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:DirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+  
+plt:ForecastOfDirectSolarRadiationProperty a owl:Class ;
+  rdfs:label "Forecast Of direct solar radiation Property"@en ;
+  rdfs:comment "The class for forecast of direct solar radiation properties"@en ;
+  rdfs:subClassOf plt:ForecastOfSolarRadiationProperty; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:DirectSolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfDirectSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of direct  solar radiation"@en ;
+  rdfs:comment """Links the zone to its  forecast of direct  solar radiation"""@en ;
+  rdfs:subPropertyOf plt:hasForecastSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfDirectHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of direct horizontal irradiance property"@en ;
+  rdfs:comment """Links the zone to its  forecast of direct horizontal irradiance."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDirectSolarRadiation ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfDirectNormalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of direct normal irradiance property"@en ;
+  rdfs:comment """Links the zone to its  forecast of direct normal irradiance."""@en ;
+  rdfs:subPropertyOf plt:hasForecastSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has6hAheadForecastOfDirectSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 6h ahead forecast of direct solar radiation property"@en ;
+  rdfs:comment """Links the zone to its direct solar radiation predicted 6h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDirectSolarRadiation ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has12hAheadForecastOfDirectSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 12h ahead forecast of direct solar radiation property"@en ;
+  rdfs:comment """Links the zone to direct solar radiation predicted 12h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDirectSolarRadiation ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:has24hAheadForecastOfDirectSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 24h ahead forecast of direct solar radiation property"@en ;
+  rdfs:comment """Links the zone to its  direct solar radiation predicted 24h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDirectSolarRadiation ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDirectSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:DiffuseSolarRadiationProperty a owl:Class ;
+  rdfs:label "DiffusdeSolar Radiation"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity diffuse solar radiation"@en ;
+  rdfs:subClassOf plt:SolarRadiationProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:DiffuseSolarRadiationEvaluation a owl:Class ;
+  rdfs:label "Diffuse Solar Radiation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for diffuse solar radiation properties"@en ;
+  rdfs:subClassOf plt:SolarRadiationEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:DiffuseSolarRadiationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:DiffuseSolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasDiffuseHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has diffuse horizontal irradiance"@en ;
+  rdfs:comment """Links the zone to its solar radiation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:DiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:ForecastOfDiffuseSolarRadiationProperty a owl:Class ;
+  rdfs:label "Forecast Of diffuse solar radiation Property"@en ;
+  rdfs:comment "The class for forecast of diffuse solar radiation properties"@en ;
+  rdfs:subClassOf plt:ForecastOfSolarRadiationProperty; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:DiffuseSolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+ 
+plt:hasForecastOfDiffuseSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Forecast Of Diffuse Solar Radiation "@en ;
+  rdfs:comment """Links the zone to its  forecast of diffuse irradiance."""@en ;
+  rdfs:subPropertyOf plt:hasForecastSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfDiffuseHorizontalIrradiance a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of diffuse horizontal irradiance"@en ;
+  rdfs:comment """Links the zone to its  forecast of diffuse horizontal irradiance."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDiffuseSolarRadiation;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfMaximumDiffuseSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of maximum diffuse solar radiation "@en ;
+  rdfs:comment """Links the zone to its  forecast of maximum diffuse solar radiation."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDiffuseSolarRadiation  ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ReflectedSolarRadiationProperty a owl:Class ;
+  rdfs:label "Reflected Solar Radiation"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity reflected solar radiation"@en ;
+  rdfs:subClassOf plt:SolarRadiationProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ReflectedSolarRadiationEvaluation a owl:Class ;
+  rdfs:label "Reflected Solar Radiation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for reflected solar radiation properties"@en ;
+  rdfs:subClassOf plt:SolarRadiationEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:ReflectedSolarRadiationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:ReflectedSolarRadiationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:SolarInsolationProperty a owl:Class ;
+  rdfs:label "Solar Insolation Property"@en ;
+  rdfs:comment "Solar insolation is the  incominimumg solar radiation to the earth"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SolarInsolationEvaluation a owl:Class ;
+  rdfs:label "Solar Insolation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for solar insolation properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarInsolationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarInsolationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSolarInsolation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has solar insolation"@en ;
+  rdfs:comment """Links the feature of interest to its solar insolation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SolarInsolationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:has6hAheadForecastOfDiffuseSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 6h ahead forecast of diffuse solar radiation property"@en ;
+  rdfs:comment """Links the zone to its diffuse solar radiation predicted 6h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDiffuseSolarRadiation ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has12hAheadForecastOfDiffuseSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 12h ahead forecast of diffuse solar radiation property"@en ;
+  rdfs:comment """Links the zone to diffuse solar radiation predicted 12h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDiffuseSolarRadiation  ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfDiffuseSolarRadiationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:has24hAheadForecastOfDiffuseSolarRadiation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 24h ahead forecast of diffuse solar radiation property"@en ;
+  rdfs:comment """Links the zone to its  diffuse solar radiation predicted 24h ahead."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfDiffuseSolarRadiationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:hasForecastOfDiffuseSolarRadiation  ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .  
+#######################################
+# Zenith                           #
+#######################################
+
+plt:ZenithProperty a owl:Class ;
+  rdfs:label "Zenith Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  zenith"@en ;
+  rdfs:subClassOf seas:AngleProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ZenithEvaluation a owl:Class ;
+  rdfs:label "Zenith Evaluation"@en ;
+  rdfs:comment "The class of evaluation for zenith properties"@en ;
+  rdfs:subClassOf seas:AngleEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:ZenithProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:ZenithProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasZenith a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has zenith"@en ;
+  rdfs:comment """Links the feature of interest to its zenith."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:ZenithProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+  plt:ForecastOfZenithProperty a owl:Class ;
+  rdfs:label "Forecast Of zenith Property"@en ;
+  rdfs:comment "The class for forecast of zenith properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:ZenithProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfZenithProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of zenith property"@en ;
+  rdfs:comment """Links the zone to its  forecast of zenith property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfZenithProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology.
+#######################################
+# azimuth                           #
+#######################################
+plt:AzimuthProperty a owl:Class ;
+  rdfs:label "Azimuth Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  azimuth"@en ;
+  rdfs:subClassOf seas:AngleProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:AzimuthEvaluation a owl:Class ;
+  rdfs:label "Azimuth Evaluation"@en ;
+  rdfs:comment "The class of evaluation for azimuth properties"@en ;
+  rdfs:subClassOf seas:AngleEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:AzimuthProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:AzimuthProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasAzimuth a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has azimuth"@en ;
+  rdfs:comment """Links the feature of interest to its azimuth."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:AzimuthProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfAzimuthProperty a owl:Class ;
+  rdfs:label "Forecast Of azimuth Property"@en ;
+  rdfs:comment "The class for forecast of azimuth properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:AzimuthProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfAzimuthProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of azimuth property"@en ;
+  rdfs:comment """Links the zone to its  forecast of azimuth property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfAzimuthProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+#######################################
+# cloudOpacity                           #
+#######################################
+plt:CloudOpacityProperty a owl:Class ;
+  rdfs:label "Cloud Opacity Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  cloud opacity"@en ;
+  rdfs:subClassOf seas:PercentageProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:CloudOpacityEvaluation a owl:Class ;
+  rdfs:label "Cloud Opacity Evaluation"@en ;
+  rdfs:comment "The class of evaluation for cloud opacity properties"@en ;
+  rdfs:subClassOf plt:PercentageEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudOpacityProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudOpacityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasCloudOpacity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cloud opacity"@en ;
+  rdfs:comment """Links the feature of interest to its cloud opacity."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:CloudOpacityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+  plt:ForecastOfCloudOpacityProperty a owl:Class ;
+  rdfs:label "Forecast Of Cloud Opacity Property"@en ;
+  rdfs:comment "The class for forecast of cloud opacity properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:CloudOpacityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfCloudOpacityProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of cloud opacity property"@en ;
+  rdfs:comment """Links the zone to its  forecast of cloud opacity property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudOpacityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# cloud Type                      #
+#######################################
+plt:CloudTypeProperty a owl:Class ;
+  rdfs:label "Cloud Type Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  cloud type"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:CloudTypeEvaluation a owl:Class ;
+  rdfs:label "Cloud Type Evaluation"@en ;
+  rdfs:comment "The class of evaluation for cloud type properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudTypeProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudTypeProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasCloudType a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cloud type"@en ;
+  rdfs:comment """Links the feature of interest to its cloud type."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:CloudTypeProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+  plt:ForecastOfCloudTypeProperty a owl:Class ;
+  rdfs:label "Forecast Of Cloud Type Property"@en ;
+  rdfs:comment "The class for forecast of cloud type properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:CloudTypeProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfCloudTypeProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of cloud type property"@en ;
+  rdfs:comment """Links the zone to its  forecast of cloud type property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudTypeProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# cloud cover                      #
+#######################################
+plt:CloudCoverProperty a owl:Class ;
+  rdfs:label "Cloud Cover Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  cloud cover"@en ;
+  rdfs:subClassOf seas:PercentageProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:CloudCoverEvaluation a owl:Class ;
+  rdfs:label "CloudCover Evaluation"@en ;
+  rdfs:comment "The class of evaluation for cloud cover properties"@en ;
+  rdfs:subClassOf plt:PercentageEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudCoverProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:CloudCoverProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasCloudCover a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cloud cover"@en ;
+  rdfs:comment """Links the feature of interest to its cloud cover."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:CloudCoverProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfCloudCoverProperty a owl:Class ;
+  rdfs:label "Forecast Of Cloud Cover Property"@en ;
+  rdfs:comment "The class for forecast of cloud cover properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:CloudCoverProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfCloudCoverProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of cloud cover property"@en ;
+  rdfs:comment """Links the zone to its  forecast of cloud cover property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudCoverProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfHighLevelCloudCoverProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of high level cloud cover property"@en ;
+  rdfs:comment """Links the zone to its  forecast of high level cloud cover property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfCloudCoverProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudCoverProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfLowLevelCloudCoverProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of low level cloud cover property"@en ;
+  rdfs:comment """Links the zone to its  forecast of low cloud cover property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfCloudCoverProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudCoverProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfMiddleLevelCloudCoverProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of middle level cloud cover property"@en ;
+  rdfs:comment """Links the zone to its  forecast of middle cloud cover property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfCloudCoverProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfCloudCoverProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+#######################################
+# humidity                           #
+#######################################
+plt:HumidityEvaluation a owl:Class ;
+  rdfs:label "Humidity Evaluation"@en ;
+  rdfs:comment "The class of evaluation for humidity properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom seas:HumidityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology.
+
+plt:hasIndoorHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has indoor Humidity"@en ;
+  rdfs:comment """Links the zone to its  indoor humidity"""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone;
+  rdfs:range seas:HumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasOutdoorHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Outdoor Humidity"@en ;
+  rdfs:comment """Links the zone to its  outdoor humidity."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:HumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has relative humidity"@en ;
+  rdfs:comment """Links the zone to its  relative humidity."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:HumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasIndoorRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has relative indoor Humidity"@en ;
+  rdfs:comment """Links the zone to its  indoor relative humidity"""@en ;
+  rdfs:subPropertyOf plt:hasRelativeHumidity ,plt:hasIndoorHumidity;
+  rdfs:domain bot:Zone;
+  rdfs:range seas:HumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfHumidityProperty a owl:Class ;
+  rdfs:label "Forecast Of Humidity Property"@en ;
+  rdfs:comment "The class for forecast of humidity properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom seas:HumidityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfHumidityProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of humidity property"@en ;
+  rdfs:comment """Links the zone to its  forecast of humidity property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfRelativeHumidityProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast relative of humidity property"@en ;
+  rdfs:comment """Links the zone to its  forecast of relative humidity property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfHumidityProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasOutdoorRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has outdoor relative humidity"@en ;
+  rdfs:comment """Links the zone to its  relative humidity."""@en ;
+  rdfs:subPropertyOf plt:hasRelativeHumidity,plt:hasOutdoorHumidity  ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:HumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasForecastOfOutdoorRelativeHumidityProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast outdoor relative of humidity property"@en ;
+  rdfs:comment """Links the zone to its  forecast of outdoor relative humidity property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfHumidityProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has6hAheadForecastOfOutdoorRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 6h ahead forecast of outdoor relative humidity property"@en ;
+  rdfs:comment """Links the zone to its outdoor relative humidity predicted 6h ahead ."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorRelativeHumidityProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:has12hAheadForecastOfOutdoorRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 12h ahead forecast of outdoor relative humidity property"@en ;
+  rdfs:comment """Links the zone to its outdoor relative humidity predicted 12h ahead y."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorRelativeHumidityProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:has24hAheadForecastOfOutdoorRelativeHumidity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has 24h ahead forecast of outdoor relative humidity property"@en ;
+  rdfs:comment """Links the zone to its  outdoor relative humidity predicted 24h ahead ."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOutdoorRelativeHumidityProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfHumidityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+#######################################
+# windDirection           #
+#######################################
+
+plt:hasAverageWindDirection a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  wind direction Average"@en ;
+  rdfs:comment """Links the zone to its wind direction."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:WindDirectionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasMaximumWindDirection a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  wind direction maximum"@en ;
+  rdfs:comment """Links the zone to its maximum wind direction."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:WindDirectionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasMinimumWindDirection a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  wind direction minimum"@en ;
+  rdfs:comment """Links the zone to its minimum wind direction."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:WindDirectionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:hasStandardDeviationWindDirection a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has  wind direction std"@en ;
+  rdfs:comment """Links the zone to its standard deviation wind direction."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range seas:WindDirectionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+plt:ForecastOfWindDirectionProperty a owl:Class ;
+  rdfs:label "Forecast Of WindDirection Property"@en ;
+  rdfs:comment "The class for forecast of wind direction  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom seas:WindDirectionProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfWindDirectionProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of wind direction  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of wind direction  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfWindDirectionProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# precipitation                      #
+#######################################
+plt:PrecipitationProperty a owl:Class ;
+  rdfs:label "Precipitation Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity precipitation"@en ;
+  rdfs:subClassOf seas:PercentageProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:PrecipitationEvaluation a owl:Class ;
+  rdfs:label "Precipitation Evaluation"@en ;
+  rdfs:comment "The class of evaluation for precipitation properties"@en ;
+  rdfs:subClassOf plt:PercentageEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:PrecipitationProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:PrecipitationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasPrecipitation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has precipitation"@en ;
+  rdfs:comment """Links the feature of interest to its precipitation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:PrecipitationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasAccumulatedPrecipitation a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has accumulated precipitation"@en ;
+  rdfs:comment """Links the feature of interest to its accumulated precipitation."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:PrecipitationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfPrecipitationProperty a owl:Class ;
+  rdfs:label "Forecast Of Precipitation Property"@en ;
+  rdfs:comment "The class for forecast of precipitation properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:PrecipitationProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfPrecipitationProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of precipitation property"@en ;
+  rdfs:comment """Links the zone to its  forecast of precipitation property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfPrecipitationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfAccumulatedPrecipitationProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of accumulated precipitation property"@en ;
+  rdfs:comment """Links the zone to its  forecast of accumulated precipitation property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfPrecipitationProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfPrecipitationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfProbabilityOfPrecipitationProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of probabilioty of precipitation property"@en ;
+  rdfs:comment """Links the zone to its  forecast of probabilioty  of precipitation property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfPrecipitationProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology . 
+#######################################
+# snow fall                      #
+#######################################
+plt:SnowFallProperty a owl:Class ;
+  rdfs:label "Snow Fall Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  snow fall"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SnowFallEvaluation a owl:Class ;
+  rdfs:label "SnowFall Evaluation"@en ;
+  rdfs:comment "The class of evaluation for snow fall properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SnowFallProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SnowFallProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSnowFall a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has snow fall"@en ;
+  rdfs:comment """Links the feature of interest to its snow fall."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SnowFallProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:hasAccumulatedSnowFall a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has accumulated snow fall"@en ;
+  rdfs:comment """Links the feature of interest to its accumulated snow fall."""@en ;
+  rdfs:subPropertyOf plt:hasSnowFall ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SnowFallProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology . 
+
+plt:ForecastOfSnowFallProperty a owl:Class ;
+  rdfs:label "Forecast Of Snow Fall Property"@en ;
+  rdfs:comment "The class for forecast of snow fall properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SnowFallProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfSnowFallProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of snow fall property"@en ;
+  rdfs:comment """Links the zone to its  forecast of snow fall property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSnowFallProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasForecastOfAccumulatedSnowFallProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of accumulated snow fall property"@en ;
+  rdfs:comment """Links the zone to its  forecast of snow fall property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfSnowFallProperty;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSnowFallProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# ozone                      #
+#######################################
+plt:OzoneProperty a owl:Class ;
+  rdfs:label "Ozone Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  ozone"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:PercentageProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:OzoneEvaluation a owl:Class ;
+  rdfs:label "Ozone Evaluation"@en ;
+  rdfs:comment "The class of evaluation for ozone properties"@en ;
+  rdfs:subClassOf plt:PercentageEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:OzoneProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:OzoneProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasOzone a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has ozone"@en ;
+  rdfs:comment """Links the feature of interest to its ozone."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:OzoneProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfOzoneProperty a owl:Class ;
+  rdfs:label "Forecast Of Ozone Property"@en ;
+  rdfs:comment "The class for forecast of ozone properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:OzoneProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfOzoneProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of ozone property"@en ;
+  rdfs:comment """Links the zone to its  forecast of ozone property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfOzoneProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfAverageOzoneProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of average ozone property"@en ;
+  rdfs:comment """Links the zone to its  forecast of average ozone property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfOzoneProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfOzoneProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# moonrise                      #
+#######################################
+plt:MoonriseProperty a owl:Class ;
+  rdfs:label "Moonrise Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  moonrise"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:MoonriseEvaluation a owl:Class ;
+  rdfs:label "Moonrise Evaluation"@en ;
+  rdfs:comment "The class of evaluation for moonrise properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:MoonriseProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:MoonriseProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasMoonrise a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has moonrise"@en ;
+  rdfs:comment """Links the feature of interest to its moonrise."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:MoonriseProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfMoonriseProperty a owl:Class ;
+  rdfs:label "Forecast Of Moonrise Property"@en ;
+  rdfs:comment "The class for forecast of moonrise properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:MoonriseProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfMoonriseProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of moonrise property"@en ;
+  rdfs:comment """Links the zone to its  forecast of moonrise property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfMoonriseProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# moonset                      #
+#######################################
+plt:MoonsetProperty a owl:Class ;
+  rdfs:label "Moonset Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  moonset"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:MoonsetEvaluation a owl:Class ;
+  rdfs:label "Moonset Evaluation"@en ;
+  rdfs:comment "The class of evaluation for moonset properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:MoonsetProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:MoonsetProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasMoonset a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has moonset"@en ;
+  rdfs:comment """Links the feature of interest to its moonset."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:MoonsetProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfMoonsetProperty a owl:Class ;
+  rdfs:label "Forecast Of Moonset Property"@en ;
+  rdfs:comment "The class for forecast of moonset properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:MoonsetProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfMoonsetProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of moonset property"@en ;
+  rdfs:comment """Links the zone to its  forecast of moonset property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfMoonsetProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+#######################################
+# pressure                      #
+#######################################
+
+plt:PressureEvaluation a owl:Class ;
+  rdfs:label "Pressure Evaluation"@en ;
+  rdfs:comment "The class of evaluation for pressure properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom seas:PressureProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom seas:PressureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasPressure a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has pressure"@en ;
+  rdfs:comment """Links the feature of interest to its pressure."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:PressureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfPressureProperty a owl:Class ;
+  rdfs:label "Forecast Of Pressure Property"@en ;
+  rdfs:comment "The class for forecast of pressure properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom seas:PressureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfPressureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of pressure property"@en ;
+  rdfs:comment """Links the zone to its  forecast of pressure property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfPressureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# sea level pressure                      #
+#######################################
+plt:SeaLevelPressureProperty a owl:Class ;
+  rdfs:label "Sea Level Pressure Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  sea level pressure"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:PressureProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SeaLevelPressureEvaluation a owl:Class ;
+  rdfs:label "Sea Level Pressure Evaluation"@en ;
+  rdfs:comment "The class of evaluation for sea level pressure properties"@en ;
+  rdfs:subClassOf plt:PressureEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SeaLevelPressureProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SeaLevelPressureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSeaLevelPressure a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has sea level pressure"@en ;
+  rdfs:comment """Links the feature of interest to its sea level pressure."""@en ;
+  rdfs:subPropertyOf plt:hasPressure ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SeaLevelPressureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfSeaLevelPressureProperty a owl:Class ;
+  rdfs:label "Forecast Of SeaLevelPressure Property"@en ;
+  rdfs:comment "The class for forecast of sea level pressure properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SeaLevelPressureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfSeaLevelPressureProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of sea level pressure property"@en ;
+  rdfs:comment """Links the zone to its  forecast of sea level pressure property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSeaLevelPressureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# snow depth                       #
+#######################################
+plt:SnowDepthProperty a owl:Class ;
+  rdfs:label "Snow Depth  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  snow depth "@en ;
+  rdfs:subClassOf seas:LengthProperty; 
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SnowDepthEvaluation a owl:Class ;
+  rdfs:label "Snow Depth  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for snow depth  properties"@en ;
+  rdfs:subClassOf seas:LengthEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SnowDepthProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SnowDepthProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSnowDepth a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has snow depth "@en ;
+  rdfs:comment """Links the feature of interest to its snow depth ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SnowDepthProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfSnowDepthProperty a owl:Class ;
+  rdfs:label "Forecast Of Snow Depth Property"@en ;
+  rdfs:comment "The class for forecast of snow depth  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SnowDepthProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfSnowDepthProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of snow depth  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of snow depth  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSnowDepthProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# sunrise                       #
+#######################################
+plt:SunriseProperty a owl:Class ;
+  rdfs:label "Sunrise  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  sunrise "@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SunriseEvaluation a owl:Class ;
+  rdfs:label "Sunrise  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for sunrise  properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SunriseProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SunriseProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSunrise a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has sunrise "@en ;
+  rdfs:comment """Links the feature of interest to its sunrise ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SunriseProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfSunriseProperty a owl:Class ;
+  rdfs:label "Forecast Of Sunrise Property"@en ;
+  rdfs:comment "The class for forecast of sunrise  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SunriseProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfSunriseProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of sunrise  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of sunrise  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSunriseProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# sunset                       #
+#######################################
+plt:SunsetProperty a owl:Class ;
+  rdfs:label "Sunset  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  sunset "@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SunsetEvaluation a owl:Class ;
+  rdfs:label "Sunset  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for sunset  properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SunsetProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SunsetProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSunset a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has sunset "@en ;
+  rdfs:comment """Links the feature of interest to its sunset ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SunsetProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfSunsetProperty a owl:Class ;
+  rdfs:label "Forecast Of Sunset Property"@en ;
+  rdfs:comment "The class for forecast of sunset  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:SunsetProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfSunsetProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of sunset  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of sunset  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfSunsetProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# ultraviolet index                       #
+#######################################
+plt:UltravioletIndexProperty a owl:Class ;
+  rdfs:label "Ultraviolet Index  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  ultraviolet index "@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:UltravioletIndexEvaluation a owl:Class ;
+  rdfs:label "UltravioletIndex  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for ultraviolet index  properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:UltravioletIndexProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:UltravioletIndexProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasUltravioletIndex a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has ultraviolet index "@en ;
+  rdfs:comment """Links the feature of interest to its ultraviolet index ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:UltravioletIndexProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfUltravioletIndexProperty a owl:Class ;
+  rdfs:label "Forecast Of UltravioletIndex Property"@en ;
+  rdfs:comment "The class for forecast of ultraviolet index  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:UltravioletIndexProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfUltravioletIndexProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of ultraviolet index  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of ultraviolet index  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfUltravioletIndexProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# visibility                       #
+#######################################
+plt:VisibilityProperty a owl:Class ;
+  rdfs:label "Visibility  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  visibility "@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:LengthProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:VisibilityEvaluation a owl:Class ;
+  rdfs:label "Visibility  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for visibility  properties"@en ;
+  rdfs:subClassOf seas:LengthEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:VisibilityProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:VisibilityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasVisibility a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has visibility "@en ;
+  rdfs:comment """Links the feature of interest to its visibility ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:VisibilityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfVisibilityProperty a owl:Class ;
+  rdfs:label "Forecast Of Visibility Property"@en ;
+  rdfs:comment "The class for forecast of visibility  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:VisibilityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfVisibilityProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of visibility  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of visibility  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfVisibilityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+#######################################
+# wind gust speed                       #
+#######################################
+plt:WindGustSpeedProperty a owl:Class ;
+  rdfs:label "Wind Gust Speed  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  wind gust speed "@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:WindSpeedProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:WindGustSpeedEvaluation a owl:Class ;
+  rdfs:label "Wind Gust Speed  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for wind gust speed  properties"@en ;
+  rdfs:subClassOf seas:WindSpeedEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:WindGustSpeedProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:WindGustSpeedProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasWindGustSpeed a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has wind gust speed "@en ;
+  rdfs:comment """Links the feature of interest to its wind gust speed ."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:WindGustSpeedProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+plt:ForecastOfWindGustSpeedProperty a owl:Class ;
+  rdfs:label "Forecast Of Wind Gust Speed Property"@en ;
+  rdfs:comment "The class for forecast of wind gust speed  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom plt:WindGustSpeedProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfWindGustSpeedProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of wind gust speed  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of wind gust speed  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfWindGustSpeedProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:ForecastOfWindSpeedProperty a owl:Class ;
+  rdfs:label "Forecast Of Wind  Speed Property"@en ;
+  rdfs:comment "The class for forecast of wind  speed  properties"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecastsProperty ; owl:someValuesFrom seas:WindSpeedProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:hasForecastOfWindSpeedProperty a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of wind  speed  property"@en ;
+  rdfs:comment """Links the zone to its  forecast of wind  speed  property."""@en ;
+  rdfs:subPropertyOf plt:hasForecastOfProperty ;
+  rdfs:domain bot:Zone ;
+  rdfs:range plt:ForecastOfWindSpeedProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+#######################################
+# solar elevation angle                      #
+#######################################
+plt:SolarElevationAngleProperty a owl:Class ;
+  rdfs:label "Solar Elevation Angle  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  solar elevation angle"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:AngleProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SolarElevationAngleEvaluation a owl:Class ;
+  rdfs:label "Solar Elevation Angle  Evaluation"@en ;
+  rdfs:comment "The class of evaluation for solar elevation angle  properties"@en ;
+  rdfs:subClassOf seas:AngleEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarElevationAngleProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarElevationAngleProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSolarElevationAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has solar elevation angle "@en ;
+  rdfs:comment """Links the feature of interest to its solar elevation angle."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SolarElevationAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+#######################################
+# solar hour angle                     #
+#######################################
+plt:SolarHourAngleProperty a owl:Class ;
+  rdfs:label "Solar Hour Angle  Property"@en ;
+  rdfs:comment "The class of properties that are quantifiable and have a quantity  solar hour angle"@en ;
+  rdfs:subClassOf plt:WeatherProperty ; 
+  rdfs:subClassOf seas:AngleProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+plt:SolarHourAngleEvaluation a owl:Class ;
+  rdfs:label "Solar Hour Angle Evaluation"@en ;
+  rdfs:comment "The class of evaluation for solar hour angle  properties"@en ;
+  rdfs:subClassOf seas:AngleEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarHourAngleProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SolarHourAngleProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology .
+
+
+plt:hasSolarHourAngle a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has solar hour angle"@en ;
+  rdfs:comment """Links the feature of interest to its solar hour angle."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:SolarHourAngleProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:WeatherOntology  .
+
+
+
+
+#######################################
+#   reused concepts                   #
+#######################################
+seas:WindDirectionProperty a owl:Class;
+  rdfs:subClassOf plt:WeatherProperty .
+seas:WindDirectionEvaluation a owl:Class.
+
+seas:WindSpeedProperty a owl:Class;
+  rdfs:subClassOf plt:WeatherProperty . 
+
+seas:WindSpeedEvaluation a owl:Class . 
+
+seas:HumidityProperty a owl:Class. 
+
+seas:TemperatureProperty a owl:Class.
+
+dogont:TemperatureSensor a owl:Class;
+  rdfs:subClassOf saref:Sensor.
+
+seas:PressureProperty a owl:Class.
+
+seas:Forecast a owl:Class.
+
+dogont:HumiditySensor  a owl:Class;
+  rdfs:subClassOf saref:Sensor;
+  seas:observesProperty saref:Humidity.
+
+dogont:TemperatureSensor  a owl:Class;
+  rdfs:subClassOf saref:Sensor;
+  seas:observesProperty saref:Temperature.
+
+seas:Forecast  a owl:Class.
+#######################################
+#   reused relations                  #
+#######################################
+
+seas:humidity a owl:ObjectProperty;
+  rdfs:subPropertyOf seas:hasProperty.
+
+seas:temperature a owl:ObjectProperty;
+  rdfs:subPropertyOf seas:hasProperty.
+
+seas:observesProperty a owl:ObjectProperty.
+
+saref:temperature a owl:ObjectProperty;
+  rdfs:subPropertyOf seas:hasProperty.

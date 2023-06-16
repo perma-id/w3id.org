@@ -1,0 +1,202 @@
+# Copyright 2020  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:StorageSystemOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon storage system ontology"@en ;
+  dcterms:description "Links the platoon storage system vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-17"^^xsd:date ;
+  dcterms:modified "2022-01-24"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/StorageSystemOntology-1.2> ;
+  owl:imports   plt:EnergyMeasureOntology ,
+                 seas:BatteryOntology,
+                 plt:ElectricPowerSystemOntoloy;  
+  owl:versionInfo "v1.2" .
+#######################################
+# storages System                     #
+####################################### 
+
+plt:StorageSystem a owl:Class ;
+  rdfs:label "Storage System"@en ;
+  rdfs:comment """A storage systeme is a system that captures data or element produced at one time for use at a later time."""@en ;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:HydrogenPowerToPowerSystem a owl:Class ;
+  rdfs:label "Hydrogen Power to Power System"@en ;
+  rdfs:comment """Hydrogen Power to Power System consists of Hydrogen production, transportation and storage"""@en ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem ; owl:someValuesFrom plt:HydrogenStorageSystem,plt:OxygenStorageSystem ] ;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+   rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:OxygenStorageSystem a owl:Class ;
+  rdfs:label "Oxygen Storage System"@en ;
+  rdfs:comment """Oxygen storage system is a process through which oxygen is saved"""@en ;
+  rdfs:subClassOf plt:StorageSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf ; owl:someValuesFrom plt:HydrogenPowerToPowerSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:HydrogenStorageSystem a owl:Class ;
+  rdfs:label "Hydrogen Storage System"@en ;
+  skos:altLabel "Hydrogen Hybrid Energy Storage System";
+  rdfs:comment """Oxygen storage system is a process through which hydrogen is saved"""@en ;
+  rdfs:subClassOf plt:StorageSystem;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf ; owl:someValuesFrom plt:HydrogenPowerToPowerSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+
+plt:ThermalStorageSystem a owl:Class ;
+  rdfs:label "Thermal Storage System"@en ;
+  skos:altLabel "heat and power storage";
+  rdfs:comment """Oxygen storage system is a process through which thermal energy is stored."""@en ;
+  rdfs:subClassOf plt:StorageSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:SolarStorageSystem a owl:Class ;
+  rdfs:label "Solar Storage System"@en ;
+  rdfs:comment """Oxygen storage system is a process through which solar energy is stored."""@en ;
+  rdfs:subClassOf plt:StorageSystem;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:LithiumIonBattery a owl:Class ;
+  rdfs:label "Lithium Ion Battery"@en ;
+  rdfs:comment """A lithium-ion battery is a type of rechargeable battery.(source: wikipedia)"""@en ;
+  rdfs:subClassOf seas:Battery;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:stateOfChargeRatioSetpoint a owl:ObjectProperty;
+  rdfs:label "state of charge ratio setpoint"@en ;
+  rdfs:comment """Links the feature of interest,such as solar storage system, to its state of charge ratio setpoint."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:PercentageProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+
+#######################################
+#   set of storages                 #
+#######################################
+
+plt:StorageGoodProperty a owl:Class ;
+  rdfs:label "Storage Good Property"@en ;
+  rdfs:comment """A Storage Good  Property is a property that describes the stored good"""@en ;
+  rdfs:subClassOf seas:BooleanProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:hasStorageGood a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Storage Good"@en ;
+  rdfs:comment """Links the storage system to its  stored good."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range plt:StorageGoodProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology.
+
+
+plt:StorageNominalCapacityProperty a owl:Class ;
+  rdfs:label "Storage Nominal Capacity Property"@en ;
+  rdfs:comment """nominal energy that can be stored in the storage"""@en ;
+  rdfs:subClassOf plt:EnergyProperty; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:StorageNominalCapacityEvaluation a owl:Class ;
+  rdfs:label "Storage Nominal Capacity Evaluation"@en ;
+  rdfs:comment "The class of evaluation storage nominal capacity properties"@en ;
+  rdfs:subClassOf plt:EnergyEvaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:StorageNominalCapacityProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:StorageNominalCapacityProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology .
+
+plt:hasStorageNominalCapacity a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has Storage Nominal Capacity"@en ;
+  rdfs:comment """Links the torage system to its  storage nominal capacity."""@en ;
+  rdfs:subPropertyOf plt:hasEnergy ;
+  rdfs:domain  plt:StorageSystem ;
+  rdfs:range plt:StorageNominalCapacityProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:StorageSystemOntology.
+
+
+#######################################
+#   reused concepts                   #
+#######################################
+seas:ElectricPowerStorageSystem a owl:Class.
+
+seas:Battery a owl:Class.
+
+seas:ElectricPowerProperty a owl:Class.
+seas:ElectricPowerEvaluation a owl:Class.
+
+seas:PercentageProperty  a owl:Class;
+  rdfs:subClassOf seas:Property.
+plt:PercentageEvaluation  a owl:Class.
+
+#######################################
+#   reused relations                  #
+#######################################
+
+seas:stateOfChargeRatio a owl:ObjectProperty.
+
+seas:connectedTo a owl:ObjectProperty.
+
+seas:electricPower a owl:ObjectProperty;
+            rdfs:subPropertyOf seas:hasProperty.
+
+plt:hasSolarEnergy  a owl:ObjectProperty;
+  rdfs:subPropertyOf  plt:hasEnergy.

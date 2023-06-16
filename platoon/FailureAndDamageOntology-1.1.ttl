@@ -1,0 +1,634 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix cim: <http://ontology.tno.nl/cerise/cim-profile#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@prefix sgstakeholders:  <http://www.purl.org/oema/sgstakeholders/>.
+@prefix pep: <https://w3id.org/pep/>.
+
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:FailureAndDamageOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon Failure And Damage ontology"@en ;
+  dcterms:description "Links the platoon failure and damage vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-11-17"^^xsd:date ;
+  dcterms:modified "2022-01-18"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ; 
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/FailureAndDamageOntology-1.1> ;
+  owl:imports plt:EventOntology-1.0;
+  owl:versionInfo "v1.1" .
+#######################################
+# Failure                             #
+####################################### 
+plt:FailureEvent a owl:Class ;
+  rdfs:label "Failure Event"@en ;
+  rdfs:comment """A failure is the an abrupt cessation of normal functioning. (source: weber dictionary)"""@en ;
+  owl:equivalentClass cim:FailureEvent;
+  rdfs:subClassOf plt:UnScheduledEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:LoosenessFailure  a owl:Class ;
+  rdfs:label "Looseness Failure"@en ;
+  rdfs:comment """A looseness failure is a failure caused by a looseness."""@en ;
+  rdfs:subClassOf plt:FailureEvent; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ImbalanceFailure a owl:Class ;
+  rdfs:label "Imbalance Failure"@en ;
+  rdfs:comment """An imbalance failure is a failure caused by an imbalance."""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:EfficiencyDegradation a owl:Class ;
+  rdfs:label "Efficiency Degradation"@en ;
+  rdfs:comment """An efficiency degradation is degradation of the ratio of the useful work performed by a machine or a process."""@en ;
+  rdfs:subClassOf plt:UnScheduledEvent;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty plt:leadsTo;
+                    owl:someValuesFrom cim:FailureEvent] ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:OilOverTemperatureFailure a owl:Class ;
+  rdfs:label "Oil Over Temperature Failure"@en ;
+  rdfs:comment """An oil over temperature failure is a failure relative to excessive temperature of oil"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:LossOfMeasurementFailure a owl:Class ;
+  rdfs:label "Loss Of Measurement Failure"@en ;
+  rdfs:comment """A loss of measurement failure is a failure relative to a loss of measurement"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:OverheatingFailure a owl:Class ;
+  rdfs:label "Over Heating Failure"@en ;
+  rdfs:comment """An over heating failure is a failure relative to an over heating"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:HighTemperatureFailure a owl:Class ;
+  rdfs:label "High Temperature Failure"@en ;
+  rdfs:comment """A high temperature failure is a failure relative to a high temperature"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:UnderperformanceFailure a owl:Class ;
+  rdfs:label "Underperformance Failure"@en ;
+  rdfs:comment """An underperformance  failure is a failure relative to an underperformance"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:InconsistencyOfMeasurementFailure a owl:Class ;
+  rdfs:label "Inconsistency Of Measurement Failure"@en ;
+  rdfs:comment """An inconsistency of measurement failure is a failure relative to an inconsistency of measurement"""@en ;
+  rdfs:subClassOf plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+
+plt:hasFailure  a owl:DatatypeProperty;
+  rdfs:label "has failure"@en ;
+  rdfs:comment """Links the entity, such as HVAC, to its failure"""@en ;
+  rdfs:range plt:FailureEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:concerns  a owl:DatatypeProperty;
+  rdfs:label "concerns"@en ;
+  rdfs:comment """Links the  failure its concerns property"""@en ;
+  rdfs:domain plt:FailureEvent;  
+  rdfs:range seas:Property;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:Recommendation a owl:Class ;
+  rdfs:label "Recommendation"@en ;
+  rdfs:comment """A recommendation is a suggestion that something is good or suitable for a particular purpose or job. (soure: Cambridge University Press )"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:hasMaintenance  a owl:DatatypeProperty;
+  rdfs:label "has maintenance"@en ;
+  rdfs:comment """Links the  featture of interest to  its maintenance"""@en ;
+  rdfs:domain seas:FeatureOfInterest;  
+  rdfs:range plt:Maintenance;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:hasMaintenanceAdvice  a owl:DatatypeProperty;
+  rdfs:label "has maintenance advice"@en ;
+  rdfs:comment """Links the  failure its maintenance advice"""@en ;
+  rdfs:domain plt:FailureEvent;  
+  rdfs:range plt:Recommendation;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+#######################################
+# Alert                               #
+####################################### 
+plt:Alert a owl:Class ;
+  rdfs:label "Alert"@en ;
+  skos:altLabel "Alarm";
+  owl:equivalentClass saref:Alarm;
+  rdfs:comment """An alert is quick to notice any unusual and potentially dangerous or difficult circumstances."""@en ;
+  rdfs:subClassOf plt:UnScheduledEvent;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ElectricityLoadDeviationAlert a owl:Class ;
+  rdfs:label "Electricity Load Deviation Alert"@en ;
+  rdfs:comment """The signal that alert to an electricity energy load deviation"""@en ;
+  rdfs:subClassOf plt:Alert;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:isAbout; owl:someValuesFrom seas:ElectricityPowerProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:FailureAlert a owl:Class ;
+  rdfs:label "Failure Alert"@en ;
+  skos:altLabel "Failure Alarm";
+  rdfs:comment """A failure alert is a alert relative to a failure event"""@en ;
+  rdfs:subClassOf plt:Alert;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty saref:isAbout;
+                    owl:someValuesFrom cim:FailureEvent] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:DegratdationAlert a owl:Class ;
+  rdfs:label "Degratdation Alert"@en ;
+  skos:altLabel "Degratdation Alarm";
+  rdfs:comment """A degratdation alert is a alert relative to a degratdation event"""@en ;
+  rdfs:subClassOf plt:Alert;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:NonTechnicalLossEvent a owl:Class ;
+  rdfs:label "Non Technical Loss Event"@en ;
+  rdfs:comment """Non-technical losses (NTL) consist of electricity theft, non-payment by customers, and errors in accounting and record-keeping."""@en ;
+  rdfs:subClassOf plt:UnScheduledEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ForecastOfNonTechnicalLossAlert a owl:Class ;
+  rdfs:label "Forecast Of Non Technical Loss Alert"@en ;
+  rdfs:comment "The class for forecast of non technical loss alert"@en ;
+  rdfs:subClassOf seas:Forecast; 
+  rdfs:subClassOf[ owl:onProperty seas:forecasts ; owl:someValuesFrom plt:NonTechnicalLossAlert ] ;
+  rdfs:subClassOf[ owl:onProperty pep:madeBy ; owl:someValuesFrom plt:ForecasterOfNonTechnicalLossAlert ] ;
+  rdfs:subClassOf[ owl:onProperty pep:usedProcedure ; owl:someValuesFrom plt:ForecastingOfNonTechnicalLossAlert ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:ForecasterOfNonTechnicalLossAlert a owl:Class ;
+  rdfs:label "Forecaster Of Non Technical Loss Alert"@en ;
+  rdfs:comment "The class for forecaster non technical loss alert"@en ;
+  rdfs:subClassOf seas:Forecaster; 
+  rdfs:subClassOf[ owl:onProperty seas:forecasts ; owl:someValuesFrom plt:NonTechnicalLossAlert ] ;
+  rdfs:subClassOf[ owl:onProperty pep:implements ; owl:someValuesFrom plt:ForecastingOfNonTechnicalLossAlert ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:ForecastingOfNonTechnicalLossAlert a owl:Class ;
+  rdfs:label "Forecasting Of Non Technical Loss Alert"@en ;
+  rdfs:comment "The class for forecasting of non technical loss alert"@en ;
+  rdfs:subClassOf seas:Forecasting; 
+  rdfs:subClassOf[ owl:onProperty seas:forecasts ; owl:someValuesFrom plt:NonTechnicalLossAlert ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:hasForecastOfNonTechnicalLossAlert a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has forecast of Non Technical Loss Alert"@en ;
+  rdfs:comment """Links Feature Of Interest with  its forecast of non technical loss alert."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:ForecastOfNonTechnicalLossAlert ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:hasFraudCandidate a owl:ObjectProperty ;
+  rdfs:label "has fraud candidate"@en ;
+  rdfs:comment """Links the non technical loss event to prosumer fraud candidate."""@en ;
+  rdfs:domain plt:NonTechnicalLossEvent ;
+  rdfs:range sgstakeholders:Prosumer ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:NonTechnicalLossAlert a owl:Class ;
+  rdfs:label "Non Technical Loss Alert"@en ;
+  skos:altLabel "Non TechnicalLoss Alarm";
+  rdfs:comment """A non technical loss is a alert relative to a non technical loss event"""@en ;
+  rdfs:subClassOf plt:Alert;
+  rdfs:subClassOf [ a owl:Restriction ; 
+                    owl:onProperty saref:isAbout;
+                    owl:someValuesFrom plt:NonTechnicalLossEvent] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:FaultState a owl:Class ;
+  rdfs:label "Fault State"@en ;
+  rdfs:comment """"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:bears a owl:ObjectProperty ;
+  rdfs:label "bears"@en ;
+  rdfs:comment """Links the feature of interest to its fault state."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:FaultState ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:affects a owl:ObjectProperty ;
+  rdfs:label "affects"@en ;
+  rdfs:comment """Links a pheonomen to its affected feature of interest ."""@en ;
+  rdfs:range seas:FeatureOfInterest ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology.
+
+plt:causes a owl:ObjectProperty ;
+  rdfs:label "causes"@en ;
+  rdfs:comment """Links a pheonomen to its consequence pheonomen."""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology.
+
+plt:leadsTo a owl:ObjectProperty ;
+  rdfs:label "leads to"@en ;
+  rdfs:comment """Links a  pheonomen  to its led pheonomen."""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology.
+  
+plt:relatedTo a owl:ObjectProperty ;
+  rdfs:label "related to"@en ;
+  rdfs:comment """Links a  pheonomen  to its related pheonomen."""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:GenericPropertyOntology.
+
+#######################################
+# Maintenance                               #
+####################################### 
+plt:Maintenance a owl:Class ;
+  rdfs:label "Maintenance"@en ;
+  rdfs:comment """The technical meaning of maintenance involves functional checks, servicing, repairing or replacing of necessary devices, equipment, machinery, building infrastructure, and supporting utilities in industrial, business, governmental, and residential installations.(source: wikipedia)"""@en ;
+  rdfs:subClassOf plt:ScheduledEvent;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:RepairMaintenance a owl:Class ;
+  rdfs:label "Repair Maintenance"@en ;
+  rdfs:comment """The repair maintenance restores (something damaged, faulty, or worn) to a good condition."""@en ;
+  rdfs:subClassOf plt:Maintenance;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ReplacementMaintenance a owl:Class ;
+  rdfs:label "Replacement Maintenance"@en ;
+  skos:alLabel "Maintenance Exchange";
+  rdfs:comment """Replacement Maintenance consists of Replacement of some damaged piece """@en ;
+  rdfs:subClassOf plt:Maintenance;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:DeviceAddingMaintenance a owl:Class ;
+  rdfs:label "Device Adding Maintenance"@en ;
+  rdfs:comment """Device Adding Maintenance consists of adding device during maintenance."""@en ;
+  rdfs:subClassOf plt:Maintenance;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:hasScheduledMaintenance a owl:ObjectProperty ;
+  rdfs:label "has scheduled maintenance"@en ;
+  rdfs:comment """Links the feature of interest to its fault state."""@en ;
+  rdfs:domain saref:FeatureOfInterest ;
+  rdfs:range plt:FaultState ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+#######################################
+# Damages                             #
+####################################### 
+plt:Damage a owl:Class ;
+  rdfs:label "Damage"@en ;
+  rdfs:comment """ Damage is any change in a thing, often a physical object, that degrades it away from its initial state. source wikipedia"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:DegradationConstantDamage  a owl:Class ;
+  rdfs:label "Degradation Constant Damage"@en ;
+  rdfs:comment """A degradation constant damage is a damage relative the constant degradation."""@en ;
+  rdfs:subClassOf plt:Damage;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:hasDamage a owl:ObjectProperty ;
+  rdfs:label "has damage"@en ;
+  rdfs:comment """Links the feature of interest to its damage."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:Damage ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:isDamageOf a owl:ObjectProperty ;
+  rdfs:label "is damage of"@en ;
+  rdfs:comment """Links the feature of interest to its damage."""@en ;
+  owl:inverseOf plt:hasDamage;
+  rdfs:domain plt:Damage ;
+  rdfs:range seas:FeatureOfInterest ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:SeverityLevelProperty  a owl:Class ;
+  rdfs:label "Severity Level Property"@en ;
+  rdfs:comment """The class of properties that are quantifiable and have a quantity kind of  severity level"""@en ;
+  rdfs:subClassOf seas:Property;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:SeverityLevelEvaluation a owl:Class ;
+  rdfs:label "Severity Level Evaluation"@en ;
+  rdfs:comment "The class of evaluation for severity level properties"@en ;
+  rdfs:subClassOf seas:Evaluation;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SeverityLevelProperty ] ;
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom plt:SeverityLevelProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology .
+
+plt:hasSeverityLevel a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has severity level"@en ;
+  rdfs:comment """Links the damage to its severity level."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain plt:Damage ;
+  rdfs:range plt:SeverityLevelProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+#######################################
+# Failure Mode                    #
+####################################### 
+plt:FailureMode a owl:Class ;
+  rdfs:label "Failure Mode"@en ;
+  rdfs:comment """The failure modes means the ways, or modes, in which something might fail"""@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty plt:mayResultIn ; owl:someValuesFrom cim:FailureEvent] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty plt:mayResultIn ; owl:someValuesFrom plt:Damage] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty plt:isDueTo ; owl:someValuesFrom plt:FailureCause] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:hasFailureMode a owl:ObjectProperty ;
+  rdfs:label "has failure mode"@en ;
+  rdfs:comment """Links the feature of interest to its failure mode."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain saref:FeatureOfInterest;
+  rdfs:range plt:FailureMode ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:FailureCause a owl:Class ;
+  rdfs:label "Failure Cause"@en ;
+  rdfs:comment """Failure Cause represent a cause of a failure"""@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:WeatherCause a owl:Class ;
+  rdfs:label "Weather Cause"@en ;
+  rdfs:comment """Weather Cause is a failure due to a weather pheonomen"""@en ;
+  rdfs:subClassOf plt:FailureCause;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:MaintenanceCause a owl:Class ;
+  rdfs:label "Maintenance Cause"@en ;
+  rdfs:comment """Maintenance failure cause is a failure due to a maintenance action"""@en ;
+  rdfs:subClassOf plt:FailureCause;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:MechanicalCause a owl:Class ;
+  rdfs:label "Mechanical Cause"@en ;
+  rdfs:comment """Mechanical Cause is a failure due to a mechanical problem"""@en ;
+  rdfs:subClassOf plt:FailureCause;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:isDueTo a owl:ObjectProperty ;
+  rdfs:label "is due to"@en ;
+  rdfs:comment """Links the failure mode to its failure cause."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain plt:FailureMode ;
+  rdfs:range plt:FailureCause ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:FailureAndDamageOntology . 
+
+plt:PartialSlotDischarges a owl:Class ;
+  rdfs:label "Partial Slot Discharges"@en ;
+  rdfs:comment """Partial discharge (PD) is a localized electrical discharge that only partially bridges the insulation between conductors and which may or may not occur adjacent to a conductor. source https://www.qualitrolcorp.com/home-2/power-cable-partial-discharge/"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ShortCircuit a owl:Class ;
+  rdfs:label "Short Circuit"@en ;
+  rdfs:comment """A short circuit is an abnormal connection between two nodes of an electric circuit intended to be at different voltages. source:wikipedia """@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:MagneticCoreFailure a owl:Class ;
+  rdfs:label "Magnetic Core Failure"@en ;
+  rdfs:comment """the magnetic core failure is the failure due to the magnetic core dysfonction"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ShortCircuitBetweenCoils a owl:Class ;
+  rdfs:label "Short Circuit Between Coils"@en ;
+  rdfs:comment """Short circuit between coils is a failure mode due to the short circuit between coils """@en ;
+  rdfs:subClassOf plt:ShortCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ShortCircuitToGround a owl:Class ;
+  rdfs:label "Short Circuit To Ground"@en ;
+  rdfs:comment """Short circuit to ground is a failure mode due to the short circuit to ground """@en ;
+  rdfs:subClassOf plt:ShortCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:StructuralFailure a owl:Class ;
+  rdfs:label "Structural Failure"@en ;
+  rdfs:comment """Structural failure refers to the loss of structural integrity. source : wikipedia"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:InterPhaseShortCircuit  a owl:Class ;
+  rdfs:label "Inter Phase Short Circuit"@en ;
+  rdfs:comment """Interfacial short circuit is a connection of two opposite phases."""@en ;
+  rdfs:subClassOf plt:ShortCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:LockingOrBadTurningOfTheBearing a owl:Class ;
+  rdfs:label "Locking Or Bad Turning Of The Bearing"@en ;
+  rdfs:comment """Locking Or Bad Turning Of The Bearing is a dysfonction of bearing"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ShortCircuitInCoilEnds a owl:Class ;
+  rdfs:label "Short Circuit In Coil Ends"@en ;
+  rdfs:comment """Failure due to short circuit in coil ends."""@en ;
+  rdfs:subClassOf plt:ShortCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ResistorInShortCircuit a owl:Class ;
+  rdfs:label "Resistor In Short Circuit"@en ;
+  rdfs:comment """Failure due to the resistor in short circuit."""@en ;
+  rdfs:subClassOf plt:ShortCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:FailureInPiping a owl:Class ;
+  rdfs:label "Failure In Piping"@en ;
+  rdfs:comment """Failure in piping"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:CableLoosening a owl:Class ;
+  rdfs:label "Cable Loosening"@en ;
+  rdfs:comment """Cable loosening failing mode"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:MonitoringFailure a owl:Class ;
+  rdfs:label "Monitoring Failure"@en ;
+  rdfs:comment """the monitoring failure failing mode"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:OpenCircuit a owl:Class ;
+  rdfs:label "Open Circuit"@en ;
+  rdfs:comment """An open-circuit fault occurs if a circuit is interrupted by a failure of a current-carrying wire (phase or neutral) or a blown fuse or circuit breaker. In three-phase systems. (source:wikipedia)"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ResistorInOpenCircuit a owl:Class ;
+  rdfs:label "Resistor In Open Circuit"@en ;
+  rdfs:comment """The open circuit fault occurs in resistor."""@en ;
+  rdfs:subClassOf plt:OpenCircuit;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ChangingInResistorValue a owl:Class ;
+  rdfs:label "Changing In Resistor Value"@en ;
+  rdfs:comment """Failure due to the changing of resister."""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:OutOfRange a owl:Class;
+  rdfs:label "Out of range"@en ;
+  rdfs:altLabel "Shortcircuit or Open"@en ;
+  rdfs:comment """Failure mode  due to out of range"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:ChangeOfFailureModeParameters a owl:Class ;
+  rdfs:label "Change Of Failure Mode Parameters"@en ;
+  rdfs:comment """The change of the parameters of failure mode"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:SafetyMode a owl:Class ;
+  rdfs:label "Safety Mode"@en ;
+  rdfs:comment """The safety mode protects the feature of interest from suffering catastrophic damage. """@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:NoSwitchStayingInConnectedConverted a owl:Class ;
+  rdfs:label "No Switch Staying In Connected Converted"@en ;
+  rdfs:comment """A failure due a no switch staying in connected converted"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:SwitchStayingWithCrowbarIn a owl:Class ;
+  rdfs:label "Switch Staying With Crowbar In"@en ;
+  rdfs:comment """Switch staying with crowbar in is a failure due to the stay of switch with crowbar in"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+
+plt:MagnetiCoreFailure a owl:Class ;
+  rdfs:label "Magnetic Core Failure"@en ;
+  rdfs:comment """A magnetic core failure is a failure occurs on the magnetic core"""@en ;
+  rdfs:subClassOf plt:FailureMode;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy  plt:FailureAndDamageOntology.
+#######################################
+# reused concepts                     #
+####################################### 
+cim:FailureEvent a owl:Class.
+
+sgstakeholders:Prosumer a owl:Class.
+
+seas:FeatureOfInterest a owl:Class.
+
+seas:Property  a owl:Class.
+
+saref:isAbout a owl:ObjectProperty.

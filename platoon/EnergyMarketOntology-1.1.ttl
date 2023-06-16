@@ -1,0 +1,181 @@
+# Copyright 2020  Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix seas: <https://w3id.org/seas/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix cim: <http://ontology.tno.nl/cerise/cim-profile#> .
+@prefix plt: <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:EnergyMarketOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon energy market ontology"@en ;
+  dcterms:description "Links the platoon energy market vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-10-30"^^xsd:date ;
+  dcterms:modified "2021-02-16"^^xsd:date ;
+   dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/EnergyMarketOntology-1.1> ;
+  owl:imports seas:PricePropertyOntology,
+              seas:OfferingOntology,
+              seas:ElectricPowerSystemOntology,
+              plt:EnergyMeasureOntology,
+              <http://www.iec.ch/TC57/CIM#> ; 
+  owl:versionInfo "v1.1" .
+#######################################
+# Contract                            #
+#######################################
+plt:GasContract  a owl:Class ;
+  rdfs:label "Gas Contract "@en ;
+  rdfs:comment """Gas Contract is contract to supply a quantity of gas over a period of time"""@en ;
+  rdfs:subClassOf  seas:Contract;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:isAbout; owl:someValuesFrom plt:GasEnergyProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+
+plt:ElectricityContract  a owl:Class ;
+  rdfs:label "Electricity Contract "@en ;
+  rdfs:comment """A Electricity contract is a contract between two parties, one which generates electricity (the seller) and one which is looking to purchase electricity (the buyer)(source wikipedia)"""@en ;
+  rdfs:subClassOf  seas:Contract;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:isAbout; owl:someValuesFrom seas:ElectricEnergyProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology.
+
+plt:hasRegisteredResource a owl:ObjectProperty ;
+  rdfs:label "has registered resource"@en ;
+  rdfs:comment """Links the feature of interest to its  registered resource."""@en ;
+  rdfs:subPropertyOf seas:frequency ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range cim:RegisteredResource;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+
+plt:isRegisteredOn a owl:ObjectProperty  ;
+  rdfs:label "is registered on"@en ;
+  rdfs:comment """Links the registered resource to its  register , such as energy market."""@en ;
+  rdfs:domain cim:RegisteredResource ;
+  rdfs:range seas:FeatureOfInterest;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+plt:hasCapacity a owl:ObjectProperty  ;
+  rdfs:label "is capacity"@en ;
+  rdfs:comment """Links the feature of interest to its capacity."""@en ;
+  rdfs:domain seas:FeatureOfInterest;
+  rdfs:range cim:ResourceCapacity;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+plt:offeredTo a owl:ObjectProperty ;
+  rdfs:label "offred to"@en ;
+  rdfs:comment """Links the feature of interest to its  receiver."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:FeatureOfInterest;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+plt:offeredBy a owl:ObjectProperty ;
+  rdfs:label "offered by"@en ;
+  rdfs:comment """Links the feature of interest to its  offerer."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:FeatureOfInterest;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+plt:operates  a owl:ObjectProperty ;
+  rdfs:label "operates"@en ;
+  rdfs:comment """Links the feature of interest to its control area  operator ."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range cim:ControlAreaOperator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+
+plt:hasContractOperationDate   a owl:DatatypeProperty;
+  rdfs:label "has contract operation  date"@en ;
+  rdfs:comment """Links the feature of interest to its  constract operation date."""@en ;
+  rdfs:domain  seas:FeatureOfInterest ;
+  rdfs:range xsd:date ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:EnergyMarketOntology .
+ 
+#######################################
+# Reused concepts                     #
+#######################################
+seas:ElectricEnergyProperty a owl:Class.
+
+seas:Contract a owl:Class.
+
+cim:EnergyMarket  a owl:Class.
+
+cim:ControlAreaOperator a owl:Class.
+
+cim:Energy a owl:Class.
+
+seas:SolarPanel a owl:Class.
+
+cim:ControlAreaOperator a owl:Class.
+
+cim:Organization a owl:Class.
+
+cim:MktOrganization a owl:Class.
+
+cim:MarketParticipant a owl:Class.
+
+cim:SchedulingCoordinator a owl:Class.
+
+cim:MktLoadArea a owl:Class.
+
+cim:LoadArea a owl:Class.
+
+cim:Bid a owl:Class.
+
+cim:ControlAreaGeneratingUnit a owl:Class.
+
+cim:GeneratingUnit a owl:Class.
+
+cim:SolarGeneratingUnit a owl:Class.
+
+cim:RegisteredLoad a owl:Class.
+
+cim:RegisteredResource a owl:Class.

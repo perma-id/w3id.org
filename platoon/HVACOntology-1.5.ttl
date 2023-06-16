@@ -1,0 +1,519 @@
+# Copyright 2020 Platoon Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix voaf:  <http://purl.org/vocommons/voaf#> .
+@prefix vs:    <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix cc:    <http://creativecommons.org/ns#>.
+@prefix foaf:  <http://xmlns.com/foaf/0.1/>.
+@prefix saref: <https://w3id.org/saref#> .
+@prefix s4bldg: <https://w3id.org/def/saref4bldg#> .
+@prefix seas:  <https://w3id.org/seas/> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix bot:   <https://w3id.org/bot#> .
+@prefix brick: <https://brickschema.org/schema/1.1/Brick#>.
+@prefix ssn:<http://www.w3.org/ns/ssn/>.
+@prefix th: <https://www.auto.tuwien.ac.at/downloads/thinkhome/ontology/EnergyResourceOntology.owl#>.
+@prefix semanco: <http://semanco02.hs-albsig.de/repository/ontology-releases/eu/semanco/ontology/SEMANCO/SEMANCO.owl#>.
+@prefix dogont: <http://elite.polito.it/ontologies/dogont.owl#> .
+@prefix plt:   <https://w3id.org/platoon/>.
+@base <https://w3id.org/platoon/>.
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+
+plt:HVACOntology rdf:type voaf:Vocabulary , owl:Ontology ;
+  dcterms:title "Platoon HVAC Ontology"@en ;
+  dcterms:description "Links the Platoon HVAC and AHU vocabulary for the  Platoon  project."@en ;
+  dcterms:issued "2020-10-28"^^xsd:date ;
+  dcterms:modified "2022-06-13"^^xsd:date ;
+  dcterms:creator "Sarra BEN ABBES and Lynda TEMAL and Oumy SEYE" ;
+  dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+  vann:preferredNamespacePrefix "plt" ;
+  vann:preferredNamespaceUri <https://w3id.org/platoon/> ;  
+  owl:versionIRI <https://w3id.org/platoon/HVACOntology-1.4> ;
+  owl:imports <https://w3id.org/saref> ,
+              <https://w3id.org/def/s4bldg#>,   
+              seas:SystemOntology-1.3;     
+  owl:versionInfo "v1.4" .
+#######################################
+# HVAC Systems                        #
+#######################################
+plt:BuildingManagementSystem a owl:Class ;
+  rdfs:label "Building Management System"@en ;
+  skos:altLabel "BMS";
+  rdfs:comment """BMS is a computer-based control system installed in buildings that controls and monitors the building's mechanical and electrical equipment such as ventilation, lighting, power systems(source wikipedia)"""@en ;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:HVAC  a owl:Class ;
+  rdfs:label "Heating Ventilation and Air Conditioning"@en ;
+  rdfs:seeAlso brick:HVAC, th:HVACSystemResource,dogont:HVACSystem;
+  rdfs:comment """The HVAC system is a Heating Ventilation and Air Conditioning system"""@en ;
+  rdfs:subClassOf  seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:CoolingSystem ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:HeatingSystem ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:VentilationSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:CoolingSystem a owl:Class ;
+  rdfs:label "Cooling System "@en ;
+  skos:altLabel "Cooling Plant","Cooling Unit", "Heat Exchanger";
+  rdfs:comment """The cooling system provides cooling for a zone"""@en ;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasCoolingSystem a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has cooling system"@en ;
+  rdfs:comment """Links the feature of interest to cooling system."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:CoolingSystem ;
+  vs:term_status "testing" ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology  .
+
+plt:HeatingSystem a owl:Class ;
+  rdfs:label "Heating System "@en ; 
+  rdfs:seeAlso th:HeatingSystem, dogont:HeatingSystem;
+  skos:altLabel "Heating Plant";
+  rdfs:comment """The heating system generates heat for a zone"""@en ;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasHeatingSystem a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has heating system"@en ;
+  rdfs:comment """Links the feature of interest to heating system."""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:HeatingSystem ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology  .
+
+plt:VentilationSystem a owl:Class ;
+  rdfs:label "Ventilation System "@en ;
+  rdfs:comment """The ventilation system controls the process of replacing air"""@en ;
+    rdfs:seeAlso dogont:AirConditioningSystem;
+  rdfs:subClassOf seas:System;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasVentilationSystem a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has ventilation system"@en ;
+  rdfs:comment """Links the feature of interest to ventilation system."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:VentilationSystem ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology  .
+
+plt:CoolingValve a owl:Class ;
+  rdfs:label "Cooling Valve "@en ;
+  rdfs:seeAlso brick:Cooling_Valve;
+  rdfs:comment """The cooling valve regulate cooling water flow."""@en ;
+  rdfs:subClassOf s4bldg:Valve;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:CoolingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HeatingValve a owl:Class ;
+  rdfs:label "Heating Valve "@en ;
+  rdfs:seeAlso brick:Heating_Valve;
+  rdfs:comment """The heating valves controls the flow of heated water."""@en ;
+  rdfs:subClassOf s4bldg:Valve;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom s4bldg:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Boiler a owl:Class ;
+  rdfs:label "Boiler"@en ;
+  rdfs:comment """A boiler is a closed vessel in which fluid (generally water) is heated. (source wikipedia)"""@en ;
+  rdfs:seeAlso brick:Boiler;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:ElectricBoiler a owl:Class ;
+  rdfs:label "Electric Boiler"@en ;
+  rdfs:comment """A electric boiler is a boiler using electric energy for heat"""@en ;
+  rdfs:subClassOf plt:Boiler;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:GasBoiler a owl:Class ;
+  rdfs:label "Gas Boiler"@en ;
+  rdfs:comment """A gas boiler is a boiler using gas for heat"""@en ;
+  rdfs:subClassOf plt:Boiler;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Pump a owl:Class ;
+  rdfs:label "Pump"@en ;
+  rdfs:comment """A  pump is a type of HVAC equipment that can provide both heat and cooling. (source wikipedia)"""@en ;
+  rdfs:subClassOf seas:System;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HeatPump a owl:Class ;
+  rdfs:label "Heat Pump"@en ;
+  rdfs:comment """A heat pump is a device that transfers heat energy from a source of heat to what is called a thermal reservoir. (source wikipedia)"""@en ;
+  rdfs:seeAlso brick:Boiler, th:Boiler, dogont:Boiler;
+  rdfs:subClassOf plt:Pump;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:GasSystem a owl:Class ;
+  rdfs:label "Gas System"@en ;
+  rdfs:comment """A gas system."""@en ;
+  rdfs:subClassOf seas:System;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:GasHeatPump a owl:Class ;
+  rdfs:label "Gas Heat Pump"@en ;
+  rdfs:comment """A gas heat pump is a heat pump functioning with gas energy."""@en ;
+  rdfs:seeAlso brick:Boiler, th:Boiler, dogont:Boiler;
+  rdfs:subClassOf plt:HeatPump;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:ElectricHeatPump a owl:Class ;
+  rdfs:label "Electric Heat Pump"@en ;
+  rdfs:comment """A gas heat pump is a heat pump functioning with electric energy."""@en ;
+  rdfs:seeAlso brick:Boiler, th:Boiler, dogont:Boiler;
+  rdfs:subClassOf plt:HeatPump;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HybridHeatPump a owl:Class ;
+  rdfs:label "Hybrid Heat Pump"@en ;
+  rdfs:comment """A gas heat pump is a heat pump functioning with both gas and electric energy. (source wikipedia)"""@en ;
+  rdfs:seeAlso brick:Boiler, th:Boiler, dogont:Boiler;
+  rdfs:subClassOf plt:HeatPump;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:AirHandlerUnit a owl:Class ;
+  rdfs:label "Air Handler Unit"@en ;
+  rdfs:comment """An air handler, or air handling unit, is a device used to regulate and circulate air as part of a heating, ventilating, and air-conditioning system (source wikipedia). """@en ;
+  skos:altLabel "AHU";
+  rdfs:seeAlso brick:AHU;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HVAC ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:SupplyFan ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:ReturnFan ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Boiler] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Chiller] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:Fancoil] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectedTo; owl:someValuesFrom plt:VentilationSystem] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Fan ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:VariableRefrigerantVolume  a owl:Class ;
+  rdfs:label "Variable Refrigerant Volume"@en ;
+  rdfs:comment """A variable refrigerant volume is an HVAC technology invented by Daikin Industries, Ltd. in 1982.[1] Like ductless minisplits, VRFs use refrigerant as the cooling and heating medium.  (source wikipedia). """@en ;
+  skos:altLabel "Variable refrigerant flow", "VRV";
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HVAC ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:VariableRefrigerantVolumeGroup  a owl:Class ;
+  rdfs:label "Variable Refrigerant Volume Group"@en ;
+  rdfs:comment """A variable refrigerant volume Group is  a system having member only variables refrigerant volume. """@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:member; owl:someValuesFrom plt:VariableRefrigerantVolume ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HeatRecoveryChiller a owl:Class ;
+  rdfs:label "Heat Recovery Chiller"@en ;
+  rdfs:comment """A heat recovery chiller is a traditional screw type chiller where the heat of condensing is absorbed by a water loop, which is then used for heating.. (source innovaengineers)"""@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Condenser a owl:Class ;
+  rdfs:label "Condenser"@en ;
+  rdfs:comment """A condenser is a heat exchanger used to condense a gaseous substance into a liquid state through cooling.(wikipedia)"""@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Compressor a owl:Class ;
+  rdfs:label "Compressor"@en ;
+  rdfs:comment """A compressor is a mechanical device that increases the pressure of a gas by reducing its volume.(source:wikipedia)"""@en ;
+  rdfs:subClassOf plt:GasSystem;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Steamer a owl:Class ;
+  rdfs:label "Steamer"@en ;
+  rdfs:comment """A steamer is something operated by steam power."""@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Burner a owl:Class ;
+  rdfs:label "Burner"@en ;
+  rdfs:comment """A burner in a gas furnace is the section of the furnace where the gas (fuel) mixes with air and is burned, which subsequently heats up the house. (source:Weather Tech Heating and Cooling)"""@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+
+plt:WaterSystem  a owl:Class ;
+  rdfs:label "Water System "@en ;
+  rdfs:subClassOf seas:System;
+  rdfs:comment """A water system is a system for supplying water to a community. """@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:ColdWaterSystem  a owl:Class ;
+  rdfs:label "Cold Water System "@en ;
+  rdfs:comment """A water cold system is a system for supplying cold water. """@en ;
+  rdfs:subClassOf plt:WaterSystem;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HotWaterSystem  a owl:Class ;
+  rdfs:label "Hot Water System "@en ;
+  rdfs:subClassOf plt:WaterSystem;
+  rdfs:comment """A hot water system is a system for supplying hot water to a community. """@en ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:DomesticHotWaterSystem  a owl:Class ;
+  rdfs:label "Domestic Hot Water System "@en ;
+  rdfs:comment """A domestic hot water system is a system for supplying hot domestic water. """@en ;
+  rdfs:subClassOf plt:HotWaterSystem;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HVAC ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasDomesticHotWaterSystem  a owl:ObjectProperty ;
+  rdfs:label "has Domestic Hot Water System "@en ;
+  rdfs:comment """Links the feature of interest to its domestic hot water"""@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:DomesticHotWaterSystem ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasLightingSystem  a owl:ObjectProperty ;
+  rdfs:label "has lighting system "@en ;
+  rdfs:comment """Links the feature of interest to its lighting system """@en ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range plt:LightingSystem ; 
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:Chiller a owl:Class ;
+  rdfs:label "Chiller"@en ;
+  rdfs:comment """Refrigerating machine used to transfer heat between fluids. Chillers are either direct expansion with a compressor or absorption type.(source wikipedia)."""@en ;
+  rdfs:seeAlso brick:Chiller;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:CoolingSystem ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty s4bldg:contains; owl:someValuesFrom plt:ChillerEvaporator ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:Evaporator a owl:Class ;
+  rdfs:label "Evaporator"@en ;
+  rdfs:comment """A  evaporator is located just after the expansion valve and just before the suction line which goes into the compressor. The evaporator collects all the unwanted heat from the building. This is where the chilled water is produced. It collects the heat, removes it and send the water back out around the building to collect more heat. (source : the engeenering mineset)"""@en ;
+  rdfs:subClassOf seas:ElectricPowerSystem;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:ChillerEvaporator a owl:Class ;
+  rdfs:label "Evaporator Chiller"@en ;
+  rdfs:comment """A The evaporator is located  in Chiller. """@en ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty s4bldg:isContainedIn; owl:someValuesFrom plt:Chiller ] ;
+  rdfs:subClassOf plt:Evaporator;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+
+plt:Fancoil a owl:Class ;
+  rdfs:label "Fancoil"@en ;
+  rdfs:comment """A fan coil unit (FCU), also known as a Vertical Fan Coil-Unit (VFC), is a device consisting of a heat exchanger (coil) and a fan(source wikipedia)"""@en ;
+  rdfs:seeAlso brick:Fan_Coil_Unit;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom plt:Fan ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:hasSubSystem; owl:someValuesFrom s4bldg:Coil] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:VentilationSystem ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty saref:hasState; owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                              owl:unionOf(saref:OnState 
+                                                                                                         saref:OffState)] ] ;
+                                                                                                           vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:Fan a owl:Class ;
+  rdfs:label "Fan"@en ;
+  rdfs:comment """A fan is a machine for producing airflow, often for cooling(source wikipedia)"""@en ;
+  rdfs:seeAlso brick:Fan, dogont:Fan;
+  rdfs:subClassOf seas:System;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:VentilationSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:Controller a owl:Class ;
+  rdfs:label "Controller"@en ;
+  rdfs:comment """A device controller is a system that handles the incoming and outgoing signals of the CPU. (source wikipedia)"""@en ;
+  rdfs:subClassOf seas:System;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HVACValveController a owl:Class ;
+  rdfs:label "HVAC Valve Controller "@en ;
+  rdfs:comment """The HVAC valve controller is the device that manages the flow of the HVAC valve."""@en ;
+  rdfs:subClassOf plt:Controller;  
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:connectTo; owl:someValuesFrom saref:TemperatureSensor ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty brick:controls; owl:someValuesFrom s4bldg:Valve ] ;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:BuildingManagementSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:HVACModeState  a owl:Class ;
+  rdfs:label "HVAC Mode State "@en ;
+  rdfs:comment "The state mode in which a HVAC can be found, e.g, Cooling/Heating/Auto/Off."@en;
+  rdfs:subClassOf saref:State;
+   vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+
+
+
+plt:CoolingCoil a owl:Class ;
+  rdfs:label "Cooling Coil"@en ;
+  rdfs:comment """ The cooling coil cools your home in warmer weather by circulating very cold refrigerant that extracts heat from passing airflow.(source https://www.lozierheatingcooling.com/)"""@en ;
+  rdfs:subClassOf s4bldg:Coil;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:CoolingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:HeatingCoil a owl:Class ;
+  rdfs:label "Heating Coil"@en ;
+  rdfs:comment """The heating coil is a coil of wire heated"""@en ;
+  rdfs:subClassOf s4bldg:Coil;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty seas:subSystemOf; owl:someValuesFrom plt:HeatingSystem ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:ReturnFan a owl:Class ;
+  rdfs:label "Return Fan"@en ;
+  rdfs:comment """a return fan is a fan which withdraws air from an air-conditioned space and returns it ."""@en ;
+  rdfs:subClassOf plt:Fan;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty brick:feedsAir; owl:someValuesFrom brick:Return_Air  ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+plt:SupplyFan a owl:Class ;
+  rdfs:label "Supply Fan"@en ;
+  rdfs:comment """The supply fan filters outside air to  fresh air for a building. """@en ;
+  rdfs:subClassOf plt:Fan;
+  rdfs:subClassOf [ a owl:Restriction ; owl:onProperty brick:feedsAir; owl:someValuesFrom brick:Supply_Air  ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology.
+
+#######################################
+# Pressure Drop Property            #
+#######################################
+plt:PressureDropProperty a owl:Class ;
+  rdfs:label "Pressure Drop Property"@en ;
+  rdfs:comment """The class of properties that are quantifiable and have a quantity kind pressure drop.A pressure drop is defined as the difference in total pressure between two points of a fluid carrying network.(source:wikipia)"""@en ;
+  rdfs:subClassOf seas:Property;  
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:PressureDropEvaluation a owl:Class ;
+  rdfs:label "Pressure Drop Evaluation"@en ;
+  rdfs:comment "The class of evaluation for pressure drop properties"@en ;
+  rdfs:subClassOf seas:Evaluation;    
+  owl:equivalentClass [ owl:onProperty seas:evaluationOf ; owl:someValuesFrom seas:PressureProperty ] ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology .
+
+plt:hasPressureDrop a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:label "has pressure drop"@en ;
+  rdfs:comment """Links the feature of interest to its pressure drop."""@en ;
+  rdfs:subPropertyOf seas:hasProperty ;
+  rdfs:domain seas:FeatureOfInterest ;
+  rdfs:range seas:PressureProperty ;
+  vs:term_status "testing" ;
+  rdfs:isDefinedBy plt:HVACOntology  .
+
+#######################################
+#   reused concepts                  #
+#######################################
+s4bldg:Valve  a owl:Class.
+s4bldg:Coil a owl:Class.
+s4bldg:Boiler a owl:Class.
+s4bldg:Chiller a owl:Class.
+s4bldg:Pump a owl:Class.
+s4bldg:Condenser a owl:Class.
+s4bldg:Evaporator a owl:Class.
+
+
+brick:SupplyAir a owl:Class.
+brick:ReturnAir a owl:Class.
+brick:Fan a owl:Class.
+
+saref:HVAC a owl:Class.
+saref:State a owl:Class.
+saref:OnState a owl:Class.
+saref:OffState a owl:Class.
+saref:Sensor a owl:Class.
+
+#######################################
+#   reused relations                  #
+#######################################
+
+s4bldg:contains  a owl:ObjectProperty.
+s4bldg:isContainedIn  a owl:ObjectProperty.
+
+seas:subSystemOf  a owl:ObjectProperty.
+
+bot:containsZone  a owl:ObjectProperty.
+
+
+brick:controls  a owl:ObjectProperty.
+
+seas:connectedTo a owl:ObjectProperty.
