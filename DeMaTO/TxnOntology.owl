@@ -1,0 +1,544 @@
+@prefix : <http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#> .
+@prefix DMO: <http://www.semanticweb.org/sogol/ontologies/2023/3/untitled-ontology-25#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix untitled-ontology-25: <http://www.semanticweb.org/sogol/ontologies/2023/3/untitled-ontology-25#> .
+@base <http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#> .
+
+<http://www.semanticweb.org/sogol/ontologies/2023/3/DMO> rdf:type owl:Ontology ;
+                                                          owl:versionIRI <http://www.semanticweb.org/sogol/ontologies/2023/3/DMO> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#childTxn
+:childTxn rdf:type owl:ObjectProperty ;
+          rdfs:domain :NestedTxn ;
+          rdfs:range :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#distributes
+:distributes rdf:type owl:ObjectProperty ;
+             rdfs:domain :TxnOuput ;
+             rdfs:range :Asset .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#hasAsset
+:hasAsset rdf:type owl:ObjectProperty ;
+          rdfs:domain :MKTxn ;
+          rdfs:range :Asset .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#hasInput
+:hasInput rdf:type owl:ObjectProperty ;
+          rdfs:domain :MKTxn ;
+          rdfs:range :TxnInput .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#hasOutput
+:hasOutput rdf:type owl:ObjectProperty ;
+           rdfs:domain :MKTxn ;
+           rdfs:range :TxnOuput .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#hasSig
+:hasSig rdf:type owl:ObjectProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:domain :TxnInput ;
+        rdfs:range :Signature .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#hasSysAcc
+:hasSysAcc rdf:type owl:ObjectProperty ;
+           rdfs:domain :PromiseTxn ;
+           rdfs:range :SysAccount .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#msgTxn
+:msgTxn rdf:type owl:ObjectProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:domain :MKTxn ;
+        rdfs:range :Signature .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#outputCond
+:outputCond rdf:type owl:ObjectProperty ;
+            rdfs:domain :TxnOuput ;
+            rdfs:range :Condition .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#receiver
+:receiver rdf:type owl:ObjectProperty ;
+          rdfs:domain :TxnOuput ;
+          rdfs:range :Account .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#refTxn
+:refTxn rdf:type owl:ObjectProperty ;
+        rdfs:domain :MKTxn ;
+        rdfs:range :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sender
+:sender rdf:type owl:ObjectProperty ;
+        rdfs:domain :TxnInput ;
+        rdfs:range :Account .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sigCond
+:sigCond rdf:type owl:ObjectProperty ;
+         rdfs:domain :Signature ;
+         rdfs:range :Condition .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sigGeneratedBy
+:sigGeneratedBy rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain :Signature ;
+                rdfs:range :Account .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#spends
+:spends rdf:type owl:ObjectProperty ;
+        rdfs:domain :TxnInput ;
+        rdfs:range :TxnOuput .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#assetId
+:assetId rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain :Asset ;
+         rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#numShare
+:numShare rdf:type owl:DatatypeProperty ;
+          rdfs:domain :TxnOuput ;
+          rdfs:range xsd:nonNegativeInteger .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#opName
+:opName rdf:type owl:DatatypeProperty ;
+        rdfs:domain :MKTxn ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#privateKey
+:privateKey rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :Account ;
+            rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#publicKey
+:publicKey rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :Account ;
+           rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sigHash
+:sigHash rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain :Signature ;
+         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#txnId
+:txnId rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdf:type owl:FunctionalProperty ;
+       rdfs:domain :MKTxn ;
+       rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#txnInputId
+:txnInputId rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :TxnInput ;
+            rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#txnOutputId
+:txnOutputId rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :TxnOuput ;
+             rdfs:range xsd:int .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#AcceptBid
+:AcceptBid rdf:type owl:Class ;
+           rdfs:subClassOf :NestedTxn ,
+                           :TransferringTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Account
+:Account rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Advertise
+:Advertise rdf:type owl:Class ;
+           rdfs:subClassOf :NonTransferringTxn ,
+                           :SimpleTxn ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :refTxn ;
+                             owl:someValuesFrom :Create
+                           ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Asset
+:Asset rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Bid
+:Bid rdf:type owl:Class ;
+     rdfs:subClassOf :PromiseTxn ,
+                     :SimpleTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Buy
+:Buy rdf:type owl:Class ;
+     rdfs:subClassOf :NestedTxn ,
+                     :TransferringTxn ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :refTxn ;
+                       owl:someValuesFrom :Advertise
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasInput ;
+                       owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                       owl:onClass :TxnInput
+                     ] ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty :hasOutput ;
+                       owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                       owl:onClass :TxnOuput
+                     ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Condition
+:Condition rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Create
+:Create rdf:type owl:Class ;
+        rdfs:subClassOf :NonTransferringTxn ,
+                        :SimpleTxn ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasInput ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :TxnInput
+                        ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Destroy
+:Destroy rdf:type owl:Class ;
+         rdfs:subClassOf :NonTransferringTxn ,
+                         :SimpleTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#FungibleAsset
+:FungibleAsset rdf:type owl:Class ;
+               rdfs:subClassOf :Asset .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#MKTxn
+:MKTxn rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasAsset ;
+                         owl:someValuesFrom :Asset
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasInput ;
+                         owl:someValuesFrom :TxnInput
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasOutput ;
+                         owl:someValuesFrom :TxnOuput
+                       ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#NestedTxn
+:NestedTxn rdf:type owl:Class ;
+           rdfs:subClassOf :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#NonFungibleAsset
+:NonFungibleAsset rdf:type owl:Class ;
+                  rdfs:subClassOf :Asset .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#NonTransferringTxn
+:NonTransferringTxn rdf:type owl:Class ;
+                    rdfs:subClassOf :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Offer
+:Offer rdf:type owl:Class ;
+       rdfs:subClassOf :NonTransferringTxn ,
+                       :SimpleTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#PromiseTxn
+:PromiseTxn rdf:type owl:Class ;
+            rdfs:subClassOf :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Refund
+:Refund rdf:type owl:Class ;
+        rdfs:subClassOf :NestedTxn ,
+                        :TransferringTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Request
+:Request rdf:type owl:Class ;
+         rdfs:subClassOf :NonTransferringTxn ,
+                         :SimpleTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Return
+:Return rdf:type owl:Class ;
+        rdfs:subClassOf :SimpleTxn ,
+                        :TransferringTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Signature
+:Signature rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#SimpleTxn
+:SimpleTxn rdf:type owl:Class ;
+           rdfs:subClassOf :MKTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#SysAccount
+:SysAccount rdf:type owl:Class ;
+            rdfs:subClassOf :Account .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Transfer
+:Transfer rdf:type owl:Class ;
+          rdfs:subClassOf :SimpleTxn ,
+                          :TransferringTxn .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#TransferringTxn
+:TransferringTxn rdf:type owl:Class ;
+                 rdfs:subClassOf :MKTxn ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasOutput ;
+                                   owl:someValuesFrom :TxnOuput
+                                 ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#TxnInput
+:TxnInput rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :sender ;
+                            owl:someValuesFrom :Account
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasSig ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Signature
+                          ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#TxnOuput
+:TxnOuput rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :receiver ;
+                            owl:someValuesFrom :Account
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :opName ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:string
+                          ] .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#TxnWorkflow
+:TxnWorkflow rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#UserAccount
+:UserAccount rdf:type owl:Class ;
+             rdfs:subClassOf :Account .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#Withdraw
+:Withdraw rdf:type owl:Class ;
+          rdfs:subClassOf :SimpleTxn ,
+                          :TransferringTxn .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#acc1
+:acc1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#adv1
+:adv1 rdf:type owl:NamedIndividual ,
+               :Advertise ;
+      :hasAsset :advAsset1 ;
+      :hasOutput :createOut ;
+      :refTxn :create1 ;
+      :opName "\"advertise\"" .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#adv2
+:adv2 rdf:type owl:NamedIndividual ,
+               :Advertise ;
+      :hasAsset :advAsset2 ;
+      :hasInput :advIn2 ;
+      :hasOutput :advOut2 ;
+      :opName "\"advertise\"" .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#advAsset1
+:advAsset1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#advAsset2
+:advAsset2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#advIn2
+:advIn2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#advOut2
+:advOut2 rdf:type owl:NamedIndividual ;
+         :numShare 0 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#asset1
+:asset1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#assetNull
+:assetNull rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buy1
+:buy1 rdf:type owl:NamedIndividual ,
+               :Buy ;
+      :hasInput :buyIn1 ,
+                :buyIn2 ;
+      :hasOutput :buyOut1 ,
+                 :buyOut2 ;
+      :refTxn :adv1 ;
+      :opName "\"buy\"" ;
+      :txnId 1 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buyAsset1
+:buyAsset1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buyIn1
+:buyIn1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buyIn2
+:buyIn2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buyOut1
+:buyOut1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#buyOut2
+:buyOut2 rdf:type owl:NamedIndividual ;
+         :hasAsset :buyAsset1 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#create1
+:create1 rdf:type owl:NamedIndividual ,
+                  :Create ;
+         :hasAsset :assetNull ;
+         :hasInput :createIn ;
+         :hasOutput :createOut ;
+         :msgTxn :sig2 ;
+         :opName "\"create\"" .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#createIn
+:createIn rdf:type owl:NamedIndividual ;
+          :hasSig :sig1 ;
+          :sender :acc1 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#createOut
+:createOut rdf:type owl:NamedIndividual ;
+           :distributes :asset1 ;
+           :receiver :acc1 ;
+           :numShare 0 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sig1
+:sig1 rdf:type owl:NamedIndividual ;
+      :sigGeneratedBy :acc1 .
+
+
+###  http://www.semanticweb.org/sogol/ontologies/2023/3/DMO#sig2
+:sig2 rdf:type owl:NamedIndividual ;
+      :sigGeneratedBy :acc1 .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+<urn:swrl:var#z> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#ox1> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+<urn:swrl:var#x> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S1" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasOutput ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#z> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#ox1>
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Buy ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#x>
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
