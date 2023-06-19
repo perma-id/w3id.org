@@ -13,3 +13,10 @@ This space is administered by:
 Raleigh, NC, USA  
 <smansou2@ncsu.edu>  
 GitHub: [sogolsmansouri](https://github.com/sogolsmansouri)
+
+**Korchiev Nodirbek**  
+*PhD candidate*  
+[North Carolina State University](https://www.ncsu.edu/)  
+Raleigh, NC, USA  
+<nkorchi11@gmail.com>  
+GitHub: [korchiev](https://github.com/korchiev)
