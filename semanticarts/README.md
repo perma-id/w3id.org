@@ -8,9 +8,8 @@ Includes persistent URIs to the current, and historical, versions of `gist`,
 and (eventually) dereferencable URIs to the `gist` ontology terms (vocabulary).
 
 Examples:
-- https://w3id.org/semanticarts/gist
-- https://w3id.org/semanticarts/gist/
-- https://w3id.org/semanticarts/gist/Person
+- https://w3id.org/semanticarts/ns/ontology/gist/
+- https://w3id.org/semanticarts/ns/ontology/gist/Person
 - https://w3id.org/semanticarts/gistCore
 - https://w3id.org/semanticarts/gistCore.ttl
 - https://w3id.org/semanticarts/gistCoreX.x.x.ttl
