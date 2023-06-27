@@ -25,18 +25,19 @@ SetEnvIf Request_URI ^.*$ ANALYSIS_URL=https://raw.githubusercontent.com/polifon
 SetEnvIf Request_URI ^.*$ ANNOTATION_URL=https://raw.githubusercontent.com/polifonia-project/music-annotation-ontology/main/ontology/music-annotation.owl
 SetEnvIf Request_URI ^.*$ FULL_URL=https://raw.githubusercontent.com/polifonia-project/ontology-network/main/ontology/ontology-network.owl
 
-# ROMAN CHORD API
-SetEnvIf Request_URI ^.*$ ROMAN_API=https://roman-chord-api.herokuapp.com/roman-chord-ontology/
+# TEST URL
+SetEnvIf Request_URI ^.*$ TEST_ONTOLOGY_URL=https://polifonia.disi.unibo.it/semanticroman/ontology
+SetEnvIf Request_URI ^.*$ TEST_ONTOLOGY_OWL_URL=https://polifonia.disi.unibo.it/semanticroman/ontology.owl
+SetEnvIf Request_URI ^.*$ TEST_RESOURCE_URL=https://polifonia.disi.unibo.it/semanticroman/resource
+
+# TEST NEW ENDPOINT
+RewriteRule ^ontology/semanticroman(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:TEST_ONTOLOGY_URL}#$2 [R=303,L]
+RewriteRule ^ontology/semanticroman(/) %{ENV:TEST_ONTOLOGY_OWL_URL} [R=303,L]
+RewriteRule ^resource/semanticroman(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:TEST_RESOURCE_URL}/$2$3$4 [R=303,L]
 
 # Rules for version-aware URIs of ontologies
 # CORE
 RewriteRule ^ontology/core(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CORE_URL} [R=303,L]
-# MUSICAL COMPOSITION
-# RewriteRule ^ontology/musical-composition(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:COMPOSITION_URL} [R=303,L]
-# MUSICAL PERFORMANCE
-# RewriteRule ^ontology/musical-performance(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:PERFORMANCE_URL} [R=303,L]
-# MUSICAL FEATURE
-# RewriteRule ^ontology/musical-feature(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:FEATURE_URL} [R=303,L]
 # JAMS
 RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_URL} [R=303,L]
 # CHOCO
