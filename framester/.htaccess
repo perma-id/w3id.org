@@ -1,28 +1,43 @@
 AddType application/rdf+xml .rdf
+
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
+
 RewriteEngine on
-RewriteRule ^$ http://etna.istc.cnr.it/framester_web/ [R=302,L]
+
+# RewriteRule for website
+RewriteRule ^$ https://framester.github.io/ [R=302,L]
 
 # Rewrite rule to serve HTML content
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule "^schema.*$" "https://w3id.org/lode/https://raw.githubusercontent.com/framester/schema/master/ontology.owl" [R=303,L]
+RewriteRule "^schema.*$" "https://w3id.org/lode/http://ontologydesignpatterns.org/ont/framester/framester.owl" [R=303,L]
+
+# Rewrite rule to serve HTML content for vn schema
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule "^vn/schema.*$" "https://w3id.org/lode/http://www.ontologydesignpatterns.org/ont/vn/vnschema31.owl" [R=303,L]
+
+# Rewrite rule to serve HTML content for preposition ontology
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule "^prep/prepont.*$" "https://w3id.org/lode/http://www.ontologydesignpatterns.org/ont/po/prepont.owl" [R=303,L]
+
+# Rewrite rule to serve HTML content for propbank schema
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule "^pb/pbschema.*$" "http://150.146.207.114/lode/extract?url=http://www.ontologydesignpatterns.org/ont/pb/pbschema.ttl&owlapi=true&lang=en" [R=303,L]
 
-# Rewrite rule to serve RDF/XML content if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule "^schema.*$" "https://raw.githubusercontent.com/framester/schema/master/ontology.owl" [R=303]
-RewriteRule "^vn/schema.*$" "http://www.ontologydesignpatterns.org/ont/vn/vnschema31.owl" [R=303,L]
-RewriteRule "^prep/prepont.*$" "http://www.ontologydesignpatterns.org/ont/po/prepont.owl" [R=303,L]
-RewriteRule "^pb/pbschema.*$" "http://www.ontologydesignpatterns.org/ont/pb/pbschema.ttl" [R=303,L]
-
 # Choose the default response
-RewriteRule "^schema.*$" "https://raw.githubusercontent.com/framester/schema/master/ontology.owl" [R=303]
+RewriteRule "^schema.*$" "http://ontologydesignpatterns.org/ont/framester/framester.owl" [R=303]
 RewriteRule "^vn/schema.*$" "http://www.ontologydesignpatterns.org/ont/vn/vnschema31.owl" [R=303,L]
 RewriteRule "^prep/prepont.*$" "http://www.ontologydesignpatterns.org/ont/po/prepont.owl" [R=303,L]
 RewriteRule "^pb/pbschema.*$" "http://www.ontologydesignpatterns.org/ont/pb/pbschema.ttl" [R=303,L]

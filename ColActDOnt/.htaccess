@@ -16,19 +16,23 @@ AddType text/turtle ttl
 # Required for the redirects
 RewriteEngine On
 
-## BEGIN: Redirects using extension
+## BEGIN: Redirects using extension/ending
 
 # Redirects - w/o version number
 RewriteRule ^/?\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/current/ColActDOnt.$1 [R=303,L]
 RewriteRule ^/?\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/current/ColActDOnt.owl [R=303,L]
+RewriteRule ^/?\.xesext$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/current/XesExt/colactdont.xesext [R=303,L]
+RewriteRule ^/?xesext$ https://ceir-koblenz.github.io/ontologies/ColActDOnt/current/XesExt/index.html [R=303,L]
 RewriteRule ^/?\.html$ https://ceir-koblenz.github.io/ontologies/ColActDOnt/current/ColActDOnt.html [R=303,L]
 
 # Redirects - w/ version number
 RewriteRule ^/?(\d+(\.\d+)+)\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/$1/ColActDOnt.$3 [R=303,L]
 RewriteRule ^/?(\d+(\.\d+)+)\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/$1/ColActDOnt.owl [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)\.xesext$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/ColActDOnt/$1/XesExt/colactdont.xesext [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)\/xesext$ https://ceir-koblenz.github.io/ontologies/ColActDOnt/$1/XesExt/index.html [R=303,L]
 RewriteRule ^/?(\d+(\.\d+)+)\.html$ https://ceir-koblenz.github.io/ontologies/ColActDOnt/$1/ColActDOnt.html [R=303,L]
 
-## END: Redirects using extension
+## END: Redirects using extension/ending
 
 ## BEGIN: content negotiation - w/o version number
 
