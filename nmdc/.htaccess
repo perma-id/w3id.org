@@ -1,3 +1,14 @@
 Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^(.*) https://github.com/microbiomedata/ [R=307,L]
+
+# should there be a rule for going stright to the GH repo page?
+#RewriteRule ^(.*) https://github.com/microbiomedata/ [R=307,L]
+
+RewriteRule ^(.*).yaml$ https://raw.githubusercontent.com/microbiomedata/nmdc-schema/main/src/schema/$1.yaml [R=302,L]
+
+RewriteRule ^(.*)$      https://microbiomedata.github.io/nmdc-schema/$1 [R=302,L]
+
+## doesn't add anything to the ^(.*)$ rule
+#RewriteRule ^$          https://microbiomedata.github.io/nmdc-schema    [R=302,L]
+
+# force push
