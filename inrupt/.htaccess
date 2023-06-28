@@ -2,5 +2,14 @@ Options +FollowSymLinks
 
 RewriteEngine On
 
-RewriteRule (.*) https://data.inrupt.com/w3id.org/inrupt/$1 [R=302,L,QSA]
+# For now, we use a PodSpaces Pod for the Interop Group of Inrupt for hosting
+# specific resources...
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule namespace/vocab/authn_provider https://storage.inrupt.com/ef6ef7d1-8fe0-4381-b87e-17b2bf0bb591/public/namespace/vocab/authn_provider/authn_provider [R=302,L,QSA]
 
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule namespace/vocab/authn_provider https://storage.inrupt.com/ef6ef7d1-8fe0-4381-b87e-17b2bf0bb591/public/namespace/vocab/authn_provider/authn_provider.html [R=302,L,QSA]
+
+RewriteRule namespace/(.*) https://namespace.inrupt.com/$1 [R=302,L,QSA]
