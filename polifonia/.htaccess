@@ -3,13 +3,6 @@ Options +FollowSymLinks
 RewriteEngine on
 
 SetEnvIf Request_URI ^.*$ CORE_URL=https://raw.githubusercontent.com/polifonia-project/core-ontology/main/ontology/core.owl
-# SetEnvIf Request_URI ^.*$ COMPOSITION_URL=https://raw.githubusercontent.com/polifonia-project/musical-composition-ontology/main/musical-composition.owl
-# SetEnvIf Request_URI ^.*$ PERFORMANCE_URL=https://raw.githubusercontent.com/polifonia-project/musical-performance-ontology/main/musical-performance.owl
-# SetEnvIf Request_URI ^.*$ FEATURE_URL=https://raw.githubusercontent.com/polifonia-project/musical-feature-ontology/main/musical-feature.owl
-SetEnvIf Request_URI ^.*$ JAMS_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/ontology/jams.owl
-SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://github.com/smashub/choco/tree/main/choco/kg-generation/knowledge-graph
-SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_SCORE_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/wikifonia.ttl
-SetEnvIf Request_URI ^.*$ CHOCO_EXAMPLE_AUDIO_URL=https://raw.githubusercontent.com/smashub/choco/main/choco/kg-generation/examples/isophonics.ttl
 SetEnvIf Request_URI ^.*$ ROMAN_URL=https://raw.githubusercontent.com/polifonia-project/roman-chord-ontology/main/roman-chord.owl
 SetEnvIf Request_URI ^.*$ MUSICMETA_URL=https://raw.githubusercontent.com/polifonia-project/musicmeta-ontology/main/ontology/musicmeta.owl
 SetEnvIf Request_URI ^.*$ ORGANS_URL=https://raw.githubusercontent.com/polifonia-project/organs-ontology/main/ontology/organs.owl
@@ -35,15 +28,23 @@ RewriteRule ^ontology/semanticroman(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{
 RewriteRule ^ontology/semanticroman(/) %{ENV:TEST_ONTOLOGY_OWL_URL} [R=303,L]
 RewriteRule ^resource/semanticroman(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:TEST_RESOURCE_URL}/$2$3$4 [R=303,L]
 
+# CHOCO URL
+SetEnvIf Request_URI ^.*$ JAMS_ONTOLOGY_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/ontology/jams.owl
+SetEnvIf Request_URI ^.*$ JAMS_ONTOLOGY_OWL_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/ontology/jams.owl
+SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://polifonia.disi.unibo.it/choco/resource
+
+# CHOCO REDIRECTS
+RewriteRule ^ontology/choco(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_ONTOLOGY_URL}#$2 [R=303,L]
+RewriteRule ^ontology/choco(/) %{ENV:JAMS_ONTOLOGY_URL} [R=303,L]
+RewriteRule ^resource/choco(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:CHOCO_DATA_URL}/$2$3$4 [R=303,L]
+
 # Rules for version-aware URIs of ontologies
 # CORE
 RewriteRule ^ontology/core(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CORE_URL} [R=303,L]
 # JAMS
 RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_URL} [R=303,L]
 # CHOCO
-RewriteRule ^resource/choco/score-example(/)?$ %{ENV:CHOCO_EXAMPLE_SCORE_URL} [R=303,L]
-RewriteRule ^resource/choco/audio-example(/)?$ %{ENV:CHOCO_EXAMPLE_AUDIO_URL} [R=303,L]
-RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CHOCO_DATA_URL} [R=303,L]
+# RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CHOCO_DATA_URL} [R=303,L]
 # ROMAN
 RewriteRule ^ontology/roman-chord(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ROMAN_URL} [R=303,L]
 RewriteRule ^resource/roman-chord(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:ROMAN_API}$2 [R=303,L]
