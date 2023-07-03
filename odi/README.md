@@ -8,14 +8,14 @@ This space is administered by:
 
 **Valentina Pasqual**
 
-*PhD Student*
-
+*PhD Student* 
+<br>
 [University of Bologna](https://www.unibo.it/)
-
+<br>
 Bologna, Italy
-
+<br>
 <valentina.pasqual2@unibo.it>
-
+<br>
 GitHub: [ValentinaPasqual](https://github.com/ValentinaPasqual)
-
+<br>
 ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0001-5931-5187)
