@@ -7,9 +7,15 @@ Additionally, the [web application](https://projects.dharc.unibo.it/odi) offers 
 This space is administered by:
 
 **Valentina Pasqual**
+
 *PhD Student*
+
 [University of Bologna](https://www.unibo.it/)
-Bologna, italy
+
+Bologna, Italy
+
 <valentina.pasqual2@unibo.it>
+
 GitHub: [ValentinaPasqual](https://github.com/ValentinaPasqual)
+
 ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0001-5931-5187)
