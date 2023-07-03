@@ -2,7 +2,7 @@
 
 ## Description
 ODI project formalises the narrative use of tarot cards and their relationships in the stories of "Il castello dei destini incrociati" written by Italo Calvino. The ODI ontology and Knolwdge Base represent the iconographical and textual elements of Calvino's work in their structural and narrative dimension.
-Additionally, The [https://projects.dharc.unibo.it/odi](web application) offers an interface to browse the KG contents.
+Additionally, the [web application](https://projects.dharc.unibo.it/odi) offers an interface to browse the KG contents.
 
 This space is administered by:
 
