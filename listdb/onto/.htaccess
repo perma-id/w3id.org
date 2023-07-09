@@ -1,0 +1,86 @@
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl .xml
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld .json
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Specific content-type -> Access respective ontology
+
+# HTML:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://listdb.gitlab.io/onto/index.html [R=303,L,NE]
+
+# Will not be available at first
+# RewriteCond %{HTTP_ACCEPT} text/html
+# RewriteRule ^([0-9]).([0-9]).([0-9]) https://listdb.gitlab.io/onto/$1.$2.$3/index.html [R=303,L,NE]
+
+# intermediary solution
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://listdb.gitlab.io/onto/index.html [R=303,L,NE]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://listdb.gitlab.io/onto/ontology.ttl [R=303,L,NE]
+
+# Turtle with versioning
+# will point to a dedicated directory for serializations at our repo
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+# RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.ttl [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.ttl [R=303,L,NE]
+
+# XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://listdb.gitlab.io/onto/ontology.xml [R=303,L,NE]
+
+# XML with versioning
+# will point to a dedicated directory for serializations at our repo
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.xml [R=303,L,NE]
+
+# N-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://listdb.gitlab.io/onto/ontology.nt [R=303,L,NE]
+# Notation3
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://gitlab.com/listdb/onto/-/raw/main/serializations/ontology.n3 [R=303,L,NE]
+
+# N-triples with versioning
+# will point to a dedicated directory for serializations at our repo
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.nt [R=303,L,NE]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://listdb.gitlab.io/onto/ontology.jsonld [R=303,L,NE]
+
+# JSON-LD with versioning
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.jsonld [R=303,L,NE]
+
+# Notation3 with versioning
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.n3 [R=303,L,NE]
+
+# Trig with versioning
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://gitlab.com/listdb/onto/-/raw/$1.$2.$3/serializations/ontology.trig [R=303,L,NE]
+
+#No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
+RewriteRule ^$ https://listdb.gitlab.io/onto/index.html [R=303,L,NE]
+# will not be available at first
+# RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/index.html [R=303,L,NE]

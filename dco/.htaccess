@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+RewriteEngine on
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+#RewriteRule ^$ https://www.dco.domos-project.eu/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://www.dco.domos-project.eu/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://www.dco.domos-project.eu/dco.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://www.dco.domos-project.eu/ontology.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^$ https://www.dco.domos-project.eu/ontology.ttl [R=303,NE,L]

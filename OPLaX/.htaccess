@@ -1,0 +1,22 @@
+# Name of the project: OPLaX
+# Description:OPLaX is an extension of the OPLa annotation schema providing a vocabulary for specifying conceptual components and ontology design patterns.
+# Contacts:
+# - Luigi Asprino <luigi.asprino@unibo.it>
+# - Valentina Anita Carriero <valentina.carriero3@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/stlab-istc-cnr/OPLaX/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^([0-9].[0-9].[0-9])(/.*)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/$1/oplax.owl [R=303,L]
+RewriteRule ^([0-9].[0-9].[0-9])(/.*)?$ %{ENV:ROOT_URL}/$1/oplax.owl [R=303,L]
+
+# Rules for latest version
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^(/.*)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/0.0.3/oplax.owl [R=303,L]
+RewriteRule ^(/.*)?$ %{ENV:ROOT_URL}/0.0.3/oplax.owl [R=303,L]

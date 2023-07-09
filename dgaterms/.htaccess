@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/besteves4/dgaterms/ [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/besteves4/dgaterms/main/dgaterms.ttl [R=302,L]
