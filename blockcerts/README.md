@@ -18,6 +18,8 @@ https://w3id.org/blockcerts/v3.0-alpha
 
 https://w3id.org/blockcerts/v3.0-beta
 
+https://w3id.org/blockcerts/v3
+
 Contacts:
 
 info@blockcerts.org

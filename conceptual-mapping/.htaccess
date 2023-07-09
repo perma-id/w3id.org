@@ -1,0 +1,45 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.ttl [R=303,L]
+
+
+RewriteRule ^protocols_list.ttl$ http://vocab.linkeddata.es/def/conceptual-mapping/protocols_list.ttl [R=303,L]
+RewriteRule ^functions_list.ttl$ http://vocab.linkeddata.es/def/conceptual-mapping/functions_list.ttl [R=303,L]
+
+RewriteRule ^portal$ https://oeg-upm.github.io/Conceptual-Mapping/index.html [R=303,L]
+
+RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/index-en.html [R=303,L]
+
+

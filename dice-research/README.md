@@ -8,3 +8,25 @@ The w3id.org URLs are used to create permanent URLs to the projects, open-source
 
 * [Group home page](https://dice-research.org/)
 
+## Contact
+
+#### Prof. Dr. Axel-Cyrille Ngonga Ngomo
+
+Head of the DICE research group<br/>
+Paderborn, Germany<br/>
+Github: [ngonga](https://github.com/ngonga)<br/>
+Website: https://dice-research.org/AxelCyrilleNgongaNgomo
+
+#### Alexander Bigerl
+
+Research Staff - PhD Student<br/>
+Paderborn, Germany<br/>
+Github: [bigerl](https://github.com/bigerl)<br/>
+Website: https://dice-research.org/AlexanderBigerl
+
+#### Michael Röder
+
+PhD Student<br/>
+Paderborn, Germany<br/>
+Github: [MichaelRoeder](https://github.com/MichaelRoeder)<br/>
+Website: https://dice-research.org/MichaelRoeder
