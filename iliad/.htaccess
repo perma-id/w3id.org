@@ -1,0 +1,161 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://www.ocean-twin.eu/ [R=302,L]
+
+
+### FIRST LAYER #####
+# OIM
+RewriteRule ^oim$ https://github.com/ILIAD-ocean-twin/oim [R=302,L]
+
+### JF API
+# Base
+RewriteRule ^jf/api$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/base [R=302,L]
+RewriteRule ^jf/api/v1.0/?$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/base [R=302,L]
+
+# Observations
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+#RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)00$
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations(id)?id=$1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)\)/Datastream$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations_Datastream?obs=$1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest(id)?id=$1-$2 [R=302,L]
+
+#RewriteRule ^jf/api/v1.0/Observations\((.*)\)/Datastream$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations_Datastream?obs=$1 [R=302,L]
+#RewriteRule ^jf/api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Observations_FeatureOfInterest?id=$1&location=$1&sensor=$3&species=$4 [R=302,L]
+
+# Datastreams
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams_Observations?sensor=$1&property=$2&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams_Observations?sensor=$1&property=$2&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Datastreams_Observations?sensor=$1&property=$2&limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/ObservedProperty$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties(id)?id=$2 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Sensor$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors(id)?id=$1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Thing$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+
+# FeaturesOfInterest
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeaturesOfInterest(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeatureOfInterest_Observations?foi=$1-$2&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeatureOfInterest_Observations?foi=$1-$2&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/FeatureOfInterest_Observations?foi=$1-$2&limit=100 [R=302,L]
+
+#HistoricalLocations
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations?limit=1 [R=302,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/HistoricalLocations(id)?id=$1 [R=302,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)-(.*)\)/Locations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$2 [R=302,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)-(.*)\)/Things$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$2 [R=302,L]
+
+#Locations
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Locations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Locations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Locations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations_HistoricalLocations?loc=$1&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations_HistoricalLocations?loc=$1&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations_HistoricalLocations?loc=$1&limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/Things$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+
+#sensors
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Sensors$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Sensors$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Sensors$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=100 [R=302,L]
+
+#things
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Things$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Things$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Things$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Sensors_Datastreams?sens=$1&limit=100 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things_HistoricalLocations?thing=$1&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things_HistoricalLocations?thing=$1&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/HistoricalLocations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Things_HistoricalLocations?thing=$1&limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Locations$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/Locations(id)?id=$1 [R=302,L]
+
+#observedProperties
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/ObservedProperties$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties?limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/ObservedProperties$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties?limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties?limit=100 [R=302,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperties(id)?id=$1 [R=302,L]
+
+#RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)$
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperty_Datastreams?obp=$1&limit=%1&offset=%2 [R=302,L]
+RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)$
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperty_Datastreams?obp=$1&limit=%1 [R=302,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://grlc-dpi-enabler-demeter.apps.paas-dev.psnc.pl/api-git/ILIAD-ocean-twin/JF-API/ObservedProperty_Datastreams?obp=$1&limit=100 [R=302,L]
+
+##EV
+RewriteRule ^jellyfish/property/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/iliad/jellyfish/property/$1 [R=302,L]
+RewriteRule ^jellyfish/property$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/iliad/jellyfish/property [R=302,L]
