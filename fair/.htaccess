@@ -4,14 +4,71 @@ RewriteEngine on
 
 RewriteRule ^$ https://www.go-fair.org/ [R=302,L]
 
+
+RewriteRule ^principles(/(terms)?)?$ https://w3id.org/fair/principles/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^principles/terms/$ https://peta-pico.github.io/FAIR-nanopubs/principles/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^principles/terms/$ https://peta-pico.github.io/FAIR-nanopubs/principles/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^principles/terms/$ https://peta-pico.github.io/FAIR-nanopubs/principles/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^principles/terms/$ https://peta-pico.github.io/FAIR-nanopubs/principles/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^principles/terms/$ https://peta-pico.github.io/FAIR-nanopubs/principles/ontology.trig [R=302,L,NE]
+
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^principles/terms/([^/]+)$ https://peta-pico.github.io/FAIR-nanopubs/principles/index-en.html#https://w3id.org/fair/principles/terms/$1 [R=302,L,NE]
+
+
+RewriteRule ^icc(/(terms)?)?$ https://w3id.org/fair/icc/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^icc/terms/$ https://peta-pico.github.io/FAIR-nanopubs/icc/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^icc/terms/$ https://peta-pico.github.io/FAIR-nanopubs/icc/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^icc/terms/$ https://peta-pico.github.io/FAIR-nanopubs/icc/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^icc/terms/$ https://peta-pico.github.io/FAIR-nanopubs/icc/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^icc/terms/$ https://peta-pico.github.io/FAIR-nanopubs/icc/ontology.trig [R=302,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^icc/terms/(.+)$ https://peta-pico.github.io/FAIR-nanopubs/icc/index-en.html#https://w3id.org/fair/icc/terms/$1 [R=302,L,NE]
 
+
+
+
+RewriteRule ^fip(/(terms)?)?$ https://w3id.org/fair/fip/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^fip/terms/$ https://peta-pico.github.io/FAIR-nanopubs/fip/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^fip/terms/$ https://peta-pico.github.io/FAIR-nanopubs/fip/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^fip/terms/$ https://peta-pico.github.io/FAIR-nanopubs/fip/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^fip/terms/$ https://peta-pico.github.io/FAIR-nanopubs/fip/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^fip/terms/$ https://peta-pico.github.io/FAIR-nanopubs/fip/ontology.trig [R=302,L,NE]
+
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^fip/terms/(.+)$ https://peta-pico.github.io/FAIR-nanopubs/fip/index-en.html#https://w3id.org/fair/fip/terms/$1 [R=302,L,NE]
+
 
 RewriteRule ^maturity_indicator/?$ https://github.com/FAIRMetrics/Metrics [R=302,L]
 
@@ -99,41 +156,55 @@ RewriteRule ^fip/latest/FIP-Question$ http://purl.org/np/RA8LZmNV-sJ9ssPIt6xjeMx
 RewriteRule ^fip/latest/FIP-Data-related-Question$ http://purl.org/np/RAJNGdhyMdASv8Y-BP-olG2x2X0xCkJmPXhPLEYi672R0 [R=302,L]
 RewriteRule ^fip/latest/FIP-Metadata-related-Question$ http://purl.org/np/RAQ5ztge2_B4nsUgEqxnTtaN7hjWNVrSz63Iap2R6p9qc [R=302,L]
 RewriteRule ^fip/latest/FIP-Declaration$ http://purl.org/np/RAB6j5LLI5-4389952-4TAvEEw67exfeAEUmeHLu2KLdk [R=302,L]
+RewriteRule ^fip/latest/FIP-No-Choice-Declaration$ http://purl.org/np/RAhmL2LLai6oDeGav9XlSVppYwxbeJBZwCOLMj60aQy8c [R=302,L]
 RewriteRule ^fip/latest/FAIR-Implementation-Community$ http://purl.org/np/RA2w7n678arDzdQrdf1vlaznsUbYbSfsV1bZGUuJQMVag [R=302,L]
 RewriteRule ^fip/latest/has-data-steward$ http://purl.org/np/RA08kwOVtIpBUs6S8UpjmU7G9JBZ6xMJ15iOBGpX6uu5A [R=302,L]
 RewriteRule ^fip/latest/FAIR-Enabling-Resource$ http://purl.org/np/RAtlKUYs8dk_WO2dHkCObpJNBRr9mycf8GLVqg-NsDQCk [R=302,L]
 RewriteRule ^fip/latest/Available-FAIR-Enabling-Resource$ http://purl.org/np/RAhmoWYlqsvUU4iagr1CCINzVt_VDEt21bLmMZRqONk5g [R=302,L]
 RewriteRule ^fip/latest/FAIR-Enabling-Resource-to-be-Developed$ http://purl.org/np/RA6Q449-JBcEP0B1A5Ymq8s2UY8fLFCRFE-XP1vh4IJ5Y [R=302,L]
+RewriteRule ^fip/latest/Identifier-service$ http://purl.org/np/RAv7gN-ARySG5WL7tDvPDRUrgoWiDgqms3O7wExb-REZA [R=302,L]
+RewriteRule ^fip/latest/Metadata-schema$ http://purl.org/np/RAx55A35bjBGlXWgjyRW7S3yNk7938lsZs8Qu5ok1V_eE [R=302,L]
+RewriteRule ^fip/latest/Metadata-data-linking-schema$ http://purl.org/np/RAWs6IutufXFMUtlGHpOgJKSTCDjrdYXmnGTki0wcc_Uo [R=302,L]
+RewriteRule ^fip/latest/Registry$ http://purl.org/np/RA_L2QMUJhtYpKVUyxvjfrbhoLHyrglIodkWSv1CiZL-Q [R=302,L]
+RewriteRule ^fip/latest/Communication-protocol$ http://purl.org/np/RAfG-o7ieWZgVh_MHVpXke6xYUbFWufxOMSEfONuGbqVo [R=302,L]
+RewriteRule ^fip/latest/Authentication-and-authorization-service$ http://purl.org/np/RAG0XX5A5BNktptCC4UeYl3rohTPgA4NJ2YzsYKc49eX4 [R=302,L]
+RewriteRule ^fip/latest/Metadata-preservation-policy$ http://purl.org/np/RAjCX-zzCa1UiRQlMUjvWg-vy9lnd4bgj17VpOZkYcfDc [R=302,L]
+RewriteRule ^fip/latest/Knowledge-representation-language$ http://purl.org/np/RAhhfu9Ig3-fvaAHekJtLyzp4Mcbtl0AR-Q_8EMZeXv7Y [R=302,L]
+RewriteRule ^fip/latest/Structured-vocabulary$ http://purl.org/np/RAyjbHxlQvCbsFOhSG15KBphiNXwAmMS0O0u2O7f7IIXY [R=302,L]
+RewriteRule ^fip/latest/Semantic-model$ http://purl.org/np/RA80klxqeu58E-k-CV27GE8uGJDEaZBi2fSwi1kNXY0U4 [R=302,L]
+RewriteRule ^fip/latest/Data-usage-license$ http://purl.org/np/RA_Oq4WWDGsWEP4O9AhpO0bzeyiaYVkSc50Hfqxc50qnQ [R=302,L]
+RewriteRule ^fip/latest/Provenance-model$ http://purl.org/np/RAal0G45FgZzpuQEMxIfGLoS8BxAA6DAoqHJbTopdbtxo [R=302,L]
 RewriteRule ^fip/latest/refers-to-principle$ http://purl.org/np/RA_tVVGjB8f-3mWwAVoq8owmlWIBAILiZpoYPq-EGkqcU [R=302,L]
 RewriteRule ^fip/latest/refers-to-question$ http://purl.org/np/RAj710TeD1XPa50yIyKqrMtwXaz1nfrR02xA7ajpTvgug [R=302,L]
 RewriteRule ^fip/latest/declared-by$ http://purl.org/np/RAoB7vveyfYW_ghcVwH6QdI_iywESaoD7_Mq_8SCk-62s [R=302,L]
 RewriteRule ^fip/latest/declares-current-use-of$ http://purl.org/np/RApLLC5Wnq_Cj9GnG0jLZD_d2xtGlF2yQ5XpcIfwVPBXg [R=302,L]
 RewriteRule ^fip/latest/declares-planned-use-of$ http://purl.org/np/RAyONTJrtIiarGvXdShFt2IZdSM-QdHfTHbr24usex1x4 [R=302,L]
+RewriteRule ^fip/latest/declares-planned-replacement-of$ http://purl.org/np/RAycMXvXJqbp2V-0vANxo2OJlyEu0SpS0tVA9kzsXVzxQ [R=302,L]
 RewriteRule ^fip/latest/declares-planned-development-of$ http://purl.org/np/RA_qlSmN0hWaLpc-Ya9-NSCQ7rRh3HgNWgSZV0-PrIVdk [R=302,L]
 RewriteRule ^fip/latest/considerations$ http://purl.org/np/RANo00qnprNSxcGcMwWYt22IAnUBRpeZUnt5kVPVAoVVg [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F1-MD$ http://purl.org/np/RAv1jc6uqjsYwglse3YGfy7dRcmIcOH7HUQWQRGLG2jto [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F1-D$ http://purl.org/np/RAyA2guGvSZ5NQYEQyCorVi7Owdpd1mMSFo_J0FPWV7Qg [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F2$ http://purl.org/np/RAKH8O9joNMvlmb1wbxzk3Ze5tcCkFjnhriOJ7fl1eTLI [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F3$ http://purl.org/np/RAVCU6N1jVsKvaib1PAKI44mNu9V6GkkPCYTfvDlojQj8 [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F4-MD$ http://purl.org/np/RAk-08EyxdOezj02a3-l5jWc5In-DGkH6H8OLsaVKEF2U [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-F4-D$ http://purl.org/np/RA4zERFr4dX8QhSi7s9_qKOi3rEEn-3IOWhLBMYpgqgYs [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-A1.1-MD$ http://purl.org/np/RAZ5Xgeb8_QjDtdd5jvsOOscYYG_9jnRa4oZOhqpp86Yo [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-A1.1-D$ http://purl.org/np/RA5Ngd2vD2DIph4SjqQ4d1f2fQEFWDTld0J8bClNUweEY [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-A1.2-MD$ http://purl.org/np/RA-6tIRSD7e4l5FzoAxsEqr7t0EnJdaH5GG1m_upoMOr8 [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-A1.2-D$ http://purl.org/np/RAwHYwRpFJZQeVFsv_N3WW216TrBFt9J4_7Xs76GbV9ZE [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-A2$ http://purl.org/np/RA6AUc5Q4XZEWitpEqOtmmOlS8i08ZCYebE8Zi3enpdjw [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I1-MD$ http://purl.org/np/RAQhbxlc8-jAg3vaKprokk6E4IQS1ePCLSd58NPkQaKzA [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I1-D$ http://purl.org/np/RAqUpSmky1XknCDiaLFZc-zJMR197ano-wzUgOSG1eZ3U [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I2-MD$ http://purl.org/np/RACHEoAI1yVgdbnjto-v701X1fXs9uTeTi-lMaLyl1IOQ [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I2-D$ http://purl.org/np/RAD29LabUNU5w-3flW7QsuFwXBvxITC7jPnqEMJnON9v0 [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I3-MD$ http://purl.org/np/RAt7yOYOdKUfuoRIxsAg6dSTSvsAyP9rrZ31m44ogEcY8 [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-I3-D$ http://purl.org/np/RAVBKsPBErfRKDzoOtW0ANF0yPEYmEC3VgB2whWVMOv9c [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-R1.1-MD$ http://purl.org/np/RAbqfS6lVWZ65EgPlTt8_ZnJ-RxpxvFoJpw3RVG2JzRUs [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-R1.1-D$ http://purl.org/np/RAC_6liEHCfSoA4R0I82AbOjW1Hs6fLMDN2ukSv2n43oc [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-R1.2-MD$ http://purl.org/np/RAkPEyiL-uDcRnrsc7oQ0wo-lyDJ7jMFw93SvHsAhxRDU [R=302,L]
-RewriteRule ^fip/latest/FIP-Question-R1.2-D$ http://purl.org/np/RATmr9M9lw4iDi3q3mrHzvR0dJ023Y1PHxZarmKbqQxPA [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F1-MD$ http://purl.org/np/RAXiPlRTRgv0qxKdxFSQN5PQwBplAGCj-oMaIfDclcQR8 [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F1-D$ http://purl.org/np/RAn7FG3LYjSfDtQDmYL9f479dtrRQLxhzSbAN_36IlYac [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F2$ http://purl.org/np/RAc3qKyMmXEAY9hzklOKk-SY_g2a1Ctmh9lkl3Rn98qig [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F3$ http://purl.org/np/RAyO7qcNoOslhC3NfbjjHTJIk5sEDqBLXG1KYeyuL4AVo [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F4-MD$ http://purl.org/np/RARZXfavS_nOtRr5aRnRf146u-x4DxFcBO_MrMrUiypBc [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-F4-D$ http://purl.org/np/RATP25Vjkt3lPhLCKd3MAzcs1yQWsLrqYzWLOlRWuIH8w [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-A1.1-MD$ http://purl.org/np/RABwCAPyb_6skwQf0KhLdMd0yZsCuNTnWTBo03mP0aRBU [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-A1.1-D$ http://purl.org/np/RAGvTS5tsrdowXkQXLec40IlLf0N6IMT4Frg6NOl2ZFV0 [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-A1.2-MD$ http://purl.org/np/RADAqUT6doqx1OLlCQsMTtXOdkzjwV3WBMlKtK0W845co [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-A1.2-D$ http://purl.org/np/RAdKTSYay9tnYtQbX-tBlFoIS8zRv96QsR5L1DBMM47Sg [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-A2$ http://purl.org/np/RA3l0KCKWGG0JKop2wQClIh2g03I7RYPJmxk1eZ7Wjyrs [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I1-MD$ http://purl.org/np/RAcLXHVPLoRjC9CkByLSOixcDbPCpHXELq-c6__stf_Wc [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I1-D$ http://purl.org/np/RA_oFw5HdvYtmmn-v5nRapCCkwAGBavTbpMG2IcFIQspg [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I2-MD$ http://purl.org/np/RAxSVTNwwngcbqKEVjaGt59NWnZFR2Oy4nfTQa33ZXGh4 [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I2-D$ http://purl.org/np/RAP6Gam01fO5o1ifvq1YwRWVmXG8UObj_MdbGnoRQmf-k [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I3-MD$ http://purl.org/np/RAg7xmk5jJm6oJvbqrDiU6BVv35Mkm8oW7dSAsAN3oFYc [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-I3-D$ http://purl.org/np/RAfRArouTJi5HAeF3uHajyoJi3bjqT5zSuZlUQz3UPvcI [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-R1.1-MD$ http://purl.org/np/RAzlmOPxGX8QA1c4j0BVrzZjtKMA0NkST4FrIXnwueBn8 [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-R1.1-D$ http://purl.org/np/RACw63-arnlx2g3hJb6ZcVBOrxCNCex22oykEoMjPCYcY [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-R1.2-MD$ http://purl.org/np/RADFItKV0jhvR8T5beNGRQbsnceMZNBHegqCHovU9fVPk [R=302,L]
+RewriteRule ^fip/latest/FIP-Question-R1.2-D$ http://purl.org/np/RAw5eJhtewy4MBSAK9oAS8XW7Kenr6lrGVRt5I8r-itDc [R=302,L]
 
-RewriteRule ^fip/latest/index$ http://purl.org/np/RAfmcjp_awcXIjm2AXI0Xz7Qiv95zY4Q2c88yZ4ayJB4k [R=302,L]
+RewriteRule ^fip/latest/index$ http://purl.org/np/RA_2SBF1ZywU1_dPkMegQ23o_QUlCgbvd7OhK43njEDZI [R=302,L]
 
 
 RewriteRule ^maturity_indicator/terms/(.+)$ https://w3id.org/fair/maturity_indicator/latest/$1 [R=302,L]

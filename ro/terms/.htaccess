@@ -2,6 +2,7 @@
 Options -MultiViews
 
 AddType application/ld+json .json
+AddType text/turtle .ttl
 
 RewriteEngine on
 
@@ -16,5 +17,9 @@ RewriteRule ^$ https://www.researchobject.org/ro-terms/vocabulary.csv [R=303,L]
 # Subfolders
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule (.+)$ https://www.researchobject.org/ro-terms/$1/context.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule (.+)$ https://www.researchobject.org/ro-terms/$1/vocabulary.ttl [R=303,L]
 
 RewriteRule ^(.*)$ https://www.researchobject.org/ro-terms/$1/vocabulary.csv [R=303,L]

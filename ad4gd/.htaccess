@@ -1,0 +1,18 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://ad4gd.eu/ [R=302,L]
+
+#EV
+RewriteRule ^ev/(.*)/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1/$2 [R=302,L]
+#Catalogues
+RewriteRule ^ev/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1 [R=302,L]

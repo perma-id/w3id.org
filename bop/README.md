@@ -4,8 +4,8 @@
 * Prefix: bop
 
 Ontology
-* HTML documentation: https://alexdonkers.github.io/bop/
-* Turtle: https://alexdonkers.github.io/bop/ontology.ttl
+* HTML documentation: https://w3id.org/bop
+* Turtle: https://w3id.org/bop/ontology.ttl
 
 Contact information
-* Alex Donkers, Eindhoven University of Technology, a.j.a.donkers@tue.nl
+* Alex Donkers, Eindhoven University of Technology, [a.j.a.donkers@tue.nl](mailto:a.j.a.donkers@tue.nl)
