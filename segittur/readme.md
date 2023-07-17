@@ -10,3 +10,10 @@ This space is administered by:
 **Esteban Sota**  
 *Project leader*   
 <estebansota@gnoss.com>  
+
+## Maintainer
+This space is maintained by:  
+
+**Juan Valer**  
+*Ontology Engineer*   
+<juanvaler@gnoss.com>  
