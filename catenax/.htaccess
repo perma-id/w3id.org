@@ -1,0 +1,23 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.ttl and *.jsonld files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to serve domain ontology links
+RewriteRule ^(.*)/ontology/(.+)#(.*)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology/$2.ttl [R=302,L]
+
+# Rewrite rule to serve domain ontologies
+RewriteRule ^(.*)/ontology/(.+)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology/$2.ttl [R=302,L]
+
+# Rewrite rule to serve complete ontology
+RewriteRule ^(.*)/ontology(/)?$ https://github.com/catenax-ng/product-ontology/blob/main/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^(.*)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology.ttl [R=303,L]
