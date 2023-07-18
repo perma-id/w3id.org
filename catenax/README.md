@@ -18,3 +18,4 @@ Contact:
 
 Hanno Focken <hanno.focken@catena-x.net> (https://github.com/HFocken)
 Oguzhan Balandi <oguzhan.balandi@t-systems.com> (https://github.com/obalandi)
+Dr. Christoph G. Jung <c-jung@t-systems.com> (https://github.com/drcgjung)
