@@ -1,0 +1,36 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://complexhibit-project.github.io/OntoExhibit/index-en.html [R=303,L]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+) https://complexhibit-project.github.io/OntoExhibit/index-en.html#$1 [R=303,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+) https://raw.githubusercontent.com/Complexhibit-Project/OntoExhibit/main/docs/ontology.owl [R=302,NE,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://raw.githubusercontent.com/Complexhibit-Project/OntoExhibit/main/docs/ontology.owl [R=303,L]
