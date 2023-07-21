@@ -1,3 +1,8 @@
+#
+# Catena-X Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
 # Turn off MultiViews
 Options -MultiViews
 
@@ -11,13 +16,13 @@ RewriteEngine On
 RewriteBase /
 
 # Rewrite rule to serve domain ontology links
-RewriteRule ^(.*)/ontology/(.+)#(.*)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology/$2.ttl [R=302,L]
+RewriteRule ^(.*)/ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$2_ontology.ttl [R=302,L]
 
 # Rewrite rule to serve domain ontologies
-RewriteRule ^(.*)/ontology/(.+)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology/$2.ttl [R=302,L]
+RewriteRule ^(.*)/ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$2_ontology.ttl [R=302,L]
 
 # Rewrite rule to serve complete ontology
-RewriteRule ^(.*)/ontology(/)?$ https://github.com/catenax-ng/product-ontology/blob/main/ontology.ttl [R=302,L]
+RewriteRule ^(.*)/ontology(/)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology.ttl [R=302,L]
 
 # Rewrite rule to serve the TTL content from the vocabulary URI by default
-RewriteRule ^(.*)$ https://github.com/catenax-ng/product-ontology/blob/main/ontology.ttl [R=303,L]
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology.ttl [R=303,L]
