@@ -1,21 +1,29 @@
 RewriteEngine on
 
-# OWL VOCABULARY REDIRECTION
+# OWL VOCABULARY REDIRECTION -----------------------------------------------------------------------------------
 
 RedirectMatch 302 ^/ontouml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-vocabulary/main/ontouml.ttl
 
-# RESOURCES' GITHUB REPOSITORIES
 
-## Metamodel and Serialization
-RedirectMatch 302 ^/ontouml/metamodel/?$ https://github.com/OntoUML/ontouml-metamodel
-RedirectMatch 302 ^/ontouml/vocabulary/?$ https://github.com/OntoUML/ontouml-vocabulary
-RedirectMatch 302 ^/ontouml/schema/?$ https://github.com/OntoUML/ontouml-schema
+# RESOURCES' GITHUB REPOSITORIES -------------------------------------------------------------------------------
+  ## Example FROM: https://w3id.org/ontouml/metamodel
+  ## Example   TO: https://github.com/OntoUML/ontouml-metamodel
 
-## Transformations
-RedirectMatch 302 ^/ontouml/json2graph/?$ https://github.com/OntoUML/ontouml-json2graph
-RedirectMatch 302 ^/ontouml/graph2json/?$ https://github.com/OntoUML/ontouml-graph2json
+RedirectMatch 302 ^/ontouml/([^/]+)/?$  https://github.com/OntoUML/ontouml-$1
 
-# RESOURCES' VERSIONING
-RedirectMatch 302 ^/ontouml/metamodel/v(.+)$  https://github.com/OntoUML/ontouml-metamodel/releases/tag/v$1
-RedirectMatch 302 ^/ontouml/vocabulary/v(.+)$  https://github.com/OntoUML/ontouml-vocabulary/releases/tag/v$1
-RedirectMatch 302 ^/ontouml/schema/v(.+)$  https://github.com/OntoUML/ontouml-schema/releases/tag/v$1
+
+# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+  ## Example FROM: https://w3id.org/ontouml/metamodel/v1.1.0
+  ## Example   TO: https://github.com/OntoUML/ontouml-metamodel/releases/tag/v1.1.0
+
+  ### Specific version
+RedirectMatch 302 ^/ontouml/([^/]+)/v([^/]+)/?$  https://github.com/OntoUML/ontouml-$1/releases/tag/v$2
+  ### Latest version
+RedirectMatch 302 ^/ontouml/([^/]+)/latest/?$  https://github.com/OntoUML/ontouml-$1/releases/latest
+
+
+# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+  ## Example FROM: https://w3id.org/ontouml/metamodel/home
+  ## Example   TO: https://OntoUML.github.io/ontouml-metamodel
+
+RedirectMatch 302 ^/ontouml/([^/]+)/home/?$  https://OntoUML.github.io/ontouml-$1
