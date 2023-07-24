@@ -4,5 +4,5 @@
 This [w3id](https://w3id.org/plasma) provides a persistent URI namespace for the PLASMA vocabulary.
 
 # Contacts:
-- Beatriz Esteves (beatriz.gesteves@upm.es)
-- Harshvardhan J. Pandit (pandith@tcd.ie)
+- Beatriz Esteves [:email:](mailto:beatriz.gesteves@upm.es) [:octocat:](https://github.com/besteves4)
+- Harshvardhan J. Pandit [:email:](mailto:me@harshp.com) [:octocat:](https://github.com/coolharsh55)
