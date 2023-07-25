@@ -1,7 +1,13 @@
 
-# flp: a pool of ontologies for representing data about films and film contents
+# flp
+A pool of ontologies for representing data about films and film contents
 
-Contacts:
+##Contact:
+This space is administered by:
 
-* Vincenzo Lombardo (vincenzo.lombardo@unito.it)
-* Diego Magro(diego.magro@unito.it)
+**Diego Magro**
+*Researcher*
+Dipartimento di Informatica, Università di Torino,
+Turin, Italy
+<diego.magro@unito.it>
+GitHub: [magrod](https://github.com/magrod)
