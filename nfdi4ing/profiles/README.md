@@ -18,8 +18,8 @@ Darmstadt, Germany
 ORCID: [0000-0002-9826-018X](https://orcid.org/0000-0002-9826-018X)
 
 **Marius Politze**  
-Research Process & Data Management
-RWTH Aachen University
-[IT Center](https://www.itc.rwth-aachen.de/)
-Aachen, Germany
+Research Process & Data Management  
+RWTH Aachen University  
+[IT Center](https://www.itc.rwth-aachen.de/)  
+Aachen, Germany  
 ORCID: [0000-0003-3175-0659](https://orcid.org/0000-0003-3175-0659)
