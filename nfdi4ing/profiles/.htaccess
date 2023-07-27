@@ -7,6 +7,15 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} ^(\/nfdi4ing\/profiles\/)$
 RewriteRule ^(.*)$ https://demo.aims-projekt.de [R=303,L,NE]
 
-# Redirec profiles to editor
-RewriteCond %{REQUEST_URI} (.*)
-RewriteRule ^(.*)$ https://demo.aims-projekt.de/#/editor?applicationProfile=https://w3id.org/$1 [R=303,L,NE]
+# TTL
+# Depending on accept header, redirect to backend
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(.*)$
+https://pg4aims.ulb.tu-darmstadt.de/AIMS/application-profiles/https\%3A\%2F\%2Fw3id.org\%2Fnfdi4ing\%2Fprofiles\%2F$1?includeDefinition=true
+[R=303,L,NE]
+
+# Redirect all remaining requests to editor
+RewriteRule ^(.*)$
+https://demo.aims-projekt.de/#/editor?applicationProfile=https\%3A\%2F\%2Fw3id.org\%2Fnfdi4ing\%2Fprofiles\%2F$1
+[R=303,L,NE]
