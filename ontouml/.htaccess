@@ -1,16 +1,12 @@
+Options -MultiViews
 RewriteEngine on
-
-# OWL VOCABULARY REDIRECTION -----------------------------------------------------------------------------------
-
-RedirectMatch 302 ^/ontouml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-vocabulary/main/ontouml.ttl
-
+AddType text/turtle .ttl
 
 # RESOURCES' GITHUB REPOSITORIES -------------------------------------------------------------------------------
   ## Example FROM: https://w3id.org/ontouml/metamodel
   ## Example   TO: https://github.com/OntoUML/ontouml-metamodel
 
 RedirectMatch 302 ^/ontouml/([^/]+)/?$  https://github.com/OntoUML/ontouml-$1
-
 
 # RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
   ## Example FROM: https://w3id.org/ontouml/metamodel/v1.1.0
@@ -21,7 +17,6 @@ RedirectMatch 302 ^/ontouml/([^/]+)/v([^/]+)/?$  https://github.com/OntoUML/onto
   ### Latest version
 RedirectMatch 302 ^/ontouml/([^/]+)/latest/?$  https://github.com/OntoUML/ontouml-$1/releases/latest
 
-
 # RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
   ## Example FROM: https://w3id.org/ontouml/metamodel/home
   ## Example FROM: https://w3id.org/ontouml/metamodel/docs
@@ -29,3 +24,10 @@ RedirectMatch 302 ^/ontouml/([^/]+)/latest/?$  https://github.com/OntoUML/ontoum
 
 RedirectMatch 302 ^/ontouml/([^/]+)/home/?$  https://OntoUML.github.io/ontouml-$1
 RedirectMatch 302 ^/ontouml/([^/]+)/docs/?$  https://OntoUML.github.io/ontouml-$1
+
+# OWL VOCABULARY REDIRECTION -----------------------------------------------------------------------------------
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RedirectMatch 302 ^/ontouml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-vocabulary/main/ontouml.ttl
