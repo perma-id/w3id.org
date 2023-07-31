@@ -1,9 +1,8 @@
+Options -MultiViews
 RewriteEngine on
+AddType text/turtle .ttl
 
 # VOCABULARY REDIRECTIONS --------------------------------------------------------------------------------------------------------
-
-## Vocabulary
-RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://raw.githubusercontent.com/OntoUML/ontouml-models-vocabulary/main/ontouml-catalog-metadata-vocabulary.ttl
 
 ## Git Repository
 RedirectMatch 302 ^/ontouml-models/vocabulary/git/?$      https://github.com/OntoUML/ontouml-models-vocabulary/
@@ -17,6 +16,12 @@ RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$   https://github.com/Ont
 ## Documentation
 RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github.io/ontouml-models-vocabulary
 RedirectMatch 302 ^/ontouml-models/vocabulary/docs/?$     https://ontouml.github.io/ontouml-models-vocabulary
+
+## Vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://ontouml.github.io/ontouml-models-vocabulary/ontouml-catalog-metadata-vocabulary.ttl
 
 # CATALOG REDIRECTIONS -----------------------------------------------------------------------------------------------------------
 
