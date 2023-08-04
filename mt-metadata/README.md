@@ -15,13 +15,13 @@ The project is documented on the [mt_metadata GitHub repository](https://doi.org
 ## Contact
 This space is administered by:  
 
-**NCI Data Collections**   
-National Computational Infrastructure (https://nci.org.au)
-Canberra, Australia
-<datacollections.nci@anu.edu.au>
+**NCI Data Collections**  
+National Computational Infrastructure (https://nci.org.au)  
+Canberra, Australia  
+<datacollections.nci@anu.edu.au>  
 GitHub: [@NCI-datacollections](https://github.com/NCI-datacollections)
 
 **NCI Help**  
-National Computational Infrastructure (https://nci.org.au)
-Canberra, Australia
+National Computational Infrastructure (https://nci.org.au)  
+Canberra, Australia  
 <help@nci.org.au>
