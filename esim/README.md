@@ -18,6 +18,6 @@ _R&D Engineer_
 [Fraunhofer IIS/EAS](hhttps://www.eas.iis.fraunhofer.de/)  
 Dresden, Germany  
 <herve.pruvost@eas.iis.fraunhofer.de>  
-GitHub: [HervePruvost](https://github.com/HervePruvost)
-Linkedin: [Hervé Pruvost](https://www.linkedin.com/in/hervepruvost/)
+GitHub: [HervePruvost](https://github.com/HervePruvost)  
+Linkedin: [Hervé Pruvost](https://www.linkedin.com/in/hervepruvost/)  
 ORCID: [0000-0001-7604-8543](https://orcid.org/0000-0001-7604-8543)
