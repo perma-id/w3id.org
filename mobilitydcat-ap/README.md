@@ -8,13 +8,13 @@ This namespace is used for the overall specification and the associated controll
 ## Contact 
 
 **Mario Scrocca**  
-[Cefriel](https://www.cefriel.com)
+[Cefriel](https://www.cefriel.com)  
 <mario.scrocca@cefriel.com>  
-GitHub: [marioscrock](https://github.com/marioscrock)
+GitHub: [marioscrock](https://github.com/marioscrock)  
 ORCID: [0000-0002-8235-7331](https://orcid.org/0000-0002-8235-7331)
 
 **Peter Lubrich**  
-[Bundesanstalt für Straßenwesen (BASt)](https://www.bast.de/)
+[Bundesanstalt für Straßenwesen (BASt)](https://www.bast.de/)  
 <lubrich@bast.de>  
-GitHub: [peterlubrich](https://github.com/peterlubrich)
+GitHub: [peterlubrich](https://github.com/peterlubrich)  
 ORCID: [0000-0002-0023-1234](https://orcid.org/0000-0002-0023-1234)
