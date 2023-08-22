@@ -4,9 +4,9 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the ESIM (
 
 ## Uses
 
-ESIM (Energy System Information Model) is a domain-specific metadata model that is represented as an RDF graph 
-and that describes information about energy systems at building and urban levels including their automation and
-control systems. It comprises functional, structural and physical descriptions of the
+ESIM (Energy System Information Model) is a domain-specific metadata model, is represented as an RDF graph,
+that describes information about energy systems at building and urban levels including their automation and
+control systems. It comprises functional, structural, and physical descriptions of the
 systems as master metadata and additional operational metadata.
 
 ## Contact
