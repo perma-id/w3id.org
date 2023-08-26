@@ -1,0 +1,26 @@
+# HTACCESS rules for the w3id.org/db namespace
+
+Options +FollowSymLinks
+RewriteEngine on
+
+## Redirect the top level
+
+RewriteRule ^$ https://github.com/mapping-commons/database-purl [R=302]
+
+## Redirect main-level documentation and resources
+
+RewriteRule ^docs$ https://github.com/mapping-commons/database-purl/blob/main/README.md [R=302,L]
+
+## Redirects for individual databases
+
+### Database: HGNC
+
+#### Maintainers (need to sign of on changes): One of [@matentzn, @udp, @cmungall]
+
+RewriteRule ^hgnc/gene/(\d+)$ https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:$1 [R=302]
+
+#### Alternative (needs some discussion)
+
+#### RewriteRule ^hgnc/gene/HGNC:(\d+)$ https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:$1 [R=302]
+
+RewriteRule ^hgnc/group/(\d+)$ https://www.genenames.org/data/genegroup/#!/group/$1 [R=302]
