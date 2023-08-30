@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteOptions AllowAnyURI
+
+# MergeSlashes workaround - get the original path from THE_REQUEST
+RewriteCond %{THE_REQUEST} /+[uU][rR][iI]4[uU][rR][iI]/+([^\ ]*)
+RewriteRule . https://uri4uri.is4.site/%1 [R=302,NE,L]
+
+# Fallback
+RewriteRule (.*) https://uri4uri.is4.site/$1 [R=302,NE,L]

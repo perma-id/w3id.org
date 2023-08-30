@@ -1,0 +1,49 @@
+Options -MultiViews
+RewriteEngine on
+AddType text/turtle .ttl
+
+# VOCABULARY REDIRECTIONS --------------------------------------------------------------------------------------------------------
+
+## Git Repository
+RedirectMatch 302 ^/ontouml-models/vocabulary/git/?$      https://github.com/OntoUML/ontouml-models-vocabulary/
+
+## Versioning
+### Specific version
+RedirectMatch 302 ^/ontouml-models/vocabulary/v([^/]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+### Latest version
+RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$   https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
+
+## Documentation
+RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github.io/ontouml-models-vocabulary
+RedirectMatch 302 ^/ontouml-models/vocabulary/docs/?$     https://ontouml.github.io/ontouml-models-vocabulary
+
+## Vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://ontouml.github.io/ontouml-models-vocabulary/ontouml-catalog-metadata-vocabulary.ttl
+
+# CATALOG REDIRECTIONS -----------------------------------------------------------------------------------------------------------
+
+## REDIRECTION TO DATA STORAGE SERVICE (GitHub)
+
+### Git Repository
+RedirectMatch 302 ^/ontouml-models/git(/?)$ https://github.com/OntoUML/ontouml-models
+
+### Latest release
+RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontouml-models/releases/latest
+
+### Specific release (tag)
+RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
+
+### Shape TTL files
+RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/shapes/$1-shape.ttl
+
+
+## REDIRECTION TO METADATA STORAGE SERVICE (FAIR Data Point)
+
+### Catalog item page
+RedirectMatch 302 ^/ontouml-models/?$ https://scs-ontouml.eemcs.utwente.nl/catalog/b663ca18-8085-44a7-bcfe-2c2b5ba1faa8
+
+### Generic item page
+RedirectMatch 302 ^/ontouml-models/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/$1

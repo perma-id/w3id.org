@@ -1,20 +1,29 @@
+Header set Access-Control-Allow-Origin \*
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^protocol(.*)? https://github.com/ixofoundation/ixo-protocol/ [R=302,L]
-RewriteRule ^accorded-rights(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/accorded-rights/ [R=302,L] 
-RewriteRule ^artefacts/(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/artefacts [R=302,L] 
-RewriteRule ^github(.*)? https://github.com/ixofoundation/ [R=302,L]
-RewriteRule ^attributes(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/attributes/ [R=302,L]
-RewriteRule ^claims(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/claims/ [R=302,L]
-RewriteRule ^credentials(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/credentials/ [R=302,L]
-RewriteRule ^entities(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/entities/ [R=302,L]
-RewriteRule ^indicators(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/indicators/ [R=302,L]
-RewriteRule ^interfaces(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/interfaces/ [R=302,L]
-RewriteRule ^linked-resources(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/linked-resources/ [R=302,L]
-RewriteRule ^payments(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/payments/ [R=302,L]
-RewriteRule ^methods(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/methods/ [R=302,L]
-RewriteRule ^proofs(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/proofs/ [R=302,L]
-RewriteRule ^rubrics(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/rubrics/ [R=302,L]
-RewriteRule ^specification(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/specification/ [R=302,L]
-RewriteRule ^tokens(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/tokens/ [R=302,L]
-RewriteRule ^vocab(.*)? https://github.com/ixofoundation/ixo-protocol/tree/master/vocab/ [R=302,L]
-RewriteRule ^(.*) https://protocol.ixo.foundation/ [R=302,L]
+
+# ixo ns(namespace) mappings, folders for json files and file mappings for jsonld
+#file mappings:
+RewriteRule ^vocab/v1(.*)$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld$1 [R=302,L]
+RewriteRule ^ns/vocab/v1(.*)$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld$1 [R=302,L]
+RewriteRule ^attribute/schema(.*)$ https://ixofoundation.github.io/ns/attribute/schema.jsonld$1 [R=302,L]
+RewriteRule ^ns/attribute/schema(.*)$ https://ixofoundation.github.io/ns/attribute/schema.jsonld$1 [R=302,L]
+# context without version mapping included
+RewriteRule ^context/v1(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
+RewriteRule ^ns/context/v1(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
+RewriteRule ^context(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
+RewriteRule ^ns/context(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
+
+# folder mappings:
+RewriteRule ^activity(.*)$ https://ixofoundation.github.io/ns/activity$1 [R=302,L]
+RewriteRule ^attribute(.*)$ https://ixofoundation.github.io/ns/attribute$1 [R=302,L]
+RewriteRule ^capability(.*)$ https://ixofoundation.github.io/ns/capability$1 [R=302,L]
+RewriteRule ^credential-schemas(.*)$ https://ixofoundation.github.io/ns/credential-schemas$1 [R=302,L]
+RewriteRule ^entity(.*)$ https://ixofoundation.github.io/ns/entity$1 [R=302,L]
+RewriteRule ^measure(.*)$ https://ixofoundation.github.io/ns/measure$1 [R=302,L]
+RewriteRule ^protocol(.*)$ https://ixofoundation.github.io/ns/protocol$1 [R=302,L]
+RewriteRule ^schema(.*)$ https://ixofoundation.github.io/ns/schema$1 [R=302,L]
+
+# https://w3id.org/ixo -> https://ixofoundation.github.io/
+RewriteRule ^(.*)$ https://ixofoundation.github.io/$1 [R=302,L]

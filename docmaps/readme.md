@@ -12,8 +12,9 @@ https://docmaps.knowledgefutures.org/pub/sgkf1pqa/release/7
 
 ## JSON-LD Context
 
-https://cdn.jsdelivr.net/gh/knowledgefutures/docmaps@main/docmaps-context.jsonld
+https://cdn.jsdelivr.net/gh/docmaps-project/docmaps@main/docmaps-context.jsonld
 
 ## Contact
 
 Gabriel Stein, gabe AT knowledgefutures DOT org
+eve, eve AT knowledgefutures DOT org, github DOT com SLASH ships
