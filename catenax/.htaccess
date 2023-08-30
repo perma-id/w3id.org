@@ -1,0 +1,34 @@
+#
+# Catena-X Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.ttl and *.jsonld files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to serve domain ontology links
+RewriteRule ^(.*)/ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$2_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve domain ontologies
+RewriteRule ^(.*)/ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$2_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve complete ontology
+RewriteRule ^(.*)/ontology(/)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve use case ontology links
+RewriteRule ^(.*)/usecase/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology_use_case/$2_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve use case ontologies
+RewriteRule ^(.*)/usecase/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology_use_case/$2_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology.ttl [R=303,L]
