@@ -1,0 +1,118 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# ---------
+# Main Page
+# ---------
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://knowledgecaptureanddiscovery.github.io/pmlm/index.html [R=303,L]
+
+# -------------------------
+# Model Provenance Ontology
+# -------------------------
+# Rewrite rules Model Provenance ontology concepts in PMLM (Provenance of Machine Learning Models)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^mlprov$ https://knowledgecaptureanddiscovery.github.io/pmlm/mlprov/release/0.0.1/index.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^mlprov$ https://knowledgecaptureanddiscovery.github.io/pmlm/mlprov/release/0.0.1/ontology.xml [R=303,L]
+
+# Rewrite rule to serve JSON content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^mlprov$ https://knowledgecaptureanddiscovery.github.io/pmlm/mlprov/release/0.0.1/ontology.json [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^mlprov$ https://knowledgecaptureanddiscovery.github.io/pmlm/mlprov/release/0.0.1/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^mlprov$ https://knowledgecaptureanddiscovery.github.io/pmlm/mlprov/release/0.0.1/ontology.n3 [R=303,L]
+
+# -------------------
+# Algorithms Ontology
+# -------------------
+# Rewrite rules Algorithms ontology concepts in PMLM (Provenance of Machine Learning Models)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^algorithms$ https://knowledgecaptureanddiscovery.github.io/pmlm/algorithms/release/0.0.1/index.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^algorithms$ https://knowledgecaptureanddiscovery.github.io/pmlm/algorithms/release/0.0.1/ontology.xml [R=303,L]
+
+# Rewrite rule to serve JSON content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^algorithms$ https://knowledgecaptureanddiscovery.github.io/pmlm/algorithms/release/0.0.1/ontology.json [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^algorithms$ https://knowledgecaptureanddiscovery.github.io/pmlm/algorithms/release/0.0.1/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^algorithms$ https://knowledgecaptureanddiscovery.github.io/pmlm/algorithms/release/0.0.1/ontology.n3 [R=303,L]
+
+# -------------
+# Data Ontology
+# -------------
+# Rewrite rules Data ontology concepts in PMLM (Provenance of Machine Learning Models)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^data$ https://knowledgecaptureanddiscovery.github.io/pmlm/data/release/0.0.1/index.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^data$ https://knowledgecaptureanddiscovery.github.io/pmlm/data/release/0.0.1/ontology.xml [R=303,L]
+
+# Rewrite rule to serve JSON content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^data$ https://knowledgecaptureanddiscovery.github.io/pmlm/data/release/0.0.1/ontology.json [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data$ https://knowledgecaptureanddiscovery.github.io/pmlm/data/release/0.0.1/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^data$ https://knowledgecaptureanddiscovery.github.io/pmlm/data/release/0.0.1/ontology.n3 [R=303,L]
+
+# ---------------------
+# Example AutoTS Domain
+# ---------------------
+# Rewrite rules Example autots domain in PMLM (Provenance of Machine Learning Models)
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^autots/sst.owl$ https://knowledgecaptureanddiscovery.github.io/pmlm/examples/autots/sst.owl [R=303,L]
+RewriteRule ^autots/data.owl$ https://knowledgecaptureanddiscovery.github.io/pmlm/examples/autots/data.owl [R=303,L]

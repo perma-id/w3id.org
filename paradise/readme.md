@@ -1,6 +1,6 @@
 ## The Paradise Ontology Repository
 
-Ontology
+### Ontology
 
 * Doc http://ontologies.adaptcentre.ie/paradise/
 * Turtle http://ontologies.adaptcentre.ie/paradise/ontology.ttl
@@ -9,6 +9,6 @@ Ontology
 * N-Triples http://ontologies.adaptcentre.ie/paradise/ontology.nt
 
 
-Maintainers:
+### Maintainers
 
-Beyza Yaman (beyza.yaman@adaptcentre.ie)
+* Beyza Yaman (beyza.yaman@adaptcentre.ie)
