@@ -1,0 +1,13 @@
+# w3id .htaccess rules for n2t
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Any identifier resolution request (/scheme:value)
+RewriteRule ^([a-z0-9]+):(.+)$ https://n2t.net/$1:$2 [R=302,L]
+
+# ANVL URI
+RewriteRule ^defn/anvl(.*)$ https://github.com/CDLUC3/file-anvl$1 [R=301,NC,L]
+
+# Anything else that doesn't smell like an identifier
+RewriteRule ^(.*)$ https://n2t.net/$1 [R=302,L]

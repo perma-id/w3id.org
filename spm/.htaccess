@@ -1,0 +1,24 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine On
+
+## Redirects 
+# DOCS
+RewriteRule ^(.*)docs/colpadef$ https://userpages.uni-koblenz.de/~process-science/docs/fg-bks-social-process-mining-collaboration-detection/main/ [R=303,L]
+RewriteRule ^(.*)docs/cockpit/tutorial$ https://userpages.uni-koblenz.de/~process-science/docs/fg-bks-social-process-mining-spm-cockpit/main/99_Tutorial.html [R=303,L]
+RewriteRule ^(.*)docs/cockpit$ https://userpages.uni-koblenz.de/~process-science/docs/fg-bks-social-process-mining-spm-cockpit/main/ [R=303,L]
+
+# APPLICATIONS
+RewriteRule ^(.*)cockpit$ https://spm-cockpit.process-science.uni-koblenz.de/ [R=303,L]
+
+
+# Default response
+# For now redirect to the cockpit
+RewriteRule ^(.*)$ https://spm-cockpit.process-science.uni-koblenz.de/ [R=303,L]
