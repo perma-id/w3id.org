@@ -1,6 +1,6 @@
 ## The Paradise Ontology Repository
 
-Ontology
+### Ontology
 
 * Doc http://ontologies.adaptcentre.ie/paradise/
 * Turtle http://ontologies.adaptcentre.ie/paradise/ontology.ttl
