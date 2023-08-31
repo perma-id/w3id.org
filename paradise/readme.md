@@ -9,6 +9,6 @@
 * N-Triples http://ontologies.adaptcentre.ie/paradise/ontology.nt
 
 
-Maintainers:
+### Maintainers
 
-Beyza Yaman (beyza.yaman@adaptcentre.ie)
+* Beyza Yaman (beyza.yaman@adaptcentre.ie)
