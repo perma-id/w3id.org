@@ -5,6 +5,7 @@ This Fair Data Point contains EJP-RD-VP [resource metadata schema](https://githu
 ```@preix mtbls-ejprd-vp: <https:://w3id.org/mtbls-ejprd-vp/> ```
 
 ## Contact
+- Maintainer: Callum Martin, github: calstevemart
 - Callum Martin cmartin@ebi.ac.uk
 - metabolights-help@ebi.ac.uk
 
