@@ -9,7 +9,7 @@ Redirections:
   * https://w3id.org/nfdi4ing/metadata4ing
   * --> https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing
 * Turtle/XML/nt/json-ld: Access respective ontology via content negotiation
-  * https://w3id.org/nfdi4ing/metadata4ing with HTTP-Header "Accept: text/turtle" or "Accept: application/rdf+xml" for RDF, "Accept: text/n3" for N-triples, "Accept: application/ld+json" for JSON-LD)
+  * https://w3id.org/nfdi4ing/metadata4ing with HTTP-Header "Accept: text/turtle" for Turtle (.ttl) or "Accept: application/rdf+xml" for RDF (.xml), "Accept: text/n3" for N-triples (.nt), "Accept: application/ld+json" for JSON-LD (.jsonld) )
 rdf, json, ...)
   * --> https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl (or xml/nt/jsonld)
 * JSON-LD context file:
