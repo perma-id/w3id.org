@@ -2,6 +2,12 @@ Options +FollowSymLinks
 RewriteEngine on
 
 RewriteCond "%{HTTP_ACCEPT}" "text/turtle"
+RewriteRule ^(A[ABC])(\d{9})(\d{3})$ https://jp-textbook.github.io/$1/$2/$3.ttl [R=302,L]
+
+RewriteCond "%{HTTP_ACCEPT}" "text/turtle"
 RewriteRule ^(.+) https://jp-textbook.github.io/$1.ttl [R=302,L]
+
+RewriteRule ^(A[ABC])(\d{9})(\d{3})\.ttl$ https://jp-textbook.github.io/$1/$2/$3.ttl [R=302,L]
+RewriteRule ^(A[ABC])(\d{9})(\d{3})$ https://jp-textbook.github.io/$1/$2/$3 [R=302,L]
 
 RewriteRule ^(.*) https://jp-textbook.github.io/$1 [R=302,L]

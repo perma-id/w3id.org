@@ -1,0 +1,16 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# BASE: Visit homepage
+RewriteRule ^$ https://nfdi4cat.org/ [R=303,L]
+
+# VOC4CAT:TURTLE - individual concept or collection turtle files of latest release
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule "^voc4cat_([0-9]{7,})" https://nfdi4cat.github.io/voc4cat/latest/voc4cat/$1.ttl [R=303,L,NE]
+
+# HTML - documentation
+# redirect to fragment-urls should work fine https://stackoverflow.com/a/2305927
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^voc4cat_([0-9]{7,})" "https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html#https://w3id.org/nfdi4cat/voc4cat_$1" [R=303,L,NE,NC]
