@@ -6,9 +6,11 @@ Primary contacts:
     - Stian Soiland-Reyes @stain
     - Tom Giles @thomgiles
 
-Permalinks (examples):
- * https://w3id.org/trusted-wfrun-crate
+Permalinks (**deprecated**):
  * https://w3id.org/trusted-wfrun-crate/0.3
  
+Deprecated:
+ * https://w3id.org/trusted-wfrun-crate
+   --> https://w3id.org/5s-crate
 
 
