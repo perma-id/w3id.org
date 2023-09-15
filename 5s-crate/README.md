@@ -3,8 +3,8 @@
 Currently managed by the [TRE-FX](https://trefx.uk/) project.
 
 Primary contacts: 
-    - Stian Soiland-Reyes @stain
-    - Tom Giles @thomgiles
+- Stian Soiland-Reyes @stain
+- Tom Giles @thomgiles
 
 Permalinks (examples):
  * https://w3id.org/5s-crate
