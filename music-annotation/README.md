@@ -5,7 +5,7 @@ This [W3ID](https://w3id.rg) provides a persistent URI namespace for the Music A
 
 This namespace is used solely for the **Music Annotation Ontology** set out in [Lewis et al (2023)](https://dl.acm.org/doi/10.1145/3543882.3543891) and documented on the [Beethoven in the House project website](https://domestic-beethoven.eu/assets/docs/BitHModelDocumentation_v0.2.1.pdf) and [Hankinson et al (2022)](https://hcommons.org/deposits/item/hc:59295/).
 
-The path on its own, or with the suffix /latest, will always point to the latest version of the ontology. Specific versions can be specified in the path (e.g. https://w3id.org/1.0/). 
+The path on its own, or with the suffix `/latest`, will always point to the latest version of the ontology. Specific versions can be specified in the path (e.g., `https://w3id.org/music-annotation/1.0/`).
 
 Content negotiation is used to choose a suitable RDF serialisation format.
 
