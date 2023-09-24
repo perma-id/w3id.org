@@ -1,5 +1,5 @@
 # /music-annotation/
-This [W3ID](https://w3id.rg) provides a persistent URI namespace for the Music Annotation Ontology.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the Music Annotation Ontology.
 
 ## Uses
 
