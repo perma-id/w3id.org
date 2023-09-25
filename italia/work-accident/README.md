@@ -1,4 +1,4 @@
-Repository (italy/work-accident) for redirecting to ontologies and open data of INAIL (the National Institute for Insurance against Accidents at Work) 
+Repository (italia/work-accident) for redirecting to ontologies and open data of INAIL (the National Institute for Insurance against Accidents at Work)  
 ===================
 
 We intend to use **w3id.org/italia/work-accident** for national persistent URIs for work accident information of the public sector.
