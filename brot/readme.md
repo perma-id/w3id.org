@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://wisib.de/ontologie/brot/
-* Turtle   https://wisib.de/ontologie/brot/ontology.ttl
+* Doc      https://alhakam.github.io/brot/
+* Turtle   https://alhakam.github.io/brot/ontology.ttl
 
 
 Contacts
