@@ -100,7 +100,6 @@ created or edited.
 `.htaccess` contains redirection rules, for computer to read and perform.
 `README.md` contains project info and contact info, for human to read.
   * Examples of `.htaccess`: [w3id.org/mircat/.htaccess](https://github.com/perma-id/w3id.org/blob/master/mircat/.htaccess) (minimal, 3 lines of code), [w3id.org/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ppop/.htaccess) (handling different content types)
-    * You can test your redirection rules [here](https://htaccess.madewithlove.com/).
   * An example of a good `README.md` file: [w3id.org/dggs/README.md](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)
   * A showcase on how to publish vocabularies with w3id: [w3id.org/example](https://github.com/perma-id/w3id.org/tree/master/example)
 
