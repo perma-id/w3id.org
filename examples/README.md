@@ -36,10 +36,10 @@ You are encouraged to put a breif ID info and a maintainer info in the comment
 ```ApacheConf
 # Example
 #
-# https://w3id.org/example redirects to https://example.com/
+# https://w3id.org/examples/simple/ redirects to https://example.com/
 #
 # ## Contact
-# This space is administered by:  
+# This space is administered by:
 #
 # Firstname Secondname
 # email@example.com
@@ -68,7 +68,7 @@ RewriteRule Pattern Substitution [Flag1,Flag2,Flag3]
 
 * *Pattern* is a Perl compatible regular expression, which means you can specify a sequence of characters to match pattern in the URL.
   * For example, `^` matches the beginning of the text, `$` matches the end of the text, `.` matches any single character ("a", "7", or any character, one time), and `*` repeats the previous match zero or more times (so `.*` matches "a", "7", "xyz42", and an empty string).
-  * What this Pattern is compared against varies depending on where the RewriteRule directive is defined. In W3ID context, where a per-directory `.htaccess` is used, if the full requested URL is `https://w3id.org/example/subdir/file.html`, the text to be compared against will be `subdir/file.html`.
+  * What this Pattern is compared against varies depending on where the RewriteRule directive is defined. In W3ID context, where a per-directory `.htaccess` is used, if the full requested URL is `https://w3id.org/examples/subdir/file.html`, the text to be compared against will be `subdir/file.html`.
 * *Substitution* is the string that replaces the text that was matched by Pattern. It can be part of the URL (URL-path) to be combined with the hostname later or it can be a full URL (absolute URL).
   * In W3ID context, the Substitution tends to be an absolute URL to an external (non w3id.org) resource.
 * *Flags* set [special actions](https://httpd.apache.org/docs/current/rewrite/flags.html) to be performed. Flags is a comma-separated list, surround by square brackets. They are optional. Common flags include `R` (redirect), `L` (last, stop processing the rule set), and `NE` (no character escape).
@@ -158,7 +158,7 @@ As the query string is not included in the string that the *Pattern* of *Rewrite
 
 To find pattern in the query string, use `%{QUERY_STRING}` as a *TestString* in *RewriteCond*.
 
-As an example, if you like to redirect the URL `https://w3id.org/example?a=1&b=2`  to `https://example.com/path/file.php?a=1&b=2`, you can use this set of rules:
+As an example, if you like to redirect the URL `https://w3id.org/examples?a=1&b=2`  to `https://example.com/path/file.php?a=1&b=2`, you can use this set of rules:
 
 ```ApacheConf
 RewriteCond %{QUERY_STRING} (.*)
