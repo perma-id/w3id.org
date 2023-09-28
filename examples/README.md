@@ -1,4 +1,4 @@
-# Examples
+# /examples/
 
 This permanent W3ID is meant to be a place to host examples for publishing things on w3id.org.
 
@@ -9,12 +9,15 @@ This permanent W3ID is meant to be a place to host examples for publishing thing
   * [Example 1: Minimalist (grouping)](#example-1-minimalist-grouping)
   * [Example 2: Supporting multiple media types (MIME types)](#example-2-supporting-multiple-media-types-mime-types)
   * [Example 3: Dealing with query string](#example-3-dealing-with-query-string)
+  * [Example 4: Publish vocabularies with W3ID](#example-4-publish-vocabularies-with-w3id)
+  * [Example 5: Version-aware URIs of ontologies](#example-5-version-aware-uris-of-ontologies)
 * [README.md](#readmemd)
-* [Publish vocabularies with W3ID](#publish-vocabularies-with-w3id)
+
 
 ## .htaccess
 
-`.htaccess` file is the key for the working of URL redirection service of W3ID. Without it, redirection cannot be done.
+`.htaccess` file is the key for the working of URL redirection service of W3ID.
+Without it, redirection cannot be done.
 
 ### What is `.htaccess?`
 
@@ -25,13 +28,17 @@ issues, such as URL redirection, URL shortening, access control (for different
 web pages and files), and more. The 'dot' (period or full stop) before the
 file name makes it a hidden file in Unix-based environments. 
 
-In W3ID context, it is used primarily for URL redirection. The `.htaccess` file is where you can put URL rewriting rules in. A set of URL rewriting rules will work together and effectively made URL
-redirection happen.
+In W3ID context, it is used primarily for URL redirection. The `.htaccess`
+file is where you can put URL rewriting rules in. A set of URL rewriting rules
+will work together and effectively made URL redirection happen.
 
 ### Put ID info and maintainer info inside .htaccess
 
-You are encouraged to put a breif ID info and a maintainer info in the comment
-(lines staring with `#` character) of a `.htaccess` file.
+Maintainers of an ID are required to put a breif ID info and a maintainer info
+in the comment (lines staring with `#` character) of a `.htaccess` file.
+
+Having contact info and GitHub username help the overall maintainance process
+easier.
 
 ```ApacheConf
 # Example
@@ -148,7 +155,7 @@ Accept: text/html, application/xhtml+xml, application/xml, image/webp
 Each media type will be presented, separated by a comma. With that, we can use *CondPattern* to matches media types in this string.
 
 
-#### Example 3: Dealing with query string
+### Example 3: Dealing with query string
 
 Everything after the question mark (`?`) in the URL, but not that `?` itself, is a query string.
 
@@ -167,25 +174,35 @@ RewriteRule ^ https://example.com/path/file.php?%1? [R=302,L]
 
 In this example, the *CondPattern* `(.*)` in *RewriteCond* will match every characters in the query string (`a=1&b=2`) and put it in group one. This group one (`%1`) is later used in the *Substitution* of *RewriteRule*.
 
-
-
 Note that the special character to recall groups from *CondPattern* of *RewriteCond* is `%` (unlike the special character to recall groups from *Pattern* of *RewriteRule*, which is `$`).
 
 The character `?` at the end of the *Substitution* of *RewriteRule* tells the server not to pass the query string to the final URL after rewrite.
 
 
-## README.md
-
-Each ID hosted on W3ID is expected to have a file named `README.md` containing an information about the ID itself and an information about the maintainer(s). This can be more elaborate than the information inside `.htaccess`.
-
-The `.md` file extension at the end of the file name indicates that the file uses Markdown markup language for text formatting. You can have tables and images as well, if needed.
-
-GitHub will automatically display the content of a `README.md` to repository visitors.
-
-An example of a good README file: [w3id.org/dggs/README.md](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)
-
-
-## Publish vocabularies with W3ID
+### Example 4: Publish vocabularies with W3ID
 
 If you plan to publish a vocabulary/ontology with W3ID,
-see https://w3id.org/example/.
+see [/example/.htaccess](https://github.com/perma-id/w3id.org/blob/master/example/.htaccess)
+and https://w3id.org/example/.
+
+
+### Example 5: Version-aware URIs of ontologies
+
+See [/OWLunit/.htaccess](https://github.com/perma-id/w3id.org/blob/master/OWLunit/.htaccess).
+
+
+## README.md
+
+Each ID hosted on W3ID is required to have a file named `README.md` containing
+an information about the ID itself and an information about the maintainer(s).
+This can be more elaborate than the information inside `.htaccess`.
+
+The `.md` file extension at the end of the file name indicates that the file
+uses Markdown markup language for text formatting. You can have tables and
+images as well, if needed.
+
+GitHub will automatically display the content of a `README.md` to repository
+visitors.
+
+An example of a good README file:
+[w3id.org/dggs/README.md](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)

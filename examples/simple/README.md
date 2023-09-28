@@ -1,6 +1,6 @@
-## /examples/simple/
+# /examples/simple/
 
-An example simple redirection.
+A simple URL redirection example.
 
 https://w3id.org/examples/simple/ redirects to https://example.com/
 
