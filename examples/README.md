@@ -188,4 +188,4 @@ An example of a good README file: [w3id.org/dggs/README.md](https://github.com/p
 ## Publish vocabularies with W3ID
 
 If you plan to publish a vocabulary/ontology with W3ID,
-see https://w3id.org/examples/ontology.
+see https://w3id.org/example/.
