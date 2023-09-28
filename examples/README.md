@@ -1,6 +1,6 @@
 # Examples
 
-This permanent w3id is meant to be a place to host examples for publishing things on w3id.org.
+This permanent W3ID is meant to be a place to host examples for publishing things on w3id.org.
 
 * [.htaccess](#htaccess)
   * [What is .htaccess?](#what-is-htaccess)
@@ -183,6 +183,7 @@ The `.md` file extension at the end of the file name indicates that the file use
 GitHub will automatically display the content of a `README.md` to repository visitors.
 
 An example of a good README file: [w3id.org/dggs/README.md](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)
+
 
 ## Publish vocabularies with W3ID
 
