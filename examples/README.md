@@ -11,6 +11,7 @@ This permanent W3ID is meant to be a place to host examples for publishing thing
   * [Example 3: Dealing with query string](#example-3-dealing-with-query-string)
   * [Example 4: Publish vocabularies with W3ID](#example-4-publish-vocabularies-with-w3id)
   * [Example 5: Version-aware URIs of ontologies](#example-5-version-aware-uris-of-ontologies)
+  * [Example 6: Redirection based on a file extension in the URL](#example-6-redirection-based-on-a-file-extension-in-the-url)
 * [README.md](#readmemd)
 
 
@@ -94,6 +95,7 @@ You can have more than one *RewriteRule* in a single `.htaccess` file.
 
 See [Apache HTTP Server documentation](https://httpd.apache.org/docs/current/rewrite/intro.html) for more details about *RewriteRule*, regular expressions, and other directives.
 
+
 ### Example 1: Minimalist (grouping)
 
 This 3 lines of code from [/mircat/.htaccess](https://github.com/perma-id/w3id.org/blob/master/mircat/.htaccess) redirects `https://w3id.org/mircat/<ANYTHING>` to `https://fairsharing.github.io/mircat/<ANYTHING>`.
@@ -114,7 +116,12 @@ When the *Substitution* `https://fairsharing.github.io/mircat/$1` is evaluated, 
 
 ### Example 2: Supporting multiple media types (MIME types)
 
-A web server can be configured to return different media type or file format depends on the client's request or capability.
+A single resource, located by the same URL, can have multiple representations.
+For example, an image can can be represented in both GIF and PNG formats.
+
+A web server can be configured to return different media type or file format
+depends on the client's request or capability. We call this mechanism a
+"[content negotiation](https://en.wikipedia.org/wiki/Content_negotiation)".
 
 [/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ppop/.htaccess) demonstrates the use of `RewriteCond %{HTTP_ACCEPT}` to check which [media types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types) the client accepts or expects to be returned by the server.
 
@@ -133,11 +140,17 @@ RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://protect.oeg.fi.upm.es/ppop/ppop.ttl [R=303,L]
 ```
 
-The rule set utilizes the *RewriteCond* directive, which "defines a rule condition. One or more RewriteCond can precede a RewriteRule directive. The following rule is then only used if both the current state of the URI matches its pattern, and if these conditions are met" ([Apache HTTP Server documentation](https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritecond)).
+The rule set utilizes the *RewriteCond* directive, which "defines a rule
+condition. One or more RewriteCond can precede a RewriteRule directive. The
+following rule is then only used if both the current state of the URI matches
+its pattern, and if these conditions are met"
+([Apache HTTP Server documentation](https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritecond)).
 
 The above example will have this behavior:
-* If `%{HTTP_ACCEPT}` matches `text/html`, the server will return an HTML document (`ppop.html`)
-* If `%{HTTP_ACCEPT}` matches `text/turtle`, the server will return a Turtle document (`ppop.ttl`)
+* If `%{HTTP_ACCEPT}` matches `text/html`, the server will return an HTML
+document (`ppop.html`)
+* If `%{HTTP_ACCEPT}` matches `text/turtle`, the server will return a Turtle
+document (`ppop.ttl`)
 
 The syntax of `RewriteCond` directive is:
 ```ApacheConf
@@ -146,37 +159,51 @@ RewriteCond TestString CondPattern [Flags]
 
 Where *CondPattern* is a regular expresssion to match pattern in *TestString*.
 
-In this case, *TestString* is `%{HTTP_ACCEPT}` which its value is taken from an `Accept` field in the HTTP request header. The `Accept` field can be a string like this:
+In this case, *TestString* is `%{HTTP_ACCEPT}` which its value is taken from
+an `Accept` field in the HTTP request header. The `Accept` field can be a
+string like this:
 
 ```HTTP
 Accept: text/html, application/xhtml+xml, application/xml, image/webp
 ```
 
-Each media type will be presented, separated by a comma. With that, we can use *CondPattern* to matches media types in this string.
+Each media type will be presented, separated by a comma. With that, we can use
+*CondPattern* to matches media types in this string.
 
 
 ### Example 3: Dealing with query string
 
-Everything after the question mark (`?`) in the URL, but not that `?` itself, is a query string.
+Everything after the question mark (`?`) in the URL, but not that `?` itself,
+is a query string.
 
-For example, for the URL `https://en.wikipedia.org/w/index.php?title=Web`, the query string is `title=Web`.
+For example, for the URL `https://en.wikipedia.org/w/index.php?title=Web`,
+the query string is `title=Web`.
 
-As the query string is not included in the string that the *Pattern* of *RewriteRule* will compared against, you cannot use *Pattern* to match them.
+As the query string is not included in the string that the *Pattern* of
+*RewriteRule* will compared against, you cannot use *Pattern* to match them.
 
-To find pattern in the query string, use `%{QUERY_STRING}` as a *TestString* in *RewriteCond*.
+To find pattern in the query string, use `%{QUERY_STRING}` as a *TestString*
+in *RewriteCond*.
 
-As an example, if you like to redirect the URL `https://w3id.org/examples?a=1&b=2`  to `https://example.com/path/file.php?a=1&b=2`, you can use this set of rules:
+As an example, if you like to redirect the URL
+`https://w3id.org/examples?a=1&b=2` to
+`https://example.com/path/file.php?a=1&b=2`, you can use this set of rules:
 
 ```ApacheConf
 RewriteCond %{QUERY_STRING} (.*)
 RewriteRule ^ https://example.com/path/file.php?%1? [R=302,L]
 ```
 
-In this example, the *CondPattern* `(.*)` in *RewriteCond* will match every character in the query string (`a=1&b=2`) and put it in group one. This group one (`%1`) is used later in the *Substitution* of *RewriteRule*.
+In this example, the *CondPattern* `(.*)` in *RewriteCond* will match every
+character in the query string (`a=1&b=2`) and put it in group one. This group
+one (`%1`) is used later in the *Substitution* of *RewriteRule*.
 
-Note that the special character to recall groups from *CondPattern* of *RewriteCond* is `%` (unlike the special character to recall groups from *Pattern* of *RewriteRule*, which is `$`).
+Note that the special character to recall groups from *CondPattern* of
+*RewriteCond* is `%` (unlike the special character to recall groups from
+*Pattern* of *RewriteRule*, which is `$`).
 
-The character `?` at the end of the *Substitution* of *RewriteRule* tells the server not to pass the query string to the final URL after rewrite.
+The character `?` at the end of the *Substitution* of *RewriteRule* tells the
+server not to pass the query string to the final URL after rewrite.
 
 
 ### Example 4: Publish vocabularies with W3ID
@@ -189,6 +216,17 @@ and https://w3id.org/example/.
 ### Example 5: Version-aware URIs of ontologies
 
 See [`/OWLunit/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/OWLunit/.htaccess).
+
+
+### Example 6: Redirection based on a file extension in the URL
+
+Check for pattern of a file extension (like `.json`, `.png`, `.rdf`, `.html`)
+in the requested URL, and rewrite the URL accordingly.
+
+This technique can compliments `RewriteCond %{HTTP_ACCEPT}` rules (explained
+in [Example 2](#example-2-supporting-multiple-media-types-mime-types)).
+
+See [`/SocDOnt/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/SocDOnt/.htaccess).
 
 
 ## README.md
