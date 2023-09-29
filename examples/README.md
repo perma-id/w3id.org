@@ -119,8 +119,8 @@ When the *Substitution* `https://fairsharing.github.io/mircat/$1` is evaluated, 
 A single resource, located by the same URL, can have multiple representations.
 For example, an image can can be represented in both GIF and PNG formats.
 
-A web server can be configured to return different media type or file format
-depends on the client's request or capability. We call this mechanism a
+A web server can be configured to return a different media type or file format
+depending on the client's request or capability. We call this mechanism
 "[content negotiation](https://en.wikipedia.org/wiki/Content_negotiation)".
 
 [/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ppop/.htaccess) demonstrates the use of `RewriteCond %{HTTP_ACCEPT}` to check which [media types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types) the client accepts or expects to be returned by the server.
@@ -159,7 +159,7 @@ RewriteCond TestString CondPattern [Flags]
 
 Where *CondPattern* is a regular expresssion to match pattern in *TestString*.
 
-In this case, *TestString* is `%{HTTP_ACCEPT}` which its value is taken from
+In this case, *TestString* is `%{HTTP_ACCEPT}` which value is taken from
 an `Accept` field in the HTTP request header. The `Accept` field can be a
 string like this:
 
@@ -167,8 +167,8 @@ string like this:
 Accept: text/html, application/xhtml+xml, application/xml, image/webp
 ```
 
-Each media type will be presented, separated by a comma. With that, we can use
-*CondPattern* to matches media types in this string.
+Each media type will be presented, separated by a comma. We can then use
+*CondPattern* to match media types in this string.
 
 
 ### Example 3: Dealing with query string
@@ -182,10 +182,10 @@ the query string is `title=Web`.
 As the query string is not included in the string that the *Pattern* of
 *RewriteRule* will compared against, you cannot use *Pattern* to match them.
 
-To find pattern in the query string, use `%{QUERY_STRING}` as a *TestString*
+To find a pattern in the query string, use `%{QUERY_STRING}` as a *TestString*
 in *RewriteCond*.
 
-As an example, if you like to redirect the URL
+As an example, if you would like to redirect the URL
 `https://w3id.org/examples?a=1&b=2` to
 `https://example.com/path/file.php?a=1&b=2`, you can use this set of rules:
 
