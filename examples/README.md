@@ -220,10 +220,10 @@ See [`/OWLunit/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/OWLu
 
 ### Example 6: Redirection based on a file extension in the URL
 
-Check for pattern of a file extension (like `.json`, `.png`, `.rdf`, `.html`)
+Check for the pattern of a file extension (like `.json`, `.png`, `.rdf`, `.html`)
 in the requested URL, and rewrite the URL accordingly.
 
-This technique can compliments `RewriteCond %{HTTP_ACCEPT}` rules (explained
+This technique can complement `RewriteCond %{HTTP_ACCEPT}` rules (explained
 in [Example 2](#example-2-supporting-multiple-media-types-mime-types)).
 
 See [`/SocDOnt/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/SocDOnt/.htaccess).
