@@ -12,34 +12,22 @@ This namespace is broken down into different different parts:
 
 This space is administered by:  
 
-**Bruno Sartini**
-<br>  
-*Postdoc*  
-<br>
-[Ludwig-Maximilians University](https://www.lmu.de/)
-<br>
-Munich, Germany
-<br>
-<B.sartini@lmu.de>
-<br>  
-GitHub: [br0ast](https://github.com/br0ast)
-<br>
-ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0002-9152-4402)  
-<br>
+**Bruno Sartini** <br> 
+*Postdoc* <br>
+[Ludwig-Maximilians University](https://www.lmu.de/) <br>
+Munich, Germany <br>
+<B.sartini@lmu.de> <br>
+GitHub: [br0ast](https://github.com/br0ast) <br>
+ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0002-9152-4402) 
+
 and
-<br>
-**Valentina Pasqual**
-<br>
-*PhD Student* 
-<br>
-[University of Bologna](https://www.unibo.it/)
-<br>
-Bologna, Italy
-<br>
-<valentina.pasqual2@unibo.it>
-<br>
-GitHub: [ValentinaPasqual](https://github.com/ValentinaPasqual)
-<br>
+
+**Valentina Pasqual** <br>
+*PhD Student* <br>
+[University of Bologna](https://www.unibo.it/) <br>
+Bologna, Italy <br>
+<valentina.pasqual2@unibo.it> <br>
+GitHub: [ValentinaPasqual](https://github.com/ValentinaPasqual) <br>
 ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0001-5931-5187)
 
 
