@@ -38,11 +38,11 @@ This section contains a general summary of the logic behind the redirection rule
     - `{PATH}/{MODULE}.ttl` file in master branch  
   
 Meaning of placeholders:  
-'{NAME}': Name part of an IRI, i.e. what follows after the hash sign.  
-'{VERSION}'; Version number. Must start with a digit to distinguish it from domain or path names.  
-'{PATH}': Directory path within a github repository  
-'{MODULE}': Filename of turtle file with the final .ttl stripped off  
-'{DOMAIN}': Name of domain ontology  
+`{NAME}`: Name part of an IRI, i.e. what follows after the hash sign.  
+`{VERSION}`; Version number. Must start with a digit to distinguish it from domain or path names.  
+`{PATH}`: Directory path within a github repository  
+`{MODULE}`: Filename of turtle file with the final .ttl stripped off  
+`{DOMAIN}`: Name of domain ontology  
 
 
 ## Contacts
