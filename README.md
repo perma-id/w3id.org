@@ -88,20 +88,19 @@ following steps:
 1. _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org) 
    on GitHub.
 2. Add or update a new redirect entry and commit your changes.
-   1. If it does not yet exist, create a new directory (see [Naming Policy](#naming) below).
-   2. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
+   1. If it does not yet exist, create a new directory with an intended permanent
+      identifer name (see [Naming Policy](#naming) below).
+   3. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
+      * `.htaccess` contains redirection rules, for computer to read and perform.
+      * `README.md` contains more identifier info and contact info, for human to read.
+      * See [w3id.org/examples](https://github.com/perma-id/w3id.org/tree/master/examples)
+      for examples of `.htaccess` and  `README.md`.
 3. Submit a _Pull Request_ for your changes.
 
 The maintainers of this system will then act on that _Pull Request_ and 
 merge it into this system's content. You will then be able to see your 
 changes in the repository and via resolution of the identifier you 
 created or edited.
-
-`.htaccess` contains redirection rules, for computer to read and perform.
-`README.md` contains project info and contact info, for human to read.
-  * Examples of `.htaccess`: [w3id.org/mircat/.htaccess](https://github.com/perma-id/w3id.org/blob/master/mircat/.htaccess) (minimal, 3 lines of code), [w3id.org/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ppop/.htaccess) (handling different content types)
-  * An example of a good `README.md` file: [w3id.org/dggs/README.md](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)
-  * A showcase on how to publish vocabularies with w3id: [w3id.org/example](https://github.com/perma-id/w3id.org/tree/master/example)
 
 If the terms _Fork_ and _Pull Request_ are new to you, you need to 
 familiarize yourself with the [Git](https://git-scm.com/) version 
