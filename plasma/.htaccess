@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://harshp.com/plasma/plasma.ttl [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://harshp.com/plasma/ [R=303,NE,L]
+
+# Rewrite rule to serve HTML content from the repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^repo/?$ https://github.com/coolharsh55/plasma [R=303,NE,L]
+
+# Rewrite rule to serve HTML content from the ODPs URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^odps/?$ https://github.com/coolharsh55/plasma/tree/main/odps [R=303,NE,L]
