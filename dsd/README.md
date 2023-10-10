@@ -6,7 +6,7 @@
 
 ## References
 
-* Publication about the vocabulary is currently submitted for review; the reference to it will be added after the publication is available online
+* Ehrlinger, L., Schrott, J., Wöß, W. (2023). DSD: The Data Source Description Vocabulary. In: Kotsis, G., et al. Database and Expert Systems Applications - DEXA 2023 Workshops. DEXA 2023. Communications in Computer and Information Science, vol 1872. Springer, Cham. <https://doi.org/10.1007/978-3-031-39689-2_1>
 
 ## Contacts
 
