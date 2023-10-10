@@ -10,5 +10,5 @@
 
 ## Contacts
 
-* Johannes Schrott, [johannes.schrott@scch.at](mailto:johannes.schrott@scch.at), ORCID: [0000-0003-2689-0876](https://orcid.org/0000-0003-2689-0876)
+* Johannes Schrott, [johannes.schrott@scch.at](mailto:johannes.schrott@scch.at), ORCID: [0000-0003-2689-0876](https://orcid.org/0000-0003-2689-0876), GitHub: johannesschrott
 * Lisa Ehrlinger, [lisa.ehrlinger@scch.at](mailto:lisa.ehrlinger@scch.at), ORCID: [0000-0001-5313-0368](https://orcid.org/0000-0001-5313-0368)
