@@ -1,61 +1,49 @@
+Options -MultiViews
 RewriteEngine on
+AddType text/turtle .ttl
 
+# VOCABULARY REDIRECTIONS --------------------------------------------------------------------------------------------------------
 
+## Git Repository
+RedirectMatch 302 ^/ontouml-models/vocabulary/git/?$      https://github.com/OntoUML/ontouml-models-vocabulary/
 
-### REDIRECTION TO FOLDERS
+## Versioning
+### Specific version
+RedirectMatch 302 ^/ontouml-models/vocabulary/v([^/]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+### Latest version
+RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$   https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
 
+## Documentation
+RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github.io/ontouml-models-vocabulary
+RedirectMatch 302 ^/ontouml-models/vocabulary/docs/?$     https://ontouml.github.io/ontouml-models-vocabulary
 
-## Direct redirection to folders
+## Vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://ontouml.github.io/ontouml-models-vocabulary/ontouml-catalog-metadata-vocabulary.ttl
 
-# 1st level folder (/root/) - Catalog's GitHub repository
-RedirectMatch 302 ^/ontouml-models/?$ https://github.com/OntoUML/ontouml-models
-RedirectMatch 302 ^/ontouml-models/git/?$ https://github.com/OntoUML/ontouml-models
+# CATALOG REDIRECTIONS -----------------------------------------------------------------------------------------------------------
 
-# MODELS - 2nd level folder (/root/models)
-RedirectMatch 302 ^/ontouml-models/models/?$ https://github.com/OntoUML/ontouml-models/tree/master/models
+## REDIRECTION TO DATA STORAGE SERVICE (GitHub)
 
-# SHAPES - 2nd level folder (/root/shapes)
-RedirectMatch 302 ^/ontouml-models/shapes/?$ https://github.com/OntoUML/ontouml-models/tree/master/shapes
+### Git Repository
+RedirectMatch 302 ^/ontouml-models/git(/?)$ https://github.com/OntoUML/ontouml-models
 
-
-## Generic redirection to models (datasets) folders
-
-RedirectMatch 302 ^/ontouml-models/dataset/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
-RedirectMatch 302 ^/ontouml-models/model/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
-
-
-## Generic redirection to every folder. Relative path must be provided. E.g., "/logo" or "/models/bank-model".
-
-RedirectMatch 302 ^/ontouml-models/folder/(.*)$ https://github.com/OntoUML/ontouml-models/tree/master/$1
-
-
-
-### REDIRECTION TO FILES
-
-
-## Redirection to releases (catalog's metadata)
-
-# Latest release
+### Latest release
 RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontouml-models/releases/latest
 
-# Specific release (tag)
+### Specific release (tag)
 RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
 
+### Shape TTL files
+RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/shapes/$1-shape.ttl
 
-## Direct redirection to TTL files inside folders
 
-# ontology.ttl file for every model
-RedirectMatch 302 ^/ontouml-models/ontology/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
+## REDIRECTION TO METADATA STORAGE SERVICE (FAIR Data Point)
 
-# TTL files in 1st level folder (/root)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1.ttl
+### Catalog item page
+RedirectMatch 302 ^/ontouml-models/?$ https://scs-ontouml.eemcs.utwente.nl/catalog/b663ca18-8085-44a7-bcfe-2c2b5ba1faa8
 
-# TTL files in 2nd level folders (/root/<FOLDER>)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1/$2.ttl
-
-# TTL files in 3rd level folders (/root/<FOLDER>/<FOLDER>)
-RedirectMatch 302 ^/ontouml-models/([^/]+)/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1/$2/$3.ttl
-
-## Generic redirection to every file. Complete relative path must be provided. E.g., "file/models/<DATASET_NAME>/ontology.ttl".
-
-RedirectMatch 302 ^/ontouml-models/file/(.*)$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/$1
+### Generic item page
+RedirectMatch 302 ^/ontouml-models/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/$1

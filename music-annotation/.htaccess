@@ -1,0 +1,57 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType application/n-quads .nq
+AddType application/n-triples .nt
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# This is a single ontology (The Music Annotation Ontology) served
+# in different RDF serialisations on request
+
+## If the base directory or /latest is used, we'll go to the current version (which is 1.0, the only version)
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/1.0/music-annotation-ontology.rdf [R=303,L]
+
+# Rewrite rule to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/1.0/music-annotation-ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Quads content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/1.0/music-annotation-ontology.nq [R=303,L]
+
+# Rewrite rule to serve N-Triples content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/1.0/music-annotation-ontology.nt [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/1.0/music-annotation-ontology.ttl [R=303,L]
+
+## We assume that a path of the form [0-9]+.[0-9]+ is a version number and should be persisted
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/$1/music-annotation-ontology.rdf [R=303,L]
+
+# Rewrite rule to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/$1/music-annotation-ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Quads content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/$1/music-annotation-ontology.nq [R=303,L]
+
+# Rewrite rule to serve N-Triples content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/$1/music-annotation-ontology.nt [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/$1/music-annotation-ontology.ttl [R=303,L]
