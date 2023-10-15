@@ -2,7 +2,7 @@
 
 ### About:
 
-EVERYCRED is an exceptionally adaptable platform for the issuance, viewing, and verification of credentials. Notably, this platform is structured around the fundamental concepts of DID (Decentralized Identifiers) and W3C Verifiable Credentials, embracing cutting-edge technology and gametics.
+EVERYCRED is an exceptionally adaptable platform for the issuance, viewing, and verification of credentials. Notably, this platform is structured around the fundamental concepts of DID (Decentralized Identifiers) and W3C Verifiable Credentials.
 
 
 ### EveryCRED Website:
