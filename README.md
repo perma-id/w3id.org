@@ -131,22 +131,6 @@ mailing list. Make sure to include the URL that you want on w3id.org, the
 URL that you want to redirect to, and the HTTP code that you want to use 
 when redirecting. An administrator will then create the redirect for you.
 
-#### Link checking
-A simple [Travis-CI](https://travis-ci.org/perma-id/w3id.org) job
-(see [`.travis.yml`](.travis.yml)) will extract all https://w3id.org/
-URIs from `*/README.md` and check them with
-[`linkchecker`](https://wummel.github.io/linkchecker/).
-In theory, this will catch two kinds of errors:
-
-1. Following a redirection gives a `404 Not Found`
-2. An error in `.htaccess` causes a `500 Server Error`.
-
-Note that this only checks URIs that are listed in the `README.md` files.
-
-Travis might comment on your Pull Request if this test reveals an error.
-Check its output logs to ensure the errors are not caused by
-your modification.
-
 <a id="naming"></a>
 ### Naming Policy
 
