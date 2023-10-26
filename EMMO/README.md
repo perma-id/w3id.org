@@ -62,13 +62,18 @@ https://raw.githubusercontent.com/emmo-repo/{DOMAIN}/{VERSION}/{PATH}/{MODULE}.t
 
 
 Meaning of placeholders:
-`{NAME}`: Name part of an IRI, i.e. what follows after the hash sign.
-`{VERSION}`; Version number. Must start with a digit to distinguish it from domain or path names.
-`{PATH}`: Directory path within a github repository
-`{MODULE}`: Filename of turtle file with the final .ttl stripped off
-`{DOMAIN}`: Name of domain ontology. Initial `domain-` is stripped off.
+- `{NAME}`: Name part of an IRI, i.e. what follows after the hash sign.
+- `{VERSION}`; Version number. Must start with a digit to distinguish it from domain or path names.
+- `{PATH}`: Directory path within a github repository
+- `{MODULE}`: Filename of turtle file with the final .ttl stripped off
+- `{DOMAIN}`: Name of domain ontology. Initial `domain-` is stripped off.
 
 
 ## Contacts
 This space is maintained by the [European Materials Modelling Council (EMMC)](http://emmc.eu).
 You can contact the EMMO Authors via emmo@emmc.eu
+
+Current maintainers:
+- https://github.com/jesper-friis
+- https://github.com/jsimonclark
+- https://github.com/emanueleghedini
