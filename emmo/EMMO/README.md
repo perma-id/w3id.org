@@ -1,6 +1,7 @@
 # EMMO
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Elementary Multiperspective Material Ontology (EMMO)](https://github.com/emmo-repo/EMMO/) and its domain ontologies.
 
+
 ## Redirection Rules
 This section contains a general summary of the logic behind the redirection rules.
 
@@ -71,9 +72,9 @@ Meaning of placeholders:
 
 ## Contacts
 This space is maintained by the [European Materials Modelling Council (EMMC)](http://emmc.eu).
-You can contact the EMMO Authors via emmo@emmc.eu
+You can contact the EMMO Authors via emmo@emmc.eu.
 
 Current maintainers:
-- https://github.com/jesper-friis
-- https://github.com/jsimonclark
-- https://github.com/emanueleghedini
+[Jesper Friis](https://github.com/jesper-friis),
+[Simon Clark](https://github.com/jsimonclark) and
+[Emanuele Ghedini](https://github.com/emanueleghedini).
