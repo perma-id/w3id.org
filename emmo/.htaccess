@@ -3,5 +3,97 @@ Options +FollowSymLinks
 # Rewrite engine setup
 RewriteEngine On
 
+
+# Rule 1: https://w3id.org/emmo
+#
+# If the request appears coming from a browser, redirect to the html documentation
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/
+RewriteRule ^$ https://emmo-repo.github.io/latest/emmo.html [R=303,NE,L]
+#
+# ...otherwise redirect to inferred/squashed ontology
+RewriteRule ^emmo-inferred$ https://emmo-repo.github.io/latest/emmo-inferred.ttl [R=303,NE,L]
+RewriteRule ^$ https://emmo-repo.github.io/latest/emmo.ttl [R=303,NE,L]
+
+
+# Rule 2: https://w3id.org/emmo/
+#
+# emmo.ttl file in the root of the master branch
+RewriteRule ^/$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl [R=303,NE,L]
+
+
+# Rule 3: https://w3id.org/emmo/{VERSION}
+#
+# If the request appears coming from a browser, redirect to the html documentation of given version
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/
+RewriteRule ^([0-9][^/]+)$ https://emmo-repo.github.io/versions/$1/emmo.html [R=303,NE,L]
+#
+# ...otherwise redirect to inferred/squashed ontology
+RewriteRule ^([0-9][^/]+)-inferred$ https://emmo-repo.github.io/versions/$1/emmo-inferred.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]+)$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R=303,NE,L]
+
+
+
+# Rule 4: https://w3id.org/emmo/{VERSION}/
+#
+# emmo.ttl file in the root of branch for the given version
+RewriteRule ^([0-9][^/]+)/$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/emmo.ttl [R=303,NE,L]
+
+
+# Rule 5: https://w3id.org/emmo/{PATH}/{MODULE}
+#
+# Turtle file for given module of EMMO
+RewriteRule ^([^0-9].+)/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1.ttl [R=303,NE,L]
+
+
+# Rule 6: https://w3id.org/emmo/{VERSION}/{PATH}/{MODULE}
+#
+# Turtle file for given version and module of EMMO
+RewriteRule ^([0-9][^/]+)/([^0-9].+)/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2.ttl [R=303,NE,L]
+
+
+# Rule 7: https://w3id.org/emmo/{DOMAIN}
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/
+RewriteRule ^(domain-)?([^/]+)$ https://emmo-repo.github.io/latest/$2.html [R=303,NE,L]
+#
+# ...otherwise redirect to inferred/squashed ontology
+RewriteRule ^(domain-)?([^/]+)-inferred$ https://emmo-repo.github.io/latest/$2-inferred.ttl [R=303,NE,L]
+RewriteRule ^(domain-)?([^/]+)$ https://emmo-repo.github.io/latest/$2.ttl [R=303,NE,L]
+
+
+# Rule 8: https://w3id.org/emmo/{DOMAIN}/
+#
+# {DOMAIN}.ttl file in the root of the master branch
+RewriteRule ^(domain-)?([^/]+)/$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$2.ttl [R=303,NE,L]
+
+
+# Rule 9: https://w3id.org/emmo/{DOMAIN}/{VERSION}
+#
+# If the request appears coming from a browser, redirect to the html documentation of given version
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/
+RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)$ https://emmo-repo.github.io/$1$2/versions/$3/$2.html [R=303,NE,L]
+#
+# ...otherwise redirect to inferred/squashed ontology
+RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)-inferred$ https://emmo-repo.github.io/$1$2/versions/$3/$2-inferred.ttl [R=303,NE,L]
+RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)$ https://emmo-repo.github.io/$1$2/versions/$3/$2.ttl [R=303,NE,L]
+
+
+# Rule 10: https://w3id.org/emmo/{DOMAIN}/{VERSION}/
+#
+# {DOMAIN}.ttl file in the root of branch for the given version
+RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)/$ https://raw.githubusercontent.com/emmo-repo/$1$2/$3/$2.ttl [R=303,NE,L]
+
+
+# Rule 11: https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE}
+#
+# {PATH}/{MODULE}.ttl file in master branch
+RewriteRule ^(domain-)?([^/]+)/([^0-9].+)/?$ https://raw.githubusercontent.com/emmo-repo/$1$2/$3.ttl [R=303,NE,L]
+
+
+# Rule 12: https://w3id.org/emmo/{DOMAIN}/{VERSION}/{PATH}/{MODULE}
+#
+# {PATH}/{MODULE}.ttl file in branch {VERSION} ({PATH} may be empty if the module .ttl file is in the repository root)
+RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)/([^0-9].+)/?$ https://raw.githubusercontent.com/emmo-repo/$1$2/$3/$4.ttl [R=303,NE,L]
+
+
 # Redirect to emmo.info/
  RewriteRule	^$ http://emmo.info/ [R=303,L]
