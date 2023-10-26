@@ -18,7 +18,7 @@ This section contains a general summary of the logic behind the redirection rule
 3. `https://w3id.org/emmo/{VERSION}`
    - If the user is accessing this from a browser: redirect to documentation of given version corresponding IRI (`https://w3id.org/emmo/{VERSION}#{NAME}`).
 
-     Otherwise, redirect to squashed ontology on GitHub Pages:
+   - Otherwise, redirect to squashed ontology on GitHub Pages:
 https://raw.githubusercontent.com/emmo-repo/emmo-repo.github.io/master/versions/{VERSION}/emmo.ttl
 
 
@@ -49,8 +49,6 @@ https://raw.githubusercontent.com/emmo-repo/emmo-repo.github.io/master/versions/
      https://emmo-repo.github.io/domain-electrochemistry/versions/{VERSION}/{DOMAIN}.ttl
 
 10. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/`
-   - `{DOMAIN}.ttl` file in the root of the branch `{VERSION}`
-
    - `{DOMAIN}.ttl` file in the root of branch for the given version: https://raw.githubusercontent.com/emmo-repo/{DOMAIN}/{VERSION}/{DOMAIN}.ttl
 
 11. `https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE}`
