@@ -35,7 +35,7 @@ This section contains a general summary of the logic behind the redirection rule
 8. `https://w3id.org/emmo/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
    - `{DOMAIN}.ttl` file in the root of the master branch.
 
-9. `https://w3id.org/emmo/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
+9. `https://w3id.org/emmo/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
    - Otherwise, redirect to squashed .ttl file for given version on GitHub Pages.
    - Special case for inferred ontology `https://w3id.org/{DOMAIN}/{VERSION}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
