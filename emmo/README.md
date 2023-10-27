@@ -7,7 +7,7 @@ This section contains a general summary of the logic behind the redirection rule
 
 1. `https://w3id.org/emmo --> https://emmo-repo.github.io/EMMO/emmo{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
-   - Otherwise, redirect to the squashed .ttl file on GitHub Pages.
+   - Otherwise, redirect to the squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology `https://w3id.org/emmo/emmo-inferred --> https://emmo-repo.github.io/EMMO/emmo-inferred.ttl`
 
 2. `https://w3id.org/emmo/ --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
