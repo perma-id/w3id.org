@@ -29,7 +29,7 @@ This section contains a general summary of the logic behind the redirection rule
 
 7. `https://w3id.org/emmo/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
-   - Otherwise, redirect to squashed .ttl file on GitHub Pages.
+   - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology `https://w3id.org/{DOMAIN}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
 
 8. `https://w3id.org/emmo/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
@@ -37,7 +37,7 @@ This section contains a general summary of the logic behind the redirection rule
 
 9. `https://w3id.org/emmo/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
-   - Otherwise, redirect to squashed .ttl file for given version on GitHub Pages.
+   - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
    - Special case for inferred ontology `https://w3id.org/{DOMAIN}/{VERSION}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
 
 10. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
@@ -51,10 +51,10 @@ This section contains a general summary of the logic behind the redirection rule
 
 
 ### Meaning of placeholders
-- `{NAME}`: Name part of an IRI, i.e. what follows after the hash sign.
-- `{VERSION}`; Version number. Must start with a digit to distinguish it from domain or path names.
+- `{NAME}`: Name part of an IRI, i.e., what follows after the hash sign.
+- `{VERSION}`: Version number. Must start with a digit to distinguish it from domain or path names.
 - `{PATH}`: Directory path within a github repository
-- `{MODULE}`: Filename of turtle file with the final .ttl stripped off
+- `{MODULE}`: Filename of turtle file with the final `.ttl` stripped off
 - `{DOMAIN}`: Name of domain ontology. Initial `domain-` is stripped off.
 - `{REPO_NAME}`: Name of GitHub repository for domain ontology.
 
@@ -62,21 +62,21 @@ This section contains a general summary of the logic behind the redirection rule
 ## Expected organisation of repositories for domain ontologies
 
 ### GitHub repository
-In the root of the repository we should have a file called {DOMAIN}.ttl. This should be the main file for the ontology. It should exist to make the ontology FAIR.
+In the root of the repository, we should have a file called `{DOMAIN}.ttl`. This should be the main file for the ontology. It should exist to make the ontology FAIR.
 
 ### GitHub Pages
 Using GitHub pages is optional.
-There are several use cases for using cases for using GitHub Pages:
-- The main turtle file is generated from another semantic source.
+There are several reasons to use GitHub Pages:
+- _The main turtle file is generated from another semantic source._
   In this case it make sense to distribute the ontology on GitHub pages to avoid polluting your GitHub repository.
-- Your ontology consists of many modules importing each other.
+- _Your ontology consists of many modules importing each other._
   Loading them recursively from GitHub may be very slow.
   To speed up the loading process, you could merge (squash) all modules into a single turtle file, which you could store on GitHub Pages.
-- You want to publish the inferred ontology, so that the user have full to the full inferred ontology without having to first running a reasoner.
-- Reference html documenting of classes and relations in the ontology.
+- _You want to publish the inferred ontology, so that the user have full to the full inferred ontology without having to first running a reasoner._
+- _Reference html documenting of classes and relations in the ontology._
   The main aim of this document is to making the IRIs resolvable in a browser as human readable documentation of the concepts.
 
-Expected structure of GitHub pares:
+Expected structure of GitHub pages:
 
 ```
 .
