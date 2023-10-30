@@ -20,6 +20,10 @@ This [w3id](https://w3id.org/) provides a persistent URI namespace for Data Priv
 | dpv-skos/dpv-gdpr      | https://w3id.org/dpv/dpv-skos/dpv-gdpr      | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr      | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpv-gdpr.rdf   |
 | dpv-owl/dpv-gdpr       | https://w3id.org/dpv/dpv-owl/dpv-gdpr       | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr       | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpv-gdpr.rdf    |
 |------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
+| dpv-dga                | https://w3id.org/dpv/dpv-dga                | https://w3c.github.io/dpv/dpv-dga                | https://w3c.github.io/dpv/dpv-dga/dpv-dga.rdf              |
+| dpv-skos/dpv-dga       | https://w3id.org/dpv/dpv-skos/dpv-dga       | https://w3c.github.io/dpv/dpv-skos/dpv-dga       | https://w3c.github.io/dpv/dpv-skos/dpv-dga/dpv-dga.rdf     |
+| dpv-owl/dpv-dga        | https://w3id.org/dpv/dpv-owl/dpv-dga        | https://w3c.github.io/dpv/dpv-owl/dpv-dga        | https://w3c.github.io/dpv/dpv-owl/dpv-dga/dpv-dga.rdf      |
+|------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
 | dpv-gdpr/dpia          | https://w3id.org/dpv/dpv-gdpr/dpia          | https://w3c.github.io/dpv/dpv-gdpr/dpia          | NIL                                                        |
 | dpv-skos/dpv-gdpr/dpia | https://w3id.org/dpv/dpv-skos/dpv-gdpr/dpia | https://w3c.github.io/dpv/dpv-skos/dpv-gdpr/dpia | NIL                                                        |
 | dpv-owl/dpv-gdpr/dpia  | https://w3id.org/dpv/dpv-owl/dpv-gdpr/dpia  | https://w3c.github.io/dpv/dpv-owl/dpv-gdpr/dpia  | NIL                                                        |
@@ -32,7 +36,7 @@ This [w3id](https://w3id.org/) provides a persistent URI namespace for Data Priv
 | dpv-skos/dpv-legal     | https://w3id.org/dpv/dpv-skos/dpv-legal     | https://w3c.github.io/dpv/dpv-skos/dpv-legal     | https://w3c.github.io/dpv/dpv-skos/dpv-legal/dpv-legal.rdf |
 | dpv-owl/dpv-legal      | https://w3id.org/dpv/dpv-owl/dpv-legal      | https://w3c.github.io/dpv/dpv-owl/dpv-legal      | https://w3c.github.io/dpv/dpv-owl/dpv-legal/dpv-legal.rdf  |
 |------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
-| rights                 | https://w3id.org/dpv/rights                 | https://w3c.github.io/dpv/rights                 | NIL                                                        |
+| rights                 | https://w3id.org/dpv/rights                 | https://w3c.github.io/dpv/rights                 |                                                            |
 | rights-eu              | https://w3id.org/dpv/rights/eu              | https://w3c.github.io/dpv/rights/eu              | https://w3c.github.io/dpv/rights/eu.rdf                    |
 |------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
 | risk                   | https://w3id.org/dpv/risk                   | https://w3c.github.io/dpv/risk                   | https://w3c.github.io/dpv/risk/risk.rdf                    |
@@ -42,7 +46,6 @@ This [w3id](https://w3id.org/) provides a persistent URI namespace for Data Priv
 | examples               | https://w3id.org/dpv/examples               | https://w3c.github.io/dpv/examples               | https://w3c.github.io/dpv/examples/.*X.rdf                 |
 | use-cases              | https://w3id.org/dpv/use-cases              | https://w3c.github.io/dpv/use-cases              | https://w3c.github.io/dpv/use-cases/.*X.rdf                |
 |------------------------+---------------------------------------------+--------------------------------------------------+------------------------------------------------------------|
-
 ```
 
 # Contacts
@@ -51,6 +54,6 @@ This [w3id](https://w3id.org/) provides a persistent URI namespace for Data Priv
 
 Chair, [W3C Data Privacy Vocabularies and Controls Communit Group (DPVCG)](https://www.w3.org/community/dpvcg/)
 
-Postdoctoral Researcher, [ADAPT Centre](https://www.adaptcentre.ie/), [Trinity College Dublin](https://www.tcd.ie/), Ireland
+Assistant Professor, [ADAPT Centre](https://www.adaptcentre.ie/), [Dublin City University](https://www.dcu.ie/), Ireland
 
 email: [me@harshp.com](mailto:me@harshp.com)
