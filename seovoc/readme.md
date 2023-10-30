@@ -13,6 +13,4 @@ This space is administered by:
 *Cofounder and CTO*  
 [WordLift](https://wordlift.io)  
 <david@wordlift.io>  
-GitHub: [wordlift](https://github.com/wordlift)
-
-
+GitHub: [ziodave](https://github.com/ziodave)
