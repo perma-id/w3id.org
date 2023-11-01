@@ -9,4 +9,4 @@ Homepage:
 
 Contact:
 
-* Yudai Fujioka <s2221667@u.tsukuba.ac.jp>
+* Yudai Fujioka ([@yf1121](https://github.com/yf1121)) <s2221667@u.tsukuba.ac.jp>
