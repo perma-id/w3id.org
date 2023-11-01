@@ -1,7 +1,7 @@
 # BBS Vocabulary
 
-- https://github.com/w3c-ccg/ldp-bbs2020/
-- https://w3c-ccg.github.io/ldp-bbs2020/
+- https://github.com/w3c/vc-di-bbs/
+- https://w3c.github.io/vc-di-bbs/
 
 ## Maintainers
 

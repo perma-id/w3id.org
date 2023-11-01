@@ -1,0 +1,21 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Project documentation
+RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/ [R=303,L]
+
+# Workflow Run RO-Crate profiles (versioned)
+##RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+##RewriteRule ^process/([^/]+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/process_run_crate/ro-crate-metadata.jsonld [R=302,L]
+# HTML as default for humans
+RewriteRule ^process/([^/]+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/process_run_crate [R=302,L]
+RewriteRule ^workflow/([^/]+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate [R=302,L]
+RewriteRule ^provenance/([^/]+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/provenance_run_crate [R=302,L]
+
+# Workflow Run RO-Crate profiles (latest version)
+##RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+##RewriteRule ^process/?$ https://www.researchobject.org/workflow-run-crate/profiles/process_run_crate/ro-crate-metadata.jsonld [R=303,L]
+RewriteRule ^process/?$ https://www.researchobject.org/workflow-run-crate/profiles/process_run_crate [R=303,L]
+RewriteRule ^workflow/?$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate [R=303,L]
+RewriteRule ^provenance/?$ https://www.researchobject.org/workflow-run-crate/profiles/provenance_run_crate [R=303,L]

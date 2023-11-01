@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# The "L" flag ensures that if the rule matches no further rules are processed
+# Match anything that does not contain "." and ends with "/" -- "/" excluded -- assuming to be a request to .owl file  e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic/ --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic.owl
+RewriteRule ^([^.]+)\/$ https://appliedontolab.github.io/DOLCE/$1.owl [R=303,L]
+
+# Match anything that does not contain "." and does not end with "/" assuming to be a request to .owl file e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic -->  https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic.owl
+RewriteRule ^([^.]+[^\/])$ https://appliedontolab.github.io/DOLCE/$1.owl [R=303,L]
+
+# Match anything that ends with .owl (including possibly strings containing dots and dashes) e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic-0.1.owl --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic-0.1.owl
+RewriteRule ^(.+)\.owl$ https://appliedontolab.github.io/DOLCE/$1.owl [R=303,L]
+
+# Match anything that ends with .ttl (including possibly strings containing dots and dashes) e.g. e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic.ttl --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic.ttl
+RewriteRule ^(.+)\.ttl$ https://appliedontolab.github.io/DOLCE/$1.ttl [R=303,L]
+
+# Match anything that ends with .rdf (including possibly strings containing dots and dashes) e.g. e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic.rdf --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic.rdf
+RewriteRule ^(.+)\.rdf$ https://appliedontolab.github.io/DOLCE/$1.rdf [R=303,L]
+
+# Match anything that ends (after a "/") with "."s or numbers (e.g. /0.1 or /1.2.3 or /9.9.9.9) to an appropriate versioning file e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic/0.1 --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic-0.1.owl
+RewriteRule ^(.*)\/([0-9\.]+)(?!.*\/)$ https://appliedontolab.github.io/DOLCE/$1-$2.owl [R=303,L]
+
+# Match anything that ends (after a "/") with "."s or numbers followed by a "/" (e.g. /0.1/ or /1.2.3/ or /9.9.9.9/) to an appropriate versioning file e.g. www.w3id.org/DOLCE/OWL/DOLCEbasic/0.1/ --> https://appliedontolab.github.io/DOLCE/OWL/DOLCEbasic-0.1.owl
+RewriteRule ^(.*)\/([0-9\.]+)\/(?!.*\/)$ https://appliedontolab.github.io/DOLCE/$1-$2.owl [R=303,L]
+

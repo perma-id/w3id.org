@@ -1,0 +1,36 @@
+Options -MultiViews
+RewriteEngine on
+AddType text/turtle .ttl
+
+# RESOURCES' GITHUB REPOSITORIES -------------------------------------------------------------------------------
+  ## Example FROM: https://w3id.org/ontouml/metamodel
+  ## Example   TO: https://github.com/OntoUML/ontouml-metamodel
+
+RedirectMatch 302 ^/ontouml/([^/]+)/?$  https://github.com/OntoUML/ontouml-$1
+
+# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+  ### Specific version
+RedirectMatch 302 ^/ontouml/metamodel/v([^/]+)/?$   https://github.com/OntoUML/ontouml-metamodel/releases/download/$1/OntoUML.Metamodel.vpp
+RedirectMatch 302 ^/ontouml/vocabulary/v([^/]+)/?$  https://github.com/OntoUML/ontouml-vocabulary/releases/download/$1/ontouml.ttl
+RedirectMatch 302 ^/ontouml/json2graph/v([^/]+)/?$  https://github.com/OntoUML/ontouml-json2graph/releases/download/$1/ontouml_json2graph-$1.tar.gz
+RedirectMatch 302 ^/ontouml/vp-plugin/v([^/]+)/?$   https://github.com/OntoUML/ontouml-vp-plugin/releases/download/$1/ontouml-vp-plugin-$1.zip
+RedirectMatch 302 ^/ontouml/schema/v1\.0\.0\-draft/?$   https://raw.githubusercontent.com/OntoUML/ontouml-schema/master/dist/ontouml-schema.json
+  ### Latest release
+RedirectMatch 302 ^/ontouml/([^/]+)/latest/?$  https://github.com/OntoUML/ontouml-$1/releases/latest
+  ### All releases
+RedirectMatch 302 ^/ontouml/([^/]+)/releases/?$  https://github.com/OntoUML/ontouml-$1/releases
+
+# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+  ## Example FROM: https://w3id.org/ontouml/metamodel/home
+  ## Example FROM: https://w3id.org/ontouml/metamodel/docs
+  ## Example   TO: https://OntoUML.github.io/ontouml-metamodel
+
+RedirectMatch 302 ^/ontouml/([^/]+)/home/?$  https://OntoUML.github.io/ontouml-$1
+RedirectMatch 302 ^/ontouml/([^/]+)/docs/?$  https://OntoUML.github.io/ontouml-$1
+
+# OWL VOCABULARY REDIRECTION -----------------------------------------------------------------------------------
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RedirectMatch 302 ^/ontouml/?$ https://ontouml.github.io/ontouml-vocabulary/ontouml.ttl
