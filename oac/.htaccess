@@ -12,3 +12,13 @@ RewriteRule ^$ https://protect.oeg.fi.upm.es/odrl-access-control-profile/oac.ttl
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^$ https://protect.oeg.fi.upm.es/odrl-access-control-profile/oac.html [R=303,NE,L]
+
+# Rewrite rule to serve HTML content from the repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^repo/?$ https://github.com/besteves4/odrl-access-control-profile [R=303,NE,L]
+
+# Rewrite rule to serve HTML content from the policies repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^policies/?$ https://github.com/besteves4/oac-policies [R=303,NE,L]
