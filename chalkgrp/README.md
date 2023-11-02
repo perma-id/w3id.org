@@ -1,8 +1,8 @@
 # /chalkgrp/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for FAIR cookbook resources.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the Chalk Research Group at the University of North Florida.
 
 ## Uses
-This namespace is used to mint GUPRIs for individual research activities in the Chalk research group.
+This namespace is used to mint GUPRIs for individual research activities in the Chalk Research Group.
 
 ## Pool of maintainers of this namespace
 There's only me...
