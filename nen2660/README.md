@@ -25,7 +25,7 @@ The ontology define terms like
 
 The ontology refers to OWL Time, GeoSPARQL and QUDT ontologies.
 
-The ontology can be browsed from <https://bimloket.github.io/nen2660/>, where the constituent files may also be downloaded from. 
+The ontology can be browsed from <https://nl-digigo.github.io/nen2660/>, where the constituent files may also be downloaded from. 
 
 ## Preferred Prefixes
 ```turtle
