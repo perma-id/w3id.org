@@ -1,4 +1,4 @@
-## The PBAC Vocabulary
+## The Mifesto Vocabulary
 
 ## Ontology
 
