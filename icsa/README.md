@@ -7,4 +7,4 @@ Homepage:
 * https://icsat.vercel.app/
 
 Contact:
-* Satoru Nakamura <na.kamura.1263@gmail.com>
+* [Satoru Nakamura](https://github.com/nakamura196) <na.kamura.1263@gmail.com>
