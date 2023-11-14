@@ -16,4 +16,4 @@ Ontologies: Interactions Lab
 * https://w3id.org/interactions/ontologies/xarm/v1 --> https://raw.githubusercontent.com/danaivach/xarm-ontology/main/core.ttl
 
 Contacts: 
-* Danai Vachtsevanou <danai.vacht@gmail.com>
+* Danai Vachtsevanou <danai.vacht@gmail.com> (@danaivach)
