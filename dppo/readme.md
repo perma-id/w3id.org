@@ -9,6 +9,6 @@ Digital Product Passport (DPPs) provide a digital representation of physical pro
 
 ## Contact
 * Maike Jansen <maike.jansen@wupperinst.org>
-* Robin Keskisärkkä <robin.keskisarkka@liu.se>
+* Robin Keskisärkkä <robin.keskisarkka@liu.se> (@keski)
 * Eva Blomqvist <eva.blomqvist@liu.se>
 * Huanyu Li <huanyu.li@liu.se>
