@@ -1,14 +1,8 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# should there be a rule for going stright to the GH repo page?
-#RewriteRule ^(.*) https://github.com/microbiomedata/ [R=307,L]
+RewriteRule ^(.*).yaml$ https://raw.githubusercontent.com/microbiomedata/nmdc-schema/main/src/schema/$1.yaml [R=307,L]
 
-RewriteRule ^(.*).yaml$ https://raw.githubusercontent.com/microbiomedata/nmdc-schema/main/src/schema/$1.yaml [R=302,L]
+RewriteRule ^((?:act|ansm|bsm|bsmprc|clsite|dobj|extrp|frsite|inst|libprp|matsm|omprc|poolp|procsm|sty|wf).*)$      https://api.microbiomedata.org/nmdcschema/ids/$1 [R=307,L]
 
-RewriteRule ^(.*)$      https://microbiomedata.github.io/nmdc-schema/$1 [R=302,L]
-
-## doesn't add anything to the ^(.*)$ rule
-#RewriteRule ^$          https://microbiomedata.github.io/nmdc-schema    [R=302,L]
-
-# force push
+RewriteRule ^(.*)$      https://microbiomedata.github.io/nmdc-schema/$1 [R=307,L]
