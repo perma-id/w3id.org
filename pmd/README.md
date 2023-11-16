@@ -5,7 +5,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the platfo
 This namespace represents a general ontology namespace for the platform material digital while subpaths point to specific vocabularies, currently:
 - `co`: PMD Core Ontology (PMDco)
 - `glass-ontology`: Glass Digital Ontology (PMDgo)
-- `tto´: Tensile Test Ontology (TTO)
+- `tto`: Tensile Test Ontology (TTO)
 
 ## Contact
 Current maintainers are:
