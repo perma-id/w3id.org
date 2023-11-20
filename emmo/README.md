@@ -80,7 +80,7 @@ There are several reasons to use GitHub Pages:
   To speed up the loading process, you could merge (squash) all modules into a single turtle file, which you could store on GitHub Pages.
 - _You want to publish the inferred ontology, so that the user have full to the full inferred ontology without having to first running a reasoner._
 - _Reference html documenting of classes and relations in the ontology._
-  The main aim of this document is to making the IRIs resolvable in a browser as human readable documentation of the concepts.
+  The main aim of this document is to make the IRIs resolvable in a browser as human readable documentation of the concepts.
 
 Expected structure of GitHub pages:
 
