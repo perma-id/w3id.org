@@ -29,6 +29,18 @@ Some test links that should always give a 200 response:
 - https://w3id.org/stax/0.3.0/ontology.nt
 - https://w3id.org/stax/0.3.0/ontology/dl.jsonld#test
 
+Nanopubs:
+
+- https://w3id.org/stax/nanopub
+- https://w3id.org/stax/nanopub.trig
+- https://w3id.org/stax/nanopub.nq
+- https://w3id.org/stax/dev/nanopub
+- https://w3id.org/stax/dev/nanopub.trig
+- https://w3id.org/stax/dev/nanopub.nq
+- https://w3id.org/stax/0.4.0/nanopub
+- https://w3id.org/stax/0.4.0/nanopub.trig
+- https://w3id.org/stax/0.4.0/nanopub.nq
+
 ## Maintainers
 Piotr Sowiński \
 GitHub: https://github.com/Ostrzyciel \
