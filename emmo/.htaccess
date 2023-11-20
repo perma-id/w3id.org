@@ -19,9 +19,10 @@ RewriteRule ^(domain-)?([^/]+)$ https://emmo-repo.github.io/$1$2/$2.ttl [R=303,N
 
 
 # Rule 2: https://w3id.org/emmo/{DOMAIN}/
-#
+# Alias:  https://w3id.org/emmo/{DOMAIN}/latest
 # {DOMAIN}.ttl file in the root of the master branch
 RewriteRule ^(domain-)?([^/]+)/$ https://raw.githubusercontent.com/emmo-repo/$1$2/master/$2.ttl [R=303,NE,L]
+RewriteRule ^(domain-)?([^/]+)/latest/?$ https://raw.githubusercontent.com/emmo-repo/$1$2/master/$2.ttl [R=303,NE,L]
 
 
 # Rule 3: https://w3id.org/emmo/{DOMAIN}/{VERSION}
@@ -37,9 +38,9 @@ RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)$ https://emmo-repo.github.io/$1$2/ve
 
 
 # Rule 4: https://w3id.org/emmo/{DOMAIN}/{VERSION}/
-#
 # {DOMAIN}.ttl file in the root of branch for the given version
 RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)/$ https://raw.githubusercontent.com/emmo-repo/$1$2/$3/$2.ttl [R=303,NE,L]
+#RewriteRule ^(domain-)?([^/]+)/([0-9][^/]+)/latest/?$ https://raw.githubusercontent.com/emmo-repo/$1$2/$3/$2.ttl [R=303,NE,L]
 
 
 # Rule 5: https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE}
@@ -72,9 +73,11 @@ RewriteRule ^$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
 
 
 # Rule 8: https://w3id.org/emmo/
+# Alias:  https://w3id.org/emmo/latest
 #
 # emmo.ttl file in the root of the master branch
 RewriteRule ^/$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl [R=303,NE,L]
+RewriteRule ^/latest/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl [R=303,NE,L]
 
 
 # Rule 9: https://w3id.org/emmo/{VERSION}
@@ -94,6 +97,7 @@ RewriteRule ^([0-9][^/]+)$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R=3
 #
 # emmo.ttl file in the root of branch for the given version
 RewriteRule ^([0-9][^/]+)/$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/emmo.ttl [R=303,NE,L]
+#RewriteRule ^([0-9][^/]+)/latest/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/emmo.ttl [R=303,NE,L]
 
 
 # Rule 11: https://w3id.org/emmo/{PATH}/{MODULE}

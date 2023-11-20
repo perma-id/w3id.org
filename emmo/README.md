@@ -14,6 +14,7 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology `https://w3id.org/{DOMAIN}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
 
 2. `https://w3id.org/emmo/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
+   - Alias: https://w3id.org/emmo/{DOMAIN}/latest
    - `{DOMAIN}.ttl` file in the root of the master branch.
 
 3. `https://w3id.org/emmo/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
@@ -39,6 +40,7 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology `https://w3id.org/emmo/emmo-inferred --> https://emmo-repo.github.io/EMMO/emmo-inferred.ttl`
 
 8. `https://w3id.org/emmo/ --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
+   - Alias: https://w3id.org/emmo/latest
    - `emmo.ttl` file in the root of the master branch.
 
 9. `https://w3id.org/emmo/{VERSION} --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo{.html|.ttl}`
