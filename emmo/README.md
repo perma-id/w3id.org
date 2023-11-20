@@ -22,7 +22,7 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology `https://w3id.org/{DOMAIN}/{VERSION}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
 
 4. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
-   - `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
+    - `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
 
 5. `https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
     - `{PATH}/{MODULE}.ttl` file in master branch.
