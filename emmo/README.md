@@ -25,10 +25,10 @@ This section contains a general summary of the logic behind the redirection rule
     - `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
 
 5. `https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
-    - `{PATH}/{MODULE}.ttl` file in master branch.
+   - `{PATH}/{MODULE}.ttl` file in master branch.
 
 6. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
-    - `{PATH}/{MODULE}.ttl` file for given version and module.
+   - `{PATH}/{MODULE}.ttl` file for given version and module.
 
 
 ### Redirections to EMMO
