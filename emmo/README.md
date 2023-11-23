@@ -8,27 +8,29 @@ This section contains a general summary of the logic behind the redirection rule
 
 ### Redirections to domain ontologies
 
-1. `https://w3id.org/emmo/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
+1. `https://w3id.org/emmo/domain/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
 
-2. `https://w3id.org/emmo/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
-   - Alias: https://w3id.org/emmo/{DOMAIN}/latest
+2. `https://w3id.org/emmo/domain/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
+   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/latest
+   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/source
    - Target: `{DOMAIN}.ttl` file in the root of the master branch.
 
-3. `https://w3id.org/emmo/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
+3. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
    - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/{DOMAIN}-inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
 
-4. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
-    - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
+4. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
+   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source
+   - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
 
-5. `https://w3id.org/emmo/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
+5. `https://w3id.org/emmo/domain/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
    - Target: `{PATH}/{MODULE}.ttl` file in master branch.
 
-6. `https://w3id.org/emmo/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
+6. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
    - Target: `{PATH}/{MODULE}.ttl` file for given version and module.
 
 
@@ -41,6 +43,7 @@ This section contains a general summary of the logic behind the redirection rule
 
 8. `https://w3id.org/emmo/ --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
    - Alias: https://w3id.org/emmo/latest
+   - Alias: https://w3id.org/emmo/source
    - Target: `emmo.ttl` file in the root of the master branch.
 
 9. `https://w3id.org/emmo/{VERSION} --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo{.html|.ttl}`
@@ -49,6 +52,7 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology: `https://w3id.org/emmo/{VERSION}/emmo-inferred --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo-inferred.ttl`
 
 10. `https://w3id.org/emmo/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo.ttl`
+   - Alias: https://w3id.org/emmo/{VERSION}/source
    - Target: `emmo.ttl` file in the root of branch/tag for the given version.
 
 11. `https://w3id.org/emmo/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{PATH}/{MODULE}.ttl`
@@ -74,8 +78,8 @@ In the root of the repository, we should have a file called `{DOMAIN}.ttl`. This
 
 ### GitHub Pages
 Using GitHub pages is optional.
-There are several reasons to use GitHub Pages:
-- _The main turtle file is generated from another semantic source._
+There are several use cases for using GitHub Pages:
+- The main turtle file is generated from another semantic source.
   In this case it make sense to distribute the ontology on GitHub pages to avoid polluting your GitHub repository.
 - _Your ontology consists of many modules importing each other._
   Loading them recursively from GitHub may be very slow.
