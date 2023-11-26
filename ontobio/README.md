@@ -13,7 +13,7 @@ Opencare is licensed under Creative Commons 4.0 International.
 ## Contacts
 
 * **Biswanath Dutta (Indian Statistical Institute)**  
-  [@bisw](https://github.com/biswanathdutta)  
+  [@biswanathdutta](https://github.com/biswanathdutta)  
   <dutta2005@gmail.com>, 
   <bisu@drtc.isibang.ac.in> 
 
