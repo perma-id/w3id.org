@@ -1,5 +1,5 @@
-# SPEECH Ontology
-This W3ID provides a persistent URI namespace for SPEECH Ontology.
+# PODIO Ontology
+This W3ID provides a persistent URI namespace for the PODIO Ontology.
 
 ## Contact
 This space is administered by:
