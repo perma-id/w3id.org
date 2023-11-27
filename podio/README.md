@@ -1,4 +1,4 @@
-# podio Ontology
+# PODIO Ontology
 This W3ID provides a persistent URI namespace for the PODIO Ontology.
 
 ## Contact
