@@ -1,4 +1,4 @@
-MLSO: Machine Learning Sailor Ontology
+# MLSO: Machine Learning Sailor Ontology
 
 Website:
 https://w3id.org/mlso
