@@ -2,4 +2,6 @@
 
 Maintainer: Nicolas Hubert (nicolas.hubert@univ-lorraine.fr)
 
+GitHub ID: https://github.com/nicolas-hbt 
+
 Repository: [GitHub](https://github.com/nicolas-hbt/pygraft)
