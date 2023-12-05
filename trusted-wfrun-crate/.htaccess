@@ -1,0 +1,16 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Documentation (now called 5s-crate)
+RewriteRule ^$ https://trefx.uk/5s-crate/ [R=303,L]
+
+
+# Crate profile (versioned)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+
+# 0.3 was the only release
+RewriteRule ^0.3$ https://trefx.uk/trusted-wfrun-crate/0.3/ro-crate-metadata.jsonld [R=302,L]
+RewriteRule ^0.3$ https://trefx.uk/trusted-wfrun-crate/0.3/ [R=302,L]
+
+# Later versions use a different PID pattern https://w3id.org/5s-crate/

@@ -46,9 +46,11 @@ RewriteRule gas                    https://kurrawong.github.io/w3id-profiles/gas
 # GA SpacePrez Profile
 RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ga-spaceprez$                   https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
-RewriteRule ga-spaceprez.ttl$               https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
-RewriteRule ga-spaceprez                    https://kurrawong.github.io/w3id-profiles/ga-spaceprez [R=302,L]
+RewriteRule ga-spaceprez$           https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
+RewriteRule ga-spaceprez.ttl$       https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
+RewriteRule ga-spaceprez            https://kurrawong.github.io/w3id-profiles/ga-spaceprez [R=302,L]
+
+RewriteRule gts-skos                "https://gswa.dev.kurrawong.ai/object?uri=https://w3id.org/profile/gts-skos" [R=302,NE,L]
 
 # Members Profile
 RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
@@ -132,13 +134,17 @@ RewriteRule vocpub$                        https://agldwg.github.io/vocpub-profi
 RewriteRule vocpub.ttl$                    https://agldwg.github.io/vocpub-profile/profile.ttl [R=302,L]
 RewriteRule vocpub$                        https://agldwg.github.io/vocpub-profile/profile.html [R=302,L]
 RewriteRule vocpub/spec                    https://agldwg.github.io/vocpub-profile/specification.html [R=302,L]
-RewriteRule vocpub/validator               https://agldwg.github.io/vocpub-profile/validator.shacl.ttl [R=302,L]
-RewriteRule vocpub/example/valid           https://agldwg.github.io/vocpub-profile/examples/valid.ttl [R=302,L]
-RewriteRule vocpub/example/invalid-2       https://agldwg.github.io/vocpub-profile/examples/invalid-2.ttl [R=302,L]
-RewriteRule vocpub/example/invalid         https://agldwg.github.io/vocpub-profile/examples/invalid.ttl [R=302,L]
-RewriteRule vocpub/repo                    https://github.com/agldwg/vocpub-profile [R=302,L]
+RewriteRule vocpub/validator/([0-9\.]+)    https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/validator.ttl [R=302,L]
+RewriteRule vocpub/validator               https://agldwg.github.io/vocpub-profile/validators/validator.ttl [R=302,L]
+RewriteRule vocpub/expander/([0-9\.]+)     https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/expander.ttl [R=302,L]
+RewriteRule vocpub/expander                https://agldwg.github.io/vocpub-profile/validators/expander.ttl [R=302,L]
+RewriteRule vocpub/validator-combined/([0-9\.]+)  https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/validator-combined.ttl [R=302,L]
+RewriteRule vocpub/validator-combined      https://agldwg.github.io/vocpub-profile/validators/validator-combined.ttl [R=302,L]
 RewriteRule vocpub/htv                     https://agldwg.github.io/vocpub-profile/HowToValidate.html [R=302,L]
-RewriteRule vocpub/sdo                     https://agldwg.github.io/vocpub-profile/mapping-sdo.ttl [R=302,L]
+RewriteRule vocpub/validate                https://agldwg.github.io/vocpub-profile/scripts/validate.py [R=302,L]
+RewriteRule vocpub/examples                https://github.com/AGLDWG/vocpub-profile/tree/master/examples [R=302,L]
+RewriteRule vocpub/vocs                    https://github.com/AGLDWG/vocpub-profile/tree/master/vocs [R=302,L]
+RewriteRule vocpub/repo                    https://github.com/AGLDWG/vocpub-profile [R=302,L]
 
 # Profiles Register
 RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
