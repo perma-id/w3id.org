@@ -6,6 +6,7 @@ This namespace represents a general ontology namespace for the platform material
 - `co`: PMD Core Ontology (PMDco)
 - `glass-ontology`: Glass Digital Ontology (PMDgo)
 - `tto`: Tensile Test Ontology (TTO)
+- `pgo`: Precipitate Geometry Ontology (PGO)
 
 ## Contact
 Current maintainers are:
