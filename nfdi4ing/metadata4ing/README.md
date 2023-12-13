@@ -15,6 +15,9 @@ rdf, json, ...)
 * JSON-LD context file:
   * https://w3id.org/nfdi4ing/metadata4ing/m4i_context.jsonld
   * --> https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld
+* Logo file:
+  * https://w3id.org/nfdi4ing/metadata4ing/m4i_logo.png
+  * --> https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/develop/visualizations/Logo.png
 
 
 Support:
