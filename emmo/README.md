@@ -12,11 +12,9 @@ This section contains a general summary of the logic behind the redirection rule
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/emmo/domain/{DOMAIN}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
-   - Special case for dev version: `https://w3id.org/emmo/domain/{DOMAIN}/dev --> https://emmo-repo.github.io/{REPO_NAME}/development/{DOMAIN}.ttl`
-   - Special case for inferred dev version: `https://w3id.org/emmo/domain/{DOMAIN}/dev-inferred --> https://emmo-repo.github.io/{REPO_NAME}/development/{DOMAIN}-inferred.ttl`
 
 2. `https://w3id.org/emmo/domain/{DOMAIN}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
-   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/master
+   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/latest
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/source
    - Target: `{DOMAIN}.ttl` file in the root of the master branch.
 
@@ -26,7 +24,6 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
 
 4. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/ --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
-   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/master
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source
    - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
 
@@ -43,11 +40,9 @@ This section contains a general summary of the logic behind the redirection rule
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to the squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/emmo/inferred --> https://emmo-repo.github.io/EMMO/emmo-inferred.ttl`
-   - Special case for dev version: `https://w3id.org/emmo/dev --> https://emmo-repo.github.io/EMMO/development/emmo.ttl`
-   - Special case for inferred dev version: `https://w3id.org/emmo/dev-inferred --> https://emmo-repo.github.io/EMMO/development/emmo-inferred.ttl`
 
 8. `https://w3id.org/emmo/ --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
-   - Alias: https://w3id.org/emmo/master
+   - Alias: https://w3id.org/emmo/latest
    - Alias: https://w3id.org/emmo/source
    - Target: `emmo.ttl` file in the root of the master branch.
    - Special case: `https://w3id.org/emmo/mereocausality --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/mereocausality/mereocausality.ttl`
@@ -111,10 +106,6 @@ Expected structure of GitHub pages:
 ├── {DOMAIN}.ttl                  # Latest version of squashed ontology
 ├── {DOMAIN}-inferred.ttl         # Latest version of inferred ontology
 ├── {DOMAIN}.html                 # Latest version of html reference documentation
-├── development
-│   ├── {DOMAIN}.ttl              # Squashed ontology, bleading edge
-│   ├── {DOMAIN}-inferred.ttl     # Inferred ontology, bleading edge
-│   └── {DOMAIN}.html             # html reference documentation,  bleading edge
 └── versions/{VERSION}/
     ├── {DOMAIN}.ttl              # Squashed ontology for given version
     ├── {DOMAIN}-inferred.ttl     # Inferred ontology for given version
