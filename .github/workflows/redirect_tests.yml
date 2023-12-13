@@ -1,0 +1,28 @@
+name: redirect_tests
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: httpd:2.4
+      env:
+        SEARCH_PATH: "./"
+      ports:
+        - 80
+      volumes:
+        - ./:/usr/local/apache2/htdocs/
+        - ./.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    steps:
+        - name: Checkout Project
+          uses: actions/checkout@v1
+
+        - name: Install curl
+          run: | 
+            apt-get update
+            apt-get install curl
+
+        - name: Run tests
+          run: |
+           chmod +x ./public/scripts/test.sh
+           /usr/local/apache2/htdocs/.test/test.sh
+          shell: bash
