@@ -9,7 +9,7 @@ A SKOS vocabulary for catalysis maintained by NFDI4Cat & friends.
 
 Documentation / vocabulary as one large turtle file
 
--  https://w3id.org/nfdi4cat/voc4cat <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/latest/voc4cat.ttl <BR>-(html)-> https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html
+-  https://w3id.org/nfdi4cat/voc4cat <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/latest/voc4cat.ttl <BR>-(xml/rdf)-> https://nfdi4cat.github.io/voc4cat/latest/voc4cat.xml <BR>-(html)-> https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html
 
 Individual turtle files for concepts or collections
 
@@ -19,7 +19,7 @@ Individual turtle files for concepts or collections
 
 Documentation / vocabulary as one large turtle file
 
-- https://w3id.org/nfdi4cat/voc4cat/2023-08-17 <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat.ttl<BR>-(html)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat/index.html
+- https://w3id.org/nfdi4cat/voc4cat/2023-08-17 <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat.ttl <BR>-(xml/rdf)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat.xml <BR>-(html)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat/index.html
 
 Individual turtle files for concepts or collections
 - https://w3id.org/nfdi4cat/voc4cat/2023-08-17/voc4cat_0000002 <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/v2023-08-17/voc4cat/0000002.ttl
@@ -31,7 +31,7 @@ Individual turtle files for concepts or collections
 
 Documentation / vocabulary as one large turtle file
 
-- https://w3id.org/nfdi4cat/voc4cat/dev <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat.ttl<BR>-(html)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html
+- https://w3id.org/nfdi4cat/voc4cat/dev <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat.ttl  <BR>-(xml/rdf)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat.xml <BR>-(html)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html
 
 Individual turtle files for concepts or collections
 - https://w3id.org/nfdi4cat/voc4cat/dev/voc4cat_0000002 <BR>-(turtle)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat/0000002.ttl<BR>-(html)-> https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html#https://w3id.org/nfdi4cat/voc4cat_0000002
