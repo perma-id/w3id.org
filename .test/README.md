@@ -5,12 +5,14 @@ This is done by mounting the w3id.org repo in an apache docker and test the redi
 
 Test specifications are currently extracted from .htaccess file comments, e. g. 
 ```
-##TESTv1 '/emmo/domain-test --header "Accept: text/html"' "https://emmo-repo.github.io/domain-test/test.html"
+##TESTv1 '/mypath --header "Accept: text/html"' "https://my-target-domain.com/test.html"
 ```
 
 ## Run the test locally
+Note: replace `/*` with your own trusted subpath, e.g. `/mypath`, otherwise all subpaths are tested which may create security issues
 ```bash
-docker run -dit --name apache -p 8080:80 -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
+docker stop apache && docker rm apache
+docker run -dit --name apache -e SEARCH_PATH='/*' -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
 docker exec -i apache sh -c "apt-get update && apt-get install curl"
 docker exec -i apache bash < .test/test.sh
 ```
@@ -19,3 +21,4 @@ docker exec -i apache bash < .test/test.sh
 ```bash
 docker exec -i apache sh -c 'curl -sL -o /dev/null -w "%{url_effective}\n" --resolve www.w3id.org:80:127.0.0.1 www.w3id.org:80/subpath --header "Accept: application/rdf+xml"'
 ```
+
