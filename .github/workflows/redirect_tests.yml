@@ -1,5 +1,11 @@
 name: redirect_tests
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      search_path:
+        description: "Subpath to test, e.g. '/osw' (empty = all subpaths)" 
+        default: '/*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -8,7 +14,7 @@ jobs:
           uses: actions/checkout@v1
 
         - name: Run apache docker
-          run: docker run -dit --name apache -p 80:80 -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
+          run: docker run -dit --name apache -e SEARCH_PATH=${{ github.event.inputs.search_path }} -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
 
         - name: Install curl
           run: docker exec -i apache sh -c "apt-get update && apt-get install curl"
