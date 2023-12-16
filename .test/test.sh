@@ -10,7 +10,7 @@ IFS=';' read -ra paths <<< "$SEARCH_PATH"
 for path in "${paths[@]}"; do
 
     # search path can be restricted with env var $SEARCH_PATH
-    for f in $(find /usr/local/apache2/htdocs/$path -name '.htaccess')
+    for f in $(find /usr/local/apache2/htdocs$path -name '.htaccess')
     do
         echo "Processing file $f"
 
