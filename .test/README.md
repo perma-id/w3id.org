@@ -11,8 +11,8 @@ Test specifications are currently extracted from .htaccess file comments, e.g.
 ## Run the test as Github Action
 1. Navigate to `https://github.com/<your fork>/w3id.org/actions/workflows/redirect_tests.yml` (example see [here](https://github.com/OpenSemanticWorld/w3id.org/actions/workflows/redirect_tests.yml))
 1. Select 'Run workflow'
-1. Keep the master branch or select your custom branch
-1. Change the subpath to your subpath, e.g. `/mypath`
+1. Accept the master branch, or select your custom branch
+1. Change the subpath to your subpath, e.g., `/mypath`
 1. Click 'Run workflow'
 1. After completion, click on the run entry to view details (example see [here](https://github.com/OpenSemanticWorld/w3id.org/actions/runs/7224639650/job/19686349546))
 
