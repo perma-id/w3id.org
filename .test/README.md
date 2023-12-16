@@ -3,7 +3,7 @@
 Tests running directly on the source .htaccess files. It does only test the redirect, not the existance of the resource redirected to.
 This is done by mounting the w3id.org repo in an apache docker and test the redirects with curl.
 
-Test specifications are currently extracted from .htaccess file comments, e. g. 
+Test specifications are currently extracted from .htaccess file comments, e.g. 
 ```
 ##TESTv1 '/mypath --header "Accept: text/html"' "https://my-target-domain.com/test.html"
 ```
