@@ -3,15 +3,19 @@ on:
   workflow_dispatch:
     inputs:
       search_path:
-        description: "Subpath to test, e.g. '/osw' (empty = all subpaths)" 
+        description: "Subpath to test, e.g. '/osw' ('/*' = all subpaths)" 
         default: '/*'
+  pull_request:
 
 jobs:
-  build:
+  dispatch_test:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
         - name: Checkout Project
-          uses: actions/checkout@v1
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
         - name: Run apache docker
           run: docker run -dit --name apache -e SEARCH_PATH=${{ github.event.inputs.search_path }} -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
@@ -21,3 +25,17 @@ jobs:
 
         - name: Run tests
           run: docker exec -i apache bash < .test/test.sh
+
+  pull_request_test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+        - name: Get changed files
+          id: changed-files
+          uses: tj-actions/changed-files@v40
+        
+        - name: List all changed files
+          run: |
+            for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+              echo "$file was changed"
+            done
