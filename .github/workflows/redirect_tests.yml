@@ -40,6 +40,19 @@ jobs:
         
         - name: List all changed dirs
           run: |
+            paths=""
             for dir in ${{ steps.changed-dirs.outputs.all_changed_files }}; do
               echo "$dir was changed"
+              paths="$paths/$dir;"
             done
+            echo "SEARCH_PATH=$paths" >> $GITHUB_ENV
+            echo "set SEARCH_PATH to $SEARCH_PATH"
+
+        - name: Run apache docker
+          run: docker run -dit --name apache -e SEARCH_PATH="$SEARCH_PATH" -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
+
+        - name: Install curl
+          run: docker exec -i apache sh -c "apt-get update && apt-get install curl"
+
+        - name: Run tests
+          run: docker exec -i apache bash < .test/test.sh
