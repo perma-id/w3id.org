@@ -30,6 +30,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     steps:
+        - name: Checkout Project
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
         - name: Get changed dirs
           id: changed-dirs
           uses: tj-actions/changed-files@v40
