@@ -19,6 +19,8 @@ SetEnvIf Request_URI ^.*$ BELL_URL=https://raw.githubusercontent.com/polifonia-p
 SetEnvIf Request_URI ^.*$ ALGORITHM_URL=https://raw.githubusercontent.com/polifonia-project/music-algorithm-ontology/main/ontology/music-algorithm.owl
 SetEnvIf Request_URI ^.*$ ANALYSIS_URL=https://raw.githubusercontent.com/polifonia-project/music-analysis-ontology/main/ontology/music-analysis.owl
 SetEnvIf Request_URI ^.*$ ANNOTATION_URL=https://raw.githubusercontent.com/polifonia-project/music-annotation-ontology/main/ontology/music-annotation.owl
+SetEnvIf Request_URI ^.*$ MEETUPS_URL=https://raw.githubusercontent.com/polifonia-project/meetups-ontology/main/ontology/meetups-ontology.owl
+SetEnvIf Request_URI ^.*$ MEETUPS_REDIRECT_URL=https://polifonia.kmi.open.ac.uk/meetups/entities?entity=http://w3id.org/polifonia/pilot/meetups
 SetEnvIf Request_URI ^.*$ FULL_URL=https://raw.githubusercontent.com/polifonia-project/ontology-network/main/ontology/ontology-network.owl
 
 # TEST URL
@@ -76,6 +78,9 @@ RewriteRule ^ontology/music-algorithm(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?
 RewriteRule ^ontology/music-analysis(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ANALYSIS_URL} [R=303,L]
 # ANNOATION
 RewriteRule ^ontology/music-annotation(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ANNOTATION_URL} [R=303,L]
+# MEETUPS
+RewriteRule ^ontology/meetups-ontology(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:MEETUPS_URL} [R=303,L]
+RewriteRule ^pilot/meetups/(.*)$ %{ENV:MEETUPS_REDIRECT_URL}/$1 [R=301,L]
 # FULL
 RewriteRule ^ontology/ontology-network(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:FULL_URL} [R=303,L]
 

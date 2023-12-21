@@ -1,0 +1,22 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Homepage
+RewriteRule ^$ https://www.ogc.org/ [R=302,L]
+
+## dev
+RewriteRule ^dev/?$ https://defs-dev.opengis.net/vocprez/ [R=303,L]
+RewriteRule ^dev/(.+)$ https://defs-dev.opengis.net/vocprez/object?uri=https://w3id.org/ogc/dev/$1 [R=303,L]
+
+## hosted
+RewriteRule ^hosted/?$ https://defs-dev.opengis.net/vocprez-hosted/ [R=303,L]
+RewriteRule ^hosted/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ogc/hosted/$1 [R=303,L]
+
