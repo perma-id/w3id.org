@@ -2,7 +2,7 @@
 This [W3ID](https://w3id.org/) provides a persistent URI namespace for the SemIoE ontology and related resources.
 
 ## Uses
-This namespace enables access to the repository, the specification of the terms and specific serializations of the ontology.
+This namespace enables access to the repository, the specification of the terms, and specific serializations of the ontology.
 
 ## Contact
 This space is administered by:
