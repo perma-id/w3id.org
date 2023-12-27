@@ -1,7 +1,8 @@
 tvprogr
 ===========
 
-This project provides vocabularies for Japanese TV stations, regional information and related information.
+This project provides vocabularies for Japanese TV stations, regional information, and related information.
+
 
 Homepage:
 
