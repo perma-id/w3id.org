@@ -8,7 +8,7 @@
 catches https://w3id.org/isample/vocabulary/specimentype/1.0/{term}
 
 Redirects to ARDC Research Vocabularies Australia (RVA)
-https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-type-vocabulary/2023-11-06/resource?uri=https%3A%2F%2Fw3id.org%2Fisample%2Fvocabulary%2Fspecimentype%2F1.0%2F{term}
+https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-type-vocabulary/2023-11-06/resource?uri=https://w3id.org/isample/vocabulary/specimentype/1.0/{term}
 
 not that the RVA URLs include a revision date; if the vocabulary is updated without generating a new version in the term URI, the redirects will need to be modified.
 
