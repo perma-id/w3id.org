@@ -4,7 +4,7 @@ RewriteEngine on
 # set environmental variable for the current version
 SetEnvIf Request_URI "^.*" currentversion=1.0
 
-#https://vocabs.ardc.edu.au/repository/api/lda/isamples/biology-extension-basic-taxon-classes-for-biologic/1-0/resource?uri=https%3A%2F%2Fw3id.org%2Fisample%2Fbiology%2Fbiosampledfeature%2F1.0%2Fbiologicentityvocabulary
+#https://vocabs.ardc.edu.au/repository/api/lda/isamples/biology-extension-basic-taxon-classes-for-biologic/1-0/resource?uri=https://w3id.org/isample/biology/biosampledfeature/1.0/biologicentityvocabulary
 
 # ../isample/biology/biosampledfeature get vocabulary ttl format with text/turtle accept header
 RewriteCond %{HTTP:Accept} text/turtle [NC]
@@ -17,11 +17,6 @@ RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/
 # just ../isample/biology/biosampledfeature  gets the html view of the current version of the vocab, from ARDC RVA
 RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/biology-extension-basic-taxon-classes-for-biologic/1-0/resource?uri=https://w3id.org/isample/biology/biosampledfeature/%{ENV:currentversion}/biologicentityvocabulary [R=303,L]
 
-#  Have to check if this is necessary. Currently only valid version is 1.0 
-#need condition to check if there is a version number
-# will need to update with new versions
-#RewriteCond ^\d+.\d+\/ "=0.9/"
-#RewriteRule       ^(^\d+.\d+\/.+)$    #https://vocabs.ardc.edu.au/repository/api/lda/isamples/biology-extension-basic-taxon-classes-for-biologic/1-0/resource?uri=https://w3id.org/isample/biology/biosampledfeature/$1/biologicentityvocabulary [R=303,L]
 
 # no version number gets ARDC vocabulary landing page
 RewriteRule       ^(.+)$   https://vocabs.ardc.edu.au/viewById/672  [R=303,L]
