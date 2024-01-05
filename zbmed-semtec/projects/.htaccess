@@ -20,5 +20,9 @@ RewriteRule ^(.+)$ https://zbmed-semtec.github.io/projects/$1.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^(.+)$ https://zbmed-semtec.github.io/projects/$1/ro-crate-metadata.json [R=303,L]
 
+# not acceptable requests (asking for other than JSON-LD or html)
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://zbmed-semtec.github.io/406.html [R=406,L]
+
 
 
