@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+#  uri to access individual term
+
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^(.+)$     https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-material/1-0/resource.ttl?uri=https://w3id.org/isample/earthenv/esmaterialsample/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/json [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-material/1-0/resource.json?uri=https://w3id.org/isample/earthenv/esmaterialsample/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-material/1-0/resource.rdf?uri=https://w3id.org/isample/earthenv/esmaterialsample/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-material/1-0/resource.html?uri=https://w3id.org/isample/earthenv/esmaterialsample/1.0/$1 [R=303,L]
+
+# default format is html
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-material/1-0/resource?uri=https://w3id.org/isample/earthenv/esmaterialsample/1.0/$1 [R=303,L]
+
+
+
