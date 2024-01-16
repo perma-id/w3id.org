@@ -14,4 +14,5 @@ These URIs are maintained by the [Language Data Commons of Australia](https://ld
 * https://w3id.org/ldac/context
 
 ## Contacts
-* Peter Sefton (p.sefton@uq.edu.au)
+* Peter Sefton (p.sefton@uq.edu.au) [@ptsefton](https://github.com/ptsefton)
+* Alvin Sebastian (a.sebastian@uq.edu.au) [@alvinsw](https://github.com/alvinsw)
