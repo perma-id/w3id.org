@@ -6,4 +6,8 @@ The OWL Ontology is under development and will be namespaced https://w3id.org/en
 The SKOS Vocabulary is under development and will be namespaced https://w3id.org/encode/vocabulary.
 Entities will be defined in the Classes Module, Competence and Openinig, so that e.g. an entity  https://w3id.org/encode/modules/m1 may be defined and identified.
 
-Data will be available on the database provided by Universität Hamburg and will be maintained by [Pietro Liuzzo](https://orcid.org/0000-0001-5714-4011) and Daria Elagina.
+Data will be available on the database provided by Bibliotheca Hertziana. 
+ 
+  Formerly this application and database was provided by Universität Hamburg where it was developed by Daria Elagina. 
+  
+  This database is maintained by [Pietro Liuzzo](https://orcid.org/0000-0001-5714-4011).
