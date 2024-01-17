@@ -18,4 +18,13 @@ a US non-profit association.
 You may get in contact with them on their matrix chat: \
 <https://matrix.to/#/#valueflows:matrix.org>
 
+Maintainers:
+
+- Lynn Foster (owner) [fosterlynn@GH](https://github.com/fosterlynn)
+- Bob Haugen (owner) [bhaugen@GH](https://github.com/bhaugen)
+- Elf Pavlik (contributor) [elf-pavlik@GH](https://github.com/elf-pavlik)
+- Robin Vobruba (contributor) [hoijui@GH](https://github.com/hoijui)
+- Mikey (past contributor) [ahdinosaur@GH](https://github.com/ahdinosaur)
+- Kalin Maldzhanski (past contributor) [djodjoni@GH](https://github.com/djodjoni)
+
 [VF]: https://www.valueflo.ws/
