@@ -21,11 +21,14 @@ RewriteRule ^$ https://navapatn.github.io/halo-ontology/ontology/index-en.html [
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://navapatn.github.io/halo-ontology/ontology/ontology.owl [R=303,L]
 
+# Error document in case of a 406
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://navapatn.github.io/halo-ontology/ontology/406.html [R=406,L]
+
 # Default response
 # ---------------------------
 # Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
 RewriteRule ^$ https://raw.githubusercontent.com/navapatn/halo-ontology/main/ontology/ontology.owl [R=303,L]
 
-# Error document in case of a 406
-ErrorDocument 406 https://navapatn.github.io/halo-ontology/ontology/406.html
+
 
