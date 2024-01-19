@@ -20,30 +20,30 @@ SetEnvIf Accept ^.*application/rdf\+json   FILE_EXT=rj     # RDF/JSON
 SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
 SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
 SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://lab.allmende.io/valueflows/valueflows/-/raw
 
 # The preffered URLs
 # latest
 RewriteRule \
-	^ont/vf$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT} \
+	^ont/vf(#[^/]+)?$ \
+	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/vf$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT} \
+	^ont/([^/]+)/vf(#[^/]+)?$ \
+	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
 # latest
 RewriteRule \
-	^ont/vf\.([^/]\+)$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1 \
+	^ont/vf\.([^/#]\+)(#[^/]+)?$ \
+	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/vf\.([^/]\+)$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2 \
+	^ont/([^/]+)/vf\.([^/#]\+)(#[^/]+)?$ \
+	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
 	[R=302,L]
-
