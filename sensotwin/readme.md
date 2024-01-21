@@ -6,9 +6,9 @@
 This space is administered by:  
 
 **Ursula Pähler**  
-*Research Assistant*  /n
-bavaria, germany /n
-<ursula.paehler@th-deg.de> /n
-GitHub: [upaehler](https://github.com/upaehler/) /n
+*Research Assistant*  
+bavaria, germany  
+<ursula.paehler@th-deg.de>  
+GitHub: [upaehler](https://github.com/upaehler/)  
 ORCID: [0009-0004-1208-3971](https://orcid.org/0009-0004-1208-3971)  
 
