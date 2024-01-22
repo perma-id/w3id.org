@@ -3,7 +3,7 @@ This Fair Data Point contains EJP-RD-VP [resource metadata schema](https://githu
 
 Recommended PREFIX and URL format is
 
-        ddp-data: <http://w3id.org/vep-ejprd-vp/>
+        ddp-data: <https://w3id.org/vep-ejprd-vp/>
 
 ## Contact
 - Maintainer: Diana Lemos, github: dglemos
