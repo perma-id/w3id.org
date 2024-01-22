@@ -18,16 +18,16 @@ This repository holds the website source code for <https://w3id.org/>.
 ### Purpose
 
 The purpose of this website is to provide a secure, permanent
-[URL](http://en.wikipedia.org/wiki/URL) re-direction service for Web
+[URL](https://en.wikipedia.org/wiki/URL) re-direction service for Web
 applications. This service is run by the
-[W3C Permanent Identifier Community Group](http://www.w3.org/community/perma-id/).
+[W3C Permanent Identifier Community Group](https://www.w3.org/community/perma-id/).
 
 Web applications that deal with
-[Linked Data](http://en.wikipedia.org/wiki/Linked_data) often need to
+[Linked Data](https://en.wikipedia.org/wiki/Linked_data) often need to
 specify and use URLs that are very stable. They utilize services such
 as this one to ensure that applications using their URLs will always
 be re-directed to a working website. This website operates like a
-[switchboard](http://en.wikipedia.org/wiki/Telephone_switchboard),
+[switchboard](https://en.wikipedia.org/wiki/Telephone_switchboard),
 connecting requests for information with the true location of the
 information on the Web. The switchboard can be reconfigured to point
 to a new location if the old location stops working.
@@ -38,13 +38,13 @@ There is a growing group of organizations in a consortium that have pledged
 responsibility to ensure the operation of this website. These organizations
 are: 
 
-* [Digital Bazaar](http://digitalbazaar.com/)
+* [Digital Bazaar](https://www.digitalbazaar.com/)
 * [3 Round Stones](http://3roundstones.com/)
 * [OpenLink Software](https://www.openlinksw.com/)
-* [Applied Testing and Technology](http://www.aptest.com/)
+* [Applied Testing and Technology](https://www.aptest.com/)
 * [Openspring](http://openspring.net/)
-* [Bosatsu Consulting](http://bosatsu.net/)
-* [SURROUND Australia](https://surroundaustralia.com)
+* [Bosatsu Consulting](https://bosatsu.net/)
+* [SURROUND Australia](https://surroundaustralia.com/)
 
 They are responsible for all
 administrative tasks associated with operating the service. The social
@@ -86,8 +86,15 @@ If you would like to add or update a permanent identifier of the form
 following steps:
 
 1. _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org) 
-   on Github.
+   on GitHub.
 2. Add or update a new redirect entry and commit your changes.
+   1. If it does not yet exist, create a new directory with an intended permanent
+      identifer name (see [Naming Policy](#naming) below).
+   3. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
+      * `.htaccess` contains redirection rules, for computer to read and perform.
+      * `README.md` contains more identifier info and contact info, for human to read.
+      * See [w3id.org/examples](https://github.com/perma-id/w3id.org/tree/master/examples)
+      for examples of `.htaccess` and  `README.md`.
 3. Submit a _Pull Request_ for your changes.
 
 The maintainers of this system will then act on that _Pull Request_ and 
@@ -108,9 +115,7 @@ to host this system. Please see this documentation:
 Please help out the maintainers of the service with the following in your 
 Pull Requests:
 
-* **contact info** in a README.md or .htaccess comment.
-  * See this example of a good README file: 
-    [w3id.org/dggs/ README](https://github.com/perma-id/w3id.org/tree/master/dggs)
+* **contact info** in a `README.md` or `.htaccess` comment.
 * **test your changes** with a local checkout of the site.
 * **_Squash_ multiple commits** into one commit before a pull request 
   if appropriate.
@@ -121,27 +126,12 @@ Pull Requests:
   modify the default "Create/Update/Delete `.htaccess`" message.
 
 You can also send a request to add a redirect to the 
-[public-perma-id@w3.org](http://lists.w3.org/Archives/Public/public-perma-id/) 
+[public-perma-id@w3.org](https://lists.w3.org/Archives/Public/public-perma-id/) 
 mailing list. Make sure to include the URL that you want on w3id.org, the 
 URL that you want to redirect to, and the HTTP code that you want to use 
 when redirecting. An administrator will then create the redirect for you.
 
-#### Link checking
-A simple [Travis-CI](https://travis-ci.org/perma-id/w3id.org) job
-(see [`.travis.yml`](.travis.yml)) will extract all https://w3id.org/
-URIs from `*/README.md` and check them with
-[`linkchecker`](https://wummel.github.io/linkchecker/).
-In theory, this will catch two kinds of errors:
-
-1. Following a redirection gives a `404 Not Found`
-2. An error in `.htaccess` causes a `500 Server Error`.
-
-Note that this only checks URIs that are listed in the `README.md` files.
-
-Travis might comment on your Pull Request if this test reveals an error.
-Check its output logs to ensure the errors are not caused by
-your modification.
-
+<a id="naming"></a>
 ### Naming Policy
 
 There is no official policy on identifier names. The current practice
@@ -158,7 +148,7 @@ service expansion.
 
 If you wish to engage the community in discussion about this service for
 your Web application, please send an e-mail to the
-[public-perma-id@w3.org mailing list](http://lists.w3.org/Archives/Public/public-perma-id/).
+[public-perma-id@w3.org mailing list](https://lists.w3.org/Archives/Public/public-perma-id/).
 
 * * *
 

@@ -13,6 +13,7 @@ Some test links that should always give a 200 response:
 - https://w3id.org/riverbench/v/dev.rdf
 - https://w3id.org/riverbench/v/dev.nt
 - https://w3id.org/riverbench/v/dev.ttl
+- https://w3id.org/riverbench/v/dev.jelly
 - https://w3id.org/riverbench/profiles/stream-triples
 - https://w3id.org/riverbench/profiles/stream-triples.rdf
 - https://w3id.org/riverbench/profiles/stream-triples.nt
@@ -21,6 +22,10 @@ Some test links that should always give a 200 response:
 - https://w3id.org/riverbench/profiles/stream-triples/dev.rdf
 - https://w3id.org/riverbench/profiles/stream-triples/dev.nt
 - https://w3id.org/riverbench/profiles/stream-triples/dev.ttl
+- https://w3id.org/riverbench/dumps/dev.rdf.gz
+- https://w3id.org/riverbench/dumps/dev.nt.gz
+- https://w3id.org/riverbench/dumps/dev.ttl.gz
+- https://w3id.org/riverbench/dumps/dev.jelly.gz
 
 ## Maintainers
 Piotr Sowiński \
