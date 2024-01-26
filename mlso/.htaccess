@@ -11,5 +11,23 @@ RewriteRule ^(.*)\.conneg$  https://raw.githubusercontent.com/dtai-kg/MLSO/main/
 RewriteCond %{HTTP_ACCEPT} .+
 RewriteRule (.*)\.conneg$ https://dtai-kg.github.io/MLSO/406.html [NE,L,R=406] # Error Widoco page
 
-## REDIRECTS
+## TAXONOMIES REDIRECTS
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/dataset_characteristic$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_dataset_characteristics.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/feature_characteristic$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_feature_characteristics.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/evaluation_measure$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_evaluation_measures.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/estimation_procedure$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_estimation_procedures.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/learning_method$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_learning_methods.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/ml_algorithm$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_algorithms.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/ml_field$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_fields.ttl
+RewriteCond %{REQUEST_URI} ^/mlso/vocab/ml_task_type$
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_task_types.ttl
+
+## ALL OTHER REDIRECTS
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/mlso/$1.conneg [NE,R,L]
