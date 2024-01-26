@@ -1,5 +1,5 @@
 # /arp/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the Hungarian national repository service "Adatrepozitórium Platform" (ARP).
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the Hungarian national repository service "Adatrepozitórium Platform" ([ARP](https://science-research-data.hu/en)).
 
 ## Maintainers
 
