@@ -3,14 +3,6 @@ Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,
 Options +FollowSymLinks
 RewriteEngine on
 
-## CONTENT NEGOTIATION
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)\.conneg$ https://dtai-kg.github.io/MLSO/#http://w3id.org/$1 [NE,R,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.*)\.conneg$  https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/ml-onto.ttl#http://w3id.org/$1 [NE,R,L]
-RewriteCond %{HTTP_ACCEPT} .+
-RewriteRule (.*)\.conneg$ https://dtai-kg.github.io/MLSO/406.html [NE,L,R=406] # Error Widoco page
-
 ## TAXONOMIES REDIRECTS
 RewriteCond %{REQUEST_URI} ^/mlso/vocab/dataset_characteristic$
 RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_dataset_characteristics.ttl
@@ -28,6 +20,14 @@ RewriteCond %{REQUEST_URI} ^/mlso/vocab/ml_field$
 RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_fields.ttl
 RewriteCond %{REQUEST_URI} ^/mlso/vocab/ml_task_type$
 RewriteRule ^(.*)$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_task_types.ttl
+
+## CONTENT NEGOTIATION
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)\.conneg$ https://dtai-kg.github.io/MLSO/#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)\.conneg$  https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/ml-onto.ttl#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule (.*)\.conneg$ https://dtai-kg.github.io/MLSO/406.html [NE,L,R=406] # Error Widoco page
 
 ## ALL OTHER REDIRECTS
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/mlso/$1.conneg [NE,R,L]
