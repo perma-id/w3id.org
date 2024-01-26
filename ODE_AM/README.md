@@ -1,4 +1,4 @@
-# /pmd/
+# /ODE_AM/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the ODE_AM digital vocabularies.
 
 ## Uses
