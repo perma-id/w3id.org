@@ -1,0 +1,42 @@
+RewriteEngine On
+
+# Set environment variables for 3  deployments: production, dev, localdev
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN:cedar.dsd.sztaki.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN:concorda2test.dsd.sztaki.hu]
+
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_DEV:cedardev.dsd.sztaki.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_DEV:dsddev.concorda.sztaki.hu]
+
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_LOCAL_DEV:arp.orgx]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_LOCAL_DEV:localhost:8080]
+
+
+# CEDAR schema identifiers
+RewriteRule ^schema/(.*)$ https://%{ENV:CEDAR_BASE_DOMAIN}/templates/$1 [R=302,L]
+RewriteRule ^dev/schema/(.*)$ https://%{ENV:CEDAR_BASE_DOMAIN_DEV}/templates/$1 [R=302,L]
+RewriteRule ^localdev/schema/(.*)$ https://%{ENV:CEDAR_BASE_DOMAIN_LOCAL_DEV}/templates/$1 [R=302,L]
+
+#
+# In the following rules Dataverse PID-s are expected to be passed as-is, without encoding.
+#
+
+# RO-Crate file identifier. /ro-id/<PID>/file/<compound ID>
+# File has special URL, because we have a Dataverse page for files
+RewriteRule ^ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/file/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCAL_DEV}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+
+# For other Dataverse MDB data we just go to the dataset.xhtml as is, no special view
+# /ro-id/<PID>/<compound fieldName>/<compound ID>
+RewriteRule ^ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/(.*)?/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCAL_DEV}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+
+# For non Dataverse, RO-Crate only data:
+# /ro-id/<PID>/<UUID>
+RewriteRule ^ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/(.*)$ http://%{ENV:DATAVERSE_DOMAIN_LOCAL_DEV}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+
+# Add homepage of project
+RewriteRule ^home$ https://science-research-data.hu/en [R=302,L]
