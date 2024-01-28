@@ -23,27 +23,32 @@ SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://lab.allmende.io/valueflows/valueflows/-/raw
+SetEnvIf FILE_EXT ^ PROXY=
+SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=
+
+# [Recommended IRI patterns for ontologies and their terms](
+# https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
 # The preffered URLs
 # latest
 RewriteRule \
 	^ont/vf(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/vf(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
 # latest
 RewriteRule \
 	^ont/vf\.([^/#]\+)(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/vf\.([^/#]\+)(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
 	[R=302,L]
