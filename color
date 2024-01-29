@@ -1,0 +1,3204 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/10164/ontologies/2023/6/untitled-ontology-14/"
+     xml:base="http://www.semanticweb.org/10164/ontologies/2023/6/untitled-ontology-14/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:vim="http://www.nmdc.ac.cn/ontology/vim#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:color-ontology="http://example.org/color-ontology#">
+    <owl:Ontology rdf:about="http://example.org/color-ontology">
+        <owl:imports rdf:resource="http://www.nmdc.ac.cn/ontology/1.0/vim"/>
+        <owl:imports rdf:resource="http://www.w3.org/2004/02/skos/core"/>
+        <terms:date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2023/09/28</terms:date>
+        <rdfs:comment xml:lang="en">The color model is designed based on OWL (On Web Ontology Language). color supports the description of colors, color spaces, etc. The color model can be translated into other machine-processable representations as needed.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">color模型是基于OWL（网络本体语言）进行设计。color支持对颜色、色彩空间等的描述。color模型可以根据需要被翻译成其他机器可处理的表示形式。</rdfs:comment>
+        <rdfs:label xml:lang="en">color ontology - Version 1.0.0</rdfs:label>
+        <rdfs:label xml:lang="zh">颜色本版本1.0.0</rdfs:label>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/color-ontology#alsoKnownAs -->
+
+    <owl:AnnotationProperty rdf:about="http://example.org/color-ontology#alsoKnownAs">
+        <rdfs:label xml:lang="en">also known as</rdfs:label>
+        <skos:altLabel xml:lang="zh">又称</skos:altLabel>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasMoral -->
+
+    <owl:AnnotationProperty rdf:about="http://example.org/color-ontology#hasMoral">
+        <rdfs:label xml:lang="en">has moral</rdfs:label>
+        <skos:altLabel xml:lang="zh">有寓意</skos:altLabel>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/color-ontology#hasAdjacentColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasAdjacentColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Neighboring hue contrast: two to three adjacent color contrast on the hue ring, hue distance of about 60 degrees or so, for the weak contrast type. Such as red-orange and orange and yellow-orange contrast. The effect feels soft, harmonious, elegant, quiet, but also feels monotonous, fuzzy, boring, powerless, must be adjusted to strengthen the effect of brightness difference.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">邻近色相对比：色相环上相邻的二至三色对比，色相距离大约60度左右，为弱对比类型。如红橙与橙与黄橙色对比等。效果感觉柔和、和谐、雅致、文静，但也感觉单调、模糊、乏味、无力，必须调节明度差来加强效果。</rdfs:comment>
+        <rdfs:label xml:lang="en">has adjacent color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有邻近色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasAffectedColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasAffectedColor">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="zh">表示由于视觉障碍，该人在感知颜色方面可能存在困难的颜色。</rdfs:comment>
+        <rdfs:label xml:lang="en">has affected color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有受影响的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasApplicableDataType -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasApplicableDataType">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#DataType"/>
+        <rdfs:label xml:lang="en">has applicable data type</rdfs:label>
+        <skos:altLabel xml:lang="zh">有适用的数据类型</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasApplicationUnit -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasApplicationUnit">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Application"/>
+        <rdfs:range rdf:resource="http://www.nmdc.ac.cn/ontology/vim#Unit"/>
+        <rdfs:comment xml:lang="zh">描述在颜色领域中单位之间定义的关系。</rdfs:comment>
+        <rdfs:label xml:lang="en">has application unit</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色领域使用单位</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColor">
+        <owl:inverseOf rdf:resource="http://example.org/color-ontology#hasColorCategory"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/color-ontology#ChartElement"/>
+                    <rdf:Description rdf:about="http://example.org/color-ontology#ColorCategory"/>
+                    <rdf:Description rdf:about="http://example.org/color-ontology#ColorScheme"/>
+                    <rdf:Description rdf:about="http://example.org/color-ontology#ColoredObject"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorCategory -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorCategory">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#ColorCategory"/>
+        <rdfs:label xml:lang="en">has color category</rdfs:label>
+        <skos:altLabel xml:lang="zh">有颜色色系</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForCompleteMonochromacy -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForCompleteMonochromacy">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForMonochromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for complete monochromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">有完全单色性适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForConeMonochromacy -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForConeMonochromacy">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForMonochromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for cone monochromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">有锥体单色性适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForDeuteranomaly -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForDeuteranomaly">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForTrichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for deuteranomaly</rdfs:label>
+        <skos:altLabel xml:lang="zh">有绿色缺陷适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForDeuteranopia -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForDeuteranopia">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForDichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for deuteranopia</rdfs:label>
+        <skos:altLabel xml:lang="zh">有绿红色盲适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForDichromacy -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForDichromacy">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorblind-FriendlyColor"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for dichromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">对二色性有适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForMonochromacy -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForMonochromacy">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorblind-FriendlyColor"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for monochromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">有单色性适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForProtanomaly -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForProtanomaly">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForTrichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for protanomaly</rdfs:label>
+        <skos:altLabel xml:lang="zh">有红色缺陷适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForProtanopia -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForProtanopia">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForDichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for protanopia</rdfs:label>
+        <skos:altLabel xml:lang="zh">有红绿色盲适用的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForTrichromacy -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForTrichromacy">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorblind-FriendlyColor"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for trichromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">有三色性适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForTritanomaly -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForTritanomaly">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForTrichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for tritanomaly</rdfs:label>
+        <skos:altLabel xml:lang="zh">有蓝色缺陷适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorForTritanopia -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorForTritanopia">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasColorForDichromacy"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has color for tritanopia</rdfs:label>
+        <skos:altLabel xml:lang="zh">有蓝黄色盲适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorMode -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorMode">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:label xml:lang="en">has color mode</rdfs:label>
+        <skos:altLabel xml:lang="zh">有颜色模式</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorSpaceConversion -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorSpaceConversion">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:comment xml:lang="zh">描述颜色空间之间的转换关系。连接两个不同色彩空间的颜色类，表示这两个颜色可以相互转换。</rdfs:comment>
+        <rdfs:label xml:lang="en">has color space conversion</rdfs:label>
+        <skos:altLabel xml:lang="zh">有色彩空间转换</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorTemperatureUnit -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorTemperatureUnit">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasApplicationUnit"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <rdfs:range rdf:resource="http://www.nmdc.ac.cn/ontology/vim#Unit"/>
+        <rdfs:label xml:lang="en">has color temperature unit</rdfs:label>
+        <skos:altLabel xml:lang="zh">有色温单位</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorblind-FriendlyColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasColorblind-FriendlyColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has colorblind-friendly color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有色盲适应的颜色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasComplementaryColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasComplementaryColor">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/color-ontology#Color"/>
+                    <rdf:Description rdf:about="http://example.org/color-ontology#ColorScheme"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="zh">在色轮上呈180°的颜色称之为互补色，如比如蓝色和橙色、红色和绿色、黄色和紫色等。互补色有非常强烈的对比度，可以创建很多十分震撼的视觉效果。</rdfs:comment>
+        <rdfs:label xml:lang="en">has complementary color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有互补色</skos:altLabel>
+        <skos:definition xml:lang="zh">以适当比例混合产生中性色的两种颜色。通过相加混色能够匹配成规定的无彩色刺激的两种颜色。</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasContrastingColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasContrastingColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Color contrast distance of about 120 degrees or so, for the strong contrast type, such as yellow-green and red-purple contrast. The effect is strong, eye-catching, powerful, lively, rich, but it is not easy to unify and sense of clutter, stimulation, resulting in visual fatigue. Generally need to use a variety of means of reconciliation to improve the contrast effect.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">色相对比距离约120度左右，为强对比类型，如黄绿与红紫色对比等。效果强烈、醒目、有力、活泼、丰富，但也不易统一而感杂乱、刺激、造成视觉疲劳。一般需要采用多种调和手段来改善对比效果。</rdfs:comment>
+        <rdfs:label xml:lang="en">has contrasting colour</rdfs:label>
+        <skos:altLabel xml:lang="zh">有对比色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasDominantColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasDominantColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has dominant color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有主色</skos:altLabel>
+        <skos:definition xml:lang="zh">在色彩设计搭配中，占最大面积的颜色，构成设计的主题颜色。</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasFrequencyUnit -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasFrequencyUnit">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasApplicationUnit"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.nmdc.ac.cn/ontology/vim#Unit"/>
+        <rdfs:label xml:lang="en">has frequency unit</rdfs:label>
+        <skos:altLabel xml:lang="zh">有频率单位</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasIntrinsicColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasIntrinsicColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Inherent color is the inherent color that the object itself presents.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">固有色就是物体本身所呈现的固有的色彩。</rdfs:comment>
+        <rdfs:label xml:lang="en">has intrinsic color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有固有色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasLightIntensityUnit -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasLightIntensityUnit">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasApplicationUnit"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdfs:range rdf:resource="http://www.nmdc.ac.cn/ontology/vim#Unit"/>
+        <rdfs:label xml:lang="en">has light intensity unit</rdfs:label>
+        <skos:altLabel xml:lang="zh">有光照强度单位</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasLightSource -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasLightSource">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <rdfs:comment xml:lang="en">Describes the light source of the environment in which the observer is looking at the object.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">描述观察者观察物体时候所处环境的光源情况。</rdfs:comment>
+        <rdfs:label xml:lang="en">has light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">有光源</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasMeaningandSymbolism -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasMeaningandSymbolism">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">has meaning and symbolism</rdfs:label>
+        <skos:altLabel xml:lang="zh">有含义与象征</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasMediumColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasMediumColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Color contrast distance of about 90 degrees or so, for the type of contrast, such as yellow and green contrast, etc., the effect is bright, lively, full, make people excited, feel interested, contrast both considerable strength, but not lose the sense of harmony.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">色相对比距离约90度左右，为中对比类型 ，如黄与绿色对比等，效果明快、活泼、饱满、使人兴奋，感觉有兴趣，对比既有相当力度，但又不失调和之感。</rdfs:comment>
+        <rdfs:label xml:lang="en">has medium color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有中度色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasObserver -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasObserver">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Observer"/>
+        <rdfs:label xml:lang="en">has observer</rdfs:label>
+        <skos:altLabel xml:lang="zh">有观察者</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasPathologyType -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasPathologyType">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Observer"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:label xml:lang="en">has pathology type</rdfs:label>
+        <skos:altLabel xml:lang="zh">有病理类型</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasRule -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasRule">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#ColorSystem"/>
+        <rdfs:label xml:lang="en">has rule</rdfs:label>
+        <skos:altLabel xml:lang="zh">有规则</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSameColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasSameColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Same colors are two colors with a hue ring angle of about 15°.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">是色相环夹角约为15°的两种颜色。</rdfs:comment>
+        <rdfs:label xml:lang="en">has same color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有同类色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSimilarColor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasSimilarColor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Hue contrast distance of about 30 degrees or so, for the weaker contrast type, such as red and yellow-orange contrast. The effect is richer and livelier, but without losing the feeling of unity, elegance and harmony.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">色相对比距离约30度左右，为较弱对比类型，如红与黄橙色对比等。效果较丰富、活泼，但又不失统一、雅致、和谐的感觉。</rdfs:comment>
+        <rdfs:label xml:lang="en">has similar color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有类似色</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSuccessor -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasSuccessor">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="zh">描述可见光谱的颜色位置信息。</rdfs:comment>
+        <rdfs:label xml:lang="en">has successor</rdfs:label>
+        <skos:altLabel xml:lang="zh">有后续继承者</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasWavelengthUnit -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#hasWavelengthUnit">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasApplicationUnit"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.nmdc.ac.cn/ontology/vim#Unit"/>
+        <rdfs:label xml:lang="en">has wave length unit</rdfs:label>
+        <skos:altLabel xml:lang="zh">有波长单位</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#isAssociatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#isAssociatedWith">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">is associated with</rdfs:label>
+        <skos:altLabel xml:lang="zh">与xxx相关联</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#isBlendOf -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/color-ontology#isBlendOf">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="zh">用于描述颜色之间时候谁混合得到的。</rdfs:comment>
+        <rdfs:label xml:lang="en">is blend of</rdfs:label>
+        <skos:altLabel xml:lang="zh">是混合</skos:altLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/color-ontology#hasAngle -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasAngle">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Observer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment xml:lang="en">Describes the field of view of the observer.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">描述观察者的视场角。</rdfs:comment>
+        <rdfs:label xml:lang="en">has angle</rdfs:label>
+        <skos:altLabel xml:lang="zh">有角度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasB">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has Blue</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasBlue-Yellow -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasBlue-Yellow">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasLAB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <color-ontology:alsoKnownAs xml:lang="en">hasB</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="zh">代表从蓝色（负值）到黄色（正值）的范围。取值范围是-128到+127。0表示中性灰色。</rdfs:comment>
+        <rdfs:label xml:lang="en">has blue-yellow</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasBr -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasBr">
+        <owl:equivalentProperty rdf:resource="http://example.org/color-ontology#hasV"/>
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="zh">表示颜色的明亮程度，取值范围在0到100%之间。0%代表黑色，100%代表颜色的最大亮度。</rdfs:comment>
+        <rdfs:label xml:lang="en">has Brightness</rdfs:label>
+        <skos:altLabel xml:lang="zh">有亮度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasC-CMY -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasC-CMY">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMY"/>
+        <rdfs:label xml:lang="en">has cyan(CMY)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasC-CMYK -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasC-CMYK">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMYK"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has cyan(CMYK)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasCMY -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasCMY">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has CMY</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasCMYK -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasCMYK">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has CMYK</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasCode -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasCode">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has code</rdfs:label>
+        <skos:altLabel xml:lang="zh">有代码</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorCount -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasColorCount">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="zh">用于表示调色板/调色模式中的颜色数量。</rdfs:comment>
+        <rdfs:label xml:lang="en">has color count</rdfs:label>
+        <skos:altLabel xml:lang="zh">调色板有颜色数量</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasColorTemperature -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasColorTemperature">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="zh">环境光照强度是指环境中的光照强度水平。它可以用来表示环境中的整体光照明亮程度。环境光照强度可以使用数值来表示，例如使用光照度（lux）作为单位来表示光照的强度。</rdfs:comment>
+        <rdfs:label xml:lang="en">has color temperature</rdfs:label>
+        <skos:altLabel xml:lang="zh">有光照色温</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasDegree -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasDegree">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="en">has degree</rdfs:label>
+        <skos:altLabel xml:lang="zh">有模拟度数</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasFrequencyValue -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasFrequencyValue">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has frequency value</rdfs:label>
+        <skos:altLabel xml:lang="zh">有频率值</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasG -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasG">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has Green</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasGreen-Red -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasGreen-Red">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasLAB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <color-ontology:alsoKnownAs xml:lang="en">hasA</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="zh">代表从绿色（负值）到红色（正值）的范围。取值范围是-128到+127。0表示中性灰色。</rdfs:comment>
+        <rdfs:label xml:lang="en">has green-red</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasH -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasH">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSV"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">有色调</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="zh">色相是将一种颜色与另一种颜色区分开来的方法，使用常见的颜色名称来描述，如绿、蓝、红、黄等。色相的范围为0-360°</rdfs:comment>
+        <rdfs:label xml:lang="en">has Hue</rdfs:label>
+        <skos:altLabel xml:lang="zh">有色相</skos:altLabel>
+        <skos:definition xml:lang="zh">表示红、黄、绿、蓝、紫等颜色属性。颜色的三属性之一。</skos:definition>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasHSB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasHSB">
+        <owl:equivalentProperty rdf:resource="http://example.org/color-ontology#hasHSV"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has HSB</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasHSL -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasHSL">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has HSL</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasHSV -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasHSV">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has HSV</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasHexadecimalCode -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasHexadecimalCode">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <color-ontology:alsoKnownAs xml:lang="en">has HEX</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">has hexadecimal code</rdfs:label>
+        <skos:altLabel xml:lang="zh">有十六进制编码</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasHueAngle -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasHueAngle">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment xml:lang="en">Explain which colors are adjacent and complementary by comparing the angles of the colors on the hue ring.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">通过对比颜色在色相环上的角度，说明哪些颜色是邻近、互补。</rdfs:comment>
+        <rdfs:label xml:lang="en">has hue angle</rdfs:label>
+        <skos:altLabel xml:lang="en">有色相角度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasI -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasI">
+        <owl:equivalentProperty rdf:resource="http://example.org/color-ontology#hasL"/>
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSL"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has Intensity</rdfs:label>
+        <skos:altLabel xml:lang="zh">有亮度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasK -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasK">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMYK"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has key</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasL -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasL">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSL"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has Lightness</rdfs:label>
+        <skos:altLabel xml:lang="zh">有亮度</skos:altLabel>
+        <skos:definition xml:lang="zh">a）物体表面相对明暗的特性。
+b）在同样的照明条件下，以白板作为基准，对物体表面的视知觉特性给予的分度。颜色的三属性之一。</skos:definition>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasLAB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasLAB">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has LAB</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasLMS -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasLMS">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has LMS</rdfs:label>
+        <skos:altLabel xml:lang="zh">有由人眼的三种锥体的响应表示的颜色空间</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasLightIntensity -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasLightIntensity">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment xml:lang="zh">环境光照色温是指环境中光线的色彩质量。它通常用来描述光源的色彩特性，例如光源的冷暖色调。光照强度的单位是坎德拉（Candela，缩写为cd）。</rdfs:comment>
+        <rdfs:label xml:lang="en">has light intensity</rdfs:label>
+        <skos:altLabel xml:lang="zh">有光照强度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasM-CMY -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasM-CMY">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMY"/>
+        <rdfs:label xml:lang="en">has magenta(CMY)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasM-CMYK -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasM-CMYK">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMYK"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has magenta(CMYK)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasObjectSize -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasObjectSize">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:label xml:lang="en">has object size</rdfs:label>
+        <skos:altLabel xml:lang="zh">有物体大小</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasPANTONEColorCard -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasPANTONEColorCard">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+        <rdfs:label xml:lang="en">has PANTONE color card</rdfs:label>
+        <skos:altLabel xml:lang="zh">有潘通色卡</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasR -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasR">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>has Red</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasRAL -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasRAL"/>
+    
+
+
+    <!-- http://example.org/color-ontology#hasRGB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasRGB">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has RGB</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasReflectance -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasReflectance">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:label xml:lang="en">has reflectance</rdfs:label>
+        <skos:altLabel xml:lang="zh">有反射率</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasS-HSL -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasS-HSL">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSL"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">有纯度</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">has Saturation(HSL)</rdfs:label>
+        <skos:altLabel xml:lang="zh">有饱和度</skos:altLabel>
+        <skos:definition xml:lang="zh">用以估价纯彩色在整个视觉中的成分的视觉属性。</skos:definition>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasS-HSV -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasS-HSV">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSV"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="zh">表示颜色的纯度或深浅程度。取值范围是0到100%，其中0%表示灰度色（无色彩），100%表示完全饱和的纯色。</rdfs:comment>
+        <rdfs:label xml:lang="en">has Saturation(HSV)</rdfs:label>
+        <skos:altLabel xml:lang="zh">有饱和度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasSB">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasSRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has sBlue</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSG -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasSG">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasSRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has sGreen</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSR -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasSR">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasSRGB"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has sRed</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasSRGB -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasSRGB">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has sRGB</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasTextColor -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasTextColor">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has text color</rdfs:label>
+        <skos:altLabel xml:lang="zh">有文本颜色</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasV -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasV">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasHSV"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">有亮度</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="zh">表示颜色的明暗程度。取值范围是0到100%，其中0%表示黑色（最暗），100%表示白色（最亮）。</rdfs:comment>
+        <rdfs:label xml:lang="en">has Value</rdfs:label>
+        <skos:altLabel xml:lang="zh">有明度</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasViewDistance -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasViewDistance">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#ColoredObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:comment xml:lang="en">Describes the distance of the observer from the object.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">描述观察者距离物体的距离。</rdfs:comment>
+        <rdfs:label xml:lang="en">has view distance</rdfs:label>
+        <skos:altLabel xml:lang="zh">有视距距离</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasWavelengthValue -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasWavelengthValue">
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has wave length value</rdfs:label>
+        <skos:altLabel xml:lang="zh">有波长值</skos:altLabel>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasY-CMY -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasY-CMY">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMY"/>
+        <rdfs:label xml:lang="en">has yellow(CMY)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://example.org/color-ontology#hasY-CMYK -->
+
+    <owl:DatatypeProperty rdf:about="http://example.org/color-ontology#hasY-CMYK">
+        <rdfs:subPropertyOf rdf:resource="http://example.org/color-ontology#hasCMYK"/>
+        <rdfs:domain rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has yellow(CMYK)</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/color-ontology#Application -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Application">
+        <rdfs:comment xml:lang="en">The knowledge required for scenarios in which the constructed color ontology can be applied.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">构建的颜色本体可以应用的场景所需要的知识。</rdfs:comment>
+        <rdfs:label xml:lang="en">application</rdfs:label>
+        <skos:altLabel xml:lang="zh">应用</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ArtificialLightSource -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ArtificialLightSource">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <rdfs:label xml:lang="en">artificial light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">人工光源</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#BasicColor -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#BasicColor">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">basic color</rdfs:label>
+        <skos:altLabel xml:lang="zh">基本色</skos:altLabel>
+        <skos:definition xml:lang="zh">用于混合得到其他各种颜色所用的十个基础原色。</skos:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#BasicColorMode -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#BasicColorMode">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:label xml:lang="en">basic color mode</rdfs:label>
+        <skos:altLabel xml:lang="zh">基本颜色模式</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Camera -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Camera">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Device"/>
+        <rdfs:label xml:lang="en">camera</rdfs:label>
+        <skos:altLabel xml:lang="zh">摄像头</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Categorical -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Categorical">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <color-ontology:alsoKnownAs xml:lang="en">qualitative</color-ontology:alsoKnownAs>
+        <color-ontology:alsoKnownAs xml:lang="zh">定性配色方案</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="zh">分类配色方案适用于表示离散或分类数据，其中数据值被分成不同的类别或组别。这些调色板通常使用明亮、对比度较高的颜色，用于强调不同类别之间的差异，而不涉及数据值之间的连续关系。分类调色板中的每个颜色都是独立的，没有明确的顺序。它们在数据可视化中用于直观地区分不同的类别，比如柱状图、饼图等。适用于离散或分类数据。这种颜色主题用于区分不同类别或组别之间的数据。它通常由一组鲜明而不同的颜色组成，每种颜色对应一个特定的类别。例如，在柱状图或饼图中，每个类别的数据可以用不同的颜色来表示。</rdfs:comment>
+        <rdfs:label xml:lang="en">categorical</rdfs:label>
+        <skos:altLabel xml:lang="zh">分类配色方案</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ChartElement -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ChartElement">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Application"/>
+        <rdfs:comment xml:lang="zh">表示图表中的一个元素，如数据点、标签、坐标轴等。</rdfs:comment>
+        <rdfs:label xml:lang="en">chart element</rdfs:label>
+        <skos:altLabel xml:lang="zh">图表元素</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Color -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Color">
+        <rdfs:label xml:lang="en">color</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色</skos:altLabel>
+        <skos:definition xml:lang="zh">光作用于人眼引起除空间属性以外的视觉特性。用色名或色的三属性来表示的视觉特性。</skos:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorAppearanceModel -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorAppearanceModel">
+        <rdfs:label xml:lang="en">color appearance model</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色外观模型</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorCategory -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorCategory">
+        <rdfs:label xml:lang="en">color category</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色色系</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorConcept -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorConcept">
+        <rdfs:label xml:lang="en">color concept</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色概念</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorMode -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorMode">
+        <rdfs:comment xml:lang="zh">图像的色彩模式指的是图像中所使用的色彩表示方式，它决定了图像中的像素颜色如何被编码和存储。不同的色彩模式适用于不同的应用场景和需求，可以有效地控制图像的色彩表现和文件大小。</rdfs:comment>
+        <rdfs:label xml:lang="en">color mode</rdfs:label>
+        <skos:altLabel xml:lang="zh">色彩模式</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorScheme -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorScheme">
+        <rdfs:comment xml:lang="zh">表示一个配色方案，用于指导图表中各个元素的颜色搭配。</rdfs:comment>
+        <rdfs:label xml:lang="en">color scheme</rdfs:label>
+        <skos:altLabel xml:lang="zh">配色方案</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColorSystem -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColorSystem">
+        <rdfs:label xml:lang="en">color system</rdfs:label>
+        <skos:altLabel xml:lang="zh">颜色系统</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ColoredObject -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ColoredObject">
+        <rdfs:comment xml:lang="en">A colored object is the surface of an object that is illuminated. The surface properties of the object, such as reflectance, absorbance, etc., will determine the color of the light as it passes over the surface of the object.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">色物体是指被照射的物体表面。物体的表面特性，比如反射率、吸收率等，会决定光线经过物体表面后的颜色。</rdfs:comment>
+        <rdfs:label xml:lang="en">colord object</rdfs:label>
+        <skos:altLabel xml:lang="zh">色物体</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ComputerScreenLight -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ComputerScreenLight">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdfs:comment xml:lang="zh">计算机和移动设备的屏幕发出背光，并且色温通常是固定的。不同显示屏的色温可能有所不同，这会影响颜色的外观。例如，一些屏幕可能具有较高的色温，使得颜色更加冷静和蓝色。</rdfs:comment>
+        <rdfs:label xml:lang="en">computer screen light</rdfs:label>
+        <skos:altLabel xml:lang="zh">电脑屏幕光</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#DataType -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#DataType">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Application"/>
+        <rdfs:label xml:lang="en">data type</rdfs:label>
+        <skos:altLabel xml:lang="zh">数据类型</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Daylight -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Daylight">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#NaturalLightSource"/>
+        <rdfs:comment xml:lang="zh">日光是自然光源中最常见的一种。在白天阳光明媚的环境中，颜色会看起来更鲜艳、明亮和自然。日光中的色温较高，偏向蓝色，这可能会使暖色调的颜色看起来较为冷静。</rdfs:comment>
+        <rdfs:label xml:lang="en">day light</rdfs:label>
+        <skos:altLabel xml:lang="zh">日光</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Device -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Device">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Observer"/>
+        <rdfs:label xml:lang="en">device</rdfs:label>
+        <skos:altLabel xml:lang="zh">设备</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Dichromacy -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Dichromacy">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">双色视觉色觉缺陷</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">dichromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">二色性</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Diverging -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Diverging">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdfs:comment xml:lang="zh">发散调色板是由两组相继出现的颜色组成的调色板，一组是从调色板的中间向上增加颜色的强度，另一组是从中间向下增加颜色的强度。</rdfs:comment>
+        <rdfs:comment xml:lang="zh">发散配色方案适用于表示具有中心点的数据值，其中数据值分布在中心点的两侧，有正负偏移。这些调色板通常使用两个不同的颜色，通过中心点的渐变表示数据值相对于中心点的偏移程度。发散调色板中的颜色从一种颜色渐变到中心点，然后再渐变到另一种颜色。适用于数据相对于某个中心点（通常是平均值或零点）的偏差。这种颜色主题用于显示数据相对于基准值的上下偏移。颜色通常以某种中心颜色为基准，在两个方向上渐变。例如，在气候温度图中，用发散色板表示相对于平均温度的高温和低温区域。</rdfs:comment>
+        <rdfs:label xml:lang="en">diverging</rdfs:label>
+        <skos:altLabel xml:lang="zh">发散配色方案</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Environment -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Environment">
+        <rdfs:label xml:lang="en">environment</rdfs:label>
+        <skos:altLabel xml:lang="zh">环境</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Eyes -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Eyes">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Observer"/>
+        <rdfs:comment xml:lang="en">Describe the equipment used to observe an object as the human eye.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">描述观察物体的设备为人眼。</rdfs:comment>
+        <rdfs:label xml:lang="en">eyes</rdfs:label>
+        <skos:altLabel xml:lang="zh">观察者为人</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#FluorescentLight -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#FluorescentLight">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdfs:comment xml:lang="zh">荧光灯是另一种常见的人工光源，色温通常较高，偏向蓝色或绿色。荧光灯下的颜色可能会看起来较冷，使颜色的饱和度降低。</rdfs:comment>
+        <rdfs:label xml:lang="en">fluorescent light</rdfs:label>
+        <skos:altLabel xml:lang="zh">荧光灯</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ImageCoarseness -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ImageCoarseness">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Texture"/>
+        <rdfs:label xml:lang="en">image coarseness</rdfs:label>
+        <skos:altLabel xml:lang="zh">图像的粗糙度</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ImageContrast -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ImageContrast">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Texture"/>
+        <rdfs:label xml:lang="en">image contrast</rdfs:label>
+        <skos:altLabel xml:lang="zh">图像的对比度</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#ImageDirectionality -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#ImageDirectionality">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Texture"/>
+        <rdfs:label xml:lang="en">image directionality</rdfs:label>
+        <skos:altLabel xml:lang="zh">图像的方向性</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#IncandescentLight -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#IncandescentLight">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdfs:comment xml:lang="zh">白炽灯是一种人工光源，色温较低，偏向黄色。在黄昏或夜晚使用白炽灯光的环境中，颜色会呈现暖色调，使得颜色看起来较为柔和和温暖。</rdfs:comment>
+        <rdfs:label xml:lang="en">incandescent light</rdfs:label>
+        <skos:altLabel xml:lang="zh">白炽灯</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#IntervalData -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#IntervalData">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#DataType"/>
+        <rdfs:comment xml:lang="zh">是一种连续型数据类型，表示变量之间具有可比较的固定间隔。在区间数据中，数值之间的差异是有意义的，并且具有相等的间隔。</rdfs:comment>
+        <rdfs:label>interval data</rdfs:label>
+        <skos:altLabel xml:lang="zh">区间数据</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#InvisibleColor -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#InvisibleColor">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#SpectralPosition"/>
+        <rdfs:comment xml:lang="zh">不可见光是个比较笼统的概念，是指除可见光外其他所有人眼所不能感知的波长的电磁波，包括无线电波，微波，红外光，紫外光，x射线，γ射线、远红外线等。</rdfs:comment>
+        <rdfs:label xml:lang="en">invisible color</rdfs:label>
+        <skos:altLabel xml:lang="zh">不可视颜色</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#LightSource -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#LightSource">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Environment"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">光源</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="en">The spectral properties of the light source and the intensity of the light will directly affect the reflectance spectrum of the surface of the object and thus the color we perceive.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">光源的光谱特性和光照强度会直接影响到物体表面的反射光谱，从而影响我们感知的颜色。</rdfs:comment>
+        <rdfs:label xml:lang="en">light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">环境光线</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Monochromacy -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Monochromacy">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">单色视觉色觉缺陷</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">monochromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">单色性</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#MultilightEnvironment -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#MultilightEnvironment">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdfs:label xml:lang="en">multilight environment</rdfs:label>
+        <skos:altLabel xml:lang="zh">多光源环境</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#NaturalLightSource -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#NaturalLightSource">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <rdfs:label xml:lang="en">natural light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">自然光源</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#NominalData -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#NominalData">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#DataType"/>
+        <rdfs:comment xml:lang="zh">即无法进行数学运算，这里的数字是标识符。用于表示标称数据的颜色数量应限制在七种或更少。</rdfs:comment>
+        <rdfs:label xml:lang="en">nominal data</rdfs:label>
+        <skos:altLabel xml:lang="zh">名义数据</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Normal -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Normal">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <rdfs:label xml:lang="en">normal</rdfs:label>
+        <skos:altLabel xml:lang="zh">正常-无色觉障碍</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Observer -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Observer">
+        <rdfs:comment xml:lang="en">Describe the observer as the human eye or a device such as a camera that observes the scene.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">描述观察者是指观察场景的人眼或相机等设备。</rdfs:comment>
+        <rdfs:label xml:lang="en">observer</rdfs:label>
+        <skos:altLabel xml:lang="zh">观察者</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#OrdinalData -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#OrdinalData">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#DataType"/>
+        <rdfs:comment xml:lang="zh">有序数据通常表示为文字、符号或标签，而不是数值。它们反映了变量的相对顺序，但没有明确的数值间隔。例如，教育程度可以被分为&quot;小学&quot;、&quot;中学&quot;和&quot;大学&quot;，这些类别之间存在着有序的关系。</rdfs:comment>
+        <rdfs:label xml:lang="en">ordinal data</rdfs:label>
+        <skos:altLabel xml:lang="zh">有序数据</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#OtherColorMode -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#OtherColorMode">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:label xml:lang="en">other color mode</rdfs:label>
+        <skos:altLabel xml:lang="zh">其它颜色模式</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PathologyType -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PathologyType">
+        <rdfs:label xml:lang="en">pathology type</rdfs:label>
+        <skos:altLabel xml:lang="zh">病理类型</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PerceptualColorSpace -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PerceptualColorSpace">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorMode"/>
+        <rdfs:label xml:lang="en">perceptual color space</rdfs:label>
+        <skos:altLabel xml:lang="zh">感知色差空间</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PrimaryColor -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PrimaryColor">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:label xml:lang="en">primary color</rdfs:label>
+        <skos:altLabel xml:lang="zh">原色</skos:altLabel>
+        <skos:definition xml:lang="zh">在颜色匹配实验中所采用的特定的颜色。</skos:definition>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PrimaryColorCMYK -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PrimaryColorCMYK">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <rdfs:label xml:lang="en">primary color CYMK</rdfs:label>
+        <skos:altLabel xml:lang="zh">打印机的原色</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PrimaryColorComputer -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PrimaryColorComputer">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <rdfs:label xml:lang="en">primary color computer</rdfs:label>
+        <skos:altLabel xml:lang="zh">计算机中的原色</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#PrimaryColorPrint -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#PrimaryColorPrint">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <rdfs:label xml:lang="en">primary color print</rdfs:label>
+        <skos:altLabel xml:lang="zh">绘画中的原色</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#RatioData -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#RatioData">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#DataType"/>
+        <rdfs:label xml:lang="en">ratio data</rdfs:label>
+        <skos:altLabel xml:lang="zh">比率数据</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Sequential -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Sequential">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdfs:comment xml:lang="zh">适用于有序的定量数据，数据按照从低到高的顺序排列。这种颜色主题通常用于表示数值数据的连续变化，比如温度、人口数量等。颜色从淡到浓呈现，通过色彩的变化表现数据的变化。例如，用渐变色来表示地图上不同地区的人口密度。</rdfs:comment>
+        <rdfs:label xml:lang="en">sequential</rdfs:label>
+        <skos:altLabel xml:lang="zh">顺序配色方案</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Shape -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Shape">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Application"/>
+        <rdfs:label xml:lang="en">shape</rdfs:label>
+        <skos:altLabel xml:lang="zh">形状</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#SpectralPosition -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#SpectralPosition">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdfs:comment xml:lang="en">Depending on the spectral position, colors are classified into those within the visible spectrum and those within the invisible spectrum.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">根据光谱位置的不同，将颜色分为可见光谱内的颜色和不可见光谱内的颜色。</rdfs:comment>
+        <rdfs:label xml:lang="en">spectral position</rdfs:label>
+        <skos:altLabel xml:lang="zh">按照光谱位置分类</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Texture -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Texture">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#Application"/>
+        <rdfs:label xml:lang="en">texture</rdfs:label>
+        <skos:altLabel xml:lang="zh">纹理</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#Trichromacy -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#Trichromacy">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">异常三色视觉色觉缺陷</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">trichromacy</rdfs:label>
+        <skos:altLabel xml:lang="zh">三色性</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://example.org/color-ontology#VisibleColor -->
+
+    <owl:Class rdf:about="http://example.org/color-ontology#VisibleColor">
+        <rdfs:subClassOf rdf:resource="http://example.org/color-ontology#SpectralPosition"/>
+        <rdfs:label xml:lang="en">visible color</rdfs:label>
+        <skos:altLabel xml:lang="zh">可视颜色</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://example.org/color-ontology#A -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#A">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <color-ontology:hasColorTemperatureUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#kelvin"/>
+        <color-ontology:hasColorTemperature rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2856</color-ontology:hasColorTemperature>
+        <rdfs:comment xml:lang="en">A light source, tungsten light, i.e. a light source that meets the color temperature of 2856K.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">A光源，钨丝光，即符合色温2856K的光源。</rdfs:comment>
+        <rdfs:label xml:lang="en">A light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">A光源</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#A6D75B -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#A6D75B">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">91</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">23</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(35%,16%,64%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(23%,0%,58%,16%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">215</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasH>
+        <color-ontology:hasHSL>(84°,61%,60%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(84°,58%,84%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#A6D75B</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</color-ontology:hasL>
+        <color-ontology:hasLMS>(12699.30075,6763.95864,178.1044206)</color-ontology:hasLMS>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166</color-ontology:hasR>
+        <color-ontology:hasRGB>(166,215,91)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">58</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">58</color-ontology:hasY-CMYK>
+        <rdfs:label>A6D75B</rdfs:label>
+        <skos:altLabel xml:lang="en">medium light shade of green</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#A7D5ED -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#A7D5ED">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">237</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(35%,16%,7%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(30%,10%,0%,7%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">213</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">201</color-ontology:hasH>
+        <color-ontology:hasHSL>(201°,66%,79%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(201°,30%,93%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#A7D5ED</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasL>
+        <color-ontology:hasLMS>(13231.57605,7277.70593,391.9608992)</color-ontology:hasLMS>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">167</color-ontology:hasR>
+        <color-ontology:hasRGB>(167,213,237)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>A7D5ED</rdfs:label>
+        <skos:altLabel xml:lang="en">light shade of cyan-blue</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#B33DC6 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#B33DC6">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">198</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(30%,76%,22%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(10%,69%,0%,22%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">292</color-ontology:hasH>
+        <color-ontology:hasHSL>(292°,55%,51%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(292°,69%,78%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#B33DC6</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</color-ontology:hasL>
+        <color-ontology:hasLMS>(6671.063,3040.73447,307.0889004)</color-ontology:hasLMS>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">76</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">179</color-ontology:hasR>
+        <color-ontology:hasRGB>(179,61,198)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>B33DC6</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of magenta</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#BDCF32 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#BDCF32">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(26%,19%,80%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(9%,0%,76%,19%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">207</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">67</color-ontology:hasH>
+        <color-ontology:hasHSL>(67°,62%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(67°,76%,81%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#BDCF32</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">189</color-ontology:hasR>
+        <color-ontology:hasRGB>(189,207,50)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">76</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">81</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">76</color-ontology:hasY-CMYK>
+        <rdfs:label>BDCF32</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of yellow-green</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#BluetoRed -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#BluetoRed">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Diverging"/>
+        <color-ontology:hasColorCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</color-ontology:hasColorCount>
+        <rdfs:label xml:lang="en">Blue to Red</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://www.heavy.ai/blog/12-color-palettes-for-telling-better-stories-with-your-data"/>
+        <skos:altLabel xml:lang="zh">蓝色至红色发散色彩模式</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#BluetoYellow -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#BluetoYellow">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Sequential"/>
+        <color-ontology:hasColorCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</color-ontology:hasColorCount>
+        <rdfs:label xml:lang="en">Blue to Yellow</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://www.heavy.ai/blog/12-color-palettes-for-telling-better-stories-with-your-data"/>
+        <skos:altLabel xml:lang="zh">蓝色至黄色连续色彩模式</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#C23728 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#C23728">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(24%,78%,84%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,72%,79%,24%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasH>
+        <color-ontology:hasHSL>(6°,66%,46%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(6°,79%,76%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#C23728</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">72</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">194</color-ontology:hasR>
+        <color-ontology:hasRGB>(194,55,40)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">76</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasY-CMYK>
+        <rdfs:label>C23728</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of red</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#C9E52F -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#C9E52F">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(21%,10%,82%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(12%,0%,79%,10%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">229</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasH>
+        <color-ontology:hasHSL>(69°,78%,54%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(69°,79%,90%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#C9E52F</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">201</color-ontology:hasR>
+        <color-ontology:hasRGB>(201,229,47)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasY-CMYK>
+        <rdfs:label>C9E52F</rdfs:label>
+        <rdfs:label xml:lang="en">shade of yellow-green</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#CF0070 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#CF0070">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">112</color-ontology:hasB>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMYK>(15,100,20,0)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">328</color-ontology:hasH>
+        <color-ontology:hasHSL>(328°,100%,41%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(328°,100%,81%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#CF0070</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</color-ontology:hasL>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">207</color-ontology:hasR>
+        <color-ontology:hasRGB>(207,0,112)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">81</color-ontology:hasV>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</color-ontology:hasY-CMYK>
+        <color-ontology:alsoKnownAs xml:lang="en">magenta</color-ontology:alsoKnownAs>
+        <color-ontology:alsoKnownAs xml:lang="zh">品红</color-ontology:alsoKnownAs>
+        <rdfs:label>CF0070</rdfs:label>
+        <skos:altLabel xml:lang="zh">洋红</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#CoolColor -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#CoolColor">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorCategory"/>
+        <owl:sameAs rdf:resource="http://example.org/color-ontology#cool"/>
+        <rdfs:comment xml:lang="en">Cool colors tend to make people feel cool, calm and quiet. Common cool colors include blue, green, and purple.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">冷色系的颜色往往让人感到凉爽、冷静、安静。常见的冷色包括蓝色、绿色、紫色等。</rdfs:comment>
+        <rdfs:label xml:lang="en">cool color</rdfs:label>
+        <skos:altLabel xml:lang="zh">冷色系</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#D0EE11 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#D0EE11">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(18%,7%,93%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(13%,0%,93%,7%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">238</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68</color-ontology:hasH>
+        <color-ontology:hasHSL>(68°,87%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(68°,93%,93%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#D0EE11</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">208</color-ontology:hasR>
+        <color-ontology:hasRGB>(208,238,17)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasY-CMYK>
+        <rdfs:label>D0EE11</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of yellow-green</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#D0F400 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#D0F400">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(18%,4%,100%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(15%,0%,100%,4%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">244</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasH>
+        <color-ontology:hasHSL>(69°,100%,48%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(69°,100%,96%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#D0F400</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">208</color-ontology:hasR>
+        <color-ontology:hasRGB>(208,244,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">96</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasY-CMYK>
+        <rdfs:label>D0F400</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#D65 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#D65">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <color-ontology:hasColorTemperatureUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#kelvin"/>
+        <color-ontology:hasColorTemperature rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6500</color-ontology:hasColorTemperature>
+        <rdfs:comment xml:lang="en">D65 light source is the most commonly used artificial daylight in the standard light source, its color temperature is 6500 K. English name: Artificial Daylight 6500 K. D65 light source in the standard light source box is to simulate artificial daylight, to ensure that in the indoor, cloudy and rainy day observation of the color effect of the object, there is an approximation of the effect of the sun under the observation of the lighting.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">D65 光源</rdfs:comment>
+        <rdfs:comment xml:lang="zh">D65光源是标准光源中最常用的人工日光，其色温为6500K。英文名：Artificial Daylight 6500K。标准光源箱中的D65光源是模拟人工日光，保证在室内、阴雨天观测物品的颜色效果时，有一个近似在太阳光底下观测的照明效果。</rdfs:comment>
+        <rdfs:label xml:lang="en">D65 light source</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#D9381E -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#D9381E">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:alsoKnownAs xml:lang="en">vermilion</color-ontology:alsoKnownAs>
+        <rdfs:label>D9381E</rdfs:label>
+        <skos:altLabel xml:lang="zh">朱红色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#DC143C -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#DC143C">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasRGB>(220,20,60)</color-ontology:hasRGB>
+        <color-ontology:alsoKnownAs xml:lang="en">crimson</color-ontology:alsoKnownAs>
+        <rdfs:label>DC143C</rdfs:label>
+        <skos:altLabel xml:lang="zh">猩红色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#DE6E56 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#DE6E56">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(13%,57%,66%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,50%,61%,13%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">110</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</color-ontology:hasH>
+        <color-ontology:hasHSL>(11°,67%,60%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(11°,61%,87%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#DE6E56</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">222</color-ontology:hasR>
+        <color-ontology:hasRGB>(222,110,86)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">67</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</color-ontology:hasY-CMYK>
+        <rdfs:label>DE6E56</rdfs:label>
+        <skos:altLabel xml:lang="en">medium light shade of red</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#E14B31 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#E14B31">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(12%,71%,81%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,67%,78%,12%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</color-ontology:hasH>
+        <color-ontology:hasHSL>(9°,75%,54%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(9°,78%,88%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#E14B31</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">67</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">225</color-ontology:hasR>
+        <color-ontology:hasRGB>(225,75,49)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">88</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">81</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasY-CMYK>
+        <rdfs:label>E14B31</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of red</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#E1A692 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#E1A692">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">146</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(12%,35%,43%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,26%,35%,12%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15</color-ontology:hasH>
+        <color-ontology:hasHSL>(15°,57%,73%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(15°,35%,88%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#E1A692</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">73</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">225</color-ontology:hasR>
+        <color-ontology:hasRGB>(225,166,146)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</color-ontology:hasS-HSL>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">43</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasY-CMYK>
+        <rdfs:label>E1A692</rdfs:label>
+        <skos:altLabel xml:lang="en">medium light shade of red-orange</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#E2E2E2 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#E2E2E2">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">226</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(11%,11%,11%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,0%,0%,11%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">226</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasH>
+        <color-ontology:hasHSL>(0°,0%,89%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(0°,0%,89%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#E2E2E2</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">226</color-ontology:hasR>
+        <color-ontology:hasRGB>(226,226,226)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>E2E2E2</rdfs:label>
+        <skos:altLabel xml:lang="en">very light shade of gray</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#EA5545 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#EA5545">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Categorical"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasB>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">85</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasH>
+        <color-ontology:hasHSL>(6°,80%,59%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(6°,71%,92%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#EA5545</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</color-ontology:hasL>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">234</color-ontology:hasR>
+        <color-ontology:hasRGB>(234,85,69)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">92</color-ontology:hasV>
+        <rdfs:label>EA5545</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of red</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#EDBF33 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#EDBF33">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(7%,25%,80%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,19%,78%,7%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</color-ontology:hasH>
+        <color-ontology:hasHSL>(45°,84%,56%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(45°,78%,93%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#EDBF33</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">237</color-ontology:hasR>
+        <color-ontology:hasRGB>(237,191,51)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasY-CMYK>
+        <rdfs:label>EDBF33</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of yellow</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#EDE15B -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#EDE15B">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">91</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(7%,12%,64%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,5%,62%,7%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">225</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</color-ontology:hasH>
+        <color-ontology:hasHSL>(55°,80%,64%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(55°,62%,93%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#EDE15B</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">237</color-ontology:hasR>
+        <color-ontology:hasRGB>(237,225,91)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</color-ontology:hasY-CMYK>
+        <rdfs:label>EDE15B</rdfs:label>
+        <skos:altLabel xml:lang="en">medium light shade of yellow</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#EEA2A4 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#EEA2A4">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">164</color-ontology:hasB>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMYK>（0，49，27，0）</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">162</color-ontology:hasG>
+        <color-ontology:hasHexadecimalCode>#EEA2A4</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasK>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">238</color-ontology:hasR>
+        <color-ontology:hasRGB>（238，162，164）</color-ontology:hasRGB>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</color-ontology:hasY-CMYK>
+        <rdfs:label>EEA2A4</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://zhongguose.com/#mudanfenhong"/>
+        <skos:altLabel xml:lang="zh">牡丹粉红</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#EF9B20 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#EF9B20">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(6%,39%,87%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,35%,87%,6%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">155</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</color-ontology:hasH>
+        <color-ontology:hasHSL>(36°,87%,53%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(36°,87%,94%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#EF9B20</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">39</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">239</color-ontology:hasR>
+        <color-ontology:hasRGB>(239,155,32)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasY-CMYK>
+        <rdfs:label>EF9B20</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of brown</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#F07C82 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#F07C82">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">130</color-ontology:hasB>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMYK>（0,65,38,0)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">357</color-ontology:hasH>
+        <color-ontology:hasHSL>(357°,79%,71%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(357°,48%,94%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#F07C82</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</color-ontology:hasL>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">65</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">240</color-ontology:hasR>
+        <color-ontology:hasRGB>(240,124,130)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">79</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasV>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">38</color-ontology:hasY-CMYK>
+        <rdfs:label>F07C82</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://zhongguose.com/#xiangyehong"/>
+        <skos:altLabel xml:lang="zh">香叶红</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#F2 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#F2">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ArtificialLightSource"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Environment"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#LightSource"/>
+        <color-ontology:hasColorTemperatureUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#kelvin"/>
+        <color-ontology:hasColorTemperature rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4200</color-ontology:hasColorTemperature>
+        <color-ontology:alsoKnownAs xml:lang="zh">CWF光源</color-ontology:alsoKnownAs>
+        <rdfs:comment xml:lang="en">CWF light sources (F2) are primarily used in commercial and office establishments in the U.S., with an associated color temperature of 4150 K. CWF light source stands for Cool White Fluoresent.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">CWF光源（F2）主要用于美国的商业与办公机构，相关色温为4200K。CWF光源是Cool White Fluoresent的缩写，即冷白荧光灯。</rdfs:comment>
+        <rdfs:label xml:lang="zh">F2 light source</rdfs:label>
+        <skos:altLabel xml:lang="zh">F2 光源</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#F46A9B -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#F46A9B">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">155</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(4%,58%,39%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,57%,36%,4%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">106</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">339</color-ontology:hasH>
+        <color-ontology:hasHSL>(339°,86%,69%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(339°,57%,96%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#F46A9B</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">58</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</color-ontology:hasM-CMYK>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">244</color-ontology:hasR>
+        <color-ontology:hasRGB>(244,106,155)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">96</color-ontology:hasV>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</color-ontology:hasY-CMYK>
+        <rdfs:label>F46A9B</rdfs:label>
+        <skos:altLabel xml:lang="en">medium light shade of pink</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FF0000 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FF0000">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorComputer"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorPrint"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#WarmColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasCode>R100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">405-480</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasH>
+        <color-ontology:hasHSL>(0°,100%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(0°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#FF0000</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(4560.012,881.19075,7.638933)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasR>
+        <color-ontology:hasRGB>(255,0,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">52</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">230</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(230,0,52)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">740-625</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">red</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">The most powerful color, enthusiasm, bold, lively, passionate, celebratory, bombastic symbol. Easily inspire courage, the West as a war pass to symbolize the meaning of sacrifice, the East represents good luck, optimism, the meaning of celebration. There is a feeling of letting people&apos;s blood boil, but it will also let the vision produce great pressure.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">最强有力的色彩，热情、豪放、活泼、激情、喜庆、轰轰烈烈的象征。容易鼓舞勇气，西方以此作为战关象征牺牲之意，东方则代表吉祥、乐观、喜庆之意。有让人热血沸腾的感觉，但也会让视觉产生巨大的压力。</color-ontology:hasMoral>
+        <rdfs:label>FF0000</rdfs:label>
+        <skos:altLabel xml:lang="zh">红色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FF0921 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FF0921">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasHSL>(354°，100%，52%）</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(354°，96%，100%）</color-ontology:hasHSV>
+        <color-ontology:hasRGB>(255,9,33)</color-ontology:hasRGB>
+        <color-ontology:alsoKnownAs xml:lang="en">vermeil</color-ontology:alsoKnownAs>
+        <rdfs:label>FF0921</rdfs:label>
+        <skos:altLabel xml:lang="zh">朱红色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFA500 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFA500">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#WarmColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasCode>O100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">480-510</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">165</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</color-ontology:hasH>
+        <color-ontology:hasHSL>(39°,100%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(39°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#FFA500</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(11740.1685,5361.83175,38.049918)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasR>
+        <color-ontology:hasRGB>(255,165,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">101</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(255,101,0)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">625-590</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">orange</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Stylish, youthful, happy, sweet and energetic. Blazing life, the sun&apos;s rays are orange.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">时尚、青春、快乐、甜蜜、活力四射。炽烈之生命，太阳光为橙色。</color-ontology:hasMoral>
+        <rdfs:label>FFA500</rdfs:label>
+        <skos:altLabel xml:lang="zh">橙色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFC0CB -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFC0CB">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasRGB>(255,192,203)</color-ontology:hasRGB>
+        <color-ontology:alsoKnownAs xml:lang="en">pink</color-ontology:alsoKnownAs>
+        <color-ontology:alsoKnownAs xml:lang="zh">粉红色</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Lovely, warm, delicate, youthful, bright, sweet, love, gorgeous, elegant, is the majority of women&apos;s favorite color, often for flowers, decorations.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">可爱、温馨、娇嫩、青春、明快、甜美、恋爱、华丽、典雅，是广大女性喜爱的颜色，经常为花朵、装饰品的颜色。</color-ontology:hasMoral>
+        <rdfs:label>FFC0CB</rdfs:label>
+        <skos:altLabel xml:lang="zh">粉色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFEECC -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFEECC">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasMeaningandSymbolism rdf:resource="http://example.org/color-ontology#FFEECC"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">204</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(0%,7%,20%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(0%,7%,20%,0%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">238</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasH>
+        <color-ontology:hasHSL>(40°,100%,90%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(40°,20%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#FFEECC</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasR>
+        <color-ontology:hasRGB>(255,238,204)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</color-ontology:hasY-CMYK>
+        <rdfs:label>FFEECC</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFF0F5 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFF0F5">
+        <color-ontology:hasRGB>(255,240,245)</color-ontology:hasRGB>
+        <color-ontology:alsoKnownAs xml:lang="en">lavender blush</color-ontology:alsoKnownAs>
+        <color-ontology:alsoKnownAs xml:lang="zh">淡紫红色</color-ontology:alsoKnownAs>
+        <rdfs:label>FFF0F5</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFFF00 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFFF00">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorCMYK"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorPrint"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#WarmColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasCode>Y100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">510-530</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</color-ontology:hasH>
+        <color-ontology:hasHSL>(60°,100%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(60°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#FFFF00</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(4560.012,881.19075,7.638933)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasR>
+        <color-ontology:hasRGB>(255,255,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">229</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(255,229,0)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">590-565</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">yellow</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Lively color, the warmest, but can not afford to wash out white. The East represents dignity and elegance, and Western Christianity uses yellow as a symbol of shame.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">活泼的颜色，最温暖，但禁不起白色的冲淡。东方代表尊贵、优雅，西方基督教以黄色为耻辱象征。</color-ontology:hasMoral>
+        <rdfs:label>FFFF00</rdfs:label>
+        <skos:altLabel xml:lang="zh">黄色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#FFFFFF -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#FFFFFF">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#NeutralColor"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasB>
+        <color-ontology:hasCode>Nb00w100</color-ontology:hasCode>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasH>
+        <color-ontology:hasHSL>(0°,0%,100%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(0°,0%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#FFFFFF</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasL>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasR>
+        <color-ontology:hasRGB>(255,255,255)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">252</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">252</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">252</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(252,252,252)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:alsoKnownAs xml:lang="en">white</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Bright, flawless, icy, holy, no erotic color, the table pure feeling, and relaxed, happy, thick white will have a growing feeling.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">明快、无瑕、冰雪、圣洁，无情色，表纯洁之感，及轻松、愉悦，浓厚之白色会有壮大之感觉。</color-ontology:hasMoral>
+        <rdfs:label>FFFFFF</rdfs:label>
+        <skos:altLabel xml:lang="zh">白色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#NeutralColor -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#NeutralColor">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorCategory"/>
+        <rdfs:comment xml:lang="en">Neutral colors include black, white, and grey, which are relatively neutral and less distinctively warm or cool in character.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">中性色系包括黑色、白色、灰色等，它们相对较为中性，不太具有鲜明的暖色或冷色特征。</rdfs:comment>
+        <rdfs:label xml:lang="en">neutral color</rdfs:label>
+        <skos:altLabel xml:lang="zh">中色系</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#Protanopia -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#Protanopia">
+        <rdf:type rdf:resource="http://example.org/color-ontology#PathologyType"/>
+        <color-ontology:hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</color-ontology:hasDegree>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#RetroMetro -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#RetroMetro">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Categorical"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorScheme"/>
+        <color-ontology:hasColor rdf:resource="http://example.org/color-ontology#EF9B20"/>
+        <color-ontology:hasColorCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</color-ontology:hasColorCount>
+        <rdfs:label xml:lang="en">Retro Metro</rdfs:label>
+        <rdfs:seeAlso rdf:resource="https://www.heavy.ai/blog/12-color-palettes-for-telling-better-stories-with-your-data"/>
+        <skos:altLabel xml:lang="zh">怀旧风格色彩模式</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#WarmColor -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#WarmColor">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorCategory"/>
+        <owl:sameAs rdf:resource="http://example.org/color-ontology#warm"/>
+        <rdfs:comment xml:lang="en">Warm colors tend to give a warm, lively and positive feeling. Typical warm colors include red, orange, and yellow.</rdfs:comment>
+        <rdfs:comment xml:lang="zh">暖色系的颜色倾向于给人一种温暖、活泼、积极的感觉。典型的暖色包括红色、橙色、黄色等。</rdfs:comment>
+        <rdfs:label xml:lang="en">warm color</rdfs:label>
+        <skos:altLabel xml:lang="zh">暖色系</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#cool -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#cool">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">冷色</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">cool</rdfs:label>
+        <skos:altLabel xml:lang="en">cool color</skos:altLabel>
+        <skos:definition xml:lang="zh">给予凉爽感觉的颜色。</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#dark -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#dark">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">dark</rdfs:label>
+        <skos:altLabel xml:lang="zh">黑暗</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#fall -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#fall">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">fall</rdfs:label>
+        <skos:altLabel xml:lang="zh">秋天</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#happy -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#happy">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">happy</rdfs:label>
+        <skos:altLabel xml:lang="zh">开心</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#light -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#light">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">light</rdfs:label>
+        <skos:altLabel xml:lang="zh">明亮</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#spring -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#spring">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <color-ontology:isAssociatedWith rdf:resource="http://example.org/color-ontology#FFEECC"/>
+        <rdfs:label xml:lang="en">spring</rdfs:label>
+        <skos:altLabel xml:lang="zh">春天</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#summer -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#summer">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">summer</rdfs:label>
+        <skos:altLabel xml:lang="zh">夏天</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#warm -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#warm">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <color-ontology:alsoKnownAs xml:lang="zh">暖色</color-ontology:alsoKnownAs>
+        <rdfs:label xml:lang="en">warm</rdfs:label>
+        <skos:altLabel xml:lang="en">warm color</skos:altLabel>
+        <skos:definition xml:lang="zh">给予暖和感觉的颜色。</skos:definition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#winter -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#winter">
+        <rdf:type rdf:resource="http://example.org/color-ontology#ColorConcept"/>
+        <rdfs:label xml:lang="en">winter</rdfs:label>
+        <skos:altLabel xml:lang="zh">冬天</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#00FF00 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#00FF00">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorComputer"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#CoolColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasCode>G100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">530-600</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</color-ontology:hasH>
+        <color-ontology:hasHSV>(120°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#00FF00</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(11096.6055,6924.627,46.998795)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasR>
+        <color-ontology:hasRGB>(0,255,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">58</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">134</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(0,134,58)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">565-500</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">green</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Freshness, hope, security, calmness, comfort, in a place where the seasons are clearly defined, such as seeing the trees in spring, green leaves, the colors of nature. There is a sense of renewal.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">清新、希望、安全、平静、舒适之感，在四季分明之地方，如见到春天之树木、有绿色的嫩叶，大自然的颜色。有新生之感。</color-ontology:hasMoral>
+        <rdfs:label>00FF00</rdfs:label>
+        <skos:altLabel xml:lang="zh">绿色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#00FFFF -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#00FFFF">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorCMYK"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#CoolColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasB>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">600-620</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">180</color-ontology:hasH>
+        <color-ontology:hasHSV>(180°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#00FFFF</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(12147.03975,7910.7477,421.106745)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasR>
+        <color-ontology:hasRGB>(0,255,255)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">500-485</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">cyan</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Cyan is a color unique to China and was of great importance in ancient Chinese society. Cyan symbolizes strength, hope, simplicity and dignity, and is often used in traditional artifacts and clothing.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">青色是中国特有的一种颜色，在中国古代社会中具有极其重要的意义。青色象征着坚强、希望、古朴和庄重，传统的器物和服饰常常采用青色。</color-ontology:hasMoral>
+        <rdfs:label>00FFFF</rdfs:label>
+        <skos:altLabel xml:lang="zh">青色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#0000FF -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#0000FF">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorComputer"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorPrint"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#CoolColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">255</color-ontology:hasB>
+        <color-ontology:hasCode>B100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue>405-480</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">240</color-ontology:hasH>
+        <color-ontology:hasHSV>(240°,100%,100%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#0000FF</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasLMS>(1050.43425,986.1207,374.10795)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasR>
+        <color-ontology:hasRGB>(0,0,255)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">254</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">165</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(0,165,254)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">740-625</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">blue</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Lightness, freedom, quietness, tolerance, tenderness, eternity, ideals, art, melancholy, vastness, depth, freshness, Europe is the symbol of loyalty to the country.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">轻快、自由、安静、宽容、柔情、永恒、理想、艺术、忧郁、广阔、深邃、清新，欧洲为对国家之忠诚象征。</color-ontology:hasMoral>
+        <rdfs:label>0000FF</rdfs:label>
+        <skos:altLabel xml:lang="zh">蓝色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#000000 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#000000">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColorCMYK"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#NeutralColor"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasB>
+        <color-ontology:hasCode>Nb100w00</color-ontology:hasCode>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasH>
+        <color-ontology:hasHSL>(0°,0%,0%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(0°,0%,0%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#000000</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasL>
+        <color-ontology:hasLMS>(0,0, 0)</color-ontology:hasLMS>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasR>
+        <color-ontology:hasRGB>(0,0,0)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(4,4,4)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasV>
+        <color-ontology:alsoKnownAs xml:lang="en">black</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Silent, serious, unemotional, mysterious, secretive, cool colors. When combined with other colors, they contain a sense of concentration and gravity.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">寂静，严肃，无情色，神秘之感，隐秘，炫酷的颜色。如和其他颜色相配合含有集中和重心感。</color-ontology:hasMoral>
+        <rdfs:label>000000</rdfs:label>
+        <skos:altLabel xml:lang="zh">黑色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#115F9A -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#115F9A">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">154</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>93%,63%,40%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(89%,38%,0%,40%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">95</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">206</color-ontology:hasH>
+        <color-ontology:hasHSL>(206°,80%,34%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(206°,89%,60%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#115F9A</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">38</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17</color-ontology:hasR>
+        <color-ontology:hasRGB>(17,95,154)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>115F9A</rdfs:label>
+        <skos:altLabel xml:lang="en">medium dark shade of cyan-blue</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#1984C5 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#1984C5">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">197</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(90%,48%,23%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(87%,33%,0%,23%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">132</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">203</color-ontology:hasH>
+        <color-ontology:hasHSL>(203°,77%,44%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(203°,87%,77%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#1984C5</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">23</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">33</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</color-ontology:hasR>
+        <color-ontology:hasRGB>(25,132,197)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">23</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>1984C5</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of cyan-blue</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#22A7F0 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#22A7F0">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">240</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(87%,35%,6%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(86%,30%,0%,6%)</color-ontology:hasCMYK>
+        <color-ontology:hasG>167</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">201</color-ontology:hasH>
+        <color-ontology:hasHSL>(201°,87%,54%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(201°,86%,94%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#22A7F0</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</color-ontology:hasR>
+        <color-ontology:hasRGB>(34,167,240)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>22A7F0</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#27AEEF -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#27AEEF">
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">239</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">85</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(85%,32%,6%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(84%,27%,0%,6%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">174</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">200</color-ontology:hasH>
+        <color-ontology:hasHSL>(200°,86%,55%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(200°,84%,94%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#27AEEF</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">39</color-ontology:hasR>
+        <color-ontology:hasRGB>(39,174,239)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">84</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>27AEEF</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of cyan</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#48B5C4 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#48B5C4">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">196</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">72</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(72%,29%,23%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(63%,8%,0%,23%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">181</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">187</color-ontology:hasH>
+        <color-ontology:hasHSL>(187°,51%,53%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(187°,63%,77%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#48B5C4</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">23</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">72</color-ontology:hasR>
+        <color-ontology:hasRGB>(72,181,196)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">23</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>48B5C4</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#5A191B -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#5A191B">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">27</color-ontology:hasB>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMYK>(35,100,85,54)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</color-ontology:hasG>
+        <color-ontology:hasHexadecimalCode>#5A191B</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</color-ontology:hasK>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</color-ontology:hasR>
+        <color-ontology:hasRGB>(90,25,27)</color-ontology:hasRGB>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">85</color-ontology:hasY-CMYK>
+        <rdfs:label>5A191B</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://zhongguose.com/#lizi"/>
+        <skos:altLabel xml:lang="zh">栗紫</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#5C2223 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#5C2223">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasB>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMYK>（35，94，77，53）</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</color-ontology:hasG>
+        <color-ontology:hasHexadecimalCode>#5C2223</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</color-ontology:hasK>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</color-ontology:hasK>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">92</color-ontology:hasR>
+        <color-ontology:hasRGB>（92，34，35）</color-ontology:hasRGB>
+        <rdfs:label>5C2223</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://zhongguose.com/#anyuzi"/>
+        <skos:altLabel xml:lang="zh">暗玉紫</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#63BFF0 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#63BFF0">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">240</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(61%,25%,6%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(59%,20%,0%,6%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">191</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">201</color-ontology:hasH>
+        <color-ontology:hasHSL>(201°,82%,66%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(201°,59%,94%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#63BFF0</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">66</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">99</color-ontology:hasR>
+        <color-ontology:hasRGB>(99,191,240)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">82</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasY-CMYK>
+        <rdfs:label>63BFF0</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#76C68F -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#76C68F">
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">143</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(54%,22%,44%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(40%,0%,28%,22%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">198</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">139</color-ontology:hasH>
+        <color-ontology:hasHSL>(139°,41%,62%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(139°,40%,78%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#76C68F</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22</color-ontology:hasK>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">118</color-ontology:hasR>
+        <color-ontology:hasRGB>(118,198,143)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</color-ontology:hasY-CMYK>
+        <rdfs:label>76C68F</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#800080 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#800080">
+        <rdf:type rdf:resource="http://example.org/color-ontology#BasicColor"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <rdf:type rdf:resource="http://example.org/color-ontology#PrimaryColor"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#NeutralColor"/>
+        <color-ontology:hasFrequencyUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#terahertz"/>
+        <color-ontology:hasWavelengthUnit rdf:resource="http://www.nmdc.ac.cn/ontology/vim#nanometer"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">128</color-ontology:hasB>
+        <color-ontology:hasCode>P100</color-ontology:hasCode>
+        <color-ontology:hasFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">680-790</color-ontology:hasFrequencyValue>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">300</color-ontology:hasH>
+        <color-ontology:hasHSL>(300°,100%,25%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(300°,100%,50%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#800080</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</color-ontology:hasL>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">128</color-ontology:hasR>
+        <color-ontology:hasRGB>(128,0,128)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</color-ontology:hasS-HSV>
+        <color-ontology:hasSB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">135</color-ontology:hasSB>
+        <color-ontology:hasSG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasSG>
+        <color-ontology:hasSR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">118</color-ontology:hasSR>
+        <color-ontology:hasSRGB>(118,0,135)</color-ontology:hasSRGB>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasV>
+        <color-ontology:hasWavelengthValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">440-380</color-ontology:hasWavelengthValue>
+        <color-ontology:alsoKnownAs xml:lang="en">purple</color-ontology:alsoKnownAs>
+        <color-ontology:alsoKnownAs xml:lang="en">violet</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Symbol of fantasy, nobility and romance. Mauve has a pleasant feeling. In Chinese tradition, the color purple represents saints and emperors, such as the Forbidden City in Beijing, which is also known as the &quot;Purple City&quot;, and the so-called &quot;Purple Breath to the East&quot;. In the West, purple also represents nobility, and is often the favorite color of the aristocracy.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">梦幻，高贵，浪漫的象征。淡紫色有愉快之感。中国传统中紫色代表圣人，帝王之气，如北京故宫又称为「紫禁城」，也有所谓「紫气东来」。在西方，紫色亦代表尊贵，常成为贵族所爱用的颜色。</color-ontology:hasMoral>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800080</rdfs:label>
+        <skos:altLabel xml:lang="zh">紫色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#808080 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#808080">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasColorCategory rdf:resource="http://example.org/color-ontology#NeutralColor"/>
+        <color-ontology:alsoKnownAs xml:lang="en">gray</color-ontology:alsoKnownAs>
+        <color-ontology:hasMoral xml:lang="en">Elegant, simple and austere. Representing loneliness, coldness, and gold-digging, gray gives a sense of reality.</color-ontology:hasMoral>
+        <color-ontology:hasMoral xml:lang="zh">高雅，简素，简朴。代表寂寞、冷淡、拜金主义，灰色使人有现实感。</color-ontology:hasMoral>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">808080</rdfs:label>
+        <skos:altLabel xml:lang="zh">灰色</skos:altLabel>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://example.org/color-ontology#87BC45 -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/color-ontology#87BC45">
+        <rdf:type rdf:resource="http://example.org/color-ontology#Color"/>
+        <color-ontology:hasB rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</color-ontology:hasB>
+        <color-ontology:hasC-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47</color-ontology:hasC-CMY>
+        <color-ontology:hasC-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</color-ontology:hasC-CMYK>
+        <color-ontology:hasCMY>(47%,26%,73%)</color-ontology:hasCMY>
+        <color-ontology:hasCMYK>(28%,0%,63%,26%)</color-ontology:hasCMYK>
+        <color-ontology:hasG rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">188</color-ontology:hasG>
+        <color-ontology:hasH rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</color-ontology:hasH>
+        <color-ontology:hasHSL>(87°,47%,50%)</color-ontology:hasHSL>
+        <color-ontology:hasHSV>(87°,63%,74%)</color-ontology:hasHSV>
+        <color-ontology:hasHexadecimalCode>#87BC45</color-ontology:hasHexadecimalCode>
+        <color-ontology:hasK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26</color-ontology:hasK>
+        <color-ontology:hasL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</color-ontology:hasL>
+        <color-ontology:hasM-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26</color-ontology:hasM-CMY>
+        <color-ontology:hasM-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</color-ontology:hasM-CMYK>
+        <color-ontology:hasR rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">135</color-ontology:hasR>
+        <color-ontology:hasRGB>(135,188,69)</color-ontology:hasRGB>
+        <color-ontology:hasS-HSL rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47</color-ontology:hasS-HSL>
+        <color-ontology:hasS-HSV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</color-ontology:hasS-HSV>
+        <color-ontology:hasV rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">74</color-ontology:hasV>
+        <color-ontology:hasY-CMY rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">73</color-ontology:hasY-CMY>
+        <color-ontology:hasY-CMYK rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</color-ontology:hasY-CMYK>
+        <rdfs:label>87BC45</rdfs:label>
+        <skos:altLabel xml:lang="en">shade of green</skos:altLabel>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
