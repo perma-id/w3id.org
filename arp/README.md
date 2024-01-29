@@ -27,22 +27,22 @@ docker run -p 6080:80 -v "$PWD:/usr/local/apache2/htdocs" chaseconey/htaccess-te
 
 ### Evaluate some links
 
-Production schema: http://localhost:6080/arp/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de
+Production schema: http://localhost:6080/arp/schema/c9cac144-6260-33fe-886e-71a42914ef9f
 ```
-curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de"
-302: https://cedar.dsd.sztaki.hu/templates/94801ca9-2d4e-49a9-8f37-d26341a9d7de
-```
-
-Development schema: http://localhost:6080/arp/dev/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de
-```
-curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/dev/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de"
-302: https://cedardev.dsd.sztaki.hu/templates/94801ca9-2d4e-49a9-8f37-d26341a9d7de
+> curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/schema/c9cac144-6260-33fe-886e-71a42914ef9f"
+302: https://openview.cedar.dsd.sztaki.hu/templates/https:%2F%2Frepo.cedar.dsd.sztaki.hu%2Ftemplates%2Fc9cac144-6260-33fe-886e-71a42914ef9f
 ```
 
-Local development schema: http://localhost:6080/arp/localdev/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de
+Development schema: http://localhost:6080/arp/dev/schema/c9cac144-6260-33fe-886e-71a42914ef9f
 ```
-curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/schema/94801ca9-2d4e-49a9-8f37-d26341a9d7de"
-302: https://arp.orgx/templates/94801ca9-2d4e-49a9-8f37-d26341a9d7de```
+> curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/dev/schema/c9cac144-6260-33fe-886e-71a42914ef9f"
+302: https://openview.cedardev.dsd.sztaki.hu/templates/https:%2F%2Frepo.cedardev.dsd.sztaki.hu%2Ftemplates%2Fc9cac144-6260-33fe-886e-71a42914ef9f
+```
+
+Local development schema: http://localhost:6080/arp/localdev/schema/c9cac144-6260-33fe-886e-71a42914ef9f
+```
+> curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/schema/c9cac144-6260-33fe-886e-71a42914ef9f"
+302: https://openview.arp.orgx/templates/https:%2F%2Frepo.arp.orgx%2Ftemplates%2Fc9cac144-6260-33fe-886e-71a42914ef9f
 ```
 
 Production file: http://localhost:6080/arp/ro-id/doi:10.5072/FK2/ZL0O25/file/364
@@ -98,3 +98,6 @@ Local dev RO-Crate data: http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK
  curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK2/ZL0O25/a4ea1276-54d3-418b-9008-455c1c691bb5"
 302: http://localhost:8080/ro-id?persistentId=doi:10.5072/FK2/ZL0O25&elementId=a4ea1276-54d3-418b-9008-455c1c691bb5
 ```
+
+curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/schema/33677b82-7973-3e4c-b09d-b5189e095627"
+
