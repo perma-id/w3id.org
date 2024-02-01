@@ -48,19 +48,19 @@ Local development schema: http://localhost:6080/arp/localdev/schema/c9cac144-626
 Production file: http://localhost:6080/arp/ro-id/doi:10.5072/FK2/ZL0O25/file/364
 ```
 curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/ro-id/doi:10.5072/FK2/ZL0O25/file/364"
-302: https://concorda2test.dsd.sztaki.hu/dataset.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
+302: https://concorda2test.dsd.sztaki.hu/file.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
 ```
 
 Dev file: http://localhost:6080/arp/dev/ro-id/doi:10.5072/FK2/ZL0O25/file/364
 ```
 curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/dev/ro-id/doi:10.5072/FK2/ZL0O25/file/364"
-302: https://dsddev.concorda.sztaki.hu/dataset.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
+302: https://dsddev.concorda.sztaki.hu/file.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
 ```
 
 Local file: http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK2/ZL0O25/file/364
 ```
 curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK2/ZL0O25/file/364"
-302: http://localhost:8080/dataset.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
+302: http://localhost:8080/file.xhtml?persistentId=doi:10.5072/FK2/ZL0O25&fileId=364
 ```
 
 Production author: http://localhost:6080/arp/ro-id/doi:10.5072/FK2/ZL0O25/author/123
