@@ -26,11 +26,11 @@ RewriteRule ^localdev/schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_LOCA
 # In the following rules Dataverse PID-s are expected to be passed as-is, without encoding.
 #
 
-# RO-Crate file identifier. /ro-id/<PID>/file/<compound ID>
+# RO-Crate file identifier. /ro-id/<PID>/file/<file ID>
 # File has special URL, because we have a Dataverse page for files
-RewriteRule ^ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_PROD}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
-RewriteRule ^dev/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
-RewriteRule ^localdev/ro-id/(.*)?/file/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/dataset.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_PROD}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/file/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
 
 # For other Dataverse MDB data we just go to the dataset.xhtml as is, no special view
 # /ro-id/<PID>/<compound fieldName>/<compound ID>
