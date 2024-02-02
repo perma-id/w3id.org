@@ -10,3 +10,4 @@ Ontology
 Contacts
 
 * Anne Göbels <goebels@dc.rwth-aachen.de>
+* https://github.com/AnneGoebels
