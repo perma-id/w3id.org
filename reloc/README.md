@@ -3,8 +3,8 @@
 
 Ontology
 
-* Doc      https://annegoebels.github.io/reloc/
-* Turtle   https://annegoebels.github.io/reloc/ontology.ttl
+* **Doc** — https://annegoebels.github.io/reloc/
+* **Turtle** — https://annegoebels.github.io/reloc/ontology.ttl
 
 
 Contacts
