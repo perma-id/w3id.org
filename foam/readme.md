@@ -1,4 +1,4 @@
-## NeuroDISK Permanent IDs
+## FOAM Workshop ID
 
 Webiste: https://onto4fair.github.io/foam/
 
