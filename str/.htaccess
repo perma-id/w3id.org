@@ -7,6 +7,18 @@ RewriteEngine On
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^$ https://semiceu.github.io/STR-AP/ [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.ttl [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.jsonld [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.rdf [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.nt [NE,R,L]
+
 RewriteRule ^isSubjectToAuthorization$ https://semiceu.github.io/STR-AP/#Unit.issubjecttoauthorization [NE,R,L]
 RewriteRule ^countryOfResidence$ https://semiceu.github.io/STR-AP/#ActivityData.countryofresidence [NE,R,L]
 RewriteRule ^updateDate$ https://semiceu.github.io/STR-AP/#Document.updatedate [NE,R,L]
@@ -54,16 +66,3 @@ RewriteRule ^CoordinationGroup$ https://semiceu.github.io/STR-AP/#CoordinationGr
 RewriteRule ^ActivityData$ https://semiceu.github.io/STR-AP/#ActivityData [NE,R,L]
 RewriteRule ^Unit$ https://semiceu.github.io/STR-AP/#Unit [NE,R,L]
 RewriteRule ^Order$ https://semiceu.github.io/STR-AP/#Order [NE,R,L]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.ttl [NE,R,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.jsonld [NE,R,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.rdf [NE,R,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.nt [NE,R,L]
-
