@@ -41,3 +41,6 @@ Associated research projects:
 ## License
 
 The CHAMEO Ontology is released under a Creative Commons license Attribution 4.0 International (CC BY 4.0). See [here](https://creativecommons.org/licenses/by/4.0/legalcode) for more information.
+
+## Contacts
+This space is maintained by [Daniele Toti](https://github.com/Leienad).
