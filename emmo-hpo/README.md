@@ -9,8 +9,6 @@ We apply semantic technologies to describe the following domains:
 * Energy materials
 * Bio-materials.
 
-
-
 ## EMMO remarks
 
 List here the feedback on EMMO classes.
@@ -21,5 +19,7 @@ List here the feedback on EMMO classes.
   * `MolecularWeight` and `Strength` as sublasses of `emmo:Intensive` -> `emmo:CategorizedPhysicalQuantity`.
   * `ChemicalReaction` as a subclass of `emmo:PhysicalPhenomenon` (a `emmo:Process`). 
   * `ChemicalStructure` as a subclass of `emmo:NominalProperty`? And distinct from `emmo:StructuralFormula`, which stands for a graphical representation of a molecular structure showing the relative position in space of atoms and bonds.
-    The `ChemicalStructure` is a covering class that should be used for `hpo:Branched`, `hpo:crosslinked`, and `hpo:Linear` instead or them being sublasses of `hpo:SkeletalFormula`.  Also, `ChemicalStructure` will cover: `hpo:isotactic`, `hpo:syndiotactic`, and `hpo:atactic`.
-* 
+* The `ChemicalStructure` is a covering class that should be used for `hpo:Branched`, `hpo:crosslinked`, and `hpo:Linear` instead or them being sublasses of `hpo:SkeletalFormula`.  Also, `ChemicalStructure` will cover: `hpo:isotactic`, `hpo:syndiotactic`, and `hpo:atactic`.
+
+## Contacts
+This space is maintained by [Daniele Toti](https://github.com/Leienad).
