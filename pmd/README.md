@@ -9,6 +9,7 @@ This namespace represents a general ontology namespace for the platform material
 - `pgo`: Precipitate Geometry Ontology (PGO)
 - `mo`: Microscopy Ontology (MO)
 - `ont_pub_tmplt`: PMD Ontology Publication Template
+- `materials-mechanics-ontology`: Materials Mechanics Ontology
 
 ## Contact
 Current maintainers are:
