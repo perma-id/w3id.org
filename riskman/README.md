@@ -9,6 +9,6 @@ The Risk Management Ontology defines various notions related to risk management 
 Contacts:
 - Dörthe Arndt (<doerthe.arndt@tu-dresden.de>)
 - Piort Gorczyca (<piotr.gorczyca@tu-dresden.de>)
-- Pascal Kettmann (<pascal.kettmann@tu-dresden.de>)
-- Stephan Mennicke (<stephan.mennicke@tu-dresden.de<>)
+- Pascal Kettmann (<pascal.kettmann@tu-dresden.de>, GitHub: [diskettmann](https://github.com/diskettmann))
+- Stephan Mennicke (<stephan.mennicke@tu-dresden.de>)
 - Hannes Straß (<hannes.strass@tu-dresden.de>)
