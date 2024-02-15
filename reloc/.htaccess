@@ -1,0 +1,40 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://annegoebels.github.io/reloc/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$ https://annegoebels.github.io/reloc/ontology.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://annegoebels.github.io/reloc/ontology.xml [R=302,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ontology.ttl$ https://annegoebels.github.io/reloc/ontology.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ontology.html$ https://annegoebels.github.io/reloc/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^ontology.rdf$ https://annegoebels.github.io/reloc/ontology.xml [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^ontology.jsonld$ https://annegoebels.github.io/reloc/ontology.json [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^ontology.nt$ https://annegoebels.github.io/reloc/ontology.nt [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://annegoebels.github.io/reloc/ [R=303,NE,L]
