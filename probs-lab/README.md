@@ -2,7 +2,7 @@
 
 This [W3ID](https://w3id.org) provides a persistent URI namespace for [PRObs Lab](https://github.com/probs-lab) resources.
 
-At the moment, it redirects to the [UK FIRES project](https://ukfires.org).
+The `ontology` folder redirects to the latest version of our ontology.
 
 ## Contact
 

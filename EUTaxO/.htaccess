@@ -69,6 +69,20 @@ RewriteRule ^fungi$ https://jfaldanam.gitlab.io/EUTaxO/fungi/EUTaxO-fungi.owl [R
 # Default response for fungi: html
 RewriteRule ^fungi$ https://jfaldanam.gitlab.io/EUTaxO/fungi [R=303,NE,L]
 
+########### Archaea ###########
+# Rewrite rules for archaea
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea/EUTaxO-archaea.owl [R=302,NE,L]
+
+# Default response for archaea: html
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea [R=303,NE,L]
 
 ########### Base ontology ###########
 # Rewrite rules
