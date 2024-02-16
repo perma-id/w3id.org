@@ -7,13 +7,13 @@ This repository holds the website source code for <https://w3id.org/>.
 
 #### Content
 
-*   [Purpose](#purpose)
-*   [Management](#management)
-*   [System Operations](#system-operations)
-*   [**Creating a New Identifier**](#new)
-*   [Naming Policy](#naming-policy)
-*   [W3ID Community](#w3id-community)
-*   [Disclaimer](#disclaimer)
+* [Purpose](#purpose)
+* [Management](#management)
+* [System Operations](#system-operations)
+* [**Creating a New Identifier**](#new)
+* [Naming Policy](#naming-policy)
+* [W3ID Community](#w3id-community)
+* [Disclaimer](#disclaimer)
 
 ### Purpose
 
@@ -89,12 +89,12 @@ following steps:
    on GitHub.
 2. Add or update a new redirect entry and commit your changes.
    1. If it does not yet exist, create a new directory with an intended permanent
-      identifer name (see [Naming Policy](#naming) below).
-   3. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
+      identifer name (see [Naming Policy](#naming-policy) below).
+   2. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
       * `.htaccess` contains redirection rules, for computer to read and perform.
       * `README.md` contains more identifier info and contact info, for human to read.
       * See [w3id.org/examples](https://github.com/perma-id/w3id.org/tree/master/examples)
-      for examples of `.htaccess` and  `README.md`.
+      for examples of `.htaccess` and `README.md`.
 3. Submit a _Pull Request_ for your changes.
 
 The maintainers of this system will then act on that _Pull Request_ and 
@@ -115,13 +115,13 @@ to host this system. Please see this documentation:
 Please help out the maintainers of the service with the following in your 
 Pull Requests:
 
-* **contact info** in a `README.md` or `.htaccess` comment.
-* **test your changes** with a local checkout of the site.
+* **Contact info** in a `README.md` or `.htaccess` comment.
+* **Test your changes** with a local checkout of the site.
 * **_Squash_ multiple commits** into one commit before a pull request 
   if appropriate.
-  * here is information on _squashing_ commits: 
+  * Here is information on _squashing_ commits: 
     [How to Squash Commits in Git](https://www.git-tower.com/learn/git/faq/git-squash/)
-* **use descriptive commit messages**. In particular, include your project 
+* **Use descriptive commit messages**. In particular, include your project 
   name in the commit message. For those using the GitHub interface, please 
   modify the default "Create/Update/Delete `.htaccess`" message.
 
@@ -131,7 +131,6 @@ mailing list. Make sure to include the URL that you want on w3id.org, the
 URL that you want to redirect to, and the HTTP code that you want to use 
 when redirecting. An administrator will then create the redirect for you.
 
-<a id="naming"></a>
 ### Naming Policy
 
 There is no official policy on identifier names. The current practice
