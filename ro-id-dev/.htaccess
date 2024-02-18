@@ -1,3 +1,7 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
 RewriteEngine on
 
 # Directive to ensure *.rdf files served as appropriate content type,
@@ -8,6 +12,7 @@ AddType text/turtle .ttl
 AddType text/n3 .n3
 AddType application/n-triples .nt
 AddType application/ld+json .jsonld
+AddType application/trig .trig
 
 ### DEV links
 
@@ -15,14 +20,19 @@ AddType application/ld+json .jsonld
 # this will point to rohub main page
 RewriteRule ^$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ [R=302,L]
 
+# ROHub user (imported)
+RewriteRule ^users/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/userprofile?username=$1 [R=302,L]
+
 # Research Object resource
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=content&resource=$2 [R=302,L]
 # download resource
 RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$2/download/ [R=302,L]
 RewriteRule ^resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$1/download/ [R=302,L]
 
 # Research Object manifest body
 # download manifest
-RewriteRule ^(.*)/.ro/manifest.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=303,L]
+RewriteRule ^(.*)/.ro/manifest.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
 
 # Research Object evo info 
 # download evo info annotation
@@ -68,11 +78,20 @@ RewriteRule ^(.*)/research-areas$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/
 
 # Research Object crate
 # download ro-crate
-RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=303,L]
+RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L]
 
 # Research Object
-# open RO in ROHub portal
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/overview?$1 [R=303,L]
 # download RO as RDF (manifest), ZIP or PDF
-RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
+RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
+# else open RO in ROHub portal
+# RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]

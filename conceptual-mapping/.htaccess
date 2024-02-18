@@ -14,6 +14,7 @@ AddType application/ld+json .json
 # Rewrite engine setup
 RewriteEngine On
 
+## CM
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -34,11 +35,66 @@ RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.nt [R=
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/ontology.ttl [R=303,L]
 
-
-RewriteRule ^protocols_list.ttl$ http://vocab.linkeddata.es/def/conceptual-mapping/protocols_list.ttl [R=303,L]
-RewriteRule ^functions_list.ttl$ http://vocab.linkeddata.es/def/conceptual-mapping/functions_list.ttl [R=303,L]
-
-
 RewriteRule ^$ http://vocab.linkeddata.es/def/conceptual-mapping/index-en.html [R=303,L]
 
 
+## CM-CSV
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/ontology.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/ontology.ttl [R=303,L]
+
+RewriteRule ^csv$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/index-en.html [R=303,L]
+
+
+## CM-star
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-star/ontology.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-star/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-star/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-star/ontology.ttl [R=303,L]
+
+RewriteRule ^star$ http://vocab.linkeddata.es/def/conceptual-mapping-csv/index-en.html [R=303,L]
+
+## SKOS
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^protocols_list$ http://vocab.linkeddata.es/def/conceptual-mapping/protocols_list.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^functions_list$ http://vocab.linkeddata.es/def/conceptual-mapping/functions_list.ttl [R=303,L]
+
+RewriteRule ^protocols_list$ http://vocab.linkeddata.es/page/def/conceptual-mapping/kos/functions-list [R=303,L]
+RewriteRule ^functions_list$ http://vocab.linkeddata.es/page/def/conceptual-mapping/kos/protocols-list [R=303,L]
+
+
+## Portal
+RewriteRule ^portal$ https://oeg-upm.github.io/Conceptual-Mapping/index.html [R=303,L]

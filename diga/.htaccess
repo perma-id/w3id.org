@@ -4,14 +4,21 @@ RewriteEngine On
 RewriteRule	  ^$ https://diga.ceres.rub.de/ [R=302,L]
 
 # DiGA Terms
-RewriteRule   ^terms/?$ https://skosmos.ub.rub.de/diga/ [R=303,L,QSA]
-RewriteRule   ^terms/(.+)$ https://skosmos.ub.rub.de/diga/page/$1 [R=303,L,QSA]
+RewriteRule   ^terms/?$ https://diga.skosmos.ub.rub.de/thesaurus/ [R=303,L,QSA]
+RewriteRule   ^terms/(.+)$ https://diga.skosmos.ub.rub.de/thesaurus/page/$1 [R=303,L,QSA]
 
 # DiGA Sources
 RewriteRule   ^source/?$ http://pages.ceres.rub.de/diga/diga_sources.rdf [R=303,L,QSA]
 RewriteRule   ^source/(.+)$ https://pages.ceres.rub.de/diga/diga_sources.rdf#$1 [R=303,L,NE,QSA]
 
 # DiGA Illustrations
+
+# Serve SVG images if requested
+RewriteCond   %{HTTP_ACCEPT} !application/rdf\+xml.*(image/svg\+xml)
+RewriteCond   %{HTTP_ACCEPT} image/svg\+xml [OR]
+RewriteCond   %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule   ^illustrations/(.+)$ https://pages.ceres.rub.de/diga/illustrations/$1.svg [R=303,L,QSA]
+
 # Serve PNG images if requested
 RewriteCond   %{HTTP_ACCEPT} !application/rdf\+xml.*(image/png)
 RewriteCond   %{HTTP_ACCEPT} image/png [OR]
@@ -25,3 +32,7 @@ RewriteRule   ^illustrations/(.+)$ https://pages.ceres.rub.de/diga/diga_illustra
 # Default rule: RDF for base URI, PNG images for individual entries
 RewriteRule   ^illustrations/?$ https://pages.ceres.rub.de/diga/diga_illustrations.rdf [R=303,L,QSA]
 RewriteRule   ^illustrations/(.+)$ https://pages.ceres.rub.de/diga/illustrations/$1.png [R=303,L,QSA]
+
+# DiGA Gazetteer
+RewriteRule   ^gazetteer/?$ https://diga.skosmos.ub.rub.de/gazetteer/ [R=303,L,QSA]
+RewriteRule   ^gazetteer/(.+)$ https://diga.skosmos.ub.rub.de/gazetteer/page/$1 [R=303,L,QSA]
