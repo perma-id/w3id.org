@@ -10,6 +10,9 @@ https://w3id.org/locolligo/schemas/LP.json -> https://docuracy.github.io/Locolli
 https://w3id.org/locolligo/contexts/linkedplaces.jsonld -> https://docuracy.github.io/Locolligo/contexts/linkedplaces.jsonld
 
 
+### IIIF Images
+https://w3id.org/locolligo/iiif/miscellaneous%2FHollar_1660.jpg/info.json -> https://iiif.docuracy.co.uk/iiif/3/miscellaneous%2FHollar_1660.jpg/info.json
+
 ### Datasets
 Any URL not matching the above patterns is assumed to be a Linked Places (filename.lp.json) dataset. If the path includes another component after the name of the dataset, then the URL is assumed to be a reference to a feature within the dataset.
 
@@ -22,7 +25,7 @@ https://w3id.org/locolligo/Hollar-1660/0be7c747-a873-4337-96ff-e70797c84091 -> h
 
 **[Stephen Gadd](https://www.wikidata.org/wiki/Q7609282)**<br/>
 [Docuracy Ltd](https://docuracy.co.uk)<br/>
-[Woking, UK](https://www.wikidata.org/wiki/Q646225)<br/>
+[Rotherhithe, UK](https://www.wikidata.org/wiki/Q2886632)<br/>
 <locolligo@docuracy.co.uk>  <br/>
 GitHub: [docuracy](https://github.com/docuracy)<br/>
 ORCID: [0000-0003-3060-0181](https://orcid.org/0000-0003-3060-0181)<br/>
