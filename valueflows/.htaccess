@@ -10,6 +10,7 @@ AddType text/trig               .trig
 AddType application/trix        .trix
 RewriteEngine on
 
+SetEnvIf Accept ^                          FILE_EXT=TTL    # *Default*
 SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML
 SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
 SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD
@@ -23,7 +24,7 @@ SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://lab.allmende.io/valueflows/valueflows/-/raw
-SetEnvIf FILE_EXT ^ PROXY=
+SetEnvIf Request_URI ^ PROXY=""
 SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=
 
 # [Recommended IRI patterns for ontologies and their terms](
