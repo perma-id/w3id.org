@@ -36,5 +36,9 @@ RewriteRule ^ontology$ http://examode.dei.unipd.it/ontology/examode.owl [R=303]
 # Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
 RewriteRule ^ontology$ http://examode.dei.unipd.it/ontology/examode.owl [R=303]
 
+# rule to correctly redirect to a fragment of the ontology page
+RewriteRule ^ontology/(.*)$ http://examode.dei.unipd.it/ontology/#$1 [R=302,L,NE]
+
+# fall-back rules
 RewriteRule ^ontology(.*)$ http://examode.dei.unipd.it/ontology$1 [R=302,L]
 RewriteRule ^resource(.*)$ http://examode.dei.unipd.it/resource/$1 [R=302,L]

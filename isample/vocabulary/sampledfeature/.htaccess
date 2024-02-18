@@ -2,21 +2,21 @@ Options +FollowSymLinks
 RewriteEngine on 
 
 # set environmental variable for the current version
-SetEnvIf Request_URI "^.*" currentversion=0.9
+SetEnvIf Request_URI "^.*" currentversion=1-0
 # 
 
 # ../isample/vocabulary/sampledfeature get vocabulary ttl format with text/turtle accept header
 RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule       ^/?$   http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/sampledfeaturevocabulary [R=303,L]
+RewriteRule       ^/?$   https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.ttl [R=303,L]
 
-# just ../isample/vocabulary/sampledfeature  gets the pylode view of the current version of the vocab, from ESIP COR
-RewriteRule       ^/?$   http://cor.esipfed.org/pylode?url=http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/sampledfeaturevocabulary [R=303,L]
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.rdf [R=303,L]
 
-#need condition to check if there is a version number
-# will need to update with new versions
-RewriteCond ^\d+.\d+\/ "=0.9/"
-RewriteRule       ^(^\d+.\d+\/.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
+RewriteCond %{HTTP:Accept} application/ld+json [NC]
+RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.jsonld [R=303,L]
 
-# no version number gets currentversion
-RewriteRule       ^(.+)$    http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/$1 [R=303,L]
+RewriteRule       ^/?$     https://vocabs.ardc.edu.au/viewById/665 [R=303,L]
+
+
+
 

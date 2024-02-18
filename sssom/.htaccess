@@ -2,12 +2,26 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # Making sure the legacy link to the spec still works
-RewriteRule ^$ https://mapping-commons.github.io/sssom/spec/ [R=302]
-RewriteRule ^SSSOM.md$ https://mapping-commons.github.io/sssom/spec/ [R=302]
-RewriteRule ^spec/?$ https://mapping-commons.github.io/sssom/spec/ [R=302]
+RewriteRule ^$ https://mapping-commons.github.io/sssom/home/ [R=302,L]
+RewriteRule ^SSSOM.md$ https://mapping-commons.github.io/sssom/spec/ [R=302,L]
+RewriteRule ^spec/?$ https://mapping-commons.github.io/sssom/ [R=302,L]
 
 # make schema resolvable
 RewriteRule ^sssom.yaml$ https://raw.githubusercontent.com/mapping-commons/sssom/master/model/schema/sssom.yaml [R=302,L]
 RewriteRule ^sssom.schema.json$ https://github.com/mapping-commons/sssom/blob/master/sssom/jsonschema/sssom.schema.json [R=302,L]
 RewriteRule ^sssom.context.jsonld$ https://raw.githubusercontent.com/mapping-commons/sssom/master/sssom/jsonld/sssom.context.jsonld [R=302,L]
 
+# mapping commons
+RewriteRule ^commons/?$ https://mapping-commons.github.io/ [R=302,L]
+
+RewriteRule ^commons/mouse-human/?$ https://github.com/mapping-commons/mh_mapping_initiative [R=302,L]
+RewriteRule ^commons/mouse-human/mappings/(.+) https://raw.githubusercontent.com/mapping-commons/mh_mapping_initiative/master/mappings/$1 [R=302,L]
+
+RewriteRule ^commons/disease/?$ https://github.com/mapping-commons/disease-mappings [R=302,L]
+RewriteRule ^commons/disease/mappings/(.+) https://raw.githubusercontent.com/mapping-commons/disease-mappings/master/mappings/$1 [R=302,L]
+
+RewriteRule ^commons/monarch/?$ https://github.com/monarch-initiative/monarch-mapping-commons [R=302,L]
+RewriteRule ^commons/monarch/mappings/(.+) https://raw.githubusercontent.com/monarch-initiative/monarch-mapping-commons/main/mappings/$1 [R=302]
+
+# Fall through (if none of the above matches, redirect to the docs)
+RewriteRule ^(.+) https://mapping-commons.github.io/sssom/$1 [R=302,L]

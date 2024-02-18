@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Redirect to our Skosmos homepage for the root URI w3id.org/zpid/
+RewriteRule	^$ https://vocabs.leibniz-psychology.org [R=302,L]
+
+# Redirect vocabulary concept uris (e.g. /vocabs/terms/5) to our Skosmos instance's concept page:
+RewriteRule ^vocabs/terms/(.+)$	https://skosmos.stg.zpid.org/terms/page/$1 [R=302,L]
+# the "psycharchives-types" vocab has a skosmos vocid (patypes) than differs from its urispace (psycharchives-types), making this redirect necessary:
+RewriteRule ^vocabs/psycharchives-types/(.+)$	https://vocabs.leibniz-psychology.org/patypes/page/$1 [R=302,L] 
+RewriteRule ^vocabs/(.+)/(.+)$	https://vocabs.leibniz-psychology.org/$1/page/$2 [R=302,L]
+
+# Redirect vocabulary scheme uris (e.g. /zpid/vocabs/terms/) to the vocabulary's/scheme's homepage on skosmos:
+RewriteRule ^vocabs/terms$	https://skosmos.stg.zpid.org/terms [R=302,L]
+# the "psycharchives-types" vocab has a skosmos vocid than differs from its urispace, making this redirect necessary:
+RewriteRule ^vocabs/psycharchives-types$	https://vocabs.leibniz-psychology.org/patypes [R=302,L]
+RewriteRule ^vocabs/(.+)$	https://vocabs.leibniz-psychology.org/$1 [R=302,L]
+
+# Note: We should probably add content negotiation some day, so people will be served JSON, Turtle, RDF/XML as desired, since Skosmos already offers it.
+# Here are example api calls for json-ld and turtle:
+# - https://vocabs.leibniz-psychology.org/rest/v1/class/data?uri=https%3A%2F%2Fw3id.org%2Fzpid%2Fvocabs%2Fclass%2F2100&format=application/ld%2Bjson
+# - https://vocabs.leibniz-psychology.org/rest/v1/class/data?uri=https%3A%2F%2Fw3id.org%2Fzpid%2Fvocabs%2Fclass%2F2100&format=text/turtle

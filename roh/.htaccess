@@ -28,4 +28,17 @@ RewriteRule ^mirror\/vivo\/?$ https://herculescrue.github.io/ROH/mirror/vivo/viv
 RewriteRule ^mirror\/oa\/?$ https://herculescrue.github.io/ROH/mirror/oa/oa.rdf [R=302,L] 
 RewriteRule ^mirror\/cito\/?$ https://herculescrue.github.io/ROH/mirror/cito/cito.ttl [R=302,L] 
 
-RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/ [R=302,NE,L] 
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.rdf [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.ttl [R=302,NE,L]
+# Default: OWL file
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.owl [R=302,NE,L]
+
