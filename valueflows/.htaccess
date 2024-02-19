@@ -27,9 +27,11 @@ SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
 SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
-SetEnvIf Request_URI ^.*$ ROOT_URL=https://lab.allmende.io/valueflows/valueflows/-/raw
-SetEnvIf Request_URI ^ PROXY=""
-SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=
+# HACK Because I (hoijui) was unable to set PROXY to the empty string,
+#      we resort to this hack, of always setting it to something.
+SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
+SetEnvIf Request_URI ^ PROXY=https://
+SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
 
 # [Recommended IRI patterns for ontologies and their terms](
 # https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
