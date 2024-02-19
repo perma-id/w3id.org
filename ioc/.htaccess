@@ -5,12 +5,24 @@ RewriteEngine on
 Options -MultiViews
 
 AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
 
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/core/
+# If accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://internet-of-construction.github.io/IoC-Process-Ontology/ontology.ttl
 
-# If suffix ttl, redirect to turtle version
-RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/core/ontology.ttl
+# If accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://internet-of-construction.github.io/IoC-Process-Ontology/ontology.xml
+
+# If suffix ttl, redirect to turtle 
+RewriteRule ^.ttl$ https://internet-of-construction.github.io/IoC-Process-Ontology/ontology.ttl
+
+# If suffix html, redirect to html 
+RewriteRule ^.html$ https://internet-of-construction.github.io/IoC-Process-Ontology/
+
+# If suffix rdf, redirect to rdf 
+RewriteRule ^.rdf$ https://internet-of-construction.github.io/IoC-Process-Ontology/ontology.xml
 
 # Default response: html
-RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/core/ 
+RewriteRule ^$ https://internet-of-construction.github.io/IoC-Process-Ontology/

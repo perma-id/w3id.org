@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=1.0
+
+#https://w3id.org/isample/earthenv/rocksediment/1.0/rocksedimentvocabulary
+
+# ../isample/earthenv/mingroup get vocabulary ttl format with text/turtle accept header
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-rock-and/1-0/resource.ttl?uri=https://w3id.org/isample/earthenv/rocksediment/%{ENV:currentversion}/rocksedimentvocabulary [R=303,L]
+
+# ../isample/earthenv/mingroup get vocabulary ttl format with text/turtle accept header
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-rock-and/1-0/resource.rdf?uri=https://w3id.org/isample/earthenv/rocksediment/%{ENV:currentversion}/rocksedimentvocabulary [R=303,L]
+
+# just ../isample/earthenv/mingroup  gets the html view of the current version of the vocab, from ARDC RVA
+RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-rock-and/1-0/resource?uri=https://w3id.org/isample/earthenv/rocksediment/%{ENV:currentversion}/rocksedimentvocabulary [R=303,L]
+
+#  Have to check if this is necessary. Currently only valid version is 1.0 
+#need condition to check if there is a version number
+# will need to update with new versions
+#RewriteCond ^\d+.\d+\/ "=0.9/"
+#RewriteRule       ^(^\d+.\d+\/.+)$    #https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-rock-and/1-0/resource?uri=https://w3id.org/isample/earthenv/rocksediment/$1/rocksedimentvocabulary [R=303,L]
+
+# no version number gets ARDC vocabulary landing page
+RewriteRule       ^(.+)$   https://vocabs.ardc.edu.au/viewById/670 [R=303,L]
+
