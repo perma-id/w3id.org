@@ -10,9 +10,6 @@ https://w3id.org/locolligo/schemas/LP.json -> https://docuracy.github.io/Locolli
 https://w3id.org/locolligo/contexts/linkedplaces.jsonld -> https://docuracy.github.io/Locolligo/contexts/linkedplaces.jsonld
 
 
-### IIIF Images
-https://w3id.org/locolligo/iiif/miscellaneous%2FHollar_1660.jpg/info.json -> https://iiif.docuracy.co.uk/iiif/3/miscellaneous%2FHollar_1660.jpg/info.json
-
 ### Datasets
 Any URL not matching the above patterns is assumed to be a Linked Places (filename.lp.json) dataset. If the path includes another component after the name of the dataset, then the URL is assumed to be a reference to a feature within the dataset.
 
