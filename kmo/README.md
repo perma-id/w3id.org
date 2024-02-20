@@ -5,4 +5,4 @@ Knowledge Mining Ontology (KMO) defines a high-level global schema and provides 
 
 # Contacts
 
-*yali Jiang <Jiangy61@cardiff.ac.uk>, @JYL61, @#112478488
+* yali Jiang <Jiangy61@cardiff.ac.uk>, @JYL61, @#112478488
