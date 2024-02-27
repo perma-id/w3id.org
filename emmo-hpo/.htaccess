@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+RewriteEngine on
+
+# Rewrite rule for https://w3id.org/emmo-hpo
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/emmo-repo/hyperdimensional-polymer-ontology/main/documentation/index-en.html [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-hpo/hpo
+RewriteRule ^hpo$ https://raw.githubusercontent.com/emmo-repo/hyperdimensional-polymer-ontology/main/hpo.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-hpo/hpo/
+RewriteRule ^hpo/$ https://raw.githubusercontent.com/emmo-repo/hyperdimensional-polymer-ontology/main/hpo.ttl  [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-hpo/[VERSION]/hpo
+RewriteRule ^[0-9a-z\.\-]+/hpo$ https://raw.githubusercontent.com/emmo-repo/hyperdimensional-polymer-ontology/main/hpo.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-hpo/[VERSION]/hpo/
+RewriteRule ^[0-9a-z\.\-]+/hpo/$ https://raw.githubusercontent.com/emmo-repo/hyperdimensional-polymer-ontology/main/hpo.ttl  [R=303,NE,L]
