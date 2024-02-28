@@ -13,6 +13,8 @@ This section contains a general summary of the logic behind the redirection rule
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/emmo/domain/{DOMAIN}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
+   - Special case for default context: `https://w3id.org/emmo/domain/{DOMAIN}/context --> https://emmo-repo.github.io/{REPO_NAME}/context/context.json`
+   - Special case for specific context: `https://w3id.org/emmo/domain/{DOMAIN}/{CONTEXTNAME} --> https://emmo-repo.github.io/{REPO_NAME}/context/{CONTEXTNAME}.json`
 
 2. `https://w3id.org/emmo/domain/{DOMAIN}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/latest
@@ -83,6 +85,7 @@ This section contains a general summary of the logic behind the redirection rule
 - `{MODULE}`: Filename of turtle file with the final `.ttl` stripped off
 - `{DOMAIN}`: Name of domain ontology. Initial `domain-` is stripped off.
 - `{REPO_NAME}`: Name of GitHub repository for domain ontology.
+- `{CONTEXTNAME}`: Name of JSON-LD context for domain ontologies.
 
 
 ## Expected organisation of repositories for domain ontologies
@@ -110,6 +113,9 @@ Expected structure of GitHub pages:
 ├── {DOMAIN}.ttl                  # Latest version of squashed ontology
 ├── {DOMAIN}-inferred.ttl         # Latest version of inferred ontology
 ├── {DOMAIN}.html                 # Latest version of html reference documentation
+├── context/                      # Optional directory with JSON-LD context
+│   ├── context.json              # Default context
+│   └── {CONTEXTNAME}.json        # Specific context
 └── versions/{VERSION}/
     ├── {DOMAIN}.ttl              # Squashed ontology for given version
     ├── {DOMAIN}-inferred.ttl     # Inferred ontology for given version
