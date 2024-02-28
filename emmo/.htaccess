@@ -35,6 +35,13 @@ RewriteRule ^domain/(domain-)?([^/]+)/?$ https://emmo-repo.github.io/domain-$2/$
 # Inferred ontology (only turtle) on GitHub Pages
 RewriteRule ^domain/(domain-)?([^/]+)/inferred/?$ https://emmo-repo.github.io/domain-$2/$2-inferred.ttl [R=303,NE,L]
 
+# Rule 1c: https://w3id.org/emmo/domain/{DOMAIN}/context
+# Redirect to GitHub Pages
+RewriteRule ^domain/(domain-)?([^/]+)/context/?$ https://emmo-repo.github.io/domain-$2/context/context.json [R=303,NE,L]
+
+# Rule 1d: https://w3id.org/emmo/domain/{DOMAIN}/context/{CONTEXTNAME}
+# Redirect to GitHub Pages
+RewriteRule ^domain/(domain-)?([^/]+)/context/([^/]+)/?$ https://emmo-repo.github.io/domain-$2/context/$3.json [R=303,NE,L]
 
 # Rule 2: https://w3id.org/emmo/domain/{DOMAIN}/source
 # Alias:  https://w3id.org/emmo/domain/{DOMAIN}/latest
