@@ -14,8 +14,11 @@ https://w3id.org/lpto is a persistent URI namespace for **Ontology of linking pr
 The LPTO vocabulary is licensed under Creative Commons 4.0 International. 
 
 ## Contacts
+
+* Our Github address [LPTOntology](https://github.com/LPTOntology)
+
 **Raphaël Conde Salazar (University of Montpellier)**    
-<raphael.condesalazar@online.fr> 
+<raphael.condesalazar@free.fr> 
 
 **Clément Jonquet (University of Montpellier)**  
 <jonquet@lirmm.fr>  
