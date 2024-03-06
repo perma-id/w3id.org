@@ -3,6 +3,9 @@
 Website:
 https://w3id.org/mlseascape
 
+Maintainers:
+- Ioannis Dasoulas (@TheRazorace)
+
 Contacts:
 - Ioannis Dasoulas: ioannis.dasoulas@kuleuven.be
 - Duo Yang: duo.yang@kuleuven.be
