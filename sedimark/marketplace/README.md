@@ -3,4 +3,5 @@
 ## Maintainer(s)
 
 **Tarek Elsaleh**
-* @telsaleh
+* GitHub: @telsaleh
+* Email: t.elsaleh@surrey.ac.uk
