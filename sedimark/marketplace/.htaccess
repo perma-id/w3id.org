@@ -10,9 +10,10 @@ AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .jsonld
 
+# Rewrite engine setup
 RewriteEngine on
 
-#Rewrite rules for quality ontology
+#Rewrite rules for sedimark ontology
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -20,7 +21,28 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.rdf [R=303,NE,L]
-#default response: owl
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+# RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.rdf [R=303,NE,L]
+# default response: owl
 RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.owl [R=303,NE,L]
+
+# Rewrite rule to serve turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.ttl [R=303,L]
+
+# Rewrite rule to serve n3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.n3 [R=303,L]
+
+# Rewrite rule to serve json-ld content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/sedimark-mktp.jsonld [R=303,L]
+
+# Choose default response
+# ---------------------------
+# Default Rule
+RewriteRule ^$ https://sedimark.surrey.ac.uk/ontology/marketplace/ [R=303,L]
