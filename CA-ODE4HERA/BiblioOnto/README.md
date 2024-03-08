@@ -6,4 +6,4 @@ HTML: https://github.com/FrancescoTorrigiani/BiblioOntology/blob/main/ode4hera_b
 RDF/XML: https://github.com/FrancescoTorrigiani/BiblioOntology/blob/main/ode4hera_biblio_onto.owl
 TTL: https://github.com/FrancescoTorrigiani/BiblioOntology/blob/main/ode4hera_biblio_onto.ttl
 
-ODE4HERA is a Clean Aviation project (01 Jan. 2024 - 31 Dec. 2026) developing an Open Digital Environement for the development of Hybrid-Electric Regional Aircrafts.
+ODE4HERA is a Clean Aviation project (2024-01-01 – 2026-12-31) developing an Open Digital Environment for the development of Hybrid-Electric Regional Aircrafts.
