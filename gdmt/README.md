@@ -4,4 +4,4 @@ The name `gdmt` stands for Generic Dataset Metadata Template.  For more informat
 
 ## Contact
 
-For questions relating to this name please contact the current maintainer Matthew Horridge (matthew.horridge@stanford.edu).
+For questions relating to this name please contact the current maintainer Matthew Horridge @matthewhorridge (matthew.horridge@stanford.edu).
