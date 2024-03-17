@@ -16,6 +16,7 @@ no content negotiation
 * TTL: https://ode4hera.github.io/Glossary/ode4hera_glossary.ttl
 
 
+
 [w3id-ode4hera-onto](https://github.com/ode4hera/w3id-ode4hera-onto) maintainers:
 * [Francesco Torrigiani](https://github.com/ftorr29)
 
