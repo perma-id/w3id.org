@@ -14,15 +14,6 @@ AddType application/ld+json .jsonld
 RewriteEngine on
 
 # ------------------------------------------------------------------------------
-# Design: 
-# -the code is written to return calls to variants of the machine vocabularies before any queries to html, i.e. *.ttl, *.nq, *.nt, *.json. This reduces the number of RewriteCond statements needed. 
-# - tested with https://htaccess.madewithlove.com (using https://w3id.org/ as the base URL)
-# - the following flags are used
-#    - [R=303] A redirect: when a server responds with a 303 status code, it also provides a `Location` header pointing to a different URI. The client, upon receiving a 303 response, automatically makes a GET request to the URI specified in the `Location` header.  
-#    - [L]	If the previous conditions pass this rule is executed and no more evaluation is done. 
-#    - [NE] noescape Prevent special characters being converted to their hexcode equivalent, needed for links including a #
-
-# ------------------------------------------------------------------------------
 # Rewrite rule to serve JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/APD.json [R=303,L]
