@@ -2,7 +2,7 @@ This W3ID provides a persistent URI namespace for the AusTraits Plant Dictionary
 
 # AusTraits Plant Dictionary (APD)
 
-The AusTraits Plant Dictionary (APD) is a vocabulary that formally defines the more than 500 plant trait concepts. It was developed in conjunction with [AusTraits](https://austraits.org), a database of Australian plant traits. 
+The AusTraits Plant Dictionary (APD) is a vocabulary that formally defines more than 500 plant trait concepts. It was developed in conjunction with [AusTraits](https://austraits.org), a database of Australian plant traits. 
 
 It is expected to expand to include additional trait concepts. Each trait definition has been reviewed by multiple people and includes references and links to identical/similar traits in other trait databases whenever possible. The APD includes machine-readable formats and endpoints, allowing the traits to be readily re-used by other databases.
 
