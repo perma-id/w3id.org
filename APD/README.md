@@ -23,12 +23,12 @@ Suggestions for changes are welcome and can be posted at https://github.com/trai
 
 ## Design
 
-- the .htaccess code is written to process calls to variants of the machine-readable representations before any queries to html, i.e. *.ttl, *.nq, *.nt, *.json before *.html. This reduces the number of RewriteCond statements needed in the html section. 
-- tested with https://htaccess.madewithlove.com (using https://w3id.org/ as the base URL, using https://w3id.org/APD/ won't work as code is written as though you're already in that subfolder)
+- the `.htaccess` code is written to process calls to variants of the machine-readable representations before any queries to `html`, i.e., `*.ttl`, `*.nq`, `*.nt`, and `*.json`, before `*.html`. This reduces the number of `RewriteCond` statements needed in the `html` section. 
+- tested with https://htaccess.madewithlove.com (using `https://w3id.org/` as the base URL; `https://w3id.org/APD/` won't work, as code is written as though you're already in that subfolder)
 - the following flags are used
-  - [R=303] A redirect: when a server responds with a 303 status code, it provides a `Location` pointing to a different URI. The client, upon receiving a 303 response, automatically makes a GET request to the URI specified in the `Location` header.  
-  - [L]	If the previous conditions pass this rule is executed and no more evaluation is done. 
-  - [NE] noescape Prevent special characters being converted to their hexcode equivalent, needed for links including a `#`
+  - `[R=303]` — A redirect. When a server responds with a `303` status code, it provides a `Location` pointing to a different URI. The client, upon receiving a `303` response, automatically makes a `GET` request to the URI specified in the `Location` header.  
+  - `[L]` — If the previous conditions pass, this rule is executed, and no more evaluation is done. 
+  - `[NE]` — (noescape) Prevents conversion of special characters to their hexcode equivalent; needed for links including a `#`.
 
 ## Usage
 
