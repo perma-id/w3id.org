@@ -187,8 +187,8 @@ RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.n3 [R=30
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.jsonld [R=302,L]
 
-# e.g. /legal/eu/gdpr --> /legal/eu/eu-gdpr
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2 [R=302,L]
+# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
+RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$2 [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2.rdf [R=302,L]
@@ -217,15 +217,22 @@ RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.
 RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$1-$2-owl.rdf [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$1-$2-owl.ttl [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$1-$2-owl.n3 [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$1-$2-owl.jsonld [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.jsonld [R=302,L]
 
 ########## DEPRECATED URLS ARE REDIRECTED
+
+RewriteRule ^dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr [R=302,L]
+RewriteRule ^dpv-dga$ https://w3id.org/dpv/legal/eu/dga [R=302,L]
+RewriteRule ^dpv-pd$ https://w3id.org/dpv/pd [R=302,L]
+RewriteRule ^dpv-tech$ https://w3id.org/dpv/tech [R=302,L]
+RewriteRule ^dpv-legal$ https://w3id.org/dpv/legal [R=302,L]
+RewriteRule ^rights/eu$ https://w3id.org/dpv/legal/eu/rights [R=302,L]
 
 RewriteRule ^dpv-skos$ https://w3id.org/dpv [R=302,L]
 RewriteRule ^dpv-skos/dpv-pd$ https://w3id.org/dpv/pd [R=302,L]
@@ -233,12 +240,17 @@ RewriteRule ^dpv-skos/dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr [R=302,L]
 RewriteRule ^dpv-skos/dpv-dga$ https://w3id.org/dpv/legal/eu/dga [R=302,L]
 RewriteRule ^dpv-skos/dpv-tech$ https://w3id.org/dpv/tech [R=302,L]
 RewriteRule ^dpv-skos/dpv-legal$ https://w3id.org/dpv/loc [R=302,L]
+RewriteRule ^dpv-skos/risk$ https://w3id.org/dpv/ [R=302,L]
+RewriteRule ^dpv-skos/rights/eu$ https://w3id.org/dpv/legal/eu/rights [R=302,L]
+
 RewriteRule ^dpv-owl$ https://w3id.org/dpv/owl [R=302,L]
 RewriteRule ^dpv-owl/dpv-pd$ https://w3id.org/dpv/pd/owl [R=302,L]
 RewriteRule ^dpv-owl/dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr/owl [R=302,L]
 RewriteRule ^dpv-owl/dpv-dga$ https://w3id.org/dpv/legal/eu/dga/owl [R=302,L]
 RewriteRule ^dpv-owl/dpv-tech$ https://w3id.org/dpv/tech/owl [R=302,L]
 RewriteRule ^dpv-owl/dpv-legal$ https://w3id.org/dpv/loc/owl [R=302,L]
+RewriteRule ^dpv-owl/risk$ https://w3id.org/dpv/risk/owl [R=302,L]
+RewriteRule ^dpv-owl/rights/eu$ https://w3id.org/dpv/legal/eu/rights/owl [R=302,L]
 
 # --- #
 # Default content type paths
@@ -256,51 +268,7 @@ RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.omn [R=302,L]
 # Default
 # w3id.org/dpv
 RewriteRule ^$ https://w3c.github.io/dpv/dpv [R=302,L]
-# w3id.org/dpv/*
+# w3id.org/dpv/* 
+# covers documentation e.g. primer, use-cases, guides, examples
 RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1 [R=302,L]
 
-# --- Paths to test --- #
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | prefix             | w3id                                     | HTML                                                        | RDF                                                             |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | dpv                | https://w3id.org/dpv                     | https://w3c.github.io/dpv/dpv                               | https://w3c.github.io/dpv/dpv/dpv.rdf                           |
-# | dpv-owl            | https://w3id.org/dpv/owl                 | https://w3c.github.io/dpv/dpv/dpv-owl                       | https://w3c.github.io/dpv/dpv/dpv-owlrdf                        |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | pd                 | https://w3id.org/dpv/pd                  | https://w3c.github.io/dpv/pd                                | https://w3c.github.io/dpv/pd/pd.rdf                             |
-# | pd-owl             | https://w3id.org/dpv/pd/owl              | https://w3c.github.io/dpv/pd/pd-owl                         | https://w3c.github.io/dpv/pd/pd-owl.rdf                         |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | tech               | https://w3id.org/dpv/tech                | https://w3c.github.io/dpv/tech                              | https://w3c.github.io/dpv/tech/tech.rdf                         |
-# | tech-owl           | https://w3id.org/dpv/tech/owl            | https://w3c.github.io/dpv/tech/tech-owl                     | https://w3c.github.io/dpv/tech/tech-owl.rdf                     |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | loc                | https://w3id.org/dpv/loc                 | https://w3c.github.io/dpv/loc                               | https://w3c.github.io/dpv/loc/loc.rdf                           |
-# | loc-owl            | https://w3id.org/dpv/loc/owl             | https://w3c.github.io/dpv/loc/loc-owl                       | https://w3c.github.io/dpv/loc/loc-owl.rdf                       |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | risk               | https://w3id.org/dpv/risk                | https://w3c.github.io/dpv/risk                              | https://w3c.github.io/dpv/risk/risk.rdf                         |
-# | risk-owl           | https://w3id.org/dpv/risk/owl            | https://w3c.github.io/dpv/risk/risk-owl                     | https://w3c.github.io/dpv/risk/risk-owl.rdf                     |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | tech               | https://w3id.org/dpv/tech                | https://w3c.github.io/dpv/tech                              | https://w3c.github.io/dpv/tech/tech.rdf                         |
-# | tech-owl           | https://w3id.org/dpv/tech/owl            | https://w3c.github.io/dpv/tech/tech-owl                     | https://w3c.github.io/dpv/tech/tech-owl.rdf                     |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | legal              | https://w3id.org/dpv/legal               | https://w3c.github.io/dpv/legal                             | https://w3c.github.io/dpv/legal/legal.rdf                       |
-# | legal-owl          | https://w3id.org/dpv/legal/owl           | https://w3c.github.io/dpv/legal/legal-owl                   | https://w3c.github.io/dpv/legal/legal-owl.rdf                   |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | legal-[a-z]{2}     | https://w3id.org/dpv/legal/[a-z]{2}      | https://w3c.github.io/dpv/legal/[a-z]{2}                    | https://w3c.github.io/dpv/legal/[a-z]{2}/legal-[a-z]{2}.rdf     |
-# | legal-[a-z]{2}-owl | https://w3id.org/dpv/legal/[a-z]{2}/owl  | https://w3c.github.io/dpv/legal/[a-z]{2}/legal-[a-z]{2}-owl | https://w3c.github.io/dpv/legal/[a-z]{2}/legal-[a-z]{2}-owl.rdf |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | eu-gdpr            | https://w3id.org/dpv/legal/eu/gdpr       | https://w3c.github.io/dpv/legal/eu/gdpr                     | https://w3c.github.io/dpv/legal/eu/gdpr/eu-gdpr.rdf             |
-# | eu-gdpr-owl        | https://w3id.org/dpv/legal/eu/gdpr/owl   | https://w3c.github.io/dpv/legal/eu/gdpr/eu-gdpr-owl         | https://w3c.github.io/dpv/legal/eu/gdpr/eu-gdpr-owl.rdf         |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | eu-dga             | https://w3id.org/dpv/legal/eu/dga        | https://w3c.github.io/dpv/legal/eu/dga                      | https://w3c.github.io/dpv/legal/eu/dga/eu-dga.rdf               |
-# | eu-dga-owl         | https://w3id.org/dpv/legal/eu/dga/owl    | https://w3c.github.io/dpv/legal/eu/dga-owl                  | https://w3c.github.io/dpv/legal/eu/dga/eu-dga-owl.rdf           |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | eu-aiact           | https://w3id.org/dpv/legal/eu/aiact      | https://w3c.github.io/dpv/legal/eu/aiact                    | https://w3c.github.io/dpv/legal/eu/aiact/eu-aiact.rdf           |
-# | eu-aiact-owl       | https://w3id.org/dpv/legal/eu/aiact/owl  | https://w3c.github.io/dpv/legal/eu/aiact-owl                | https://w3c.github.io/dpv/legal/eu/aiact/eu-aiact-owl.rdf       |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | eu-rights          | https://w3id.org/dpv/legal/eu/rights     | https://w3c.github.io/dpv/legal/eu/rights                   | https://w3c.github.io/dpv/legal/eu/rights/eu-rights.rdf         |
-# | eu-rights-owl      | https://w3id.org/dpv/legal/eu/rights/owl | https://w3c.github.io/dpv/legal/eu/rights-owl               | https://w3c.github.io/dpv/legal/eu/rights/eu-rights-owl.rdf     |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
-# | primer             | https://w3id.org/dpv/primer              | https://w3c.github.io/dpv/primer                            | NIL                                                             |
-# | guides             | https://w3id.org/dpv/guides              | https://w3c.github.io/dpv/guides                            | NIL                                                             |
-# | examples           | https://w3id.org/dpv/examples            | https://w3c.github.io/dpv/examples                          | https://w3c.github.io/dpv/examples/.*X.rdf                      |
-# | use-cases          | https://w3id.org/dpv/use-cases           | https://w3c.github.io/dpv/use-cases                         | https://w3c.github.io/dpv/use-cases/.*X.rdf                     |
-# |--------------------+------------------------------------------+-------------------------------------------------------------+-----------------------------------------------------------------|
