@@ -8,5 +8,5 @@ Repository created to store the redirections of the CMD vocabulary. The vocabula
 * https://jendersen.github.io/TSoR-vocab/
 
 ## Contacts:
-* [Jennie Andersen](https://liris.cnrs.fr/page-membre/jennie-andersen) ([0000-0001-6907-0136](https://orcid.org/0000-0001-6907-0136))
+* [Jennie Andersen](https://liris.cnrs.fr/page-membre/jennie-andersen) (GitHub: [Jendersen](https://github.com/Jendersen), ORCID: [0000-0001-6907-0136](https://orcid.org/0000-0001-6907-0136))
 
