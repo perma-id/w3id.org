@@ -1,4 +1,4 @@
-# SemicONTO: Badminton Ontology
+# SemicONTO: Semiconductor Ontology
 
 ## SemicONTO-v0.1
 
