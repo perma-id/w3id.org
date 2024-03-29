@@ -5,4 +5,4 @@ Kick-off meeting:
 * https://w3id.org/soflim4kg
 
 Contacts: 
-* David Chaves-Fraga <david.chaves@usc.es>
+* David Chaves-Fraga <david.chaves@usc.es> (GitHub: @dachafra)
