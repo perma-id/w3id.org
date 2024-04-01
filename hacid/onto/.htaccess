@@ -1,0 +1,63 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Set default value if none of the other rules match
+#SetEnvIf Request_URI ^.*$ SYNTAX=ttl
+#SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=owl
+#SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/hacid-project/knowledge-graph/main/ontologies/
+SetEnvIf Request_URI ^.*$ LODVIEW_URL=https://semantics.istc.cnr.it/hacid/lodview/onto/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://semantics.istc.cnr.it/hacid/lode/extract?url=
+
+
+# HACID GitHub for owl ontologies
+
+## top-level
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|owl)$
+RewriteRule ^top-level$ %{ENV:ROOT_URL}top-level/top-level.%{ENV:SYNTAX} [R=303,L]
+
+## mdx
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|owl)$
+RewriteRule ^mdx$ %{ENV:ROOT_URL}medical-dx/mdx.%{ENV:SYNTAX} [R=303,L]
+
+## core
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|owl)$
+RewriteRule ^core/([a-zA-Z-_0-9]+)$ %{ENV:ROOT_URL}core/$1.%{ENV:SYNTAX} [R=303,L]
+
+## other ontologies
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|owl)$
+RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:ROOT_URL}$1/$1.%{ENV:SYNTAX} [R=303,L]
+
+
+# LODE for html version
+
+## top-level and mdx
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(top-level|mdx)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/$1 [R=303,L]
+
+## core
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^core/([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/core/$1 [R=303,L]
+
+## other ontologies
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/$1 [R=303,L]
+
+
+# LODVIEW for classes and properties
+
+## top-level and mdx
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(top-level|mdx)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
+
+## core
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^core/([a-zA-Z-_0-9]+)(/.+)$ %{ENV:LODVIEW_URL}core/$1$2 [R=303,L]
+
+## other ontologies
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]

@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://wisib.de/ontologie/brcomp/
-* Turtle   https://wisib.de/ontologie/brcomp/ontology.ttl
+* Doc      https://alhakam.github.io/brcomp/
+* Turtle   https://alhakam.github.io/brcomp/ontology.ttl
 
 
 Contacts

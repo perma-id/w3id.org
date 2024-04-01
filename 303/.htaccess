@@ -1,7 +1,23 @@
 # Rewrite engine setup
 RewriteEngine On
+DirectorySlash Off
+RewriteOptions AllowNoSlash
 
-RewriteCond %{HTTP:Accept} text/html [NC]
-RewriteRule ^$ https://github.com/athalhammer/303voc/ [R=303,L]
+# All machine-readable versions should be referred to by a generic document
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{HTTP:Accept} text/turtle [NC,OR]
+RewriteCond %{HTTP:Accept} application/ld\+json [NC]
+RewriteRule . https://w3id.org/303/doc [R=303,L]
 
-RewriteRule ^$ https://athalhammer.github.io/303voc/303.ttl [R=303,L]
+# Default to the HTML representation. 
+# As it is very different from the machine readable representations --> direct 303, no link via generic document
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule . https://github.com/athalhammer/303voc [R=303,L]
+
+# Turtle version of generic doc
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^doc$ https://athalhammer.github.io/303voc/303.ttl [R=302,L]
+
+# JSON-LD version of generic doc
+RewriteCond %{HTTP:Accept} application/ld\+json [NC]
+RewriteRule ^doc$ https://athalhammer.github.io/303voc/303.jsonld [R=302,L]

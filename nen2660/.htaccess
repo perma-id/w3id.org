@@ -4,28 +4,29 @@ RewriteEngine on
 # 1: Explicit URL of normative file (no content-negotiation)
 # Only TTL => SKOS | RDFS | OWL | SHACL
 
-RewriteRule ^skos/term$ https://bimloket.github.io/nen2660/data/nen2660-skos.ttl [R=302,L]
-RewriteRule ^rdfs/def$ https://bimloket.github.io/nen2660/data/nen2660-rdfs.ttl [R=302,L]
-RewriteRule ^owl/def$ https://bimloket.github.io/nen2660/data/nen2660-owl.ttl [R=302,L]
-RewriteRule ^shacl/def$ https://bimloket.github.io/nen2660/data/nen2660-shacl.ttl [R=302,L]
+RewriteRule ^skos/term$ https://nl-digigo.github.io/nen2660/data/nen2660-skos.ttl [R=302,L]
+RewriteRule ^rdfs/def$ https://nl-digigo.github.io/nen2660/data/nen2660-rdfs.ttl [R=302,L]
+RewriteRule ^owl/def$ https://nl-digigo.github.io/nen2660/data/nen2660-owl.ttl [R=302,L]
+RewriteRule ^shacl/def$ https://nl-digigo.github.io/nen2660/data/nen2660-shacl.ttl [R=302,L]
+RewriteRule ^sparql$ https://hub.laces.tech/crow/nen2660/all/sparql [R=302,L]
 
 
 # 2: Non-explicit URL, explicit Accept-header
 # Serve specific serializations => TriG | JSON-LD | Turtle | RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/trig
-RewriteRule ^$ https://bimloket.github.io/nen2660/data/concat/nen2660.trig [R=302,L]
+RewriteRule ^$ https://nl-digigo.github.io/nen2660/data/concat/nen2660.trig [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld+json
-RewriteRule ^$ https://bimloket.github.io/nen2660/data/concat/nen2660.json [R=302,L]
+RewriteRule ^$ https://nl-digigo.github.io/nen2660/data/concat/nen2660.json [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^$ https://bimloket.github.io/nen2660/data/concat/nen2660.ttl [R=302,L]
+RewriteRule ^$ https://nl-digigo.github.io/nen2660/data/concat/nen2660.ttl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
-RewriteRule ^$ https://bimloket.github.io/nen2660/data/concat/nen2660.rdf [R=302,L]
+RewriteRule ^$ https://nl-digigo.github.io/nen2660/data/concat/nen2660.rdf [R=302,L]
 
 
 # Final, matching anything (includes Accept = text/html)
-RewriteRule ^(.*)$ https://bimloket.github.io/nen2660/$1 [R=302,L]
+RewriteRule ^(.*)$ https://nl-digigo.github.io/nen2660/$1 [R=302,L]
