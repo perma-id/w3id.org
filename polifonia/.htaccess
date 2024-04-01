@@ -1,0 +1,95 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+AddType application/rdf+xml .owl
+
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ CORE_URL=https://raw.githubusercontent.com/polifonia-project/core-ontology/main/ontology/core.owl
+SetEnvIf Request_URI ^.*$ ROMAN_URL=https://raw.githubusercontent.com/polifonia-project/roman-chord-ontology/main/roman-chord.owl
+SetEnvIf Request_URI ^.*$ MUSICMETA_URL=https://raw.githubusercontent.com/polifonia-project/music-meta-ontology/main/ontology/musicmeta.owl
+SetEnvIf Request_URI ^.*$ ORGANS_URL=https://raw.githubusercontent.com/polifonia-project/organs-ontology/main/ontology/organs.owl
+SetEnvIf Request_URI ^.*$ REPRESENTATION_URL=https://raw.githubusercontent.com/polifonia-project/music-representation-ontology/main/ontology/music-representation.owl
+SetEnvIf Request_URI ^.*$ SOURCE_URL=https://raw.githubusercontent.com/polifonia-project/source-ontology/main/ontology/source.owl
+SetEnvIf Request_URI ^.*$ INSTRUMENT_URL=https://raw.githubusercontent.com/polifonia-project/music-instrument-ontology/main/ontology/music-instrument.owl
+SetEnvIf Request_URI ^.*$ COMETA_URL=https://raw.githubusercontent.com/polifonia-project/cometa-ontology/main/ontology/cometa.owl
+SetEnvIf Request_URI ^.*$ TUNES_URL=https://raw.githubusercontent.com/polifonia-project/tunes-ontology/main/ontology/tunes.owl
+SetEnvIf Request_URI ^.*$ PROJECTION_URL=https://raw.githubusercontent.com/polifonia-project/music-projection-ontology/main/ontology/music-projection.owl
+SetEnvIf Request_URI ^.*$ BELL_URL=https://raw.githubusercontent.com/polifonia-project/bells-ontology/main/ontology/bells.owl
+SetEnvIf Request_URI ^.*$ ALGORITHM_URL=https://raw.githubusercontent.com/polifonia-project/music-algorithm-ontology/main/ontology/music-algorithm.owl
+SetEnvIf Request_URI ^.*$ ANALYSIS_URL=https://raw.githubusercontent.com/polifonia-project/music-analysis-ontology/main/ontology/music-analysis.owl
+SetEnvIf Request_URI ^.*$ ANNOTATION_URL=https://raw.githubusercontent.com/polifonia-project/music-annotation-ontology/main/ontology/music-annotation.owl
+SetEnvIf Request_URI ^.*$ MEETUPS_URL=https://raw.githubusercontent.com/polifonia-project/meetups-ontology/main/ontology/meetups-ontology.owl
+SetEnvIf Request_URI ^.*$ MEETUPS_REDIRECT_URL=https://polifonia.kmi.open.ac.uk/meetups/entities?entity=http://w3id.org/polifonia/pilot/meetups
+SetEnvIf Request_URI ^.*$ FULL_URL=https://raw.githubusercontent.com/polifonia-project/ontology-network/main/ontology/ontology-network.owl
+
+# TEST URL
+SetEnvIf Request_URI ^.*$ TEST_ONTOLOGY_URL=https://polifonia.disi.unibo.it/semanticroman/ontology
+SetEnvIf Request_URI ^.*$ TEST_ONTOLOGY_OWL_URL=https://polifonia.disi.unibo.it/semanticroman/ontology.owl
+SetEnvIf Request_URI ^.*$ TEST_RESOURCE_URL=https://polifonia.disi.unibo.it/semanticroman/resource
+
+# TEST NEW ENDPOINT
+RewriteRule ^ontology/semanticroman(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:TEST_ONTOLOGY_URL}#$2 [R=303,L]
+RewriteRule ^ontology/semanticroman(/) %{ENV:TEST_ONTOLOGY_OWL_URL} [R=303,L]
+RewriteRule ^resource/semanticroman(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:TEST_RESOURCE_URL}/$2$3$4 [R=303,L]
+
+# CHOCO URL
+SetEnvIf Request_URI ^.*$ JAMS_ONTOLOGY_URL=https://polifonia.disi.unibo.it/choco/ontology
+SetEnvIf Request_URI ^.*$ JAMS_ONTOLOGY_OWL_URL=https://raw.githubusercontent.com/polifonia-project/jams-ontology/main/ontology/jams.owl
+SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://polifonia.disi.unibo.it/choco/resource
+
+# CHOCO REDIRECTS
+RewriteRule ^ontology/choco(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_ONTOLOGY_URL}#$2 [R=303,L]
+RewriteRule ^ontology/choco(/) %{ENV:JAMS_ONTOLOGY_OWL_URL} [R=303,L]
+RewriteRule ^resource/choco(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:CHOCO_DATA_URL}/$2$3$4 [R=303,L]
+
+# Rules for version-aware URIs of ontologies
+# CORE
+RewriteRule ^ontology/core(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CORE_URL} [R=303,L]
+# JAMS
+RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_URL} [R=303,L]
+# CHOCO
+# RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CHOCO_DATA_URL} [R=303,L]
+# ROMAN
+RewriteRule ^ontology/roman-chord(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ROMAN_URL} [R=303,L]
+RewriteRule ^resource/roman-chord(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:ROMAN_API}$2 [R=303,L]
+# MUSICMETA
+RewriteRule ^ontology/music-meta(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:MUSICMETA_URL} [R=303,L]
+RewriteRule ^resource/music-meta(/)?([a-zA-Z:-_0-9]+)?$ %{ENV:MUSICMETA_URL}$2 [R=303,L]
+# ORGANS
+RewriteRule ^ontology/organs(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ORGANS_URL} [R=303,L]
+# REPRESENTATION
+RewriteRule ^ontology/music-representation(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:REPRESENTATION_URL} [R=303,L]
+# SOURCE
+RewriteRule ^ontology/source(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:SOURCE_URL} [R=303,L]
+# INSTRUMENT
+RewriteRule ^ontology/music-instrument(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:INSTRUMENT_URL} [R=303,L]
+# COMETA
+RewriteRule ^ontology/cometa(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:COMETA_URL} [R=303,L]
+# TUNES
+RewriteRule ^ontology/tunes(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:TUNES_URL} [R=303,L]
+# PROJECTION
+RewriteRule ^ontology/music-projection(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:PROJECTION_URL} [R=303,L]
+# BELL
+RewriteRule ^ontology/bells(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:BELL_URL} [R=303,L]
+# ALGORITHM
+RewriteRule ^ontology/music-algorithm(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ALGORITHM_URL} [R=303,L]
+# ANALYSIS
+RewriteRule ^ontology/music-analysis(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ANALYSIS_URL} [R=303,L]
+# ANNOATION
+RewriteRule ^ontology/music-annotation(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:ANNOTATION_URL} [R=303,L]
+# MEETUPS
+RewriteRule ^ontology/meetups-ontology(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:MEETUPS_URL} [R=303,L]
+RewriteRule ^pilot/meetups/(.*)$ %{ENV:MEETUPS_REDIRECT_URL}/$1 [R=301,L]
+# FULL
+RewriteRule ^ontology/ontology-network(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:FULL_URL} [R=303,L]
+
+# TODO: to define where to redirect resources
+RewriteRule ^resource/([a-zA-Z-_0-9]+)(/)?$ %{ENV:CORE_URL} [R=303,L]
+
+# example for reusing classes/properties names
+# base URIs must edited if this option will be implemented
+# RewriteRule ^ontology/core/([a-zA-Z-_0-9]+)(/[0-9].[0-9])?(/)?$ %{ENV:CORE_URL}/$1$2.owl [R=303,L]
+
+RewriteRule ^(.+)$ https://github.com/polifonia-project/ontology-network/ [R=303,L]
+RewriteRule ^$ https://github.com/polifonia-project/ontology-network/ [R=303,L]

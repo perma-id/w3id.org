@@ -20,6 +20,7 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteCond %{REQUEST_URI} /ont/(\d+)\.(\d+)\.(\d+)
+RewriteRule /(.+)$ https://i-adopt.github.io/archive/%1.%2.%3/index.html#/$1 [NE,R=303,L]
 RewriteRule ^ https://i-adopt.github.io/archive/%1.%2.%3/index.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD
@@ -52,6 +53,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://i-adopt.github.io/index.html#/$1 [NE,R=303,L]
 RewriteRule ^$ https://i-adopt.github.io/index.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD

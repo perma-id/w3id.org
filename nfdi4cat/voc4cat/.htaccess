@@ -1,0 +1,99 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Notes on used flags:
+# NC - sets case-insensitive matching
+# NE - noescape, prevents that special characters, such as & and ?, will be converted to their hexcode equivalent for rules that result in external redirects.
+# L - last, tells mod_rewrite to stop processing further rules sets.
+# R=303 - status code for "See Other". It indicates that the redirects don't link to the requested resource itself, but to another page.
+
+# Order of rules: A more specific rules must come before a more general rule.
+
+# === version-tagged releases ===
+
+# TURTLE - individual concept or collection turtle files of
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})\/voc4cat_([0-9]{7,})" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat/$2.ttl [R=303,L,NE,NC]
+
+# HTML - documentation individual concept or collection
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})\/voc4cat_([0-9]{7,})" "https://nfdi4cat.github.io/voc4cat/v$1/voc4cat/index.html#https://w3id.org/nfdi4cat/voc4cat_$2" [R=303,L,NE,NC]
+
+# TURTLE - single large file of version-tagged releases
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat.ttl [R=303,L,NE,NC]
+
+# HTML - documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat/index.html [R=303,L,NE,NC]
+
+# XML/RDF - single large file of version-tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat.xml [R=303,L,NE,NC]
+
+# No content-negotiation at all: Fallback to HTML
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat/index.html [R=303,L,NE,NC]
+
+# === "in development" version (last commit to main) ===
+
+# TURTLE - individual concept or collection turtle files
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule "^dev/voc4cat_([0-9]{7,})" https://nfdi4cat.github.io/voc4cat/dev/voc4cat/$1.ttl [R=303,L,NE,NC]
+
+# HTML - documentation individual concept or collection
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^dev/voc4cat_([0-9]{7,})" "https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html#https://w3id.org/nfdi4cat/voc4cat_$1" [R=303,L,NE,NC]
+
+# TURTLE - single large file
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule  "^dev$" https://nfdi4cat.github.io/voc4cat/dev/voc4cat.ttl [R=303,L,NE,NC]
+
+# HTML - documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^dev$" https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html [R=303,L,NE]
+
+# XML/RDF - single large file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule  "^dev$" https://nfdi4cat.github.io/voc4cat/dev/voc4cat.xml [R=303,L,NE,NC]
+
+# No content-negotiation at all: Fallback to HTML
+RewriteRule "^dev$" https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html [R=303,L,NE]
+
+# === latest release ===
+
+# HTML & TURTLE - individual concept or collection turtle files
+# see .htaccess file one level up
+
+# TURTLE - single large file of
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule "^$" https://nfdi4cat.github.io/voc4cat/latest/voc4cat.ttl [R=303,L,NE]
+
+# HTML - documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^$" https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html [R=303,L,NE]
+
+# XML/RDF - single large file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule "^$" https://nfdi4cat.github.io/voc4cat/latest/voc4cat.xml [R=303,L,NE]
+
+# No content-negotiation at all: Fallback to HTML for both versioned and non-versioned
+RewriteRule "^$" https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html [R=303,L,NE]
+
+# === No content-negotiation at all (or HTML) ===
+
+# Fallback to HTML for version-tagged, dev and latest.
+RewriteRule "^v?([0-9]{4}\-[0-9]{2}\-[0-9]{2})$" https://nfdi4cat.github.io/voc4cat/v$1/voc4cat/index.html [R=303,L,NE,NC]
+RewriteRule "^dev$" https://nfdi4cat.github.io/voc4cat/dev/voc4cat/index.html [R=303,L,NE,NC]
+RewriteRule "^$" https://nfdi4cat.github.io/voc4cat/latest/voc4cat/index.html [R=303,L,NE]

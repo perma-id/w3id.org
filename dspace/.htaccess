@@ -1,0 +1,29 @@
+RewriteEngine On
+
+# Rules controling links with the /vX.Y/ path segment
+## Redirect main JSON-LD context
+RewriteRule ^(head|v[0-9][.][0-9])/context.json https://international-data-spaces-association.github.io/ids-specification/$1/common/schema/context.json [R=302,L,QSA]
+
+## Redirect JSON Schemas
+RewriteRule ^(head|v[0-9][.][0-9])/(catalog|negotiation|transfer)/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1/$2/message/schema/$3 [R=302,L,QSA]
+RewriteRule ^(head|v[0-9][.][0-9])/common/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1/common/schema/$2 [R=302,L,QSA]
+
+## Redirect SHACL Shapes
+RewriteRule ^(head|v[0-9][.][0-9])/(catalog|negotiation|transfer)/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1/$2/message/shape/$3 [R=302,L,QSA]
+RewriteRule ^(head|v[0-9][.][0-9])/common/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1/common/shape/$2 [R=302,L,QSA]
+
+# Rules controling links with the /<year>/<number>/ path segment, e.g. /2024-1/
+## Redirect main JSON-LD context
+RewriteRule ^([0-9]+)/([0-9]+)/context.json https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/schema/context.json [R=302,L,QSA]
+
+## Redirect JSON Schemas
+RewriteRule ^([0-9]+)/([0-9]+)/(catalog|negotiation|transfer)/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1-$2/$3/message/schema/$4 [R=302,L,QSA]
+RewriteRule ^([0-9]+)/([0-9]+)/common/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/schema/$3 [R=302,L,QSA]
+
+## Redirect SHACL Shapes
+RewriteRule ^([0-9]+)/([0-9]+)/(catalog|negotiation|transfer)/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1-$2/$3/message/shape/$4 [R=302,L,QSA]
+RewriteRule ^([0-9]+)/([0-9]+)/common/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/shape/$3 [R=302,L,QSA]
+
+
+# Redirect to repository
+RewriteRule ^.*$ https://github.com/International-Data-Spaces-Association/ids-specification [R=302,L,QSA]
