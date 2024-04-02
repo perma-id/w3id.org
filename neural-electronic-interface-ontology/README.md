@@ -8,4 +8,4 @@ https://w3id.org/neural-electronic-interface-ontology/neio.owl
 https://w3id.org/neural-electronic-interface-ontology/NEIO_
 
 ## Contacts
-Bill Duncan: wdduncan@gmail.com
+* Bill Duncan <wdduncan@gmail.com> ([@wdduncan](https://github.com/wdduncan))
