@@ -7,5 +7,5 @@ https://w3id.org/neural-electronic-interface-ontology/neio.owl
 ## Namespace
 https://w3id.org/neural-electronic-interface-ontology/NEIO_
 
-## Contact
+## Contacts
 Bill Duncan: wdduncan@gmail.com
