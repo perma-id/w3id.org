@@ -1,4 +1,40 @@
 Options +FollowSymLinks
 RewriteEngine on 
 
-RewriteRule       ^(.+)$               http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/0.9/$1 [R=303,L]
+# old RewriteRule       ^(.+)$               http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/0.9/$1 [R=303,L]
+
+# catches https://w3id.org/isample/vocabulary/sampledfeature/0.9
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=0.9
+# 
+
+# ...isample/vocabulary/sampledfeature/0.9/sampledfeaturevocabulary  gets turtle serialization of sampledfeaturevocabulary ConceptScheme
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^sampledfeaturevocabulary$    http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/sampledfeaturevocabulary [R=303,L]
+
+
+# ../isample/vocabulary/sampledfeature/0.9/{term},  gets turtle serialization of skos concept 
+#   format with text/turtle accept header
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^(.+)$   http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/$1 [R=303,L]
+
+# ...isample/vocabulary/sampledfeature/0.9/sampledfeaturevocabulary  gets rdf xml serialization of sampledfeaturevocabulary ConceptScheme 
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^sampledfeaturevocabulary$    http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/sampledfeaturevocabulary [R=303,L]
+
+
+# ../isample/vocabulary/sampledfeature/0.9/{term},  gets RDF xml serialization of skos concept 
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^(.+)$   http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/$1 [R=303,L]
+
+
+#any other accept header. ../isample/vocabulary/sampledfeature/0.9/{term}, returns CORS landing page for concept
+# will need to update with new versions
+RewriteRule       ^(.+)$    http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/$1 [R=303,L]
+
+# any other accept header with no terminal string
+#   gets landing page for the version of the vocab, from ESIP COR.  
+#   Pylode doesn't currently seem to be working (2023-12-30).
+RewriteRule       ^$  http://cor.esipfed.org/ont?iri=https://w3id.org/isample/vocabulary/sampledfeature/%{ENV:currentversion}/sampledfeaturevocabulary [R=303,L]
+

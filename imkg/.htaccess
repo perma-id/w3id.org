@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+RewriteRule ^$ https://memes.science [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^data$ https://raw.githubusercontent.com/riccardotommasini/imkg/eswc/meta.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^data$ https://raw.githubusercontent.com/riccardotommasini/imkg/eswc/meta.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^data$ https://raw.githubusercontent.com/riccardotommasini/imkg/eswc/meta.jsonld [R=303,L]

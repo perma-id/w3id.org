@@ -1,0 +1,43 @@
+# === Directory: /noria/ ======================================================
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# === Rewrite Rules ===========================================================
+
+# Main reference: https://github.com/Orange-OpenSource/noria-ontology
+# e.g. https://w3id.org/noria/ => https://github.com/Orange-OpenSource/noria-ontology
+RewriteRule ^$ https://github.com/Orange-OpenSource/noria-ontology [R=302,L]
+
+# Direct access to versioned ontology file
+# e.g. https://w3id.org/noria/ontology/noria-0.3 => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+# e.g. https://w3id.org/noria/ontology/noria-0.3/ => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+RewriteRule ^ontology/(.*-\d+\.\d+)/?$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1/noria.ttl [R=302,L]
+
+# Direct access to named ontology file
+# e.g. https://w3id.org/noria/ontology/noria-0.3/noria.ttl => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+RewriteRule ^ontology/(.*\.ttl)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/$1 [R=302,L]
+
+# Redirect ontology/<concept|property> to full **latest ontology Turtle file** for computer access
+# e.g. https://w3id.org/noria/ontology/troubleTicketCategory => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl
+RewriteRule ^ontology/?(.*)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/ontology/noria-0.3/noria.ttl [R=302,L]
+
+# Redirect kos/<concept> to full **latest KOS Turtle file** for computer access
+# e.g. https://w3id.org/noria/kos/troubleTicketCategory => https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/kos/noria-0.3/noria-kos.ttl
+RewriteRule ^kos/?(.*)$ https://raw.githubusercontent.com/Orange-OpenSource/noria-ontology/master/kos/noria-0.3/noria-kos.ttl [R=302,L]
+
+# Redirect doc/<concept|property> to documentation for user-friendly display of a concept/property
+# See also: https://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_ne
+# e.g. https://w3id.org/noria/ontology/troubleTicketCategory => https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#troubleTicketCategory
+RewriteRule ^doc/(.+)$ https://orange-opensource.github.io/noria-ontology/NORIA-O/doc/index-en.html#$1 [R=302,NE,L]
+
+# Redirect for documentation (general case)
+# e.g. https://w3id.org/noria/doc => https://orange-opensource.github.io/noria-ontology/
+# e.g. https://w3id.org/noria/doc/ => https://orange-opensource.github.io/noria-ontology/
+RewriteRule ^doc/?$ https://orange-opensource.github.io/noria-ontology/ [R=302,L]
+
+# Redirect anything to code repo
+# e.g. https://w3id.org/noria/evaluation => https://github.com/Orange-OpenSource/noria-ontology/tree/master/evaluation
+RewriteRule (.*) https://github.com/Orange-OpenSource/noria-ontology/tree/master/$1 [R=302,L]
+
+# === END =====================================================================
