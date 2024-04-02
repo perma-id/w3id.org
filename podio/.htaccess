@@ -14,6 +14,7 @@ AddType application/ld+json .json
 # Rewrite engine setup
 RewriteEngine On
 
+# Rewrite rule to redirect to sparql endpoint 
 RewriteRule ^sparql$ https://podio.linkeddata.es/sparql [R=303,L]
 
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
@@ -24,14 +25,12 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://podio.linkeddata.es [R=303,L]
 
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-# Version v1.0 redirect
+# Rewrite rule to serve any version HTML content 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^v1.0$ https://podio.linkeddata.es/v1.0 [R=303,L]
-
+RewriteRule ^v(\d+\.\d+)$ https://podio.linkeddata.es/v$1 [R=303,L]
 
 # Directives to redirect to the latest version of the ontology
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
@@ -50,3 +49,11 @@ RewriteRule ^ontology\.nt$ https://podio.linkeddata.es/ontology.nt [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://podio.linkeddata.es/ontology.ttl [R=303,L]
 RewriteRule ^ontology\.ttl$ https://podio.linkeddata.es/ontology.ttl [R=303,L]
+
+
+# Rewrite rule to serve the requested demo
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^demo(.*)$ https://podio.linkeddata.es/demo$1 [R=303,L]
