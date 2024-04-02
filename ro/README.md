@@ -41,7 +41,7 @@ References:
 
 Contacts: 
 * Stian Soiland-Reyes <stain@apache.org>
-* Peter Sefton <Peter.Sefton@uts.edu.au>
+* Peter Sefton <p.sefton@uq.edu.au>
 * Daniel Garijo <dgarijov@gmail.com>
 * Raul Palma <rpalma@man.poznan.pl>
 * Sean Bechhofer <sean.bechhofer@manchester.ac.uk>

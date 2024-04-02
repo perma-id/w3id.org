@@ -1,0 +1,68 @@
+RewriteEngine On
+
+# Set environment variables for 5 deployments: production, staging, test, dev, localdev
+
+# prod
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_PROD:schema.researchdata.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_PROD:repo.researchdata.hu]
+
+# staging
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_STAGING:cedarstaging.dsd.sztaki.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_STAGING:staging.concorda.sztaki.hu]
+
+# test
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_TEST:cedar.dsd.sztaki.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_TEST:concorda2test.dsd.sztaki.hu]
+
+# dev
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_DEV:cedardev.dsd.sztaki.hu]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_DEV:dsddev.concorda.sztaki.hu]
+
+# localdev
+RewriteRule .* - [E=CEDAR_BASE_DOMAIN_LOCALDEV:arp.orgx]
+RewriteRule .* - [E=DATAVERSE_DOMAIN_LOCALDEV:localhost:8080]
+
+# Hack to be able to redirect to URL-s with %2F:
+# 1. we set envvar SLASH to 2F
+# 2. To produce a %2F we use: %%{ENV:SLASH}. The first % will be used verbatim, while %{ENV:SLASH} is expanded to 2F
+# 3. We use NE flag to prevent encoding
+RewriteRule .* - [E=SLASH:2F]
+
+# CEDAR schema identifiers
+# https://openview.arp.orgx/templates/
+RewriteRule ^schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_PROD}/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.%{ENV:CEDAR_BASE_DOMAIN_PROD}%%{ENV:SLASH}templates%%{ENV:SLASH}$1 [R=302,L,NE]
+RewriteRule ^staging/schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_STAGING}/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.%{ENV:CEDAR_BASE_DOMAIN_STAGING}%%{ENV:SLASH}templates%%{ENV:SLASH}$1 [R=302,L,NE]
+RewriteRule ^test/schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_TEST}/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.%{ENV:CEDAR_BASE_DOMAIN_TEST}%%{ENV:SLASH}templates%%{ENV:SLASH}$1 [R=302,L,NE]
+RewriteRule ^dev/schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_DEV}/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.%{ENV:CEDAR_BASE_DOMAIN_DEV}%%{ENV:SLASH}templates%%{ENV:SLASH}$1 [R=302,L,NE]
+RewriteRule ^localdev/schema/(.*)$ https://openview.%{ENV:CEDAR_BASE_DOMAIN_LOCALDEV}/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.%{ENV:CEDAR_BASE_DOMAIN_LOCALDEV}%%{ENV:SLASH}templates%%{ENV:SLASH}$1 [R=302,L,NE]
+
+#
+# In the following rules Dataverse PID-s are expected to be passed as-is, without encoding.
+#
+
+# RO-Crate file identifier. /ro-id/<PID>/file/<file ID>
+# File has special URL, because we have a Dataverse page for files
+RewriteRule ^ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_PROD}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^staging/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_STAGING}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^test/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_TEST}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/file/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/file/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/file.xhtml?persistentId=$1&fileId=$2 [R=302,L]
+
+# For other Dataverse MDB data we just go to the dataset.xhtml as is, no special view
+# /ro-id/<PID>/<compound fieldName>/<compound ID>
+RewriteRule ^ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_PROD}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^staging/ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_STAGING}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^test/ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_TEST}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/(.*)?/([0-9]+)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/(.*)?/([0-9]+)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/dataset.xhtml?persistentId=$1&fieldName=$2&fieldId=$3 [R=302,L]
+
+# For non Dataverse, RO-Crate only data:
+# /ro-id/<PID>/<UUID>
+RewriteRule ^ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN_PROD}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^staging/ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN_STAGING}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^test/ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN_TEST}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^dev/ro-id/(.*)?/(.*)$ https://%{ENV:DATAVERSE_DOMAIN_DEV}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+RewriteRule ^localdev/ro-id/(.*)?/(.*)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/ro-id?persistentId=$1&elementId=$2 [R=302,L]
+
+# Add homepage of project
+RewriteRule ^home$ https://researchdata.hu/en [R=302,L]

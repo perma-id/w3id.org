@@ -10,27 +10,31 @@ AddType text/turtle .ttl
 RewriteEngine on
 
 ####################################################################################
-#                  Resource rules for web negociation                             #
+#                  Resource rules for web negotiation                             #
 ####################################################################################
+
 #Rewrite rules for Resource HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
 RewriteCond %{HTTP_ACCEPT} !text/turtle
 RewriteCond %{HTTP_ACCEPT} !application/json
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^(.+) http://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/page/?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0  [R=303,NE,L]
+
+# Redirect to website for the root URI
+RewriteRule	^$ https://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/ [R=302,L]
+RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/page/?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0  [R=303,NE,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.+) http://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml  [R=303,NE,L]
+RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml  [R=303,NE,L]
 
 # Rewrite rule to serve TURTLE content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.+) http://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=text/turtle  [R=303,NE,L]
+RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=text/turtle  [R=303,NE,L]
 
 # Rewrite rule to serve json content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(.+) http://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/json  [R=303,NE,L]
+RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/json  [R=303,NE,L]
 
 #default response
-RewriteRule ^(.+) http://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml [R=303,NE,L]
+RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml [R=303,NE,L]

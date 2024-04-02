@@ -1,0 +1,60 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Schemas
+RewriteRule ^(.*)/schema/(.*).yaml$ https://raw.githubusercontent.com/lmodel/$1/main/src/$2/schema/$2.yaml [R=302,L]
+RewriteRule ^(.*)/schema/(.*)$ https://raw.githubusercontent.com/lmodel/$1/main/src/$2/schema/$2.yaml [R=302,L]
+
+# Artifacts
+RewriteRule ^(.*)/data/(.*)\.xlsx$ https://github.com/lmodel/$1/raw/main/project/excel/$2.xlsx [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.graphql$ https://raw.githubusercontent.com/lmodel/$1/main/project/graphql/$2.graphql [R=302,L]
+
+RewriteRule ^(.*)/data/(.*\.?)context.json$ https://raw.githubusercontent.com/lmodel/$1/main/project/jsonld/$2context.jsonld [R=302,L]
+RewriteRule ^(.*)/data/(.*\.?)context.jsonld$ https://raw.githubusercontent.com/lmodel/$1/main/project/jsonld/$2context.jsonld [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.schema.json$ https://raw.githubusercontent.com/lmodel/$1/main/project/jsonschema/$2.schema.json [R=302,L]
+RewriteRule ^(.*)/data/([^\.]+)\.json$ https://raw.githubusercontent.com/lmodel/$1/main/project/json/$2.json [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.shacl.ttl$ https://raw.githubusercontent.com/lmodel/$1/main/project/shacl/$2.shacl.ttl [R=302,L]
+RewriteCond %{REQUEST_URI} !\.owl\.
+RewriteRule ^(.*)/data/(.*)\.ttl$ https://raw.githubusercontent.com/lmodel/$1/main/project/rdf/$2.ttl [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.owl$ https://raw.githubusercontent.com/lmodel/$1/main/project/owl/$2.owl.ttl [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.yaml$ https://raw.githubusercontent.com/lmodel/$1/main/project/prefixmap/$2.yaml [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.proto$ https://raw.githubusercontent.com/lmodel/$1/main/project/protobuf/$2.proto [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.shex$ https://raw.githubusercontent.com/lmodel/$1/main/project/shex/$2.shex [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.shexc$ https://raw.githubusercontent.com/lmodel/$1/main/project/shex/$2.shex [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.shexj$ https://raw.githubusercontent.com/lmodel/$1/main/project/shex/$2.shex [R=302,L]
+RewriteRule ^(.*)/data/(.*)\.sql$ https://raw.githubusercontent.com/lmodel/$1/main/project/sqlschema/$2.sql [R=302,L]
+
+# Continue ...
+
+# Rewrite base URLs
+RewriteRule ^collections(.*)$ https://lmodel.github.io/collections/$1 [R=302,L]
+RewriteRule ^cyberinfra(.*)$ https://lmodel.github.io/cyberinfra/$1 [R=302,L]
+RewriteRule ^generic(.*)$ https://lmodel.github.io/generic/$1 [R=302,L]
+RewriteRule ^sample(.*)$ https://lmodel.github.io/sample/$1 [R=302,L]
+RewriteRule ^void(.*)$ https://lmodel.github.io/void/$1 [R=302,L]
+
+# to be reviewed
+RewriteRule ^base(.*)$ https://lmodel.github.io/base/$1 [R=302,L]
+RewriteRule ^core(.*)$ https://lmodel.github.io/core/$1 [R=302,L]
+
+# Rewrite base UCO URLs
+RewriteRule ^uco[-|/]master(.*)$ https://lmodel.github.io/uco-master/$1 [R=302,L]
+RewriteRule ^uco[-|/]marking(.*)$ https://lmodel.github.io/uco-marking/$1 [R=302,L]
+RewriteRule ^uco[-|/]time(.*)$ https://lmodel.github.io/uco-time/$1 [R=302,L]
+RewriteRule ^uco[-|/]vocabulary(.*)$ https://lmodel.github.io/uco-vocabulary/$1 [R=302,L]
+RewriteRule ^uco[-|/]configuration(.*)$ https://lmodel.github.io/uco-configuration/$1 [R=302,L]
+RewriteRule ^uco[-|/]location(.*)$ https://lmodel.github.io/uco-location/$1 [R=302,L]
+RewriteRule ^uco[-|/]pattern(.*)$ https://lmodel.github.io/uco-pattern/$1 [R=302,L]
+RewriteRule ^uco[-|/]victim(.*)$ https://lmodel.github.io/uco-victim/$1 [R=302,L]
+RewriteRule ^uco[-|/]core(.*)$ https://lmodel.github.io/uco-core/$1 [R=302,L]
+RewriteRule ^uco[-|/]action(.*)$ https://lmodel.github.io/uco-action/$1 [R=302,L]
+RewriteRule ^uco[-|/]tool(.*)$ https://lmodel.github.io/uco-tool/$1 [R=302,L]
+RewriteRule ^uco[-|/]role(.*)$ https://lmodel.github.io/uco-role/$1 [R=302,L]
+RewriteRule ^uco[-|/]identity(.*)$ https://lmodel.github.io/uco-identity/$1 [R=302,L]
+RewriteRule ^uco[-|/]types(.*)$ https://lmodel.github.io/uco-types/$1 [R=302,L]
+RewriteRule ^uco[-|/]observable(.*)$ https://lmodel.github.io/uco-observable/$1 [R=302,L]
+
+# UCS URLs
+RewriteRule ^ucs[-|/]landscape(.*)$ https://lmodel.github.io/ucs-landscape/$1 [R=302,L]
+RewriteRule ^ucs[-|/]core(.*)$ https://lmodel.github.io/ucs-core/$1 [R=302,L]
+RewriteRule ^ucs[-|/]containers(.*)$ https://lmodel.github.io/ucs-containers/$1 [R=302,L]
