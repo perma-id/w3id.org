@@ -12,8 +12,6 @@ That is in turn redirected according to the `mixs` namespace rules.
 
 All other `gensc` URLs are redirected to the [GSC website](https://www.gensc.org/).
 
-Established maintainer of this w3id: Ramona Walls <rlwalls2008@gmail.org> (@ramonawalls).
-
-New maintainer to be added pending Ramona's approval: Mark Andrew Miller <MAM@lbl.gov> (@turbomam)
+maintainer of this w3id: Ramona Walls <rlwalls2008@gmail.org> (@ramonawalls).
 
 Questions should be directed to https://github.com/GenomicsStandardsConsortium/mixs/issues.
