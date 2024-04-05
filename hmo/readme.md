@@ -13,7 +13,7 @@ Ontology
 
 This ontology was developed by ISISE - University of Minho in collaboration with the Italian National Research Centre (CNR).
 
-- Maria Laura Leonardi, ISISE <mlauraleonardi@gmail.com>
+- Maria Laura Leonardi, ISISE <mlauraleonardi@gmail.com> (@mlaura1996)
 - Stefano Cursi, CNR
 - Elena Gigliarelli, CNR
 - José Granja, ISISE
