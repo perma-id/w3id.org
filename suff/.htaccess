@@ -1,0 +1,14 @@
+RewriteEngine On
+
+AddType text/turtle .ttl
+
+# RDF (Turtle)
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$ http://nicholascar.com/suff-model/ont.ttl [R=303,L]
+RewriteRule .ttl$ http://nicholascar.com/suff-model/ont.ttl [R=303,L]
+
+# Validator
+RewriteRule ^validator http://nicholascar.com/suff-model/validator.ttl [R=303,L]
+
+# HTML - default
+RewriteRule ^$ http://nicholascar.com/suff-model/spec.html [R=302,L]
