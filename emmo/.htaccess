@@ -43,14 +43,19 @@ RewriteRule ^application/(application-)?([^/]+)/?$ https://emmo-repo.github.io/a
 RewriteRule ^domain/(domain-)?([^/]+)/inferred/?$ https://emmo-repo.github.io/domain-$2/$2-inferred.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/inferred/?$ https://emmo-repo.github.io/application-$2/$2-inferred.ttl [R=303,NE,L]
 
-# Rule 1c:  https://w3id.org/emmo/domain/{DOMAIN}/context
-# Rule 1c': https://w3id.org/emmo/application/{DOMAIN}/context
+# Rule 1c:  https://w3id.org/emmo/domain/{DOMAIN}/turtle
+# Rule 1c': https://w3id.org/emmo/application/{DOMAIN}/turtle
+RewriteRule ^domain/(domain-)?([^/]+)/turtle/?$ https://emmo-repo.github.io/domain-$2/$2.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/turtle/?$ https://emmo-repo.github.io/application-$2/$2.ttl [R=303,NE,L]
+
+# Rule 1d:  https://w3id.org/emmo/domain/{DOMAIN}/context
+# Rule 1d': https://w3id.org/emmo/application/{DOMAIN}/context
 # Redirect to GitHub Pages
 RewriteRule ^domain/(domain-)?([^/]+)/context/?$ https://emmo-repo.github.io/domain-$2/context/context.json [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/context/?$ https://emmo-repo.github.io/application-$2/context/context.json [R=303,NE,L]
 
-# Rule 1d:  https://w3id.org/emmo/domain/{DOMAIN}/context/{CONTEXTNAME}
-# Rule 1d': https://w3id.org/emmo/application/{DOMAIN}/context/{CONTEXTNAME}
+# Rule 1e:  https://w3id.org/emmo/domain/{DOMAIN}/context/{CONTEXTNAME}
+# Rule 1e': https://w3id.org/emmo/application/{DOMAIN}/context/{CONTEXTNAME}
 # Redirect to GitHub Pages
 RewriteRule ^domain/(domain-)?([^/]+)/context/([^/]+)/?$ https://emmo-repo.github.io/domain-$2/context/$3.json [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/context/([^/]+)/?$ https://emmo-repo.github.io/application-$2/context/$3.json [R=303,NE,L]
@@ -89,6 +94,12 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/?$ https://emmo-rep
 # Redirect to GitHub Pages
 RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/inferred/?$ https://emmo-repo.github.io/domain-$2/versions/$3/$2-inferred.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/inferred/?$ https://emmo-repo.github.io/application-$2/versions/$3/$2-inferred.ttl [R=303,NE,L]
+
+# Rule 3c:  https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/turtle
+# Rule 3c': https://w3id.org/emmo/application/{DOMAIN}/{VERSION}/turtle
+# Redirect to GitHub Pages
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/turtle/?$ https://emmo-repo.github.io/domain-$2/versions/$3/$2.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/turtle/?$ https://emmo-repo.github.io/application-$2/versions/$3/$2.ttl [R=303,NE,L]
 
 
 # Rule 4:  https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source
@@ -134,6 +145,11 @@ RewriteRule ^$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
 # Inferred ontology (only turtle) on GitHub Pages
 RewriteRule ^inferred/?$ https://emmo-repo.github.io/emmo-inferred.ttl [R=303,NE,L]
 
+# Rule 7c: https://w3id.org/emmo/turtle
+# Redirect to GitHub Pages
+# Squashed ontology on GitHub Pages
+RewriteRule ^turtle/?$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
+
 
 # Rule 8a: https://w3id.org/emmo/source
 # Alias:   https://w3id.org/emmo/latest
@@ -171,6 +187,10 @@ RewriteRule ^([0-9][^/]*)/?$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R
 # Rule 9b: https://w3id.org/emmo/{VERSION}/inferred
 # Redirect to GitHub Pages
 RewriteRule ^([0-9][^/]*)/inferred/?$ https://emmo-repo.github.io/versions/$1/emmo-inferred.ttl [R=303,NE,L]
+#
+# Rule 9c: https://w3id.org/emmo/{VERSION}/turtle
+# Redirect to GitHub Pages
+RewriteRule ^([0-9][^/]*)/turtle/?$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R=303,NE,L]
 
 
 # Rule 10a: https://w3id.org/emmo/{VERSION}/source
