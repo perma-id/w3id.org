@@ -12,7 +12,8 @@ This section contains a general summary of the logic behind the redirection rule
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
-   - Special case for inferred ontology: `https://w3id.org/emmo/domain/{DOMAIN}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/domain-{DOMAIN}-inferred.ttl`
+   - Special case for inferred ontology: `https://w3id.org/emmo/domain/{DOMAIN}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
+   - Special case for squashed ontology: `https://w3id.org/emmo/domain/{DOMAIN}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}.ttl`
    - Special case for default context: `https://w3id.org/emmo/domain/{DOMAIN}/context --> https://emmo-repo.github.io/{REPO_NAME}/context/context.json`
    - Special case for specific context: `https://w3id.org/emmo/domain/{DOMAIN}/{CONTEXTNAME} --> https://emmo-repo.github.io/{REPO_NAME}/context/{CONTEXTNAME}.json`
 
@@ -25,6 +26,7 @@ This section contains a general summary of the logic behind the redirection rule
    - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
+   - Special case for squashed ontology: `https://w3id.org/{DOMAIN}/{VERSION}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}.ttl`
 
 4. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
    - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
