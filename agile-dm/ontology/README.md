@@ -14,4 +14,4 @@ GitHub: [dgreco](https://github.com/dgreco)
 
 #### Simone Pusceddu
 E-mail: simone.pusceddu@unica.it <br>
-GitHub: [pusceddusimone](https://github.com/pusceddusimone).
+GitHub: [pusceddusimone](https://github.com/pusceddusimone)
