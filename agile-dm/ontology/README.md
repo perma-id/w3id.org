@@ -7,5 +7,5 @@ See [Data Platform Shaper](https://github.com/agile-lab-dev/data-platform-shaper
 
 ## Contact
 This space is administered by:  
-### David Greco
-david.greco@agilelab.it
+#### David Greco
+E-mail: david.greco@agilelab.it
