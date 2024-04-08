@@ -10,9 +10,10 @@ This space is administered by:
 #### David Greco
 E-mail: david.greco@agilelab.it
 
-https://github.com/dgreco
+GitHub: [dgreco](https://github.com/dgreco)
+
 
 #### Simone Pusceddu
 E-mail: simone.pusceddu@unica.it
 
-https://github.com/pusceddusimone
+GitHub: [pusceddusimone](https://github.com/pusceddusimone).
