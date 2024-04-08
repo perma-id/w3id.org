@@ -8,12 +8,10 @@ See [Data Platform Shaper](https://github.com/agile-lab-dev/data-platform-shaper
 ## Contact
 This space is administered by:  
 #### David Greco
-E-mail: david.greco@agilelab.it
-
+E-mail: david.greco@agilelab.it <br>
 GitHub: [dgreco](https://github.com/dgreco)
 
 
 #### Simone Pusceddu
-E-mail: simone.pusceddu@unica.it
-
+E-mail: simone.pusceddu@unica.it <br>
 GitHub: [pusceddusimone](https://github.com/pusceddusimone).
