@@ -9,3 +9,6 @@ See [Data Platform Shaper](https://github.com/agile-lab-dev/data-platform-shaper
 This space is administered by:  
 #### David Greco
 E-mail: david.greco@agilelab.it
+
+#### Simone Pusceddu
+E-mail: simone.pusceddu@unica.it
