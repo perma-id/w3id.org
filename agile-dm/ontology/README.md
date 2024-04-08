@@ -1,4 +1,4 @@
-# /ioc/
+# /Data Platform Shaper/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the Data Platform Shaper Ontology.
 
 ## Uses
