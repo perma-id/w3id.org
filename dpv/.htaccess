@@ -162,17 +162,6 @@ RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl [R=302,L]
 
 ##### VOCAB: LEGAL #####
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal$ %{ENV:BASE}/legal/legal.rdf [R=302,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal$ %{ENV:BASE}/legal/legal.ttl [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal$ %{ENV:BASE}/legal/legal.n3 [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal$ %{ENV:BASE}/legal/legal.jsonld [R=302,L]
-
-RewriteRule ^legal$ %{ENV:BASE}/legal [R=302,L]
-
 ## LEGAL OWL Serialisation
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -188,19 +177,18 @@ RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.omn [R=302,L]
 
 RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl [R=302,L]
 
-## LEGAL JURISDICTIONS ISO 3166-2
-# e.g. /legal/eu --> /legal/eu
+## LEGAL SKOS Serialisation
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.rdf [R=302,L]
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.ttl [R=302,L]
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.n3 [R=302,L]
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.jsonld [R=302,L]
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.jsonld [R=302,L]
 
-RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1 [R=302,L]
+RewriteRule ^legal$ %{ENV:BASE}/legal [R=302,L]
 
 ## LEGAL JURISDICTIONS ISO 3166-2 OWL
 # e.g. /legal/eu/owl --> /legal/eu/legal-eu-owl
@@ -218,19 +206,19 @@ RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.omn [R=302,
 
 RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl [R=302,L]
 
-## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws
-# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
+## LEGAL JURISDICTIONS ISO 3166-2
+# e.g. /legal/eu --> /legal/eu
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.rdf [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.ttl [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.n3 [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.jsonld [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.jsonld [R=302,L]
 
-RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$2 [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1 [R=302,L]
 
 ## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws OWL
 # e.g. /legal/eu/gdpr/owl --> /legal/eu/gdpr/eu-gdpr-owl
@@ -245,6 +233,20 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.jsonld [R=302,L]
 
 RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws
+# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$2 [R=302,L]
 
 ########## DEPRECATED URLS ARE REDIRECTED
 
