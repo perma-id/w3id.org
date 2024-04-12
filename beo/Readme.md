@@ -10,4 +10,4 @@ Ontology
 
 Contacts
 
-* Carlos Ramonell Cazador <carlos.ramonell@upc.edu>
+* Carlos Ramonell Cazador <carlos.ramonell@upc.edu>, [@cramonell](https://github.com/cramonell)
