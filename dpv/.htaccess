@@ -18,212 +18,235 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
+SetEnvIf Request_URI ^.*$ BASE=https://w3c.github.io/dpv
+
 ##### VOCAB: DPV #####
-RewriteRule ^$ https://w3c.github.io/dpv/dpv [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.rdf [R=302,L]
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.ttl [R=302,L]
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.n3 [R=302,L]
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://w3c.github.io/dpv/dpv/dpv.jsonld [R=302,L]
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.jsonld [R=302,L]
+
+RewriteRule ^$ %{ENV:BASE}/dpv [R=302,L]
 
 ## DPV OWL Serialisation
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv/dpv-owl.owl [R=302,L]
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.owl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv/dpv-owl.ttl [R=302,L]
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv/dpv-owl.n3 [R=302,L]
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv/dpv-owl.jsonld [R=302,L]
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^owl$ https://w3c.github.io/dpv/dpv/dpv-owl.omn [R=302,L]
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.omn [R=302,L]
+
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl [R=302,L]
 
 ##### VOCAB: PD #####
-RewriteRule ^pd$ https://w3c.github.io/dpv/pd [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^pd$ https://w3c.github.io/dpv/pd/pd.rdf [R=302,L]
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^pd$ https://w3c.github.io/dpv/pd/pd.ttl [R=302,L]
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^pd$ https://w3c.github.io/dpv/pd/pd.n3 [R=302,L]
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^pd$ https://w3c.github.io/dpv/pd/pd.jsonld [R=302,L]
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.jsonld [R=302,L]
+
+RewriteRule ^pd$ %{ENV:BASE}/pd [R=302,L]
 
 ## PD OWL Serialisation
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl.rdf [R=302,L]
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl.ttl [R=302,L]
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl.n3 [R=302,L]
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl.jsonld [R=302,L]
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^pd/owl$ https://w3c.github.io/dpv/pd/pd-owl.omn [R=302,L]
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.omn [R=302,L]
+
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl [R=302,L]
 
 ##### VOCAB: LOC #####
-RewriteRule ^loc$ https://w3c.github.io/dpv/loc [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^loc$ https://w3c.github.io/dpv/loc/loc.rdf [R=302,L]
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^loc$ https://w3c.github.io/dpv/loc/loc.ttl [R=302,L]
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^loc$ https://w3c.github.io/dpv/loc/loc.n3 [R=302,L]
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^loc$ https://w3c.github.io/dpv/loc/loc.jsonld [R=302,L]
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.jsonld [R=302,L]
+
+RewriteRule ^loc$ %{ENV:BASE}/loc [R=302,L]
 
 ## LOC OWL Serialisation
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl.rdf [R=302,L]
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl.ttl [R=302,L]
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl.n3 [R=302,L]
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl.jsonld [R=302,L]
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^loc/owl$ https://w3c.github.io/dpv/loc/loc-owl.omn [R=302,L]
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.omn [R=302,L]
+
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl [R=302,L]
 
 ##### VOCAB: RISK #####
-RewriteRule ^risk$ https://w3c.github.io/dpv/risk [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.rdf [R=302,L]
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.ttl [R=302,L]
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.n3 [R=302,L]
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^risk$ https://w3c.github.io/dpv/risk/risk.jsonld [R=302,L]
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.jsonld [R=302,L]
+
+RewriteRule ^risk$ %{ENV:BASE}/risk [R=302,L]
 
 ## RISK OWL Serialisation
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl.rdf [R=302,L]
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl.ttl [R=302,L]
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl.n3 [R=302,L]
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl.jsonld [R=302,L]
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^risk/owl$ https://w3c.github.io/dpv/risk/risk-owl.omn [R=302,L]
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.omn [R=302,L]
+
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl [R=302,L]
 
 ##### VOCAB: TECH #####
-RewriteRule ^tech$ https://w3c.github.io/dpv/tech [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^tech$ https://w3c.github.io/dpv/tech/tech.rdf [R=302,L]
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^tech$ https://w3c.github.io/dpv/tech/tech.ttl [R=302,L]
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^tech$ https://w3c.github.io/dpv/tech/tech.n3 [R=302,L]
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^tech$ https://w3c.github.io/dpv/tech/tech.jsonld [R=302,L]
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.jsonld [R=302,L]
+
+RewriteRule ^tech$ %{ENV:BASE}/tech [R=302,L]
 
 ## TECH OWL Serialisation
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl.rdf [R=302,L]
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl.ttl [R=302,L]
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl.n3 [R=302,L]
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl.jsonld [R=302,L]
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^tech/owl$ https://w3c.github.io/dpv/tech/tech-owl.omn [R=302,L]
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.omn [R=302,L]
+
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl [R=302,L]
 
 ##### VOCAB: LEGAL #####
-RewriteRule ^legal$ https://w3c.github.io/dpv/legal [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal$ https://w3c.github.io/dpv/legal/legal.rdf [R=302,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal$ https://w3c.github.io/dpv/legal/legal.ttl [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal$ https://w3c.github.io/dpv/legal/legal.n3 [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal$ https://w3c.github.io/dpv/legal/legal.jsonld [R=302,L]
 
 ## LEGAL OWL Serialisation
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl.rdf [R=302,L]
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl.ttl [R=302,L]
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl.n3 [R=302,L]
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl.jsonld [R=302,L]
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.jsonld [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^legal/owl$ https://w3c.github.io/dpv/legal/legal-owl.omn [R=302,L]
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.omn [R=302,L]
+
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl [R=302,L]
+
+## LEGAL SKOS Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.jsonld [R=302,L]
+
+RewriteRule ^legal$ %{ENV:BASE}/legal [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 OWL
+# e.g. /legal/eu/owl --> /legal/eu/legal-eu-owl
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.omn [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl [R=302,L]
 
 ## LEGAL JURISDICTIONS ISO 3166-2
 # e.g. /legal/eu --> /legal/eu
-RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1 [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.rdf [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.ttl [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.n3 [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})$ https://w3c.github.io/dpv/legal/legal-$1.jsonld [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.jsonld [R=302,L]
 
-# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$2 [R=302,L]
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1 [R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2.rdf [R=302,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2.ttl [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2.n3 [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})/(.*)$ https://w3c.github.io/dpv/legal/$1/$1-$2.jsonld [R=302,L]
-
-# e.g. /legal/eu/owl --> /legal/eu/legal-eu-owl
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/$1/legal-$1-owl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.rdf [R=302,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.ttl [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.n3 [R=302,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.jsonld [R=302,L]
-RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^legal/([a-z]{2})/owl$ https://w3c.github.io/dpv/legal/legal-$1-owl.omn [R=302,L]
-
+## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws OWL
 # e.g. /legal/eu/gdpr/owl --> /legal/eu/gdpr/eu-gdpr-owl
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.rdf [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.ttl [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.n3 [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^legal/([a-z]{2})/(.*)/owl$ https://w3c.github.io/dpv/legal/$1/$2/$1-$2-owl.jsonld [R=302,L]
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws
+# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$2 [R=302,L]
 
 ########## DEPRECATED URLS ARE REDIRECTED
 
@@ -255,20 +278,18 @@ RewriteRule ^dpv-owl/rights/eu$ https://w3id.org/dpv/legal/eu/rights/owl [R=302,
 # --- #
 # Default content type paths
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.rdf [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.ttl [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.n3 [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.ldjson [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.ldjson [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1.omn [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.omn [R=302,L]
 
 # Default
-# w3id.org/dpv
-RewriteRule ^$ https://w3c.github.io/dpv/dpv [R=302,L]
 # w3id.org/dpv/* 
 # covers documentation e.g. primer, use-cases, guides, examples
-RewriteRule ^(.*)$ https://w3c.github.io/dpv/$1 [R=302,L]
+RewriteRule ^(.*)$ %{ENV:BASE}/$1 [R=302,L]
 
