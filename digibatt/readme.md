@@ -24,3 +24,5 @@ For detailed information about each redirect rule, please refer to the comments 
 ---
 
 For any questions or issues, please contact [DigiBatt Project Team](mailto:francesca.watson@sintef.no).
+
+DigiBatt W3ID Maintainer: [@jsimonclark](https://github.com/jsimonclark)
