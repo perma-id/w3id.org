@@ -16,7 +16,7 @@ The .htaccess file provided in this repository is intended to be used with the w
 
 The .htaccess file implements the following redirect rules:
 
-1. Redirects <https://w3id.org/digibatt> to the **index** page <https://battmoteam.github.io/digibatt/index.html>.
+1. Redirects <https://w3id.org/digibatt> to the **index** page <https://digibatt.github.io/digibatt/index.html>.
 2. Redirects paths related to **organizations**, **deliverables**, **milestones**, **work packages**, **tasks**, **publications**, **datasets**, **events**, and **software** to their respective pages on the project website.
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
