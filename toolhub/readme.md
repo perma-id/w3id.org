@@ -1,7 +1,7 @@
 The Semantic Toolhub
 ===
 
-The aim of this url to provide permanent location for resources related to semantic-toolhub.
+The aim of this url to provide a permanent address for resources related to semantic-toolhub.
 A poster paper for this resource has been accepted at [ESWC 2024](https://2024.eswc-conferences.org/posters-and-demos-papers/) and a follow-up resource paper is currently on the pipeline.
 
 * Homepage: [semantic-toolhub webpage](https://semantic-tool-hub.github.io/)
