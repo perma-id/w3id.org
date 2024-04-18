@@ -4,15 +4,23 @@ This [w3id](https://w3id.org/people/besteves/) provides a persistent URI namespa
 
 # Uses
 
-| w3id               | Description                           | HTML                                           |
-|--------------------|---------------------------------------|------------------------------------------------|
-| /                  | Personal webpage                      | https://besteves4.github.io/                   |
-| /repo              | GitHub                                | https://github.com/besteves4/                  |
-| **Demos**          |                                       |                                                |
-| /demo/iswc23       | Webpage with SoDA demo for ISWC23     | https://besteves4.github.io/iswc23demo/        |
-| **PhD**            |                                       |                                                |
-| /phd/thesis        | Repository with the dissertation text | https://github.com/besteves4/phd-thesis/       |
-| /phd/contributions | Webpage with PhD contributions        | https://besteves4.github.io/phd-contributions/ |
+| w3id                 | Description                                    | HTML                                                |
+|----------------------|------------------------------------------------|-----------------------------------------------------|
+| /                    | Personal webpage                               | https://besteves4.github.io/                        |
+| /repo                | GitHub                                         | https://github.com/besteves4/                       |
+| **Demos**            |                                                |                                                     |
+| /demo/eswc22         | Webpage with SOPE demo for ESWC22              | https://protect.oeg.fi.upm.es/eswc-demo/            |
+| /demo/iswc23         | Webpage with SoDA demo for ISWC23              | https://besteves4.github.io/iswc23demo/             |
+| **Apps**             |                                                |                                                     |
+| /sope/repo           | Repository with SOPE code                      | https://github.com/besteves4/solid-sope             |
+| /access-right/api    | Repository with Right of Access API code       | https://github.com/besteves4/access-right-api       |
+| /access-right/solid  | Repository with Right of Access Solid app code | https://github.com/besteves4/access-right-solid     |
+| **PhD**              |                                                |                                                     |
+| /phd/thesis          | Repository with the dissertation text          | https://github.com/besteves4/phd-thesis/            |
+| /phd/contributions   | Webpage with PhD contributions                 | https://besteves4.github.io/phd-contributions/      |
+| **DPV Rights**       |                                                |                                                     |
+| /justifications      | Justifications vocabulary                      | https://besteves4.github.io/dpv-rights-exercising/  |
+| /justifications/repo | Repository with the justifications vocabulary  | https://github.com/besteves4/dpv-rights-exercising/ |
 
 # Contacts:
-- Beatriz Esteves [:email:](mailto:beatriz.gesteves@upm.es) [:octocat:](https://github.com/besteves4)
+- Beatriz Esteves [:email:](mailto:beatriz.esteves@ugent.be) [:octocat:](https://github.com/besteves4)
