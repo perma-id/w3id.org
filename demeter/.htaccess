@@ -21,12 +21,10 @@ RewriteRule ^metadata-context.jsonld$ https://raw.githubusercontent.com/rapw3k/D
 
 
 ### AIM CORE METAMODEL LAYER #####
-# Version
-RewriteRule ^core/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$1/demeterCore_v$1.ttl [R=302,L]
 # Ontology
-RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore.ttl [R=302,L]
+RewriteRule ^core$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterCore_ngsi-ld.ttl [R=302,L]
 # JSON-LD context
-RewriteRule ^core-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/demeter-core-context.jsonld [R=302,L]
+RewriteRule ^core-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/demeterCore_ngsi-ld-context.jsonld [R=302,L]
 
 
 ### AIM CROSS-DOMAIN LAYER #####
@@ -46,26 +44,35 @@ RewriteRule ^agri/ext/(.*)-context(.*)$ https://raw.githubusercontent.com/rapw3k
 RewriteRule ^agri/ext/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/extensions/$1.ttl [R=302,L]
 #RewriteRule ^agri/ext/livestockFeature$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/extensions/livestockFeature.ttl [R=302,L]
 
+### AIM alignments #####
+# Ontology
+RewriteRule ^agri/alignments/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/alignments/$1.ttl [R=302,L]
 
 ### AIM DOMAIN LAYER #####
 
 ## Root level
 # Version
 #RewriteRule ^agri/(.*)/(.*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$2/$1_v$2.ttl [R=302,L]
-RewriteRule ^agri/(.*)/(\d+(.\d+)*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$2/$1_v$2.ttl [R=302,L]
-RewriteRule ^agri/1.0$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v1.0/demeterAgriProfile_v1.0.ttl [R=302,L]
-RewriteRule ^agri/2.0$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v2.0/demeterAgriProfile_v2.0.ttl [R=302,L]
+#RewriteRule ^agri/(.*)/(\d+(.\d+)*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$2/$1_v$2.ttl [R=302,L]
+RewriteRule ^agri/(.*)/(\d+(.\d+)*)$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v$2/$1.ttl [R=302,L]
+RewriteRule ^agri/1.0$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v1.0/demeterAgriProfile.ttl [R=302,L]
+RewriteRule ^agri/2.0$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/v2.0/demeterAgriProfile.ttl [R=302,L]
+
+# JSON-LD context
+RewriteRule ^agri-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/demeterAgriProfile-context.jsonld [R=302,L]
 
 # Ontology
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
 RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/rdf/demeterAgriProfile.rdf [R=303,L]
-#RewriteCond %{HTTP_ACCEPT} text/html
+# redirect to OGC def server
+RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^agri$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri [R=303,L]
+# default
+RewriteRule ^agri$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/demeterAgriProfile.ttl [R=303,L]
 
-# JSON-LD context
-RewriteRule ^agri-context.jsonld$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/jsonld/demeterAgriProfile-context.jsonld [R=302,L]
 
 ## Modules
 # JSON-LD contexts
@@ -84,15 +91,19 @@ RewriteRule ^agri/(.*)-context(.*)$ https://raw.githubusercontent.com/rapw3k/DEM
 
 
 # Ontologies
-### DOMAIN LAYER #####
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/$1.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
 RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/rdf/$1.rdf [R=303,L]
+# redirect to OGC def server
+RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^agri/(.*)$  https://defs-dev.opengis.net/def/w3id.org/demeter/agri/$1 [R=303,L]
+# default
+RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/$1.ttl [R=303,L]
+
+
 #RewriteRule ^agri/(?!.*context)(.*)$  https://defs-dev.opengis.net/def/w3id.org/demeter/agri/$1 [R=303,L]
-
-
 #RewriteRule ^agri/agriCrop$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCrop.ttl [R=303,L]
 #RewriteRule ^agri/agriFeature$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriFeature.ttl [R=302,L]
 #RewriteRule ^agri/agriCommon$ https://raw.githubusercontent.com/rapw3k/DEMETER/master/models/agriCommon.ttl [R=302,L]

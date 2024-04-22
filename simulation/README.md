@@ -8,6 +8,7 @@ This namespace is broken down into different different parts:
 * [https://w3id.org/simulation/data/](https://w3id.org/simulation/data/) leads to HyperReal, a knowledge graph of cultural symbols that follows the ontology pattern serialized in [turtle](https://www.w3.org/TR/turtle/) 
 * [https://w3id.org/simulation/development/](https://w3id.org/simulation/development/) leads to a github repository that contains the development documentation of the ontology.
 * [https://w3id.org/simulation/code/](https://w3id.org/simulation/code/) leads to a github repository that contains the code of the conversion algorithms used in the Simulation Ontology's based knowledge graph.
+* [https://w3id.org/simulation/contexts/](https://w3id.org/simulation/contexts/) leads to a turtle file of a SKOS taxonomy created from the cultural contexts of HyperReal.
 * https://w3id.org/simulation/query/ will lead to a future queryable SPARQL portal of the knowledge graph. (**not active yet**)
 
 This space is administered by:  

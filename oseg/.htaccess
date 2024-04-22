@@ -1,0 +1,83 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# ## Ontologies
+
+# [Recommended IRI patterns for ontologies and their terms](
+# https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
+
+# ### OKH
+
+# latest
+RewriteRule \
+	^ont/okh$ \
+	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/master/OKH-LOSH.ttl \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh$ \
+	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/$1/OKH-LOSH.ttl \
+	[R=302,L]
+
+# ### OTRL
+
+# latest
+RewriteRule \
+	^ont/otrl$ \
+	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/master/OTRL.ttl \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/otrl$ \
+	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/$1/OTRL.ttl \
+	[R=302,L]
+
+# ### TsDC (core)
+
+# latest
+RewriteRule \
+	^ont/tsdc/core$ \
+	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/master/oh-tsdc.ttl \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/tsdc/core$ \
+	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/$1/oh-tsdc.ttl \
+	[R=302,L]
+
+# ### TsDC requirements
+
+# latest
+RewriteRule \
+	^ont/tsdc/req(uirements)?$ \
+	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/master/tsdc-req.ttl \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/tsdc/req(uirements)?$ \
+	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/$1/tsdc-req.ttl \
+	[R=302,L]
+
+# ### OSH Ontology
+
+# latest
+RewriteRule \
+	^ont/osh$ \
+	https://codeberg.org/oseg/osh-ont/raw/branch/master/src/ontology/osh.ttl \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh$ \
+	https://codeberg.org/oseg/osh-ont/raw/branch/$1/src/ontology/osh.ttl \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh$ \
+	https://codeberg.org/oseg/osh-ont/raw/tag/$1/src/ontology/osh.ttl \
+	[R=302,L]

@@ -1,0 +1,31 @@
+# .htaccess for Full-notch creep test ontology vocabs
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^(.*)$ https://markusschilling.github.io/ontoFNCT/index-en.html [R=303,L]
+
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://markusschilling.github.io/ontoFNCT/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://markusschilling.github.io/ontoFNCT/ontology.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://markusschilling.github.io/ontoFNCT/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.*)$ https://markusschilling.github.io/ontoFNCT/ontology.ttl [R=303,L]
+
+#RewriteCond %{HTTP_ACCEPT} .+
+#RewriteRule ^$ https://markusschilling.github.io/ontoFNCT/406.html [R=406,L]

@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# schema artefacts use raw github URLs
+RewriteRule ^(.*).owl.ttl$ https://raw.githubusercontent.com/monarch-initiative/ontogpt/main/schemas/$1/owl/$1.owl.ttl [R=302,L]
+RewriteRule ^(.*).context.jsonld$ https://raw.githubusercontent.com/monarch-initiative/ontogpt/main/schemas/$1/jsonld/$1.context.jsonld [R=302,L]
+RewriteRule ^(.*).shacl.ttl$ https://raw.githubusercontent.com/monarch-initiative/ontogpt/main/schemas/$1/shacl/$1.shacl.ttl [R=302,L]
+RewriteRule ^(.*).yaml$ https://raw.githubusercontent.com/monarch-initiative/ontogpt/main/src/ontogpt/templates/$1.yaml [R=302,L]
+
+# Schema elements use github pages
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://monarch-initiative.github.io/ontogpt/$1 [R=302,L]
