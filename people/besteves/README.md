@@ -15,6 +15,7 @@ This [w3id](https://w3id.org/people/besteves/) provides a persistent URI namespa
 | /sope/repo           | Repository with SOPE code                      | https://github.com/besteves4/solid-sope             |
 | /access-right/api    | Repository with Right of Access API code       | https://github.com/besteves4/access-right-api       |
 | /access-right/solid  | Repository with Right of Access Solid app code | https://github.com/besteves4/access-right-solid     |
+| /soda/repo           | Repository with SoDA code                      | https://github.com/besteves4/soda                   |
 | **PhD**              |                                                |                                                     |
 | /phd/thesis          | Repository with the dissertation text          | https://github.com/besteves4/phd-thesis/            |
 | /phd/contributions   | Webpage with PhD contributions                 | https://besteves4.github.io/phd-contributions/      |
