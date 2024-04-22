@@ -1,0 +1,14 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine on
+
+#Rewrite rules for Elementary ontology  
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://raw.githubusercontent.com/codepasta/autonomous-buildings/main/elementary/examples.html [R=302,L]
+RewriteRule ^examples$ https://raw.githubusercontent.com/codepasta/autonomous-buildings/main/elementary/examples.html [R=302,L]

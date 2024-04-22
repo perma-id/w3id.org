@@ -11,5 +11,6 @@ This space is administered by:
 **Lukas Kirner**  
   *Researcher*  
 Individualized Production, RWTH Aachen, Germany.  
-<kirner@ip.rwth-aachen.de>  
+https://github.com/kirnerlukas
+<lukas.kirner@rwth-aachen.de>  
 ORCID: [0000-0001-9753-2422](https://orcid.org/0000-0001-9753-2422) 

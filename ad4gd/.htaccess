@@ -1,0 +1,72 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://ad4gd.eu/ [R=302,L]
+
+#EV
+RewriteRule ^ev/(.*)/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1/$2 [R=302,L]
+#Catalogues
+RewriteRule ^ev/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1 [R=302,L]
+
+###### GDIM #####
+### GDIM METADATA LAYER #####
+# Ontology
+RewriteRule ^model/metadata$ https://raw.githubusercontent.com/AD4GD/GDIM/main/metadata.ttl [R=302,L]
+# JSON-LD context
+RewriteRule ^model/metadata-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/metadata-context.jsonld [R=302,L]
+
+
+### GDIM CROSS-DOMAIN LAYER #####
+# Ontology
+RewriteRule ^model/crossDomain$ https://raw.githubusercontent.com/AD4GD/GDIM/main/cross-domain.ttl [R=302,L]
+# JSON-LD context
+RewriteRule ^model/crossDomain-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/crossDomain-context.jsonld [R=302,L]
+
+
+### GDIM DOMAIN LAYER #####
+## Root level
+# JSON-LD context
+RewriteRule ^gdim-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/greenDealProfile-context.jsonld [R=302,L]
+# Ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^model$ https://raw.githubusercontent.com/AD4GD/GDIM/main/greenDealProfile.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
+# RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+# RewriteRule ^oim$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/rdf/oimOceanProfile.rdf [R=303,L]
+# redirect to OGC def server
+# RewriteCond %{HTTP_ACCEPT} text/html
+# RewriteRule ^oim$ https://defs-dev.opengis.net/def/w3id.org/iliad/oim [R=303,L]
+# default
+RewriteRule ^model$ https://raw.githubusercontent.com/AD4GD/GDIM/main/greenDealProfile.ttl  [R=303,L]
+
+## Modules
+# JSON-LD contexts
+RewriteRule ^model/(.*)-context$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/$1-context.jsonld [R=302,L]
+# Ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^model/(.*)$  https://raw.githubusercontent.com/AD4GD/GDIM/main/$1.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
+# RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+# RewriteRule ^oim/(.*)$  https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/rdf/$1.rdf [R=303,L]
+# redirect to OGC def server
+# RewriteCond %{HTTP_ACCEPT} text/html
+# RewriteRule ^oim/(.*)$  https://defs-dev.opengis.net/def/w3id.org/iliad/oim/$1 [R=303,L]
+# default
+RewriteRule ^model/(.*)$  https://raw.githubusercontent.com/AD4GD/GDIM/main/$1.ttl [R=303,L]
+
+# Sensors and manufacturers in Hosted RAINBOW
+RewriteRule ^sensors/?$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/sensors [R=302,L]
+RewriteRule ^sensors/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/sensors/$1 [R=303,L]
+
+# Properties in Hosted RAINBOW
+RewriteRule ^properties/?$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/properties [R=302,L]
+RewriteRule ^properties/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/properties/$1 [R=303,L]
