@@ -1,0 +1,7 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://portalefontirepubblicaitaliana-test.ge.imati.cnr.it/
+
+# Catching the https://w3id.org/italia/republic-history/XXX -> redirecting to ROOT_URL/XXX
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1 [R=303,L]

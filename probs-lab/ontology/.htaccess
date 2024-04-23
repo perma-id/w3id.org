@@ -1,0 +1,63 @@
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .owl
+AddType application/owl+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# Rewrite rule for latest version
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/index-en.html [R=303,L]
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/ontology.jsonld [R=303,L]
+# Rewrite rule to serve OWL-RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/ontology.owl [R=303,L]
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/ontology.nt [R=303,L]
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/ontology.ttl [R=303,L]
+
+# Rewrite rules for any other version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://probs-lab.github.io/probs-ontology/release/$1/index-en.html [R=303,L]
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://probs-lab.github.io/probs-ontology/release/$1/ontology.jsonld [R=303,L]
+# Rewrite rule to serve OWL-RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)$ https://probs-lab.github.io/probs-ontology/release/$1/ontology.owl [R=303,L]
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.+)$ https://probs-lab.github.io/probs-ontology/release/$1/ontology.nt [R=303,L]
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.+)$ https://probs-lab.github.io/probs-ontology/release/$1/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://probs-lab.github.io/probs-ontology/release/2.0.0/406.html [R=406,L]
+
+# Default response
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://probs-lab.github.io/probs-ontology/release/2.0.0/ontology.owl [R=303,L]

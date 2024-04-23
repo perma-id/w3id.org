@@ -1,0 +1,23 @@
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect to our homepage for the root URI w3id.org/umms/
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ http://gitlab.umms.umm.edu:9000/enterprise-knowledge-graph/enterprise-knowledge-graph [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.application/rdf\+xml
+RewriteRule (.owl)  http://gitlab.umms.umm.edu:9000/enterprise-knowledge-graph/enterprise-knowledge-graph/-/raw/master/umms_example.owl [R=301,L]

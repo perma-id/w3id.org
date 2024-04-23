@@ -1,0 +1,17 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} html
+
+# REDIRECTS TO VISUALISATIONS
+RewriteRule ^sparql$ http://projects.dharc.unibo.it/odi/sparql [R=302,L]
+RewriteRule ^artworks/(.*) https://projects.dharc.unibo.it/lodedo/artworks/$1 [R=302,L]
+RewriteRule ^graphs/(.*) https://projects.dharc.unibo.it/lodedo/graphs/$1 [R=302,L]
+RewriteRule ^conjectures/(.*) https://projects.dharc.unibo.it/lodedo/conjectures/$1 [R=302,L]
+
+# REDIRECTS TO DATA DUMP
+RewriteRule ^data$ https://projects.dharc.unibo.it/lodedo/data/lodedo.trig [R=302,L]
+
+# DEFAULT RULE
+RewriteRule ^(.*)$ https://projects.dharc.unibo.it/lodedo/$1 [L,R=301]

@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect requests for paths starting with "app/" to sukilam-educational-metadata.vercel.app
+RewriteRule ^app/(.*) https://sukilam-educational-metadata.vercel.app/$1 [R=302,L]
+
+# For all other requests, redirect to the given snorql URL with a describe parameter
+RewriteRule ^(.*) https://sukilam-educational-metadata.github.io/snorql/?describe=https://w3id.org/sukilam-educational-metadata/$1 [R=302,L]

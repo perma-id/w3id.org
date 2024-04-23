@@ -1,0 +1,84 @@
+Options +FollowSymLinks
+RewriteEngine on
+# AllowEncodedSlashes NoDecode
+
+## =============================
+## Redirection rules.
+## Order is important, the "L" (last) flag means that no further rules will be processed.
+## Cf. <https://httpd.apache.org/docs/2.4/rewrite/flags.html>
+
+
+# ---------------
+# Vocabularies webpages
+
+RewriteRule ^polmat/?$                         https://mpilhlt.github.io/vocabs-polmat/w3id.org/mpilhlt/polmat/scheme.html [R=307,L]
+RewriteRule ^polmat/(.*)                       https://mpilhlt.github.io/vocabs-polmat/w3id.org/mpilhlt/polmat/$1 [R=307,L]
+
+# Worktime Project Vocabularies
+# Project homepage <https://www.lhlt.mpg.de/research-project/non-state-law-of-the-economy>
+# Vocabs homepage is at <https://w3id.org/mpilhlt/vocabs-worktime>
+# Latest versions of individual schemes and concepts are at <https://w3id.org/mpilhlt/worktime(_*)/*>
+# Older versions redirect to (correspondingly tagged) turtle files at <https://github.com/mpilhlt/vocabs-worktime/>
+
+# RewriteRule ^worktime/(.*)                   https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime/$1 [R=307,L]
+RewriteRule ^vocabs-worktime/?$                https://mpilhlt.github.io/vocabs-worktime/index.html [R=302,L]
+RewriteRule ^vocabs-worktime/index(.html?)?$   https://mpilhlt.github.io/vocabs-worktime/index.html [R=302,L]
+RewriteRule ^vocabs-worktime/index.de.html?$   https://mpilhlt.github.io/vocabs-worktime/index.html [R=302,L]
+RewriteRule ^vocabs-worktime/index.en.html?$   https://mpilhlt.github.io/vocabs-worktime/index.html [R=302,L]
+
+RewriteRule ^worktime/latest/?$                https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime/scheme.html [R=307,L]
+RewriteRule ^worktime/latest/(.*)              https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime/$1 [R=307,L]
+RewriteRule ^worktime/0.0.4/(.*)               https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/work_time_regulation.ttl [R=307,L]
+RewriteRule ^worktime/0.0.3/(.*)               https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/work_time_regulation.ttl [R=307,L]
+RewriteRule ^worktime/?$                       https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime/scheme.html [R=307,L]
+RewriteRule ^worktime/(.*)                     https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime/$1 [R=307,L]
+
+RewriteRule ^worktime_activity/latest/?$       https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_activity/scheme.html [R=307,L]
+RewriteRule ^worktime_activity/latest/(.*)     https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_activity/$1 [R=307,L]
+RewriteRule ^worktime_activity/0.0.4/(.*)      https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_activity.ttl [R=307,L]
+RewriteRule ^worktime_activity/0.0.3/(.*)      https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_activity.ttl [R=307,L]
+RewriteRule ^worktime_activity/?$              https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_activity/scheme.html [R=307,L]
+RewriteRule ^worktime_activity/(.*)            https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_activity/$1 [R=307,L]
+
+RewriteRule ^worktime_meta/latest/?$           https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_meta/scheme.html [R=307,L]
+RewriteRule ^worktime_meta/latest/(.*)         https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_meta/$1 [R=307,L]
+RewriteRule ^worktime_meta/0.0.4/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_meta.ttl [R=307,L]
+RewriteRule ^worktime_meta/0.0.3/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_meta.ttl [R=307,L]
+RewriteRule ^worktime_meta/?$                  https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_meta/scheme.html [R=307,L]
+RewriteRule ^worktime_meta/(.*)                https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_meta/$1 [R=307,L]
+
+RewriteRule ^worktime_object/latest/?$         https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_object/scheme.html [R=307,L]
+RewriteRule ^worktime_object/latest/(.*)       https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_object/$1 [R=307,L]
+RewriteRule ^worktime_object/0.0.4/(.*)        https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_object.ttl [R=307,L]
+RewriteRule ^worktime_object/0.0.3/(.*)        https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_object.ttl [R=307,L]
+RewriteRule ^worktime_object/?$                https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_object/scheme.html [R=307,L]
+RewriteRule ^worktime_object/(.*)              https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_object/$1 [R=307,L]
+
+RewriteRule ^worktime_prescription/latest/?$   https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_prescription/scheme.html [R=307,L]
+RewriteRule ^worktime_prescription/latest/(.*) https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_prescription/$1 [R=307,L]
+RewriteRule ^worktime_prescription/0.0.4/(.*)  https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_prescription.ttl [R=307,L]
+RewriteRule ^worktime_prescription/0.0.3/(.*)  https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_prescription.ttl [R=307,L]
+RewriteRule ^worktime_prescription/?$          https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_prescription/scheme.html [R=307,L]
+RewriteRule ^worktime_prescription/(.*)        https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_prescription/$1 [R=307,L]
+
+RewriteRule ^worktime_role/latest/?$           https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_role/scheme.html [R=307,L]
+RewriteRule ^worktime_role/latest/(.*)         https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_role/$1 [R=307,L]
+RewriteRule ^worktime_role/0.0.4/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_role.ttl [R=307,L]
+RewriteRule ^worktime_role/0.0.3/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_role.ttl [R=307,L]
+RewriteRule ^worktime_role/?$                  https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_role/scheme.html [R=307,L]
+RewriteRule ^worktime_role/(.*)                https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_role/$1 [R=307,L]
+
+RewriteRule ^worktime_term/latest/?$           https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_term/scheme.html [R=307,L]
+RewriteRule ^worktime_term/latest/(.*)         https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_term/$1 [R=307,L]
+RewriteRule ^worktime_term/0.0.4/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.4/worktime_term.ttl [R=307,L]
+RewriteRule ^worktime_term/0.0.3/(.*)          https://raw.githubusercontent.com/mpilhlt/vocabs-worktime/v0.0.3/worktime_term.ttl [R=307,L]
+RewriteRule ^worktime_term/?$                  https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_term/scheme.html [R=307,L]
+RewriteRule ^worktime_term/(.*)                https://mpilhlt.github.io/vocabs-worktime/w3id.org/mpilhlt/worktime_term/$1 [R=307,L]
+
+
+# ----------------
+# Other redirections (APIs etc.)
+
+# Reconciliation API
+RewriteRule ^reconcile/(.*)             https://reconcile.skohub.io/reconcile?language=de&account=mpilhlt&dataset=https://w3id.org/mpilhlt/worktime/scheme$1 [R=307,NE,L]
+# RewriteRule ^reconcile/(.*)             https://c111-064.cloud.gwdg.de/reconc/mpilhlt/$1 [R=307,NE,L]
