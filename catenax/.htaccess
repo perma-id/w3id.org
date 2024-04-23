@@ -1,0 +1,97 @@
+#
+# Catena-X Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.ttl and *.jsonld files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to serve versioned domain ontology links
+RewriteRule ^v23.12/ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned domain ontology links
+RewriteRule ^v23.09/ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned domain ontology links
+RewriteRule ^next/ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve domain ontology links
+RewriteRule ^ontology/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned domain ontologies
+RewriteRule ^v23.12/ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned domain ontologies
+RewriteRule ^v23.09/ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioined domain ontologies
+RewriteRule ^next/ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve domain ontologies
+RewriteRule ^ontology/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology/$1_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned complete ontology
+RewriteRule ^v23.12/ontology(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned complete ontology
+RewriteRule ^v23.09/ontology(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned complete ontology
+RewriteRule ^next/ontology(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve complete ontology
+RewriteRule ^ontology(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontology links
+RewriteRule ^v23.12/usecase/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontology links
+RewriteRule ^v23.09/usecase/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontology links
+RewriteRule ^next/usecase/(.+)#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve use case ontology links
+RewriteRule ^usecase/(.+)?#(.*)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontologies
+RewriteRule ^v23.12/usecase/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontologies
+RewriteRule ^v23.09/usecase/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned use case ontologies
+RewriteRule ^next/usecase/(.+)$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve use case ontologies
+RewriteRule ^usecase/(.+)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/ontology_use_case/$1_use_case_ontology.ttl [R=302,L]
+
+# Rewrite rule to serve versioned taxonomy
+RewriteRule ^v23.12/taxonomy(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/taxonomy.ttl [R=302,L]
+
+# Rewrite rule to serve versioned taxonomy
+RewriteRule ^v23.09/taxonomy(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.09/taxonomy.ttl [R=302,L]
+
+# Rewrite rule to serve complete taxonomy
+RewriteRule ^next/taxonomy(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/main/taxonomy.ttl [R=302,L]
+
+# Rewrite rule to serve complete taxonomy
+RewriteRule ^taxonomy(/|\.ttl)?$ https://raw.githubusercontent.com/catenax-ng/product-ontology/v23.12/taxonomy.ttl [R=302,L]
+
+# ODRL Profile definition
+RewriteRule ^policy(/|.*)$ https://raw.githubusercontent.com/catenax-eV/cx-odrl-profile/main/profile.ttl [R=302,L]
+
+# Credential json-ld context resolution
+RewriteRule ^credentials/v1.0.0(.*)$ https://eclipse-tractusx.github.io/tractusx-profiles/cx/context/credentials.context.json [R=302,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^(.*)$ https://catenax-ng.github.io/product-ontology [R=303,L]

@@ -11,9 +11,9 @@ Redirections:
 * https://w3id.org/idsa/core.ttl, https://w3id.org/idsa/code.ttl --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl
 * https://w3id.org/idsa/core[.rdf|.xml|.json|.nt], https://w3id.org/idsa/code[.rdf|.xml|.json|.nt] --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology[.rdf|.xml|.json|.jsonld|.nt]
 * https://w3id.org/idsa/core, https://w3id.org/idsa/code with "Accept: application/[rdf+xml|xml|json|ld+json|n-triples]" or "Accept: text/[turtle|n3]" --> https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology[.rdf|.xml|.json|.jsonld|.nt]
-* https://w3id.org/idsa/contexts/context.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld
-* https://w3id.org/idsa/contexts/[a.b.c]/context.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/[a.b.c]/context.jsonld
-* https://w3id.org/idsa/contexts/context-dev.[jsonld|json] --> https://jira.iais.fraunhofer.de/stash/projects/ICTSL/repos/ids-infomodel-commons/raw/jsonld-context/4.0.0/context.jsonld
+* https://w3id.org/idsa/contexts/context.[jsonld|json] --> https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld
+* https://w3id.org/idsa/contexts/[a.b.c]/context.[jsonld|json] --> https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/[a.b.c]/context.jsonld
+* https://w3id.org/idsa/contexts/context-dev.[jsonld|json] --> https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld
 * https://w3id.org/idsa/ids-messages --> http://htmlpreview.github.io/?https://github.com/International-Data-Spaces-Association/InformationModel/blob/feature/message_taxonomy_description/model/communication/Message_Description.htm
 * https://w3id.org/idsa/shacl/ --> https://github.com/International-Data-Spaces-Association/InformationModel/releases/download/v4.0.0/ValidationShapesv400.zip
 * https://w3id.org/idsa/shacl/* --> https://raw.githubusercontent.com/International-Data-Spaces-Association/InformationModel/develop/testing/*

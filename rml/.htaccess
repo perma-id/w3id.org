@@ -1,0 +1,108 @@
+# RML Ontology
+RewriteEngine on
+DirectorySlash Off
+
+## RML Ontology content negotation
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.json [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.nt [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.rdf [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.ttl [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} .+
+
+
+## RML Ontology content negotiation resources
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)\.(core|io|cc|fnml|star).conneg$ https://kg-construct.github.io/rml-$2/ontology/documentation/index-en.html#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)\.(core|io|cc|fnml|star).conneg$ https://kg-construct.github.io/rml-$2/ontology/documentation/ontology.jsonld#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)\.(core|io|cc|fnml|star).conneg$ https://kg-construct.github.io/rml-$2/ontology/documentation/ontology.nt#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)\.(core|io|cc|fnml|star).conneg$ https://kg-construct.github.io/rml-$2/ontology/documentation/ontology.rdf#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)\.(core|io|cc|fnml|star).conneg$ https://kg-construct.github.io/rml-$2/ontology/documentation/ontology.ttl#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} .+
+
+RewriteRule (.*)\.(core|io|cc|fnml|star|resource).conneg$ https://kg-construct.github.io/rml-resources/406.html [NE,L,R=406]
+# === RML cc ===
+RewriteCond %{REQUEST_URI} cc
+RewriteRule cc/?$ https://kg-construct.github.io/rml-cc/ontology/documentation/index-en.html [NE,R,L]
+RewriteCond %{REQUEST_URI} cc/spec
+RewriteRule cc/spec/?$ https://kg-construct.github.io/rml-cc/spec/docs [NE,R,L]
+RewriteCond %{REQUEST_URI} cc/shapes
+RewriteRule cc/shapes/?$ https://kg-construct.github.io/rml-cc/shapes/cc.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} (gatherAs|allowEmptyListAndContainer|gather|GatherMap|append|cartessianProduct)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.cc.conneg [NE,R,L]
+
+
+# === RML core ===
+RewriteCond %{REQUEST_URI} core
+RewriteRule core/?$ https://kg-construct.github.io/rml-core/ontology/documentation/index-en.html [NE,R,L]
+RewriteCond %{REQUEST_URI} core/spec
+RewriteRule core/spec/?$ https://kg-construct.github.io/rml-core/spec/docs [NE,R,L]
+RewriteCond %{REQUEST_URI} core/shapes
+RewriteRule core/shapes/?$ https://kg-construct.github.io/rml-core/shapes/core.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} core/bc
+RewriteRule core/bc/?$ https://kg-construct.github.io/rml-core/ontology/rml-core-bc.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} (logicalSource|logicalTarget|subject|subjectMap|predicateObjectMap|graph|graphMap|class|predicate|predicateMap|object|objectMap|parentTriplesMap|joinCondition|parentMap|parent|childMap|child|datatype|datatypeMap|language|languageMap|termType|template|reference|constant|strategy|TriplesMap|SubjectMap|PredicateObjectMap|PredicateMap|ObjectMap|RefObjectMap|Join|LanguageMap|GraphMap|Strategy|DatatypeMap|ParentMap|ChildMap|TermMap|ExpressionMap|IRI|Literal|BlankNode)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.core.conneg [NE,R,L]
+
+
+# === RML eval17 ===
+RewriteRule editor/eval17/?$ https://w3id.org/rml/editor/eval17 [NE,L,R=301]
+
+
+# === RML fnml ===
+RewriteCond %{REQUEST_URI} fnml
+RewriteRule fnml/?$ https://kg-construct.github.io/rml-fnml/ontology/documentation/index-en.html [NE,R,L]
+RewriteCond %{REQUEST_URI} fnml/spec
+RewriteRule fnml/spec/?$ https://kg-construct.github.io/rml-fnml/spec/docs [NE,R,L]
+RewriteCond %{REQUEST_URI} fnml/shapes
+RewriteRule fnml/shapes/?$ https://kg-construct.github.io/rml-fnml/shapes/fnml.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} (returnMap|functionExecution|input|functionMap|parameterMap|function|parameter|return|inputValueMap|inputValue|ReturnMap|FunctionExecution|Input|ParameterMap|FunctionMap)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.fnml.conneg [NE,R,L]
+
+
+# === RML io ===
+RewriteCond %{REQUEST_URI} io
+RewriteRule io/?$ https://kg-construct.github.io/rml-io/ontology/documentation/index-en.html [NE,R,L]
+RewriteCond %{REQUEST_URI} io/spec
+RewriteRule io/spec/?$ https://kg-construct.github.io/rml-io/spec/docs [NE,R,L]
+RewriteCond %{REQUEST_URI} io/shapes
+RewriteRule io/shapes/?$ https://kg-construct.github.io/rml-io/shapes/io.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} io/bc
+RewriteRule io/bc/?$ https://kg-construct.github.io/rml-io/ontology/rml-io-bc.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} (source|target|encoding|compression|serialization|null|referenceFormulation|iterator|namespacePrefix|namespaceURL|namespace|LogicalSource|LogicalTarget|ReferenceFormulation|Source|Target|Namespace|Encoding|Compression|JSONPath|XPath|XPathReferenceFormulation|CSV|SQL2008Table|SQL2008Query|UTF-8|UTF-16|none|gzip|\/zip|tarxz|targzip)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.io.conneg [NE,R,L]
+
+
+# === RML resources ===
+RewriteRule ^$ https://%{SERVER_NAME}/rml/ontology.resource.conneg [NE,R,L]
+
+RewriteCond %{REQUEST_URI} bc$
+RewriteRule (.*)$ https://%{SERVER_NAME}/rml/backwards-compatibility.resource.conneg [NE,R,L]
+
+RewriteRule portal/?(.*)/?$ https://kg-construct.github.io/rml-resources/portal/$1 [NE,L,R=301]
+
+RewriteCond %{REQUEST_URI} shapes$
+RewriteRule (.*)$ https://%{SERVER_NAME}/rml/shapes.resource.conneg [NE,R,L]
+
+RewriteRule resources/?(.*)/?$ https://kg-construct.github.io/rml-resources/resources/$1 [NE,L,R=301]
+
+
+# === RML star ===
+RewriteCond %{REQUEST_URI} star
+RewriteRule star/?$ https://kg-construct.github.io/rml-star/ontology/documentation/index-en.html [NE,R,L]
+RewriteCond %{REQUEST_URI} star/spec
+RewriteRule star/spec/?$ https://kg-construct.github.io/rml-star/spec/docs [NE,R,L]
+RewriteCond %{REQUEST_URI} star/shapes
+RewriteRule star/shapes/?$ https://kg-construct.github.io/rml-star/shapes/star.ttl [NE,R,L]
+RewriteCond %{REQUEST_URI} (quotedTriplesMap|StarMap|AssertedTriplesMap|NonAssertedTriplesMap)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.star.conneg [NE,R,L]
+
+
+RewriteRule ^(.*)$ https://kg-construct.github.io/rml-resources/404.html [NE,L,R=404]

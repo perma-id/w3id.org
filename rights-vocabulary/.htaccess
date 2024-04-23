@@ -1,0 +1,36 @@
+# Name of the project: Rights Vocabulary
+# Description: Providing concepts associated with rights as a vocabulary
+# Contacts:
+# - Harshvardhan J. Pandit (me@harshp.com)
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- #
+# Default content type paths
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://harshp.com/rights-vocabulary/$1.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://harshp.com/rights-vocabulary/$1.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(.*)$ https://harshp.com/rights-vocabulary/$1.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://harshp.com/rights-vocabulary/$1.ldjson [R=302,L]
+
+# Defaults
+RewriteRule ^$ https://harshp.com/rights-vocabulary/ [R=302,L]
+RewriteRule ^(.*)$ https://harshp.com/rights-vocabulary/$1 [R=302,L]

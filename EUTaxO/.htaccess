@@ -1,0 +1,100 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .owl
+
+RewriteEngine on
+
+########### Animalia ###########
+# Rewrite rules for animalia
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^animalia$ https://jfaldanam.gitlab.io/EUTaxO/animalia [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^animalia$ https://jfaldanam.gitlab.io/EUTaxO/animalia/EUTaxO-animalia.owl [R=302,NE,L]
+
+# Default response for animalia: html
+RewriteRule ^animalia$ https://jfaldanam.gitlab.io/EUTaxO/animalia [R=303,NE,L]
+
+
+########### Bacteria ###########
+# Rewrite rules for bacteria
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^bacteria$ https://jfaldanam.gitlab.io/EUTaxO/bacteria [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bacteria$ https://jfaldanam.gitlab.io/EUTaxO/bacteria/EUTaxO-bacteria.owl [R=302,NE,L]
+
+# Default response for bacteria: html
+RewriteRule ^bacteria$ https://jfaldanam.gitlab.io/EUTaxO/bacteria [R=303,NE,L]
+
+
+########### Chromista ###########
+# Rewrite rules for chromista
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^chromista$ https://jfaldanam.gitlab.io/EUTaxO/chromista [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^chromista$ https://jfaldanam.gitlab.io/EUTaxO/chromista/EUTaxO-chromista.owl [R=302,NE,L]
+
+# Default response for chromista: html
+RewriteRule ^chromista$ https://jfaldanam.gitlab.io/EUTaxO/chromista [R=303,NE,L]
+
+
+########### Fungi ###########
+# Rewrite rules for fungi
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^fungi$ https://jfaldanam.gitlab.io/EUTaxO/fungi [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^fungi$ https://jfaldanam.gitlab.io/EUTaxO/fungi/EUTaxO-fungi.owl [R=302,NE,L]
+
+# Default response for fungi: html
+RewriteRule ^fungi$ https://jfaldanam.gitlab.io/EUTaxO/fungi [R=303,NE,L]
+
+########### Archaea ###########
+# Rewrite rules for archaea
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea/EUTaxO-archaea.owl [R=302,NE,L]
+
+# Default response for archaea: html
+RewriteRule ^archaea$ https://jfaldanam.gitlab.io/EUTaxO/archaea [R=303,NE,L]
+
+########### Base ontology ###########
+# Rewrite rules
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/ [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/EUTaxO.owl [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://jfaldanam.gitlab.io/EUTaxO/ [R=303,NE,L]

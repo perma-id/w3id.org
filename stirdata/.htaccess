@@ -1,0 +1,28 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule "^vocabulary/(.*)$" "https://stirdata.github.io/data-specification/stirdata.nt" [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule "^vocabulary/(.*)$" "https://stirdata.github.io/data-specification/stirdata.ttl" [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule "^vocabulary/(.*)$" "https://stirdata.github.io/data-specification/stirdata.rdf" [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule "^vocabulary/(.*)$" "https://stirdata.github.io/data-specification/stirdata.jsonld" [R=303,L]
+
+RewriteRule "^resource/nace(.*)$" "https://stirdata.github.io/data-specification/nace.ttl" [R=303,L]
+
+RewriteRule "^resource/nuts(.*)$" "https://stirdata.github.io/data-specification/nuts.ttl" [R=303,L]
+
+RewriteRule "^resource/lau(.*)$" "https://stirdata.github.io/data-specification/lau.ttl" [R=303,L]
+
+RewriteRule "^resource/legalform(.*)$" "https://stirdata.github.io/data-specification/legalform.ttl" [R=303,L]
+
+RewriteRule "^vocabulary/(.+)$" "https://stirdata.github.io/data-specification/#$1" [NE,R=303,L,QSA]
+
+RewriteRule "^.*$" "https://stirdata.github.io/data-specification/" [R=303,L,QSA]

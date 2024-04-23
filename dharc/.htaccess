@@ -1,0 +1,91 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Ensure files are served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+# Required for the redirects
+RewriteEngine on
+
+######################################################
+# Redirects for CHAD-AP
+######################################################
+
+# Default response: redirect everthing to the github pages site
+RewriteRule ^ontology/chad-ap$ https://dharc-org.github.io/chad-ap/current/chad-ap.html [R=303,L]
+
+## Redirects - w/o version number
+RewriteRule ^ontology/chad-ap.(json|jsonld)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.jsonld [R=303,L]
+RewriteRule ^ontology/chad-ap.(owl|rdf|xml)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.owl [R=303,L]
+RewriteRule ^ontology/chad-ap.html$ https://dharc-org.github.io/chad-ap/current/chad-ap.html [R=303,L]
+RewriteRule ^ontology/chad-ap.nt$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.nt [R=303,L]
+RewriteRule ^ontology/chad-ap.ttl$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.ttl [R=303,L]
+
+# Redirects - w/ version number
+RewriteRule ^ontology/chad-ap/?(\d+(\.\d+)+)\.(json|jsonld)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.jsonld [R=303,L]
+RewriteRule ^ontology/chad-ap/?(\d+(\.\d+)+)\.(owl|rdf|xml)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.owl [R=303,L]
+RewriteRule ^ontology/chad-ap/?(\d+(\.\d+)+)\.html$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.html [R=303,L]
+RewriteRule ^ontology/chad-ap/?(\d+(\.\d+)+)\.nt$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.nt [R=303,L]
+RewriteRule ^ontology/chad-ap/?(\d+(\.\d+)+)\.ttl$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.ttl [R=303,L]
+
+# Serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/chad-ap$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.jsonld [R=303,L]
+# w/ version number
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/chad-ap/(.+)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.jsonld [R=303,NE,L]
+
+# Serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^ontology/chad-ap$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.owl [R=303,L]
+# w/ version number
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^ontology/chad-ap/(.+)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.owl [R=303,NE,L]
+
+# Serve N Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/chad-ap$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.nt [R=303,L]
+# w/ version number
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/chad-ap/(.+)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.nt [R=303,NE,L]
+
+# Serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^ontology/chad-ap$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/current/chad-ap.ttl [R=303,L]
+# w/ version number
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^ontology/chad-ap/(.+)$ https://raw.githubusercontent.com/dharc-org/chad-ap/main/docs/$1/chad-ap.ttl [R=303,NE,L]
+
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/chad-ap$ https://dharc-org.github.io/chad-ap/current/chad-ap.html [R=303,L]
+
+# 406
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^ontology/chad-ap$ https://dharc-org.github.io/chad-ap/current/406.html [R=406,L]
+
+######################################################
+######################################################
+
+## Default response: redirect everthing to the DHARC homepage
+RewriteRule ^.*$ https://dharc.unibo.it [R=303,L]

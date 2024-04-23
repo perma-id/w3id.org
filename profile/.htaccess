@@ -1,32 +1,153 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Items
+# Concise Bounded Description Profile Profile
 RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule ^$ https://data.surroundaustralia.com/w3id.org/profile?_mediatype=text/turtle [R=302,L]
-RewriteRule ^$ https://data.surroundaustralia.com/w3id.org/profile [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule cbd                             http://nicholascar.com/cbd-profile/profile.ttl [R=302,L]
+RewriteRule cbd.ttl$                        http://nicholascar.com/cbd-profile/profile.ttl [R=302,L]
+RewriteRule cbd                             http://nicholascar.com/cbd-profile/ [R=302,L]
 
-# Item
+# Container Annotations Profile
 RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule (.*) "https://data.surroundaustralia.com/w3id.org/profile/$1?_mediatype=text/turtle" [R=302,L,NE]
-RewriteRule (.*).ttl$ "https://data.surroundaustralia.com/w3id.org/profile/$1?_mediatype=text/turtle" [R=302,L,NE]
-RewriteRule (.*) https://data.surroundaustralia.com/w3id.org/profile/$1 [R=302,L,QSA]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule contanno$                      https://nicholascar.com/contanno-profile/profile.ttl [R=302,L]
+RewriteRule contanno.ttl$                  https://nicholascar.com/contanno-profile/profile.ttl [R=302,L]
+RewriteRule contanno$                      https://nicholascar.com/contanno-profile/profile.html [R=302,L]
+RewriteRule contanno/spec                  https://nicholascar.com/contanno-profile/specification.html [R=302,L]
+RewriteRule contanno/validator             https://nicholascar.com/contanno-profile/validator.shacl.ttl [R=302,L]
+RewriteRule contanno/repo                  https://github.com/nicholascar/contanno-profile [R=302,L]
+RewriteRule contanno/guidance              https://nicholascar.com/contanno-profile [R=302,L]
 
+# DCAT Null Profile
+RewriteRule dcatnull/jsonld-context	https://raw.githubusercontent.com/nicholascar/dcatnull-profile/main/context.json-ld [R=302,L]
+RewriteRule dcatnull/validator		https://raw.githubusercontent.com/nicholascar/dcatnull-profile/main/validator.ttl [R=302,L]
 
-# Example URIs handled
-#
-# https://w3id.org/profile
-# https://w3id.org/profile/catalogue.ttl
-# https://w3id.org/profile/
-#
-# https://w3id.org/profile/dcatnull
-# https://w3id.org/profile/ontdoc
-# https://w3id.org/profile/vocpub
-# https://w3id.org/profile/vocpub.ttl
-# https://w3id.org/profile/vocpub?_mediatype=text/turtle
-# https://w3id.org/profile/vocpub?_profile=dcat&_mediatype=text/turtle
-# https://w3id.org/profile/vocpub, Accept: text/turtle
-# https://w3id.org/profile/vocpub, Accept-Profile: <https://www.w3.org/TR/vocab-dcat/>, Accept: text/turtle
-# etc...
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule dcatnull$                      https://raw.githubusercontent.com/nicholascar/dcatnull-profile/main/profile.ttl [R=302,L]
+RewriteRule dcatnull.ttl$                  https://raw.githubusercontent.com/nicholascar/dcatnull-profile/main/profile.ttl [R=302,L]
+RewriteRule dcatnull$                      https://github.com/nicholascar/dcatnull-profile [R=302,L]
+
+# Drop-Down Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule dd$                   https://kurrawong.github.io/w3id-profiles/dd.ttl [R=302,L]
+RewriteRule dd.ttl$               https://kurrawong.github.io/w3id-profiles/dd.ttl [R=302,L]
+RewriteRule dd                    https://kurrawong.github.io/w3id-profiles/dd [R=302,L]
+
+# GA Samples Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule gas$                   https://kurrawong.github.io/w3id-profiles/gas.ttl [R=302,L]
+RewriteRule gas.ttl$               https://kurrawong.github.io/w3id-profiles/gas.ttl [R=302,L]
+RewriteRule gas                    https://kurrawong.github.io/w3id-profiles/gas [R=302,L]
+
+# GA SpacePrez Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ga-spaceprez$           https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
+RewriteRule ga-spaceprez.ttl$       https://kurrawong.github.io/w3id-profiles/ga-spaceprez.ttl [R=302,L]
+RewriteRule ga-spaceprez            https://kurrawong.github.io/w3id-profiles/ga-spaceprez [R=302,L]
+
+RewriteRule gts-skos                "https://gswa.dev.kurrawong.ai/object?uri=https://w3id.org/profile/gts-skos" [R=302,NE,L]
+
+# Members Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule mem$                   https://kurrawong.github.io/w3id-profiles/mem.ttl [R=302,L]
+RewriteRule mem.ttl$               https://kurrawong.github.io/w3id-profiles/mem.ttl [R=302,L]
+RewriteRule mem                    https://kurrawong.github.io/w3id-profiles/mem [R=302,L]
+
+# OGC LD API Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ogcldapi$                      https://kurrawong.github.io/ogcldapi-profile/profile.ttl [R=302,L]
+RewriteRule ogcldapi.ttl$                  https://kurrawong.github.io/ogcldapi-profile/profile.ttl [R=302,L]
+RewriteRule ogcldapi$                      https://kurrawong.github.io/ogcldapi-profile/profile.html [R=302,L]
+RewriteRule ogcldapi/spec                  https://github.com/kurrawong/ogcldapi-profile/specification.html [R=302,L]
+RewriteRule ogcldapi/validator             https://kurrawong.github.io/ogcldapi-profile/validator.shacl.ttl [R=302,L]
+RewriteRule ogcldapi/repo                  https://github.com/kurrawong/ogcldapi-profile [R=302,L]
+RewriteRule ogcldapi/guidance              https://kurrawong.github.io/ogcldapi-profile [R=302,L]
+# RewriteRule ogcldapi/labeling-ontologies    https://kurrawong.github.io/ogcldapi-profile/master/labeling-ontologies.txt [R=302,L]
+RewriteRule ogcldapi/labeling-ontologies   https://kurrawong.github.io/ogcldapi-profile/labeling-ontologies.txt [R=302,L]
+# RewriteRule ogcldapi/labeling-vocabulary    https://kurrawong.github.io/ogcldapi-profile/master/labeling-vocabulary.ttl [R=302,L]
+RewriteRule ogcldapi/labeling-vocabulary   https://kurrawong.github.io/ogcldapi-profile/labeling-vocabulary.ttl [R=302,L]
+RewriteRule ogcldapi/label-builder         https://kurrawong.github.io/ogcldapi-profile/label-builder.sparql [R=302,L]
+
+# OntPub Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ontpub$                        https://agldwg.github.io/ontpub-profile/profile.ttl [R=302,L]
+RewriteRule ontpub.ttl$                    https://agldwg.github.io/ontpub-profile/profile.ttl [R=302,L]
+RewriteRule ontpub$                        https://agldwg.github.io/ontpub-profile/profile.html [R=302,L]
+RewriteRule ontpub/spec                    https://agldwg.github.io/ontpub-profile/specification.html [R=302,L]
+RewriteRule ontpub/validator               https://agldwg.github.io/ontpub-profile/validator.shacl.ttl [R=302,L]
+RewriteRule ontpub/example-01-valid        https://agldwg.github.io/ontpub-profile/example-01-valid.ttl [R=302,L]
+RewriteRule ontpub/example-01-invalid      https://agldwg.github.io/ontpub-profile/example-01-invalid.ttl [R=302,L]
+RewriteRule ontpub/repo                    https://github.com/agldwg/ontpub-profile [R=302,L]
+
+# Prez Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule prez$                   https://kurrawong.github.io/w3id-profiles/prez.ttl [R=302,L]
+RewriteRule prez.ttl$               https://kurrawong.github.io/w3id-profiles/prez.ttl [R=302,L]
+RewriteRule prez                    https://kurrawong.github.io/w3id-profiles/prez [R=302,L]
+
+# ProvWF Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule provwf$                        https://kurrawong.github.io/provwf-profile/profile.ttl [R=302,L]
+RewriteRule provwf.ttl$                    https://kurrawong.github.io/provwf-profile/profile.ttl [R=302,L]
+RewriteRule provwf$                        https://kurrawong.github.io/provwf-profile/profile.html [R=302,L]
+RewriteRule provwf/spec                    https://kurrawong.github.io/provwf-profile/specification.html [R=302,L]
+RewriteRule provwf/repo                    https://github.com/Kurrawong/provwf-profile [R=302,L]
+
+# VocPrez Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule vocprez$                        https://nicholascar.com/vocprez-profile/profile.ttl [R=302,L]
+RewriteRule vocprez.ttl$                    https://nicholascar.com/vocprez-profile/profile.ttl [R=302,L]
+RewriteRule vocprez$                        https://nicholascar.com/vocprez-profile/profile.html [R=302,L]
+RewriteRule vocprez/spec                    https://nicholascar.com/vocprez-profile/specification.html [R=302,L]
+RewriteRule vocprez/repo                    https://github.com/nicholascar/vocprez-profile [R=302,L]
+RewriteRule vocprez/validator               https://nicholascar.com/vocprez-profile/validator.shacl.ttl [R=302,L]
+RewriteRule vocprez/compounded-validator    https://nicholascar.com/vocprez-profile/validator.compounded.shacl.ttl [R=302,L]
+
+# SpacePrez Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule spaceprez$                        https://nicholascar.com.github.io/spaceprez-profile/profile.ttl [R=302,L]
+RewriteRule spaceprez.ttl$                    https://nicholascar.com.github.io/spaceprez-profile/profile.ttl [R=302,L]
+RewriteRule spaceprez$                        https://nicholascar.com.github.io/spaceprez-profile/profile.html [R=302,L]
+RewriteRule spaceprez/spec                    https://nicholascar.com.github.io/spaceprez-profile/specification.html [R=302,L]
+RewriteRule spaceprez/repo                    https://github.com/nicholascar.com/spaceprez-profile [R=302,L]
+RewriteRule spaceprez/validator               https://github.com/nicholascar.com/spaceprez-profile/validator.shacl.ttl [R=302,L]
+RewriteRule spaceprez/compounded-validator    https://github.com/nicholascar.com/spaceprez-profile/validator.compounded.shacl.ttl [R=302,L]
+RewriteRule spaceprez/conversion-script       https://github.com/nicholascar.com/spaceprez-profile/conversion-script.py [R=302,L]
+RewriteRule spaceprez/examples                https://github.com/nicholascar.com/spaceprez-profile/tree/main/examples [R=302,L]
+
+# VocPub Profile
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule vocpub$                        https://agldwg.github.io/vocpub-profile/profile.ttl [R=302,L]
+RewriteRule vocpub.ttl$                    https://agldwg.github.io/vocpub-profile/profile.ttl [R=302,L]
+RewriteRule vocpub$                        https://agldwg.github.io/vocpub-profile/profile.html [R=302,L]
+RewriteRule vocpub/spec                    https://agldwg.github.io/vocpub-profile/specification.html [R=302,L]
+RewriteRule vocpub/validator/([0-9\.]+)    https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/validator.ttl [R=302,L]
+RewriteRule vocpub/validator               https://agldwg.github.io/vocpub-profile/validators/validator.ttl [R=302,L]
+RewriteRule vocpub/expander/([0-9\.]+)     https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/expander.ttl [R=302,L]
+RewriteRule vocpub/expander                https://agldwg.github.io/vocpub-profile/validators/expander.ttl [R=302,L]
+RewriteRule vocpub/validator-combined/([0-9\.]+)  https://cdn.jsdelivr.net/gh/AGLDWG/vocpub-profile@$1/validators/validator-combined.ttl [R=302,L]
+RewriteRule vocpub/validator-combined      https://agldwg.github.io/vocpub-profile/validators/validator-combined.ttl [R=302,L]
+RewriteRule vocpub/htv                     https://agldwg.github.io/vocpub-profile/HowToValidate.html [R=302,L]
+RewriteRule vocpub/validate                https://agldwg.github.io/vocpub-profile/scripts/validate.py [R=302,L]
+RewriteRule vocpub/examples                https://github.com/AGLDWG/vocpub-profile/tree/master/examples [R=302,L]
+RewriteRule vocpub/vocs                    https://github.com/AGLDWG/vocpub-profile/tree/master/vocs [R=302,L]
+RewriteRule vocpub/repo                    https://github.com/AGLDWG/vocpub-profile [R=302,L]
+
+# Profiles Register
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(.*)$                         https://kurrawong.github.io/w3id-profiles/profile.ttl [R=302,L]
+RewriteRule ^(.*)$                         https://kurrawong.github.io/w3id-profiles/ [R=302,L]
