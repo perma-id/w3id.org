@@ -1,0 +1,7 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://schema.gov.it/lodview/social-security/data/
+
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}$1 [R=303,L]
+RewriteRule ^(.*)/$ %{ENV:ROOT_URL}$1 [R=303,L]
