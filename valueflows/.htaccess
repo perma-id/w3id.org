@@ -1,6 +1,8 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
-AddType application/rdf+xml     .rdf
+# See <https://www.w3.org/TR/owl-ref/#MIMEType>
+AddType application/rdf+xml     .rdf      .owl
+AddType application/xml         .xml
 AddType application/ld+json     .jsonld
 AddType application/n-quads     .nq
 AddType application/n-triples   .nt
@@ -8,8 +10,11 @@ AddType text/turtle             .ttl
 AddType application/rdf+json    .rj
 AddType text/trig               .trig
 AddType application/trix        .trix
+AddType text/html               .html
+AddType application/xhtml+xml   .html
 RewriteEngine on
 
+SetEnvIf Accept ^                          FILE_EXT=TTL    # *Default*
 SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML
 SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
 SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD
@@ -22,28 +27,35 @@ SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
 SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
-SetEnvIf Request_URI ^.*$ ROOT_URL=https://lab.allmende.io/valueflows/valueflows/-/raw
+# HACK Because I (hoijui) was unable to set PROXY to the empty string,
+#      we resort to this hack, of always setting it to something.
+SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
+SetEnvIf Request_URI ^ PROXY=https://
+SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
+
+# [Recommended IRI patterns for ontologies and their terms](
+# https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
 # The preffered URLs
 # latest
 RewriteRule \
 	^ont/vf(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/vf(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
 # latest
 RewriteRule \
 	^ont/vf\.([^/#]\+)(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/vf\.([^/#]\+)(#[^/]+)?$ \
-	%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
 	[R=302,L]
