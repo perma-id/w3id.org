@@ -1,0 +1,295 @@
+# Name of the project: DPV
+# Description: Data Privacy Vocabulary (DPV) provides concepts to describe and represent information about processing of personal data.
+# Contacts:
+# - Harshvardhan J. Pandit (me@harshp.com)
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+AddType text/owl-manchester .omn
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ BASE=https://w3c.github.io/dpv
+
+##### VOCAB: DPV #####
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ %{ENV:BASE}/dpv/dpv.jsonld [R=302,L]
+
+RewriteRule ^$ %{ENV:BASE}/dpv [R=302,L]
+
+## DPV OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.owl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl.omn [R=302,L]
+
+RewriteRule ^owl$ %{ENV:BASE}/dpv/dpv-owl [R=302,L]
+
+##### VOCAB: PD #####
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^pd$ %{ENV:BASE}/pd/pd.jsonld [R=302,L]
+
+RewriteRule ^pd$ %{ENV:BASE}/pd [R=302,L]
+
+## PD OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl.omn [R=302,L]
+
+RewriteRule ^pd/owl$ %{ENV:BASE}/pd/pd-owl [R=302,L]
+
+##### VOCAB: LOC #####
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^loc$ %{ENV:BASE}/loc/loc.jsonld [R=302,L]
+
+RewriteRule ^loc$ %{ENV:BASE}/loc [R=302,L]
+
+## LOC OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl.omn [R=302,L]
+
+RewriteRule ^loc/owl$ %{ENV:BASE}/loc/loc-owl [R=302,L]
+
+##### VOCAB: RISK #####
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^risk$ %{ENV:BASE}/risk/risk.jsonld [R=302,L]
+
+RewriteRule ^risk$ %{ENV:BASE}/risk [R=302,L]
+
+## RISK OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl.omn [R=302,L]
+
+RewriteRule ^risk/owl$ %{ENV:BASE}/risk/risk-owl [R=302,L]
+
+##### VOCAB: TECH #####
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^tech$ %{ENV:BASE}/tech/tech.jsonld [R=302,L]
+
+RewriteRule ^tech$ %{ENV:BASE}/tech [R=302,L]
+
+## TECH OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl.omn [R=302,L]
+
+RewriteRule ^tech/owl$ %{ENV:BASE}/tech/tech-owl [R=302,L]
+
+##### VOCAB: LEGAL #####
+
+## LEGAL OWL Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl.omn [R=302,L]
+
+RewriteRule ^legal/owl$ %{ENV:BASE}/legal/legal-owl [R=302,L]
+
+## LEGAL SKOS Serialisation
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal$ %{ENV:BASE}/legal/legal.jsonld [R=302,L]
+
+RewriteRule ^legal$ %{ENV:BASE}/legal [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 OWL
+# e.g. /legal/eu/owl --> /legal/eu/legal-eu-owl
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl.omn [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/owl$ %{ENV:BASE}/legal/$1/legal-$1-owl [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2
+# e.g. /legal/eu --> /legal/eu
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1/legal-$1.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})$ %{ENV:BASE}/legal/$1 [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws OWL
+# e.g. /legal/eu/gdpr/owl --> /legal/eu/gdpr/eu-gdpr-owl
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/(.*)/owl$ %{ENV:BASE}/legal/$1/$2/$1-$2-owl [R=302,L]
+
+## LEGAL JURISDICTIONS ISO 3166-2 - Specific Laws
+# e.g. /legal/eu/gdpr --> /legal/eu/gdpr for HTML, eu-gdpr for RDF
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$1-$2.jsonld [R=302,L]
+
+RewriteRule ^legal/([a-z]{2})/(.*)$ %{ENV:BASE}/legal/$1/$2 [R=302,L]
+
+########## DEPRECATED URLS ARE REDIRECTED
+
+RewriteRule ^dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr [R=302,L]
+RewriteRule ^dpv-dga$ https://w3id.org/dpv/legal/eu/dga [R=302,L]
+RewriteRule ^dpv-pd$ https://w3id.org/dpv/pd [R=302,L]
+RewriteRule ^dpv-tech$ https://w3id.org/dpv/tech [R=302,L]
+RewriteRule ^dpv-legal$ https://w3id.org/dpv/legal [R=302,L]
+RewriteRule ^rights/eu$ https://w3id.org/dpv/legal/eu/rights [R=302,L]
+
+RewriteRule ^dpv-skos$ https://w3id.org/dpv [R=302,L]
+RewriteRule ^dpv-skos/dpv-pd$ https://w3id.org/dpv/pd [R=302,L]
+RewriteRule ^dpv-skos/dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr [R=302,L]
+RewriteRule ^dpv-skos/dpv-dga$ https://w3id.org/dpv/legal/eu/dga [R=302,L]
+RewriteRule ^dpv-skos/dpv-tech$ https://w3id.org/dpv/tech [R=302,L]
+RewriteRule ^dpv-skos/dpv-legal$ https://w3id.org/dpv/loc [R=302,L]
+RewriteRule ^dpv-skos/risk$ https://w3id.org/dpv/ [R=302,L]
+RewriteRule ^dpv-skos/rights/eu$ https://w3id.org/dpv/legal/eu/rights [R=302,L]
+
+RewriteRule ^dpv-owl$ https://w3id.org/dpv/owl [R=302,L]
+RewriteRule ^dpv-owl/dpv-pd$ https://w3id.org/dpv/pd/owl [R=302,L]
+RewriteRule ^dpv-owl/dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr/owl [R=302,L]
+RewriteRule ^dpv-owl/dpv-dga$ https://w3id.org/dpv/legal/eu/dga/owl [R=302,L]
+RewriteRule ^dpv-owl/dpv-tech$ https://w3id.org/dpv/tech/owl [R=302,L]
+RewriteRule ^dpv-owl/dpv-legal$ https://w3id.org/dpv/loc/owl [R=302,L]
+RewriteRule ^dpv-owl/risk$ https://w3id.org/dpv/risk/owl [R=302,L]
+RewriteRule ^dpv-owl/rights/eu$ https://w3id.org/dpv/legal/eu/rights/owl [R=302,L]
+
+# --- #
+# Default content type paths
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.ldjson [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^(.*)$ %{ENV:BASE}/$1.omn [R=302,L]
+
+# Default
+# w3id.org/dpv/* 
+# covers documentation e.g. primer, use-cases, guides, examples
+RewriteRule ^(.*)$ %{ENV:BASE}/$1 [R=302,L]
+

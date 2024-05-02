@@ -1,7 +1,7 @@
 # Xmalesia.info
 
 _Redirection from w3id.org to the Xmalesia project, currently at
-<http://xmalesia.info>. Serving biodiversity informatics resources for
+<https://xmalesia.camwebb.info>. Serving biodiversity informatics resources for
 the plants of Southeast Asia (the Malesian region)._
 
 Homepage:

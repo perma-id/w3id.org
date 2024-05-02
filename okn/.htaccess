@@ -1,0 +1,24 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Basic redirect to the project pages
+RewriteEngine On
+RewriteRule ^$ https://www.nitrd.gov/nitrdgroups/index.php?title=Open_Knowledge_Network [R=302,L]
+
+RewriteRule ^wpr$ https://github.com/KnowledgeCaptureAndDiscovery/WorkflowProvenanceRepository [R=301,L]
+
+
+#Basic redirections for K-CAP KG (right now only for 2021 edition)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^kcap(.*) https://www.k-cap.org/2021/accepted.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^kcap(.*) https://raw.githubusercontent.com/k-cap/k-cap.github.io/master/2021/rdf/out.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^kcap(.*) https://raw.githubusercontent.com/k-cap/k-cap.github.io/master/2021/rdf/out.ttl [R=303,L]

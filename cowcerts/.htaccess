@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^$ https://cowcerts.org/ [R=302,L]
+
+# Education certificates
+## Homepage
+RewriteRule ^edu/*$ https://cowcerts.readthedocs.io/en/stable/edu [R=301,L]
+## Linked Data context.json
+RewriteRule ^edu/v([0-9]+)$ https://gitlab.com/cowcerts/schemas/raw/v$1/cowcerts/$1/context.json [R=301,L]
+## JSON Schemas
+RewriteRule ^edu/v([0-9]+)/jsonschema/(.*)$ https://gitlab.com/cowcerts/schemas/raw/v$1/cowcerts/$1/jsonschema/$2 [R=301,L]
+## Specification
+RewriteRule ^edu/v([0-9]+)/(.*)$ https://cowcerts.readthedocs.io/en/v$1/edu/specs/jsonld.html$2 [R=301,L]

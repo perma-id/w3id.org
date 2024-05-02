@@ -1,0 +1,40 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://mathib.github.io/aat-storeys-taxonomy/ [R=303,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://mathib.github.io/aat-storeys-taxonomy/ontology.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://mathib.github.io/aat-storeys-taxonomy/ontology.xml [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^aat-storeys.ttl$ https://mathib.github.io/aat-storeys-taxonomy/ontology.ttl [R=303,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^aat-storeys.html$ https://mathib.github.io/aat-storeys-taxonomy/ [R=303,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^aat-storeys.rdf$ https://mathib.github.io/aat-storeys-taxonomy/ontology.xml [R=303,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^aat-storeys.jsonld$ https://mathib.github.io/aat-storeys-taxonomy/ontology.json [R=303,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^aat-storeys.nt$ https://mathib.github.io/aat-storeys-taxonomy/ontology.nt [R=303,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://mathib.github.io/aat-storeys-taxonomy/ [R=303,NE,L]

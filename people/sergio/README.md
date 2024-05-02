@@ -1,9 +1,11 @@
-people/sergio
-===
+# people/sergio
 
-Homepage:
+===
+## Homepage
 * https://w3id.org/people/sergio
 
-Contacts: 
-* [LinkedIn](https://www.linkedin.com/in/srodriguez142857/) `Academic and Professional Profile`
-* Sergio J. Rodriguez M. <`srodriguez [at] pet.cs.nctu.edu.tw`>  
+===
+## Contact
+* [Linktree](https://linktr.ee/sjrm)
+* [LinkedIn](https://www.linkedin.com/in/srodriguez142857/) `Professional Profile`
+* Sergio J. Rodríguez M. <`Sergio.RodriguezMendez [at] anu.edu.au`>  

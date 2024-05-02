@@ -1,0 +1,8 @@
+# Rewrite engine setup
+RewriteEngine on
+
+# If a DFO term such as 'DFO_0000001' is requested, redirect to the corresponding RDF-XML fragment
+RewriteRule ^(DFO_[0-9]{7})$ https://raw.githubusercontent.com/molgenis/ontologies/main/dfo/fragments/$1.rdf [R=302,L]
+
+# Default redirect to DFO home page, i.e. BioPortal
+RewriteRule ^.*$ https://bioportal.bioontology.org/ontologies/DFO [R=302,L]

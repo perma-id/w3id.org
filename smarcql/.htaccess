@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.ttl files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+
+# Rewrite rule to redirect 303 from any class or prop URI
+RewriteRule ^.* https://realworldobject.github.io/smarcql/ontology/smarcql.ttl [R=303]

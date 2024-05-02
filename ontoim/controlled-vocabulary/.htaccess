@@ -1,0 +1,19 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/luca-martinelli-09/ontoim/master/controlled-vocabulary
+SetEnvIf Request_URI ^.*$ DOC_URL=https://luca-martinelli-09.github.io/ontoim/controlled-vocabulary
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
+RewriteRule ^([a-zA-Z-_0-9]+)(/*)$ %{ENV:ROOT_URL}/$1/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^([a-zA-Z-_0-9]+)(/*)$ %{ENV:DOC_URL}/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^([a-zA-Z-_0-9]+)/([a-zA-Z-_0-9.]+)$ %{ENV:DOC_URL}/$1.%{ENV:SYNTAX}#$2 [R=303,L,NE]

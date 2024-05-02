@@ -7,4 +7,4 @@ Homepage:
 * http://sepses.ifs.tuwien.ac.at/
 
 Contacts: 
-* Kabul Kurniawan <kabul.kurniawan@tuwien.ac.at>
+* Kabul Kurniawan <kabul.kurniawan@wu.ac.at>

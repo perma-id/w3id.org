@@ -1,0 +1,39 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# RewriteCond %{HTTP_ACCEPT} text/html [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core(.*) /devops-infra/def/core$1 [L]
+RewriteRule ^organisation(.*) /devops-infra/def/organisation$1 [L]
+RewriteRule ^product(.*) /devops-infra/def/product$1 [L]
+RewriteRule ^data-center(.*) /devops-infra/def/data-center$1 [L]
+RewriteRule ^server(.*) /devops-infra/def/server$1 [L]
+RewriteRule ^network(.*) /devops-infra/def/network$1 [L]
+RewriteRule ^software(.*) /devops-infra/def/software$1 [L]
+RewriteRule ^database(.*) /devops-infra/def/database$1 [L]
+RewriteRule ^hardware(.*) /devops-infra/def/hardware$1 [L]
+RewriteRule ^certificate(.*) /devops-infra/def/certificate$1 [L]
+RewriteRule ^workflow(.*) /devops-infra/def/workflow$1 [L]
+
+RewriteRule ^kos(.*) /devops-infra/kos$1 [L]
+
+#If no specific ontology or SKOS codelist is requested, return the HTML ontology catalogue 
+RewriteRule ^.*$ https://oeg-upm.github.io/devops-infra/index.html [R=302,L]
+
+

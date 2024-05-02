@@ -1,0 +1,44 @@
+# .htaccess for platform material digital vocabs
+RewriteEngine On
+
+##
+## Edit the following two lines accordingly:
+##     ^/ont_pub_tmplt/... is the name of your ontology in your name resolver (e.g. for https://w3id.org/pmd/tto it's 'tto')
+##     ONT_BASE points to the address that delivers your ontology documentation and files, if you
+##       deploy in the materialdigital github community only 'ontology_publication_template' needs to be changed to your repo
+##
+SetEnvIf Request_URI ^/pmd/co/(.*)$ ONT_BASE=https://materialdigital.github.io/core-ontology ONT_ANCHOR=$1
+#SetEnvIf Request_URI ^/pmd/co/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/index-en.html#%{ENV:ONT_ANCHOR} [R=303,L,NE]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/ontology.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^.*$ %{ENV:ONT_BASE}/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}/base_ontology.rdf [R=303,L]

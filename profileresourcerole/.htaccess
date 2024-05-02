@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{QUERY_STRING} ^_format=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule (.*) https://kurrawong.net/profileresourcerole/$1?_mediatype=text/turtle [R=302,L]
+RewriteRule (.*).ttl$ https://kurrawong.net/profileresourcerole/$1?_mediatype=text/turtle [R=302,L]
+RewriteRule (.*) https://kurrawong.net/profileresourcerole/$1 [R=302,L]
