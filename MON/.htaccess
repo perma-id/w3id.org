@@ -1,0 +1,21 @@
+# Name of the project: [MARIO Ontology Network](http://www.mario-project.eu/portal/)
+#
+# Description: This w3id points to the MARIO Ontology Network, one of the outcomes of the [H2020 MARIO project](http://www.mario-project.eu/portal/).
+#
+# Contacts:
+# - Luigi Asprino <luigi.asprino@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/luigi-asprino/MON/main/src/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Rules for latest version
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^([a-zA-Z-_0-9]+).owl(#)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/$1.owl [R=303,L]
+RewriteRule ^([a-zA-Z-_0-9]+).owl(#)?$ %{ENV:ROOT_URL}/$1.owl [R=303,L]
+
+# Default behaviour
+RewriteRule ^$ https://github.com/luigi-asprino/MON [R=303,L]

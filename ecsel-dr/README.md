@@ -1,9 +1,9 @@
-Repository for an digital twin ontology:
+Repository for a digital twin ontology:
 
-https://vocol.iais.fraunhofer.de/ecsel-dr/
+http://ontology.tib.eu/dr/
 
 Owner of this ontology:
 
-https://github.com/fsteinemann
+https://github.com/ifx-dr
 
-Email: fabian.steinemann@infineon.com
+Email: Nour.Ramzy@infineon.com

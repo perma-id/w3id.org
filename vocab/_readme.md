@@ -6,3 +6,7 @@ This repository contains some vocabularies for /vocab/{vocab-prefix}
 * iabtaxo available at /vocab/iabtaxo
 * oim available at /vocab/oim
 * xbrll available at /vocab/xbrll
+
+
+Contacts: 
+* Ghislain Atemezing <me@atemezing.org>

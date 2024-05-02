@@ -1,0 +1,87 @@
+RewriteEngine on
+
+# BASE: Visit homepage
+RewriteRule ^$ https://comply.cispe.cloud/ [R=303]
+
+# Direct ontology access: Access respective ontology
+RewriteRule ^(core|member|service|compliance).(ttl|xml|json|nt)$      https://comply.cispe.cloud/cispe-definitions/$1/ontology.$2 [L,R=303]
+RewriteRule ^(core|member|service|compliance).rdf$      https://comply.cispe.cloud/cispe-definitions/$1.xml [L,R=303]
+RewriteRule ^(core|member|service|compliance).jsonld$   https://comply.cispe.cloud/cispe-definitions/$1.json [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(member|service|compliance)/(Member|CISPEOrganization|ComplianceResource|Service|ComplianceCredential)/([0-9a-f]*)           https://comply.cispe.cloud/cispe-definitions/$1/registry/$2/$3.json [L,R=303]
+
+
+# HTML: Visit documentation
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(core|member|service|compliance)           https://comply.cispe.cloud/cispe-definitions/$1/index-en.html [L,NE,R=303]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(core|resource|member|service|compliance)/(.*)$     hhttps://commply.cispe.cloud/cispe-definitions/$1/index-en.html#$1 [L,NE,R=303]
+
+# TURTLE: Access TTL ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^core           https://compliance4cispe.byo-networks.net/cispe-definitions/ontology/ontology.ttl [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/ontology.ttl [L,R=303]
+
+# RDF/XML: Access XML ontology
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^(core|member|service|compliance)           https://comply.cispe.cloud/cispe-definitions/$1/ontology.xml [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/ontology.xml [L,R=303]
+
+
+# JSON-LD: Access JSON(-LD) Object
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(member|service|compliance)/(Member|CISPEOrganization|ComplianceResource|Service|ComplianceCredential)/([0-9a-f]*)           https://comply.cispe.cloud/cispe-definitions/$1/registry/$2/$3.json [L,R=303]
+
+# JSON-LD: Access JSON(-LD) ontology
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(core|member|service|compliance)           https://comply.cispe.cloud/cispe-definitions/$1/ontology.json [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/ontology.json [L,R=303]
+
+
+# JSON: Access JSON Object
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(member|service|compliance)/(Member|CISPEOrganization|ComplianceResource|Service|ComplianceCredential)/([0-9a-f]*)          https://comply.cispe.cloud/cispe-definitions/$1/registry/$2/$3.json [L,R=303]
+
+# JSON: Access JSON ontology
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(core|member|service|compliance)           https://comply.cispe.cloud/cispe-definitions/$1/ontology.json [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/ontology.json [L,R=303]
+
+
+
+
+# N-TRIPLES: Access NT ontology
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^(core|member|service|compliance)           https://comply.cispe.cloud/cispe-definitions/$1/ontology.nt [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/ontology.nt [L,R=303]
+
+# No matching content type: Visit documentation
+RewriteRule ^(core|member|service|compliance)/(.*)      https://comply.cispe.cloud/cispe-definitions/$1/index-en.html#$1 [L,NE,R=303]

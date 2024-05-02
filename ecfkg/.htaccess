@@ -1,0 +1,12 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+
+
+RewriteEngine on
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteRule ^(.*)$ https://query.cf.linkeddata.es/ecfkg/$1 [R=303,L]
