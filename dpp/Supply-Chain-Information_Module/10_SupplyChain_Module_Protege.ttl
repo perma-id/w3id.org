@@ -1,0 +1,658 @@
+@prefix : <http://www.w3id.org/dpp/SupplyChain#> .
+@prefix dpp: <http://www.w3id.org/dpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3id.org/dpp/SupplyChain#> .
+
+<http://www.w3id.org/dpp/SupplyChain> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://ontologydesignpatterns.org/opla#isNativeTo
+<http://ontologydesignpatterns.org/opla#isNativeTo> rdf:type owl:AnnotationProperty .
+
+
+###  http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate
+<http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate> rdf:type owl:AnnotationProperty .
+
+
+###  http://ontologydesignpatterns.org/opla-sd#entityPosition
+<http://ontologydesignpatterns.org/opla-sd#entityPosition> rdf:type owl:AnnotationProperty ;
+                                                           <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ,
+                                                                                                               <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ,
+                                                                                                               <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ,
+                                                                                                               <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> .
+
+
+###  http://ontologydesignpatterns.org/opla-sd#entityPositionX
+<http://ontologydesignpatterns.org/opla-sd#entityPositionX> rdf:type owl:AnnotationProperty ;
+                                                            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> .
+
+
+###  http://ontologydesignpatterns.org/opla-sd#entityPositionY
+<http://ontologydesignpatterns.org/opla-sd#entityPositionY> rdf:type owl:AnnotationProperty ;
+                                                            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ,
+                                                                                                                <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3id.org/dpp#hasReverseLogisticsInfo
+dpp:hasReverseLogisticsInfo rdf:type owl:ObjectProperty ;
+                            rdfs:domain :PhysicalEntity ;
+                            rdfs:range dpp:ReverseLogistics ;
+                            rdfs:comment "Links the product to its reverse logistics information."@en ;
+                            rdfs:label "hasReverseLogisticsInfo" .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#atPlace
+:atPlace rdf:type owl:ObjectProperty ;
+         rdfs:domain :Fix ;
+         rdfs:range :Place ;
+         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#atTime
+:atTime rdf:type owl:ObjectProperty ;
+        rdfs:domain :Fix ;
+        rdfs:range :Time ;
+        <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#encompassesEvent
+:encompassesEvent rdf:type owl:ObjectProperty ;
+                  rdfs:domain dpp:SupplyChainManagement ;
+                  rdfs:range :SupplyChainEvent .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#endsAt
+:endsAt rdf:type owl:ObjectProperty ;
+        rdfs:domain :Segment ;
+        rdfs:range :Fix ;
+        <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasFix
+:hasFix rdf:type owl:ObjectProperty ;
+        rdfs:domain :Trajectory ;
+        rdfs:range :Fix ;
+        <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasIdentifier
+:hasIdentifier rdf:type owl:ObjectProperty ;
+               rdfs:domain :PhysicalEntity ,
+                           :SupplyChainEvent ;
+               rdfs:range :Identifier ;
+               <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasIdentifierType
+:hasIdentifierType rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Identifier ;
+                   rdfs:range :IDType ;
+                   <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasQuantity
+:hasQuantity rdf:type owl:ObjectProperty ;
+             rdfs:domain :PhysicalEntity ;
+             rdfs:range :Quantity .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasQuantityKind
+:hasQuantityKind rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Quantity ;
+                 rdfs:range :QuantityKind ;
+                 <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasQuantityValue
+:hasQuantityValue rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Quantity ;
+                  rdfs:range :QuantityValue ;
+                  <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasSegment
+:hasSegment rdf:type owl:ObjectProperty ;
+            rdfs:domain :Trajectory ;
+            rdfs:range :Segment ;
+            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasSpatiotemporalExtent
+:hasSpatiotemporalExtent rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Event ;
+                         rdfs:range :SpatiotemporalExtent ;
+                         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasTrajectory
+:hasTrajectory rdf:type owl:ObjectProperty ;
+               rdfs:domain :SpatiotemporalExtent ;
+               rdfs:range :Trajectory ;
+               <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#hasUnit
+:hasUnit rdf:type owl:ObjectProperty ;
+         rdfs:domain :QuantityValue ;
+         rdfs:range :Unit ;
+         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#isInvolvedIn
+:isInvolvedIn rdf:type owl:ObjectProperty ;
+              rdfs:domain :PhysicalEntity ;
+              rdfs:range :SupplyChainEvent .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#isManagedBy
+:isManagedBy rdf:type owl:ObjectProperty ;
+             owl:inverseOf :manages ;
+             rdfs:domain :PhysicalEntity ;
+             rdfs:range dpp:SupplyChainManagement .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#isPartOf
+:isPartOf rdf:type owl:ObjectProperty ;
+          rdfs:domain dpp:ReverseLogistics ;
+          rdfs:range dpp:SupplyChainManagement .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#manages
+:manages rdf:type owl:ObjectProperty ;
+         rdfs:domain dpp:SupplyChainManagement ;
+         rdfs:range :PhysicalEntity .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#nextFix
+:nextFix rdf:type owl:ObjectProperty ;
+         rdfs:domain :Fix ;
+         rdfs:range :Fix ;
+         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#providesParticipantRole
+:providesParticipantRole rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Event ;
+                         rdfs:range :ParticipantRole ;
+                         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#startsFrom
+:startsFrom rdf:type owl:ObjectProperty ;
+            rdfs:domain :Segment ;
+            rdfs:range :Fix ;
+            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#subeventOf
+:subeventOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Event ;
+            rdfs:range :Event ;
+            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#undergoesReverseLogistics
+:undergoesReverseLogistics rdf:type owl:ObjectProperty ;
+                           rdfs:domain :PhysicalEntity ;
+                           rdfs:range dpp:ReverseLogistics .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.w3id.org/dpp/SupplyChain#hasNumericValue
+:hasNumericValue rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :QuantityValue ;
+                 rdfs:range xsd:double ;
+                 <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ;
+                 <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "640.4539317115676"^^xsd:double ;
+                                                                              <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "9.684635985336712"^^xsd:double ;
+                                                                              rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                            ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#identifierAsText
+:identifierAsText rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Identifier ;
+                  rdfs:range xsd:string ;
+                  <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> ;
+                  <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "710.4832174465848"^^xsd:double ;
+                                                                               <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "790.2815184407156"^^xsd:double ;
+                                                                               rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                             ] .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://ontologydesignpatterns.org/opla#Module
+<http://ontologydesignpatterns.org/opla#Module> rdf:type owl:Class .
+
+
+###  http://ontologydesignpatterns.org/opla#Pattern
+<http://ontologydesignpatterns.org/opla#Pattern> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/dpp#Product
+dpp:Product rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalEntity ;
+            <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-300.2960270362235"^^xsd:double ;
+                                                                         <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "109.7606348111903"^^xsd:double ;
+                                                                         rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                       ] .
+
+
+###  http://www.w3id.org/dpp#ReverseLogistics
+dpp:ReverseLogistics rdf:type owl:Class ;
+                     <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-430.0097361675271"^^xsd:double ;
+                                                                                  <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "439.61523727154383"^^xsd:double ;
+                                                                                  rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                                ] .
+
+
+###  http://www.w3id.org/dpp#SupplyChainManagement
+dpp:SupplyChainManagement rdf:type owl:Class ;
+                          <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-199.5196675075205"^^xsd:double ;
+                                                                                       <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "560.0251111965755"^^xsd:double ;
+                                                                                       rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                                     ] ;
+                          rdfs:comment "A class representing information about the supply chain involved in producing a product, including suppliers, sourcing locations, and facilities."@en ;
+                          rdfs:label "SupplyChainManagement"@en .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#DeliveryEvent
+:DeliveryEvent rdf:type owl:Class ;
+               rdfs:subClassOf :SupplyChainEvent ;
+               <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "220.05331620042492"^^xsd:double ;
+                                                                            <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "279.506528793509"^^xsd:double ;
+                                                                            rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                          ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#DistributionEvent
+:DistributionEvent rdf:type owl:Class ;
+                   rdfs:subClassOf :SupplyChainEvent ;
+                   <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "229.69343394756345"^^xsd:double ;
+                                                                                <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "850.1056250150746"^^xsd:double ;
+                                                                                rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                              ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#EndingFix
+:EndingFix rdf:type owl:Class ;
+           rdfs:subClassOf :Fix ;
+           <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+           <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "490.4750286732342"^^xsd:double ;
+                                                                        <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "570.4298304844558"^^xsd:double ;
+                                                                        rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                      ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Event
+:Event rdf:type owl:Class ;
+       <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ;
+       <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "589.5792208576562"^^xsd:double ;
+                                                                    <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "70.38980998859293"^^xsd:double ;
+                                                                    rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                  ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Fix
+:Fix rdf:type owl:Class ;
+     <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+     <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "620.1559819085496"^^xsd:double ;
+                                                                  <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "470.18582797638703"^^xsd:double ;
+                                                                  rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#IDType
+:IDType rdf:type owl:Class ;
+        <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> ;
+        <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "690.3069756546918"^^xsd:double ;
+                                                                     <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "1020.2199389262453"^^xsd:double ;
+                                                                     rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                   ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Identifier
+:Identifier rdf:type owl:Class ;
+            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> ;
+            <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "470.06705314625185"^^xsd:double ;
+                                                                         <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "860.0200852722324"^^xsd:double ;
+                                                                         rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                       ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#LogisticsEvent
+:LogisticsEvent rdf:type owl:Class ;
+                rdfs:subClassOf :SupplyChainEvent ;
+                <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-239.6416955139394"^^xsd:double ;
+                                                                             <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "870.1596843912806"^^xsd:double ;
+                                                                             rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                           ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#ManufacturingEvent
+:ManufacturingEvent rdf:type owl:Class ;
+                    rdfs:subClassOf :SupplyChainEvent ;
+                    <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-229.70908590533554"^^xsd:double ;
+                                                                                 <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "660.2921301653193"^^xsd:double ;
+                                                                                 rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                               ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Material
+:Material rdf:type owl:Class ;
+          rdfs:subClassOf :PhysicalEntity ;
+          <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "119.85989217968674"^^xsd:double ;
+                                                                       <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "99.74724150052559"^^xsd:double ;
+                                                                       rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                     ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#PackagingEvent
+:PackagingEvent rdf:type owl:Class ;
+                rdfs:subClassOf :SupplyChainEvent ;
+                <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "310.23341329967786"^^xsd:double ;
+                                                                             <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "530.0566790111791"^^xsd:double ;
+                                                                             rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                           ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#ParticipantRole
+:ParticipantRole rdf:type owl:Class ;
+                 <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ;
+                 <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "719.6227123753296"^^xsd:double ;
+                                                                              <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "269.5708080853905"^^xsd:double ;
+                                                                              rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                            ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#PhysicalEntity
+:PhysicalEntity rdf:type owl:Class ;
+                <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "45.577089253184496"^^xsd:double ;
+                                                                             <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "263.724116714957"^^xsd:double ;
+                                                                             rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                           ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Place
+:Place rdf:type owl:Class ;
+       <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+       <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "859.7166485458763"^^xsd:double ;
+                                                                    <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "370.3866972525966"^^xsd:double ;
+                                                                    rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                  ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Quantity
+:Quantity rdf:type owl:Class ;
+          <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ;
+          <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "40.24745166532642"^^xsd:double ;
+                                                                       <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "-149.79784218828928"^^xsd:double ;
+                                                                       rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                     ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#QuantityKind
+:QuantityKind rdf:type owl:Class ;
+              <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ;
+              <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "569.636719717227"^^xsd:double ;
+                                                                           <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "-239.7760558523397"^^xsd:double ;
+                                                                           rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                         ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#QuantityValue
+:QuantityValue rdf:type owl:Class ;
+               <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ;
+               <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "269.5176461203911"^^xsd:double ;
+                                                                            <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "-59.85940629270095"^^xsd:double ;
+                                                                            rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                          ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Segment
+:Segment rdf:type owl:Class ;
+         <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+         <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "649.9240640518985"^^xsd:double ;
+                                                                      <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "310.1690777278369"^^xsd:double ;
+                                                                      rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                    ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#SpatiotemporalExtent
+:SpatiotemporalExtent rdf:type owl:Class ;
+                      <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ,
+                                                                          <http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> ;
+                      <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "449.9444940330884"^^xsd:double ;
+                                                                                   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "200.0369556222727"^^xsd:double ;
+                                                                                   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                                 ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#StartingFix
+:StartingFix rdf:type owl:Class ;
+             rdfs:subClassOf :Fix ;
+             <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+             <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "659.6351288766248"^^xsd:double ;
+                                                                          <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "700.0232239223121"^^xsd:double ;
+                                                                          rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                        ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#StorageEvent
+:StorageEvent rdf:type owl:Class ;
+              rdfs:subClassOf :SupplyChainEvent ;
+              <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "160.30202507130213"^^xsd:double ;
+                                                                           <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "960.4649509614839"^^xsd:double ;
+                                                                           rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                         ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#SupplyChainEvent
+:SupplyChainEvent rdf:type owl:Class ;
+                  rdfs:subClassOf :Event ;
+                  <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "149.74205775972146"^^xsd:double ;
+                                                                               <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "670.1170095951868"^^xsd:double ;
+                                                                               rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                             ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Time
+:Time rdf:type owl:Class ;
+      <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+      <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "869.6750082000235"^^xsd:double ;
+                                                                   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "549.7167458498931"^^xsd:double ;
+                                                                   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                 ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Trajectory
+:Trajectory rdf:type owl:Class ;
+            <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> ;
+            <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "459.85247421561667"^^xsd:double ;
+                                                                         <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "420.0049795756971"^^xsd:double ;
+                                                                         rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                       ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#TransportationEvent
+:TransportationEvent rdf:type owl:Class ;
+                     rdfs:subClassOf :SupplyChainEvent ;
+                     <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-239.51445738749453"^^xsd:double ;
+                                                                                  <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "749.7924886115528"^^xsd:double ;
+                                                                                  rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                                ] .
+
+
+###  http://www.w3id.org/dpp/SupplyChain#Unit
+:Unit rdf:type owl:Class ;
+      <http://ontologydesignpatterns.org/opla#isNativeTo> <http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> ;
+      <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "659.8230964495375"^^xsd:double ;
+                                                                   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "-129.87434515140598"^^xsd:double ;
+                                                                   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+                                                                 ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae
+<http://www.w3id.org/dpp/SupplyChain-modules/ec237f93-642e-4b82-8309-c0dc815b3fae> rdf:type owl:NamedIndividual ,
+                                                                                            <http://ontologydesignpatterns.org/opla#Module> ;
+                                                                                   <http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate> <https://archive.org/services/purl/domain/modular_ontology_design_library/spatiotemporalextent> ;
+                                                                                   rdfs:label "'Spatiotemporal Extent' ODP Instantiation Module" .
+
+
+###  http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522
+<http://www.w3id.org/dpp/SupplyChain-modules/296e36c4-b130-4bd6-9f1b-6b773af43522> rdf:type owl:NamedIndividual ,
+                                                                                            <http://ontologydesignpatterns.org/opla#Module> ;
+                                                                                   <http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate> <https://archive.org/services/purl/domain/modular_ontology_design_library/event> ;
+                                                                                   rdfs:label "'Event' ODP Instantiation Module" .
+
+
+###  http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338
+<http://www.w3id.org/dpp/SupplyChain-modules/49a8451a-d550-420d-8257-af6836070338> rdf:type owl:NamedIndividual ,
+                                                                                            <http://ontologydesignpatterns.org/opla#Module> ;
+                                                                                   <http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate> <https://archive.org/services/purl/domain/modular_ontology_design_library/quantity> ;
+                                                                                   rdfs:label "'Quantities and Units' ODP Instantiation Module" .
+
+
+###  http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b
+<http://www.w3id.org/dpp/SupplyChain-modules/7e9e6881-4ad1-450e-a98c-1600d0e1e41b> rdf:type owl:NamedIndividual ,
+                                                                                            <http://ontologydesignpatterns.org/opla#Module> ;
+                                                                                   <http://ontologydesignpatterns.org/opla#reusesPatternAsTemplate> <https://archive.org/services/purl/domain/modular_ontology_design_library/identifier> ;
+                                                                                   rdfs:label "'Identifier' ODP Instantiation Module" .
+
+
+###  https://archive.org/services/purl/domain/modular_ontology_design_library/event
+<https://archive.org/services/purl/domain/modular_ontology_design_library/event> rdf:type owl:NamedIndividual ,
+                                                                                          <http://ontologydesignpatterns.org/opla#Pattern> ;
+                                                                                 rdfs:label "Event" .
+
+
+###  https://archive.org/services/purl/domain/modular_ontology_design_library/identifier
+<https://archive.org/services/purl/domain/modular_ontology_design_library/identifier> rdf:type owl:NamedIndividual ,
+                                                                                               <http://ontologydesignpatterns.org/opla#Pattern> ;
+                                                                                      rdfs:label "Identifier" .
+
+
+###  https://archive.org/services/purl/domain/modular_ontology_design_library/quantity
+<https://archive.org/services/purl/domain/modular_ontology_design_library/quantity> rdf:type owl:NamedIndividual ,
+                                                                                             <http://ontologydesignpatterns.org/opla#Pattern> ;
+                                                                                    rdfs:label "Quantities and Units" .
+
+
+###  https://archive.org/services/purl/domain/modular_ontology_design_library/spatiotemporalextent
+<https://archive.org/services/purl/domain/modular_ontology_design_library/spatiotemporalextent> rdf:type owl:NamedIndividual ,
+                                                                                                         <http://ontologydesignpatterns.org/opla#Pattern> ;
+                                                                                                rdfs:label "Spatiotemporal Extent" .
+
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-169.7394606918908"^^xsd:double ;
+  <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "289.68320598985923"^^xsd:double ;
+  rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "619.6781636327285"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "429.9446594689567"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "680.4294613459158"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "260.19242598302816"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.11451956126484"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "830.0785846088074"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "460.37770029216557"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "429.87374543275865"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "620.090076890328"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "250.06557113872967"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "619.5565144285092"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "340.42590780139255"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "450.34319310901174"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "250.49202739567139"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-179.71624125239134"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "660.3898650524179"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-339.6167600815118"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "50.187478209010834"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-220.22248868261437"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "210.18102457443393"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "-170.1963997440284"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "509.84715101463837"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "290.211784200599"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "509.6710890216013"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "340.19235657291085"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "29.69418768865097"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "370.3460336495841"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "670.3543827461759"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.06808929917929"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "430.4532699113771"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "230.41350750096547"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "190.37712121149423"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

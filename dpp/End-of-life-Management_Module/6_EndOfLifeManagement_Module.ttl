@@ -1,0 +1,70 @@
+@prefix dpp: <http://www.w3id.org/dpp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dpp:Recover rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Recycle rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Reduce rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Refurbish rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Refuse rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Remanufacture rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Repair rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Repurpose rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Resilience rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Rethink rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:Reuse rdfs:subClassOf dpp:EndOfLifeManagement .
+
+dpp:disposalInstructions a owl:DatatypeProperty ;
+    rdfs:label "disposal instructions"@en ;
+    rdfs:comment "Instructions on how to carry out the disposal option"@en ;
+    rdfs:domain dpp:DisposalOption ;
+    rdfs:range xsd:string .
+
+dpp:disposalOptionType a owl:DatatypeProperty ;
+    rdfs:label "disposal option type"@en ;
+    rdfs:comment "The type of disposal option, such as reuse, recycle, remanufacture, or repurpose"@en ;
+    rdfs:domain dpp:DisposalOption ;
+    rdfs:range xsd:string .
+
+dpp:employsDisposalOption a owl:ObjectProperty ;
+    rdfs:label "employs disposal option"@en ;
+    rdfs:comment "Links EndOfLifeManagement to the DisposalOption it employs"@en ;
+    rdfs:domain dpp:EndOfLifeManagement ;
+    rdfs:range dpp:DisposalOption .
+
+dpp:hasDisposalOption a owl:ObjectProperty ;
+    rdfs:label "has disposal option"@en ;
+    rdfs:comment "A property that links a Product to its DisposalOption(s) and disposal instructions."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:range dpp:DisposalOption .
+
+dpp:managedBy a owl:ObjectProperty ;
+    rdfs:label "manages end of life for product"@en ;
+    rdfs:comment "Links a Product to the EndOfLifeManagement strategy or practice responsible for managing its end of life."@en ;
+    rdfs:domain dpp:Product ;
+    rdfs:range dpp:EndOfLifeManagement ;
+    owl:inverseOf dpp:managesEndOfLifeFor .
+
+<http://www.w3id.org/dpp/EoL> a owl:Ontology .
+
+dpp:managesEndOfLifeFor a owl:ObjectProperty .
+
+dpp:Product a owl:Class .
+
+dpp:DisposalOption a owl:Class .
+
+dpp:EndOfLifeManagement a owl:Class ;
+    rdfs:label "End Of Life Management"@en ;
+    rdfs:comment "A set of strategies and practices for managing a Product at the end of its useful life, encompassing various disposal options such as reuse, recycling, remanufacturing, and repurposing."@en .
+
