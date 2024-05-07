@@ -1,83 +1,206 @@
+Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
+# See <https://www.w3.org/TR/owl-ref/#MIMEType>
+AddType application/rdf+xml     .rdf      .owl
+#AddType application/xml         .xml
+AddType application/ld+json     .jsonld
+AddType application/n-quads     .nq
+AddType application/n-triples   .nt
+AddType text/turtle             .ttl
+AddType application/rdf+json    .rj
+AddType text/trig               .trig
+AddType application/trix        .trix
+AddType text/html               .html
+AddType application/xhtml+xml   .html
 RewriteEngine on
 
 # ## Ontologies
+
+SetEnvIf Accept ^                          FILE_EXT=TTL    # *Default*
+SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML & OWL
+#SetEnvIf Accept ^.*application/xml         FILE_EXT=rdf    # (RDF/)XML
+SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
+#SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/inofficial form)
+SetEnvIf Accept ^.*application/n-quads     FILE_EXT=nq     # N-Quads
+SetEnvIf Accept ^.*application/n-triples   FILE_EXT=nt     # N-Triples
+SetEnvIf Accept ^.*text/turtle             FILE_EXT=ttl    # Turtle
+SetEnvIf Accept ^.*application/rdf\+json   FILE_EXT=rj     # RDF/JSON
+SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
+SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
+SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
+
+# HACK Because I (hoijui) was unable to set PROXY to the empty string,
+#      we resort to this hack, of always setting it to something.
+SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
+SetEnvIf Request_URI ^ PROXY=https://
+
+# As the HTML response, use either:
+
+# - HTML-Preview showing the HTML statically rendered with pyLODE
+#SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
+
+# - or the HTML dynamically/on-the-fly rendered with LODE
+SetEnvIf FILE_EXT ^html$ PROXY=https://w3id.org/lode/owlapi/https://
+SetEnvIf FILE_EXT ^html$ FILE_EXT=ttl
 
 # [Recommended IRI patterns for ontologies and their terms](
 # https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
 # ### OKH
 
+SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH
+
 # latest
 RewriteRule \
-	^ont/okh$ \
-	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/master/OKH-LOSH.ttl \
+	^ont/okh(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/okh$ \
-	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/$1/OKH-LOSH.ttl \
+	^ont/([^/]+)/okh(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.$2$3 \
 	[R=302,L]
 
 # ### OTRL
 
 # latest
 RewriteRule \
-	^ont/otrl$ \
-	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/master/OTRL.ttl \
+	^ont/otrl(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OTRL.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/otrl$ \
-	https://raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH/$1/OTRL.ttl \
+	^ont/([^/]+)/otrl(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OTRL.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/otrl\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OTRL.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/otrl\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OTRL.$2$3 \
 	[R=302,L]
 
 # ### TsDC (core)
 
+SetEnvIf Request_URI ^ ROOT_URL_TSDC=gitlab.com/OSEGermany/oh-tsdc/-/raw
+
 # latest
 RewriteRule \
-	^ont/tsdc/core$ \
-	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/master/oh-tsdc.ttl \
+	^ont/tsdc/core(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/tsdc/core$ \
-	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/$1/oh-tsdc.ttl \
+	^ont/([^/]+)/tsdc/core(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/tsdc/core\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/tsdc/core\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.$2$3 \
 	[R=302,L]
 
 # ### TsDC requirements
 
 # latest
 RewriteRule \
-	^ont/tsdc/req(uirements)?$ \
-	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/master/tsdc-req.ttl \
+	^ont/tsdc/req(uirements)?(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/tsdc/req(uirements)?$ \
-	https://gitlab.com/OSEGermany/oh-tsdc/-/raw/$1/tsdc-req.ttl \
+	^ont/([^/]+)/tsdc/req(uirements)?(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
-# ### OSH Ontology
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/tsdc/req\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/tsdc/req\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.$2$3 \
+	[R=302,L]
+
+# ### OSH
+
+SetEnvIf Request_URI ^ ROOT_URL_OSH=codeberg.org/oseg/osh-ont/raw
 
 # latest
 RewriteRule \
-	^ont/osh$ \
-	https://codeberg.org/oseg/osh-ont/raw/branch/master/src/ontology/osh.ttl \
-	[R=302,L]
-
-# other branches
-RewriteRule \
-	^ont/([^/]+)/osh$ \
-	https://codeberg.org/oseg/osh-ont/raw/branch/$1/src/ontology/osh.ttl \
+	^ont/osh(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned
 RewriteRule \
-	^ont/([0-9][^/]*)/osh$ \
-	https://codeberg.org/oseg/osh-ont/raw/tag/$1/src/ontology/osh.ttl \
+	^ont/([0-9][^/]*)/osh(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.$2$3 \
 	[R=302,L]
