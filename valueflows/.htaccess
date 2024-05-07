@@ -30,7 +30,8 @@ SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 # HACK Because I (hoijui) was unable to set PROXY to the empty string,
 #      we resort to this hack, of always setting it to something.
 SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
-SetEnvIf Request_URI ^ PROXY=https://
+SetEnvIf Request_URI ^ PROXY_NONE=https://
+SetEnvIf Request_URI ^ PROXY=%{ENV:PROXY_NONE}
 SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
 
 # [Recommended IRI patterns for ontologies and their terms](
@@ -52,10 +53,10 @@ RewriteRule \
 # latest
 RewriteRule \
 	^ont/vf\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
 	[R=302,L]
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/vf\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
 	[R=302,L]
