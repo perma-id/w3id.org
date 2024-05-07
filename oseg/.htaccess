@@ -33,7 +33,8 @@ SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 # HACK Because I (hoijui) was unable to set PROXY to the empty string,
 #      we resort to this hack, of always setting it to something.
 SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
-SetEnvIf Request_URI ^ PROXY=https://
+SetEnvIf Request_URI ^ PROXY_NONE=https://
+SetEnvIf Request_URI ^ PROXY=%{ENV:PROXY_NONE}
 
 # As the HTML response, use either:
 
@@ -68,13 +69,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/okh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/okh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.$2$3 \
 	[R=302,L]
 
 # ### OTRL
@@ -96,13 +97,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/otrl\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OTRL.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/OTRL.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/otrl\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OTRL.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/OTRL.$2$3 \
 	[R=302,L]
 
 # ### TsDC (core)
@@ -126,13 +127,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/tsdc/core\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/tsdc/core\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.$2$3 \
 	[R=302,L]
 
 # ### TsDC requirements
@@ -154,13 +155,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/tsdc/req\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/tsdc/req\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.$2$3 \
 	[R=302,L]
 
 # ### OSH
@@ -190,17 +191,17 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/osh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.$1$2 \
 	[R=302,L]
 
 # versioned - debugging
 RewriteRule \
 	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.$2$3 \
 	[R=302,L]
 
 # other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.$2$3 \
 	[R=302,L]
