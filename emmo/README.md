@@ -6,13 +6,16 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Eleme
 This section contains a general summary of the logic behind the redirection rules.
 
 
-### Redirections to domain ontologies
+### Redirections to domain and application ontologies
 
 1. `https://w3id.org/emmo/domain/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/emmo/domain/{DOMAIN}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}-inferred.ttl`
+   - Special case for squashed ontology: `https://w3id.org/emmo/domain/{DOMAIN}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}.ttl`
+   - Special case for default context: `https://w3id.org/emmo/domain/{DOMAIN}/context --> https://emmo-repo.github.io/{REPO_NAME}/context/context.json`
+   - Special case for specific context: `https://w3id.org/emmo/domain/{DOMAIN}/{CONTEXTNAME} --> https://emmo-repo.github.io/{REPO_NAME}/context/{CONTEXTNAME}.json`
 
 2. `https://w3id.org/emmo/domain/{DOMAIN}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/latest
@@ -23,6 +26,7 @@ This section contains a general summary of the logic behind the redirection rule
    - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
    - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
+   - Special case for squashed ontology: `https://w3id.org/{DOMAIN}/{VERSION}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}.ttl`
 
 4. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
    - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
@@ -32,6 +36,8 @@ This section contains a general summary of the logic behind the redirection rule
 
 6. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
    - Target: `{PATH}/{MODULE}.ttl` file for given version and module.
+
+Rule 1-6 also applies to application ontologies starting with `application-`. For example may
 
 
 ### Redirections to EMMO
@@ -81,8 +87,9 @@ This section contains a general summary of the logic behind the redirection rule
 - `{VERSION}`: Version number. Must start with a digit to distinguish it from domain or path names.
 - `{PATH}`: Directory path within a github repository
 - `{MODULE}`: Filename of turtle file with the final `.ttl` stripped off
-- `{DOMAIN}`: Name of domain ontology. Initial `domain-` is stripped off.
-- `{REPO_NAME}`: Name of GitHub repository for domain ontology.
+- `{DOMAIN}`: Name of domain or application ontology.
+- `{REPO_NAME}`: Name of GitHub repository for domain (or application) ontology. It should start with `domain-` (or `application-`).
+- `{CONTEXTNAME}`: Name of JSON-LD context for domain ontologies.
 
 
 ## Expected organisation of repositories for domain ontologies
@@ -110,6 +117,9 @@ Expected structure of GitHub pages:
 ├── {DOMAIN}.ttl                  # Latest version of squashed ontology
 ├── {DOMAIN}-inferred.ttl         # Latest version of inferred ontology
 ├── {DOMAIN}.html                 # Latest version of html reference documentation
+├── context/                      # Optional directory with JSON-LD context
+│   ├── context.json              # Default context
+│   └── {CONTEXTNAME}.json        # Specific context
 └── versions/{VERSION}/
     ├── {DOMAIN}.ttl              # Squashed ontology for given version
     ├── {DOMAIN}-inferred.ttl     # Inferred ontology for given version
