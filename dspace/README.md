@@ -12,6 +12,7 @@ Find more information at [https://internationaldataspaces.org/](https://internat
 
 
 ### Redirections:
+1. Links for V0.8:
 * https://w3id.org/dspace/v0.8/context.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/schema/context.json
 * https://w3id.org/dspace/v0.8/catalog/catalog-schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/catalog/message/schema/catalog-schema.json
 * https://w3id.org/dspace/v0.8/catalog/dataset-schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/catalog/message/schema/dataset-schema.json
@@ -20,7 +21,21 @@ Find more information at [https://internationaldataspaces.org/](https://internat
 * https://w3id.org/dspace/v0.8/common/definitions.schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/schema/definitions.schema.json
 * https://w3id.org/dspace/v0.8/common/odrl-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/shape/odrl-shapes.ttl
 * https://w3id.org/dspace/v0.8/common/message-shape.ttl --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/shape/message-shape.ttl
+
+2. Links for the 2024-1 release version:
+* https://w3id.org/dspace/2024/1/context.json --> https://international-data-spaces-association.github.io/ids-specification/2024/1/common/schema/context.json
+* https://w3id.org/dspace/2024/1/catalog/catalog-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024/1/catalog/message/schema/catalog-schema.json
+* https://w3id.org/dspace/2024/1/catalog/dataset-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024/1/catalog/message/schema/dataset-schema.json
+* https://w3id.org/dspace/2024/1/negotiation/contract-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024/1/negotiation/message/schema/contract-schema.json
+* https://w3id.org/dspace/2024/1/catalog/dcat-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024/1/catalog/message/shape/dcat-shapes.ttl
+* https://w3id.org/dspace/2024/1/common/definitions.schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024/1/common/schema/definitions.schema.json
+* https://w3id.org/dspace/2024/1/common/odrl-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024/1/common/shape/odrl-shapes.ttl
+* https://w3id.org/dspace/2024/1/common/version-shape.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024/1/common/shape/version-shape.ttl
+
+
+3. Version-independent links:
 * https://w3id.org/dspace* --> https://github.com/International-Data-Spaces-Association/ids-specification/
+
 
 ## Contact
 
