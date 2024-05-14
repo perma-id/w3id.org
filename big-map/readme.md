@@ -17,7 +17,7 @@ The .htaccess file provided in this repository is intended to be used with the w
 The .htaccess file implements the following redirect rules:
 
 1. Redirects the base <https://w3id.org/big-map> to the **index** page <https://big-map.github.io/ProjectKnowledgeGraph/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/big-map/resource#bigmap_{UUID}> to their respective pages on the project documentation <https://big-map.github.io/ProjectKnowledgeGraph/index.html#bigmap_{UUID}>.
+2. Redirects URIs for specific resources at <https://w3id.org/big-map/resource#{ID}> to their respective pages on the project resource documentation <https://big-map.github.io/ProjectKnowledgeGraph/bigmap.html#{ID}>.
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
 
