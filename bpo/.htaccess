@@ -13,56 +13,56 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 
-RewriteRule ^$ https://www.projekt-scope.de/ontologies/bpo/ [R=302,NE,L]
+RewriteRule ^$ https://annawagner.github.io/bpo/ [R=302,NE,L]
 
 # In case of accept header <text/turtle>
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ https://www.projekt-scope.de/ontologies/bpo/bpo.ttl [R=302,NE,L]
+RewriteRule ^$ https://annawagner.github.io/bpo/bpo.ttl [R=302,NE,L]
 
 # In case of accept header <RDF/XML>
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://www.projekt-scope.de/ontologies/bpo/bpo.rdf [R=302,NE,L]
+RewriteRule ^$ https://annawagner.github.io/bpo/bpo.rdf [R=302,NE,L]
 
 # If suffix ttl, redirect to turtle version
-RewriteRule ^bpo.ttl$ https://www.projekt-scope.de/ontologies/bpo/bpo.ttl [R=302,NE,L]
+RewriteRule ^bpo.ttl$ https://annawagner.github.io/bpo/bpo.ttl [R=302,NE,L]
 
 # If suffix html, redirect to html version
-RewriteRule ^bpo.html$ https://www.projekt-scope.de/ontologies/bpo/ [R=302,NE,L]
+RewriteRule ^bpo.html$ https://annawagner.github.io/bpo/ [R=302,NE,L]
 
 # If suffix rdf, redirect to rdf version
-RewriteRule ^bpo.rdf$ https://www.projekt-scope.de/ontologies/bpo/bpo.rdf [R=302,NE,L]
+RewriteRule ^bpo.rdf$ https://annawagner.github.io/bpo/bpo.rdf [R=302,NE,L]
 
 # If suffix jsonld, redirect to jsonld version
-RewriteRule ^bpo.jsonld$ https://www.projekt-scope.de/ontologies/bpo/bpo.jsonld [R=302,NE,L]
+RewriteRule ^bpo.jsonld$ https://annawagner.github.io/bpo/bpo.jsonld [R=302,NE,L]
 
 # If suffix nt, redirect to nt version
-RewriteRule ^bpo.nt$ https://www.projekt-scope.de/ontologies/bpo/bpo.nt [R=302,NE,L]
+RewriteRule ^bpo.nt$ https://annawagner.github.io/bpo/bpo.nt [R=302,NE,L]
 
 # Rewrite rules for any other version.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(.+)$ https://www.projekt-scope.de/ontologies/bpo/archive/$1 [R=302,NE,L]
+RewriteRule ^(.+)$ https://annawagner.github.io/bpo/archive/$1 [R=302,NE,L]
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.+)$ https://www.projekt-scope.de/ontologies/bpo/archive/$1/bpo.json [R=302,NE,L]
+RewriteRule ^(.+)$ https://annawagner.github.io/bpo/archive/$1/bpo.json [R=302,NE,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.+)$ https://www.projekt-scope.de/ontologies/bpo/archive/$1/bpo.rdf [R=302,NE,L]
+RewriteRule ^(.+)$ https://annawagner.github.io/bpo/archive/$1/bpo.rdf [R=302,NE,L]
 
 # Rewrite rule to serve N-Triples content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(.+)$ https://www.projekt-scope.de/ontologies/bpo/archive/$1/bpo.nt [R=302,NE,L]
+RewriteRule ^(.+)$ https://annawagner.github.io/bpo/archive/$1/bpo.nt [R=302,NE,L]
 
 # Rewrite rule to serve TTL content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
-RewriteRule ^(.+)$ https://www.projekt-scope.de/ontologies/bpo/archive/$1/bpo.ttl [R=302,NE,L]
+RewriteRule ^(.+)$ https://annawagner.github.io/bpo/archive/$1/bpo.ttl [R=302,NE,L]
 
 # Default response: html
-RewriteRule ^$ https://www.projekt-scope.de/ontologies/bpo/ [R=303,NE,L]
+RewriteRule ^$ https://annawagner.github.io/bpo/ [R=303,NE,L]
