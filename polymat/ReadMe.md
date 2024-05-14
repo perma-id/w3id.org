@@ -13,4 +13,5 @@ The ontology is applicable to documentation of scientific work and laboratory pr
 
 ## Contact
 
-Space administered by *Sirko Schindler* <w3id-iadopt@sirko.org>
+* Sirko Schindler <w3id-polymat@sirko.org> - [SirkoS @github](https://github.com/SirkoS)
+* Marta Dembska - [martadembska @github](https://github.com/martadembska)
