@@ -17,8 +17,8 @@ The .htaccess file provided in this repository is intended to be used with the w
 
 The .htaccess file implements the following redirect rules:
 
-1. Redirects the base <https://w3id.org/POMEGA> to the **index** page <https://batmachine.github.io/POMEGA-public-resources/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/POMEGA/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/POMEGA-public-resources/POMEGA.html#{ID}>.
+1. Redirects the base <https://w3id.org/pomega> to the **index** page <https://batmachine.github.io/POMEGA-public-resources/index.html>.
+2. Redirects URIs for specific resources at <https://w3id.org/pomega/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/pomega-public-resources/pomega.html#{ID}>.
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
 
