@@ -1,6 +1,6 @@
 # NETZSCH Resource PURLs
 
-This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[NETZSCH](https://www.netzsch.de/en/)** equipment.
+This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[NETZSCH](https://www.netzsch.com/en)** equipment.
 
 ## Project Information
 This work is initialized as part of the BATMACHINE Innovation Action in Horizon Europe
