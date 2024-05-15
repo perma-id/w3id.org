@@ -18,7 +18,7 @@ The .htaccess file provided in this repository is intended to be used with the w
 The .htaccess file implements the following redirect rules:
 
 1. Redirects the base <https://w3id.org/tekniker> to the **index** page <https://batmachine.github.io/tekniker-public-resources/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/tekniker/resource#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/tekniker-public-resources/tekniker.html#{ID}>.
+2. Redirects URIs for specific resources at <https://w3id.org/tekniker/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/tekniker-public-resources/tekniker.html#{ID}>.
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
 
