@@ -165,6 +165,14 @@ Will become:
 http://localhost:8080/identifier/resource
 ```
 
+Don't hesitate to check out the container's logs with the following
+command as the Apache httpd configuration has been tweaked for a high
+level of debugging information on the `rewrite_module`.
+
+```bash
+docker-compose logs -f
+```
+
 When your testing is finished, all you need to do is to shutdown your
 server by running.
 
