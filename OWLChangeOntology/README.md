@@ -1,9 +1,9 @@
 # The OWL Change Ontology 
-Documentation is available at: https://github.com/DiegoCondeHerreros/OWLChangeOntology/blob/main/OWLChangeOntologyDocumentation/index-en.html
+Documentation is available at: https://diegocondeherreros.github.io/OWLChangeOntology/index.html
 
 The ontology is available in:
 
-OWL:  https://github.com/DiegoCondeHerreros/OWLChangeOntology/blob/main/OWLChangeOntologyDocumentation/ontology.owl
+OWL:  https://diegocondeherreros.github.io/OWLChangeOntology/ontology.ttl
 
 Contact:
 
