@@ -1,3 +1,4 @@
+This project hosts the Common Semantic Data Model (CSDM), a modular ontology for the Omega-X Europpean energy data space. 
 Homepage:
 * https://omega-x.eu/
 
