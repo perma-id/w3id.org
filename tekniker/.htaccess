@@ -5,3 +5,24 @@ RewriteRule ^$ https://tekniker.github.io/tekniker-public-resources/index.html [
 
 # Rule 2: Redirect /resource to a specific page, with or without a fragment
 RewriteRule ^(public/)?ontology(|#(.*))$ https://tekniker.github.io/tekniker-public-resources/tekniker.html$2 [R=301,L]
+
+# Rule 3: Redirect versioned URLs to the corresponding TTL file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)\/?$ https://tekniker.github.io/tekniker-public-resources/version/$2/tekniker.ttl [R=301,L]
+
+# Rule 4: Redirect latest URLs to the corresponding TTL file
+RewriteRule ^(public/)?ontology/latest\/?$ https://tekniker.github.io/tekniker-public-resources/tekniker.ttl [R=301,L]
+
+# Rule 5: Redirect versioned URLs to the corresponding inferred TTL file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/inferred\/?$ https://tekniker.github.io/tekniker-public-resources/version/$2/tekniker-inferred.ttl [R=301,L]
+
+# Rule 6: Redirect latest URLs to the corresponding inferred TTL file
+RewriteRule ^(public/)?ontology/latest/inferred\/?$ https://tekniker.github.io/tekniker-public-resources/tekniker-inferred.ttl [R=301,L]
+
+# Rule 7: Redirect to the context JSON file
+RewriteRule ^(public/)?ontology/context\/?$ https://tekniker.github.io/tekniker-public-resources/context/context.json [R=301,L]
+
+# Rule 8: Redirect to the versioned context JSON file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/context\/?$ https://tekniker.github.io/tekniker-public-resources/version/$2/context/context.json [R=301,L]
+
+# Rule 9: Redirect to the versioned docs
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/doc\/?$ https://tekniker.github.io/tekniker-public-resources/version/$2/tekniker.html [R=301,L]
