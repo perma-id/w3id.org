@@ -1,0 +1,39 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+# catches https://w3id.org/isample/opencontext/specimentype/0.1
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=0.1
+# 
+
+# ...isample/opencontext/specimentype/0.1/oc_spectypevocab  gets turtle serialization of oc_spectypevocab ConceptScheme
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^oc_spectypevocab$    http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/oc_spectypevocab [R=303,L]
+
+
+# ../isample/opencontext/specimentype/0.1/{term},  gets turtle serialization of skos concept 
+#   format with text/turtle accept header
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^(.+)$   http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/$1 [R=303,L]
+
+# ...isample/opencontext/specimentype/0.1/oc_spectypevocab  gets rdf xml serialization of oc_spectypevocab ConceptScheme 
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^oc_spectypevocab$    http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/oc_spectypevocab [R=303,L]
+
+
+# ../isample/opencontext/specimentype/0.1/{term},  gets RDF xml serialization of skos concept 
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^(.+)$   http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/$1 [R=303,L]
+
+
+#any other accept header. ../isample/opencontext/specimentype/0.1/{term}, returns CORS landing page for concept
+# will need to update with new versions
+RewriteRule       ^(.+)$    http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/$1 [R=303,L]
+
+# any other accept header with no terminal string
+#   gets landing page for the version of the vocab, from ESIP COR.  
+#   Pylode doesn't currently seem to be working (2023-12-30).
+RewriteRule       ^$   http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/opencontext/specimentype/%{ENV:currentversion}/oc_spectypevocab [R=303,L]
+
+
