@@ -1,4 +1,4 @@
-# /kbr/
+# /metabelgica/
 
 This W3ID provides a persistent URI for the inter-institutional research infrastructure MetaBelgica in Belgium: https://www.kbr.be/en/projects/metabelgica/.
 
