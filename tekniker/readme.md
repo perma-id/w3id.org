@@ -26,7 +26,7 @@ The .htaccess file implements the following redirect rules:
 2. **Specific Page Redirect**
    - **Rule:** Redirect term IRI to human-readable documentation.
    - **Pattern:** `^(public/)?ontology(|#(.*))$`
-   - **Redirect To:** `https://heu-batmachine.github.io/tekniker-public-resources/tekniker.html$2`
+   - **Redirect To:** `https://heu-batmachine.github.io/tekniker-public-resources/pages/tekniker.html$2`
    - **Type:** Permanent (301)
 
 3. **Versioned TTL File Redirect**
@@ -68,7 +68,7 @@ The .htaccess file implements the following redirect rules:
 9. **Versioned Documentation Redirect**
    - **Rule:** Redirect to the versioned documentation.
    - **Pattern:** `^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/doc\/?$`
-   - **Redirect To:** `https://heu-batmachine.github.io/tekniker-public-resources/version/$2/tekniker.html`
+   - **Redirect To:** `https://heu-batmachine.github.io/tekniker-public-resources/version/$2/pages/tekniker.html`
    - **Type:** Permanent (301)
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
