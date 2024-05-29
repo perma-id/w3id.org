@@ -17,13 +17,64 @@ The .htaccess file provided in this repository is intended to be used with the w
 
 The .htaccess file implements the following redirect rules:
 
-1. Redirects the base <https://w3id.org/pomega> to the **index** page <https://batmachine.github.io/POMEGA-public-resources/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/pomega/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/pomega-public-resources/pomega.html#{ID}>.
+1. **Base URL Redirect**
+   - **Rule:** Redirect the base URL to the index page.
+   - **Pattern:** `^$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/index.html`
+   - **Type:** Permanent (301)
+
+2. **Specific Page Redirect**
+   - **Rule:** Redirect term IRI to human-readable documentation.
+   - **Pattern:** `^(public/)?ontology(|#(.*))$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/pages/POMEGA.html$2`
+   - **Type:** Permanent (301)
+
+3. **Versioned TTL File Redirect**
+   - **Rule:** Redirect versioned URLs to the corresponding TTL file.
+   - **Pattern:** `^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/version/$2/POMEGA.ttl`
+   - **Type:** Permanent (301)
+
+4. **Latest TTL File Redirect**
+   - **Rule:** Redirect latest URLs to the corresponding TTL file.
+   - **Pattern:** `^(public/)?ontology/latest\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/POMEGA.ttl`
+   - **Type:** Permanent (301)
+
+5. **Inferred Versioned TTL File Redirect**
+   - **Rule:** Redirect versioned URLs to the corresponding inferred TTL file.
+   - **Pattern:** `^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/inferred\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/version/$2/POMEGA-inferred.ttl`
+   - **Type:** Permanent (301)
+
+6. **Latest Inferred TTL File Redirect**
+   - **Rule:** Redirect latest URLs to the corresponding inferred TTL file.
+   - **Pattern:** `^(public/)?ontology/latest/inferred\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/POMEGA-inferred.ttl`
+   - **Type:** Permanent (301)
+
+7. **Context JSON File Redirect**
+   - **Rule:** Redirect to the context JSON file.
+   - **Pattern:** `^(public/)?ontology/context\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/context/context.json`
+   - **Type:** Permanent (301)
+
+8. **Versioned Context JSON File Redirect**
+   - **Rule:** Redirect versioned URLs to the corresponding context JSON file.
+   - **Pattern:** `^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/context\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/version/$2/context/context.json`
+   - **Type:** Permanent (301)
+
+9. **Versioned Documentation Redirect**
+   - **Rule:** Redirect to the versioned documentation.
+   - **Pattern:** `^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/doc\/?$`
+   - **Redirect To:** `https://heu-batmachine.github.io/POMEGA-public-resources/version/$2/pages/POMEGA.html`
+   - **Type:** Permanent (301)
 
 For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
 
 ---
 
-For any questions or issues, please contact [BATMACHINE Project Team](mailto:simon.clark@sintef.no).
+For any questions or issues, please contact [BATMACHINE Project Team](mailto:sridevi.krishnamurthi@sintef.no).
 
-BIG-MAP W3ID Maintainer: [@jsimonclark](https://github.com/jsimonclark)
+W3ID Maintainer: [@sksintef](https://github.com/sksintef)
