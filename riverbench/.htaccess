@@ -57,9 +57,11 @@ RewriteRule ^(v/dev/)?categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://
 # Category metadata – explicit extension for tagged releases
 RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.$3 [R=302,L]
 
-# Metadata dumps – dev and tagged releases
-RewriteRule ^dumps/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/$1/dump.$2.gz [R=302,L]
+# Metadata dumps for dev release
+RewriteRule ^dumps/dev\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump.$1.gz [R=302,L]
 
+# Metadata dumps for tagged releases
+RewriteRule ^dumps/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump.$2.gz [R=302,L]
 
 
 ### HTML DOCUMENTATION PAGES ###
