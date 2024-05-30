@@ -1,6 +1,6 @@
 # SKZ Resource PURLs
 
-This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[SKZ](https://www.skz.de/en/)** equipment.
+This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[SKZ](https://www.SKZ.com/en)** equipment.
 
 ## Project Information
 This work is initialized as part of the BATMACHINE Innovation Action in Horizon Europe
@@ -13,17 +13,7 @@ This work is initialized as part of the BATMACHINE Innovation Action in Horizon 
 
 The .htaccess file provided in this repository is intended to be used with the w3id.org Persistent URL (PURL) service. It redirects requests made to specific paths within the SKZ Application Ontology to corresponding pages on the project website.
 
-## Redirect Rules
+For any questions or issues, please contact [BATMACHINE Project Team](mailto:sridevi.krishnamurthi@sintef.no).
 
-The .htaccess file implements the following redirect rules:
+W3ID Maintainer: [@sksintef](https://github.com/sksintef)
 
-1. Redirects the base <https://w3id.org/skz> to the **index** page <https://batmachine.github.io/skz-public-resources/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/skz/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/skz-public-resources/skz.html#{ID}>.
-
-For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
-
----
-
-For any questions or issues, please contact [BATMACHINE Project Team](mailto:simon.clark@sintef.no).
-
-BIG-MAP W3ID Maintainer: [@jsimonclark](https://github.com/jsimonclark)
