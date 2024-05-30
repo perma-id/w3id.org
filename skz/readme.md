@@ -1,6 +1,6 @@
 # SKZ Resource PURLs
 
-This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[SKZ](https://www.SKZ.com/en)** equipment.
+This repository contains the .htaccess file to set up Persistent Uniform Resource Locators (PURLs) for linked data resources related to **[SKZ](https://www.ezd.eu/)** equipment.
 
 ## Project Information
 This work is initialized as part of the BATMACHINE Innovation Action in Horizon Europe
