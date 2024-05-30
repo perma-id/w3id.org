@@ -13,17 +13,6 @@ This work is initialized as part of the BATMACHINE Innovation Action in Horizon 
 
 The .htaccess file provided in this repository is intended to be used with the w3id.org Persistent URL (PURL) service. It redirects requests made to specific paths within the FOM Application Ontology to corresponding pages on the project website.
 
-## Redirect Rules
+For any questions or issues, please contact [BATMACHINE Project Team](mailto:sridevi.krishnamurthi@sintef.no).
 
-The .htaccess file implements the following redirect rules:
-
-1. Redirects the base <https://w3id.org/fom> to the **index** page <https://batmachine.github.io/fom-public-resources/index.html>.
-2. Redirects URIs for specific resources at <https://w3id.org/fom/ontology#{ID}> to their respective pages on the project resource documentation <https://batmachine.github.io/fom-public-resources/fom.html#{ID}>.
-
-For detailed information about each redirect rule, please refer to the comments within the .htaccess file.
-
----
-
-For any questions or issues, please contact [BATMACHINE Project Team](mailto:simon.clark@sintef.no).
-
-BIG-MAP W3ID Maintainer: [@jsimonclark](https://github.com/jsimonclark)
+W3ID Maintainer: [@sksintef](https://github.com/sksintef)
