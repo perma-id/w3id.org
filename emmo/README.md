@@ -82,6 +82,12 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
    - Target: Turtle file for given version and module of EMMO.
 
 
+### Redirections to EMMO-LITE
+13. `https://w3id.org/emmo/emmo-lite           --> https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl`
+14. `https://w3id.org/emmo/{VERSION}/emmo-lite --> https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/{VERSION}/emmo-lite.ttl`
+
+
+
 ### Meaning of placeholders
 - `{NAME}`: Name part of an IRI, i.e., what follows after the hash sign.
 - `{VERSION}`: Version number. Must start with a digit to distinguish it from domain or path names.
