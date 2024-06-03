@@ -17,6 +17,19 @@ Options +FollowSymLinks
 RewriteEngine On
 
 
+
+##########################################################################
+##  Redirections for EMMO-LITE
+##########################################################################
+
+# Src: https://w3id.org/emmo/emmo-lite
+RewriteRule ^emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl [R=303,NE,L]
+
+# Src: https://w3id.org/emmo/{VERSION}/emmo-lite
+RewriteRule ^([0-9][^/]*)/emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/$1/emmo-lite.ttl [R=303,NE,L]
+
+
+
 ##########################################################################
 ##  Redirections for domain and application ontologies
 ##########################################################################
@@ -226,15 +239,3 @@ RewriteRule ^([^0-9].*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/
 # Redirect to specified version branch
 # Turtle file for given version and module of EMMO
 RewriteRule ^([0-9][^/]*)/([^0-9].*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2.ttl [R=303,NE,L]
-
-
-
-##########################################################################
-##  Redirections for EMMO-LITE
-##########################################################################
-
-# Rule 13: https://w3id.org/emmo/emmo-lite
-RewriteRule ^emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl [R=303,NE,L]
-
-# Rule 14: https://w3id.org/emmo/{VERSION}/emmo-lite
-RewriteRule ^([0-9][^/]*)/emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/$1/emmo-lite.ttl [R=303,NE,L]
