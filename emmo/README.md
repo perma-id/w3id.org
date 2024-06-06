@@ -84,7 +84,12 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
 
 ### Redirections to EMMO-LITE
 13. `https://w3id.org/emmo/emmo-lite           --> https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl`
-14. `https://w3id.org/emmo/{VERSION}/emmo-lite --> https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/{VERSION}/emmo-lite.ttl`
+14. `https://w3id.org/emmo/emmo-lite/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/{VERSION}/emmo-lite.ttl`
+
+
+### Redirections to raw files on GitHub repo (like figures, etc)
+15. `https://w3id.org/emmo/raw/{PATH}           --> https://raw.githubusercontent.com/emmo-repo/EMMO/{PATH}`
+16. `https://w3id.org/emmo/raw/{VERSION}/{PATH} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/{PATH}`
 
 
 
