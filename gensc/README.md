@@ -1,13 +1,17 @@
 ## Redirect for the Genomics Standards Consortium
 
-w3id.org/gensc
+The Genomic Standards Consortium currently has two w3id namespaces:
+- `gensc`
+- `mixs`
 
-This redirect is used to direct URIs for terms, checklists, packages and other documents related to GSC standards.
+The `mixs` namespace is more actively maintained, but some resources, like [Darwin Core](https://dwc.tdwg.org/) may need to temporarily use the `gensc` namespace.
 
-The top-level redirects to the GSC website, which is currently house on a private server but will soon be hosted on github at https://github.com/GenomicsStandardsConsortium/gensc.github.io.
+Therefore, this `.htaccess` file redirects URLs in the form https://w3id.org/gensc/terms/MIXS:0000002 to https://w3id.org/mixs/0000002
 
-The Minimum Information about any (x) sequence standards are the first to get permanent URIs and will be in a sub-domain of this redirect which is wid.org/gensc/mixs
+That is in turn redirected according to the `mixs` namespace rules.
 
-maintainer of this w3id:  Ramoan Walls rlwalls2008@gmail.org.
+maintainers of this w3id:
+- Ramona Walls <rlwalls2008@gmail.org> (@ramonawalls)
+- Mark Andrew Miller <MAM@lbl.gov> (@turbomam)
 
 Questions should be directed to https://github.com/GenomicsStandardsConsortium/mixs/issues.

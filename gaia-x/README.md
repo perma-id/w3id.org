@@ -5,17 +5,11 @@ Homepage:
 * https://gaia-x.eu/
 
 Redirections:
-* Base URL: Visit homepage
-  * https://w3id.org/gaia-x
-  * --> https://gaia-x.eu/
-* Direct ontology access: Access respective ontology
-  * https://w3id.org/gaia-x/[core|resource|...].ttl (or rdf, json, ...)
-* HTML: Visit documentation
-  * https://w3id.org/gaia-x/[core|resource|...]
-  * ...and...
-  * https://w3id.org/gaia-x/[core|resource|...]/Class
-* Accept [ttl/rdf/xml/json-ld/json/nt]: Access respective ontology as whole
-  * https://w3id.org/gaia-x/[core|resource|...] or https://w3id.org/gaia-x/[core|resource|...]/Class
+* `ovlc/*` ODRL profile Turtle file
+* `<version>` (e.g. `development` or `2404`)
+  * with `Accept: text/turtle` returns the Gaia-X Shacl shapes
+  * with `Accept: application/ld+json` returns the Gaia-X JSON-LD context (or schema)
+  * with `Accept: application/rdf+xml` returns the Gaia-X OWL ontology
 
 Support:
 * GAIA-X Specifications and components and their [GitLab Repository](https://gitlab.com/gaia-x/)
@@ -26,3 +20,4 @@ Contacts:
 * [Pierre Gronlier](https://github.com/ticapix)
 * [Yassir SELLAMI](https://github.com/YassirSellami)
 * [Ewann Gavard](https://github.com/egavard)
+* [Vincent Kelleher](https://github.com/vincentkelleher)

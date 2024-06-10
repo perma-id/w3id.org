@@ -3,7 +3,7 @@
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 
-**Description:** redirects for mineral group extension of the iSamples material vocabulary
+**Description:** redirects for basic taxonomy classed in extension of the iSamples sampled feature vocabulary
 
 catches https://w3id.org/isample/earthenv/mingroup
 

@@ -27,7 +27,8 @@ RewriteRule ^([a-z0-9.-]+)/ontology/dl/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://
 RewriteRule ^(dev/)?nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.$2 [R=302,L]
 
 # Explicit extension for nanopubs tagged releases
-RewriteRule ^([a-z0-9.-]+)/nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.$2 [R=302,L]
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.$2 [R=302,L]
 
 ### SERVING HTML ###
 
@@ -143,16 +144,18 @@ RewriteCond %{HTTP_ACCEPT} application/trig
 RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.trig [R=302,L]
 
 # TriG for tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
 RewriteCond %{HTTP_ACCEPT} application/trig
-RewriteRule ^([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.trig [R=302,L]
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.trig [R=302,L]
 
 # N-Quads for dev release
 RewriteCond %{HTTP_ACCEPT} application/n-quads
 RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.nq [R=302,L]
 
 # N-Quads for tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
 RewriteCond %{HTTP_ACCEPT} application/n-quads
-RewriteRule ^([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.nq [R=302,L]
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.nq [R=302,L]
 
 ### SERVING DOCUMENTATION ###
 

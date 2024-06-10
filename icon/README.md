@@ -11,10 +11,10 @@ This namespace is broken down into different different parts:
 This space is administered by:  
 
 **Bruno Sartini**  
-*PhD Student*  
-[University of Bologna](https://www.unibo.it/)  
-Bologna, italy
-<bruno.sartini3@unibo.it>  
+*Postdoctoral Researcher*  
+[LMU University of Munich](https://www.lmu.de/en/)  
+Munich, Germany
+<b.sartini@lmu.de>  
 GitHub: [br0ast](https://github.com/br0ast)
 ORCID: [0000-0002-9152-4402](https://orcid.org/0000-0002-9152-4402)  
 

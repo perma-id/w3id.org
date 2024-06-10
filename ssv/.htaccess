@@ -1,0 +1,42 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType application/n-quads .nq
+AddType application/n-triples .nt
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# This is a digital musicology dataset (Signature Sound Vienna) served
+# in different RDF serialisations on request
+
+## If the base directory or /latest is used, we'll go to the current version (which is 0.9 in anticipation of a 1.0 release hosted by the university).
+
+## Rules to forward to annotations:
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.xml [R=303,L]
+
+# Rewrite rule to serve JSON-LD content if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Quads content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.nq [R=303,L]
+
+# Rewrite rule to serve N-Triples content if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.nt [R=303,L]
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content if requested
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(latest\/)?([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/main/$2.html [R=303,L]
+

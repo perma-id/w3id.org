@@ -3,7 +3,7 @@
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 
-**Description:** redirects for the iSamples specimen type vocabulary
+**Description:** redirects for the iSamples material type vocabulary
 
 request to https://w3id.org/isample/vocabulary/material will return the ARDC RVA landing page 
 

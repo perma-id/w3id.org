@@ -1,0 +1,54 @@
+# Name of the project: Ontove
+#
+# Description: The OntoVE project, Ontologies for the valorization of Germanic Cultural Heritage in Veneto within the perspective of the European Open Science Cloud (EOSC), has as its goal the development of ontological modules for the description of Germanic Cultural Heritage (CH) items related to the Veneto region and provision of different visualization outputs designed for both academic and a non-academic audiences. 
+# The ultimate aim of the project is to connect heterogeneous data, such as archaeological findings or written documents, and provide uniform descriptions of them. The dataset is constituted by CH items of Germanic origin linked to Venice and its neighbouring territories. 
+# In order to capture the defining features of these items, established ontologies are reused. The module devised for the description of CH items is called OntoVE_Archeo and reuses the top-level ontology CIDOC-CRM, v. 7.1.2 (Bekiari et al. 2022) and the finer-grained ontology ArCo-Architettura della Conoscenza, developed by Carriero et al. (2019) in collaboration with the ICCD (http://www.iccd.beniculturali.it/) and CNR (https://www.cnr.it/). 
+# The OntoVE_WrittenRecords module has as its centre the semantic description of bibliographic items; it reuses LRMoo v 0.9.6 (Bekiari et al. 2023), Bibframe (https://www.loc.gov/bibframe/implementation/), and the Bibo (D’Arcus/Giasson 2016, https://www.dublincore.org/specifications/bibo/) ontology. The modules where developed with Protégé Desktop, version 5.5.0 (http://protege.stanford.edu, Musen 2015). 
+# Both modules align semantically equivalent classes and assign classes from finer-grained ontologies as subclasses of the more general and abstract classes provided by CIDOC-CRM and its interoperable bibliographic module LRMoo. By semantic alignment operations and the reuse of established ontologies, the project adheres to the FAIR principles (Kush et al. 2020).
+# The project is being carried out at Ca’ Foscari university of Venice, in close collaboration with a partner IT company, Net7 (https://www.netseven.it/). It is funded by the Italian National Operational Plan (PON, http://www.ponricerca.gov.it/pon-ricerca/programme/) on Research and Innovation 2014-2020 and the European Social Fund (ESF, https://ec.europa.eu/esf/home.jsp?langId=en) within the Recovery assistance for cohesion and the territories of Europe (REACT-EU, https://www.europarl.europa.eu/factsheets/en/sheet/215/recovery-assistance-for-cohesion-and-the-territories-of-europe-react-eu-). 
+#
+# Contacts:
+# 
+# Chiara De Bastiani chiara.debastiani@unive.it - GitHub: https://github.com/ChiDeBa
+# Alessandro Bertozzi bertozzi@netseven.it - GitHub: https://github.com/AlessandroBertozzi
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+
+
+# ONTOVE
+RewriteRule ^ontology/ontove\.(html|xml|json|ttl|nt)$ https://chideba.github.io/ontove/ontove.$1 [R=303,L]
+
+
+### CONFIGURATION redir ontology/data: begin ########################
+
+# Rewrite rule for no content
+RewriteRule ^(ontology/.+|data/.+)\.(html|xml|json|ttl|nt)$ - [R=404,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^(ontology/.+|data/.+)$ /ontove/$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(ontology/.+|data/.+)$ /ontove/$1.xml [R=303,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl
+RewriteRule ^(ontology/.+|data/.+)$ /ontove/$1.ttl [R=303,L]
+
+# Rewrite rule to serve Notation3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^(ontology/.+|data/.+)$ /ontove/$1.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(ontology/.+|data/.+)$ /ontove/$1.json [R=303,L]
+
+######################## CONFIGURATION redir ontology/data: end #####
