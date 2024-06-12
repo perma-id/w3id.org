@@ -148,7 +148,7 @@ local testing server.
 docker-compose up -d
 ```
 
-This will start an Apache `httpd` server with [`httpd.conf`](./httpd.conf)
+This will start an Apache `httpd` server with [`httpd.docker.conf`](./httpd.docker.conf)
 as a configuration file.
 
 You can now test your identifier by replacing `https://w3id.org/` with
