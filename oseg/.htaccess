@@ -32,7 +32,6 @@ SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
 # HACK Because I (hoijui) was unable to set PROXY to the empty string,
 #      we resort to this hack, of always setting it to something.
-SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
 SetEnvIf Request_URI ^ PROXY_NONE=https://
 SetEnvIf Request_URI ^ PROXY=https://
 
@@ -50,18 +49,18 @@ SetEnvIf FILE_EXT ^html$ FILE_EXT=ttl
 
 # ### OKH
 
-SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/OPEN-NEXT/OKH-LOSH
+SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/iop-alliance/OpenKnowHow
 
 # latest
 RewriteRule \
 	^ont/okh(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.%{ENV:FILE_EXT}$1 \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/src/spec/okh.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/okh(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.%{ENV:FILE_EXT}$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/src/spec/okh.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
@@ -69,13 +68,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/okh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/OKH-LOSH.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/src/spec/okh.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/okh\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/OKH-LOSH.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/src/spec/okh.$2$3 \
 	[R=302,L]
 
 # ### OTRL
@@ -83,13 +82,13 @@ RewriteRule \
 # latest
 RewriteRule \
 	^ont/otrl(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/OTRL.%{ENV:FILE_EXT}$1 \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/src/spec/otrl.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
 	^ont/([^/]+)/otrl(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/OTRL.%{ENV:FILE_EXT}$2 \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/src/spec/otrl.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
@@ -97,13 +96,13 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/otrl\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/OTRL.$1$2 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/src/spec/otrl.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
 	^ont/([^/]+)/otrl\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/OTRL.$2$3 \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/src/spec/otrl.$2$3 \
 	[R=302,L]
 
 # ### TsDC (core)
