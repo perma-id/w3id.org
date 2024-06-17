@@ -3,7 +3,7 @@ The Cultural Ontology of Vietnam (CHeVie)
 
 The aim of this url to provide permanent location for resources (ontologies, vocabularies, etc.) related to the cultural heritage of Vietnam
 
-* Homepage: [CHeVie webpage](http://tovie.vn/)
+* Homepage: [CHeVie webpage](https://chevie.vn/)
 * Contacts: 
     * [Dat Trinh Tuan](mailto:dattt@soict.hust.edu.vn)
     * [Filip Kovacevic](mailto:filip.kovacevic@tuwien.ac.at)
