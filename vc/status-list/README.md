@@ -1,6 +1,6 @@
-# VC Status List Vocabulary
+# VC Bitstring Status List Vocabulary
 
-- https://w3c-ccg.github.io/vc-status-list-2021/
+- https://w3c.github.io/vc-bitstring-status-list/
 
 ## Maintainers
 
