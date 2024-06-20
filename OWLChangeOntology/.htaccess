@@ -1,0 +1,39 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://diegocondeherreros.github.io/OWLChangeOntology/ontology.jsonld [R=303,L]
+RewriteRule ^ontology\.jsonld$ https://diegocondeherreros.github.io/OWLChangeOntology/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://diegocondeherreros.github.io/OWLChangeOntology [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://diegocondeherreros.github.io/OWLChangeOntology/ontology.nt [R=303,L]
+RewriteRule ^ontology\.nt$ https://diegocondeherreros.github.io/OWLChangeOntology/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ ontology.ttl$ https://diegocondeherreros.github.io/OWLChangeOntology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ 406.html [R=406,L]
