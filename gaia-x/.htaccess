@@ -22,15 +22,24 @@ RewriteRule ^/?([^/]*)/types.yaml https://registry.lab.gaia-x.eu/main/linkml/$1/
 
 # Redirect to Shacl shapes
 RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/shapes/development [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/shapes/$1 [R=303,L]
 
 # Redirect to JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/schemas/development [R=303,L]
+
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/schemas/$1 [R=303,L]
 
 # Redirect to OWL ontology
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/owl/development [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/owl/$1 [R=303,L]
 
-# Default redirection to the Gaia-X website
-RewriteRule ^/?(.*)$ https://gaia-x.eu/ [R=303,L]
+# Default redirection to the Gaia-X Ontology documentation
+RewriteRule ^/?(.*)$ https://gaia-x.gitlab.io/technical-committee/service-characteristics-working-group/service-characteristics/ [R=303,L]
