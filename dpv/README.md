@@ -125,3 +125,11 @@ Chair, [W3C Data Privacy Vocabularies and Controls Communit Group (DPVCG)](https
 Assistant Professor, [ADAPT Centre](https://www.adaptcentre.ie/), [Dublin City University](https://www.dcu.ie/), Ireland
 
 email: [me@harshp.com](mailto:me@harshp.com)
+
+**Beatriz Esteves**
+
+Contributor, [W3C Data Privacy Vocabularies and Controls Communit Group (DPVCG)](https://www.w3.org/community/dpvcg/)
+
+Senior Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
+
+email: [beatriz.esteves@ugent.be](mailto:beatriz.esteves@ugent.be)
