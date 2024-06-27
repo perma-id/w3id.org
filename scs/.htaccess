@@ -2,14 +2,17 @@ Options -MultiViews
 RewriteEngine on
 AddType text/turtle .ttl
 
-# Redirects URIs to SCS FAIR Data Point
-RewriteRule ^/scs/fdp/(.+)/?$ https://fois-fdp.eemcs.utwente.nl/$1 [R=302,L]
+### Catalog item page
+RedirectMatch 302 ^/scs/fdp/fois-2024/?$ https://fois-fdp.eemcs.utwente.nl/catalog/572726cb-5ba6-49c8-959c-9a684d18d359
 
-# Redirects URIs from FOIS 2024 to SCS FAIR Data Point
-RewriteRule ^/scs/fois-2024/(.+)/?$ https://fois-fdp.eemcs.utwente.nl/$1 [R=302,L]
+### Generic item page
+RedirectMatch 302 ^/scs/fdp/fois-2024/(.+)/?$ https://fois-fdp.eemcs.utwente.nl/$1
 
-# Redirect to SCS's organization on GitHub
-RewriteRule ^/scs/github/(.+)/?$ https://github.com/utwente-scs/$1 [R=303,L]
+### Generic item page
+RedirectMatch 302 ^/scs/fdp/(.+)/?$ https://fois-fdp.eemcs.utwente.nl/$1
 
-# Basic redirect to SCS's website
-RewriteRule ^/scs https://www.utwente.nl/en/eemcs/scs/ [R=303,L]
+### Specific FDP page
+RedirectMatch 302 ^/scs/fdp/?$ https://fois-fdp.eemcs.utwente.nl/
+
+### Base route redirect
+RedirectMatch 302 ^/scs/?$ https://www.utwente.nl/en/eemcs/scs/
