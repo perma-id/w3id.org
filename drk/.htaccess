@@ -1,0 +1,43 @@
+Header set Access-Control-Allow-Origin *
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# HTML: Visit documentation (normal)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^$           http://example.org/docs.html [L,NE,R=303]
+
+# HTML: Visit documentation (with class at the end -> make browser jump to position)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^/(.*)$     http://example.org/docs.html#$1 [L,NE,R=303]
+
+
+# TURTLE: Access TTL ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$           http://example.org/ontology.ttl [L,R=303]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^/(.*)       http://example.org/ontology.ttl [L,R=303]
+
+
+
+# No matching content type: Visit documentation
+RewriteRule ^/(.*)      http://example.org/docs.html#$1 [L,NE,R=303]
