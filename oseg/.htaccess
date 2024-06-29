@@ -47,6 +47,36 @@ SetEnvIf FILE_EXT ^html$ FILE_EXT=ttl
 # [Recommended IRI patterns for ontologies and their terms](
 # https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
+# ### OSEG
+
+SetEnvIf Request_URI ^ ROOT_URL_OSEG=gitlab.opensourceecology.de/verein/koordination/profiles/-/raw
+
+# latest
+RewriteRule \
+	^ont/oseg-profiles(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSEG}/master/src/data/oseg.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/oseg-profiles(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSEG}/$1/src/data/oseg.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/oseg-profiles\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSEG}/master/src/data/oseg.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/oseg-profiles\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSEG}/$1/src/data/oseg.$2$3 \
+	[R=302,L]
+
 # ### OKH
 
 SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/iop-alliance/OpenKnowHow
