@@ -7,7 +7,7 @@ Github Repo: https://github.com/fusion-jena/GerPS-Datafield
 
 Webpage: https://fusion-jena.github.io/GerPS-Datafield
 
-Redirekt: https://w3id.org/GerPS-onto/FIMDatenfelder# > https://fusion-jena.github.io/GerPS-Datafield
+Redirect: https://w3id.org/GerPS-onto/FIMDatenfelder# > https://fusion-jena.github.io/GerPS-Datafield
 
 ## Contact 
 | Maintainer          | Institute                           | Email                          | ORCID                                 | Location                                         | Phone             | Github-ID |
