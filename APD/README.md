@@ -29,6 +29,9 @@ Suggestions for changes are welcome and can be posted at https://github.com/trai
   - `[R=303]` — A redirect. When a server responds with a `303` status code, it provides a `Location` pointing to a different URI. The client, upon receiving a `303` response, automatically makes a `GET` request to the URI specified in the `Location` header.  
   - `[L]` — If the previous conditions pass, this rule is executed, and no more evaluation is done. 
   - `[NE]` — (noescape) Prevents conversion of special characters to their hexcode equivalent; needed for links including a `#`.
+- the following matches are used
+  - `RewriteRule ^traits/trait_(.+)$ https://...` - the `(.+)` captures the 1 or more characters after `trait_` in the URL
+  - `RewriteRule ^ https://...` - captures any URL that hasn't been matched by the previous rules. Same behaviour as `RewriteRule ^(.*)$ https://...`. Note behaves differently to `RewriteRule ^$ https://...` which would only match the root URL. 
 
 ## Usage
 

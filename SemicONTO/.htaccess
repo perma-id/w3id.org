@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage/repository
+RewriteRule ^/?$ https://huanyu-li.github.io/SemicONTO/ [R=308,L]
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$  https://huanyu-li.github.io/SemicONTO/$1/index.html [R=303,NE,L]
+
+
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/SemicONTO/$1/SemicONTO.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/SemicONTO/$1/SemicONTO.ttl [R=303,NE,L]
+
+# Redirect request to JSON-LD (base URL)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/SemicONTO/$1/SemicONTO.jsonld [R=303,NE,L]
+

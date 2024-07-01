@@ -16,6 +16,9 @@ RML-FnO-Spec:
 Survey:
 * https://w3id.org/kg-construct/survey
 
+KROWN:
+* https://w3id.org/kg-construct/KROWN
+
 Contacts: 
 * David Chaves-Fraga <dchaves@fi.upm.es>
 * Pieter Heyvaert <pieter.heyvaert@ugent.be>

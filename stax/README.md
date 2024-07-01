@@ -40,6 +40,8 @@ Nanopubs:
 - https://w3id.org/stax/0.4.0/nanopub
 - https://w3id.org/stax/0.4.0/nanopub.trig
 - https://w3id.org/stax/0.4.0/nanopub.nq
+- https://w3id.org/stax/v0.4.0/nanopub.trig
+- https://w3id.org/stax/v0.4.0/nanopub.nq
 
 ## Maintainers
 Piotr Sowiński \
