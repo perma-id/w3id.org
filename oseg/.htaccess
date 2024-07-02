@@ -77,7 +77,7 @@ RewriteRule \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSEG}/$1/src/data/oseg.$2$3 \
 	[R=302,L]
 
-# ### OKH
+# ### OKH - Core
 
 SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/iop-alliance/OpenKnowHow
 
@@ -105,6 +105,36 @@ RewriteRule \
 RewriteRule \
 	^ont/([^/]+)/okh\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/src/spec/okh.$2$3 \
+	[R=302,L]
+
+# ### OKH - Meta
+
+SetEnvIf Request_URI ^ ROOT_URL_OKH_META=raw.githubusercontent.com/iop-alliance/OpenKnowHow
+
+# latest
+RewriteRule \
+	^ont/okh-?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH_META}/master/src/spec/okh-meta.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh-?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OKH_META}/$1/src/spec/okh-meta.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh-?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH_META}/master/src/spec/okh-meta.$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh-?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH_META}/$1/src/spec/okh-meta.$2$3 \
 	[R=302,L]
 
 # ### OTRL
