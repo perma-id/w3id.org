@@ -3,5 +3,15 @@ Options +FollowSymLinks
 # Rewrite engine setup
 RewriteEngine On
 
-# Redirect to w3id.org/FATO/
- RewriteRule	^$ https://helios.hud.ac.uk/FATO/ [R=303,L]
+# Redirects to FATO folder and contents
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://helios.hud.ac.uk/FATO/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^GPC-FBT.owl$ https://helios.hud.ac.uk/FATO/GPC-FBT.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^foodon_fooddatum.owl$ https://helios.hud.ac.uk/FATO/foodon_fooddatum.owl [R=303,NE,L]
