@@ -1,0 +1,33 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage/repository
+RewriteRule ^/?$ https://liusemweb.github.io/DPPO/ [R=308,L]
+
+### Ontology redirects ###
+
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/DPPO/ontology/$1/$2/$1.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/DPPO/ontology/$1/$2/$1.ttl [R=303,NE,L]
+
+# Redirect request to versioned/latest JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/DPPO/ontology/$1/$2/$1.jsonld [R=303,NE,L]
+
+# Redirect to specific file
+RewriteRule ^ontology/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/(\w+\.(\w+))$ https://liusemweb.github.io/DPPO/ontology/$1/$2/$3 [R=303,NE,L]
+
+# Redirect versioned request for any text-oriented MIME type to the documentation
+RewriteRule ^ontology/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/DPPO/ontology/$1/$2/index.html [R=303,NE,L]
+
+# Redirect to resource documentation for any text-oriented MIME type
+RewriteRule ^ontology/([\w\-_0-9]+)/([\w\-_0-9]+)$ https://liusemweb.github.io/DPPO/ontology/$1/latest/index.html#$2 [R=303,NE,L]
+
+# Default redirect for unmatched patterns to GitHub project
+RewriteRule ^.* https://github.com/LiUSemWeb/DPPO [R=303,NE,L]
