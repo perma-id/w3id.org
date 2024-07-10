@@ -1,0 +1,166 @@
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+AddType application/trig .trig
+AddType application/n-quads .nq
+
+RewriteEngine on
+
+### EXPLICIT EXTENSIONS ###
+
+# Explicit extension for dev release
+RewriteRule ^(dev/)?ontology/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.$2 [R=302,L]
+
+# Explicit extension for tagged releases
+RewriteRule ^([a-z0-9.-]+)/ontology/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.$2 [R=302,L]
+
+# Explicit extension for dev release – OWL 2 DL variant
+RewriteRule ^(dev/)?ontology/dl/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.$2 [R=302,L]
+
+# Explicit extension for tagged releases – OWL 2 DL variant
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.$2 [R=302,L]
+
+# Explicit extension for nanopubs dev release
+RewriteRule ^(dev/)?nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.$2 [R=302,L]
+
+# Explicit extension for nanopubs tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.$2 [R=302,L]
+
+### SERVING HTML ###
+
+# Redirect the default version to docs (dev release)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(ontology|nanopubs)/?([#?].*)?$ https://rdf-stax.github.io/dev/$1$2 [R=302,L]
+
+# Redirect the DL variant to documentation (dev release)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://rdf-stax.github.io/dev/ontology$2 [R=302,L]
+
+# Redirect the DL variant to documentation (tagged releases)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://rdf-stax.github.io/$1/ontology$2 [R=302,L]
+
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://rdf-stax.github.io/$1 [R=302,L]
+
+### ONTOLOGY WITH CONTENT NEGOTIATION ###
+
+# RDF/XML for dev release
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.rdf [R=302,L]
+
+# RDF/XML for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.rdf [R=302,L]
+
+# N-Triples for dev release
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.nt [R=302,L]
+
+# N-Triples for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.nt [R=302,L]
+
+# Turtle for dev release
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.ttl [R=302,L]
+
+# Turtle for tagged releases
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.ttl [R=302,L]
+
+# JSON-LD for dev release
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.jsonld [R=302,L]
+
+# JSON-LD for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.jsonld [R=302,L]
+
+### ONTOLOGY IN OWL 2 DL VARIANT WITH CONTENT NEGOTIATION ###
+
+# RDF/XML for dev release
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.rdf [R=302,L]
+
+# RDF/XML for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.rdf [R=302,L]
+
+# N-Triples for dev release
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.nt [R=302,L]
+
+# N-Triples for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.nt [R=302,L]
+
+# Turtle for dev release
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.ttl [R=302,L]
+
+# Turtle for tagged releases
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.ttl [R=302,L]
+
+# JSON-LD for dev release
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.jsonld [R=302,L]
+
+# JSON-LD for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.jsonld [R=302,L]
+
+
+### NANOPUBS WITH CONTENT NEGOTIATION ###
+
+# TriG for dev release
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.trig [R=302,L]
+
+# TriG for tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.trig [R=302,L]
+
+# N-Quads for dev release
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.nq [R=302,L]
+
+# N-Quads for tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.nq [R=302,L]
+
+### SERVING DOCUMENTATION ###
+
+# Redirect no version to dev version of the docs
+RewriteRule ^(ontology|nanopubs)/?([#?].*)?$ https://rdf-stax.github.io/dev/$1$2 [R=302,L]
+
+# Default response – redirect to documentation
+RewriteRule ^(.*)$ https://rdf-stax.github.io/$1 [R=302,L]

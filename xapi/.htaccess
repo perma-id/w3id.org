@@ -7,9 +7,8 @@ Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept
 Header always set Access-Control-Allow-Methods "GET, OPTIONS"
 
 
-# Rewrite Base URL
-
-RewriteRule ^$ http://xapi.vocab.pub [R=302]
+# Rewrite Base URL - OLD
+# RewriteRule ^$ http://xapi.vocab.pub [R=302]
 
 #######################################################################################################
 ################################ xAPI Ontology & Statement Context ####################################
@@ -57,19 +56,20 @@ RewriteRule ^adl/verbs/satisfied/?$ https://profiles.adlnet.gov/profile/a929b474
 RewriteRule ^adl/verbs/waived/?$ https://profiles.adlnet.gov/profile/a929b474-9518-45a2-bd47-24696c602754/concepts/582cbd06-8920-4748-917f-5c1af8244a82 [R=303]
 RewriteRule ^adl/verbs/logged-in/?$ https://profiles.adlnet.gov/profile/c752b257-047f-4718-b353-d29238fef2c2/concepts/b5bea04f-3f49-4b9d-a7e9-4202af00dd4c [R=303]
 RewriteRule ^adl/verbs/logged-out/?$ https://profiles.adlnet.gov/profile/c752b257-047f-4718-b353-d29238fef2c2/concepts/7ce10260-ffa0-4d0f-a5c3-ed795e60b276 [R=303]
-
-
-# Serve HTML content at profile IRI if requested based on redirect on old ADL website and also handle ADL's cmi5 verbs
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-# Old Rule RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/describe/?url=http://adlnet.gov/expapi/$1/$2 [R=303]
-RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ http://xapi.vocab.pub/api/profile?iri=http://adlnet.gov/expapi/$1/$2 [R=303]
+RewriteRule ^adl/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://profiles.adlnet.gov/search [R=303]
 
 #######################################################################################################
 #################### XAPI Published Profiles | HTML Content Negotiation RULES #########################
 #######################################################################################################
+
+# Manual Redirect Rules for specific profiles
+# ---------------------------
+# Serve HTML content at profile IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^navy/?$ https://navy-xapi-library.bitbucket.io [R=303]
 
 # Consolidated HTML Rules to account for vocab/profile pattern match and two child paths after
 # ---------------------------
