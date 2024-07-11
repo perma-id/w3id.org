@@ -1,10 +1,11 @@
-RewriteEngine on
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine On
 
-# https://w3id.org/hadid#dnsDomain -> https://www.ietf.org/archive/id/draft-carter-high-assurance-dids-with-dns-04.html
+# https://w3id.org/hadids -> https://www.ietf.org/archive/id/draft-carter-high-assurance-dids-with-dns-04.html
 
-RewriteRule #dnsDomain$ https://www.ietf.org/archive/id/draft-carter-high-assurance-dids-with-dns-04.html#name-the-dnsdomain-property [R=302,L]
+RewriteRule ^$ https://www.ietf.org/archive/id/draft-carter-high-assurance-dids-with-dns-04.html [R=302,L]
 
-# https://w3id.org/hadid/v0.4 -> https://ciralabs.github.io/DnsDomainJsonLd/dns-domain.jsonld
+# https://w3id.org/hadids/v0.4 -> https://ciralabs.github.io/DnsDomainJsonLd/dns-domain.jsonld
 
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^v0.4$ https://ciralabs.github.io/DnsDomainJsonLd/dns-domain.jsonld [R=302,L]
