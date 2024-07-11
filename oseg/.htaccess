@@ -264,3 +264,83 @@ RewriteRule \
 	^ont/([^/]+)/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.$2$3 \
 	[R=302,L]
+
+# ### OSH - Meta
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/meta.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/meta.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/meta.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/meta.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/meta.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/meta.$2$3 \
+	[R=302,L]
+
+# ### OSH - Example - Tractor
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh-example-tractor.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh-example-tractor.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh-example-tractor.$2$3 \
+	[R=302,L]
