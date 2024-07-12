@@ -1,13 +1,14 @@
-# Data Specification Vocabulary (DSV)
+# Data Specification Vocabulary - Default Application Profile (DSV-DAP)
 
 ## Description
-The Data Specification Vocabulary (DSV) defines terms used later in the [Data Specification Vocabulary - Default Application Profile](https://w3id.org/dsv-dap#) to cover RDF representation of data specifications, including application profiles and vocabularies.
+The Data Specification Vocabulary - Default Application Profile is based on the [Data Specification Vocabulary](https://w3id.org/dsv#) and other external vocabularies.
+It aims to cover RDF representation of data specifications, including application profiles and vocabularies.
 It follows guidance from the [SEMIC Style Guide](https://semiceu.github.io/style-guide/).
 It is implemented in the [Dataspecer](https://dataspecer.com) tool.
 
 ## Ontology resources
-* HTML      https://mff-uk.github.io/data-specification-vocabulary/
-* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv.ttl
+* HTML      https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/
+* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.ttl
 * GitHub    https://github.com/mff-uk/data-specification-vocabulary
 
 ## Contact
