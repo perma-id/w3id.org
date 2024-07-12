@@ -6,7 +6,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the Solar 
 
 Redirects: 
 
-The ontology is served with GitHub pages at https://oeg-upm.github.io/solarchem-ontology/
+The ontology is served with GitHub pages at https://dgarijo.github.io/solarchem-ontology/
 
 
 ## Contact
