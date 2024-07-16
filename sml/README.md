@@ -1,4 +1,4 @@
-# /nen2660/
+# /sml/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the normative CEN-EN 17632 resources.
 
 [CEN-EN 17632][cen] is the European Standard “_Building information modelling (BIM) - Semantic modelling and linking (SML)_”.
