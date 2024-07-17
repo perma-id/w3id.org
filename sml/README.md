@@ -13,7 +13,7 @@ an OWL extension,
 and
 SHACL shapes.
 
-The ontology define terms like 
+The ontology defines terms like 
 `Activity`,
 `AmountOfBulkMatter`,
 `consistsOf`,
