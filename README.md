@@ -42,7 +42,6 @@ are:
 * [3 Round Stones](http://3roundstones.com/)
 * [OpenLink Software](https://www.openlinksw.com/)
 * [Applied Testing and Technology](https://www.aptest.com/)
-* [Openspring](http://openspring.net/)
 * [Bosatsu Consulting](https://bosatsu.net/)
 * [KurrawongAI](https://kurrawong.ai)
 
