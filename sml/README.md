@@ -36,7 +36,7 @@ prefix sml:      <https://w3id.org/sml/def#>
 ## Contact
 This space is administered by:
 
-- **Redmer Kronemeijer**   
-E-mail: <redmer.kronemeijer@crow.nl>  
-ORCID: [0000-0001-9821-0193](https://orcid.org/0000-0001-9821-0193)  
+- **Stichting CROW**   
+E-mail: <data@crow.nl>  
 GitHub: [@redmer](https://github.com/redmer)
+GitHub: [@RiX012](https://github.com/RiX012)
