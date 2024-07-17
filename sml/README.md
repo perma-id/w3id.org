@@ -23,7 +23,7 @@ The ontology defines terms like
 `isImplementedBy`,
 `PhysicalObject`.
 
-The ontology refers to OWL Time, GeoSPARQL and QUDT ontologies.
+The ontology refers to OWL Time, GeoSPARQL, and QUDT ontologies.
 
 The ontology can be browsed from <https://docs.crow.nl/sml/>, where the constituent files may also be downloaded from. 
 
