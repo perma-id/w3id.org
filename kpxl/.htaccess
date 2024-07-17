@@ -6,20 +6,30 @@ RewriteRule ^$ https://knowledgepixels.com/ [R=302,L]
 
 RewriteRule ^query/v1/(.*)$ https://query.np.trustyuri.net/$1
 
-RewriteRule ^(group/terms/.*)$ https://nanodash.petapico.org/group?id=https://w3id.org/kpxl/$1
+RewriteRule ^(gen/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+
+RewriteRule ^(group/terms/.*)$ https://nanodash.knowledgepixels.com/group?id=https://w3id.org/kpxl/$1
 
 
-RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.petapico.org/connector/$1/$2/np?id=$4&mode=$3 [R=302,L]
-RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.petapico.org/connector/$1/$2/np?id=$3&mode=final [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$4&mode=$3 [R=302,L]
+
+RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$4 [R=307,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$3&mode=final [R=302,L]
+
+RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$3 [R=307,L]
 
 
 RewriteRule ^biodiv/terms/hasSubjectLifeCycleStage$ http://purl.org/np/RAgCS0rra2pm2liceluTzr1K0dhQcIo0pB36T4Kd2T6gE
 RewriteRule ^biodiv/terms/hasObjectLifeCycleStage$ http://purl.org/np/RAVNWZiXwxIMNFGn9VXombcc8gwW7r0i2lYGeIddjOrSQ
 RewriteRule ^biodiv/terms/OrganismTaxonToGeneAssociation$ http://purl.org/np/RAe6BUoHzTqPA2lviJEwdrujn8WGSsRegR3ni7yACCx4s
 
-RewriteRule ^(ios/ds/terms/.*)$ https://nanodash.petapico.org/term?id=https://w3id.org/kpxl/$1
+RewriteRule ^([a-z]+/[a-z]+/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
 
-RewriteRule ^(biodiv/terms/.*)$ https://nanodash.petapico.org/term?id=https://w3id.org/kpxl/$1
+RewriteRule ^(biodiv/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
 
 
 RewriteRule ^rel(/(terms)?)?$ https://w3id.org/kpxl/rel/terms/ [R=302,L,NE]

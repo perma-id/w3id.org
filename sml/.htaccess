@@ -1,0 +1,32 @@
+RewriteEngine on
+
+
+# 1: Explicit URL of normative file (no content-negotiation)
+# Only TTL => SKOS | RDFS | OWL | SHACL
+
+RewriteRule ^skos/term$ https://docs.crow.nl/sml/data/sml-skos.ttl [R=302,L]
+RewriteRule ^rdfs/def$ https://docs.crow.nl/sml/data/sml-rdfs.ttl [R=302,L]
+RewriteRule ^owl/def$ https://docs.crow.nl/sml/data/sml-owl.ttl [R=302,L]
+RewriteRule ^shacl/def$ https://docs.crow.nl/sml/data/sml-shacl.ttl [R=302,L]
+RewriteRule ^sparql$ https://hub.laces.tech/crow/sml/all/sparql [R=302,L]
+
+
+# 2: Non-explicit URL, explicit Accept-header
+# Serve specific serializations => TriG | JSON-LD | Turtle | RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^$ https://docs.crow.nl/sml/data/concat/sml.trig [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^$ https://docs.crow.nl/sml/data/concat/sml.json [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://docs.crow.nl/sml/data/concat/sml.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://docs.crow.nl/sml/data/concat/sml.rdf [R=302,L]
+
+
+# Final, matching anything (includes Accept = text/html)
+RewriteRule ^(.*)$ https://docs.crow.nl/sml/$1 [R=302,L]
