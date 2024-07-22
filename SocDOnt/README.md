@@ -1,10 +1,10 @@
 # SocDOnt - Social Document Ontology
-The Social Document Ontology (SocDOnt) expresses the generic structure of social documents. At the micro-level a social document is defined as a composition of an intellectual entity enhanced by both intellectual and simple components and at the macro-level a collection is defined as an aggregation of social documents.
+The Social Document Ontology (SocDOnt) expresses the generic structure of **social documents**. At the micro-level a social document is defined as a composition of an **intellectual entity** enhanced by both **intellectual and simple components** and at the macro-level a collection is defined as an aggregation of social documents.
 
 ## Authors
-[Susan Williams](https://www.uni-koblenz-landau.de/en/campus-koblenz/fb4/iwvi/ageim/team/susan-williams)\
-[Julian Mosen](https://www.uni-koblenz-landau.de/en/campus-koblenz/fb4/iwvi/rgschubert/team/julian-mosen)\
-[Petra Schubert](https://www.uni-koblenz-landau.de/en/campus-koblenz/fb4/iwvi/rgschubert/team/petra-schubert/petra-schubert)
+[Susan Williams](https://www.uni-koblenz.de/en/computer-science/iwvi/williams/team/susan-p-williams)\
+[Julian Mosen](https://www.uni-koblenz.de/en/computer-science/iwvi/schubert/team/julian-mosen)\
+[Petra Schubert](https://www.uni-koblenz.de/en/computer-science/iwvi/schubert/team/petra-schubert)
 
 ## CEIR
 The SocDOnt was created by the [CEIR - Center for Enterprise Information Research](https://ceir.de).\

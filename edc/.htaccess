@@ -1,0 +1,18 @@
+#
+# Eclipse Dataspace Components Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+Options -MultiViews
+
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to resolve connector management context
+RewriteRule ^connector/management/v0.0.1(.*)$ https://eclipse-edc.github.io/Connector/context/management-context-v1.jsonld [R=302,L]
+
+# Rewrite rule to default to the EDC docs page
+RewriteRule ^(.*)$ https://eclipse-edc.github.io/docs [R=303,L]

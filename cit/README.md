@@ -1,9 +1,10 @@
 ## Vocabulary for Concealed ID Tokens
 
-Ontology
+### Ontology
 
-* Docs https://digitalbazaar.github.io/cit-vocab/
+* https://digitalbazaar.github.io/cit-vocab/
 
-Contact
+### Contact
 
-* Manu Sporny msporny@digitalbazaar.com
+* Manu Sporny <msporny@digitalbazaar.com> (@msporny)
+* David I. Lehn <dlehn@digitalbazaar.com> (@davidlehn)

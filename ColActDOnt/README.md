@@ -2,8 +2,8 @@
 The Collaborative Actions on Documents Ontology (ColActDOnt) expresses the generic structure of actions on documents in collaborative systems. The **Event** is the main concept which relates to the involved entities **Account** and **Item** which are necessary to define a performed action. ColActDOnt is interwoven with the Social Document Ontology (SocDOnt) and builds on the structure of social documents.
 
 ## Authors
-[Martin Just](https://www.uni-koblenz-landau.de/de/koblenz/fb4/iwvi/agschubert/team/Martin%20Just)\
-[Petra Schubert](https://www.uni-koblenz-landau.de/en/campus-koblenz/fb4/iwvi/rgschubert/team/petra-schubert/petra-schubert)
+[Martin Just](https://www.uni-koblenz.de/en/computer-science/iwvi/schubert/team/martin-just)\
+[Petra Schubert](https://www.uni-koblenz.de/en/computer-science/iwvi/schubert/team/petra-schubert)
 
 ## CEIR
 The ColActDOnt was created by the [CEIR - Center for Enterprise Information Research](https://ceir.de).\

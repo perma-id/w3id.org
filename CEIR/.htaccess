@@ -1,0 +1,18 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Required for the redirects
+RewriteEngine On
+
+# Redirects
+RewriteRule ^(.*)IRECS$ https://github.com/ceir-koblenz/IRECS [R=303,L]
+RewriteRule ^(.*)MOBDA$ https://github.com/ceir-koblenz/MOBDA [R=303,L]
+
+# Default response: redirect to the CEIR github page
+RewriteRule ^(.*)$ https://github.com/ceir-koblenz [R=303,L]
