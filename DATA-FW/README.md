@@ -1,6 +1,6 @@
 # DATA-FW Ontology
 
-## About DATA-FW (CISE)
+## About DATA-FW
 
 DATA-FW has been developed as part of the MOCK-UP PhD project, which aims to enhance the FAIRness of domain datasets and facilitate dataset discovery by utilizing the characteristics of these datasets to meet user needs. This vocabulary dataset is intended to describe datasets metadata and structure using standard vocabularies, namely the DCAT and RDF Data Cube. The DUV and DQV vocabularies are used to represent the uses of datasets and the quality of the metadata, data or quality policies from which the dataset benefits. FOAF is used to describe the actors interacting with the dataset.
 
