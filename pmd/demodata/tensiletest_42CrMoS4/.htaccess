@@ -27,7 +27,7 @@ RewriteRule ^((\d+\.\d+\.\d+)/)(.*)$ %{ENV:BASE_URI}/$2/onto.rdf [R=303,L]
 ## same directive for unversioned call
 RewriteCond %{HTTP_ACCEPT} \*/\+ [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.*)$ %{ENV:BASE_URI}/${ENV:LATEST_VERSION}/onto.rdf [R=303,L]
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/%{ENV:LATEST_VERSION}/onto.rdf [R=303,L]
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
