@@ -1,8 +1,8 @@
-https://w3id.org/iot-tta is a permanent URI 
+https://w3id.org/IIoT is a permanent URI 
 
-for the 
+for the IIoT ontology for Industrial Internet of Things: 
 
-IIoT ontology for Industrial Internet of Things: https://github.com/tudorliv/IIoT/blob/main/IIoT.owl
+https://tudorliv.github.io/IIoT/IIoT.owl
 
 Maintainer: Liviana Tudor
 
