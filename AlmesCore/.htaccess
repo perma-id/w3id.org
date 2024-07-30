@@ -20,3 +20,9 @@ RewriteRule ^theme/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024
 # Redirect to the schema HTML page
 RewriteRule ^$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md [R=302,L]
 RewriteRule ^(.*)$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md/$1 [R=302,L]
+
+# Prevent the rule below from catching the /rdf path
+RewriteCond %{REQUEST_URI} !^/rdf/?$
+
+# Catch-all rule to redirect everything else to the schema page
+RewriteRule ^(.*)$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md/$1 [R=302,L]
