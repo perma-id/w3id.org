@@ -23,8 +23,8 @@ RewriteEngine On
 ##SetEnvIf Request_URI ^/sensotwin/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
 
 RewriteRule ^$ https://upaehler.github.io/SensoTwin [R=302,L]
-SetEnvIf Request_URI ^/sensotwin$ ONT_BASE=https://upaehler.github.io/SensoTwin ONT_ANCHOR=$1
-SetEnvIf Request_URI ^/sensotwin(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
+SetEnvIf Request_URI ^$ ONT_BASE=https://upaehler.github.io/SensoTwin ONT_ANCHOR=$1
+SetEnvIf Request_URI ^/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
 
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
