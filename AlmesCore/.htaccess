@@ -1,12 +1,6 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirect to the RDF serialization of the schema
-RewriteRule ^rdf/?$ https://raw.githubusercontent.com/AlmesCore/Almes-Core/main/almes-core-schema.json [R=302,L]
-
-# Redirect to the SHACL file
-RewriteRule ^shacl/?$ https://raw.githubusercontent.com/AlmesCore/Almes-Core/main/almes-core-schema-shacl.ttl [R=302,L]
-
 # Redirects for individual terms within the schema
 RewriteRule ^data/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#data [R=302,L]
 RewriteRule ^descriptiveStatistics/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#descriptivestatistics [R=302,L]
@@ -19,9 +13,6 @@ RewriteRule ^productTypeName/?$ https://github.com/AlmesCore/Almes-Core/blob/mai
 RewriteRule ^productTypeURI/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#producttypeuri [R=302,L]
 RewriteRule ^statisticalMethod/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#statisticalmethod [R=302,L]
 RewriteRule ^theme/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#theme [R=302,L]
-
-# Redirect to the schema page
-RewriteRule ^$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md [R=302,L]
 
 # Prevent the rule below from catching the /rdf and /shacl paths
 RewriteCond %{REQUEST_URI} !^/(rdf|shacl)/?$ 
