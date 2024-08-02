@@ -22,6 +22,14 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
+# JavaScript entities
+RewriteCond %{REQUEST_URI} js
+RewriteRule js https://raw.githubusercontent.com/rdf-connect/ontology/main/rdf-connect-js.ttl [R=302,L]
+
+# JVM entities
+RewriteCond %{REQUEST_URI} jvm
+RewriteRule jvm https://raw.githubusercontent.com/rdf-connect/ontology/main/rdf-connect-jvm.ttl [R=302,L]
+
 # Default response
 # ---------------------------
-RewriteRule ^$ https://raw.githubusercontent.com/rdf-connect/ontology/main/rdf-connect.ttl [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/rdf-connect/ontology/main/rdf-connect.ttl [R=302,L]
