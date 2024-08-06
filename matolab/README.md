@@ -3,7 +3,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the platfo
 
 ## Uses
 This namespace represents a general ontology namespace for the matolab digital while subpaths point to specific vocabularies, currently:
-- `openbisontolgy`: OpenBIS ontology
+- `openbis`: OpenBIS ontology
   
 ## Contact
 Current maintainers are:
