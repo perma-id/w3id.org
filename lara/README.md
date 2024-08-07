@@ -1,7 +1,7 @@
 LARA
 =====
 
-LARA (Laboratory Automation Robotic Assistent) is an open source Research Data Management Suite and 2nd generation Electronic Lab Notebook with the goal to automate most of the data and metadata entering process by providing a rich infrastructure for lab communication, orchestration, data/metadata storage, evaluation and exchange. It utilises Ontology based semantic web technology to make data findable via SPARAQL.
+LARA (Laboratory Automation Robotic Assistent) is an open source Research Data Management Suite and 2nd generation Electronic Lab Notebook with a goal of automating most of the process of entering data and metadata by providing a rich infrastructure for lab communication, orchestration, data/metadata storage, evaluation, and exchange. It uses ontology-based semantic web technology to make data findable via SPARQL.
 
 
 ### Homepage
