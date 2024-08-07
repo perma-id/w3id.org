@@ -1,7 +1,7 @@
 OSO
 ===
 
-The Open Science Ontologies - (OSO) are a set of lean, open and modular top-level and domain ontologies designed for interoperable scientific experimentation, fast reasoning and machine learning / AI applications in mind. 
+The Open Science Ontologies (OSO) are a set of lean, open, and modular top-level and domain ontologies designed for interoperable scientific experimentation, fast reasoning, and machine-learning/AI applications.
 
 ### Homepage
 
