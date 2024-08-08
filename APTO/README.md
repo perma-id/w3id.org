@@ -1,11 +1,10 @@
-# Redirects for the Almes Core Metadata Schema
+# Redirects for the Agriculture Product Types Ontology (APTO)
 
 ## Maintainers:
 - GitHub ID: @AlmesCore
 - GitHub ID: @Filipi-Soares
-- GitHub ID: @kellyrb
 
-### Almes Core Management Group:
+### APTO Management Group:
 <a href="https://orcid.org/0000-0002-0674-7960"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD icon"> Filipi Miranda Soares</a>, 
 <a href="https://orcid.org/0000-0002-2744-6104"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD icon"> Fernando Elias Corrêa</a>, 
 <a href="https://orcid.org/0000-0002-4801-2225"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD icon"> Dilvan de Abreu Moreira</a>, 
@@ -18,8 +17,6 @@
 
 Recommended citation: 
 
-Soares, F., Corrêa, F. E., Moreira, D. de A., Pignatari Drucker, D., Braghetto, K. R., Botazzo Delbem, A. C., Ferreira Pires, L., Bonino da Silva Santos, L. O., & Saraiva, A. M. (2024). Agriculture and Livestock Metadata Elements Set (Almes Core) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.12711290
+Soares, F., Corrêa, F. E., Moreira, D. de A., Pignatari Drucker, D., Braghetto, K. R., Botazzo Delbem, A. C., Ferreira Pires, L., Bonino da Silva Santos, L. O., & Saraiva, A. M. (2024). Agriculture Product Types Ontology (APTO) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.13271285
 
-Related publication:
 
-Soares, F. M., Corrêa, F. E., Pires, L. F., da Silva Santos, L. O. B., Drucker, D. P., Braghetto, K. R., de Abreu Moreira, D., Delbem, A. C. B., da Silva, R. F., da Silva Lopes, C. O., & Saraiva, A. M. (2022). Building a Community-Based FAIR Metadata Schema for Brazilian Agriculture and Livestock Trading Data. In SEMPDW 2022 (CEUR workshop proceedings; Vol. 3235). https://ceur-ws.org/Vol-3235/paper26.pdf
