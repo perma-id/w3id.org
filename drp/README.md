@@ -4,4 +4,4 @@
 This [w3id](https://w3id.org/dummyrepository) provides a persistent URI namespace for the [dummyrepository demontrator](https://dummyrepository.org) .
 
 # Contacts:
-- Robert Huber [:email:](mailto:rhuber@uni-bremen.de)
+- Robert Huber [:email:](mailto:rhuber@uni-bremen.de) (@huberrob)
