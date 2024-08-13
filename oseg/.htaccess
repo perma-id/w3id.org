@@ -53,13 +53,13 @@ SetEnvIf Request_URI ^ ROOT_URL_OSEG=gitlab.opensourceecology.de/community-resou
 
 # latest
 RewriteRule \
-	^ont/oseg-?prof(iles)?(#[^/]+)?$ \
+	^ont/oseg[/-]?prof(iles)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OSEG}/master/src/data/oseg.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/oseg-?prof(iles)?(#[^/]+)?$ \
+	^ont/([^/]+)/oseg[/-]?prof(iles)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OSEG}/$1/src/data/oseg.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -67,13 +67,13 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/oseg-?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
+	^ont/oseg[/-]?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSEG}/master/src/data/oseg.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/oseg-?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/oseg[/-]?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSEG}/$1/src/data/oseg.$2$3 \
 	[R=302,L]
 
@@ -83,13 +83,13 @@ SetEnvIf Request_URI ^ ROOT_URL_OKH=raw.githubusercontent.com/iop-alliance/OpenK
 
 # latest
 RewriteRule \
-	^ont/okh(#[^/]+)?$ \
+	^ont/okh([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/master/src/spec/okh.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/okh(#[^/]+)?$ \
+	^ont/([^/]+)/okh([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OKH}/$1/src/spec/okh.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -97,13 +97,13 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/okh\.([^/#]+)(#[^/]+)?$ \
+	^ont/okh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/master/src/spec/okh.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/okh\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/okh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH}/$1/src/spec/okh.$2$3 \
 	[R=302,L]
 
@@ -113,13 +113,13 @@ SetEnvIf Request_URI ^ ROOT_URL_OKH_META=raw.githubusercontent.com/iop-alliance/
 
 # latest
 RewriteRule \
-	^ont/okh-?meta(#[^/]+)?$ \
+	^ont/okh[/-]?meta(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OKH_META}/master/src/spec/okh-meta.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/okh-?meta(#[^/]+)?$ \
+	^ont/([^/]+)/okh[/-]?meta(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OKH_META}/$1/src/spec/okh-meta.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -127,13 +127,13 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/okh-?meta\.([^/#]+)(#[^/]+)?$ \
+	^ont/okh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH_META}/master/src/spec/okh-meta.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/okh-?meta\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/okh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OKH_META}/$1/src/spec/okh-meta.$2$3 \
 	[R=302,L]
 
@@ -171,13 +171,13 @@ SetEnvIf Request_URI ^ ROOT_URL_TSDC=gitlab.com/OSEGermany/oh-tsdc/-/raw
 
 # latest
 RewriteRule \
-	^ont/tsdc/core(#[^/]+)?$ \
+	^ont/tsdc([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/tsdc/core(#[^/]+)?$ \
+	^ont/([^/]+)/tsdc([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -185,13 +185,13 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/tsdc/core\.([^/#]+)(#[^/]+)?$ \
+	^ont/tsdc([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/master/oh-tsdc.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/tsdc/core\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/tsdc([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/$1/oh-tsdc.$2$3 \
 	[R=302,L]
 
@@ -199,13 +199,13 @@ RewriteRule \
 
 # latest
 RewriteRule \
-	^ont/tsdc/req(uirements)?(#[^/]+)?$ \
+	^ont/tsdc[/-]?req(uirements)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/tsdc/req(uirements)?(#[^/]+)?$ \
+	^ont/([^/]+)/tsdc[/-]?req(uirements)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -213,35 +213,35 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/tsdc/req\.([^/#]+)(#[^/]+)?$ \
+	^ont/tsdc[/-]?req(uirements)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/master/tsdc-req.$1$2 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/tsdc/req\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/tsdc[/-]?req(uirements)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_TSDC}/$1/tsdc-req.$2$3 \
 	[R=302,L]
 
-# ### OSH
+# ### OSH - Core
 
 SetEnvIf Request_URI ^ ROOT_URL_OSH=codeberg.org/oseg/osh-ont/raw
 
 # latest
 RewriteRule \
-	^ont/osh(#[^/]+)?$ \
+	^ont/osh([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.%{ENV:FILE_EXT}$1 \
 	[R=302,L]
 
 # versioned
 RewriteRule \
-	^ont/([0-9][^/]*)/osh(#[^/]+)?$ \
+	^ont/([0-9][^/]*)/osh([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # other branches
 RewriteRule \
-	^ont/([^/]+)/osh(#[^/]+)?$ \
+	^ont/([^/]+)/osh([/-]?core)?(#[^/]+)?$ \
 	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
@@ -249,18 +249,106 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/osh\.([^/#]+)(#[^/]+)?$ \
+	^ont/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh.$1$2 \
 	[R=302,L]
 
 # versioned - debugging
 RewriteRule \
-	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh.$2$3 \
 	[R=302,L]
 
 # other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/osh\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh.$2$3 \
+	[R=302,L]
+
+# ### OSH - Meta
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/meta.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/meta.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/meta.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/meta.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/meta.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/meta.$2$3 \
+	[R=302,L]
+
+# ### OSH - Example - Tractor
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh-example-tractor.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/master/src/ontology/osh-example-tractor.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/tag/$1/src/ontology/osh-example-tractor.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh-example-tractor.$2$3 \
+	[R=302,L]
+
+# ## People
+
+# Robin Vobruba
+RewriteRule \
+	^p/((robin[._-]?vobruba)|hoijui) \
+	https://hoijui.codeberg.page \
 	[R=302,L]

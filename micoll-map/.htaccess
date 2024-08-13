@@ -1,0 +1,27 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Choose the default response
+# ---------------------------
+
+# Rewrite rule to the index page of the webapp MICOLL Map (matching URL: http://w3id.org/micoll-map)
+RewriteRule ^$ https://micoll-erc-maps.dei.unipd.it [R=302,L]
+
+# Rewrite rule to the page associated with a given historical route in the webapp MICOLL Map (matching URL: http://w3id.org/micoll-map/route/<Route ID>)
+RewriteRule ^route/(.*)$ https://micoll-erc-maps.dei.unipd.it/route/$1 [R=302,L]
+
+# Rewrite rule to the page associated with a given waypoint, part of an historical route, in the webapp MICOLL Map (matching URL: http://w3id.org/micoll-map/waypoint/<Waypoint geonames ID>)
+RewriteRule ^waypoint/(.*)$ https://micoll-erc-maps.dei.unipd.it/waypoint/$1 [R=302,L]
+
+# Rewrite rule to the page associated with a given historical evidence source, supporting the existance of an historical route, in the webapp MICOLL Map (matching URL: http://w3id.org/micoll-map/source/<Source ID>)
+RewriteRule ^source/(.*)$ https://micoll-erc-maps.dei.unipd.it/source/$1 [R=302,L]
+
+# Rewrite rule to the page associated with a given author of an historical source in the webapp MICOLL Map (matching URL: http://w3id.org/micoll-map/author/<Author ID>)
+RewriteRule ^author/(.*)$ https://micoll-erc-maps.dei.unipd.it/author/$1 [R=302,L]
