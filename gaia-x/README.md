@@ -11,7 +11,7 @@ Redirections:
   * with `Accept: text/turtle` returns the Gaia-X Shacl shapes
   * with `Accept: application/ld+json` returns the Gaia-X JSON-LD context (or schema)
   * with `Accept: application/rdf+xml` returns the Gaia-X OWL ontology
-  * For more details please visit : [How to use the Gaia-X Ontology](https://gaia-x.gitlab.io/technical-committee/service-characteristics-working-group/service-characteristics/#using-through-w3idorg)
+  * For more details, please visit: [How to use the Gaia-X Ontology](https://gaia-x.gitlab.io/technical-committee/service-characteristics-working-group/service-characteristics/#using-through-w3idorg)
 
 Support:
 * GAIA-X Specifications and components and their [GitLab Repository](https://gitlab.com/gaia-x/)
