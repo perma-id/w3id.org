@@ -38,6 +38,9 @@ Some test links that should always give a 200 response:
 - https://w3id.org/riverbench/dumps/dev.nt.gz
 - https://w3id.org/riverbench/dumps/dev.ttl.gz
 - https://w3id.org/riverbench/dumps/dev.jelly.gz
+- https://w3id.org/riverbench/dumps-with-results/dev.nq.gz
+- https://w3id.org/riverbench/dumps-with-results/dev.trig.gz
+- https://w3id.org/riverbench/dumps-with-results/dev.jelly.gz
 
 #### Test links in the old (1.0.x) format
 
