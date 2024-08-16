@@ -19,9 +19,9 @@ Read more at the GitHub repository at [https://github.com/tibonto/DFG-Fachsystem
 
 |ID|Accept-Header|Target|Description|
 |-|-|-|-|
-|<https://w3id.org/dfgfo/2024>|text/turtle|<https://raw.githubusercontent.com/tibonto/DFG-Fachsystematik-Ontology/2024-YYYY-MM-DD/dfgfo.ttl>|Turtle file (.ttl) of the entire ontology (2024 version)|
-|<https://w3id.org/dfgfo/2024>|text/html|<https://terminology.tib.eu/ts/ontologies/dfgfo2024>|Landing page of DFGFO 2024 at the TIB Terminology Service|
-|<https://w3id.org/dfgfo/2024/<termID>>|text/html|<https://terminology.tib.eu/ts/ontologies/dfgfo2024/terms?iri=https%3A%2F%2Fw3id.org%2Fdfgfo%2F2024%2F<termID>>|Landing page of a specific DFGFO 2024 term at the TIB Terminology Service, f.e. for term '3.16-01 Preparatory and Physical Chemistry of Polymer', the termID would be 3.16-01|
+|<https://w3id.org/dfgfo/2024>|`text/turtle`|<https://raw.githubusercontent.com/tibonto/DFG-Fachsystematik-Ontology/2024-YYYY-MM-DD/dfgfo.ttl>|Turtle file (.ttl) of the entire ontology (2024 version)|
+|<https://w3id.org/dfgfo/2024>|`text/html`|<https://terminology.tib.eu/ts/ontologies/dfgfo2024>|Landing page of DFGFO 2024 at the TIB Terminology Service|
+|<https://w3id.org/dfgfo/2024/%3CtermID%3E>|`text/html`|<https://terminology.tib.eu/ts/ontologies/dfgfo2024/terms?iri=https%3A%2F%2Fw3id.org%2Fdfgfo%2F2024%2F%3CtermID%3E>|Landing page of a specific DFGFO 2024 term at the TIB Terminology Service; for example, for term `3.16-01 Preparatory and Physical Chemistry of Polymer`, the `termID` would be `3.16-01`|
 
 ### Version 2020-2024
 
