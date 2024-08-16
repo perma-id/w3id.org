@@ -27,6 +27,6 @@ Read more at the GitHub repository at [https://github.com/tibonto/DFG-Fachsystem
 
 |ID|Accept-Header|Target|Description|
 |-|-|-|-|  
-|<https://w3id.org/dfgfo/2020>|text/turtle|<https://raw.githubusercontent.com/tibonto/DFG-Fachsystematik-Ontology/2023-01-17/dfgfo.ttl>|Turtle file (.ttl) of the entire ontology (2020 version)|
-|<https://w3id.org/dfgfo/2020>|text/html|<https://terminology.tib.eu/ts/ontologies/dfgfo>|Landing page of DFGFO 2020 at the TIB Terminology Service|
-|<https://w3id.org/dfgfo/2020/<termID>>|text/html|<https://terminology.tib.eu/ts/ontologies/dfgfo/terms?iri=https%3A%2F%2Fgithub.com%2Ftibonto%2Fdfgfo%2F<termID>>|Landing page of a specific DFGFO 2020 term at the TIB Terminology Service, f.e. for term '44 Computer Science, Systems and Electrical Engineering', the termID would be 44|
+|<https://w3id.org/dfgfo/2020>|`text/turtle`|<https://raw.githubusercontent.com/tibonto/DFG-Fachsystematik-Ontology/2023-01-17/dfgfo.ttl>|Turtle file (`.ttl`) of the entire ontology (2020 version)|
+|<https://w3id.org/dfgfo/2020>|`text/html`|<https://terminology.tib.eu/ts/ontologies/dfgfo>|Landing page of DFGFO 2020 at the TIB Terminology Service|
+|<https://w3id.org/dfgfo/2020/%3CtermID%3E>|`text/html`|<https://terminology.tib.eu/ts/ontologies/dfgfo/terms?iri=https%3A%2F%2Fgithub.com%2Ftibonto%2Fdfgfo%2F%3CtermID%3E>|Landing page of a specific DFGFO 2020 term at the TIB Terminology Service; for example, for term `44 Computer Science, Systems and Electrical Engineering`, the `termID` would be `44`|
