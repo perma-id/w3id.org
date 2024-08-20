@@ -1,0 +1,232 @@
+@prefix ex: <http://w3id.org/HshlsOnto/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ex: a owl:Ontology;
+    rdfs:seeAlso "https://github.com/moukmarc/HshlsOnto" ;
+    dcterms:creator "Marc Mfoutou Moukala" ;
+    dcterms:license "https://github.com/moukmarc/HshlsOnto/blob/main/LICENSE" ;
+    dcterms:title "Harmonized survey on household living standards Ontology (HshlsOnto)" .
+ex:description a rdfs:AnnotationProperty ;
+               rdfs:label "Description" .
+ex:Constraint a owl:Class ;
+    rdfs:label " Constraint on the question " .
+
+ex:HSHLS a owl:Class ;
+    rdfs:label " Harmonized Survey on Households Living Standards" ;
+    rdfs:isDefinedBy ex:Section .
+
+ex:Household a owl:Class ;
+    rdfs:label " A household " .
+
+ex:Household_Member a owl:Class ;
+    rdfs:label " A household member surveyed " .
+
+ex:NumericConstraint a owl:Class ;
+    rdfs:label "Numeric constraint" ;
+    rdfs:subClassOf ex:Constraint .
+
+ex:Questionnaire a owl:Class ;
+    rdfs:isDefinedBy ex:Question .
+
+ex:Section a owl:Class ;
+    rdfs:label " A section or module of the survey " .
+
+ex:ConcernsHousehold a rdf:Property ;
+    rdfs:label " Concerns household " ;
+    rdfs:domain ex:Questionnaire ;
+    rdfs:range ex:Household .
+
+ex:HSHLS-C1 a ex:HSHLS ;
+    ex:hasTheSection ex:S00,
+        ex:S01,
+        ex:S02,
+        ex:S03,
+        ex:S04,
+        ex:S05,
+        ex:S06,
+        ex:S07,
+        ex:S08,
+        ex:S09,
+        ex:S10,
+        ex:S11,
+        ex:S12,
+        ex:S13,
+        ex:S14,
+        ex:S15,
+        ex:S16,
+        ex:S17,
+        ex:S18,
+        ex:S19,
+        ex:S20,
+        ex:S21 ;
+    rdfs:comment "The different sections of HSHLS survey for the first edition in Congo named here HSHLS-C1" .
+
+ex:belongsToHousehold a rdf:Property ;
+    rdfs:label " belongs to household " ;
+    rdfs:domain ex:Household_Member ;
+    rdfs:range ex:Household .
+
+ex:ccontainsQuestionnaire a rdf:Property ;
+    rdfs:label "contains questionnaire" ;
+    rdfs:domain ex:Section ;
+    rdfs:range ex:Questionnaire .
+
+ex:dependsOn a rdf:Property ;
+    rdfs:label " depends on " ;
+    rdfs:domain ex:Question ;
+    rdfs:range ex:Question .
+
+ex:hasCondition a rdf:Property ;
+    rdfs:label " has the condition " ;
+    rdfs:domain ex:Question ;
+    rdfs:range xsd:string .
+
+ex:hasQuestion a rdf:Property ;
+    rdfs:label " Includes question " ;
+    rdfs:domain ex:Questionnaire ;
+    rdfs:range ex:Question .
+
+ex:hasTheConstraint a rdf:Property ;
+    rdfs:label " has the constraint " ;
+    rdfs:domain ex:Question ;
+    rdfs:range ex:Constraint .
+
+ex:hasTheSection a rdf:Property ;
+    rdfs:label " Includes section " ;
+    rdfs:domain ex:HSHLS ;
+    rdfs:range ex:Section .
+
+ex:hasTheTypeOfResponse a rdf:Property ;
+    rdfs:label " has the question answer type " ;
+    rdfs:domain ex:Question ;
+    rdfs:range xsd:string .
+
+ex:maxValue a rdf:Property ;
+    rdfs:label "Maximum value" ;
+    rdfs:domain ex:NumericConstraint ;
+    rdfs:range xsd:float .
+
+ex:minValue a rdf:Property ;
+    rdfs:label "Minimum value" ;
+    rdfs:domain ex:NumericConstraint ;
+    rdfs:range xsd:float .
+
+ex:typeOfQuestionnaire a rdf:Property ;
+    rdfs:label " type of questionnaire " ;
+    rdfs:domain ex:Questionnaire ;
+    rdfs:range rdfs:Literal .
+
+ex:NeverSchoolAttendanceValidRep a ex:Constraint ;
+    ex:ValidValuesNeverAttendance "Autre (à préciser)",
+        "Etudes non adaptées",
+        "Etudes peu utiles",
+        "Frais de scolarité élevés",
+        "Handicap",
+        "Insécurité",
+        "Malade",
+        "Manque de moyens financiers",
+        "Mariage",
+        "Pas d'école, école trop éloignée",
+        "Pas d’acte de naissance",
+        "Préférence pour un emploi",
+        "Refus de la famille",
+        "Renvoi",
+        "Travaux champêtres/pastoralisme",
+        "Travaux domestiques",
+        "Trop jeune (moins de 6 ans)" .
+
+ex:Questionnaire2 a ex:Questionnaire ;
+    ex:ConcernsHousehold ex:Household ;
+    ex:hasQuestion ex:S02Q01a,
+        ex:S02Q01b,
+        ex:S02Q01c,
+        ex:S02Q01d,
+        ex:S02Q02a,
+        ex:S02Q02b,
+        ex:S02Q02c,
+        ex:S02Q02d,
+        ex:S02Q03a,
+        ex:S02Q03b,
+        ex:S02Q03c,
+        ex:S02Q03d,
+        ex:S02Q04,
+        ex:S02Q05,
+        ex:S02Q06,
+        ex:S02Q07,
+        ex:S02Q08,
+        ex:S02Q09,
+        ex:S02Q10,
+        ex:S02Q11,
+        ex:S02Q12,
+        ex:S02Q13,
+        ex:S02Q14,
+        ex:S02Q15,
+        ex:S02Q16,
+        ex:S02Q17,
+        ex:S02Q18,
+        ex:S02Q19,
+        ex:S02Q20,
+        ex:S02Q21,
+        ex:S02Q_Age ;
+    ex:typeOfQuestionnaire "Household member's education information" ;
+    rdfs:comment "The Questionnaire2 captures household member's education information for members of 3 years old and more" .
+
+ex:ReadingFrenchValidRep a ex:Constraint ;
+    ex:ValidValues "Non",
+        "Oui" .
+
+ex:S02 a ex:Section ;
+    ex:ccontainsQuestionnaire ex:Questionnaire2 ;
+    rdfs:comment "Every HSHLS section contains one questionnaire, which will be instanciated for every surveyed household" .
+
+ex:S02Q01a a ex:Question ;
+    rdfs:label "[NOM] peut-il/elle lire un petit texte en Français ?" ;
+    ex:dependsOn ex:S02Q_Age ;
+    ex:hasCondition "(ex:S02Q_Age >= 9)" ;
+    ex:hasTheConstraint ex:ReadingFrenchValidRep ;
+    ex:hasTheTypeOfResponse "String" ;
+    rdfs:comment "This question captures whether the surveyed household member can read a little text written in french" ;
+    rdfs:domain ex:Household_Member ;
+    rdfs:range xsd:string .
+
+ex:S02Q03 a ex:Question ;
+    rdfs:label "Est-ce que [NOM] fréquente actuellement ou a fréquenté l’école formelle ?" ;
+    ex:dependsOn ex:S02Q_Age ;
+    ex:hasCondition "(ex:S02Q_Age >= 3)" ;
+    ex:hasTheConstraint ex:SchoolAttendanceValidRep ;
+    ex:hasTheTypeOfResponse "String" ;
+    rdfs:comment "This question captures whether the surveyed household member is currently attending or have attended a formal school" ;
+    rdfs:domain ex:Household_Member ;
+    rdfs:range xsd:string .
+
+ex:S02Q04 a ex:Question ;
+    rdfs:label "Pour quelle raison principale [NOM] n’a-t-il/elle jamais fréquenté  dans une école formelle?" ;
+    ex:dependsOn ex:S02Q03 ;
+    ex:hasCondition "(ex:S02Q03 = Non n'a jamais fréquenté)" ;
+    ex:hasTheConstraint ex:NeverSchoolAttendanceValidRep ;
+    ex:hasTheTypeOfResponse "String" ;
+    rdfs:comment "This question captures the reason why the surveyed household member has never attended a formal school" ;
+    rdfs:domain ex:Household_Member ;
+    rdfs:range xsd:string .
+
+ex:SchoolAttendanceValidRep a ex:Constraint ;
+    ex:ValidValuesAttendance "Non n'a jamais fréquenté",
+        "Oui" .
+
+ex:S02Q_Age a ex:Question ;
+    rdfs:label "Quel est l'âge de [Nom] à son dernier anniversaire?" ;
+    rdfs:comment "The question S02Q_Age captures the age of the surveyed household member" ;
+    rdfs:domain ex:Household_Member ;
+    rdfs:range xsd:integer ;
+    rdfs:subClassOf [ a rdfs:Datatype ;
+            rdfs:maxInclusive 120 ;
+            rdfs:minInclusive 0 ;
+            rdfs:subClassOf xsd:integer ] .
+
+ex:Question a rdf:Property ;
+    rdfs:label " A question relating to the survey " .
+
