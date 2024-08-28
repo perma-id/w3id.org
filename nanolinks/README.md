@@ -1,4 +1,4 @@
-# /psnpbind/
+# /nanolinks/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for NanoLinks, a demo Knowledge Graph for interoperable nanosafety data semantic model.
 
 ## Uses
