@@ -1,6 +1,7 @@
 # TAO - Thermodynamics of Alloy Ontology 
 
-This W3ID provides a persistent URI namespace for the TAO Ontology. This Ontology serves the purpose of semantic linking the results atomistic simulations made for alloys. 
+This W3ID provides a persistent URI namespace for the TAO Ontology. 
+This Ontology serves the purpose of semantic linking the results of atomistic simulations made for alloys. 
 
 ## Repository
 - [https://github.com/kgubaev/thermodynamic-alloy-ontology](https://github.com/kgubaev/thermodynamic-alloy-ontology)
