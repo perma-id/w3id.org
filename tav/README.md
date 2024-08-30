@@ -2,7 +2,8 @@
 
 Repository created to store redirections of TAV: https://w3id.org/tav
 
-More information can be gleaned from [TAV Landing Page](https://arzoo-ebbs.github.io/tav)
+More information can be gleaned from [TAV Landing Page](https://arzoo-ebbs.github.io/tav) <br/>
+Github: [arzoo-ebbs](https://github.com/arzoo-ebbs)
 
 The following are the files related to TAV documentation:
 
