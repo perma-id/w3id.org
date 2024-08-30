@@ -1,4 +1,4 @@
-# Repository for TAV Redirection
+# Repository to store redirections to TAV
 
 Repository created to store redirections of TAV: https://w3id.org/tav
 
