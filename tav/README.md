@@ -2,8 +2,7 @@
 
 Repository created to store redirections of TAV: https://w3id.org/tav </br>
 
-It is maintained by Shakeeb Arzoo </br>
-[arzoo-ebbs](https://github.com/arzoo-ebbs). </br>
+It is maintained by Shakeeb Arzoo ([arzoo-ebbs](https://github.com/arzoo-ebbs)). </br>
 
 Further details can be accessed from [TAV Repo](https://arzoo-ebbs.github.io/tav) </br>
 
