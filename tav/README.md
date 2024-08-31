@@ -1,6 +1,9 @@
-# TAV: Tree Annotation Vocabulary
+Repository created to store redirections of TAV: https://w3id.org/tav </br>
 
-Tree Annotation Vocabulary (TAV) is an RDF vocabulary to describe the mentions of tree-like entities in literary works and link them to external databases to enrich their contextual background.
+It is maintained by Shakeeb Arzoo ([arzoo-ebbs](https://github.com/arzoo-ebbs)). </br>
+
+Further details can be accessed from [TAV Repo](https://arzoo-ebbs.github.io/tav) </br>
+
 
 # Persistent URI
 
@@ -21,9 +24,3 @@ Turtle: https://arzoo-ebbs.github.io/tav/doc/tav-ttl.ttl  </br>
 N-Triples: https://arzoo-ebbs.github.io/tav/doc/tav-nt.nt  </br>
 
 JSON-LD: https://arzoo-ebbs.github.io/tav/doc/tav-json.jsonld
-
-# Contact
-
-Shakeeb Arzoo </br>
-
-GitHub: [arzoo-ebbs](https://github.com/arzoo-ebbs)
