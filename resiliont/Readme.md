@@ -1,7 +1,7 @@
 # ResiliOnt: The Resilience Core Ontology 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/pedropaulofb/resiliont/main/resources/logos/Slide9.PNG" alt="Logo" style="width:500px">
+  <img src="https://raw.githubusercontent.com/pedropaulofb/resiliont/main/resources/logos/resiliont-logo-06.png" alt="Logo" style="width:500px">
 </p>
 
  [ResiliOnt](https://github.com/pedropaulofb/resiliont/) is a core ontology that aims to provide a clear and robust definition of resilience by leveraging the Unified Foundational Ontology (UFO) and OntoUML. By addressing the ambiguities and inconsistencies in existing definitions of resilience, ResiliOnt seeks to ensure interoperability and clarity across various domains and facilitate interdisciplinary research.
