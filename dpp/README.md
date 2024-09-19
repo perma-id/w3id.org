@@ -1,9 +1,12 @@
-DPP (Digital Product Passpot ontology)
+### DPP (Digital Product Passport Ontology)
 
-Documentation avalible at: https://jthproflow.hj.se/ontologies/ppon/dpp/index.html
+The Digital Product Passport (DPP) ontology provides a framework for product data integration and management. It is designed to help track and manage product information throughout its lifecycle.
 
-OWL: https://jthproflow.hj.se/ontologies/ppon/dpp/ontology.owl
+**Modules:**
+- DPP ontology modules are available at: [DPP Ontology Modules](https://github.com/RichZele/Integration_of_Product_Data_JTH/tree/main/Part-1/DPP_Modules)
 
-Contact: Rahel Kebede: rahel.kebede@ju.se
+**Publication:**
+- A paper detailing the DPP ontology is published and available at: [DOI Link](https://doi.org/10.1016/j.spc.2024.05.007)
 
-Contact: Filip Larsson: lafi21rx@ju.student.se (https://github.com/LarssonFilip)
+**Contact:**
+- For further inquiries, please contact: Rahel Kebede at [rahel.kebede@ju.se](mailto:rahel.kebede@ju.se)
