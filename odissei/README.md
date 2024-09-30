@@ -1,12 +1,16 @@
 Odissei
 =======
+ODISSEI (Open Data Infrastructure for Social Science and Economic Innovations) is the national research infrastructure for the Dutch social sciences.
 
-Homepage:
+
+Project homepage:
 
 - https://odissei-data.nl
+- https://github.com/odissei-data
 
 Contacts: 
 
-- Margherita Martorana <m.martorana@vu.nl>
-- Jacco van Ossenbruggen <jacco.van.ossebruggen@vu.nl>
+- Andre Valdestilhas <a.valdestilhas@vu.nl> https://github.com/firmao
+- Jacco van Ossenbruggen <jacco.van.ossebruggen@vu.nl> https://github.com/jrvosse
+- Margherita Martorana <m.martorana@vu.nl> https://github.com/ritamargherita
 
