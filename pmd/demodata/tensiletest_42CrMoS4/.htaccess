@@ -1,0 +1,56 @@
+# .htaccess for platform material digital vocabs
+RewriteEngine On
+
+SetEnvIf Request_URI ^.* LATEST_VERSION=1.0.0
+SetEnvIf Request_URI ^.* BASE_URI=https://materialdigital.github.io/demodata_tensiletest_42CrMoS4
+
+RewriteRule ^latest/(.*)$ %{ENV:LATEST_VERSION}/$1 [N]
+
+# Rewrite rule to serve the resource if requested
+RewriteRule ^resources/(.*)$ %{ENV:BASE_URI}/resources/$1 [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^((\d+\.\d+\.\d+)/)(.*)$ %{ENV:BASE_URI}/ [R=303,L,NE]
+## same directive for unversioned call
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/ [R=303,L,NE]
+
+# Rewrite rule to serve RDF content from the vocabulary URL if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^((\d+\.\d+\.\d+)/)(.*)$ %{ENV:BASE_URI}/$2/onto.rdf [R=303,L]
+## same directive for unversioned call
+RewriteCond %{HTTP_ACCEPT} \*/\+ [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/%{ENV:LATEST_VERSION}/onto.rdf [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^((\d+\.\d+\.\d+)/)(.*)$ %{ENV:BASE_URI}/$2/onto.jsonld [R=303,L]
+## same directive for unversioned call
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/%{ENV:LATEST_VERSION}/onto.jsonld [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^((\d+\.\d+\.\d+)/)(.*)$ %{ENV:BASE_URI}/$2/onto.ttl [R=303,L]
+## same directive for unversioned call
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/%{ENV:LATEST_VERSION}/onto.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^((\d+\.\d+\.\d+)/)?(.*)$ %{ENV:BASE_URI}/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^(.*)$ %{ENV:BASE_URI}/%{ENV:LATEST_VERSION}/base_ontology.rdf [R=303,L]

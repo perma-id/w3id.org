@@ -11,7 +11,17 @@ List of ontologies that are currently redirected:
 - CSS: Ontology implementation of the abstract reference model for capabilities, skills and services
 - CaSk: An ontology detailing the concepts of the CSS ontology
 - CaSkMan: A more detailed ontology further extending the concepts of `CaSk` for the domain of manufacturing.
-
+- IEEE 1872.2: Ontology implementation of the Standard for Autonomous Robotics (AuR)
+- VDI 3682: Ontology implementation of the formalized process description based on VDI 3682 guideline 
+- DIN 8580: Ontology implementation of taxonomy for manufacturing processes based on DIN 8580 standard 
+- DIN EN 61360: Ontology implementation of the description of properties based on DIN EN 61360 standard 
+- ISA88: Ontology implementation of concepts to describe general states and transitions of machines based on ISA88 standard
+- WADL: Ontology implementation of description of HTTP-based applications based on WADL standard
+- VDI 2860: Ontology implementation of taxonomy for handling operations based on VDI 2860 guideline
+- VDI 2206: Ontology implementation of concepts for mechatronic systems based on VDI 2206 guideline
+- ISO 22400-2: Ontology implementation of description of KPIs based on ISO 22400-2 standard 
+- DIN EN 62264-2: 
+- VDI 5100: Ontology implementation of system architecture of intralogistics plants based on VDI 5100
 
 ## Maintainers
 - Aljosha Köcher (@aljoshakoecher)

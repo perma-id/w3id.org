@@ -2,5 +2,12 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^$ http://nanopub.org/ [R=302,L]
-RewriteRule ^(RA[A-Za-z0-9_\-]{43})$ http://np.inn.ac/$1 [R=302,L]
+RewriteRule ^$ https://nanopub.net/ [R=307,L]
+
+RewriteCond %{HTTP:FDO} object
+RewriteRule ^(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/fdo?get=object&id=$1 [R=307,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/explore?id=$1 [R=307,L,NE]
+
+RewriteRule ^(RA[A-Za-z0-9_\-]{43}(\.[a-z.]+)?)$ https://np.knowledgepixels.com/$1 [R=307,L]

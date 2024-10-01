@@ -38,7 +38,10 @@ curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:60
 302: https://n2t.net/about.html
 
 curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/n2t/ark:/13030/m5rx99d1"
-303: http://n2t.net/ark:/13030/m5rx99d1
+302: http://n2t.net/ark:/13030/m5rx99d1
+
+curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/n2t/defn/ANVL"
+301: https://github.com/CDLUC3/file-anvl
 ```
 
 ## Examples for Testing

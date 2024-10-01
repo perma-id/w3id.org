@@ -1,8 +1,33 @@
+# Mostly from https://www.w3.org/TR/swbp-vocab-pub/#recipe3
+
 Header set Access-Control-Allow-Origin *
 Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
 Options +FollowSymLinks
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+# AddType text/turtle .ttl
+
 RewriteEngine on
-RewriteRule ^currentbeta$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_CurrentBeta.owl [R=302,L]
+RewriteBase /examples
+
+RewriteRule ^currentbeta$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_beta202304.owl [R=302,L]
 RewriteRule ^instances01$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_Instances01.owl [R=302,L]
 RewriteRule ^beta201901$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_Beta201901.owl [R=302,L]
 RewriteRule ^beta202001$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_Beta202001.owl [R=302,L]
+RewriteRule ^beta202001$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_Beta202001.owl [R=302,L]
+RewriteRule ^beta202210$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_beta202210.owl [R=302,L]
+RewriteRule ^beta202304$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_beta202304.owl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^beta202408$ https://boberreither.github.io/INTRO/ [R=303]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^beta202408$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_beta202304.owl [R=303]
+
+RewriteRule ^beta202408$ https://raw.githubusercontent.com/BOberreither/INTRO/master/INTRO_beta202304.owl [R=303]
