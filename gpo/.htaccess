@@ -1,0 +1,24 @@
+# Redirects IRIs dynamical to wiki pages by looking up the IRIs in the database
+# Used CGI Vars:
+# HTTP_HOST 	The hostname of the page being attempted
+# HTTPS 	"on" if the program is being called through a secure server
+# QUERY_STRING 	The query string (see GET, below)
+# REQUEST_URI 	The interpreted pathname of the requested document or CGI (relative to the document root)
+# 
+# Used Flags (see https://httpd.apache.org/docs/2.4/rewrite/flags.html):
+# R: Redirect
+# L: Skip further rules
+# QSA: append the existing query string
+# (NE: Disable escaping of special chars, e. g. # in IRIs)
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rules
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://onto-wiki.eu/wiki/Special:AskResolver?iri=http://%{HTTP_HOST}%{REQUEST_URI} [R=303,L,QSA]
+RewriteCond %{HTTPS} on
+RewriteRule ^(.*)$ https://onto-wiki.eu/wiki/Special:AskResolver?iri=https://%{HTTP_HOST}%{REQUEST_URI} [R=303,L,QSA]
+
+# Default response
+RewriteRule ^$ https://github.com/General-Process-Ontology/ontology [R=303,L]

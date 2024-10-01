@@ -1,0 +1,56 @@
+#
+# ## Contact
+# This space is administered by:
+#
+# Riccardo Albertoni
+# riccardo.albertoni@cnr.it
+# GitHub username: riccardoAlbertoni
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+# https://w3id.org/ctp  actual ontology in different syntaxes
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/ontology.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/ontology.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/index-en.html [R=303,L]
+#default response: html
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/index-en.html [R=303,L]
+
+# https://w3id.org/ctp/equivalences link to equivalences with other schemes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^equivalences$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/CTP_Ontology_equivalences.ttl  [R=303,L]
+#default response: ttl
+RewriteRule ^equivalences$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/CTP_Ontology_equivalences.ttl  [R=303,NE,L]
+
+## https://w3id.org/ctp/cq link to CQs
+RewriteRule ^cq$ https://github.com/TizianaPasciuto/CTP_Ontology/blob/master/Competency_Questions.md [R=303,L]
+
+## https://w3id.org/ctp/cq/CQXX demo sparql queries 
+## example:https://w3id.org/ctp/cq/CQ04  should returns https://github.com/TizianaPasciuto/CTP_Ontology/blob/master/TestSparql/20240508/CQs/CQ04.sparql
+RewriteRule ^cq/(.*)$ https://github.com/TizianaPasciuto/CTP_Ontology/blob/master/TestSparql/20240508/CQs/$1.sparql [R=303,L]
+
+## https://w3id.org/ctp/tabular
+RewriteRule ^tabular$ https://docs.google.com/spreadsheets/d/1qAHCUKAJaNcs_p7jHjx3pVr0d7cdsuijOhjfuWuraPA/ [R=303,L]
+
+## https://w3id.org/ctp/ncf 
+#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^nfc$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Instances/CTP_Ontology_core_InstanceNCF.ttl [R=303,L]
+
+## https://w3id.org/ctp/santiagodecompostela
+#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^santiagodecompostela$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Instances/CTP_Ontology_core_InstanceSantiago.ttl [R=303,L]
+
+
+## https://w3id.org/ctp/transitions
+#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^transitions$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Instances/CTP_Ontology_core_InstanceTransitions.ttl [R=303,L]

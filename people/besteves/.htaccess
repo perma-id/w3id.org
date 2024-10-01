@@ -1,0 +1,82 @@
+AddType text/turtle .ttl
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Webpage
+RewriteRule ^$ https://besteves4.github.io/ [R=302,L]
+
+# GitHub
+RewriteRule ^repo$ https://github.com/besteves4 [R=302,L]
+
+#########
+# Demos #
+#########
+
+# Demo ESWC22
+RewriteRule ^demo/eswc22$ https://protect.oeg.fi.upm.es/eswc-demo/ [R=302,L]
+
+# Demo ISWC23
+RewriteRule ^demo/iswc23$ https://besteves4.github.io/iswc23demo/ [R=302,L]
+
+########
+# Apps #
+########
+
+# SOPE
+RewriteRule ^sope/repo$ https://github.com/besteves4/solid-sope [R=302,L]
+
+# Right of Access API
+RewriteRule ^access-right/api$ https://github.com/besteves4/access-right-api [R=302,L]
+
+# Right of Access Solid app
+RewriteRule ^access-right/solid$ https://github.com/besteves4/access-right-solid [R=302,L]
+
+# SoDA
+RewriteRule ^soda/repo$ https://github.com/besteves4/soda [R=302,L]
+
+##########
+# Thesis #
+##########
+
+# Thesis text
+RewriteRule ^phd/thesis$ https://github.com/besteves4/phd-thesis/ [R=302,L]
+
+# Thesis contributions
+RewriteRule ^phd/contributions$ https://besteves4.github.io/phd-contributions/ [R=302,L]
+
+# PROTECT think-in
+RewriteRule ^phd/thinkin$ https://protect.oeg.fi.upm.es/thinkin/ [R=302,L]
+
+# Repository with SotA solutions
+RewriteRule ^phd/sota/repo$ https://github.com/besteves4/SotAResources [R=302,L]
+
+# Webpage with SotA languages
+RewriteRule ^phd/sota/languages$ https://protect.oeg.fi.upm.es/sota/languages [R=302,L]
+
+# Webpage with SotA ontologies
+RewriteRule ^phd/sota/ontologies$ https://protect.oeg.fi.upm.es/sota/ontologies [R=302,L]
+
+# Webpage with SotA searcher
+RewriteRule ^phd/sota/searcher$ https://protect.oeg.fi.upm.es/sota/searcher [R=302,L]
+
+##################
+# Justifications #
+##################
+
+# Justifications repo
+RewriteRule ^justifications/repo$ https://github.com/besteves4/dpv-rights-exercising/ [R=302,L]
+
+# Justifications vocab
+## Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^justifications$ https://besteves4.github.io/dpv-rights-exercising/justifications.ttl [R=303,L]
+
+## Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^justifications$ https://besteves4.github.io/dpv-rights-exercising/ [R=303,L]

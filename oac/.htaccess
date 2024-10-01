@@ -1,4 +1,3 @@
-Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
@@ -6,18 +5,54 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://besteves4.github.io/odrl-access-control-profile/oac.ttl [R=303,L]
+
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://protect.oeg.fi.upm.es/odrl-access-control-profile/oac.html [R=303,NE,L]
+RewriteRule ^$ https://besteves4.github.io/odrl-access-control-profile/oac.html [R=303,L]
 
-# Rewrite rule to serve TTL content from the vocabulary URI if requested
+# Rewrite rule to serve TTL content from current version of the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^$ https://protect.oeg.fi.upm.es/odrl-access-control-profile/oac.ttl [R=303,NE,L]
+RewriteRule ^0.2$ https://besteves4.github.io/odrl-access-control-profile/oac.ttl [R=303,L]
 
-#default response: html
-RewriteRule ^$ https://protect.oeg.fi.upm.es/odrl-access-control-profile/oac.html [R=303,NE,L]
+# Rewrite rule to serve HTML content from current version of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^0.2$ https://besteves4.github.io/odrl-access-control-profile/oac.html [R=303,L]
+
+# Rewrite rule to serve TTL content from previous versions of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^0.1$ https://besteves4.github.io/odrl-access-control-profile/old/0.1/oac.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content from previous versions of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^0.1$ https://besteves4.github.io/odrl-access-control-profile/old/0.1/oac.html [R=303,L]
+
+# Rewrite rule to serve HTML content from the repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^repo/?$ https://github.com/besteves4/odrl-access-control-profile [R=303,L]
+
+# Rewrite rule to serve HTML content from the policies repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^policies/?$ https://github.com/besteves4/oac-policies [R=303,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^$ https://besteves4.github.io/odrl-access-control-profile/oac.ttl [R=303,L]

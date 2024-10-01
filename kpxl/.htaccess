@@ -1,0 +1,114 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://knowledgepixels.com/ [R=302,L]
+
+RewriteRule ^query/v1/(.*)$ https://query.np.trustyuri.net/$1
+
+RewriteRule ^(gen/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+
+RewriteRule ^(group/terms/.*)$ https://nanodash.knowledgepixels.com/group?id=https://w3id.org/kpxl/$1
+
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$4&mode=$3 [R=302,L]
+
+RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$4 [R=307,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$3&mode=final [R=302,L]
+
+RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$3 [R=307,L]
+
+
+RewriteRule ^biodiv/terms/hasSubjectLifeCycleStage$ http://purl.org/np/RAgCS0rra2pm2liceluTzr1K0dhQcIo0pB36T4Kd2T6gE
+RewriteRule ^biodiv/terms/hasObjectLifeCycleStage$ http://purl.org/np/RAVNWZiXwxIMNFGn9VXombcc8gwW7r0i2lYGeIddjOrSQ
+RewriteRule ^biodiv/terms/OrganismTaxonToGeneAssociation$ http://purl.org/np/RAe6BUoHzTqPA2lviJEwdrujn8WGSsRegR3ni7yACCx4s
+
+RewriteRule ^([a-z]+/[a-z]+/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+
+RewriteRule ^(biodiv/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+
+
+RewriteRule ^rel(/(terms)?)?$ https://w3id.org/kpxl/rel/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^rel/terms/$ https://knowledgepixels.com/kpxl-ontologies/rel/ontology.trig [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^rel/terms/([^/]+)$ https://knowledgepixels.com/kpxl-ontologies/rel/index-en.html#https://w3id.org/kpxl/rel/terms/$1 [R=302,L,NE]
+
+
+RewriteRule ^opo(/(terms)?)?$ https://w3id.org/kpxl/opo/terms/ [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^opo/terms/$ https://knowledgepixels.com/kpxl-ontologies/opo/index-en.html [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^opo/terms/$ https://knowledgepixels.com/kpxl-ontologies/opo/ontology.ttl [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^opo/terms/$ https://knowledgepixels.com/kpxl-ontologies/opo/ontology.nt [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^opo/terms/$ https://knowledgepixels.com/kpxl-ontologies/opo/ontology.xml [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^opo/terms/$ https://knowledgepixels.com/kpxl-ontologies/opo/ontology.trig [R=302,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^opo/terms/([^/]+)$ https://knowledgepixels.com/kpxl-ontologies/opo/index-en.html#https://w3id.org/kpxl/opo/terms/$1 [R=302,L,NE]
+
+
+
+RewriteRule ^rel/terms/(.+)$ https://w3id.org/kpxl/rel/latest/$1 [R=302,L]
+RewriteRule ^rel/np/.+/(RA[A-Za-z0-9_\-]{43})$ http://purl.org/np/$1 [R=302,L]
+
+RewriteRule ^rel/latest/ScientificRelationsOntology$ http://purl.org/np/RAn0xdUcRhIXoI5LLgGJ71ffghQ2FRwHWFas_vxQs9QVs [R=302,L]
+RewriteRule ^rel/latest/tendsToAffect$ http://purl.org/np/RAytya1N4hYE5O23o6TinEF9szxTs-_L7rDCDe2DoVXDQ [R=302,L]
+RewriteRule ^rel/latest/tendsToBeCausedBy$ http://purl.org/np/RAZcAKHUEgbDXcplvTPk9qjYVthVrnI2DRv_BBqbQS40E [R=302,L]
+RewriteRule ^rel/latest/tendsToBeFollowedBy$ http://purl.org/np/RA5wUOkrNke6nycovBsgbp7bKqJoO8bc4MIo9eXwNiIa0 [R=302,L]
+RewriteRule ^rel/latest/tendsToBeIncludedIn$ http://purl.org/np/RAQtW0Zh_qCNoTuSZ4S6T904ZXliiNubfwPbZa59bwSDc [R=302,L]
+RewriteRule ^rel/latest/tendsToBeNecessaryAndSufficientFor$ http://purl.org/np/RAG_q3AnYWibKAQMoNkFvZVEkmxNm-32wKsMHTG2T8Aj8 [R=302,L]
+RewriteRule ^rel/latest/tendsToCause$ http://purl.org/np/RA1RvjyZn7FP9172tBOZRynQGHwTfyr952WTQnXBq5NKo [R=302,L]
+RewriteRule ^rel/latest/tendsToContributeTo$ http://purl.org/np/RAyn8y7gMLNmx5arkWXoqduaHdbC2yLbAq4ktAbmFzOlA [R=302,L]
+RewriteRule ^rel/latest/tendsToCooccurWith$ http://purl.org/np/RAPLRMV5mO8TZjf6g7Zf-fieiLe-eBLdN1s1P7nKF0dsg [R=302,L]
+RewriteRule ^rel/latest/tendsToDecrease$ http://purl.org/np/RAg_s0dkUVarj2bOQ9kZwtnVJ-M_UFpXn4rd8774ELHZY [R=302,L]
+RewriteRule ^rel/latest/tendsToEnable$ http://purl.org/np/RA09XZlngWhvF9sUPqK1a8CbG95o2gCQnJfo3-Hkpsd24 [R=302,L]
+RewriteRule ^rel/latest/tendsToFollow$ http://purl.org/np/RAKwQUiK2NnK7DKwwKy8NA-Ag3q4qdSzq-gf5WXYLotRk [R=302,L]
+RewriteRule ^rel/latest/tendsToHaveDifferentValueFrom$ http://purl.org/np/RAyeZYd1j5XeirbbB_pJenUdVFj7MmhZPEnyHPhNZMwIA [R=302,L]
+RewriteRule ^rel/latest/tendsToHaveLargerValueThan$ http://purl.org/np/RAi4Q9M8iPOLCGSXhlDeRBgIABbPWfhxq2_P8geEGWZnc [R=302,L]
+RewriteRule ^rel/latest/tendsToHaveSameValueAs$ http://purl.org/np/RAx2QtWjPB4i1Xxo5pckz-3sHS1Mmn5cmZjfWjJbvaPWc [R=302,L]
+RewriteRule ^rel/latest/tendsToHaveSimilarValueAs$ http://purl.org/np/RAbxhb1JXp3YTpzc0en12obWWlZbbExAyFBo4RzHWV8Go [R=302,L]
+RewriteRule ^rel/latest/tendsToHaveSmallerValueThan$ http://purl.org/np/RAW7pqxAf_l5Shr6hc0G2j_x38N_8ObT3mu3ouaauLqb8 [R=302,L]
+RewriteRule ^rel/latest/tendsToInclude$ http://purl.org/np/RAqlS1tPBDHGLYBOyjp6beLPEAcQowkGNQYUHIuNZeY14 [R=302,L]
+RewriteRule ^rel/latest/tendsToIncrease$ http://purl.org/np/RA27hQo3hZ5Oll0OlDC-W73DAgepmRmNP9rxdcR5VLqnc [R=302,L]
+RewriteRule ^rel/latest/tendsToInhibit$ http://purl.org/np/RAU7yzxCwg5RK1qx6kpxZlK6H5WNB9sfndbeu4VpqQQnk [R=302,L]
+RewriteRule ^rel/latest/tendsToPrevent$ http://purl.org/np/RA2YCHBzJ75_hWgttI_667Ls54uaAz-SuT0uHKapljzm8 [R=302,L]
+RewriteRule ^rel/latest/tendsToRequire$ http://purl.org/np/RAT6Any9ptijZOayj58EzN1FLaEnVyU567Y_f7jsaKe3k [R=302,L]
+
+RewriteRule ^rel/latest/index$ http://purl.org/np/RA1dTv6qnBM22YSoXp9Dqz0pczmv4QriwZOLkoNfExNAM [R=302,L]
+
+
+RewriteRule ^opo/terms/(.+)$ https://w3id.org/kpxl/opo/latest/$1 [R=302,L]
+RewriteRule ^opo/np/.+/(RA[A-Za-z0-9_\-]{43})$ http://purl.org/np/$1 [R=302,L]
+
+RewriteRule ^opo/latest/OpinionOntology$ http://purl.org/np/RAJMk0QoVAPSLUa33c8tWqZQ41VpVNYRc_MMVwR3-c0fU [R=302,L]
+RewriteRule ^opo/latest/thinksIsOverrated$ http://purl.org/np/RAQpTSS1gac4yddlrQn0_sGFAR_pYFgKF22O0ZE8O8df8 [R=302,L]
+RewriteRule ^opo/latest/thinksIsUnderrated$ http://purl.org/np/RAjrXKCuC4WmSlvBH2kbVRreh24-dU8o4ZLBjnLlsKjGw [R=302,L]
+
+RewriteRule ^opo/latest/index$ http://purl.org/np/RA_HPGSLNnQqd2mi6Zy2z9hpQSv_GL-uso5XI_0aFmosY [R=302,L]

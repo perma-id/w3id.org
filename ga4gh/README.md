@@ -1,7 +1,18 @@
 # GA4GH
 
-Homepage
-https://ga4gh.org
+This [W3ID](https://w3id.org) provides a persistent URI namespace for standards, products and other assests associcated with the Global Alliance for Genomics and Health (Global Alliance for Genomics and Health).
 
-Contact
-info at ga4gh dot org
+# Homepage
+https://www.ga4gh.org
+
+# Contact
+For general GA4GH enquiries: info at ga4gh dot org
+
+# Administration
+
+This space is adminstered by
+
+- Susan Fairley 
+  - GitHub: [@susanfairley](https://www.github.com/susanfairley)
+- Andy Yates 
+  - GitHub: [@andrewyatz](https://www.github.com/andrewyatz)
