@@ -4,7 +4,7 @@ KPIOnto
 ## Homepage:
 * https://w3id.org/kpionto
 
-##Contacts: 
+## Contacts:
 * Emanuele Storti <e.storti@univpm.it>
 
 

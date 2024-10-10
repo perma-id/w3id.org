@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine on
+# Rewrite rule for the html
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://epncb.oma.be/PID/$1  [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)$ https://epncb.oma.be/PID/$1.json  [R=303,L]

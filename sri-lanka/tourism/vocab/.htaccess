@@ -1,0 +1,10 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^(.*)$ https://tourism-data.github.io/sri-lanka/rdf/vocab/vocab.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^(.*)$ https://tourism-data.github.io/sri-lanka/rdf/vocab/vocab.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^(.*)$ https://tourism-data.github.io/sri-lanka/rdf/vocab/vocab.jsonld [R=303,L]
+RewriteRule ^(.*)$ https://tourism-data.github.io/sri-lanka/rdf/vocab/vocab.ttl [R=303,L]

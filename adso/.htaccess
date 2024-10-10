@@ -1,0 +1,36 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine On
+
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+			
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/ https://muddymudskipper.github.io/adso/html/adso.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabulary/mezcaloteca/ https://muddymudskipper.github.io/adso/html/adso.html [R=303,L]
+
+
+# Rewrite rule to serve Turtle content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/ https://muddymudskipper.github.io/adso/ontology/1.0/adso.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabulary/mezcaloteca/ https://muddymudskipper.github.io/adso/vocabulary/mezcaloteca/1.0/mezcaloteca.ttl [R=303,L]
+
+
+# Fallback if Accept is missing: Turtle
+RewriteRule ^ontology/ https://muddymudskipper.github.io/adso/ontology/1.0/adso.ttl [R=303,L]
+RewriteRule ^vocabulary/mezcaloteca/ https://muddymudskipper.github.io/adso/vocabulary/mezcaloteca/1.0/mezcaloteca.ttl [R=303,L]

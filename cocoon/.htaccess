@@ -1,0 +1,95 @@
+Options +FollowSymLinks
+# Turn off MultiViews https://stackoverflow.com/a/25423722/646732
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# Rewrite engine setup
+RewriteEngine On
+
+# code 308 permanent redirect, cacheable,
+# The request method and the body will not be altered, 
+# whereas 301 may incorrectly sometimes be changed to a GET method.
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
+
+# flag https://httpd.apache.org/docs/2.4/rewrite/flags.html
+# L|last, if the rule matches, no further rules will be processed.
+# N|Re-run the rewriting process (starting again with the first rewriting rule).
+    # This time, the URL to match is no longer the original URL, but rather the URL returned by the last rewriting rule.
+# NC|nocase, case-insensitive.
+# NE|noescape, do not convert to hexcode equivalent
+# OR|Combine rule conditions with a local OR instead of the implicit AND
+# QSA|qsappend, query strings to be combined.
+
+# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriterule
+
+# Homepage
+RewriteRule ^$ https://github.com/miranda-zhang/cloud-computing-schema [R=308,L]
+
+# make sure we don't have the file or a directory index to serve
+# the rest fails to redirect if we do
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .* - [L]
+
+# https://stackoverflow.com/a/52842618/646732
+# $0 is the whole string, $1 is the first captured group, and so on
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+# curl -L http://localhost/cocoon/v1.0.1
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(v[0-9]\.[0-9](?:\.[0-9])?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/index-en.html [R=308,NE,L] 
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+# curl -H "Accept: application/ld+json" -L http://localhost/cocoon/v1.0.1
+# curl -H "Accept: application/ld+json" -L https://w3id.org/cocoon/v1.0.1
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v[0-9]\.[0-9](?:\.[0-9])?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.json [R=308,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+# curl -LH "Accept: application/rdf+xml" http://localhost/cocoon/v0.1
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v[0-9]\.[0-9](?:\.[0-9])?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.xml [R=308,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+# curl -LH "Accept: application/n-triples" http://localhost/cocoon/v1.0
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v[0-9]\.[0-9](?:\.[0-9])?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.nt [R=308,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+# curl -LH "Accept: text/turtle" http://localhost/cocoon/v0.1
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(v[0-9]\.[0-9](?:\.[0-9])?)/?$ https://miranda-zhang.github.io/cloud-computing-schema/$1/ontology.ttl [R=308,L]
+
+# The dataset index
+# curl http://localhost/cocoon/data
+RewriteRule ^data/?$ http://35.231.131.100:5000 [L,R=308,NE]
+
+# Versioned datasets
+# curl http://localhost/cocoon/data/v1.0.1
+RewriteRule ^data/(v[0-9]\.[0-9](?:\.[0-9])?)/?$ http://35.231.131.100:5000/cocoon_$1 [L,R=308,NE]
+
+# curl http://localhost/cocoon/data/v1.0.1/2019-03-07/CloudStorageTransactionsPriceSpecification/Azure/managed_disk/transactions-ssd
+RewriteRule ^data/(v[0-9]\.[0-9](?:\.[0-9])?)/.*$ http://35.231.131.100:5000/cocoon_$1?subject=https://w3id.org/cocoon/$0 [L,R=308,NC,NE,QSA]
+
+# debug
+# curl http://localhost/cocoon/data/v1.0.1/Measurement/DownlinkSpeed-1-128-KB/StorageService/Gcloud/150.203.213.249/lat=-35.271475/long=149.121434/2019-02-26T07%3A14%3A19.932Z/australia-southeast1
+# $2 = match anything not /, replace all slash after version number to be the encoded value, add \ to escape the %2F
+# RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/([^/]+)/(.*)$ data/$1/$2\%2F$3 [N=20]
+# RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/(.*)$ http://35.231.131.100:5000/cocoon_$1?subject=https\%3A\%2F\%2Fw3id.org\%2Fcocoon\%2Fdata\%2F$1\%2F$3[L,NE,QSA,R=308]
+
+# RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/.*$ http://35.231.131.100:5000/cocoon_$1?subject=https%3A%2F%2Fw3id.org%2Fcocoon%2F$0 [B=/,L,QSA,R=308]
+# RewriteCond %{THE_REQUEST} [a-z]{3,5}\s.*?/(data/(v[0-9]\.[0-9]\.?[0-9]?)/.*)\s [NC]
+# RewriteRule ^data/(v[0-9]\.[0-9]\.?[0-9]?)/.* http://35.231.131.100:5000/cocoon_$1?subject=https\%3A\%2F\%2Fw3id.org\%2Fcocoon\%2F%1 [L,NE,QSA,R=308]

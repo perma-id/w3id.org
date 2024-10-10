@@ -1,0 +1,105 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+AddType application/trig .trig
+
+### PROD links
+
+# entry point
+# this will point to rohub main page
+RewriteRule ^$ https://www.rohub.org/ [R=302,L]
+
+# ROHub user (imported)
+RewriteRule ^users/(.*)$ https://www.rohub.org/userprofile?username=$1 [R=302,L]
+
+# about page 
+# this will point to rohub main page
+RewriteRule ^about$ https://www.rohub.org/about [R=302,L]
+
+# explore page 
+# this will point to rohub main page
+RewriteRule ^explore$ https://www.rohub.org/explore [R=302,L]
+
+# Research Object resource
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)/resources/(.*)$ https://www.rohub.org/$1?activetab=content&resource=$2 [R=302,L]
+# download resource
+RewriteRule ^(.*)/resources/(.*)$ https://api.rohub.org/api/resources/$2/download/ [R=302,L]
+RewriteRule ^resources/(.*)$ https://api.rohub.org/api/resources/$1/download/ [R=302,L]
+
+# Research Object manifest body
+# download manifest
+RewriteRule ^(.*)/.ro/manifest.ttl$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+
+# Research Object evo info 
+# download evo info annotation
+RewriteRule ^(.*)/annotations/evo_info$ https://api.rohub.org/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+# download evo info body
+RewriteRule ^(.*)/.ro/evo_info.ttl$ https://api.rohub.org/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+
+# Research Object enrichment info 
+# download enrichment annotation
+RewriteRule ^(.*)/annotations/enrichment$ https://api.rohub.org/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+# download enrichment body
+RewriteRule ^(.*)/.ro/annotations/enrichment.ttl$ https://api.rohub.org/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+
+# Research Object annotation bodies
+# download annotation body
+RewriteRule ^(.*)/.ro/annotations/(.*).ttl$ https://api.rohub.org/api/annotations/$2/download/ [R=302,L]
+
+# Research Object annotation
+# download annotation
+RewriteRule ^(.*)/annotations/(.*)$ https://api.rohub.org/api/annotations/$2/download/ [R=302,L]
+RewriteRule ^annotations/(.*)$ https://api.rohub.org/api/annotations/$1/download/ [R=302,L]
+
+# Research Object folder
+# folder manifest
+RewriteRule ^(.*)/folders/(.*).ttl$ https://api.rohub.org/api/ros/$1/folders/$2.ttl [R=302,L]
+# download folder using path
+RewriteRule ^(.*)/folders/(.*)/$ https://api.rohub.org/api/ros/$1/folders/$2/download/ [R=302,L]
+# download folder using identifier
+RewriteRule ^(.*)/folders/(.*)$ https://api.rohub.org/api/folders/$2/download/ [R=302,L]
+RewriteRule ^folders/(.*)$ https://api.rohub.org/api/folders/$1/download/ [R=302,L]
+
+# Research Object activities
+# download activities
+RewriteRule ^(.*)/activities$ https://api.rohub.org/api/ros/$1/activities/ [R=302,L]
+
+# Research Object geolocation
+# download geolocation
+RewriteRule ^(.*)/geolocation$ https://api.rohub.org/api/ros/$1/geolocation/ [R=302,L]
+
+# Research Object research areas
+# download research areas
+RewriteRule ^(.*)/research-areas$ https://api.rohub.org/api/ros/$1/research-areas/ [R=302,L]
+
+# Research Object crate
+# download ro-crate
+RewriteRule ^(.*)/crate$ https://api.rohub.org/api/ros/$1/crate/download/ [R=302,L]
+
+# Research Object
+# download RO as RDF (manifest), ZIP or PDF
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
+RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+# else open RO in ROHub portal
+# RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]

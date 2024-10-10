@@ -1,4 +1,4 @@
-##The Smart Appliances REFerence ontology (SAREF)
+## The Smart Appliances REFerence ontology (SAREF)
 
 Ontology
 

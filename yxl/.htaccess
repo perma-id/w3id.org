@@ -1,0 +1,36 @@
+# Ontology Extensions of Mehmed Yüksel
+# https://w3id.org/yxl/...
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+#Rewrite rules for me extension (temp link)
+RewriteRule "^(.*)$" "https://robotik.dfki-bremen.de/en/about-us/staff/meyu01.html" [R=302,L]
+
+
+#Rewrite rules for Korcut extension
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+RewriteRule ^korcut/wiki$ https://github.com/bosforox/KORCUT/wiki [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^korcut$ https://raw.githubusercontent.com/bosforox/KORCUT/master/ontology/korcut.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^korcut$ https://raw.githubusercontent.com/bosforox/korcut/master/ontology/kockut.ttl [R=303,L]
+#default response: owl
+RewriteRule ^korcut$ https://raw.githubusercontent.com/bosforox/KORCUT/master/ontology/korcut.owl [R=302,L]
+

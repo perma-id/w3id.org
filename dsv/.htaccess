@@ -1,0 +1,17 @@
+# Selected Options [+ on] [- off]
+Options +FollowSymLinks
+
+# Runtime rewriting engine
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv.ttl [R=303,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/ [R=303,NE,L]

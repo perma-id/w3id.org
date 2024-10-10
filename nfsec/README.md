@@ -6,7 +6,3 @@ Homepage:
 
 RSS Feed:
 * https://w3id.org/nfsec/rss
-
-Contacts:
-* Patryk Krawaczynski <agresor@stardust.nfsec.pl>
-

@@ -1,0 +1,43 @@
+# Turn off MultiViews
+Options -MultiViews +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Redirect https://w3id.org/sea-lod/whatever to the appropriate index,
+# e.g. https://data1.solidarityeconomy.coop/sea-lod/whatever/index.html 
+
+# content negotiation depending on the HTTP Accept header:
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([^/]+)/?$ https://data1.solidarityeconomy.coop/sea-lod/$1/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^/]+)/?$ https://data1.solidarityeconomy.coop/sea-lod/$1/index.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([^/]+)/?$ https://data1.solidarityeconomy.coop/sea-lod/$1/index.ttl [R=303,L]
+
+# Redirect https://w3id.org/sea-lod/whatever/X to the appropriate file on data1.solidarityeconomy.coop
+# In this case, X will refer to a specific Coop.
+# Content negotiation depending on the HTTP Accept header:
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://data1.solidarityeconomy.coop/sea-lod/$1.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://data1.solidarityeconomy.coop/sea-lod/$1.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://data1.solidarityeconomy.coop/sea-lod/$1.ttl [R=303,L]
+
+# Default rule. Apparently, some older Linked Data applications assume this default (sigh):
+RewriteRule ^(.*)$ https://data1.solidarityeconomy.coop/sea-lod/$1.rdf [R=303,L]

@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/pdf .pdf
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://semmtech.github.io/onto/dsa/dsa.ttl [R=303,NE,L]
+
+# In case of accept header <application/pdf>
+RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.* 
+RewriteRule ^$ https://semmtech.github.io/onto/dsa/dsa.pdf [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^dsa.ttl$ https://semmtech.github.io/onto/dsa/dsa.ttl [R=302,NE,L]
+
+# If suffix pdf, redirect to PDF version
+RewriteRule ^dsa.pdf$ https://semmtech.github.io/onto/dsa/dsa.pdf [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^dsa.html$ https://semmtech.github.io/onto/dsa/ [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://semmtech.github.io/onto/dsa/ [R=303,NE,L]

@@ -1,6 +1,5 @@
-Header set Access-Control-Allow-Origin *
-Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
 Options +FollowSymLinks
+RewriteEngine On
 
 # Turn off MultiViews
 Options -MultiViews
@@ -8,23 +7,33 @@ Options -MultiViews
 # Directive to ensure *.rdf files served as appropriate content type,
 # if not present in main apache config
 AddType application/rdf+xml .rdf
-
-# Rewrite engine setup
-RewriteEngine On
+AddType text/turtle .ttl
 
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://users.ugent.be/~pipauwel/ontologies/list_W3ID/20151211/index.html [R=303]
+RewriteRule ^$ https://pi.pauwel.be/evoc/list_W3ID/20151211/index.html [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^list.html$ https://pi.pauwel.be/evoc/list_W3ID/20151211/index.html [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^list.rdf$ https://pi.pauwel.be/evoc/list_W3ID/20151211/list.rdf [R=302,NE,L]
+
+# If suffix ttl, redirect to ttl version
+RewriteRule ^list.ttl$ https://pi.pauwel.be/evoc/list_W3ID/20151211/list.ttl [R=302,NE,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://users.ugent.be/~pipauwel/ontologies/list_W3ID/20151211/list.rdf [R=303]
+RewriteRule ^$ https://pi.pauwel.be/evoc/list_W3ID/20151211/list.rdf [R=302,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://pi.pauwel.be/evoc/list_W3ID/20151211/list.ttl [R=302,NE,L]
 
 # Choose the default response
 # ---------------------------
 
-# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
-RewriteRule ^$ https://users.ugent.be/~pipauwel/ontologies/list_W3ID/20151211/index.html [R=303]
+# Rewrite rule to serve the HTML content from the vocabulary URI by default
+RewriteRule ^$ https://pi.pauwel.be/evoc/list_W3ID/20151211/index.html [R=302]

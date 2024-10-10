@@ -1,0 +1,16 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://g0v-it.github.io/ontologies/mef/ [R=302,NE,L]
+
+# default response
+RewriteRule ^$ https://g0v-it.github.io/ontologies/mef/mef.rdf [R=303]
