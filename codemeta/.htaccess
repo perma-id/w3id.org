@@ -1,0 +1,38 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/3.0/codemeta.jsonld [R=303,L]
+
+# Rewrite rules for latest version.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://codemeta.github.io/terms/ [R=303,L]
+
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://raw.githubusercontent.com/codemeta/codemeta/$1/codemeta.jsonld [R=303,L]
+
+# Rewrite rules for any other version.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://codemeta.github.io/terms/ [R=303,L]
+
+# not acceptable requests (asking for other than JSON-LD or html)
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://dgarijo.github.io/example/release/1.0.1/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the JSON-LD content from the vocabulary URI by default
+RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/3.0/codemeta.jsonld [R=303,L]

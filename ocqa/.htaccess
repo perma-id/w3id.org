@@ -1,0 +1,55 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://sebseis.github.io/OCQA/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://sebseis.github.io/OCQA/ocqa.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ocqa.ttl$ https://sebseis.github.io/OCQA/ocqa.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ocqa.html$ https://sebseis.github.io/OCQA/ [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://sebseis.github.io/OCQA/ [R=303,NE,L]
+
+# Link to Modules, already described in main document
+# Catalog Module
+RewriteRule ^catalog.ttl$ https://sebseis.github.io/OCQA/Modules/Catalog/OCQA-Catalog.ttl [R=302,NE,L]
+RewriteRule ^catalog.html$ https://sebseis.github.io/OCQA/Modules/Catalog/ [R=302,NE,L]
+RewriteRule ^catalog$ https://sebseis.github.io/OCQA/Modules/Catalog/ [R=303,NE,L] # Default response: html
+# Contract Module
+RewriteRule ^contract.ttl$ https://sebseis.github.io/OCQA/Modules/Contract/OCQA-Contract.ttl [R=302,NE,L]
+RewriteRule ^contract.html$ https://sebseis.github.io/OCQA/Modules/Contract/ [R=302,NE,L]
+RewriteRule ^contract$ https://sebseis.github.io/OCQA/Modules/Contract/ [R=303,NE,L] # Default response: html
+# Regulation Module
+RewriteRule ^regulation.ttl$ https://sebseis.github.io/OCQA/Modules/Regulation/OCQA-Regulation.ttl [R=302,NE,L]
+RewriteRule ^regulation.html$ https://sebseis.github.io/OCQA/Modules/Regulation/ [R=302,NE,L]
+RewriteRule ^regulation$ https://sebseis.github.io/OCQA/Modules/Regulation/ [R=303,NE,L] # Default response: html
+# Rule Module
+RewriteRule ^rule.ttl$ https://sebseis.github.io/OCQA/Modules/Rule/OCQA-Rule.ttl [R=302,NE,L]
+RewriteRule ^rule.html$ https://sebseis.github.io/OCQA/Modules/Rule/ [R=302,NE,L]
+RewriteRule ^rule$ https://sebseis.github.io/OCQA/Modules/Rule/ [R=303,NE,L] # Default response: html
+
+# Link to Extensions, already described in main document
+# Screed Extension
+RewriteRule ^screed.ttl$ https://sebseis.github.io/OCQA/Extensions/Screed/OCQA-Screed.ttl [R=302,NE,L]
+RewriteRule ^screed.html$ https://sebseis.github.io/OCQA/Extensions/Screed/ [R=302,NE,L]
+RewriteRule ^screed$ https://sebseis.github.io/OCQA/Extensions/Screed/ [R=303,NE,L] # Default response: html
+# ThermalInsulation Extension
+RewriteRule ^thermalInsulation.ttl$ https://sebseis.github.io/OCQA/Extensions/Insulation/OCQA-ThermalInsulation.ttl [R=302,NE,L]
+RewriteRule ^thermalInsulation.html$ https://sebseis.github.io/OCQA/Extensions/Insulation/ [R=302,NE,L]
+RewriteRule ^thermalInsulation$ https://sebseis.github.io/OCQA/Extensions/Insulation/ [R=303,NE,L] # Default response: html

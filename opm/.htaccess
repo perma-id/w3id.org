@@ -1,0 +1,20 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://w3c-lbd-cg.github.io/opm/opm.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^opm.ttl$ https://w3c-lbd-cg.github.io/opm/opm.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^opm.html$ https://w3c-lbd-cg.github.io/opm [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://w3c-lbd-cg.github.io/opm [R=303,NE,L]

@@ -1,0 +1,10 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/nandana/loupe-ontology/master/OnToology/src/ontology/loupe-ontology.owl/documentation/ontology.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/nandana/loupe-ontology/master/OnToology/src/ontology/loupe-ontology.owl/documentation/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/nandana/loupe-ontology/master/OnToology/src/ontology/loupe-ontology.owl/documentation/ontology.jsonld [R=303,L]
+RewriteRule ^(.*)$ https://rawgit.com/nandana/loupe-ontology/master/OnToology/src/ontology/loupe-ontology.owl/documentation/index-en.html [R=303,L]

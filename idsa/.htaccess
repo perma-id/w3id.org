@@ -1,0 +1,106 @@
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+RewriteEngine on
+
+
+# HTML
+RewriteRule ^$ https://www.internationaldataspaces.org/ [R=303]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(core|code|metamodel)/?$ https://international-data-spaces-association.github.io/InformationModel/docs/index.html#$2 [NE,R=303]
+
+# Includes versioning
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/index.html [L,R=303]
+
+# TURTLE
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
+RewriteRule ^(core|code|metamodel).ttl https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.ttl [R=303]
+
+# TURTLE with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.ttl [L,R=303]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.*
+RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+RewriteRule ^(core|code|metamodel).n3 https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.n3 [R=303]
+
+# N3 with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.n3 [L,R=303]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf  [R=303]
+RewriteRule ^(core|code|metamodel).rdf https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
+RewriteRule ^(core|code|metamodel).xml https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.rdf [R=303]
+
+# RDF/XML with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*  [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.xml [L,R=303]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
+RewriteRule ^(core|code|metamodel).jsonld https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.jsonld [R=303]
+
+# JSON-LD with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.jsonld [L,R=303]
+
+# JSON
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^(core|code|metamodel)(/|#)*(.*) https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
+RewriteRule ^(core|code|metamodel).json https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.json [R=303]
+
+# JSON with versioning
+RewriteCond %{HTTP_ACCEPT} ^.*application/json.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.json [L,R=303]
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^(core|code|metamodel)(/|#)* https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
+RewriteRule ^(core|code|metamodel).nt https://international-data-spaces-association.github.io/InformationModel/docs/serializations/ontology.nt [R=303]
+
+# N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^core-([0-9])([0-9])([0-9]) https://international-data-spaces-association.github.io/InformationModel/docs/$1.$2.$3/serializations/ontology.nt [L,R=303]
+
+# context.json(ld)
+RewriteRule ^contexts/context.json$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld [R=303]
+RewriteRule ^contexts/context.jsonld$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld [R=303]
+RewriteRule ^contexts/context-dev.json$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld [R=303]
+RewriteRule ^contexts/context-dev.jsonld$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/4.0.0/context.jsonld [R=303]
+RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.json$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/$1/context.jsonld [R=303]
+RewriteRule ^contexts/([0-9][.][0-9][.][0-9])/context.jsonld$ https://gitlab.cc-asp.fraunhofer.de/eis-ids/ids-infomodel-commons/-/raw/master/jsonld-context/$1/context.jsonld [R=303]
+
+
+#
+RewriteRule ^(core|code|metamodel)/(.+) https://international-data-spaces-association.github.io/InformationModel/docs/index.html#/$2 [R=303,NE]
+RewriteRule ^shacl/(.+) https://raw.githubusercontent.com/International-Data-Spaces-Association/InformationModel/develop/testing/$1.ttl [R=303,NE]
+RewriteRule ^shacl https://github.com/International-Data-Spaces-Association/InformationModel/releases/download/v4.0.0/ValidationShapesv400.zip [R=303]
+
+# IDS Messages Table
+RewriteRule ^(ids-messages)?$ http://htmlpreview.github.io/?https://github.com/International-Data-Spaces-Association/InformationModel/blob/feature/message_taxonomy_description/model/communication/Message_Description.htm [R=303]
+
+
+# IDS-G
+RewriteRule ^ids-g/?$ https://github.com/International-Data-Spaces-Association/IDS-G/tree/master/
+RewriteRule ^ids-g/(.+) https://github.com/International-Data-Spaces-Association/IDS-G/blob/master/$1

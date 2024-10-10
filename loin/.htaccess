@@ -1,0 +1,45 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.html [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.rdf [R=302,NE,L]
+
+# In case of accept header <application/ld+json>
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.jsonld [R=302,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^loin.ttl$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^loin.html$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.html [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^loin.rdf$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.rdf [R=302,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^loin.jsonld$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.jsonld [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^loin.nt$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.nt [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ir-ontologies/loin/loin.html [R=303,NE,L]

@@ -1,0 +1,25 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/thgie/favr-ontology/main/favr.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/thgie/favr-ontology [R=303,L]
+
+
+
+# Choose the default response
+# ---------------------------
+# Default Rule
+RewriteRule ^$ https://raw.githubusercontent.com/thgie/favr-ontology/main/favr.ttl [R=303,L]

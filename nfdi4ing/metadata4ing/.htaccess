@@ -1,0 +1,66 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Specific content-type -> Access respective ontology
+
+# HTML:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/index.html [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/index.html [R=303,L,NE]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl [R=303,L,NE]
+
+# Turtle with versioning
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.ttl [R=303,L,NE]
+
+# XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.xml [R=303,L,NE]
+
+# XML with versioning
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.xml [R=303,L,NE]
+
+# N-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.nt [R=303,L,NE]
+
+# N-triples with versioning
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.nt [R=303,L,NE]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.jsonld [R=303,L,NE]
+
+# JSON-LD with versioning
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.jsonld [R=303,L,NE]
+
+# Context-File
+RewriteRule ^m4i_context.jsonld https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld [R=303,L,NE]
+
+# Logo-File
+RewriteRule ^m4i_logo.png https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/develop/visualizations/Logo.png [R=303,L,NE]
+
+# No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/index.html [R=303,L,NE]

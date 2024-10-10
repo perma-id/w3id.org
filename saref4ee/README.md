@@ -1,4 +1,4 @@
-##SAREF4EE: an extension of the Smart Appliances REFerence ontology for EEbus and Energy@home
+## SAREF4EE: an extension of the Smart Appliances REFerence ontology for EEbus and Energy@home
 
 Ontology
 

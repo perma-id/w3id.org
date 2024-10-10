@@ -1,0 +1,36 @@
+RewriteEngine on
+
+# catch FEP-specific term definitions
+
+## JSON-LD ontology/schema
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.jsonld [R=302,L]
+
+## RDF+XML ontology/schema
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.rdf [R=302,L]
+
+## Turtle ontology/schema
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.ttl [R=302,L]
+
+## By default, just take you to the term's folder
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/$2 [R=302,L]
+
+# catch FEP-specific context requests
+
+## By content negotiation
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://raw.codeberg.page/fediverse/fep/fep/$1/context.jsonld [R=302,L]
+
+## By URL hacking
+RewriteRule ^([A-Za-z0-9]+).jsonld$ https://raw.codeberg.page/fediverse/fep/fep/$1/context.jsonld [R=302,L]
+
+# catch FEP proposal documents
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
+
+# catch root request
+RewriteRule ^$ https://codeberg.org/fediverse/fep [R=302,L]
+
+# a generic catch-all rule
+RewriteRule ^(.*)\/?$  https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]

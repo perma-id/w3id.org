@@ -1,0 +1,17 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+# Project documentation
+RewriteRule ^$ https://about.workflowhub.eu/ [R=303,L]
+
+# Workflow Crate profile (versioned)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^workflow-ro-crate/(\d+\.\d+)$ https://about.workflowhub.eu/Workflow-RO-Crate/$1/ro-crate-metadata.jsonld [R=302,L]
+# HTML as fallback
+RewriteRule ^workflow-ro-crate/(\d+\.\d+)$ https://about.workflowhub.eu/Workflow-RO-Crate/$1/ [R=302,L]
+
+# Workflow Crate profile (latest version)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^workflow-ro-crate/?$ https://about.workflowhub.eu/Workflow-RO-Crate/ro-crate-metadata.jsonld [R=303,L]
+RewriteRule ^workflow-ro-crate/?$ https://about.workflowhub.eu/Workflow-RO-Crate/ [R=303,L]
+

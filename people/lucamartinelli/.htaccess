@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine on
+#A set of rewrite rules with content negotiation for w3id.org/people/lucamartinelli
+
+# profile is used in lucamartinelli's WebID: https://w3id.org/people/lucamartinelli
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://lucamartinelli.eu.org/foaf.rdf [R=303,L]
+
+# And everything else gets passed to the host:
+RewriteRule ^(.*)$ https://lucamartinelli.eu.org/$1 [R=303,L]

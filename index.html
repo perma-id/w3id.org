@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <title>w3id.org - Permanent Identifiers for the Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Secure, permanent URLs for your Web application that will stand the test of time.">
+    <meta name="author" content="W3C Permanent Identifier Community Group">
+    <meta name="keywords" content="W3ID, PURL, permanent identifier, perma-id, URL, w3id.org, persistent uniform resource locator">
     <!-- Le styles -->
     <link href=".assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -53,35 +54,52 @@
     </div>
     <div class="row">
       <div class="col-md-offset-2 col-md-8">
+        <h4>Content</h4>
+        <ul>
+          <li><a href="#purpose">Purpose</a></li>
+          <li><a href="#management">Management</a></li>
+          <li><a href="#system-operations">System Operations</a></li>
+          <li><a href="#new"><strong>Creating a New Identifier</strong></a></li>
+          <li><a href="#naming-policy">Naming Policy</a></li>
+          <li><a href="#w3id-community">W3ID Community</a></li>
+          <li><a href="#disclaimer">Disclaimer</a></li>
+        </ul>
+        <h3 id="purpose">Purpose</h3>
         <p>
 The purpose of this website is to provide a secure, permanent 
-<a href="http://en.wikipedia.org/wiki/URL">URL</a>
+<a href="https://en.wikipedia.org/wiki/URL">URL</a>
 re-direction service for Web applications. This service is run by the
-<a href="http://www.w3.org/community/perma-id/">W3C Permanent Identifier Community Group</a>.
+<a href="https://www.w3.org/community/perma-id/">W3C Permanent Identifier Community Group</a>.
         </p>
         <p>
 Web applications that deal with 
-<a href="http://en.wikipedia.org/wiki/Linked_data">Linked Data</a>
+<a href="https://en.wikipedia.org/wiki/Linked_data">Linked Data</a>
 often need to specify and use
 URLs that are very stable. They utilize services such as this one to ensure
 that applications using their URLs will always be re-directed to a working
 website. This website operates like a 
-<a href="http://en.wikipedia.org/wiki/Telephone_switchboard">switchboard</a>, 
+<a href="https://en.wikipedia.org/wiki/Telephone_switchboard">switchboard</a>, 
 connecting requests for
 information with the true location of the information on the Web. 
 The switchboard can be reconfigured to point to a new location if the 
 old location stops working.
         </p>
+        <h3 id="management">Management</h3>
         <p>
-There are a growing group of organizations that have 
-pledged responsibility to ensure the operation of this website. 
+A growing group of organizations have pledged responsibility as a
+consortium to ensure the operation of this website.
 These organizations are: 
-<a href="http://digitalbazaar.com/">Digital Bazaar</a>, 
-<a href="http://3roundstones.com/">3 Round Stones</a>, 
-<a href="http://www.openlinksw.com/">OpenLink Software</a>, 
-<a href="http://www.aptest.com/">Applied Testing and Technology</a>,
-<a href="http://openspring.net/">Openspring</a>, and
-<a href="http://bosatsu.net/">Bosatsu Consulting</a>.
+        </p>
+        <ul>
+<li><a href="https://www.digitalbazaar.com/">Digital Bazaar</a></li> 
+<li><a href="http://3roundstones.com/">3 Round Stones</a></li>
+<li><a href="http://www.openlinksw.com/">OpenLink Software</a></li> 
+<li><a href="https://www.aptest.com/">Applied Testing and Technology</a></li>
+<li><a href="http://openspring.net/">Openspring</a></li>
+<li><a href="https://bosatsu.net/">Bosatsu Consulting</a></li>
+<li><a href="https://surroundaustralia.com">SURROUND Australia</a></li>
+        </ul>
+        <p>
 They are responsible for all administrative
 tasks associated with operating the service. The social contract between 
 these organizations gives each of them full access to all information required
@@ -90,6 +108,11 @@ a number of these companies could fail, lose interest, or become unavailable
 for long periods of time without negatively affecting the operation of the
 site.
         </p>
+        <h4>Joining the Management consortium</h4>
+        <p>
+To join the management consortium, please make yourself known to the W3ID comminuty via participation in the mailing list (see the <a href="#w3id-community">W3ID Community</a> section below) and then, if you are still keen to join, please submit an Issue to the <a href="https://github.com/perma-id/w3id.org/issues">GitHub Issue Tracker</a> with the title <em>Seeking to join the W3ID Consortium</em> and include your details.        
+        </p>
+        <h3 id="system-operations">System Operations</h3>
 	<p>
 This website operates in HTTPS-only mode to ensure end-to-end security. This
 means that it may be used for Linked Data applications that require high
@@ -104,52 +127,94 @@ in such a way as to be a major inconvenience or danger to the Web, the
 community will mirror the information for the popular identifier and setup
 a working redirect to restore service to the rest of the Web.
         </p>
+        <h2 id="new">Creating a New Identifier</h2>
         <p>
-If you would like to add or update a permanent identifier to the website, the preferred
-procedure is to perform the following steps:
+If you would like to add or update a permanent identifier of the form
+<code>https://w3id.org/...</code>, the preferred procedure is to perform the
+following steps:
         </p>
         <ol>
-          <li><a href="https://github.com/perma-id/w3id.org">Fork the website</a> on Github.</li>
-          <li>Add or update a new redirect entry and commit your changes.</li>
-          <li>Submit a pull request for your changes.</li>
+          <li><em>Fork</em> <a href="https://github.com/perma-id/w3id.org">the <em>Repository</em> for this system</a> on GitHub.</li>
+          <li>Add or update a new redirect entry and commit your changes.
+            <ol>
+              <li></li>
+              <li>If it does not yet exist, create a new directory with an intended permanent
+              identifer name (see <a href="#naming-policy">Naming Policy</a> below).</li>
+              <li>If they do not yet exist, add <code>.htaccess</code> and <code>README.md</code> files to the directory.
+                <ul>
+                  <li><code>.htaccess</code> contains redirection rules, for computer to read and perform.</li>
+                  <li><code>README.md</code> contains more identifier info and contact info, for human to read.</li>
+                  <li>See <a href="](https://github.com/perma-id/w3id.org/tree/master/examples">w3id.org/examples</a>
+              for examples of <code>.htaccess</code> and <code>README.md</code>.</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+          <li>Submit a <em>Pull Request</em> for your changes.</li>
         </ol>
         <p>
-Please help out the maintainers of the service with the following:
+The maintainers of this system will then act on that <em>Pull Request</em> and
+merge it into this system's content. You will then be able to see your changes
+in the repository and via resolution of the identifier you created or edited.
+        </p>
+        <p>
+If the terms <em>Fork</em> and <em>Pull Request</em> are new to you, you need
+to familiarize yourself with the <a href="https://git-scm.com/">Git</a> version
+control system and <a href="https://github.com/">GitHub</a>, the platform used
+to host this system.  Please see this documentation:
         </p>
         <ul>
-          <li>Add contact info in a README or .htaccess comment.</li>
-          <li>Test your changes with a local checkout of the site.</li>
-          <li>Squash multiple commits into one commit before a pull request if appropriate.</li>
-          <li>Use descriptive commit messages.
+          <li><a href="https://docs.github.com/en/github-ae@latest/github/getting-started-with-github/fork-a-repo">Forking a Repository</a></li>
+          <li><a href="https://docs.github.com/en/github-ae@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork">Creating a Pull Request across Forks</a></li>
+        </ul>
+        <h4>Suitable PR content</h4>
+        <p>
+Please help out the maintainers of the service with the following in your Pull Requests:
+        </p>
+        <ul>
+          <li>
+            <strong>Contact info</strong> in a <code>README.md</code> or <code>.htaccess</code> comment.
+          </li>
+          <li><strong>Test your changes</strong> with a local checkout of the site.</li>
+          <li>
+            <strong><em>Squash</em> multiple commits</strong> into one commit before a pull request if appropriate.
+            <ul>
+              <li>Here is information on <em>squashing</em> commits: <a href="https://www.git-tower.com/learn/git/faq/git-squash/">How to Squash Commits in Git</a></li>
+            </ul>
+          </li>
+          <li><strong>Use descriptive commit messages</strong>. 
             In particular, include your project name in the commit message.
-            For those using the github interface, please modify the default
+            For those using the GitHub interface, please modify the default
             "Create/Update/Delete .htaccess" message.
           </li>
         </ul>
         <p>
 You can also send a request to add a redirect to the 
-<a href="http://lists.w3.org/Archives/Public/public-perma-id/">public-perma-id@w3.org</a>
+<a href="https://lists.w3.org/Archives/Public/public-perma-id/">public-perma-id@w3.org</a>
 mailing list. Make sure to include the URL that you want on w3id.org, the
 URL that you want to redirect to, and the HTTP code that you want to use
 when redirecting. An administrator will then create the redirect for you.
         </p>
+        <h3 id="naming-policy">Naming Policy</h3>
         <p>
-There is not yet an official policy on identifier names. The current practice
+There is no official policy on identifier names. The current practice
 is to claim a top-level directory name and add project specific second level
 identifiers. For instance, <code>https://w3id.org/PROJECT-ID/SUB-ID...</code>.
 Shared top-levels are also available such as
-<code>https://w3id.org/people/PERSON-ID</code>. There is not yet an official
+<code>https://w3id.org/people/PERSON-ID</code>. There is no official
 list or policy for reserved identifiers. However, the administrators may deny
 requests for identifiers that are too generic, could cause confusion, are
 inappropriate or offensive, or otherwise may be needed for future service
 expansion.
         </p>
+        <h3 id="w3id-community">W3ID Community</h3>
         <p>
 If you wish to engage the community in discussion about this service for
 your Web application, please send an e-mail to the 
-<a href="http://lists.w3.org/Archives/Public/public-perma-id/">public-perma-id@w3.org mailing list</a>.
+<a href="https://lists.w3.org/Archives/Public/public-perma-id/">public-perma-id@w3.org mailing list</a>.
         </p>
         <hr/>
+        <h3 id="disclaimer">Disclaimer</h3>
         <p>
 The letters 'w3' in the domain name for this site stand for "World Wide Web".
 Other than hosting the software for the Permanent Identifier Community Group,

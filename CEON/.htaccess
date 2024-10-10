@@ -1,0 +1,90 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage/repository
+RewriteRule ^/?$ https://liusemweb.github.io/CEON/ [R=308,L]
+
+# Redirect catalogue request
+RewriteRule ^catalogue/?$ https://github.com/LiUSemWeb/Circular-Economy-Ontology-Catalogue [R=308,L]
+
+# Redirect alignments request
+RewriteRule ^alignments/?$ https://github.com/LiUSemWeb/Circular-Economy-Ontology-Catalogue/tree/main/alignments [R=308,L]
+
+# Begin redirects specific for Trace4Value
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ontology)/(flatglass)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/T4V/$1/$2/$3/$2.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology)/(flatglass)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/T4V/$1/$2/$3/$2.ttl [R=303,NE,L]
+
+# Redirect request to versioned/latest JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology)/(flatglass)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/T4V/$1/$2/$3/$2.jsonld [R=303,NE,L]
+
+# Redirect request to RDF/XML (base URL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ontology)/(flatglass)/?$ https://liusemweb.github.io/T4V/$1/$2/latest/$2.rdf [R=303,NE,L]
+
+# Redirect request to Turtle (base URL)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology)/(flatglass)/?$ https://liusemweb.github.io/T4V/$1/$2/latest/$2.ttl [R=303,NE,L]
+
+# Redirect request to JSON-LD (base URL)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology)/(flatglass)/?$ https://liusemweb.github.io/T4V/$1/$2/latest/$2.jsonld [R=303,NE,L]
+
+# Redirect to specific file
+RewriteRule ^(ontology)/(flatglass)/([0-9]\.[0-9](?:\.[0-9])?|latest)/(\w+\.(\w+))$ https://liusemweb.github.io/T4V/$1/$2/$3/$4 [R=303,NE,L]
+
+# Redirect versioned request for any text-oriented MIME type to the documentation
+RewriteRule ^(ontology)/(flatglass)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/T4V/$1/$2/$3/index.html [R=303,NE,L]
+
+# Redirect to resource documentation for any text-oriented MIME type
+RewriteRule ^(ontology)/(flatglass)/([\w\-_0-9]+)$ https://liusemweb.github.io/T4V/$1/$2/latest/index.html#$3 [R=303,NE,L]
+
+# Redirect base URL (no version or latest) request for any text-oriented MIME type to the documentation
+RewriteRule ^(ontology)/(flatglass)/?$ https://liusemweb.github.io/T4V/$1/$2/latest/index.html [R=303,NE,L]
+# END
+
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/CEON/$1/$2/$3/$2.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/CEON/$1/$2/$3/$2.ttl [R=303,NE,L]
+
+# Redirect request to versioned/latest JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/CEON/$1/$2/$3/$2.jsonld [R=303,NE,L]
+
+# Redirect request to RDF/XML (base URL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/?$ https://liusemweb.github.io/CEON/$1/$2/latest/$2.rdf [R=303,NE,L]
+
+# Redirect request to Turtle (base URL)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/?$ https://liusemweb.github.io/CEON/$1/$2/latest/$2.ttl [R=303,NE,L]
+
+# Redirect request to JSON-LD (base URL)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/?$ https://liusemweb.github.io/CEON/$1/$2/latest/$2.jsonld [R=303,NE,L]
+
+# Redirect to specific file
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/(\w+\.(\w+))$ https://liusemweb.github.io/CEON/$1/$2/$3/$4 [R=303,NE,L]
+
+# Redirect versioned request for any text-oriented MIME type to the documentation
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([0-9]\.[0-9](?:\.[0-9])?|latest)/?$ https://liusemweb.github.io/CEON/$1/$2/$3/index.html [R=303,NE,L]
+
+# Redirect to resource documentation for any text-oriented MIME type
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/([\w\-_0-9]+)$ https://liusemweb.github.io/CEON/$1/$2/latest/index.html#$3 [R=303,NE,L]
+
+# Redirect base URL (no version or latest) request for any text-oriented MIME type to the documentation
+RewriteRule ^(ontology|demo)/([\w\-_0-9]+)/?$ https://liusemweb.github.io/CEON/$1/$2/latest/index.html [R=303,NE,L]
+
+# Default redirect for unmatched patterns to GitHub project
+RewriteRule ^.* https://github.com/LiUSemWeb/CEON [R=303,NE,L]

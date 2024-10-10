@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect specific URI to new SPARQL endpoint for the new version of the graph
+RewriteCond %{REQUEST_URI} ^/cskg/sparql$ [NC]
+RewriteRule ^(.*)$ https://scholkg.kmi.open.ac.uk/sparql/ [R=302,L]
+
+# Redirect all other requests to a project website
+RewriteRule ^(.*)$ https://scholkg.kmi.open.ac.uk/$1 [R=302,L]
+

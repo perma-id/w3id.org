@@ -1,0 +1,40 @@
+# Point-of-contact: Karl Hammar <karl.hammar@outlook.com>, Github username: @hammar
+
+Options +FollowSymLinks -Indexes
+
+RewriteEngine on
+
+
+
+# Redirect requests w/o version in IRI to latest version (at time of writing 4.0)
+# Note that Apache will redirect from rec#Concept to rec/ by itself, appending the slash,
+# since this .htaccess file lives in a directory.
+RewriteRule ^$ https://w3id.org/rec/4.0 [R=303,NE,L]
+
+# Redirect versioned URIs to corresponding TTL file on docs site, or docs, depending on Accept header
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([\w.-]+)/?$ https://doc.realestatecore.io/$1/rec.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} !(text/turtle)
+RewriteRule ^([\w.-]+)/?$ https://doc.realestatecore.io/$1/ [R=303,NE,L]
+
+
+
+# The redirects below are for older and more complex REC URIs (through v3.3)
+# They make use of ontology modules in the URI and are slash-based, modular
+
+# 2.3 API
+RewriteRule ^api/2.3/graph/$ https://doc.realestatecore.io/api/2.3/ [R=303,NE,L]
+
+# Redirect versioned request for application/rdf+xml MIME  type to a suitable serialised file
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^(\w+)/([\w.-]+)/(\w*)$ https://doc.realestatecore.io/$2/$1.rdf [R=303,NE,L]
+
+# Redirect versioned request for any text-oriented MIME type to the documentation
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(\w+)/([\w.-]+)/(\w*)$ https://doc.realestatecore.io/$2/$1.html#$3 [R=303,NE,L]
