@@ -1,0 +1,40 @@
+# Rewrite engine setup
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+
+# Rewrite rule for latest release.
+
+RewriteRule ^ontology/latest  https://cdn.jsdelivr.net/gh/datafoodconsortium/ontology@latest/$1 [R=302,L]
+
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Rewrite rule for versioned ontology folders
+
+RewriteRule ^ontology/v([0-9]+.[0-9]+.[0-9]+)/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/ontology@v$1/$2 [R=302,L]
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Rewrite rule for versioned taxonomies releases
+
+RewriteRule ^taxonomies/v([0-9]+.[0-9]+.[0-9]+)/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies@v$1/$2 [R=302,L]
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Rewrite rule for latest taxonomies folder
+
+RewriteRule ^taxonomies/(.*) https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies@latest/$1 [R=302,L]
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Mop up all other reqests to DFC homepage
+
+# RewriteRule  https://docs.dfc-standard.org/ [R=302,L]

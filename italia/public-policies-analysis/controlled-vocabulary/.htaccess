@@ -1,0 +1,16 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json.* SYNTAX=json
+SetEnvIf Accept ^.*application/csv.* SYNTAX=csv
+SetEnvIf Accept ^.*text/csv.* SYNTAX=csv
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)$ https://dati.inapp.gov.it/$1 [R=303,L]
+
+RewriteRule ^(.+)/(.+)$ https://dati.inapp.gov.it/$1/$2 [R=303,L]
+
+RewriteRule ^(.+)/(.+)/(.+)$ https://dati.inapp.gov.it/$1/$2/$3 [R=303,L]
