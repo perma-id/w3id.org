@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirects for individual terms within the schema
+# Specific redirects for individual terms within the schema
 RewriteRule ^data/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#data [R=302,L]
 RewriteRule ^descriptiveStatistics/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#descriptivestatistics [R=302,L]
 RewriteRule ^metadataId/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#metadataid [R=302,L]
@@ -19,5 +19,6 @@ RewriteRule ^[Oo]bservation/?$ https://github.com/AlmesCore/Almes-Core/blob/main
 # Exclude /rdf and /shacl paths
 RewriteCond %{REQUEST_URI} !^/(rdf|shacl)/
 
-# Catch-all rule to redirect everything else to the schema page
+# Specific final catch-all for anything else that should point to Terms.md
+RewriteCond %{REQUEST_URI} !^core2024-07-08.md$  # Exclude that page explicitly
 RewriteRule ^(.*)$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md [R=302,L]
