@@ -13,11 +13,11 @@ RewriteRule ^productTypeName/?$ https://github.com/AlmesCore/Almes-Core/blob/mai
 RewriteRule ^productTypeURI/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#producttypeuri [R=302,L]
 RewriteRule ^statisticalMethod/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#statisticalmethod [R=302,L]
 RewriteRule ^theme/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#theme [R=302,L]
-RewriteRule ^hasObservation/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#hasobservation [R=302,L]
-RewriteRule ^Observation/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#observation [R=302,L]
+RewriteRule ^[Hh]asObservation/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#hasobservation [R=302,L]
+RewriteRule ^[Oo]bservation/?$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md#observation [R=302,L]
 
-# Prevent the rule below from catching the /rdf and /shacl paths
-RewriteCond %{REQUEST_URI} !^/(rdf|shacl)/?$ 
+# Exclude /rdf and /shacl paths
+RewriteCond %{REQUEST_URI} !^/(rdf|shacl)/
 
 # Catch-all rule to redirect everything else to the schema page
 RewriteRule ^(.*)$ https://github.com/AlmesCore/Almes-Core/blob/main/Terms.md [R=302,L]
