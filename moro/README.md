@@ -1,8 +1,6 @@
-# /hero/
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the Heritage Risk Assessment Ontology (HeRO) and its documentation.
+# /moro/
 
-## Uses
-[https://w3id.org/sirius/ontology/hero/](https://w3id.org/sirius/ontology/hero/) redirects to a [widoco](https://github.com/dgarijo/Widoco) visualization of the ontology.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the controlled vocabularies used in the National Edition of Aldo Moro's works.
 
 ## Contacts
 This space is administered by:
