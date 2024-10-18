@@ -4,5 +4,5 @@ for the IIoT ontology for Industrial Internet of Things:
 
 https://ontoit.github.io/IIoT/IIoT.owl
 
-Maintainer: Liviana Tudor
+Maintainer: Liviana Tudor - email: tudor.liviana@gmail.com - @OntoIT
 
