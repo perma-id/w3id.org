@@ -7,7 +7,7 @@ This repository is used to work toward the development of an official OGC web on
 + **Timo** 
   + GitHub: [situx](https://github.com/situx)
 + **Ghislain Atemezing** 
-  + GitHub: [gatemezing](https://github.com/gaatemezing)
-+ **Louis de Sousa** (CNR-ISTC)
+  + GitHub: [gatemezing](https://github.com/gatemezing)
++ **Louis de Sousa** 
   + GitHub: [ldesousa](https://github.com/ldesousa)
   
