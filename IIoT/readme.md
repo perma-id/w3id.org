@@ -1,8 +1,8 @@
-https://w3id.org/IIoT is a permanent URI 
+## Redirections for the IIoT ontology
 
-for the IIoT ontology for Industrial Internet of Things: 
+The work at https://github.com/OntoIT/IIoT
 
-https://ontoit.github.io/IIoT/IIoT.owl
-
-Maintainer: Liviana Tudor
+## Maintainers
+ - [OntoIT](https://github.com/OntoIT)
+ - [gatemezing](https://github.com/gatemezing)
 
