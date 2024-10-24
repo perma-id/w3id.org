@@ -25,7 +25,7 @@ In the future, we plan to update the redirection to specific ontology resources:
 
 ## Project Information
 
-- **Homepage:** https://shorturl.at/usHbz
+- **Homepage:** [Datenraum Kultur Project](https://www.fit.fraunhofer.de/de/geschaeftsfelder/human-centered-engineering-and-design/HCED_Forschung/datenraum-kultur.html)
 
 ## Contacts
 

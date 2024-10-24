@@ -1,50 +1,22 @@
-Header set Access-Control-Allow-Origin *
-
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
-AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
-AddType text/turtle .ttl
-AddType text/n3 .ttl
-AddType application/n-triples .nt
-AddType application/ld+json .json
+# Temporary Redirect Configuration
+# ------------------------------
+# Currently: All requests are redirected to the raw TTL ontology file on GitHub
+# This is a provisional setup until additional documentation and serializations are developed
+#
+# Future enhancements will include:
+# - Content negotiation for different RDF serializations (RDF/XML, JSON-LD, N-Triples)
+#
+# For now, maintaining a simple redirect to ensure basic accessibility
 
 Options +FollowSymLinks
-
 RewriteEngine on
+RewriteBase /drk/
 
-# HTML: Visit documentation (normal)
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\*
-RewriteRule ^$           http://example.org/docs.html [L,NE,R=303]
+# Redirect for the ontology
+RewriteRule ^ontology/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main [R=302,L]
 
-# HTML: Visit documentation (with class at the end -> make browser jump to position)
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\*
-RewriteRule ^/(.*)$     http://example.org/docs.html#$1 [L,NE,R=303]
+# Redirect for the instances
+RewriteRule ^resources/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main/examples [R=302,L]
 
-# TURTLE: Access TTL ontology
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^$           http://example.org/ontology.ttl [L,R=303]
-
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^/(.*)       http://example.org/ontology.ttl [L,R=303]
-
-# No matching content type: Visit documentation
-RewriteRule ^/(.*)      http://example.org/docs.html#$1 [L,NE,R=303]
-
-# DRK ontology resources (to be updated later)
-# DRK ontology and its documentation in human-readable form
-RewriteRule ^drk$ https://w3id.org/drk/ [R=302,L]
-
-# Serialization of the DRK ontology in Turtle format
-RewriteRule ^drk.ttl$ https://w3id.org/drk.ttl [R=302,L]
-
-# Serialization of the DRK ontology in JSON-LD format
-RewriteRule ^drk.jsonld$ https://w3id.org/drk.jsonld [R=302,L]
+# Redirect for the vocabularies
+RewriteRule ^vocabs/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main/vocabs [R=302,L]
