@@ -8,15 +8,11 @@
 #
 # For now, maintaining a simple redirect to ensure basic accessibility
 
+Header set Access-Control-Allow-Origin *
+
 Options +FollowSymLinks
+
 RewriteEngine on
-RewriteBase /drk/
 
-# Redirect for the ontology
-RewriteRule ^ontology/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main [R=302,L]
-
-# Redirect for the instances
-RewriteRule ^resources/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main/examples [R=302,L]
-
-# Redirect for the vocabularies
-RewriteRule ^vocabs/?$ https://github.com/Fraunhofer-FIT-DSAI/drk-information-model/tree/main/vocabs [R=302,L]
+# Redirect *anything* to the raw ontology file
+RewriteRule ^.*$ https://raw.githubusercontent.com/Fraunhofer-FIT-DSAI/drk-information-model/refs/heads/main/drk-ontology.ttl [R=303]
