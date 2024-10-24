@@ -1,7 +1,6 @@
-# /dfc/
 
-This [W3ID](https://w3id.org/) provides a persistent URI namespace for resources realting to Data Food Consortium (DFC) Ontology & Taxonomies.
-
+This [W3ID](https://w3id.org/) provides a persistent URI namespace for resources relating to Data Food Consortium (DFC) Ontology & Taxonomies.
+ 
 ## Uses
 This namespace is used to redirect:
 * Ontology terms defined by DFC to their corresponding RDF-XML resource

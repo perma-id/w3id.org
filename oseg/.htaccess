@@ -344,3 +344,53 @@ RewriteRule \
 	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_OSH}/branch/$1/src/ontology/osh-example-tractor.$2$3 \
 	[R=302,L]
+
+# ### Comments
+
+SetEnvIf Request_URI ^ ROOT_URL_CMT=codeberg.org/elevont/cmt-ont/raw
+
+# latest
+RewriteRule \
+	^ont/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_CMT}/branch/master/src/ont/cmt.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_CMT}/tag/$1/src/ont/cmt.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL_CMT}/branch/$1/src/ont/cmt.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_CMT}/branch/master/src/ont/cmt.$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([^/]+)/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_CMT}/tag/$1/src/ont/cmt.$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL_CMT}/branch/$1/src/ont/cmt.$2$3 \
+	[R=302,L]
+
+# ## People
+
+# Robin Vobruba
+RewriteRule \
+	^p/((robin[._-]?vobruba)|hoijui) \
+	https://hoijui.codeberg.page \
+	[R=302,L]

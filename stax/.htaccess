@@ -12,23 +12,23 @@ RewriteEngine on
 ### EXPLICIT EXTENSIONS ###
 
 # Explicit extension for dev release
-RewriteRule ^(dev/)?ontology/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.$2 [R=302,L]
+RewriteRule ^(dev/)?ontology/?\.(rdf|ttl|nt|jsonld|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.$2 [R=302,L]
 
 # Explicit extension for tagged releases
-RewriteRule ^([a-z0-9.-]+)/ontology/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.$2 [R=302,L]
+RewriteRule ^([a-z0-9.-]+)/ontology/?\.(rdf|ttl|nt|jsonld|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.$2 [R=302,L]
 
 # Explicit extension for dev release – OWL 2 DL variant
-RewriteRule ^(dev/)?ontology/dl/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.$2 [R=302,L]
+RewriteRule ^(dev/)?ontology/dl/?\.(rdf|ttl|nt|jsonld|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.$2 [R=302,L]
 
 # Explicit extension for tagged releases – OWL 2 DL variant
-RewriteRule ^([a-z0-9.-]+)/ontology/dl/?\.(rdf|ttl|nt|jsonld)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.$2 [R=302,L]
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?\.(rdf|ttl|nt|jsonld|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.$2 [R=302,L]
 
 # Explicit extension for nanopubs dev release
-RewriteRule ^(dev/)?nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.$2 [R=302,L]
+RewriteRule ^(dev/)?nanopubs/?\.(trig|nq|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.$2 [R=302,L]
 
 # Explicit extension for nanopubs tagged releases
 # The "v" at the start is optional. It used to be included by mistake in the links in the docs.
-RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?\.(trig|nq)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.$2 [R=302,L]
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?\.(trig|nq|jelly)([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.$2 [R=302,L]
 
 ### SERVING HTML ###
 
@@ -98,6 +98,14 @@ RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.gi
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.jsonld [R=302,L]
 
+# Jelly for dev release
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(dev/)?ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/stax.jelly [R=302,L]
+
+# Jelly for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^([a-z0-9.-]+)/ontology/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/stax.jelly [R=302,L]
+
 ### ONTOLOGY IN OWL 2 DL VARIANT WITH CONTENT NEGOTIATION ###
 
 # RDF/XML for dev release
@@ -136,6 +144,13 @@ RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.jsonld [R=302,L]
 
+# Jelly for dev release
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(dev/)?ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/dl.jelly [R=302,L]
+
+# Jelly for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^([a-z0-9.-]+)/ontology/dl/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/dl.jelly [R=302,L]
 
 ### NANOPUBS WITH CONTENT NEGOTIATION ###
 
@@ -156,6 +171,15 @@ RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.gi
 # The "v" at the start is optional. It used to be included by mistake in the links in the docs.
 RewriteCond %{HTTP_ACCEPT} application/n-quads
 RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.nq [R=302,L]
+
+# Jelly for dev release
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(dev/)?nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/dev/nanopubs.jelly [R=302,L]
+
+# Jelly for tagged releases
+# The "v" at the start is optional. It used to be included by mistake in the links in the docs.
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^v?([a-z0-9.-]+)/nanopubs/?([#?].*)?$ https://github.com/RDF-STaX/rdf-stax.github.io/releases/download/v$1/nanopubs.jelly [R=302,L]
 
 ### SERVING DOCUMENTATION ###
 

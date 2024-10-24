@@ -16,8 +16,15 @@ RewriteEngine On
 ##     ONT_BASE points to the address that delivers your ontology documentation and files, if you
 ##       deploy in the materialdigital github community only 'ontology_publication_template' needs to be changed to your repo
 ##
-SetEnvIf Request_URI ^/sensotwin/(.*)$ ONT_BASE=https://upaehler.github.io/SensoTwin ONT_VERSION=v1.0.1 ONT_ANCHOR=$1
-SetEnvIf Request_URI ^/sensotwin/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
+
+##SetEnvIf Request_URI ^/pmd/co/(.*)$ ONT_BASE=https://materialdigital.github.io/core-ontology ONT_ANCHOR=$1
+##SetEnvIf Request_URI ^/pmd/co/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
+##SetEnvIf Request_URI ^/sensotwin$  https://upaehler.github.io/SensoTwin
+##SetEnvIf Request_URI ^/sensotwin/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
+
+RewriteRule ^$ https://upaehler.github.io/SensoTwin 
+SetEnvIf Request_URI ^$ ONT_BASE=https://upaehler.github.io/SensoTwin ONT_ANCHOR=$1
+SetEnvIf Request_URI ^/(\d+\.\d+\.\d+)/(.*)$ ONT_VERSION=v$1 ONT_ANCHOR=$2
 
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)

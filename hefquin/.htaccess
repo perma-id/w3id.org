@@ -1,0 +1,46 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage/repository
+RewriteRule ^/?$ https://liusemweb.github.io/HeFQUIN/ [R=308,L]
+
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/$1.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/$1.ttl [R=303,NE,L]
+
+# Redirect request to versioned/latest JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/$1.jsonld [R=303,NE,L]
+
+# Redirect request to latest RDF/XML (base URL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/latest/$1.rdf [R=303,NE,L]
+
+# Redirect request to Turtle (base URL)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/latest/$1.ttl [R=303,NE,L]
+
+# Redirect request to JSON-LD (base URL)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/latest/$1.jsonld [R=303,NE,L]
+
+# Redirect to specific file
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/(\w+\.\w+)$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/$3 [R=303,NE,L]
+
+# Redirect request to versioned/latest for any text-oriented MIME type to the documentation
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/index.html [R=303,NE,L]
+
+# Redirect to resource documentation for any text-oriented MIME type
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([0-9]+\.[0-9]+\.[0-9]+|latest)/([\w\-_0-9]+)$ https://liusemweb.github.io/HeFQUIN/vocab/$1/$2/index.html#$3 [R=303,NE,L]
+
+# Redirect to latest (base URL) for any text-oriented MIME type to the documentation
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/?$ https://liusemweb.github.io/HeFQUIN/vocab/$1/latest/index.html [R=303,NE,L]
+
+# Redirect to resource documentation for any text-oriented MIME type
+RewriteRule ^(engineconf|lpg2rdfconf|feddesc)/([\w\-_0-9]+)$ https://liusemweb.github.io/HeFQUIN/vocab/$1/latest/index.html#$3 [R=303,NE,L]

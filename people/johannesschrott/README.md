@@ -2,7 +2,9 @@
 
 ## Homepage
 
-Redirect to Johannes Schrott's website
+* `/` Redirects to Johannes Schrott's website
+* `/cobadq/` Redirects to the source code of the implentation of a new constraint-based approach for the aggregation of data quality
+
 
 ## Contact
 

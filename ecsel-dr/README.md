@@ -1,9 +1,9 @@
 Repository for a digital twin ontology:
 
-http://ontology.tib.eu/dr/
+https://ifx-dr.github.io/DigitalReference/
 
 Owner of this ontology:
 
 https://github.com/ifx-dr
 
-Email: Nour.Ramzy@infineon.com
+Email: Marta.Bonik@infineon.com

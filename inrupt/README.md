@@ -15,9 +15,9 @@ Contact
 
 This registration is administered by:
 
- * Pat McBennett
-   Technical Architect, [Inrupt, Inc.](https://inrupt.com)
-   <patm@inrupt.com>
+ * David Bowen
+   Lead SRE, [Inrupt, Inc.](https://inrupt.com)
+   <david.bowen@inrupt.com>
 
  * Nicolas A. Seydoux
    Devtools Developer, [Inrupt, Inc.](https://inrupt.com)
