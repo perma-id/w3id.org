@@ -1,0 +1,18 @@
+# Temporary Redirect Configuration
+# ------------------------------
+# Currently: All requests are redirected to the raw TTL ontology file on GitHub
+# This is a provisional setup until additional documentation and serializations are developed
+#
+# Future enhancements will include:
+# - Content negotiation for different RDF serializations (RDF/XML, JSON-LD, N-Triples)
+#
+# For now, maintaining a simple redirect to ensure basic accessibility
+
+Header set Access-Control-Allow-Origin *
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Redirect *anything* to the raw ontology file
+RewriteRule ^.*$ https://raw.githubusercontent.com/Fraunhofer-FIT-DSAI/drk-information-model/refs/heads/main/drk-ontology.ttl [R=303]
