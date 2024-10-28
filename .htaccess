@@ -3,6 +3,13 @@
 Options +FollowSymLinks
 RewriteEngine on
 
+# If you use version control systems in your document root, you should
+# probably deny access to their directories. 
+#
+<DirectoryMatch "/.git">
+   Require all denied
+</DirectoryMatch
+
 # special directory redirects due to case insensitive file systems issues
 RewriteRule ^AIRO(.*)$ /airo$1
 RewriteRule ^ceir(.*)$ /CEIR$1
