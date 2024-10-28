@@ -16,9 +16,6 @@ Currently, the namespace redirects to this GitHub repository:
 https://raw.githubusercontent.com/Fraunhofer-FIT-DSAI/drk-information-model/refs/heads/main/drk-ontology.ttl
 
 
-## Project Information
-
-- **Homepage:** [Datenraum Kultur Project](https://www.fit.fraunhofer.de/de/geschaeftsfelder/human-centered-engineering-and-design/HCED_Forschung/datenraum-kultur.html)
 
 ## Contacts
 
