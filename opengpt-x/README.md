@@ -7,4 +7,4 @@ The original repository github link is: https://github.com/OpenGPTX/AP5/tree/mai
 
 Tasneem Tazeen Rashid (tasneem.tazeen.rashid@iais.fraunhofer.de)
 Fraunhofer IAIS
-Germanyt
+Germany
