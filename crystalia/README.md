@@ -6,6 +6,6 @@ The original link is [https://crystalia.link](https://crystalia.link)
 # Contact
 
 Vlad Korolev (vkorol1@umbc.edu) <br>
-Github ID:  vladistan
+Github ID:  vladistan <br>
 University of Maryland, Baltimore County <br>
 Baltimore, MD, USA
