@@ -8,9 +8,9 @@ This ontology is used to express information for the Knowledge Graph of Irish Hi
 ## Contact
 This space is administered by:
 
-**Alex Randles and Beyza Yaman**
-*Postdoc*
-[ADAPT Centre for Digital Content](https://www.adaptcentre.ie/)
+**Alex Randles** <alex.randles@adaptcentre.ie> <br>
+**Beyza Yaman** <beyza.yaman@adaptcentre.ie> <br>
+*Postdoc* <br>
+[ADAPT Centre for Digital Content](https://www.adaptcentre.ie/) <br>
 Dublin, Ireland
-<alex.randles@adaptcentre.ie> <beyza.yaman@adaptcentre.ie>
 
