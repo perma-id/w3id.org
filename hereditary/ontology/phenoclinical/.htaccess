@@ -16,18 +16,23 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ontology/phenoclinical/$ http://hereditary.dei.unipd.it/ontology/phenoclinical/
-RewriteRule ^ontology/phenoclinical(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical$1 [R=302,L]
+RewriteRule ^$ http://hereditary.dei.unipd.it/ontology/phenoclinical/
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical$1 [R=302,L]
 
 # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^ontology/phenoclinical$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.owl [R=303]
+RewriteRule ^$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.owl [R=303]
 
 # Rewrite rule to serve turtle content from the vocabulary URI if requested
 #RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^ontology/phenoclinical$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.ttl [R=303]
+RewriteRule ^$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.ttl [R=303]
 
 # Rewrite rule to deal with two namespaces: schema and resource
-RewriteRule ^ontology/phenoclinical/schema/(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/#$1 [R=302,L,NE]
-RewriteRule ^ontology/phenoclinical/resource/(.*)$ http://hereditary.dei.unipd.it/ontology/#https://w3id.org/hereditary/ontology/phenoclinical/resource/$1 [R=302,L,NE]
+RewriteRule ^schema/(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/#$1 [R=302,L,NE]
+RewriteRule ^resource/(.*)$ http://hereditary.dei.unipd.it/ontology/#https://w3id.org/hereditary/ontology/phenoclinical/resource/$1 [R=302,L,NE]
 
