@@ -11,8 +11,8 @@ properties, and restrictions that can be used to represent content and metadata 
 
 This space is administered by:
 
-**Lilin Yu**
-*PhD Candidate*
+**Lilin Yu** <br>
+*PhD Candidate* <br>
 [EPCC, at University of Edinburgh](https://www.ed.ac.uk)
 Edinburgh, Scotland
 <damonyu97@gmail.com>
