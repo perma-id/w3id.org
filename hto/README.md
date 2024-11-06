@@ -13,8 +13,8 @@ This space is administered by:
 
 **Lilin Yu** <br>
 *PhD Candidate* <br>
-[EPCC, at University of Edinburgh](https://www.ed.ac.uk)
-Edinburgh, Scotland
-<damonyu97@gmail.com>
+[EPCC, at University of Edinburgh](https://www.ed.ac.uk) <br>
+Edinburgh, Scotland <br>
+<damonyu97@gmail.com> <br>
 GitHub: [DamonYu97](https://github.com/DamonYu97)
 
