@@ -10,6 +10,7 @@ This namespace is broken down into different parts for [OSEG][OSEG-eV]s:
 - (RDF) ontologies
 - standards (TODO)
 - services (TODO)
+- identities/profiles (in RDF/OWL format)
 - maybe more in the future (TODO)
 
 ## Contact
