@@ -5,6 +5,8 @@ This [W3ID](https://w3id.org/) provides a persistent URI namespace for artifacts
 This initially includes:
 
 1. Making persistent URIs for ontologies created by converting various biomedical databases in the https://github.com/biopragmatics/obo-db-ingest repository.
+2. Make Biomappings resources available
+3. Make Bioregistry contexts available as top-level resources, like https://w3id.org/biopragmatics/bioregistry.epm.json
 
 ## Uses
 

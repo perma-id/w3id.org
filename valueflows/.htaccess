@@ -1,49 +1,62 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
-AddType application/rdf+xml .rdf
-AddType application/ld+json .jsonld
-AddType application/n-quads .nq
-AddType application/n-triples .nt
-AddType text/turtle .ttl
-AddType application/rdf+json .rj
-AddType text/trig .trig
-AddType application/trix .trix
+# See <https://www.w3.org/TR/owl-ref/#MIMEType>
+AddType application/rdf+xml     .rdf      .owl
+#AddType application/xml         .xml
+AddType application/ld+json     .jsonld
+AddType application/n-quads     .nq
+AddType application/n-triples   .nt
+AddType text/turtle             .ttl
+AddType application/rdf+json    .rj
+AddType text/trig               .trig
+AddType application/trix        .trix
+AddType text/html               .html
+AddType application/xhtml+xml   .html
 RewriteEngine on
 
-# Rewrite rule to serve RDF/XML content if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.rdf [R=303,L]
+SetEnvIf Accept ^                          FILE_EXT=TTL    # *Default*
+SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML
+SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
+#SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/inofficial form)
+SetEnvIf Accept ^.*application/n-quads     FILE_EXT=nq     # N-Quads
+SetEnvIf Accept ^.*application/n-triples   FILE_EXT=nt     # N-Triples
+SetEnvIf Accept ^.*text/turtle             FILE_EXT=TTL    # Turtle
+SetEnvIf Accept ^.*application/rdf\+json   FILE_EXT=rj     # RDF/JSON
+SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
+SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
+SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
-# Rewrite rule to serve JSON-LD content if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.jsonld [R=303,L]
+# HACK Because I (hoijui) was unable to set PROXY to the empty string,
+#      we resort to this hack, of always setting it to something.
+SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
+SetEnvIf Request_URI ^ PROXY_NONE=https://
+SetEnvIf Request_URI ^ PROXY=https://
+SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
 
-# Rewrite rule to serve N-Quads content if requested
-RewriteCond %{HTTP_ACCEPT} application/n-quads
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.nq [R=303,L]
+# [Recommended IRI patterns for ontologies and their terms](
+# https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
-# Rewrite rule to serve N-Triples content if requested
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.nt [R=303,L]
+# The preffered URLs
+# latest
+RewriteRule \
+	^ont/vf(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/vf(#[^/]+)?$ \
+	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
+	[R=302,L]
 
-# Rewrite rule to serve Turtle content if requested
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.ttl [R=303,L]
-
-# Rewrite rule to serve RDF/JSON content if requested
-RewriteCond %{HTTP_ACCEPT} application/rdf\+json
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.rj [R=303,L]
-
-# Rewrite rule to serve TriG content if requested
-RewriteCond %{HTTP_ACCEPT} text/trig
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.trig [R=303,L]
-
-# Rewrite rule to serve TriX content if requested
-RewriteCond %{HTTP_ACCEPT} application/trix
-RewriteRule ^$ https://valueflows.github.io/valueflows/vf.trix [R=303,L]
-
-# Rewrite rule to serve Html content for ontology
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^onto$ https://valueflows.github.io/valueflows [R=303,L]
-
-RewriteRule ^\/?(.*)$ https://valueflo.ws/$1 [R=303,L]
+# For debugging, we also support adding the format specific file-extension
+# latest
+RewriteRule \
+	^ont/vf\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
+	[R=302,L]
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/vf\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
+	[R=302,L]
