@@ -13,8 +13,8 @@ This space is administered by:
 
 **Lilin Yu**
 *PhD Candidate*
-[School of Computer Science in University of St Andrews](www.st-andrews.ac.uk)
-St Andrews, Scotland
+[EPCC, at University of Edinburgh](https://www.ed.ac.uk)
+Edinburgh, Scotland
 <damonyu97@gmail.com>
 GitHub: [DamonYu97](https://github.com/DamonYu97)
 
