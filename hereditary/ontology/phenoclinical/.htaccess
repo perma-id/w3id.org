@@ -26,6 +26,14 @@ RewriteRule ^$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero
 #RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.ttl [R=303]
 
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^schema/$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.owl [R=303]
+
+# Rewrite rule to serve turtle content from the vocabulary URI if requested
+#RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^schema/$ http://hereditary.dei.unipd.it/ontology/phenoclinical/schema/hero_phenoclinical.ttl [R=303]
+
 # Rewrite rule to deal with two namespaces: schema and resource
 RewriteRule ^schema/(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical/#$1 [R=302,L,NE]
 RewriteRule ^resource/(.*)$ http://hereditary.dei.unipd.it/ontology/phenoclinical/#$1 [R=302,L,NE]
