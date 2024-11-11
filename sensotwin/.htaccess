@@ -16,8 +16,12 @@ RewriteRule ^ontology(/.*)?$ /applicationontology$1 [R=302,L]
 RewriteRule ^workflows(/.*)?$ /workflow$1 [R=302,L]  
 
 
+#Fallback to old personal github
+rewriterule ^personal(.*)?$ https://upaehler.github.io/SensoTwin (r=302)
+
+
 # project page at material-digital website
 RewriteRule ^$ https://material-digital.de/project/5 [R302,L]
 RewriteCond %{REQUEST_URI} !^/workflow(/.*)?$
-RewriteCond %{REQUEST_URI} !^/applicationontology(/.*)?$
+# RewriteCond %{REQUEST_URI} !^/applicationontology(/.*)?$
 RewriteRule ^(.*)$ https://material-digital.de/project/5 [R=302,L]
