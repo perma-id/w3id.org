@@ -3,26 +3,26 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # Redirect for aio base
-RewriteRule ^aio/?$ https://github.com/berkeleybop/artificial-intelligence-ontology [R=302,L]
+RewriteRule ^/?$ https://github.com/berkeleybop/artificial-intelligence-ontology [R=302,L]
 # handles https://w3id.org/aio and https://w3id.org/aio/
 
 # Redirect for bridge OWL files
-RewriteRule ^aio/bridge/(.+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/$1.owl [R=302,L]
+RewriteRule ^/bridge/(.+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/$1.owl [R=302,L]
 # for example,
 # https://w3id.org/aio/bridge/aio-bridge-to-upper.owl ->
 # https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/aio-bridge-to-upper.owl
 
 # Redirect for OWL files in root aio path
-RewriteRule ^aio/([^/]+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/$1.owl [R=302,L]
+RewriteRule ^/([^/]+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/$1.owl [R=302,L]
 # for example,
 # https://w3id.org/aio/aio.owl ->  
 # https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
 
-RewriteRule ^aio/aio-src.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
+RewriteRule ^/aio-src.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
 # handles https://w3id.org/aio/aio-src.csv -> 
 
 # Redirect everything else to BioPortal
-RewriteRule ^aio/(.+)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
+RewriteRule ^/(.+)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
 # for example, 
 # https://w3id.org/aio/Bias -> 
 # https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https%3A%2F%2Fw3id.org%2Faio%2FBias
