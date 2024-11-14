@@ -7,17 +7,16 @@ All the IRIs matched with patterns within `w3id.org/idn/` are for objects define
 
 Management:
 
-**Sandra Silcot**
+**Jamie Feiss**
 *Indigenous Data Network*
-<ssilcot@unimelb.edu.au>
-<https://www.idnau.org>
-<https://orcid.org/0000-0003-1983-6687>
+<jamie.feiss@unimelb.edu.au>
+<https://idnau.org>
 
 Technical:
 
 **Nicholas Car**
 *Data Systems Architect*
 KurrawongAI
-<nick@kurrawong.net>
-<https://kurrawong.net>
+<nick@kurrawong.ai>
+<https://kurrawong.ai>
 <https://orcid.org/0000-0002-8742-7730>
