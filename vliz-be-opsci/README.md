@@ -3,7 +3,7 @@ VLIZ Open Science Repositories
 
 Ontologies / Vocabularies:
 
-* https://w3id.org/vliz-be-opsci/ns (namespace: TODO)
+* https://w3id.org/vliz-be-opsci/ns
 
 RO-Crates:
 
@@ -16,3 +16,4 @@ References:
 Contacts:
 
 * VLIZ open science team <OpSci@vliz.be>
+* Decruw Cedric <cedric.decruw@vliz.be> -Github : https://github.com/cedricdcc
