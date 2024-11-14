@@ -1,28 +1,14 @@
-Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirect for aio base
-RewriteRule ^/?$ https://github.com/berkeleybop/artificial-intelligence-ontology [R=302,L]
-# handles https://w3id.org/aio and https://w3id.org/aio/
+RewriteRule ^$ https://github.com/berkeleybop/artificial-intelligence-ontology [R=302,L]
 
-# Redirect for bridge OWL files
-RewriteRule ^/bridge/(.+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/$1.owl [R=302,L]
-# for example,
-# https://w3id.org/aio/bridge/aio-bridge-to-upper.owl ->
-# https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/aio-bridge-to-upper.owl
+RewriteRule ^aio.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl [R=302,L]
 
-# Redirect for OWL files in root aio path
-RewriteRule ^/([^/]+)\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/$1.owl [R=302,L]
-# for example,
-# https://w3id.org/aio/aio.owl ->  
-# https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl
+RewriteRule ^aio-src.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
 
-RewriteRule ^/aio-src.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
-# handles https://w3id.org/aio/aio-src.csv -> 
+RewriteRule ^bridge/aio-bridge-to-upper.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/aio-bridge-to-upper.owl [R=302,L]
 
-# Redirect everything else to BioPortal
-RewriteRule ^/(.+)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
-# for example, 
-# https://w3id.org/aio/Bias -> 
-# https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https%3A%2F%2Fw3id.org%2Faio%2FBias
+RewriteRule ^mappings$ https://github.com/berkeleybop/artificial-intelligence-ontology/tree/main/src/mappings [R=302,L]
+
+RewriteRule ^(.*)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
