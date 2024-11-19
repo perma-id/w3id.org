@@ -1,0 +1,13 @@
+
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+## Redirect main JSON-LD context
+RewriteRule ^(v[0-9][.][0-9])$ https://eclipse-dataspace-dcp.github.io/decentralized-claims-protocol/resources/$1/context/dcp.jsonld [R=302,L]
+
+## Redirect JSON Schemas
+RewriteRule ^(v[0-9][.][0-9])/(presentation|issuance|common)/([\w.-]+schema.json) https://eclipse-dataspace-dcp.github.io/decentralized-claims-protocol/resources/$1/$2/$3 [R=302,L]
+
+# Redirect to GH pages
+RewriteRule ^.*$ https://eclipse-dataspace-dcp.github.io/decentralized-claims-protocol [R=302,L]
