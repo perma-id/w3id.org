@@ -20,3 +20,12 @@ The ontology is designed to answer key questions that aid in understanding and a
 - How can companion planting be used to combat specific pests (e.g., aphids)?
 
 Feel free to explore the ontology and contribute to its development. Your insights and feedback are valuable in enhancing this knowledge base.
+
+## Contact
+The mainteners of the ontology are researchers at the Knowledge in Artificial Intelligence group (kai.cs.vu.nl) at the Computer Science Department, Vrije Universiteit Amsterdam.
+
+**Currently reponsible persion**: Romana Pernisch (github: pernisch, email: r.pernisch@vu.nl)
+
+Group contact:
+GitHub: kai-vu (https://github.com/kai-vu)
+Email: kai.cs.beta@vu.nl
