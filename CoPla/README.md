@@ -24,7 +24,7 @@ Feel free to explore the ontology and contribute to its development. Your insigh
 ## Contact
 The mainteners of the ontology are researchers at the Knowledge in Artificial Intelligence group (kai.cs.vu.nl) at the Computer Science Department, Vrije Universiteit Amsterdam.
 
-**Currently reponsible persion**: Romana Pernisch (github: pernisch, email: r.pernisch@vu.nl)
+**Currently responsible person**: Romana Pernisch (github: pernisch, email: r.pernisch@vu.nl)
 
 Group contact:
 GitHub: kai-vu (https://github.com/kai-vu)
