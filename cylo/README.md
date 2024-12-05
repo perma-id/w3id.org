@@ -9,5 +9,5 @@ This space is administered by:
 
 - Fries Allyson <Allyson.Fries@uliege.be>
 - Defaweux Valérie <Valerie.Defaweux@uliege.be>
-- Debruyne Christophe <C.Debruyne@uliege.be>
+- Debruyne Christophe <C.Debruyne@uliege.be>, [@chrdebru](https://github.com/chrdebru)
 
