@@ -1,19 +1,16 @@
-# Attiva il Rewrite Engine
+# Activates Rewrite Engine
 RewriteEngine On
 
-# Redirige richieste generiche all'ontologia RDF come default
-RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo_ontology/main/peo_ontology.rdf [R=302,L]
-
-# Content negotiation per RDF/XML
+# Content negotiation for RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo_ontology/main/peo_ontology.rdf [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.rdf [R=303,L]
 
-# Content negotiation per Turtle
+# Content negotiation for Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo_ontology/main/peo_ontology.ttl [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.ttl [R=303,L]
 
-# Default: serve HTML per browser o client non RDF-aware
-RewriteRule ^$ https://simonegramegna.github.io/peo_ontology/docs/index.html [R=303,L]
+# Default: serves HTML for browser or client not RDF-aware
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/docs/index.html [R=303,L]
 
-# Blocca l'indicizzazione di directory
+# Blocks directory indexing
 Options -Indexes
