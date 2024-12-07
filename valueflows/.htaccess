@@ -33,15 +33,16 @@ SetEnvIf Request_URI ^ PROXY=https://ontprox.dev.opensourceecology.de
 # [Recommended IRI patterns for ontologies and their terms](
 # https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
-SetEnvIf Request_URI ^ SRC_URL_VF_BASE=https://codeberg.org/valueflows/pages
-SetEnvIf Request_URI ^ SRC_URL_VF_FILE_PATH=src/branch/main/assets/all_vf.TTL
+SetEnvIf Request_URI ^ SRC_URL_VF_BASE=https://codeberg.org/valueflows/pages/raw
+SetEnvIf Request_URI ^ SRC_URL_VF_BRANCH_LATEST=main
+SetEnvIf Request_URI ^ SRC_URL_VF_FILE_PATH=assets/all_vf.TTL
 
 # The preffered URLs
 
 # latest
 RewriteRule \
 	^ont/vf([/_-]?core)?(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/master/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/%{ENV:SRC_URL_VF_BRANCH_LATEST}/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
 	[R=302,L]
 
 # versioned
@@ -61,7 +62,7 @@ RewriteRule \
 # latest - debugging
 RewriteRule \
 	^ont/vf([/_-]?core)?\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/master/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=$2$3 \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/%{ENV:SRC_URL_VF_BRANCH_LATEST}/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=$2$3 \
 	[R=302,L]
 
 # versioned - debugging
