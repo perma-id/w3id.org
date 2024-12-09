@@ -74,10 +74,38 @@ OntoMS is aligned with upper-level ontologies like **EMMO**,**PROV-O**, and **Ba
 
 ---
 
+## **Ontology Documentation and Access Details**
+# OntoMS
+
+## Documentation:
+[OntoMS Ontology Specification](https://kit-mms.github.io/Onto-MS.github.io/)
+
+## Redirections:
+
+### HTML: Visit documentation
+- **URL**: [https://w3id.org/OntoMS](https://w3id.org/OntoMS)  
+  **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/](https://kit-mms.github.io/Onto-MS.github.io/)
+
+### Turtle, RDF/XML, N-Triples, JSON-LD: Access respective ontology via content negotiation
+- **URL**: [https://w3id.org/OntoMS](https://w3id.org/OntoMS)  
+  **With HTTP headers**:
+  - `Accept: text/turtle` → Turtle (.ttl)  
+    **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/ontology.ttl](https://kit-mms.github.io/Onto-MS.github.io/ontology.ttl)
+  - `Accept: application/rdf+xml` → RDF/XML (.owl)  
+    **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/ontology.owl](https://kit-mms.github.io/Onto-MS.github.io/ontology.owl)
+  - `Accept: application/n-triples` → N-Triples (.nt)  
+    **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/ontology.nt](https://kit-mms.github.io/Onto-MS.github.io/ontology.nt)
+  - `Accept: application/ld+json` → JSON-LD (.jsonld)  
+    **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/ontology.jsonld](https://kit-mms.github.io/Onto-MS.github.io/ontology.jsonld)
+
+### Fallback:
+- Any unsupported or unspecified `HTTP_ACCEPT` header will redirect to the HTML documentation:  
+  **Redirects to**: [https://kit-mms.github.io/Onto-MS.github.io/](https://kit-mms.github.io/Onto-MS.github.io/)
+
+---
 ## **Contact and Contribution**
 We welcome feedback and contributions!  
 - **Author**:Hafiz Muhammad Noman  
 - **Contact**: noman@kit.edu
-- **Repository**: https://kit-mms.github.io/Onto-MS.github.io/
 
 Feel free to submit issues, feature requests, or pull requests to improve OntoMS.
