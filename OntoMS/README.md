@@ -69,7 +69,7 @@ OntoMS is aligned with upper-level ontologies like **EMMO**,**PROV-O**, and **Ba
 
 ## **Technical Details**
 - **Format**: OWL (Web Ontology Language)
-- **Namespace**: `https://w3id.org/ontoms/`
+- **Namespace**: `https://w3id.org/OntoMS/`
 - **Version**: 1.0.0
 
 ---
