@@ -75,7 +75,6 @@ OntoMS is aligned with upper-level ontologies like **EMMO**,**PROV-O**, and **Ba
 ---
 
 ## **Ontology Documentation and Access Details**
-# OntoMS
 
 ## Documentation:
 [OntoMS Ontology Specification](https://kit-mms.github.io/Onto-MS.github.io/)
