@@ -1,49 +1,41 @@
+# Enable CORS for all origins
+Header set Access-Control-Allow-Origin *
 
-# Turn off MultiViews
+# Turn off MultiViews to avoid conflicts
 Options -MultiViews
 
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
-AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
-AddType text/turtle .ttl
-AddType application/n-triples .n3
-AddType application/ld+json .jsonld
 # Rewrite engine setup
 RewriteEngine On
-#Change the path to the folder here
-RewriteBase /try1 
 
-# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
-# Placed before HTML to support serving JSON-LD from a browser (e.g., JSON Playground)
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ ontology.jsonld [R=303,L]
+# Base URL
+RewriteBase /OntoMS
 
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# Serve HTML content by default for browsers or text/html requests
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ index-en.html [R=303,L]
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ [R=303,L]
 
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ ontology.owl [R=303,L]
-
-# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ ontology.nt [R=303,L]
-
-# Rewrite rule to serve TTL content from the vocabulary URI if requested
+# Redirect to Turtle representation for requests with text/turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle 
-RewriteRule ^$ ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} .+
-RewriteRule ^$ 406.html [R=406,L]
-# Default response
-# ---------------------------
-# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
-RewriteRule ^$ ontology.owl [R=303,L]
+# Redirect to RDF/XML for application/rdf+xml requests
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.owl [R=303,L]
+
+# Redirect to JSON-LD for application/ld+json requests
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.jsonld [R=303,L]
+
+# Redirect to N-Triples for application/n-triples or text/n3 requests
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.nt [R=303,L]
+
+# Fallback: Serve HTML for any unsupported request
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ [R=303,L]
