@@ -37,14 +37,6 @@ This repository houses the documentation and files related to Onto-MS.
 
 ---
 
-## **Applications Modeled**
-- Kinetic Monte Carlo simulations.
-- Profilometric measurements.
-- OVPD fabrication processes.
-- OLED and OPV devices with constituent materials.
-
----
-
 ## **How to Access**
 - **Online Viewer**: Explore the ontology using **WebWOWL** for interactive browsing.
 - **Offline Use**: Import into **Protégé** for detailed editing and exploration.  
@@ -103,8 +95,9 @@ OntoMS is aligned with upper-level ontologies like **EMMO**,**PROV-O**, and **Ba
 
 ---
 ## **Contact and Contribution**
-We welcome feedback and contributions!  
-- **Author**:Hafiz Muhammad Noman  
-- **Contact**: noman@kit.edu
+We welcome feedback and contributions!
+- **Maintainer**: [@KIT-MMS](https://github.com/KIT-MMS)
+- **Author**: Hafiz Muhammad Noman  
+- **Email**: noman@kit.edu
 
 Feel free to submit issues, feature requests, or pull requests to improve OntoMS.
