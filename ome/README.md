@@ -14,4 +14,4 @@ JSON-LD contexts:
 * https://w3id.org/ome/xsd/2016-16/context
 
 Contacts: 
-* Josh Moore <josh@openmicroscopy.org>
+* [Josh Moore](https://github.com/joshmoore) <josh@openmicroscopy.org>
