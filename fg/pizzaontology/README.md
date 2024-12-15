@@ -1,4 +1,4 @@
-Repository for redirecting to pizzaontology applications
+Repository for redirecting to pizzaontology
 ===================
 
 Repository created to store the redirections of an ontology representing the pizza domain.
