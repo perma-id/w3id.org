@@ -8,3 +8,4 @@
 - David I. Lehn (@davidlehn)
 - Ganesh Annan (@gannan08)
 - Manu Sporny (@msporny)
+- Wesley Smith (@wes-smith)
