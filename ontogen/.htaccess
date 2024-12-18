@@ -1,0 +1,49 @@
+# Turn off MultiViews to avoid conflicts with file extensions
+Options -MultiViews
+
+# Ensure proper content types for RDF-related files (if not present in main apache config)
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/rdf+xml .rdf .owl
+AddType application/ld+json .jsonld
+
+# Allow CORS (Cross-Origin Resource Sharing)
+Header set Access-Control-Allow-Origin *
+
+# Enable the rewrite engine
+RewriteEngine on
+
+# Content Negotiation for the core vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontogen)?$ https://ontogen.io/vocabs/ontogen.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ontogen)?$ https://ontogen.io/vocabs/ontogen.rdf [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(ontogen)?$ https://ontogen.io/vocabs/ontogen.nt [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontogen)?$ https://ontogen.io/vocabs/ontogen.jsonld [R=303,NE,L]
+
+# Fallback to HTML if no specific content type matched
+RewriteRule ^(ontogen)?$ https://ontogen.io/vocabs/ontogen.html [R=303,NE,L]
+
+# Content Negotiation for the store adapter vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^store/adapter$ https://ontogen.io/vocabs/store/adapter.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^store/adapter$ https://ontogen.io/vocabs/store/adapter.rdf [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^store/adapter$ https://ontogen.io/vocabs/store/adapter.nt [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^store/adapter$ https://ontogen.io/vocabs/store/adapter.jsonld [R=303,NE,L]
+
+# Fallback to HTML for the store adapter vocabulary
+RewriteRule ^store/adapter$ https://ontogen.io/vocabs/store/adapter.html [R=303,NE,L]
+
+# General fallback rule
+RewriteRule ^(.*)$ https://ontogen.io/vocabs/$1 [R=303,NE,L]

@@ -1,0 +1,23 @@
+# cff - Citation File Format
+#
+# https://w3id.org/cff redirects to https://citation-file-format.github.io
+#
+# ## Contact
+# This space is administered by:
+#
+# Stephan Druskat
+# stephan.druskat@dlr.de
+# GitHub username: sdruskat
+
+AddType application/schema+json .json
+
+RewriteEngine on
+
+RewriteRule ^ https://citation-file-format.github.io [R=302,L]
+
+# Rewrite rule to redirect to respective schema (e.g., https://w3id.org/cff/schema/1.2.0 and https://w3id.org/cff/schema/1.2.0/ both redirect to schema.json vor the version)
+RewriteRule ^schema/([^/]+/?)$ https://citation-file-format.github.io/$1/schema.json [R=302,L]
+
+# Rewrite rule to serve latest JSON Schema content
+RewriteCond %{HTTP_ACCEPT} application/schema+json
+RewriteRule ^$ https://citation-file-format.github.io/1.2.0/schema.json [R=303,L]
