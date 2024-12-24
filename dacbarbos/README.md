@@ -1,7 +1,5 @@
-# W3ID for /dacbarbos/
-
-## Workspace: DACBARBOS Brand's permanent ID
-
-## Contacts: DACBARBOS Brand's Organization Administrator (admin@dacbarbos.eu)
-
-### GitHub username: @orgadm
+## Workspace
+DACBARBOS Brand's permanent ID
+## Contacts
+DACBARBOS Brand's Organization Administrator (admin@dacbarbos.eu)
+GitHub username: @orgadm
