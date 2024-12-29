@@ -146,7 +146,7 @@ RewriteRule \
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/okh[/-]?krawl(er)(#[^/]+)?$ \
+	^ont/([^/]+)/okh[/-]?krawl(er)?(#[^/]+)?$ \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/$1/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
 	[R=302,L]
 
@@ -154,13 +154,13 @@ RewriteRule \
 
 # latest - debugging
 RewriteRule \
-	^ont/okh[/-]?krawl(er)\.([^/#]+)(#[^/]+)?$ \
+	^ont/okh[/-]?krawl(er)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/master/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=$2$3 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/okh[/-]?krawl(er)\.([^/#]+)(#[^/]+)?$ \
+	^ont/([^/]+)/okh[/-]?krawl(er)?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/$1/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=$3$4 \
 	[R=302,L]
 
@@ -237,28 +237,28 @@ SetEnvIf Request_URI ^ SRC_URL_TSDC_REQ_FILE_PATH=tsdc-req.ttl
 
 # latest
 RewriteRule \
-	^ont/tsdc[/-]?req(uirements)?(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	^ont/tsdc[/-]?r(eq(uirements)?)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
 	[R=302,L]
 
 # versioned & other branches
 RewriteRule \
-	^ont/([^/]+)/tsdc[/-]?req(uirements)?(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	^ont/([^/]+)/tsdc[/-]?r(eq(uirements)?)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
 
 # latest - debugging
 RewriteRule \
-	^ont/tsdc[/-]?req(uirements)?\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$2$3 \
+	^ont/tsdc[/-]?r(eq(uirements)?)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$3$4 \
 	[R=302,L]
 
 # versioned & other branches - debugging
 RewriteRule \
-	^ont/([^/]+)/tsdc[/-]?req(uirements)?\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$3$4 \
+	^ont/([^/]+)/tsdc[/-]?r(eq(uirements)?)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$4$5 \
 	[R=302,L]
 
 # ### OSH - Core
