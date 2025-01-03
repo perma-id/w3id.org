@@ -739,6 +739,19 @@ RewriteRule ^2.0/justifications/owl$ %{ENV:BASE}/2.0/justifications/justificatio
 
 RewriteRule ^2.0/justifications/owl$ %{ENV:BASE}/2.0/justifications/justifications-owl.html [R=302,L]
 
+### Examples
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/examples/$1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/examples/$1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/examples/$1.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/examples/$1.jsonld [R=302,L]
+
+RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/2.0/examples#$1 [NE,R=302,L]
+
 ########## DEPRECATED URLS ARE REDIRECTED
 
 RewriteRule ^dpv-gdpr$ https://w3id.org/dpv/legal/eu/gdpr [R=302,L]
