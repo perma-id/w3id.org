@@ -1,4 +1,4 @@
-# /noria/
+# /dseco/
 
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the *DNS Security Ontology* (DSecO) resources.
 
