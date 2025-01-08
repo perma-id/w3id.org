@@ -16,6 +16,11 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl [R=303,L,NE]
 
+# Turtle Distribution with .ttl file ending
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/nfdi4ing/metadata4ing/ontology.ttl https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl [L,R=303]
+
 # Turtle with versioning
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
@@ -26,6 +31,13 @@ RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/xml
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.xml [R=303,L,NE]
+
+# XML Distribution with .xml file ending
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^/nfdi4ing/metadata4ing/ontology.xml https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.xml [L,R=303]
+
 
 # XML with versioning
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
@@ -39,6 +51,12 @@ RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
 RewriteCond %{HTTP_ACCEPT} text/rdf+n3
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.nt [R=303,L,NE]
 
+# N-Triples Distribution with .nt file ending
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^/nfdi4ing/metadata4ing/ontology.nt https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.nt [L,R=303]
+
 # N-triples with versioning
 RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
 RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
@@ -49,6 +67,11 @@ RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metad
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.jsonld [R=303,L,NE]
+
+# JSON-LD Distribution with .jsonld file ending
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^/nfdi4ing/metadata4ing/ontology.jsonld https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.jsonld [L,R=303]
 
 # JSON-LD with versioning
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
