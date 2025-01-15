@@ -79,21 +79,6 @@ RewriteRule io/bc/?$ https://kg-construct.github.io/rml-io/ontology/rml-io-bc.tt
 RewriteCond %{REQUEST_URI} (source|target|encoding|compression|serialization|null|referenceFormulation|iterator|namespacePrefix|namespaceURL|namespace|LogicalSource|LogicalTarget|ReferenceFormulation|Source|Target|Namespace|Encoding|Compression|JSONPath|XPath|XPathReferenceFormulation|CSV|SQL2008Table|SQL2008Query|UTF-8|UTF-16|none|gzip|\/zip|tarxz|targzip)$
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.io.conneg [NE,R,L]
 
-
-# === RML resources ===
-RewriteRule ^$ https://%{SERVER_NAME}/rml/ontology.resource.conneg [NE,R,L]
-
-RewriteCond %{REQUEST_URI} bc$
-RewriteRule (.*)$ https://%{SERVER_NAME}/rml/backwards-compatibility.resource.conneg [NE,R,L]
-
-RewriteRule portal/?(.*)/?$ https://kg-construct.github.io/rml-resources/portal/$1 [NE,L,R=301]
-
-RewriteCond %{REQUEST_URI} shapes$
-RewriteRule (.*)$ https://%{SERVER_NAME}/rml/shapes.resource.conneg [NE,R,L]
-
-RewriteRule resources/?(.*)/?$ https://kg-construct.github.io/rml-resources/resources/$1 [NE,L,R=301]
-
-
 # === RML star ===
 RewriteCond %{REQUEST_URI} star
 RewriteRule star/?$ https://kg-construct.github.io/rml-star/ontology/documentation/index-en.html [NE,R,L]
@@ -113,5 +98,18 @@ RewriteCond %{REQUEST_URI} lv/shapes
 RewriteRule lv/shapes/?$ https://kg-construct.github.io/rml-lv/shapes/lv.ttl [NE,R,L]
 RewriteCond %{REQUEST_URI} (LogicalViewJoin|LogicalView|Field|IterableField|ExpressionField|StructuralAnnotation|InclusionDependencyAnnotation|NonNullableAnnotation|ForeignKeyAnnotation|IRISafeAnnotation|UniqueAnnotation|PrimaryKeyAnnotation|leftJoin|innerJoin|parentLogicalView|viewOn|structuralAnnotation|fieldName|field|onFields|targetFields|targetView)$
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/rml/$1.lv.conneg [NE,R,L]
+
+# === RML resources ===
+RewriteRule ^$ https://%{SERVER_NAME}/rml/ontology.resource.conneg [NE,R,L]
+
+RewriteCond %{REQUEST_URI} bc$
+RewriteRule (.*)$ https://%{SERVER_NAME}/rml/backwards-compatibility.resource.conneg [NE,R,L]
+
+RewriteRule portal/?(.*)/?$ https://kg-construct.github.io/rml-resources/portal/$1 [NE,L,R=301]
+
+RewriteCond %{REQUEST_URI} shapes$
+RewriteRule (.*)$ https://%{SERVER_NAME}/rml/shapes.resource.conneg [NE,R,L]
+
+RewriteRule resources/?(.*)/?$ https://kg-construct.github.io/rml-resources/resources/$1 [NE,L,R=301]
 
 RewriteRule ^(.*)$ https://kg-construct.github.io/rml-resources/404.html [NE,L,R=404]
