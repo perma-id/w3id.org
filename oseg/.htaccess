@@ -437,6 +437,49 @@ RewriteRule \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
 	[R=302,L]
 
+# ### Open Data-set
+
+SetEnvIf Request_URI ^ SRC_URL_CMT_BASE=https://codeberg.org/elevont/open-dataset/raw
+SetEnvIf Request_URI ^ SRC_URL_CMT_FILE_PATH=src/ont/ods.ttl
+
+# latest
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
 # ## People
 
 # Robin Vobruba
