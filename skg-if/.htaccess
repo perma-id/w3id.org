@@ -33,6 +33,11 @@ RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^ontology(/[^0-9]+)?(/[0-9]+\.[0-9]+\.[0-9]+)?/?$ /skg-if/ontology$1$2.json [R=303,L]
 ### SKG-IF Ontology [end]
 
+### SKG-IF SHACL Document [start]
+RewriteRule ^validation/shacl/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://skg-if.github.io/data-model/shacl/$1/shacl.ttl [R=303,L]
+RewriteRule ^validation/shacl/?$ https://skg-if.github.io/data-model/shacl/current/shacl.ttl [R=303,L]
+### SKG-IF SHACL Document [end]
+
 
 ### SKG-IF Context [start]
 RewriteRule ^context/([0-9]+\.[0-9]+\.[0-9]+)/skg-if\.json$ https://skg-if.github.io/context/ver/$1/skg-if\.json [R=303,L]
