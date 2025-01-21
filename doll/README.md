@@ -4,5 +4,5 @@ Dictionary of Letterlocking
 Homepage:
 * https://letterlocking.org
 
-Contacts:
+Contacts: Github Username: janadambrogio
 * Jana Dambrogio <letterlocked@gmail.com>
