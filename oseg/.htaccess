@@ -19,7 +19,7 @@ SetEnvIf Accept ^                          FILE_EXT=ttl    # *Default*
 SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML & OWL
 #SetEnvIf Accept ^.*application/xml         FILE_EXT=rdf    # (RDF/)XML
 SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
-#SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/inofficial form)
+#SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/unofficial form)
 SetEnvIf Accept ^.*text/n3                 FILE_EXT=n3     # Notation3
 SetEnvIf Accept ^.*application/n-quads     FILE_EXT=nq     # N-Quads
 SetEnvIf Accept ^.*application/n-triples   FILE_EXT=nt     # N-Triples
@@ -435,6 +435,49 @@ RewriteRule \
 RewriteRule \
 	^ont/([^/]+)/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### Open Data-set
+
+SetEnvIf Request_URI ^ SRC_URL_CMT_BASE=https://codeberg.org/elevont/open-dataset/raw
+SetEnvIf Request_URI ^ SRC_URL_CMT_FILE_PATH=src/ont/ods.ttl
+
+# latest
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
 	[R=302,L]
 
 # ## People

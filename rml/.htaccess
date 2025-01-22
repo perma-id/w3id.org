@@ -3,6 +3,8 @@ RewriteEngine on
 DirectorySlash Off
 
 ## RML Ontology content negotation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.ttl [NE,R,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^(.*)\.resource.conneg$ https://kg-construct.github.io/rml-resources/$1.json [NE,R,L]
 RewriteCond %{HTTP_ACCEPT} application/n-triples
