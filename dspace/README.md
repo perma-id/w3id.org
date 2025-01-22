@@ -13,37 +13,43 @@ Find more information at [https://internationaldataspaces.org/](https://internat
 
 ### Redirections:
 1. Links for V0.8:
-* https://w3id.org/dspace/v0.8/context.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/common/schema/context.json
-* https://w3id.org/dspace/v0.8/catalog/catalog-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/catalog/message/schema/catalog-schema.json
-* https://w3id.org/dspace/v0.8/catalog/dataset-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/catalog/message/schema/dataset-schema.json
-* https://w3id.org/dspace/v0.8/negotiation/contract-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/negotiation/message/schema/contract-schema.json
-* https://w3id.org/dspace/v0.8/catalog/dcat-shapes.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/catalog/message/shape/dcat-shapes.ttl
-* https://w3id.org/dspace/v0.8/common/definitions.schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/common/schema/definitions.schema.json
-* https://w3id.org/dspace/v0.8/common/odrl-shapes.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/common/shape/odrl-shapes.ttl
-* https://w3id.org/dspace/v0.8/common/message-shape.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/v0.8/common/shape/message-shape.ttl
+* https://w3id.org/dspace/v0.8/context.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/schema/context.json
+* https://w3id.org/dspace/v0.8/catalog/catalog-schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/catalog/message/schema/catalog-schema.json
+* https://w3id.org/dspace/v0.8/catalog/dataset-schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/catalog/message/schema/dataset-schema.json
+* https://w3id.org/dspace/v0.8/negotiation/contract-schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/negotiation/message/schema/contract-schema.json
+* https://w3id.org/dspace/v0.8/catalog/dcat-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/v0.8/catalog/message/shape/dcat-shapes.ttl
+* https://w3id.org/dspace/v0.8/common/definitions.schema.json --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/schema/definitions.schema.json
+* https://w3id.org/dspace/v0.8/common/odrl-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/shape/odrl-shapes.ttl
+* https://w3id.org/dspace/v0.8/common/message-shape.ttl --> https://international-data-spaces-association.github.io/ids-specification/v0.8/common/shape/message-shape.ttl
 
 2. Links for the 2024-1 release version:
-* https://w3id.org/dspace/2024/1/context.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/common/schema/context.json
-* https://w3id.org/dspace/2024/1/catalog/catalog-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/catalog/message/schema/catalog-schema.json
-* https://w3id.org/dspace/2024/1/catalog/dataset-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/catalog/message/schema/dataset-schema.json
-* https://w3id.org/dspace/2024/1/negotiation/contract-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/negotiation/message/schema/contract-schema.json
-* https://w3id.org/dspace/2024/1/catalog/dcat-shapes.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/catalog/message/shape/dcat-shapes.ttl
-* https://w3id.org/dspace/2024/1/common/definitions.schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/common/schema/definitions.schema.json
-* https://w3id.org/dspace/2024/1/common/odrl-shapes.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/common/shape/odrl-shapes.ttl
-* https://w3id.org/dspace/2024/1/common/version-shape.ttl --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2024/1/common/shape/version-shape.ttl
+* https://w3id.org/dspace/2024/1/context.json --> https://international-data-spaces-association.github.io/ids-specification/2024-1/common/schema/context.json
+* https://w3id.org/dspace/2024/1/catalog/catalog-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024-1/catalog/message/schema/catalog-schema.json
+* https://w3id.org/dspace/2024/1/catalog/dataset-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024-1/catalog/message/schema/dataset-schema.json
+* https://w3id.org/dspace/2024/1/negotiation/contract-schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024-1/negotiation/message/schema/contract-schema.json
+* https://w3id.org/dspace/2024/1/catalog/dcat-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024-1/catalog/message/shape/dcat-shapes.ttl
+* https://w3id.org/dspace/2024/1/common/definitions.schema.json --> https://international-data-spaces-association.github.io/ids-specification/2024-1/common/schema/definitions.schema.json
+* https://w3id.org/dspace/2024/1/common/odrl-shapes.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024-1/common/shape/odrl-shapes.ttl
+* https://w3id.org/dspace/2024/1/common/version-shape.ttl --> https://international-data-spaces-association.github.io/ids-specification/2024-1/common/shape/version-shape.ttl
 
+3. Links for the 2025-1 release version:
+* https://w3id.org/dspace/2025/1/context.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/message/schema/dspace.jsonld
+* https://w3id.org/dspace/2025/1/odrl.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/message/schema/odrl.jsonld
+* https://w3id.org/dspace/2025/1/catalog/catalog-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/message/schema/catalog-schema.json
+* https://w3id.org/dspace/2025/1/catalog/dataset-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/message/schema/dataset-schema.json
+* https://w3id.org/dspace/2025/1/negotiation/contract-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/message/schema/contract-schema.json
 
-3. Version-independent links:
+4. Version-independent links:
 * https://w3id.org/dspace* --> https://github.com/eclipse-dataspace-protocol-base/DataspaceProtocol
 
 
 ## Contact
 
-This space is administered by:  
+This space is administered by:
 
-**Sebastian Steinbuss**  
-*CTO*  
-[International Data Spaces Association](https://internationaldataspaces.org/)  
-Dortmund, Germany  
-<Sebastian.Steinbuss@internationaldataspaces.org>  
+**Sebastian Steinbuss**
+*CTO*
+[International Data Spaces Association](https://internationaldataspaces.org/)
+Dortmund, Germany
+<Sebastian.Steinbuss@internationaldataspaces.org>
 GitHub: [ssteinbuss](https://github.com/ssteinbuss)
