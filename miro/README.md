@@ -7,7 +7,7 @@ An ontology to describe the intermedial relations between cultural objects.
 
 * <https://w3id.org/miro>
 
-## Maintainers
+<!-- ## Maintainers
 
 * Francesca Massarenti
 
@@ -25,4 +25,4 @@ An ontology to describe the intermedial relations between cultural objects.
 
     GitHub ID: [@MariaFrancesca6](https://github.com/MariaFrancesca6)
 
-    Contact: <maria.bocchi4@unibo.it>
+    Contact: <maria.bocchi4@unibo.it> -->
