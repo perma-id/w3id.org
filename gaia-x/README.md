@@ -7,6 +7,7 @@ Homepage:
 
 Redirections:
 * `ovc/*` [ODRL profile for Verifiable Credentials](https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/blob/main/README.md)
+* `specs/criteria/cd24.06/criteria/$id` redirects to the Compliance Document 24.06 on the criteria \$id
 * `<version>` (e.g. `development` or `2404`)
   * with `Accept: text/turtle` returns the Gaia-X Shacl shapes
   * with `Accept: application/ld+json` returns the Gaia-X JSON-LD context (or schema)

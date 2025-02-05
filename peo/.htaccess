@@ -1,0 +1,16 @@
+# Activates Rewrite Engine
+RewriteEngine On
+
+# Content negotiation for RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.rdf [R=303,L]
+
+# Content negotiation for Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.ttl [R=303,L]
+
+# Default: serves HTML for browser or client not RDF-aware
+RewriteRule ^$ https://peoontology.vercel.app/ [R=303,L]
+
+# Blocks directory indexing
+Options -Indexes
