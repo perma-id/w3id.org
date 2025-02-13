@@ -1,0 +1,748 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#"
+     xml:base="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:pharmvigil="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil">
+        <owl:versionIRI rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil/1.0"/>
+        <rdfs:comment xml:lang="en">A structured framework for automating literature using classes, properties, and restrictions that form the ontology. This ontology specification serves as the foundation for automated learning and review of literature articles.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#addedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#addedWith">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#combinedWith"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug or DrugClass or DrugOther) has been administered along with another object (Drug or DrugClass or DrugOther) but not in a fixed dose combination. It denotes the suspect product and the concomitant products used for the treatment of one or many diseases or disorders in human or animal.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#adverseEffectFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#adverseEffectFor">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#medicalHistoryOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#medicalHistoryOf"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (BiologicalDisorderInduced or AdverseState) has occured in another object (Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup). It denotes the disease or disorder induced by the product has occurred in a human or animal.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#adverseEffectOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#adverseEffectOf">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#improvedOnUsing"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (BiologicalDisorderInduced or AdverseState) was caused or induced by another object (Drug or DrugClass or DrugOther). It denotes that an undesirable or harmful effect was caused by the product which was used for the treatment of an already existing disease or an already existing disorder or prevention of a disease.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#alsoKnownAs -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#alsoKnownAs">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug or DrugClass or DrugOther or BiologicalDisorder or BiologicalDisorderInduced or AdverseState or Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup) is also known as or referred or abbreviated or called as the same object (Drug or DrugClass or DrugOther or BiologicalDisorder or BiologicalDisorderInduced or AdverseState or Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup). It denotes that one entity has been called by some other name of the entity. It also denotes that the same entity has two or more names and abbreviations also.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#combinedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#combinedWith">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug or DrugClass) has been administered along with another object (Drug or DrugClass) in a fixed dose combination. It denotes that two or more products are combined and used together for the treatment of one or many diseases or disorders in human or animal.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#componentOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#componentOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug) is a component or member of another object (DrugClass). It denotes the class to which the product belongs to.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#improvedOnUsing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#improvedOnUsing">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#inducedAdverseEffect"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#inducedAdverseEffect"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (BiologicalDisorder or BiologicalDisorderInduced or AdverseState) has improved or was cured by another object (Drug or DrugClass or DrugOther). It denotes the disease or disorder which was treated by the product has inproved or got better or resolved.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#inducedAdverseEffect -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#inducedAdverseEffect">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#isIndicatedFor"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug or DrugClass or DrugOther) has caused or induced another object (BiologicalDisorderInduced or AdverseState). It denotes the product used for the treatment of a disease or disorder or for prevention of a disease has caused another undesirable or harmful effect.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#isIndicatedFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#isIndicatedFor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Drug or DrugClass or DrugOther) is used for treating another object (BiologicalDisorder or BiologicalDisorderInduced or AdverseState). It denotes the product used for the treatment of a disease or disorder or for prevention of a disease.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#manifestsAs -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#manifestsAs">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (BiologicalDisorder or BiologicalDisorderInduced or AdverseState) produced or developed or complicated into another object (BiologicalDisorder or BiologicalDisorderInduced). It denotes that the symptoms and manifestations of a disease or condition has occurred in a patient.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#medicalHistoryOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#medicalHistoryOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (BiologicalDisorder) occured in another object (Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup). It denotes that the disease or condition has occurred in a patient and the patient is getting treated or has already been treated for it.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasExposedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasExposedTo">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasTreatedWith"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <owl:propertyDisjointWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasTreatedWith"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup) is exposed to another object (Drug or DrugClass or DrugOther) accidentally or intentionally but definitely not for treating a disease or disorder or for prevention of a disease. It denotes that the product was not used to treat a human or animal and was exposed to the human or animal for non-therapeutic purposes or by accident.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasTreatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#wasTreatedWith">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:comment xml:lang="en">A relation formed when one object (Human or Human_group or Vertebrate or VertebrateGroup or InvertebrateGroup) is treated with another object (Drug or DrugClass or DrugOther) for a disease or disorder or prevention. It denotes that the product was used to treat a human or animal.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#administrationRoute -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#administrationRoute">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">The route of administration of the object (Drug or DrugClass or DrugOther).</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#administrationTime -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#administrationTime">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+        <rdfs:comment xml:lang="en">The total duration of administration of the object (Drug or DrugClass or DrugOther), representing the time in days or months or years.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#ageDemographics -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#ageDemographics">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+        <rdfs:comment xml:lang="en">A number representing the age in days or months or years or age group of the object (Human or HumanGroup or Vertebrate or VertebrateGroup or InvertebrateGroup)</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#drugDose -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#drugDose">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+        <rdfs:comment xml:lang="en">The specific amount of object (Drug or DrugClass or DrugOther).</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#durationOfEvent -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#durationOfEvent">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+        <rdfs:comment xml:lang="en">The total time during which the object (BiologicalDisorderInduced or AdverseState or BiologicalDisorder) has been active or progressive. It may represent the time in days or months or years.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#eventOutcome -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#eventOutcome">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">The result or outcome of the object (BiologicalDisorderInduced or AdverseState) that was induced.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#genderDemographics -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#genderDemographics">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Phenotypic representation of a person or the object (Human or HumanGroup or Vertebrate or VertebrateGroup or InvertebrateGroup)</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#pregnancyCondition -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#pregnancyCondition">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Condition of the object (Human or HumanGroup or Vertebrate or VertebrateGroup), whether the object is pregnant or not. It is specific to female.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#raceDemographics -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#raceDemographics">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:isDefinedBy xml:lang="en">The race or ethnicity of the object (Human or HumanGroup). It is specifc to human race only and doesn&apos;t include vertebrates.</rdfs:isDefinedBy>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#severityOfEvent -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#severityOfEvent">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:isDefinedBy xml:lang="en">Condition or severity nature of the object (BiologicalDisorderInduced or AdverseState or BiologicalDisorder) which might be mild, moderate or severe</rdfs:isDefinedBy>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <manifestsAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <durationOfEvent xml:lang="en">The total time during which the object (AdverseState) has been active or progressive. It may be represent the time in days or months or years.</durationOfEvent>
+        <eventOutcome xml:lang="en">Result or outcome of the object (AdverseState) that was induced.</eventOutcome>
+        <severityOfEvent xml:lang="en">Condition or severity nature of the object (AdverseState) which might be mild, moderate or severe.</severityOfEvent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <manifestsAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <manifestsAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <medicalHistoryOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <medicalHistoryOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <medicalHistoryOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <medicalHistoryOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <medicalHistoryOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <durationOfEvent xml:lang="en">The total time during which the object (BiologicalDisorder) has been active or progressive. It may be represent the time in days or months or years.</durationOfEvent>
+        <severityOfEvent xml:lang="en">Condition or severity nature of the object (BiologicalDisorder) which might be mild, moderate or severe.</severityOfEvent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Dysfunction"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <adverseEffectFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <improvedOnUsing rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <manifestsAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <durationOfEvent xml:lang="en">The total time during which the object (BiologicalDisorderInduced) has been active or progressive. It may be represent the time in days or months or years.</durationOfEvent>
+        <eventOutcome xml:lang="en">Result or outcome of the object (BiologicalDisorderInduced) that was induced.</eventOutcome>
+        <severityOfEvent xml:lang="en">Condition or severity nature of the object (BiologicalDisorderInduced) which might be mild, moderate or severe.</severityOfEvent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <combinedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <combinedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <componentOf rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <administrationRoute xml:lang="en">Route of administration of the object (Drug).</administrationRoute>
+        <administrationTime xml:lang="en">The total duration of administration of the object (Drug) representing the time in days or months or years.</administrationTime>
+        <drugDose xml:lang="en">The specific amount of object (Drug).</drugDose>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <combinedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <combinedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <administrationRoute xml:lang="en">Route of administration of the object (DrugClass).</administrationRoute>
+        <administrationTime xml:lang="en">The total duration of administration of the object (DrugClass) representing the time in days or months or years.</administrationTime>
+        <drugDose xml:lang="en">The specific amount of object (DrugClass).</drugDose>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Product"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <addedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <inducedAdverseEffect rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder"/>
+        <isIndicatedFor rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced"/>
+        <administrationRoute xml:lang="en">Route of administration of the object (DrugOther).</administrationRoute>
+        <administrationTime xml:lang="en">The total duration of administration of the object (DrugOther) representing the time in days or months or years.</administrationTime>
+        <drugDose xml:lang="en">The specific amount of object (DrugOther).</drugDose>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <ageDemographics xml:lang="en">A number representing the age in days or months or years or age group of the object (Human)</ageDemographics>
+        <genderDemographics xml:lang="en">Phenotypic representation of a person or the object (Human)</genderDemographics>
+        <pregnancyCondition xml:lang="en">Condition of the object (Human), whether the object is pregnant or not. It is specific to female.</pregnancyCondition>
+        <raceDemographics xml:lang="en">Race or ethnicity of the object (Human). It is specifc to human race only and doesn&apos;t include vertebrates.</raceDemographics>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <ageDemographics xml:lang="en">A number representing the age in days or months or years or age group of the object (HumanGroup)</ageDemographics>
+        <genderDemographics xml:lang="en">Phenotypic representation of persons or the object (HumanGroup)</genderDemographics>
+        <pregnancyCondition xml:lang="en">Condition of the object (HumanGroup), whether the object is pregnant or not. It is specific to female.</pregnancyCondition>
+        <raceDemographics xml:lang="en">Race or ethnicity of the object (HumanGroup). It is specifc to human race only and doesn&apos;t include vertebrates.</raceDemographics>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <ageDemographics xml:lang="en">A number representing the age in days or months or years or age group of the object (InvertebrateGroup)</ageDemographics>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <owl:differentFrom rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <ageDemographics xml:lang="en">A number representing the age in days or months or years or age group of the object (Vertebrate)</ageDemographics>
+        <genderDemographics xml:lang="en">Phenotypic representation of the object (Vertebrate)</genderDemographics>
+        <pregnancyCondition xml:lang="en">Condition of the object (Vertebrate), whether the object is pregnant or not. It is specific to female.</pregnancyCondition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup">
+        <rdf:type rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#LivingThing"/>
+        <alsoKnownAs rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasExposedTo rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass"/>
+        <wasTreatedWith rdf:resource="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther"/>
+        <ageDemographics xml:lang="en">A number representing the age in days or months or years or age group of the object (VertebrateGroup)</ageDemographics>
+        <genderDemographics xml:lang="en">Phenotypic representation of the object (VertebrateGroup)</genderDemographics>
+        <pregnancyCondition xml:lang="en">Condition of the object (VertebrateGroup), whether the object is pregnant or not. It is specific to female.</pregnancyCondition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#AdverseState">
+        <rdfs:isDefinedBy xml:lang="en">Harmful and undesirable effect that occur due to a medication or drug. It is induced by a drug after its administration to the patient.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorder">
+        <rdfs:isDefinedBy xml:lang="en">Any illness or harmful deviation from the normal structural or functional state of an organ, generally associated with specific signs and symptoms. It will not be induced by any external factors like drug or chemical or any therapeutic procedure.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#BiologicalDisorderInduced">
+        <rdfs:isDefinedBy xml:lang="en">Any illness or harmful and undesirable outcomes that occur due to a medication or drug. It is induced by a drug as per author&apos;s statement. This is also a biological disorder but it has been induced by a drug or chemical or therapeutic procedure.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Drug">
+        <rdfs:isDefinedBy xml:lang="en">Medications from modern medicine used to treat or prevent diseases. It must be an individual drug with a generic name and belong to a class of drug.  Any substance (other than food) that is used to prevent, diagnose, treat, or relieve symptoms of a disease or abnormal condition. Drugs can also affect how the brain and the rest of the body work and cause changes in mood, awareness, thoughts, feelings, or behavior. Some types of drugs, such as opioids, may be abused or lead to addiction.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugClass">
+        <rdfs:isDefinedBy xml:lang="en">A group of medications and other compounds that share similar chemical structures, act through the same mechanism of action (i.e., binding to the same biological target), have similar modes of action, and/or are used to treat similar diseases.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#DrugOther">
+        <rdfs:isDefinedBy xml:lang="en">Medications other than Modern medicine medications used to treat or prevent diseases. It can include other treatment medications including herbal, homeopathic medicines etc.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Human">
+        <rdfs:isDefinedBy xml:lang="en">An identifiable single patient mentioned within the biomedical article including title, abstract and its full text article . Single patient identifiers include a patient, a man, a woman, a child, a girl, a boy, etc,.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#HumanGroup">
+        <rdfs:isDefinedBy xml:lang="en">Mutliple patients (i.e., more than one patient) mentioned within the biomedical article including title, abstract and its full text article. Multiple patient identifiers include two patients, patients, men, women, children, etc.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#InvertebrateGroup">
+        <rdfs:isDefinedBy xml:lang="en">More than one animal without bones mentioned within the biomedical article including title, abstract and its full text article.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#Vertebrate">
+        <rdfs:isDefinedBy xml:lang="en">A single animal with bones, other than human beings mentioned within the biomedical article including title, abstract and its full text article.</rdfs:isDefinedBy>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/umar/ontologies/2025/0/pharmvigil#VertebrateGroup">
+        <rdfs:isDefinedBy xml:lang="en">More than one animal with bones, other than human beings mentioned within the biomedical article including title, abstract and its full text article.</rdfs:isDefinedBy>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
