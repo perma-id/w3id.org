@@ -6,22 +6,23 @@
 # ursula.paehler@th-deg.de 
 # https://orcid.org/0009-0004-1208-3971
 # GitHub username: upaehler
+# stao = sensotwin applicationontology
+# ao = applicationontology
 
 RewriteEngine On
 
 # Weiterleitungen für Kürzel und Benennungen
-RewriteRule ^ao(/.*)?$ /applicationontology$1 [R=302,L]  # ao = applicationontology
-RewriteRule ^stao(/.*)?$ /applicationontology$1 [R=302,L]  # stao = sensotwin applicationontology
+RewriteRule ^ao(/.*)?$ /applicationontology$1 [R=302,L]  
+RewriteRule ^stao(/.*)?$ /applicationontology$1 [R=302,L]  
 RewriteRule ^ontology(/.*)?$ /applicationontology$1 [R=302,L]  
 RewriteRule ^workflows(/.*)?$ /workflow$1 [R=302,L]  
 
-
 #Fallback to old personal github
-rewriterule ^personal(.*)?$ https://upaehler.github.io/SensoTwin (r=302)
+RewriteRule ^personal(.*)?$ https://upaehler.github.io/SensoTwin [R=302,L]
 
 
 # project page at material-digital website
-RewriteRule ^$ https://material-digital.de/project/5 [R302,L]
+RewriteRule ^$ https://material-digital.de/project/5 [R=302,L]
 RewriteCond %{REQUEST_URI} !^/workflow(/.*)?$
-# RewriteCond %{REQUEST_URI} !^/applicationontology(/.*)?$
+RewriteCond %{REQUEST_URI} !^/applicationontology(/.*)?$
 RewriteRule ^(.*)$ https://material-digital.de/project/5 [R=302,L]
