@@ -13,7 +13,9 @@ There, ideas and use cases for information models emerge as community members fo
 
  - Advance Innovation: Enhance data interoperability and communication to accelerate technological advancements.
 
-Maintainers: 
+For more information you can look at the OntoForge community at (https://wedowind.gitbook.io/ontoforge) 
 
-Yuriy Marykovskiy [@time-trader](https://github.com/time-trader)
-Jean-Paul Calbimonte [@jpcik](https://github.com/jpcik) 
+### Maintainers: 
+
+- Yuriy Marykovskiy [@time-trader](https://github.com/time-trader)
+- Jean-Paul Calbimonte [@jpcik](https://github.com/jpcik) 
