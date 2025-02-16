@@ -100,6 +100,39 @@ RewriteRule \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_BASE}/$1/%{ENV:SRC_URL_OKH_FILE_PATH}&file-ext=$3$4 \
 	[R=302,L]
 
+# ### OKH - Images
+
+# This copies the value from `SRC_URL_OKH_BASE` -> `SRC_URL_OKH_IMAGE_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OKH_BASE "(.*)" "SRC_URL_OKH_IMAGE_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OKH_IMAGE_FILE_PATH=src/spec/okh-img.ttl
+
+# latest
+RewriteRule \
+	^ont/okh[/-]?im(g|age)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/master/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?im(g|age)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/$2/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh[/-]?im(g|age)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/master/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?im(g|age)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/$1/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
 # ### OKH - Meta
 
 # This copies the value from `SRC_URL_OKH_BASE` -> `SRC_URL_OKH_META_BASE`.
