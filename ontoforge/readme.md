@@ -1,6 +1,6 @@
 ## Permanent URIs for the OntoForge vocabularies
 
-This project hosts the redirections for the OntoForge vocabularues, particularly for the the WeDoWind ontology community.
+This project hosts the redirections for the OntoForge vocabularies, particularly for the the WeDoWind ontology community.
 
 At OntoForge, we bring together industry professionals and academics dedicated to developing information models in engineering and technology. 
 There, ideas and use cases for information models emerge as community members form expert groups, while still interacting and maintaining close connections with other communities.
