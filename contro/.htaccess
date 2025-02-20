@@ -1,0 +1,19 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Turn off MultiViews
+Options +FollowSymLinks -MultiViews
+
+# Directive to ensure *.csv *.json *.rdf *.owl *.jsonld *.ttl files served as appropriate content type
+# if not present in main apache config
+AddType text/csv csv
+AddType application/json json
+AddType application/rdf+xml rdf owl
+AddType text/turtle ttl
+AddType application/ld+json jsonld
+
+# Rewrite engine setup
+RewriteEngine On
+
+# 3. Redirect everything else to the website
+RewriteRule ^(.*)$ https://cccontro.github.io/contro/$1 [R=303,L]
