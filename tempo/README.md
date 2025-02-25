@@ -6,7 +6,7 @@
 * **Maintainer**
   * [Philipp Hagedorn [GitHub: philhag]](https://github.com/philhag) [[ORCID: 0000-0002-6249-243X]](https://orcid.org/0000-0002-6249-243X)
     affiliated with [Ruhr University Bochum](https://www.inf.bi.ruhr-uni-bochum.de/iib/lehrstuhl/mitarbeiter/philipp_hagedorn.html.en)
-  * [Martina Mellenthin Filardo [GitHub: philhag]](https://github.com/mafilardo) [[ORCID: 0000-0001-7759-7579]](https://orcid.org/0000-0001-7759-7579)
+  * [Martina Mellenthin Filardo [GitHub: mafilardo]](https://github.com/mafilardo) [[ORCID: 0000-0001-7759-7579]](https://orcid.org/0000-0001-7759-7579)
     affiliated with [Bauhaus University Weimar](https://www.uni-weimar.de/de/bau-und-umwelt/professuren/baubetrieb-und-bauverfahren/personen/martina-mellenthin-filardo-msc/)
   * [Sven Zentgraf [GitHub: TC131425]](https://github.com/TC131425) [[ORCID: 0000-0001-6058-7614]](https://orcid.org/0000-0001-6058-7614)
     affiliated with [Ruhr University Bochum](https://www.inf.bi.ruhr-uni-bochum.de/iib/lehrstuhl/mitarbeiter/sven_zentgraf.html.en)
