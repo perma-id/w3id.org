@@ -1,5 +1,7 @@
 Repository (italia/stat) for redirecting to ontologies and data of the Linked ISTAT system (the Linked Open Data and the network of ontologies of the Italian National Statistical Institute, ISTAT)
+
 ISTAT intend to use w3id.org to provide persistent URIs for the network of ontologies and data that the Institute develope in the context of the Linked data system and in specific progects on semantic web as National Data Catalog. 
+
 ISTAT intend to use w3id.org/italia/stat for national persistent URIs for environmental information of the public sector.
 
 The initially plan start to create:
