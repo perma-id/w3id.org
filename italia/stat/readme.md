@@ -4,15 +4,16 @@ ISTAT intend to use w3id.org to provide persistent URIs for the network of ontol
 
 ISTAT intend to use w3id.org/italia/stat for national persistent URIs for environmental information of the public sector.
 
-The initially plan start to create:
+The initial plan is to create:
 
-w3id.org/italia/stat/onto for all the ontologies of the network mentioned above
-w3id.org/italia/stat/controlled-vocabulary for all the vocabularies
-w3id.org/italia/stat/data for all the other types of data
+- w3id.org/italia/stat/onto for all the ontologies of the network mentioned above
+- w3id.org/italia/stat/controlled-vocabulary for all the vocabularies
+- w3id.org/italia/stat/data for all the other types of data
+
 Some redirect rules will be to the github repository of ISTAT used as semantic assets repo, open to all; others to the ISTAT server.
 
-Contacts:
+### Contacts
 
-Roberta Radini: github (https://github.com/RRRoby - email: radini@istat.it)
-Manlio Salvatore Paterniti: github (https://github.com/mspist - email: paterniti@istat.it)
-Vincenzo Piscitelli: github (https://github.com/PiscitelliV - email: vincenzo.piscitelli@istat.it)
+- Roberta Radini: github (https://github.com/RRRoby - email: radini@istat.it)
+- Manlio Salvatore Paterniti: github (https://github.com/mspist - email: paterniti@istat.it)
+- Vincenzo Piscitelli: github (https://github.com/PiscitelliV - email: vincenzo.piscitelli@istat.it)
