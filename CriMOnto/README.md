@@ -1,6 +1,7 @@
 ## CriMOnto
 
 This repository provides a persistent URI namespace for redirecting the Criminal Modular Ontology (CriMOnto).
+The ontology is available in [Zenodo](https://doi.org/10.5281/zenodo.14945405).
 
 ## Maintainer
 
