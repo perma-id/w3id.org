@@ -56,6 +56,7 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
    - Special case: `https://w3id.org/emmo/mereocausality --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/mereocausality/mereocausality.ttl`
    - Special case: `https://w3id.org/emmo/perspectives --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/perspectives/perspectives.ttl`
    - Special case: `https://w3id.org/emmo/multiperspective --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/multiperspective/multiperspective.ttl`
+   - Special case: `https://w3id.org/emmo/reference --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/reference/reference.ttl`
    - Special case: `https://w3id.org/emmo/disciplines --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/disciplines.ttl`
    - Special case: `https://w3id.org/emmo/disciplines/units --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/units/units.ttl`
 
@@ -72,6 +73,7 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
    - Special case: `https://w3id.org/emmo/{VERSION}/mereocausality --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/mereocausality/mereocausality.ttl`
    - Special case: `https://w3id.org/emmo/{VERSION}/perspectives --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/perspectives/perspectives.ttl`
    - Special case: `https://w3id.org/emmo/{VERSION}/multiperspective --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/multiperspective/multiperspective.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/reference --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/reference/reference.ttl`
    - Special case: `https://w3id.org/emmo/{VERSION}/disciplines --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/disciplines.ttl`
    - Special case: `https://w3id.org/emmo/{VERSION}/disciplines/units --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/units/units.ttl`
 
