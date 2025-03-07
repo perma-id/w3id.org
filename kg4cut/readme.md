@@ -1,4 +1,4 @@
-The author of this ontology are: Beatriz Olarte Martinez, Leonardo Piano and Guseppina Salluzzi For further requests contact Prof. Massimiliano Annoni
+The author of this ontology are: Beatriz Olarte Martinez ([BeatrizOlarte](https://github.com/BeatrizOlarte)), Leonardo Piano and Guseppina Salluzzi For further requests contact Prof. Massimiliano Annoni
 
 MillingTools
 
