@@ -1,9 +1,5 @@
-# # /examples/
-#
-# A collection of URL redirection examples.
-#
 # https://w3id.org/geomapi/ redirects to
-# https://github.com/perma-id/w3id.org/tree/master/examples
+# https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl
 #
 # ## Contact
 # This space is administered by:  
@@ -13,5 +9,19 @@
 # Maarten Bassier
 # Github username: Saiga1105
 
+Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^ https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl [R=302,L]
+
+# Redirect requests for geomapi ontology to the raw GitHub URL
+RewriteRule ^geomapi$ https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl [R=303,L]
+
+# Content negotiation for different RDF formats
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^geomapi$ https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^geomapi$ https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^geomapi$ https://raw.githubusercontent.com/KU-Leuven-Geomatics/geomapi/refs/heads/main/geomapi/ontology/geomapi_ontology.ttl [R=303,L]
+
