@@ -1,11 +1,13 @@
 # OntoExhibit
 
-Documentation is available at: https://martinm10.github.io/OntoExhibit/index-en.html
+Documentation is available at: https://complexhibit-project.github.io/OntoExhibit/index-en.html
 
 The ontology is available in:
 
-OWL: https://raw.githubusercontent.com/MartinM10/OntoExhibit/main/docs/ontology.owl
+OWL: https://complexhibit-project.github.io/OntoExhibit/ontology.owl
 
 Contact: 
 
-Martín Jerónimo Salvachúa <martinjs@uma.es> (https://github.com/MartinM10)
+- Nuria Rodríguez Ortega <nro@uma.es>
+- María del Mar Roldán-García <mrgarcia@uma.es> (https://github.com/mmroldan)
+- Martín Jerónimo Salvachúa Galimberti <martinjs@uma.es> (https://github.com/MartinM10)

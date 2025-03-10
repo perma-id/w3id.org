@@ -1,0 +1,11 @@
+RewriteEngine on
+
+<If "%{REQUEST_METHOD} == 'OPTIONS' && %{HTTP:Origin} != ''">
+    Header always set Access-Control-Max-Age 1728000
+    Header always set Access-Control-Allow-Origin: expr=%{HTTP:Origin}
+    Header always set Access-Control-Allow-Methods: expr=%{Http:Access-Control-Request-Method}
+    Header always set Access-Control-Allow-Headers: expr=%{HTTP:Access-Control-Request-Headers}
+    RewriteRule ^ - [R=204,L]
+</If>
+
+RewriteRule ^(.*)$ https://champin.net/2023/SpOTy/$1 [R=302,L]

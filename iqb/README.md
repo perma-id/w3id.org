@@ -8,5 +8,5 @@ Placeholder for upcoming IQB vocabularies
 
 ## Contacts
 
-Maintainer: Huaning Yang <br>
-Email Address: huaning.yang@iqb.hu-berlin.de
+Maintainer: Huaning Yang, nanoyan (Yan Ping Chen Lin) <br>
+Email Address: huaning.yang@iqb.hu-berlin.de, yan.ping.chen.lin@iqb.hu-berlin.de
