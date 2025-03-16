@@ -8,4 +8,6 @@ Specification:
  * https://w3id.org/context-associations/specification
 
 Contact:
- * Ruben Dedecker <ruben.dedecker@ugent.be>
+ * Ruben Dedecker 
+   * Email: ruben.dedecker@ugent.be
+   * Github: @dexagod
