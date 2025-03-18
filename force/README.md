@@ -1,6 +1,7 @@
 # Framework for ODRL Rule Compliance through Evaluation
 
-This [w3id](https://w3id.org/force) provides a persistent URI namespace for work related to the Framework for ODRL Rule Compliance through Evaluation (FORCE).<br>
+This [w3id](https://w3id.org/force) provides a persistent URI namespace for work related to the Framework for ODRL Rule Compliance through Evaluation (FORCE).
+
 FORCE is designed to assist in ODRL policy development and enhance comprehension of ODRL evaluation outputs such that the problem of how to reliably and uniformly interpret ODRL policies is a problem of the past.
 
 ## Uses
