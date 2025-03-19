@@ -5,6 +5,7 @@ This [w3id](https://w3id.org/force) provides a persistent URI namespace for work
 FORCE is designed to assist in ODRL policy development and enhance comprehension of ODRL evaluation outputs such that the problem of how to reliably and uniformly interpret ODRL policies is a problem of the past.
 
 ## Uses
+
 | w3id                    | Description                                    | URL                                                                                                        |
 | ----------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | /                       | Main project information of FORCE              | https://woutslabbinck.github.io/ODRL-Evaluator-Demo/                                                       |
@@ -17,10 +18,13 @@ FORCE is designed to assist in ODRL policy development and enhance comprehension
 | /ESWC2025-demo/repo     | Repository of the FORCE demo                   | https://github.com/woutslabbinck/ODRL-Evaluator-Demo                                                       |
 
 ## Contacts
+
 **Wout Slabbinck**
 - Phd Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
 - email: [wout.slabbinck@ugent.be](mailto:wout.slabbinck@ugent.be)
+- github: [woutslabbinck](https://github.com/woutslabbinck/)
 
 **Beatriz Esteves**
 - Postdoctoral Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
 - email: [beatriz.esteves@ugent.be](mailto:beatriz.esteves@ugent.be)
+- github: [besteves4](https://github.com/besteves4)
