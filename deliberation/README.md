@@ -7,5 +7,5 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the Delibe
 The Deliberation Ontology models deliberative processes, arguments, and discourse across various platforms to support structured representation and analysis of deliberations.
 
 ## Contact
-
 [Simone Vagnoni](mailto:simone.vagnoni3@unibo.it)
+GitHub: [@Bananito96](https://github.com/Bananito96)
