@@ -23,7 +23,7 @@ knowledge sharing and datadriven research in the field of language disorders.
 
  contact person: 
  email: lia.draetta@unito.it
- github ID: 42577021
+ github ID: @liadraetta
 
  
  ## Usage
