@@ -1,7 +1,7 @@
 # # /coso/
 #
 # http://w3id.org/coso/ html request redirects to 
-# https://gdb.acg.maine.edu:7201/resource?uri=http:%2F%2Fw3id.org%2Fcoso%23 for html request
+# https://gdb.acg.maine.edu:7201/resource?uri=http:%2F%2Fw3id.org%2Fcoso%2Fv1%2Fcontaminoso%23 for html request
 # to https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl for base request
 #
 # http://w3id.org/coso/ ttl request redirects to
@@ -22,12 +22,19 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^(.+) https://gdb.acg.maine.edu:7201/resource?uri=http:%2F%2Fw3id.org%2Fcoso%2F$1 [B]
+RewriteRule ^v1/contaminoso#(.+) https://github.com/SAWGraph/contaminoso/docs/contaminoso.html#$1 [B]
 # backreference [B] flag ensures non alpha-numeric characters are url encoded 
+
+# Rewrite for specific ontology uris
+RewriteRule ^v1/contaminoso-full# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl [NC]
+RewriteRule ^v1/contaminoso-stad-qudt# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_stad_qudt.ttl [NC]
+RewriteRule ^v1/contaminoso# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
+
+
 
 # Default response
 # -----------------------------
-# Rewrite rule to serve ttl content by default (
-RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
-# see also https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl
-# see also https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_stad_qudt.ttl
+# Rewrite rule to serve ttl content by default
+RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl [NC]
+
+
