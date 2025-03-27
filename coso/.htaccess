@@ -1,0 +1,33 @@
+# # /coso/
+#
+# http://w3id.org/coso/ html request redirects to 
+# https://gdb.acg.maine.edu:7201/resource?uri=http:%2F%2Fw3id.org%2Fcoso%23 for html request
+# to https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl for base request
+#
+# http://w3id.org/coso/ ttl request redirects to
+#
+# 
+# ## Contact
+# This space is administered by:
+#
+# Katrina Schweikert
+# Github username: kschweikert
+#
+# Torsten Hahmann
+# Github username: thahmann
+
+RewriteEngine on
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(.+) https://gdb.acg.maine.edu:7201/resource?uri=http:%2F%2Fw3id.org%2Fcoso%2F$1 [B]
+# backreference [B] flag ensures non alpha-numeric characters are url encoded 
+
+# Default response
+# -----------------------------
+# Rewrite rule to serve ttl content by default (
+RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
+# see also https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl
+# see also https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_stad_qudt.ttl
