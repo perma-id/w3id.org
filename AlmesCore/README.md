@@ -4,6 +4,7 @@
 - GitHub ID: @AlmesCore
 - GitHub ID: @Filipi-Soares
 - GitHub ID: @kellyrb
+- GitHub ID: @deboradrucker
 
 ### Almes Core Management Group:
 <a href="https://orcid.org/0000-0002-0674-7960"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID iD icon"> Filipi Miranda Soares</a>, 
