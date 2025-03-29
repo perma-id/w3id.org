@@ -1,4 +1,4 @@
-#/coso/ 
+# /coso/ 
 ContaminOSO ontology 
 ## Uses
 The ContaminOSO ontology is a SOSA extension for modeling observations, measurements, samples and features of interest related to Environmental Contamination. 
