@@ -8,4 +8,4 @@ The Deliberation Ontology models deliberative processes, arguments, and discours
 
 ## Contact
 [Simone Vagnoni](mailto:simone.vagnoni3@unibo.it)
-GitHub: [@Bananito96](https://github.com/Bananito96)
+GitHub: [@Stocastico96](https://github.com/Stocastico96)
