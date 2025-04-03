@@ -7,6 +7,6 @@ The ContaminOSO ontology is a SOSA extension for modeling observations, measurem
 This ontology is administered by: 
 
 [Torsten Hahmann](mailto:torsten.hahmann@maine.edu)
-[Katrina Schweikert](mailto:katrina.schweikert@maine.edu)
+[Katrina Schweikert](mailto:katrina.schweikert@maine.edu) @kschweikert
 Shirly Stephen
 David Kedrowski
