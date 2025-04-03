@@ -1,0 +1,28 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# indicator redirects for instances
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^dimensions/^(.*)$ https://raw.githubusercontent.com/EVERSE-ResearchSoftware/dimensions/refs/heads/main/dimensions/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR] 
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^indicators/^(.*)$ https://raw.githubusercontent.com/EVERSE-ResearchSoftware/indicators/refs/heads/main/indicators/$1.json [R=303,L]
+
+# Rewrite rule for HTML (commented out for now).
+# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# RewriteCond %{HTTP_ACCEPT} text/html [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+# RewriteRule ^$ https://github.com/EVERSE-ResearchSoftware/schemas/blob/main/quality_dimensions/0.0.2/README.md [R=303,L]
+
