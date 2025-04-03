@@ -6,5 +6,5 @@ Developed and maintained by Digital Humanities Research Center at the University
 
 Contacts
 
-* Laurent Fintoni, Maintainer <laurent.fintoni2@unibo.it>, (https://github.com/laurentfintoni)  
+* Laurent Fintoni, Maintainer <laurent.fintoni2@unibo.it>, https://github.com/laurentfintoni  
 * Francesca Tomasi <francesca.tomasi@unibo.it>
