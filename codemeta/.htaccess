@@ -20,10 +20,10 @@ RewriteRule ^$ https://codemeta.github.io/terms/ [R=303,L]
 # Rewrite rules for the crosswalks
 RewriteRule ^mappings/?$ https://codemeta.github.io/crosswalk/ [R=303,L]
 
-# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
 # Temporary mapping!
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^mappings/(.+)$ https://github.com/oeg-upm/codemeta/blob/crosswalks_oeg/crosswalks-sssom/$1/$1-sssom-outputs/$1-codemeta-mappings.sssom.tsv [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^mappings/(.+)$ https://raw.githubusercontent.com/oeg-upm/codemeta/refs/heads/crosswalks_oeg/crosswalks-sssom/$1/$1-sssom-outputs/$1-codemeta-mappings.sssom.ttl [R=303,L]
 
 # Rewrite rules for any other version.
 # Temporary redirect. This will go to the crosswalk page (https://codemeta.github.io/crosswalk/$1/)
