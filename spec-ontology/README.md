@@ -1,4 +1,4 @@
-# /sml/
+# /spec-ontology/
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the Specifications Ontology (SPEC). 
 
 The Specifications Ontology (SPEC) is a formal and structured representation of knowledge that defines concepts, relationships, and properties of requirements. It serves as a shared vocabulary or framework for describing and organizing requirements in a way that computers can understand and process, also known as machine-readable requirements.
