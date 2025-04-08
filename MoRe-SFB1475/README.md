@@ -4,11 +4,13 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for a thesauru
 
 ## Uses
 
-The namespace currently only contains the project website and the conceptual thesaurus itself:
+The namespace currently only contains the project website, the conceptual thesaurus itself, and a few auxiliary resources:
 
 * **`/MoRe-SFB1475/`** redirects to the project website
 * **`/MoRe-SFB1475/CT/`** is the entry point to the thesaurus
 * **`/MoRe-SFB1475/CT/concepts/`** is used for the individual concepts
+* **`/MoRe-SFB1475/waps-annotation-migrator`** utility software
+* **`/MoRe-SFB1475/repo/util/`** (image) resources used inside our textual data 
 
 ## Contact
 
