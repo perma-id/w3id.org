@@ -4,11 +4,14 @@ A website resource that provides a complete pipeline to generate a dataset of (c
 
 ---
 
-### Homepage:
+### Homepage
 * https://w3id.org/dataset-forge --> http://gen2kgbot.i3s.unice.fr/dataset-forge/
 
-### Source:
+### Source
 * https://github.com/Wimmics/gen2kgbot_test_dataset
 
-### Contacts: 
-* Yousouf Taghzouti <yousouf.taghzouti@inria.fr>
+### Contact
+* For more information, please contact Yousouf Taghzouti <yousouf.taghzouti@inria.fr>
+
+## Maintenance
+* This URI will be maintained by @YoucTagh
