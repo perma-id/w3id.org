@@ -1,0 +1,14 @@
+RewriteEngine on
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+# Rewrite rule to serve HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology$ https://dhi-roma.github.io/g17-ontology/docs/  [R=303,L]
+
+# Rewrite rule to serve <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^ontology$ https://dhi-roma.github.io/g17-ontology/ontology/graceful17.ttl [R=303,L]
