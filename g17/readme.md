@@ -9,7 +9,7 @@ https://w3id.org/g17/ontology redirects to https://dhi-roma.github.io/g17-ontolo
 ## Maintainers: 
 
 - German Historical Institue in Rome (https://github.com/dhi-roma)
-- Jörg Hörnschemeyer [@jhoernsc](https://github.com/jhoernsc) 
+- Jörg Hörnschemeyer [jhoernsc](https://github.com/jhoernsc) 
 
 
 Contact: admin@dhi-roma.it
