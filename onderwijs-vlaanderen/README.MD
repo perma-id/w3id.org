@@ -7,6 +7,8 @@ Founded by following organizations:
 - i-Learn: <https://www.i-learn.vlaanderen/en/>
 - Meemoo: <https://meemoo.be/en>
 
+Currently maintained by the Flemish department of education under the name LeerLabel.
+
 Contacts:
 
 - Ben De Meester <ben.demeester@ugent.be>
