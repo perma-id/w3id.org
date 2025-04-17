@@ -18,10 +18,13 @@ Redirections:
 * JSON-LD context file:
   * `https://w3id.org/nfdi4ing/metadata4ing/m4i_context.jsonld`
   * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld`
-  
 * Logo file:
   * `https://w3id.org/nfdi4ing/metadata4ing/m4i_logo.png`
-  * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/develop/visualizations/Logo.png`
+  * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/visualizations/Logo.png`
+* First steps guide:
+  * `https://w3id.org/nfdi4ing/metadata4ing/first-steps-guide.md`
+  * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/blob/master/training/first-steps-guide.md`
+
 
 Support:
 Metadata4Ing Working Group (NFDI4Ing)
