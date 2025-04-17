@@ -91,7 +91,11 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
-RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
 # else open RO in ROHub portal
 # RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]
