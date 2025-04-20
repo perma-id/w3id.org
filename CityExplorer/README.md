@@ -14,6 +14,7 @@ This repository holds the website source code for <https://w3id.org/>.
 * [Naming Policy](#naming-policy)
 * [W3ID Community](#w3id-community)
 * [Disclaimer](#disclaimer)
+* [CityExplorer Ontology](#CityExplorer)
 
 ### Purpose
 
