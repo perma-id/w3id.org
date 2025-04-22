@@ -9,3 +9,4 @@ This namespace redirects ontology terms to their documentation.
 ## Authors/Maintainers:
 * XUnternehmen
   * Email: <kontakt@xunternehmen.de>
+  * GitLab: https://gitlab.opencode.de/xunternehmen/kerndatenmodell-ontologie-owl
