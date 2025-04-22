@@ -10,3 +10,4 @@ This namespace redirects ontology terms to their documentation.
 * XUnternehmen
   * Email: <kontakt@xunternehmen.de>
   * GitLab: https://gitlab.opencode.de/xunternehmen/kerndatenmodell-ontologie-owl
+  * GitHub-Account: LudgerRinsche-initAG
