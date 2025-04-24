@@ -1,4 +1,39 @@
 Options -MultiViews
 RewriteEngine on
+AddType text/turtle .ttl
 
-RedirectMatch 302 ^/laderr/(home|git|repo)/?$  https://github.com/pedropaulofb/laderr/
+# CONTENT NEGOTIATION (Placed First) -------------------------------------------------------------------------
+
+## Redirect to HTML if no specific format is requested
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteRule ^$ https://pedropaulofb.github.io/laderr/ [R=303,L]
+
+## Serve TTL content if Turtle is requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://pedropaulofb.github.io/laderr/laderr-vocabulary.ttl [R=303,L]
+
+## Explicit TTL request should always return TTL
+RewriteRule ^ttl/?$ https://pedropaulofb.github.io/laderr/laderr-vocabulary.ttl [R=303,L]
+
+# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+
+## Latest release
+RedirectMatch 302 ^/laderr/(latest|current)/?$  https://github.com/pedropaulofb/laderr/releases/latest
+RedirectMatch 302 ^/laderr/engine/(latest|current)/?$  https://github.com/pedropaulofb/laderr-engine/releases/latest
+
+## All releases
+RedirectMatch 302 ^/laderr/releases/?$  https://github.com/pedropaulofb/laderr/releases
+RedirectMatch 302 ^/laderr/engine/releases/?$  https://github.com/pedropaulofb/laderr-engine/releases
+
+# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+
+RedirectMatch 302 ^/laderr/?$  https://pedropaulofb.github.io/laderr/
+RedirectMatch 302 ^/laderr/format/([^/]+)?$  https://pedropaulofb.github.io/laderr/laderr-vocabulary.$1
+RedirectMatch 302 ^/laderr/(git|repo)/?$  https://github.com/pedropaulofb/laderr
+
+RedirectMatch 302 ^/laderr/engine/?$  https://pedropaulofb.github.io/laderr-engine
+RedirectMatch 302 ^/laderr/engine/(git|repo)/?$  https://github.com/pedropaulofb/laderr-engine
