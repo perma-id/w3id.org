@@ -99,7 +99,11 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
-RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
 # else open RO in ROHub portal
 # RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]
+RewriteRule ^([^/]*)/?$ https://www.rohub.org/$1?activetab=overview [R=302,L]

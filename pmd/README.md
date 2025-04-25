@@ -10,12 +10,14 @@ This namespace represents a general ontology namespace for the platform material
 - `mo`: Microscopy Ontology (MO)
 - `ont_pub_tmplt`: PMD Ontology Publication Template
 - `materials-mechanics-ontology`: Materials Mechanics Ontology
+- `fsp`: Flame Spray Pyrolysis Ontology (FSP)
 
 ## Contact
 Current maintainers are:
 * [@joergwa](https://github.com/joergwa)
 * [@BerndBayerlein](https://github.com/BerndBayerlein)
 * [@MarkusSchilling](https://github.com/MarkusSchilling)
+* [@Leibniz-IWT](https://github.com/Leibniz-IWT)
 
 This space is administered by:  
 

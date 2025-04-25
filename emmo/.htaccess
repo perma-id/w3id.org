@@ -193,12 +193,20 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^$ https://emmo-repo.github.io/emmo.html [R=303,NE,L]
 RewriteRule ^$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
 
-# Rule 7b: https://w3id.org/emmo/inferred
+# Rule 7b: https://w3id.org/emmo/dev
+# Redirect to GitHub Pages
+# Squashed ontology on GitHub Pages
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^dev/?$ https://emmo-repo.github.io/versions/dev/emmo.html [R=303,NE,L]
+RewriteRule ^dev/?$ https://emmo-repo.github.io/versions/dev/emmo.ttl [R=303,NE,L]
+
+# Rule 7c: https://w3id.org/emmo/inferred
 # Redirect to GitHub Pages
 # Inferred ontology (only turtle) on GitHub Pages
 RewriteRule ^inferred/?$ https://emmo-repo.github.io/emmo-inferred.ttl [R=303,NE,L]
 
-# Rule 7c: https://w3id.org/emmo/turtle
+# Rule 7d: https://w3id.org/emmo/turtle
 # Redirect to GitHub Pages
 # Squashed ontology on GitHub Pages
 RewriteRule ^turtle/?$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
