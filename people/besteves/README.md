@@ -8,6 +8,8 @@ This [w3id](https://w3id.org/people/besteves/) provides a persistent URI namespa
 |-----------------------------|------------------------------------------------|-----------------------------------------------------|
 | /                           | Personal webpage                               | https://besteves4.github.io/                        |
 | /repo                       | GitHub                                         | https://github.com/besteves4/                       |
+| **Slides**                  |                                                |                                                     |
+| /slides/yyyy/****           | Slides                                         | https://besteves4.github.io/slides/yyyy/****        |
 | **Demos**                   |                                                |                                                     |
 | /demo/eswc22                | Webpage with SOPE demo for ESWC22              | https://protect.oeg.fi.upm.es/eswc-demo/            |
 | /demo/iswc23                | Webpage with SoDA demo for ISWC23              | https://besteves4.github.io/iswc23demo/             |
