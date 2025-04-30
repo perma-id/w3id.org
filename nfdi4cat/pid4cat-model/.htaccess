@@ -1,0 +1,13 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Notes on used flags:
+# NC - sets case-insensitive matching
+# NE - noescape, prevents that special characters, such as & and ?, will be converted to their hexcode equivalent for rules that result in external redirects.
+# L - last, tells mod_rewrite to stop processing further rules sets.
+# R=303 - status code for "See Other". It indicates that the redirects don't link to the requested resource itself, but to another page.
+
+# Order of rules: A more specific rules must come before a more general rule.
+
+RewriteRule "^(.*)$" "https://nfdi4cat.github.io/pid4cat-model/$1" [R=303,L,NE,NC]

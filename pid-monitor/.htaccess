@@ -1,0 +1,19 @@
+# pid-monitor
+#
+# https://w3id.org/pid-monitor/ redirects to https://pid-monitor.org/
+#
+# ## Contact
+# This space is administered by:
+#
+# Andreas Czerniak
+# andreas.czerniak@uni-bielefeld.de
+# GitHub username: ACz-UniBi
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule "^datacite/academic_events_202503$" "https://api.datacite.org/dois?query=(types.resourceTypeGeneral:Event) NOT (types.resourceType:'Report' OR types.resourceType:'Field_expedition' OR types.resourceType:'Film' OR types.resourceType:'Conference Paper' OR types.resourceType:'Research cruise' OR types.resourceType:'Address' OR types.resourceType:'Screening' OR types.resourceType:'Festivity' OR types.resourceType:'Exhibition' OR types.resourceType:'Performance' OR types.resourceType:'scholarship, prize and job offer' OR types.resourceType:'miscellaneous information' OR types.resourceType:'video/mp4' OR types.resourceType:'Slidedeck' OR types.resourceType:'Presentation' OR types.resourceType:'Book Presentation' OR types.resourceType:'Staged Reading' OR types.resourceType:'call for tender' OR types.resourceType:'call for papers')" [R=303,L]
+RewriteRule "^datacite/academic_events$" "https://w3id.org/pid-monitor/datacite/academic_events_202503" [R=303,L]  # linked to the latest query
+RewriteRule "^datacite/igsn_catalog$" "https://api.datacite.org/dois?client-type=igsnCatalog" [R=303,L]
+
+RewriteRule "^$" "https://pid-monitor.org/" [R=303,L]
