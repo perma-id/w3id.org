@@ -2,9 +2,14 @@ RewriteEngine On
 
 # Redirect to website for the root URI
 RewriteRule	  ^$ https://sfb1475.ruhr-uni-bochum.de/ [R=302,L]
-
 # Redirect to vocabulary overview
-RewriteRule   ^CT/?$ http://eris.vm.rub.de/Skosmos/ct/ [R=303,L,QSA]
-# Redirect individual concepts
-RewriteRule   ^CT/concepts/(.+)$ http://eris.vm.rub.de/Skosmos/ct/page/$1 [R=303,L,QSA]
+RewriteRule   ^CT/?$	https://metaphors.skosmos.ub.rub.de/ct/en/ [R=303,L,QSA]
 
+# Redirect individual concepts
+RewriteRule   ^CT/concepts/(.+)$ https://metaphors.skosmos.ub.rub.de/ct/en/page/$1 [R=303,L,QSA]
+
+# Redirect to utility software repo
+RewriteRule   ^waps-annotation-migrator/?$   https://gitlab.ruhr-uni-bochum.de/sfb-1475-inf/waps-annotation-migrator/  [R=303,L]
+
+# Redirect to resources which are referenced in textual data
+RewriteRule ^repo/util/(.+)$  https://metaphors.scc.kit.edu/base-repo/api/v1/dataresources/43c81051-4542-426c-8aea-bb3929be31de/data/util/$1  [R=303,L]

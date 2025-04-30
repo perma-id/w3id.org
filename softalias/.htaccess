@@ -12,13 +12,13 @@ RewriteEngine on
 
 RewriteRule ^demo$ https://softalias-rs.linkeddata.es/ [R=301,NE,L]
 
-#Rewrite rules for the vocabulary (to do)
-#RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-#RewriteCond %{HTTP_ACCEPT} text/html [OR]
-#RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-#RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-#RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-#RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-#RewriteRule ^$ https://github.com/SoftwareUnderstanding/softalias-kg/  [R=303,NE,L]
-#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-#RewriteRule ^$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/AsteroidsOntology/asteroids.ttl [R=303,NE,L]
+# Rewrite rule for ttl
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://github.com/SoftwareUnderstanding/softalias-kg/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^(.*)$ https://softwareunderstanding.github.io/softalias-kg/vocab/release/0.0.1/softalias.ttl [R=303,NE,L]

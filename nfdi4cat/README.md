@@ -11,6 +11,7 @@ We develop terminologies and ontologies as base for FAIR data management in cata
 ### Resources that use w3id.org for permanent URIs
 
 * [voc4cat](https://github.com/nfdi4cat/voc4cat) - A SKOS vocabulary for catalysis maintained by NFDI4Cat & friends.
+* [pid4cat-model](https://github.com/nfdi4cat/pid4cat-model) - A LinkML data model for meta data of pid4cat persistent indentifiers that are based on the handle system.
 
 ### Contacts
 
