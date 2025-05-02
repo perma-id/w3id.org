@@ -4,4 +4,7 @@ Redirection to https://wehi-researchcomputing.github.io/ to support W3ID IRIs th
 
 Contacts:
 
-- Michael Milton <milton.m@wehi.edu.au>
+- Michael Milton
+    - <milton.m@wehi.edu.au>
+    - [@multimeric](https://github.com/multimeric)
+    - <https://orcid.org/0000-0002-8965-2595>
