@@ -7,4 +7,7 @@ Redirection to https://wehi-soda-hub.github.io/ to support W3ID IRIs that are de
 
 Contacts:
 
-- Michael Milton <milton.m@wehi.edu.au>
+- Michael Milton
+    - <milton.m@wehi.edu.au>
+    - [@multimeric](https://github.com/multimeric)
+    - <https://orcid.org/0000-0002-8965-2595>
