@@ -6,10 +6,10 @@ A lightweight ontology for the representation of decision processes in the Threa
 
 # Creators
 
-Ritten Roothaert[^1]
-Lise Stork[^2]
-Fabio Massacci[^1]
-Stefan Schlobach[^1]
+- Ritten Roothaert[^1]
+- Lise Stork[^2]
+- Fabio Massacci[^1]
+- Stefan Schlobach[^1]
 
 [^1]: Vrije Universiteit Amsterdam, The Netherlands
 [^2]: University of Amsterdam, The Netherlands
