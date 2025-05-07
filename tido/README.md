@@ -14,5 +14,7 @@ A lightweight ontology for the representation of decision processes in the Threa
 [^1]: Vrije Universiteit Amsterdam, The Netherlands
 [^2]: University of Amsterdam, The Netherlands
 
-h.m.roothaert@vu.nl
-ORCID: 0009-0008-7843-6513
+
+# Contact
+h.m.roothaert@vu.nl ([ORCID](https://orcid.org/0009-0008-7843-6513))
+
