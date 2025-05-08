@@ -1,4 +1,4 @@
-# MOLA
+# TIDO
 This W3ID provides a persistent URI namespace for the Threat Intelligence Decision Ontology (TIDO).
 
 # Uses
@@ -16,5 +16,6 @@ A lightweight ontology for the representation of decision processes in the Threa
 
 
 # Contact
-h.m.roothaert@vu.nl ([ORCID](https://orcid.org/0009-0008-7843-6513))
-
+Ritten Roothaert ([ORCID](https://orcid.org/0009-0008-7843-6513)) \
+Email: [h.m.roothaert@vu.nl](mailto:h.m.roothaert@vu.nl) \
+Github: [Ritten11](https://github.com/Ritten11)
