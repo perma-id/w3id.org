@@ -17,5 +17,3 @@ Allowed maintainers of these redirects are:
 - Laurent Tettoni, tettoni@iso.org, github: [ltettoni](https://github.com/ltettoni)
 - Stéphane da Costa Silva, sco@iec.ch, github: [stephanecosta](https://github.com/stephanecosta)
 - Mikalai Zubok, Mikalai_Zubok@epam.com, github: [mzubok](https://github.com/mzubok)
-
-See also contacts details in file .htaccess
