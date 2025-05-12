@@ -10,12 +10,8 @@ AddType application/rdf+xml .owl
 
 RewriteEngine on
 
-# Define a variable for the actual file location
-SetEnvIf Request_URI ^/ontology/?$ ONTOLOGY_URL=https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl
-SetEnvIf Request_URI ^/?$ HOMEPAGE_URL=https://fortiss.github.io/OntoGSN
+# Redirect ontology path (relative to /ontogsn/)
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl [R=303,L]
 
-# Redirect anything under /ontology (without fragments) to the OWL file (303 = "See Other")
-RewriteRule ^ontology/?$ %{ENV:ONTOLOGY_URL} [R=303,L]
-
-# Redirect to OntoGSN website
-RewriteRule ^$ %{ENV:HOMEPAGE_URL} [R=302,L]
+# Redirect base /ontogsn to GitHub Pages
+RewriteRule ^$ https://fortiss.github.io/OntoGSN [R=302,L]
