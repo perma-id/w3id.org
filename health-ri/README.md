@@ -19,3 +19,11 @@ Health-RI is driven by a passionate and multidisciplinary team committed to adva
 🔗 [Meet the Health-RI Team](https://www.health-ri.nl/over-ons/ontmoet-het-team)
 
 For more information about our organizational structure, visit our [Organization page](https://www.health-ri.nl/over-ons/organisatie).
+
+## Maintainers
+
+- Ana Konrad: _<hannah.neikes@health-ri.nl>_
+- Hannah Neikes: _<ana.konrad@health-ri.nl>_
+- Niek van Ulzen: _<niek.vanulzen@health-ri.nl>_
+- Pedro Paulo F. Barcelos: _<pedro.barcelos@health-ri.nl>_
+- Reinier Groeneveld: _<reinier.groeneveld@health-ri.nl>_
