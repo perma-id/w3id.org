@@ -1,0 +1,112 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://www.stargate-h2020.eu/ [R=303,L]
+
+
+### FIRST LAYER #####
+
+### API
+
+# Base
+RewriteRule ^jf/api$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/base [R=303,L]
+RewriteRule ^jf/api/v1.0/?$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/base [R=303,L]
+
+# Observations
+#RewriteCond %{QUERY_STRING} ^(?:\$|%24)top=(.*)&(?:\$|%24)skip=(.*)00$
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations(id)?id=$1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)\)/Datastream$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations_Datastream?obs=$1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeaturesOfInterest(id)?id=$1-$2 [R=303,L]
+
+#RewriteRule ^jf/api/v1.0/Observations\((.*)\)/Datastream$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations_Datastream?obs=$1 [R=303,L]
+#RewriteRule ^jf/api/v1.0/Observations\((.*)-(.*)-(.*)-(.*)\)/FeatureOfInterest$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Observations_FeatureOfInterest?id=$1&location=$1&sensor=$3&species=$4 [R=303,L]
+
+# Datastreams
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Datastreams?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Datastreams?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Datastreams(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Datastreams_Observations?sensor=$1&property=$2&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Datastreams_Observations?sensor=$1&property=$2&page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/ObservedProperty$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperties(id)?id=$2 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Sensor$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors(id)?id=$1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Datastreams\((.*)-(.*)\)/Thing$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things(id)?id=$1 [R=303,L]
+
+# FeaturesOfInterest
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeaturesOfInterest?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeaturesOfInterest?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeaturesOfInterest(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeatureOfInterest_Observations?foi=$1-$2&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/FeaturesOfInterest\((.*)-(.*)\)/Observations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/FeatureOfInterest_Observations?foi=$1-$2&page=1 [R=303,L]
+
+#HistoricalLocations
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/HistoricalLocations?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/HistoricalLocations?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/HistoricalLocations(id)?id=$1 [R=303,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)-(.*)\)/Locations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations(id)?id=$2 [R=303,L]
+RewriteRule ^jf/api/v1.0/HistoricalLocations\((.*)-(.*)\)/Things$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things(id)?id=$2 [R=303,L]
+
+#Locations
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Locations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Locations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations_HistoricalLocations?loc=$1&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations_HistoricalLocations?loc=$1&page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Locations\((.*)\)/Things$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things(id)?id=$1 [R=303,L]
+
+#sensors
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Sensors$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Sensors$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors_Datastreams?sens=$1&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Sensors\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors_Datastreams?sens=$1&page=1 [R=303,L]
+
+#things
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Things$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Things$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors_Datastreams?sens=$1&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Sensors_Datastreams?sens=$1&page=1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things_HistoricalLocations?thing=$1&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/HistoricalLocations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Things_HistoricalLocations?thing=$1&page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/Things\((.*)\)/Locations$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/Locations(id)?id=$1 [R=303,L]
+
+#observedProperties
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/ObservedProperties$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperties?page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperties?page=1 [R=303,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperties(id)?id=$1 [R=303,L]
+RewriteCond %{QUERY_STRING} (?:^|&)(?:\$|%24)skip=([1-9]+[0-9]*)00
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperty_Datastreams?obp=$1&page=%1 [R=303,L]
+RewriteRule ^jf/api/v1.0/ObservedProperties\((.*)\)/Datastreams$ https://dev.grlc.io/api-git/Stargate-h2020/gaiasense-aim-ogc/ObservedProperty_Datastreams?obp=$1&page=1 [R=303,L]
+
+
+
+
+
+
+
+

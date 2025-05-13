@@ -1,7 +1,7 @@
 # Rebase Vocabulary
 
-- https://spec.rebase.org
-- https://github.com/decentralized-identity/spec.rebase.org
+- https://spec.rebase.xyz
+- https://github.com/rebase-xyz/spec.rebase.xyz
 
 ## Maintainers
 

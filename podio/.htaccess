@@ -1,0 +1,59 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to redirect to sparql endpoint 
+RewriteRule ^sparql$ https://podio.linkeddata.es/sparql [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+# Latest version redirect
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://podio.linkeddata.es [R=303,L]
+
+# Rewrite rule to serve any version HTML content 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^v(\d+\.\d+)$ https://podio.linkeddata.es/v$1 [R=303,L]
+
+# Directives to redirect to the latest version of the ontology
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://podio.linkeddata.es/ontology.rdf [R=303,L]
+RewriteRule ^ontology\.rdf$ https://podio.linkeddata.es/ontology.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://podio.linkeddata.es/ontology.jsonld [R=303,L]
+RewriteRule ^ontology\.jsonld$ https://podio.linkeddata.es/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^$ https://podio.linkeddata.es/ontology.nt [R=303,L]
+RewriteRule ^ontology\.nt$ https://podio.linkeddata.es/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://podio.linkeddata.es/ontology.ttl [R=303,L]
+RewriteRule ^ontology\.ttl$ https://podio.linkeddata.es/ontology.ttl [R=303,L]
+
+
+# Rewrite rule to serve the requested demo
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^demo(.*)$ https://podio.linkeddata.es/demo$1 [R=303,L]
