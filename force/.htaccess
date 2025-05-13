@@ -1,0 +1,60 @@
+AddType text/turtle .ttl
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# FORCE
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/force/latest/ [R=302,L]
+
+
+# ODRL Compliance Report Model
+## Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^compliance-report$ https://cdn.jsdelivr.net/gh/SolidLabResearch/ODRL-Compliance-Report-Model@master/ComplianceReportModel.ttl [R=302,L]
+
+## Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^compliance-report$ https://github.com/SolidLabResearch/ODRL-Compliance-Report-Model [R=302,L]
+
+## repo 
+RewriteRule ^compliance-report/repo$ https://github.com/SolidLabResearch/ODRL-Compliance-Report-Model [R=302,L]
+
+# ODRL Test Suite
+## zenodo
+RewriteRule ^test-suite$ https://doi.org/10.5281/zenodo.14290517 [R=302,L]
+## repo
+RewriteRule ^test-suite/repo$ https://github.com/SolidLabResearch/ODRL-Test-Suite [R=302,L]
+
+# ODRL Evaluator
+RewriteRule ^evaluator$ https://github.com/SolidLabResearch/ODRL-Evaluator [R=302,L]
+
+# FORCE demonstrator
+## demo
+RewriteRule ^ESWC2025-demo$ https://woutslabbinck.github.io/ODRL-Evaluator-Demo/ [R=302,L]
+## repo
+RewriteRule ^ESWC2025-demo/repo$ https://github.com/woutslabbinck/ODRL-Evaluator-Demo [R=302,L]
+
+# ODRL 3.0 Proposal
+## specification
+RewriteRule ^odrl3proposal$ https://spec.knows.idlab.ugent.be/odrl3proposal/latest [R=302,L]
+## repo
+RewriteRule ^odrl3proposal/repo$ https://github.com/KNowledgeOnWebScale/odrl3proposal [R=302,L]
+
+# SotW for ODRL
+## specification
+RewriteRule ^sotw$ https://spec.knows.idlab.ugent.be/sotw/latest [R=302,L]
+## repo
+RewriteRule ^sotw/repo$ https://github.com/KNowledgeOnWebScale/sotw [R=302,L]
+
+# ODRL Policy Instantiation
+## specification
+RewriteRule ^policy-instantiation$ https://spec.knows.idlab.ugent.be/policy-instantiation/latest [R=302,L]
+## repo
+RewriteRule ^policy-instantiation/repo$ https://github.com/SolidLabResearch/policy-instantiation-spec [R=302,L]
+## poc
+RewriteRule ^policy-instantiation/poc$ https://github.com/SolidLabResearch/ODRL-instantiation [R=302,L]

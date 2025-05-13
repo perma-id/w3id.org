@@ -1,0 +1,15 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Documentation/paper
+RewriteRule ^$ https://trefx.uk/5s-crate/ [R=303,L]
+
+
+# Crate profile (versioned)
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+# JSON-LD manifest
+RewriteRule ^(\d+\.\d+)$ https://trefx.uk/5s-crate/$1/ro-crate-metadata.jsonld [R=302,L]
+# HTML as default
+RewriteRule ^(\d+\.\d+)$ https://trefx.uk/5s-crate/$1/ [R=302,L]
+

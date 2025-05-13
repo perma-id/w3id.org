@@ -9,4 +9,8 @@ Ontology
 * N-Triples http://ontologies.adaptcentre.ie/fairvasc/ontology.nt
 
 
-Maintainer: Kris McGlinn (kris.mcglinn@adaptcentre.ie) 
+Maintainers:
+
+Beyza Yaman (beyza.yaman@adaptcentre.ie)
+
+Kris McGlinn (kris.mcglinn@adaptcentre.ie) 

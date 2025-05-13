@@ -1,0 +1,28 @@
+# RDF Time Series Snippets (TSS)
+RewriteEngine on
+DirectorySlash Off
+
+## TSS Ontology content negotiation resources
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.html#$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.jsonld#$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.nt#$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.rdf#$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.ttl#$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} .+
+
+RewriteRule (.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/406.html [NE,L,R=406]
+
+# === TSS ===
+RewriteCond %{REQUEST_URI} tss/spec
+RewriteRule spec/?$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets [NE,R,L]
+RewriteCond %{REQUEST_URI} (about|from|until|pointType|points|timePath|valuePath|Snippet|PointTemplate)$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/rdf-timeseriessnippets/$1.tss.conneg [NE,R,L]
+RewriteCond %{REQUEST_URI} tss
+RewriteRule /?$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.ttl [NE,R,L]
+
+RewriteRule ^(.*)$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/404.html [NE,L,R=404]
