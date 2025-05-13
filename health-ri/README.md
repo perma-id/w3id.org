@@ -22,8 +22,8 @@ For more information about our organizational structure, visit our [Organization
 
 ## Maintainers
 
-- Ana Konrad: _<hannah.neikes@health-ri.nl>_
-- Hannah Neikes: _<ana.konrad@health-ri.nl>_
-- Niek van Ulzen: _<niek.vanulzen@health-ri.nl>_
-- Pedro Paulo F. Barcelos: _<pedro.barcelos@health-ri.nl>_
-- Reinier Groeneveld: _<reinier.groeneveld@health-ri.nl>_
+- [Ana Konrad](https://github.com/konradana)
+- [Hannah Neikes](https://github.com/hneikes)
+- [Niek van Ulzen](https://github.com/nrvanulzen)
+- [Pedro Paulo F. Barcelos](https://github.com/pedropaulofb)
+- [Reinier Groeneveld](https://github.com/reiniergr)
