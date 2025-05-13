@@ -1,5 +1,5 @@
 ## Overview
 SemRepo
 
-## Contact
-* Michael Färber, TU Dresden, https://sites.google.com/view/michaelfaerber
+## Contact / Author
+* [Michael Färber](https://github.com/michaelfaerber), TU Dresden, https://sites.google.com/view/michaelfaerber
