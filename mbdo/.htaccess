@@ -1,5 +1,10 @@
-# 开启重写引擎
+# mbdo/.htaccess  —— Make slash optional and proxy subpaths
+
+# 1) Enable rewrite engine
 RewriteEngine On
 
-# 将所有对 /mbdo 的请求永久重定向到你的 GitHub Pages
+# 2) Access /mbdo or /mbdo/ → redirect to GitHub Pages root
+RewriteRule ^$ https://samar-aqlan.github.io/MBDO-ManagingBridgeDataOntology/ [R=301,L]
+
+# 3) Access /mbdo/anything → redirect to the corresponding resource
 RewriteRule ^(.*)$ https://samar-aqlan.github.io/MBDO-ManagingBridgeDataOntology/$1 [R=301,L]
