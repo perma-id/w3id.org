@@ -6,14 +6,10 @@ https://w3id.org/miro
 
 ## Maintainers
 
-Enrica Bruno
-
-GitHub ID: @enricabruno
-
+- Enrica Bruno <br>
+GitHub ID: @enricabruno <br>
 Contact: enrica.bruno2@unibo.it
 
-Maria Francesca Bocchi
-
-GitHub ID: @MariaFrancesca6
-
+- Maria Francesca Bocchi <br>
+GitHub ID: @MariaFrancesca6 <br>
 Contact: maria.bocchi4@unibo.it
