@@ -8,7 +8,7 @@ The EFRO provides a standardised framework for modeling concepts and relationshi
 
 ## Maintainers
 
-* Umair umair <u.arshad1@rgu.ac.uk>
+* Umair Arshad <u.arshad1@rgu.ac.uk>
 * GitHub Repository: https://github.com/RGU-Computing/EFRO
 
 ## Links
@@ -26,4 +26,4 @@ For any questions or concerns about this ontology, please contact:
 This ontology is distributed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 https://creativecommons.org/licenses/by/4.0/
-![image](https://github.com/user-attachments/assets/4843f745-8611-4d78-b08b-a92720d6fbc1)
+
