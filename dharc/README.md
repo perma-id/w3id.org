@@ -11,4 +11,6 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Digit
 
 ## Contacts
 This space is administered by:
+- **Silvio Peroni**: [silvio.peroni@unibo.it](mailto:silvio.peroni@unibo.it)
+- **Ivan Heibi**: [ivan.heibi2@unibo.it](mailto:ivan.heibi2@unibo.it)
 - **Sebastian Barzaghi**: [sebastian.barzaghi2@unibo.it](mailto:sebastian.barzaghi2@unibo.it)
