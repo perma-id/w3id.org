@@ -27,7 +27,7 @@ Giessen, Germany
 ORCID: [0000-0002-9747-7096](https://orcid.org/0000-0002-9747-7096)
 
 **Jannis Hochmuth, [@das-Abroxas](https://github.com/das-Abroxas)**
-[Bioinformatics and Systems Biology](https://www.uni-giessen.de/de/fbz/fb08/Inst/bioinformatik/people/current_members/jannishochmuth/jannis_hochmuth))
+[Bioinformatics and Systems Biology](https://www.uni-giessen.de/de/fbz/fb08/Inst/bioinformatik/people/current_members/jannishochmuth/jannis_hochmuth)
 Justus Liebig University Giessen
 Giessen, Germany
 ORCID: [0009-0004-4382-4760](https://orcid.org/0009-0004-4382-4760)
