@@ -1,3 +1,32 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+AddType application/n-triples .nt
+AddType application/owl+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^$ https://github.com/abdullahikawu/PGHD/tree/main/ontologies/pghdprovo [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.nt [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.owl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.jsonld [R=302,L]
+
+# https://abdullahikawu.github.io/pghdprovo/1.0
+RewriteRule ^1.0$ https://abdullahikawu.github.io/pghdprovo/ [R=302,L]
+
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo [R=302,L]
+RewriteRule ^(.*)$ https://abdullahikawu.github.io/pghdprovo/$1 [R=302,L]
