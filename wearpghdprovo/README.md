@@ -1,4 +1,4 @@
-# PGHD-PROVO
+# WEAR-PGHD-PROVO
 
 **Wearable Patient Generated Health Data with Provenance Ontology**
 
