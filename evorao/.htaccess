@@ -1,0 +1,56 @@
+# --- Add content types if not configured at server level ---
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+RewriteBase /
+
+# --- 1. Content Negotiation for ontology base IRI ---
+# Ontology IRI: https://w3id.org/evorao/
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/jsonld/evora_schema.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=303,L]
+
+# Fallback: human-readable OLS if no specific format matched
+RewriteRule ^$ https://www.ebi.ac.uk/ols4/ontologies/evorao [R=303,L]
+
+# --- 2. Source file aliases (convenience redirects) ---
+RewriteRule ^owl\.ttl$         https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao$           https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.ttl$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.owl\.ttl$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.owl$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.rdf$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/rdf/evora_schema.rdf [R=302,L]
+RewriteRule ^evorao\.jsonld$   https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/jsonld/evora_schema.jsonld [R=302,L]
+
+# --- 3. Redirect imported terms explicitly ---
+
+# Classes from upper ontologies
+RewriteRule ^Resource$             https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Resource [NE,R=302,L]
+RewriteRule ^Dataset$              https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Dataset [NE,R=302,L]
+RewriteRule ^DataService$          https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523DataService [NE,R=302,L]
+RewriteRule ^Catalog$              https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Catalog [NE,R=302,L]
+RewriteRule ^Catalogue$            https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Catalog [NE,R=302,L]
+RewriteRule ^Agent$                https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FAgent [NE,R=302,L]
+RewriteRule ^PersonOrOrganization$ https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FAgent [NE,R=302,L]
+RewriteRule ^Person$               https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FPerson [NE,R=302,L]
+RewriteRule ^Organization$         https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FOrganization [NE,R=302,L]
+
+# Properties from upper ontologies
+RewriteRule ^title$       https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Ftitle [NE,R=302,L]
+RewriteRule ^description$ https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fdescription [NE,R=302,L]
+RewriteRule ^endpointURL$ https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523endpointURL [NE,R=302,L]
+
+# --- 4. Redirect EVORAO-local terms to OLS using case pattern ---
+
+# Uppercase = classes
+RewriteRule ^([A-Z][^/]+)$ https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/https%\253A%\252F%\252Fw3id.org%\252Fevorao%\252F$1 [NE,R=302,L]
+
+# Lowercase = properties
+RewriteRule ^([a-z][^/]+)$ https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/https%\253A%\252F%\252Fw3id.org%\252Fevorao%\252F$1 [NE,R=302,L]
+
