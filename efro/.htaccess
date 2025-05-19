@@ -4,23 +4,21 @@ Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
+# Ensure *.rdf files served with the correct MIME type
 AddType application/rdf+xml .rdf
 
-# Rewrite engine
+# Enable rewrite engine
 RewriteEngine on
 RewriteBase /efro/
 
-# Rewrite rule to serve HTML content from the vocabulary URI
-RewriteCond %{HTTP_ACCEPT} !application/rdf+xml.*(text/html|application/xhtml+xml)
+# Serve HTML documentation for browser or HTML-accepting clients
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^efro$ https://rgu-computing.github.io/EFRO/EFRO/docs/index-en.html [R=303,L]
 
-# Default response - owl rdf
+# Serve RDF by default
 RewriteRule ^efro$ https://rgu-computing.github.io/EFRO/EFRO/EFRO.rdf [R=303,NE,L]
 
-# GitHub user: RGU-Computing
-* GitHub Repository: https://github.com/RGU-Computing/EFRO
+# GitHub user: RGU-Computing 
+# GitHub Repository: https://github.com/RGU-Computing/EFRO
