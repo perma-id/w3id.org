@@ -16,7 +16,7 @@ Schema documentation
 
 LinkML-model as yaml file
 
-- https://w3id.org/nfdi4cat/pid4cat-model/schema <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema
+- https://w3id.org/nfdi4cat/pid4cat-model/ <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml
 
 Specific schema documentation of individual model elements (classes, slots, enums)
 
@@ -43,7 +43,7 @@ Schema documentation
 
 LinkML-model as yaml file
 
-- https://w3id.org/nfdi4cat/pid4cat-model/schema <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/schema/pid4cat_model.yaml <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/schema
+- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0 <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/schema/pid4cat_model.yaml
 
 Specific schema documentation of individual model elements (classes, slots, enums)
 
