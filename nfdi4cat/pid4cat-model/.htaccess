@@ -17,10 +17,6 @@ RewriteCond %{HTTP_ACCEPT} application/yaml
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/pid4cat_model.yaml [R=303,L,NE,NC]
 
-# HTML - schema documentation
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/overview" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/overview [R=303,L,NE,NC]
-
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/class/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/classes/$2 [R=303,L,NE,NC]
@@ -33,6 +29,10 @@ RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/slot/(.*)$" https://nfdi4cat.g
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/enums/$2 [R=303,L,NE,NC]
 
+# HTML - documentation sub pages
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/$2 [R=303,L,NE,NC]
+
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat-model/v$1 [R=303,L,NE,NC]
@@ -43,10 +43,6 @@ RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pi
 RewriteCond %{HTTP_ACCEPT} application/yaml
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^/schema" https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml [R=303,L,NE,NC]
-
-# HTML - schema documentation
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/overview" https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview [R=303,L,NE,NC]
 
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
@@ -59,6 +55,10 @@ RewriteRule "^/slot/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/eleme
 # HTML - individual documentation for enum elements
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^/enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/enums/$1 [R=303,L,NE,NC]
+
+# HTML - documentation sub pages
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/$1 [R=303,L,NE,NC]
 
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html

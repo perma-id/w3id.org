@@ -10,15 +10,15 @@ General documentation
 
 - https://w3id.org/nfdi4cat/pid4cat-model <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model
 
-Top-level schema documentation
+Schema documentation
 
-- https://w3id.org/nfdi4cat/pid4cat-model/overview <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview
+- https://w3id.org/nfdi4cat/pid4cat-model/elements/overview <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview
 
 LinkML-model as yaml file
 
 - https://w3id.org/nfdi4cat/pid4cat-model/schema <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema
 
-Documentation of individual model elements (classes, slots, enums)
+Specific schema documentation of individual model elements (classes, slots, enums)
 
 - https://w3id.org/nfdi4cat/pid4cat-model/class/HandleRecord <BR>-(html)->
 https://nfdi4cat.github.io/pid4cat-model/latest/elements/classes/HandleRecord
@@ -37,15 +37,15 @@ General documentation
 
 - https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0 <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0
 
-Top-level schema documentation
+Schema documentation
 
-- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0/overview <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/overview
+- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0/elements/overview <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/overview
 
 LinkML-model as yaml file
 
 - https://w3id.org/nfdi4cat/pid4cat-model/schema <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/schema/pid4cat_model.yaml <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/v0.4.0/schema
 
-Documentation of individual model elements (classes, slots, enums)
+Specific schema documentation of individual model elements (classes, slots, enums)
 
 - https://w3id.org/nfdi4cat/pid4cat-model/class/HandleRecord <BR>-(html)->
 https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/classes/HandleRecord
