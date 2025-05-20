@@ -28,6 +28,12 @@ RewriteRule ^(4/.+).html$ https://dharc-org.github.io/spuk/changes/$1.html [R=30
 RewriteRule ^(4/.+).nt$ https://dharc-org.github.io/spuk/changes/$1.nt [R=303,L]
 RewriteRule ^(4/.+).ttl$ https://dharc-org.github.io/spuk/changes/$1.ttl [R=303,L]
 
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(4/.+)$ /changes/$1.html [R=303,L]
+
 # Serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/json [OR]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
@@ -47,13 +53,6 @@ RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^(4/.+)$ /changes/$1.ttl [R=303,L]
-
-# Serve HTML if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(4/.+)$ /changes/$1.html [R=303,L]
 
 ######################################################
 # Redirects for Spoke 4 - END
