@@ -2,6 +2,8 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
+AddType application/yaml .yaml
+
 # Notes on used flags:
 # NC - sets case-insensitive matching
 # NE - noescape, prevents that special characters, such as & and ?, will be converted to their hexcode equivalent for rules that result in external redirects.
@@ -12,10 +14,10 @@ RewriteEngine on
 
 # === version-tagged releases ===
 
-# YAML schema file
-RewriteCond %{HTTP_ACCEPT} application/yaml
+# Other YAML schema files
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/pid4cat_model.yaml [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema/(.*)\.yaml$" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/$2.yaml [R=303,L,NE,NC]
 
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
@@ -33,16 +35,20 @@ RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi4cat.g
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/$2 [R=303,L,NE,NC]
 
+# Main YAML schema file
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat-model/$1/schema/pid4cat_model.yaml  [R=303,L,NE,NC]
+
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat-model/v$1 [R=303,L,NE,NC]
 
 # === latest release ===
 
-# YAML schema file
-RewriteCond %{HTTP_ACCEPT} application/yaml
+# Other YAML schema files
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^schema" https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml [R=303,L,NE,NC]
+RewriteRule "^schema/(.*)\.yaml$" https://nfdi4cat.github.io/pid4cat-model/latest/schema/$1.yaml [R=303,L,NE,NC]
 
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
@@ -59,6 +65,10 @@ RewriteRule "^enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elemen
 # HTML - documentation sub pages
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule "^(.+)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/$1 [R=303,L,NE,NC]
+
+# Main YAML schema file
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule "^$" https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml  [R=303,L,NE,NC]
 
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html
