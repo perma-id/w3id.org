@@ -15,57 +15,57 @@ RewriteEngine on
 # YAML schema file
 RewriteCond %{HTTP_ACCEPT} application/yaml
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema" https://nfdi4cat.github.io/pid4cat/v$1/schema/pid4cat_model.yaml [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/pid4cat_model.yaml [R=303,L,NE,NC]
 
 # HTML - schema documentation
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/overview" https://nfdi4cat.github.io/pid4cat/v$1/elements/overview [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/overview" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/overview [R=303,L,NE,NC]
 
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/class/(.*)$" https://nfdi4cat.github.io/pid4cat/v$1/elements/classes/$2 [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/class/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/classes/$2 [R=303,L,NE,NC]
 
 # HTML - individual documentation for slot elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/slot/(.*)$" https://nfdi4cat.github.io/pid4cat/v$1/elements/slots/$2 [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/slot/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/slots/$2 [R=303,L,NE,NC]
 
 # HTML - individual documentation for enum elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi4cat.github.io/pid4cat/v$1/elements/enums/$2 [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/enums/$2 [R=303,L,NE,NC]
 
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat/v$1 [R=303,L,NE,NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat-model/v$1 [R=303,L,NE,NC]
 
 # === latest release ===
 
 # YAML schema file
 RewriteCond %{HTTP_ACCEPT} application/yaml
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/schema" https://nfdi4cat.github.io/pid4cat/latest/schema/pid4cat_model.yaml [R=303,L,NE,NC]
+RewriteRule "^/schema" https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml [R=303,L,NE,NC]
 
 # HTML - schema documentation
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/overview" https://nfdi4cat.github.io/pid4cat/latest/elements/overview [R=303,L,NE,NC]
+RewriteRule "^/overview" https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview [R=303,L,NE,NC]
 
 # HTML - individual documentation for class elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/class/(.*)$" https://nfdi4cat.github.io/pid4cat/latest/elements/classes/$1 [R=303,L,NE,NC]
+RewriteRule "^/class/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/classes/$1 [R=303,L,NE,NC]
 
 # HTML - individual documentation for slot elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/slot/(.*)$" https://nfdi4cat.github.io/pid4cat/latest/elements/slots/$1 [R=303,L,NE,NC]
+RewriteRule "^/slot/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/slots/$1 [R=303,L,NE,NC]
 
 # HTML - individual documentation for enum elements
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^/enum/(.*)$" https://nfdi4cat.github.io/pid4cat/latest/elements/enums/$1 [R=303,L,NE,NC]
+RewriteRule "^/enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/enums/$1 [R=303,L,NE,NC]
 
 # HTML - documentation
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule "^$" https://nfdi4cat.github.io/pid4cat [R=303,L,NE,NC]
+RewriteRule "^$" https://nfdi4cat.github.io/pid4cat-model [R=303,L,NE,NC]
 
 # === No content-negotiation at all (or HTML) ===
 
 # Fallback to HTML for version-tagged and latest.
-RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})$" https://nfdi4cat.github.io/pid4cat/v$1/elements/overview [R=303,L,NE,NC]
-RewriteRule "^$" https://nfdi4cat.github.io/pid4cat/latest/elements/overview [R=303,L,NE]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/overview [R=303,L,NE,NC]
+RewriteRule "^$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview [R=303,L,NE]
