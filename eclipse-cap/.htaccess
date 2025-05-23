@@ -7,6 +7,10 @@ AddType application/yaml .yaml
 
 RewriteEngine on
 
+# Redirect to JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.jsonld [R=303,L]
+
 # handle URI to ontology object
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.owl.xml [R=303,L]
