@@ -12,15 +12,5 @@ RewriteRule ^(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/explor
 
 RewriteRule ^(RA[A-Za-z0-9_\-]{43}(\.[a-z.]+)?)$ https://registry.knowledgepixels.com/np/$1 [R=307,L]
 
-
-# ----------
-# Get full request URL and store it in %{ENV:FULL_URL}:
-RewriteCond %{HTTPS} on
-RewriteRule ^ - [E=PROTO:https]
-RewriteCond %{HTTPS} !on
-RewriteRule ^ - [E=PROTO:http]
-RewriteRule ^ - [E=FULL_URL:%{ENV:PROTO}://%{HTTP_HOST}%{REQUEST_URI}]
-# ----------
-
-RewriteRule ^(.+)$ https://nanodash.knowledgepixels.com/explore?id=%{ENV:FULL_URL} [R=307,L,NE]
+RewriteRule ^(.+)$ https://nanodash.knowledgepixels.com/explore?id=$1 [R=307,L,NE]
 
