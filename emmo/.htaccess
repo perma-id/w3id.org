@@ -21,11 +21,13 @@ RewriteEngine On
 ##  Redirections to raw files in the GitHub repo
 ##########################################################################
 
-# Rule 15:
-RewriteRule ^raw/([^0-9].*)$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1 [R=303,NE,L]
-
 # Rule 16:
+# Source: https://w3id.org/emmo/raw/{VERSION}/{PATH}
 RewriteRule ^raw/(dev|[0-9][^/]*)/(.*)$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2 [R=303,NE,L]
+
+# Rule 15:
+# Source: https://w3id.org/emmo/raw/{PATH}
+RewriteRule ^raw/(.*)$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1 [R=303,NE,L]
 
 
 
@@ -33,13 +35,13 @@ RewriteRule ^raw/(dev|[0-9][^/]*)/(.*)$ https://raw.githubusercontent.com/emmo-r
 ##  Redirections for EMMO-LITE
 ##########################################################################
 
-# Rule 13:
-# Source: https://w3id.org/emmo/emmo-lite
-RewriteRule ^emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl [R=303,NE,L]
-
 # Rule 14:
 # Source: https://w3id.org/emmo/{VERSION}/emmo-lite
 RewriteRule ^emmo-lite/(dev|[0-9][^/]*)/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/$1/emmo-lite.ttl [R=303,NE,L]
+
+# Rule 13:
+# Source: https://w3id.org/emmo/emmo-lite
+RewriteRule ^emmo-lite/?$ https://raw.githubusercontent.com/emmo-repo/EMMO-LITE/master/emmo-lite.ttl [R=303,NE,L]
 
 
 
