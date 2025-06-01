@@ -8,7 +8,20 @@ This section contains a general summary of the logic behind the redirection rule
 
 ### Redirections to domain and application ontologies
 
-1. `https://w3id.org/emmo/domain/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
+1. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
+   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/
+   - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
+   - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
+   - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
+   - Special case for squashed ontology: `https://w3id.org/{DOMAIN}/{VERSION}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}.ttl`
+
+2. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
+   - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
+
+3. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
+   - Target: `{PATH}/{MODULE}.ttl` file for given version and module.
+
+4. `https://w3id.org/emmo/domain/{DOMAIN} --> https://emmo-repo.github.io/{REPO_NAME}/{DOMAIN}{.html|.ttl}`
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to squashed `.ttl` file on GitHub Pages.
@@ -17,38 +30,47 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for default context: `https://w3id.org/emmo/domain/{DOMAIN}/context --> https://emmo-repo.github.io/{REPO_NAME}/context/context.json`
    - Special case for specific context: `https://w3id.org/emmo/domain/{DOMAIN}/{CONTEXTNAME} --> https://emmo-repo.github.io/{REPO_NAME}/context/{CONTEXTNAME}.json`
 
-2. `https://w3id.org/emmo/domain/{DOMAIN}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
+5. `https://w3id.org/emmo/domain/{DOMAIN}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{DOMAIN}.ttl`
    - Alias: https://w3id.org/emmo/domain/{DOMAIN}/latest
    - Target: `{DOMAIN}.ttl` file in the root of the master branch.
 
-3. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}{.html|.ttl}`
-   - Alias: https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/
-   - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
-   - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
-   - Special case for inferred ontology: `https://w3id.org/{DOMAIN}/{VERSION}/inferred --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}-inferred.ttl`
-   - Special case for squashed ontology: `https://w3id.org/{DOMAIN}/{VERSION}/turtle --> https://emmo-repo.github.io/{REPO_NAME}/versions/{VERSION}/{DOMAIN}.ttl`
-
-4. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{DOMAIN}.ttl`
-   - Target: `{DOMAIN}.ttl` file in the root of GitHub branch for the given version.
-
-5. `https://w3id.org/emmo/domain/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
+6. `https://w3id.org/emmo/domain/{DOMAIN}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/master/{PATH}/{MODULE}.ttl`
    - Target: `{PATH}/{MODULE}.ttl` file in master branch.
-
-6. `https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/{REPO_NAME}/{VERSION}/{PATH}/{MODULE}.ttl`
-   - Target: `{PATH}/{MODULE}.ttl` file for given version and module.
 
 Rule 1-6 also applies to application ontologies starting with `application-`. For example may
 
 
 ### Redirections to EMMO
 
-7. `https://w3id.org/emmo --> https://emmo-repo.github.io/EMMO/emmo{.html|.ttl}`
+7. `https://w3id.org/emmo/{VERSION} --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo{.html|.ttl}`
+   - Alias: https://w3id.org/emmo/{VERSION}/
+   - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
+   - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
+   - Special case for inferred ontology: `https://w3id.org/emmo/{VERSION}/inferred --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo-inferred.ttl`
+
+8. `https://w3id.org/emmo/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo.ttl`
+   - Target: `emmo.ttl` file in the root of branch/tag for the given version.
+   - Special case: `https://w3id.org/emmo/{VERSION}/tlo --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo-tlo.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/mlo --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo-mlo.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/mereocausality --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/mereocausality/mereocausality.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/perspectives --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/perspectives/perspectives.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/multiperspective --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/multiperspective/multiperspective.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/reference --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/reference/reference.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/disciplines --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/disciplines.ttl`
+   - Special case: `https://w3id.org/emmo/{VERSION}/disciplines/units --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/units/units.ttl`
+
+9. `https://w3id.org/emmo/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/{PATH}/{MODULE}.ttl`
+   - Target: Turtle file for given version and module of EMMO.
+
+10. `https://w3id.org/emmo --> https://emmo-repo.github.io/EMMO/emmo{.html|.ttl}`
    - Alias: https://w3id.org/emmo/
    - If the user is accessing this from a browser, redirect to html documentation on GitHub Pages.
    - Otherwise, redirect to the squashed `.ttl` file on GitHub Pages.
-   - Special case for inferred ontology: `https://w3id.org/emmo/inferred --> https://emmo-repo.github.io/EMMO/emmo-inferred.ttl`
+   - Special case: `https://w3id.org/emmo/inferred --> https://emmo-repo.github.io/EMMO/emmo-inferred.ttl`
+   - Special case: `https://w3id.org/emmo/emmo-full/inferred --> https://emmo-repo.github.io/EMMO/emmo-full-inferred.ttl`
+   - Special case: `https://w3id.org/emmo/emmo-for-humans/inferred --> https://emmo-repo.github.io/EMMO/emmo-for-humans-inferred.ttl`
 
-8. `https://w3id.org/emmo/source --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
+11. `https://w3id.org/emmo/source --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo.ttl`
    - Alias: https://w3id.org/emmo/latest
    - Target: `emmo.ttl` file in the root of the master branch.
    - Special case: `https://w3id.org/emmo/tlo --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/emmo-tlo.ttl`
@@ -60,28 +82,8 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
    - Special case: `https://w3id.org/emmo/disciplines --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/disciplines.ttl`
    - Special case: `https://w3id.org/emmo/disciplines/units --> https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/units/units.ttl`
 
-9. `https://w3id.org/emmo/{VERSION} --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo{.html|.ttl}`
-   - Alias: https://w3id.org/emmo/{VERSION}/
-   - If the user is accessing this from a browser, redirect to html documentation for given version on GitHub Pages.
-   - Otherwise, redirect to squashed `.ttl` file for given version on GitHub Pages.
-   - Special case for inferred ontology: `https://w3id.org/emmo/{VERSION}/inferred --> https://emmo-repo.github.io/EMMO/versions/{VERSION}/emmo-inferred.ttl`
-
-10. `https://w3id.org/emmo/{VERSION}/source --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo.ttl`
-   - Target: `emmo.ttl` file in the root of branch/tag for the given version.
-   - Special case: `https://w3id.org/emmo/{VERSION}/tlo --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo-tlo.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/mlo --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/emmo-mlo.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/mereocausality --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/mereocausality/mereocausality.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/perspectives --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/perspectives/perspectives.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/multiperspective --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/multiperspective/multiperspective.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/reference --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/reference/reference.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/disciplines --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/disciplines.ttl`
-   - Special case: `https://w3id.org/emmo/{VERSION}/disciplines/units --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/disciplines/units/units.ttl`
-
-11. `https://w3id.org/emmo/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{PATH}/{MODULE}.ttl`
+12. `https://w3id.org/emmo/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{PATH}/{MODULE}.ttl`
    - Target: Turtle file for given EMMO module.
-
-12. `https://w3id.org/emmo/{VERSION}/{PATH}/{MODULE} --> https://raw.githubusercontent.com/emmo-repo/EMMO/{VERSION}/{PATH}/{MODULE}.ttl`
-   - Target: Turtle file for given version and module of EMMO.
 
 
 ### Redirections to EMMO-LITE
@@ -97,7 +99,7 @@ Rule 1-6 also applies to application ontologies starting with `application-`. Fo
 
 ### Meaning of placeholders
 - `{NAME}`: Name part of an IRI, i.e., what follows after the hash sign.
-- `{VERSION}`: Version number. Must start with a digit to distinguish it from domain or path names.
+- `{VERSION}`: Version number. Must be 'dev' or start with a digit to distinguish it from domain or path names.
 - `{PATH}`: Directory path within a github repository
 - `{MODULE}`: Filename of turtle file with the final `.ttl` stripped off
 - `{DOMAIN}`: Name of domain or application ontology.
