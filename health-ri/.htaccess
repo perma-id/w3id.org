@@ -16,3 +16,11 @@ RedirectMatch 302 ^/health-ri/metadata/releases/(.+)/?$  https://github.com/Heal
 
 RedirectMatch 302 ^/health-ri/metadata/?$  https://github.com/Health-RI/health-ri-metadata/
 RedirectMatch 302 ^/health-ri/metadata/(git|repo)/?$  https://github.com/Health-RI/health-ri-metadata/
+
+# GENERAL REDIRECTIONS ----------------------------------------------------------------------------------------
+
+# Redirect the root /health-ri path to the official website
+RedirectMatch 302 ^/health-ri/?$ https://www.health-ri.nl/
+
+# Redirect everything else to /health-ri/*
+RewriteRule ^(.*)$ /health-ri/$1 [R=302,L]
