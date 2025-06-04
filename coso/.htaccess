@@ -1,0 +1,44 @@
+# # /coso/
+#
+# https://w3id.org/coso/ html request redirects to https://theskailab.github.io/COSO/contaminoso.html#
+# 
+#
+# https://w3id.org/coso/ ttl request redirects to
+# to https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl for base request
+# or to specific raw ontology files if specified
+#
+# ## Contact
+# This space is administered by:
+#
+# Katrina Schweikert
+# Github username: kschweikert
+#
+# Torsten Hahmann
+# Github username: thahmann
+
+
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^v1/contaminoso#(.+) https://theSKAILab.github.io/COSO/contaminoso.html#$1
+# backreference [B] flag ensures non alpha-numeric characters are url encoded 
+
+# Rewrite for specific ontology uris
+RewriteRule ^v1/contaminoso-full# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl
+RewriteRule ^v1/contaminoso-stad-qudt# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_stad_qudt.ttl
+RewriteRule ^v1/contaminoso# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
+
+
+
+# Default response
+# -----------------------------
+# Rewrite rule to serve ttl content by default
+RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
+
+
