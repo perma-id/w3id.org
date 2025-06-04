@@ -13,3 +13,18 @@ Two derived resources were also developed:
 - **MAL (Morphologically-inflected Affective Lexicon)** (Vassallo et al., 2019): Expanded Sentix 2.0 with inflected forms from *Morph-it!* (Zanchetta & Baroni, 2005) to address lemmatization challenges in Italian sentiment analysis.
 
 - **WMAL (Weighted-MAL)** (Vassallo et al., 2020): Recalculated MAL’s scores by weighting them with word frequencies from the TWITA corpus (Basile & Nissim, 2013) to reduce polarity imbalance. The weighting methodology and polarity calculation based on WMAL are key to Sentix 3.0’s polarity categorical classification.
+
+## Contacts
+Sentix is administered by:
+
+**Valerio Basile**
+
+*Associate Professor*
+
+[University of Turin](https://www.unito.it/), Turin, Italy
+
+Mail: [valerio.basile@unito.it](mailto:valerio.basile@unito.it)
+
+GitHub: [valeriobasile](https://github.com/valeriobasile)
+
+ORCID: [0000-0001-8110-6832](https://orcid.org/0000-0001-8110-6832)
