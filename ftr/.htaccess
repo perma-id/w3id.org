@@ -11,6 +11,11 @@ AddType application/ld+json .json
 
 RewriteEngine on
 
+# Rewrite rule for context (latest version)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^context$ https://ostrails.github.io/FAIR_assessment_output_specification/release/1.1.0/ftr_context.jsonld [R=303,L]
+
+
 # Rewrite rule for latest version.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
