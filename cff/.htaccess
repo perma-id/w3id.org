@@ -9,15 +9,69 @@
 # stephan.druskat@dlr.de
 # GitHub username: sdruskat
 
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure JSON Schema files served as appropriate content type,
+# if not present in main apache config
 AddType application/schema+json .json
 
 RewriteEngine on
 
-RewriteRule ^ https://citation-file-format.github.io [R=302,L]
+### / (ROOT)
 
-# Rewrite rule to redirect to respective schema (e.g., https://w3id.org/cff/schema/1.2.0 and https://w3id.org/cff/schema/1.2.0/ both redirect to schema.json vor the version)
-RewriteRule ^schema/([^/]+/?)$ https://citation-file-format.github.io/$1/schema.json [R=302,L]
+# Rewrite rule to serve JSON Schema or JSON content from the basic URI if requested
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://raw.githubusercontent.com/citation-file-format/citation-file-format/refs/heads/main/schema.json [R=303,L]
 
-# Rewrite rule to serve latest JSON Schema content
-RewriteCond %{HTTP_ACCEPT} application/schema+json
-RewriteRule ^$ https://citation-file-format.github.io/1.2.0/schema.json [R=303,L]
+# Rewrite rules to serve HTML content (main website) from the basic URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://citation-file-format.github.io/ [R=303,L]
+
+### /schema
+
+# Rewrite rule to serve latest JSON Schema or JSON content from /schema URI if requested
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^schema/?$ https://raw.githubusercontent.com/citation-file-format/citation-file-format/refs/heads/main/schema.json [R=303,L]
+
+# Rewrite rules to serve HTML content (latest schema guide) from /schema URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^schema/?$ https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md [R=303,L]
+
+### /schema/<version>
+
+# Rewrite rule to serve version JSON Schema or JSON content from /schema/<version> URI if requested
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^schema/(\d+\.\d+\.\d+)/?$ https://raw.githubusercontent.com/citation-file-format/citation-file-format/refs/tags/$1/schema.json [R=303,L]
+
+# Rewrite rules to serve HTML content (latest schema guide) from /schema/<version> URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^schema/(\d+\.\d+\.\d+)/?$ https://github.com/citation-file-format/citation-file-format/blob/$1/schema-guide.md [R=303,L]
+
+### /<version>
+
+# Rewrite rule to serve version JSON Schema or JSON content from /schema/<version> URI if requested
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://raw.githubusercontent.com/citation-file-format/citation-file-format/refs/tags/$1/schema.json [R=303,L]
+
+# Rewrite rules to serve HTML content (latest schema guide) from /schema/<version> URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://github.com/citation-file-format/citation-file-format/blob/$1/schema-guide.md [R=303,L]
+
+### ---------------- ###
+### Default response ###
+### ---------------- ###
+# Rewrite rules to serve HTML content (main website) from any URI
+RewriteRule ^(.*)$ RewriteRule ^$ https://citation-file-format.github.io/ [R=303,L]
