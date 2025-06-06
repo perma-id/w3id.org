@@ -20,6 +20,9 @@ AddType application/trig .trig
 # this will point to rohub main page
 RewriteRule ^$ https://www.rohub.org/ [R=302,L]
 
+# ROHub vocab
+RewriteRule ^rohub/model(.*)$ https://raw.githubusercontent.com/rohub/model/refs/heads/main/rohub_vocab.ttl [R=302,L]
+
 # ROHub user (imported)
 RewriteRule ^users/(.*)$ https://www.rohub.org/userprofile?username=$1 [R=302,L]
 
@@ -99,7 +102,11 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
-RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
 # else open RO in ROHub portal
 # RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]
+RewriteRule ^([^/]*)/?$ https://www.rohub.org/$1?activetab=overview [R=302,L]

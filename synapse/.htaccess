@@ -1,0 +1,20 @@
+Options -MultiViews
+Options +FollowSymLinks
+RewriteEngine on
+
+# Static Pages
+RewriteRule ^portals$ https://accounts.synapse.org/sageresources?appId=synapse.org [R=302,L]
+RewriteRule ^docs$ https://help.synapse.org/docs/ [R=302,L]
+RewriteRule ^blog$ https://sagebionetworks.pubpub.org [R=302,L]
+RewriteRule ^report$ https://sagebionetworks.jira.com/servicedesk/customer/portal/20 [R=302,L]
+RewriteRule ^trust-center$ https://sagebionetworks.org/trust-center [R=302,L]
+RewriteRule ^plans$ https://www.synapse.org/Plans:default [R=302,L]
+RewriteRule ^donate$ https://sagebionetworks.org/donate [R=302,L]
+RewriteRule ^contact$ https://sagebionetworks.jira.com/servicedesk/customer/portal/9 [R=302,L]
+
+# Search
+RewriteRule ^search/people/(.*)$ https://www.synapse.org/PeopleSearch:$1 [R=302,L]
+RewriteRule ^search/(.*)$ https://www.synapse.org/Search:%7B%22queryTerm%22:[%22$1%22],%20%22booleanQuery%22:[],%20%22facetOptions%22:[%7B%22name%22:%22EntityType%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22Consortium%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22ModifiedOn%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22ModifiedBy%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22CreatedOn%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22Tissue%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D,%7B%22name%22:%22CreatedBy%22,%20%22maxResultCount%22:300,%20%22sortType%22:%22COUNT%22%7D],%20%22size%22:30%7D [R=302,L]
+
+# Default
+RewriteRule ^(.*)$ https://www.synapse.org/Synapse:$1 [R=302,L]
