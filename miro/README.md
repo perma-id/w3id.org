@@ -1,28 +1,15 @@
-MIrO - Multimedia Interrelation Ontology
-=======
-
-An ontology to describe the intermedial relations between cultural objects.
+# MIrO - Multimedia Inter-relation Ontology
+An ontology to describe intermedial relations.
 
 ## Vocabulary
-
-* <https://w3id.org/miro>
+https://w3id.org/miro
 
 ## Maintainers
 
-* Francesca Massarenti
+- Enrica Bruno <br>
+GitHub ID: @enricabruno <br>
+Contact: enrica.bruno2@unibo.it
 
-    GitHub ID: [@frammenti](https://github.com/frammenti)
-
-    Contact: <francesca.massarent2@studio.unibo.it>
-
-* Enrica Bruno
-
-    GitHub ID: [@enricabruno](https://github.com/enricabruno)
-
-    Contact: <enrica.bruno2@unibo.it>
-
-* Maria Francesca Bocchi
-
-    GitHub ID: [@MariaFrancesca6](https://github.com/MariaFrancesca6)
-
-    Contact: <maria.bocchi4@unibo.it>
+- Maria Francesca Bocchi <br>
+GitHub ID: @MariaFrancesca6 <br>
+Contact: maria.bocchi4@unibo.it
