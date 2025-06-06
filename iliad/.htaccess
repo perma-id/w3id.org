@@ -12,10 +12,22 @@ AddType application/ld+json .jsonld
 # Documentation
 RewriteRule ^$ https://www.ocean-twin.eu/ [R=302,L]
 
+###### datasets in prez #####
+RewriteRule ^israel/culturalHeritage/dataset/(.*)/featureCollection/(.*)/feature/(.*)/geometry$ https://www.foodie-cloud.org/describe/?url=http://w3id.org/iliad/israel/culturalHeritage/dataset/$1/featureCollection/$2/feature/$3/geometry [R=302,L]
+RewriteRule ^israel/culturalHeritage/dataset/(.*)/featureCollection/(.*)/feature/(.*)$ http://62.3.170.73/dataset/$1/collections/$2/items/$3 [R=302,L]
+RewriteRule ^israel/culturalHeritage/dataset/(.*)/featureCollection/(.*)$ http://62.3.170.73/dataset/$1/collections/$2 [R=302,L]
+RewriteRule ^israel/culturalHeritage/dataset/(.*)$ http://62.3.170.73/dataset/$1 [R=302,L]
+RewriteRule ^israel/culturalHeritage/declaration/(.*)$ https://www.foodie-cloud.org/describe/?url=http://w3id.org/iliad/israel/culturalHeritage/declaration/$1 [R=302,L]
+RewriteRule ^israel/culturalHeritage/period/(.*)$ https://www.foodie-cloud.org/describe/?url=http://w3id.org/iliad/israel/culturalHeritage/period/$1 [R=302,L]
 
 ###### OIM #####
 
 ### OIM METADATA LAYER #####
+# Ontology extensions
+# for terms we redirect also to ontology
+RewriteRule ^oim/metadata/(.*)/(.*)$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/refs/heads/main/extensions/metadata-$1.ttl [R=302,L]
+# for the ontology
+RewriteRule ^oim/metadata/(.*)$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/refs/heads/main/extensions/metadata-$1.ttl [R=302,L]
 # Ontology
 RewriteRule ^oim/metadata$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/metadata.ttl [R=302,L]
 # JSON-LD context
@@ -31,6 +43,9 @@ RewriteRule ^oim/crossDomain-context.jsonld$ https://raw.githubusercontent.com/I
 # JSON-LD context
 RewriteRule ^oim/ext/(.*)-context(.*)$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/extensions/jsonld/$1-context.jsonld [R=302,L]
 # Ontology
+# for terms we redirect also to ontology
+RewriteRule ^oim/ext/(.*)/(.*)$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/extensions/$1.ttl [R=302,L]
+# for the ontology
 RewriteRule ^oim/ext/(.*)$ https://raw.githubusercontent.com/ILIAD-ocean-twin/OIM/main/extensions/$1.ttl [R=302,L]
 
 ### OIM DOMAIN LAYER #####

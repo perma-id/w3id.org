@@ -55,11 +55,32 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.jsonld [R=303,L,NE]
 
+
+#Ontology file distribution with file endings (ontology.ttl/.xml/.nt/.jsonld) 
+
+RewriteRule ^ontology.ttl https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl [R=303,L,NE]
+RewriteRule ^ontology.jsonld https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.jsonld [R=303,L,NE]
+RewriteRule ^ontology.nt https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.nt [R=303,L,NE]
+RewriteRule ^ontology.xml https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.xml [R=303,L,NE]
+
+
+#Ontology files with file ending and versioning
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.ttl https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.ttl [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.jsonld https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.jsonld [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.nt https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.nt [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.xml https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/$1.$2.$3/ontology.xml [R=303,L,NE]
+
 # Context-File
 RewriteRule ^m4i_context.jsonld https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld [R=303,L,NE]
 
+# Context-File with RO-Crate integration
+RewriteRule ^m4i_context.jsonld https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i2rocrate_context.jsonld [R=303,L,NE]
+
 # Logo-File
-RewriteRule ^m4i_logo.png https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/develop/visualizations/Logo.png [R=303,L,NE]
+RewriteRule ^m4i_logo.png https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/visualizations/Logo.png [R=303,L,NE]
+
+# First steps guide
+RewriteRule ^first-steps-guide.md https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/blob/master/training/first-steps-guide.md [R=303,L,NE]
 
 # No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
 RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing [R=303,L,NE]
