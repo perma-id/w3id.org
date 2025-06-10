@@ -8,6 +8,6 @@ It introduces structured evaluation processes, traceability of applied methods, 
 Ontology documentation redirection: https://w3id.org/DQA -> https://www.irit.fr/recherches/MELODI/ontologies/DQA/
 
 ## Maintainers
-* Oumaima AMAL (oumaima.amal@irit.fr) 
+* Oumaima AMAL (oumaima.amal@irit.fr) (GitHub ID : 117732363)
 * Nathalie HERNANDEZ (nathalie.hernandez@irit.fr)
 * Thierry MONTEIL (thierry.monteil@irit.fr)
