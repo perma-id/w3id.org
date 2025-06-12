@@ -6,7 +6,7 @@ AddType text/turtle .ttl
 
 ## Serve TTL content when RDF formats are explicitly requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^climoo([^/]*)$ https://github.com/ClimOO/ClimOO-Ontology/refs/heads/main/climoo$1.ttl [R=303,L]
+RewriteRule ^climoo([^/]*)$ https://raw.githubusercontent.com/ClimOO/ClimOO-Ontology/refs/heads/main/climoo$1.ttl [R=303,L]
 
 # RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
 
@@ -19,11 +19,10 @@ RedirectMatch 302 ^/climoo/releases/?$  https://github.com/ClimOO/ClimOO-Ontolog
 # RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
 
 ## Redirect to RDF content when accessing the root namespace
-RedirectMatch 302 ^/climoo/?$ https://github.com/ClimOO/ClimOO-Ontology/refs/heads/main/climoo.ttl
+RedirectMatch 302 ^/climoo/?$ https://raw.githubusercontent.com/ClimOO/ClimOO-Ontology/refs/heads/main/climoo.ttl
 
 ## Redirect documentation requests explicitly
 RedirectMatch 302 ^/climoo/docs/?$ https://github.com/ClimOO/ClimOO-Ontology/docs/index.html
-
 
 ## Repository links
 RedirectMatch 302 ^/climoo/(git|repo)/?$  https://github.com/ClimOO/ClimOO-Ontology
