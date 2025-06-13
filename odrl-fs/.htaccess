@@ -1,0 +1,29 @@
+Header set Access-Control-Allow-Origin *
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Redirect to Shacl shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://w3c.github.io/odrl/formal-semantics/ontology/shacl.ttl [R=303,L]
+
+# Redirect to JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://w3c.github.io/odrl/formal-semantics/ontology/json-ld_context.json [R=303,L]
+
+# Redirect to OWL ontology
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://w3c.github.io/odrl/formal-semantics/ontology/owl.ttl [R=303,L]
+
+# Default redirection to the Formal Semantics document
+RewriteRule ^/?$ https://w3c.github.io/odrl/formal-semantics/ [R=303,L]
