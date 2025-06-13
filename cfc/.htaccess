@@ -1,16 +1,20 @@
 RewriteEngine On
 
-# Base redirect to OWL ontology
-RewriteRule ^$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/ontology/cfc.owl [R=302,L]
+# Redirect base /cfc to GitHub Pages site
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/CircularFutureCitiesOntology/ [R=302,L]
 
-# Documentation
+# Redirect /cfc/ontology to the cfc.owl file in GitHub UI
+RewriteRule ^ontology$ https://github.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/blob/main/ontology/cfc.owl [R=302,L]
+
+# Optional: keep other useful mappings
+# Redirect /cfc/doc to index.md (raw view)
 RewriteRule ^doc$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/docs/index.md [R=302,L]
 
-# Namespace documentation
+# Redirect /cfc/namespace to namespace.md (raw view)
 RewriteRule ^namespace$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/docs/namespace.md [R=302,L]
 
-# Examples
+# Redirect for usage examples (TTL files)
 RewriteRule ^examples/(.*)$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/examples/$1 [R=302,L]
 
-# Ontology imports
-RewriteRule ^imports/(.*)$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/ontology/imports/ontology/imports/$1 [R=302,L]
+# Redirect for ontology imports
+RewriteRule ^imports/(.*)$ https://raw.githubusercontent.com/DigiConstructLab-TU-Delft/CircularFutureCitiesOntology/main/ontology/imports/$1 [R=302,L]
