@@ -1,10 +1,18 @@
 RewriteEngine on
 
-RewriteRule ^$ https://docs.ai4os.eu/projects/ai4-metadata/en/latest/ [R=302,L]
+RewriteRule ^$ https://docs.ai4os.eu/projects/ai4-metadata/latest/ [R=302,L]
 
 # Comment this until we have versions
 
 #RewriteRule ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$ https://docs.ai4os.eu/projects/ai4-metadata/en/$1.$2.$3/ [R=302,L]
 
 # Lets point only to latest for the time being. We can add versioning afterwards
-RewriteRule ^/vocabulary/(.+)/(.+)$  https://docs.ai4os.eu/projects/ai4-metadata/en/latest/reference/$1.html#$2 [R=302,L]
+RewriteRule ^/vocabulary/(.+)/(.+)$  https://docs.ai4os.eu/projects/ai4-metadata/latest/reference/$1.html#$2 [R=302,L]
+
+# Add also RDF files for vocabularies
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/vocabulary/(.+)/$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/rdf/ai4eosc-$1.ttl
+
+# Redirect JSON-LD file to latest version
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/mldcat-ap-context.jsonld$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/json-ld/mldcat-ap-context-2.0.0.jsonld
