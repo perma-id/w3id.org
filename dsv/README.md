@@ -7,7 +7,9 @@ It is implemented in the [Dataspecer](https://dataspecer.com) tool.
 
 ## Ontology resources
 * HTML      https://mff-uk.github.io/data-specification-vocabulary/
-* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv.ttl
+* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.ttl
+* RDF/XML    https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.rdf
+* JSON-LD    https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.jsonld
 * GitHub    https://github.com/mff-uk/data-specification-vocabulary
 
 ## Contact
