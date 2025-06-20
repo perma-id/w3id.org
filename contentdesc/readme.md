@@ -15,4 +15,8 @@ serves RDF serializations according to the accept header (text/turtle, applicati
 
 - Raúl Ortega rortega@expert.ai
 
+# Maintainer
+
+- rortegagit
+
 
