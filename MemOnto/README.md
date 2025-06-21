@@ -4,7 +4,7 @@
 
 Mem'Onto is an ontology representing memory theories of psychology based on Tulving SPI Model.
 
-Ontology documentation redirection: https://w3id.org/MemOnto -> https://gitlab.com/sfsoline.felice/memonto
+Ontology documentation redirection: https://w3id.org/memonto -> https://gitlab.com/sfsoline.felice/memonto
 
 ## Maintainers
 * Soline Felice (soline.felice@irit.fr) (GitHub ID : SolineFelice) ORCID : 0009-0001-9829-2034
