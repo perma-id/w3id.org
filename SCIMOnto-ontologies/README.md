@@ -3,9 +3,7 @@ This repository hosts six interrelated domain ontologies developed for the Stati
 **SCIMOnto.owl**
 
 Ontology URI: https://w3id.org/SClMOnto-ontologies/SCIMOnto.owl 
-
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SCIMOnto.owl
-
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **CFMO.owl**
