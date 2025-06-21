@@ -36,6 +36,7 @@ Ontology URI: https://w3id.org/SClMOnto-ontologies/SCIMOnto.owl
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SCIMOnto.owl
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
+
 ## Included Ontologies
 - `CFMO.owl` — **Crowd Flow Monitoring Ontology**
 CFMO captures the spatiotemporal characteristics of crowd movement in large public spaces, enabling semantic representation of people flow, density, direction, and activity patterns for intelligent crowd management.  
