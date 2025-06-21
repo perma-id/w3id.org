@@ -1,5 +1,11 @@
 This repository hosts six interrelated domain ontologies developed for the Station-City Integrated Maintenance Ontology Framework (SCIMOF). These ontologies are designed to facilitate semantic modeling and reasoning for intelligent operation and maintenance (O&M) of urban rail transit hubs.
 
+**SCIMOnto.owl**
+
+Ontology URI: https://w3id.org/SClMOnto-ontologies/SCIMOnto.owl 
+Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SCIMOnto.owl
+Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
+
 **CFMO.owl**
 
 Ontology URI: https://w3id.org/SClMOnto-ontologies/CFMO.owl  
@@ -28,12 +34,6 @@ Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 Ontology URI: https://w3id.org/SClMOnto-ontologies/SMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SMO.owl  
-Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
-
-**SCIMOnto.owl**
-
-Ontology URI: https://w3id.org/SClMOnto-ontologies/SCIMOnto.owl 
-Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SCIMOnto.owl
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 
