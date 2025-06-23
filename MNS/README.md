@@ -1,5 +1,5 @@
 ### Maintainers
-Arghavan Akbarieh (z-arghavan)
+Arghavan Akbarieh (GitHub: z-arghavan)
   
 About Modelling and Standards Ontology (MnS)
 ===================
