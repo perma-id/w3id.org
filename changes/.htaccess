@@ -1,0 +1,62 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Ensure files are served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .xml
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+# Required for the redirects
+RewriteEngine on
+
+######################################################
+# Redirects for Spoke 4 - BEGIN
+######################################################
+
+## Redirects - with extensions
+RewriteRule ^(4/.+).(json|jsonld)$ https://dharc-org.github.io/spuk/changes/$1.jsonld [R=303,L]
+RewriteRule ^(4/.+).(rdf|xml)$ https://dharc-org.github.io/spuk/changes/$1.xml [R=303,L]
+RewriteRule ^(4/.+).html$ https://dharc-org.github.io/spuk/changes/$1.html [R=303,L]
+RewriteRule ^(4/.+).nt$ https://dharc-org.github.io/spuk/changes/$1.nt [R=303,L]
+RewriteRule ^(4/.+).ttl$ https://dharc-org.github.io/spuk/changes/$1.ttl [R=303,L]
+
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(4/.+)$ /changes/$1.html [R=303,L]
+
+# Serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(4/.+)$ /changes/$1.jsonld [R=303,L]
+
+# Serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(4/.+)$ /changes/$1.xml [R=303,L]
+
+# Serve N Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(4/.+)$ /changes/$1.nt [R=303,L]
+
+# Serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^(4/.+)$ /changes/$1.ttl [R=303,L]
+
+######################################################
+# Redirects for Spoke 4 - END
+######################################################
+
+## Default response: redirect everything to the Fondazione CHANGES homepage
+RewriteRule ^(.*)$ https://www.fondazionechanges.org [R=303,L]

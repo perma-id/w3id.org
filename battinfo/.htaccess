@@ -1,0 +1,71 @@
+##########################################################################
+# .htaccess file https://w3id.org/battinfo
+#
+# If testing interactively with https://htaccess.madewithlove.com/
+# remember to remove the initial "battinfo/" in the URL to test.
+#
+##########################################################################
+
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+
+##########################################################################
+##  Redirections to raw files in the GitHub repo
+##########################################################################
+
+# Redirect to raw files in the GitHub repo (like figures, etc)
+RewriteRule ^raw/([^0-9].*)$ https://raw.githubusercontent.com/BIG-MAP/BattINFO/master/$1 [R=303,NE,L]
+RewriteRule ^raw/([0-9][^/]*)/(.*)$ https://raw.githubusercontent.com/BIG-MAP/BattINFO/master/$1/$2 [R=303,NE,L]
+
+
+##########################################################################
+##  Redirection Rules
+##########################################################################
+
+# Rule 1a: https://w3id.org/battinfo
+# Alias:   https://w3id.org/battinfo/
+# Redirect to GitHub Pages
+# If the request appears coming from a browser, redirect to html documentation otherwise to squashed turtle file.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://big-map.github.io/BattINFO/battinfo.html [R=303,NE,L]
+RewriteRule ^$ https://big-map.github.io/BattINFO/battinfo.ttl [R=303,NE,L]
+
+# Rule 1b: https://w3id.org/battinfo/inferred
+# Redirect to GitHub Pages
+# Inferred ontology (only turtle) on GitHub Pages
+RewriteRule ^inferred/?$ https://big-map.github.io/BattINFO/battinfo-inferred.ttl [R=303,NE,L]
+
+# Rule 1c: https://w3id.org/battinfo/turtle
+# Redirect to GitHub Pages
+# Squashed ontology on GitHub Pages
+RewriteRule ^turtle/?$ https://big-map.github.io/BattINFO/battinfo.ttl [R=303,NE,L]
+
+
+# Rule 2a: https://w3id.org/battinfo/source
+# Alias:   https://w3id.org/battinfo/latest
+# Redirect to master branch
+RewriteRule ^/$ https://raw.githubusercontent.com/BIG-MAP/BattINFO/master/battinfo.ttl [R=303,NE,L]
+RewriteRule ^latest/?$ https://raw.githubusercontent.com/BIG-MAP/BattINFO/master/battinfo.ttl [R=303,NE,L]
+RewriteRule ^source/?$ https://raw.githubusercontent.com/BIG-MAP/BattINFO/master/battinfo.ttl [R=303,NE,L]
+
+
+# Rule 3a: https://w3id.org/battinfo/{VERSION}
+# Alias:   https://w3id.org/battinfo/{VERSION}/
+# Redirect to specified version branch
+# If the request appears coming from a browser, redirect to html documentation otherwise to squashed turtle file for given version.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^([0-9][^/]*)/?$ https://big-map.github.io/BattINFO/battinfo/versions/$1/battinfo.html [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/?$ https://big-map.github.io/BattINFO/battinfo/versions/$1/battinfo.ttl [R=303,NE,L]
+#
+# Rule 3b: https://w3id.org/battinfo/{VERSION}/inferred
+# Redirect to GitHub Pages
+RewriteRule ^([0-9][^/]*)/inferred/?$ https://big-map.github.io/BattINFO/battinfo/versions/$1/battinfo-inferred.ttl [R=303,NE,L]
+#
+# Rule 3c: https://w3id.org/battinfo/{VERSION}/turtle
+# Redirect to GitHub Pages
+RewriteRule ^([0-9][^/]*)/turtle/?$ https://big-map.github.io/BattINFO/battinfo/versions/$1/battinfo.ttl [R=303,NE,L]

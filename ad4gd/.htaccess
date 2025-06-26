@@ -13,9 +13,9 @@ AddType application/ld+json .jsonld
 RewriteRule ^$ https://ad4gd.eu/ [R=302,L]
 
 #EV
-RewriteRule ^ev/(.*)/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1/$2 [R=302,L]
+RewriteRule ^ev/(.*)/(.*)$ https://defs-hosted.opengis.net/prez-hosted-b/object?uri=http://w3id.org/ad4gd/ev/$1/$2 [R=302,L]
 #Catalogues
-RewriteRule ^ev/(.*)$ http://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/ad4gd/ev/$1 [R=302,L]
+RewriteRule ^ev/(.*)$ https://defs-hosted.opengis.net/prez-hosted-b/object?uri=http://w3id.org/ad4gd/ev/$1 [R=302,L]
 
 ###### GDIM #####
 ### GDIM METADATA LAYER #####
@@ -36,6 +36,7 @@ RewriteRule ^model/crossDomain-context.jsonld$ https://raw.githubusercontent.com
 ## Root level
 # JSON-LD context
 RewriteRule ^gdim-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/greenDealProfile-context.jsonld [R=302,L]
+RewriteRule ^sta-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/sta-context.jsonld [R=302,L]
 # Ontology
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^model$ https://raw.githubusercontent.com/AD4GD/GDIM/main/greenDealProfile.ttl [R=303,L]
@@ -50,7 +51,7 @@ RewriteRule ^model$ https://raw.githubusercontent.com/AD4GD/GDIM/main/greenDealP
 
 ## Modules
 # JSON-LD contexts
-RewriteRule ^model/(.*)-context$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/$1-context.jsonld [R=302,L]
+RewriteRule ^model/(.*)-context.jsonld$ https://raw.githubusercontent.com/AD4GD/GDIM/main/jsonld/$1-context.jsonld [R=302,L]
 # Ontology
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^model/(.*)$  https://raw.githubusercontent.com/AD4GD/GDIM/main/$1.ttl [R=303,L]
@@ -63,6 +64,6 @@ RewriteRule ^model/(.*)$  https://raw.githubusercontent.com/AD4GD/GDIM/main/$1.t
 # default
 RewriteRule ^model/(.*)$  https://raw.githubusercontent.com/AD4GD/GDIM/main/$1.ttl [R=303,L]
 
-# Sensors and manufacturers in Hosted RAINBOW
-RewriteRule ^sensors/?$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/sensors [R=302,L]
-RewriteRule ^sensors/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=https://w3id.org/ad4gd/sensors/$1 [R=303,L]
+# Properties, sensors, sensor manufacturers and procedures in Hosted RAINBOW
+RewriteRule ^([^/]+/(properties|sensors|sensor-manufacturers|procedures))/?$ https://defs-hosted.opengis.net/prez-hosted-b/object?uri=https://w3id.org/ad4gd/$1 [R=303,L]
+RewriteRule ^([^/]+/(properties|sensors|sensor-manufacturers|procedures)/.+)$ https://defs-hosted.opengis.net/prez-hosted-b/object?uri=https://w3id.org/ad4gd/$1 [R=303,L]

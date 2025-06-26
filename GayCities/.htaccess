@@ -1,0 +1,37 @@
+# Example
+#
+# https://w3id.org/GayCities/saopaulo/bars/2278-the-week redirects to https://saopaulo.gaycities.com/bars/2278-the-week
+# https://w3id.org/GayCities/lyon redirects to https://lyon.gaycities.com/
+# https://w3id.org/GayCities/cotedazur/restaurants/302759-tetou redirects to https://cotedazur.gaycities.com/restaurants/302759-tetou
+# https://w3id.org/GayCities/phuket/bathhouses redirects to https://phuket.gaycities.com/bathhouses
+# https://w3id.org/GayCities/atlanta/events/1030855-atlanta-pride redirects to https://atlanta.gaycities.com/events/1030855-atlanta-pride
+# https://w3id.org/GayCities/articles/91439/a-huge-concert-starring-trans-folks-is-taking-over-american-music-hall-this-weekend redirects to https://www.gaycities.com/articles/91439/a-huge-concert-starring-trans-folks-is-taking-over-american-music-hall-this-weekend/
+#
+# ## Contact
+# This space is administered by:
+#
+# Clair Kronk
+# Clair.Kronk@mountsinai.org
+# GitHub username: Superraptor
+
+# Examples tested using:
+# https://htaccess.madewithlove.com/
+# (22 September 2024)
+
+RewriteEngine On
+RewriteBase /
+
+# Redirect URLs of the form /GayCities/$1
+RewriteRule ^([a-z\-]{1,50})$ https://$1.gaycities.com/ [R=301,NE,L]
+
+# Redirect URLs of the form /GayCities/$1/$2
+RewriteRule ^([a-z\-]{1,50})/([a-z]{1,50})$ https://$1.gaycities.com/$2 [R=301,NE,L]
+
+# Redirect URLs of the form /GayCities/$1/$2/$3
+RewriteRule ^([a-z\-]{1,50})/([a-z]{1,50})/([0-9]{1,10}\-[a-z]{1,20}(\-[a-z]{1,20}){0,10})$ https://$1.gaycities.com/$2/$3 [R=301,L]
+
+# Redirect URLs of the form /GayCities/$1/$2/$3
+RewriteRule ^(articles)/([0-9]{1,10})/(([a-z]{1,30}\-){0,60}[a-z]{1,30})$ https://www.gaycities.com/$1/$2/$3 [R=301,L]
+
+# Redirect /GayCities/ to https://www.gaycities.com/
+RewriteRule ^$ https://www.gaycities.com/ [R=301,L]

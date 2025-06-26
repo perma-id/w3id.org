@@ -3,7 +3,7 @@
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 
-**Description:** redirects for version 1.0 of the iSamples specimen type vocabulary
+**Description:** redirects for version 1.0 of the iSamples specimen type vocabulary. Note this vocabulary has been superseded by materialsampleobjecttype/1.0
 
 catches https://w3id.org/isample/vocabulary/specimentype/1.0/{term}
 

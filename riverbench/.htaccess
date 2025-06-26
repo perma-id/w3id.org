@@ -7,16 +7,21 @@ AddType application/x-jelly-rdf .jelly
 
 RewriteEngine on
 
-# Dataset releases
+
+
+### DATASET RELEASES ###
+
 RewriteRule ^datasets/([a-z0-9-]+)/dev/files/(.+)$ https://github.com/RiverBench/dataset-$1/releases/download/dev/$2 [R=302,L]
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)/files/(.+)$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/$3 [R=302,L]
 
-### EXPLICIT EXTENSIONS ###
 
-# Schema – explicit extension for dev release
+
+### METADATA -- EXPLICIT FILE EXTENSIONS ###
+
+# Schemas – explicit extension for dev release
 RewriteRule ^schema/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/dev/$1.$3 [R=302,L]
 
-# Schema – explicit extension for tagged releases
+# Schemas – explicit extension for tagged releases
 RewriteRule ^schema/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/v$2/$1.$3 [R=302,L]
 
 # Main metadata – explicit extension for dev release
@@ -25,11 +30,14 @@ RewriteRule ^(v/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBenc
 # Main metadata – explicit extension for tagged releases
 RewriteRule ^v/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.$2 [R=302,L]
 
-# Profile metadata – explicit extension for dev release
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.$3 [R=302,L]
+# Profile metadata (1.0.x scheme, back-compat) – explicit extension for tagged releases
+RewriteRule ^profiles/([a-z0-9-]+)/(1\.0\.\d)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
+
+# Profile metadata – explicit extension for dev release (with back-compat for 1.0.x URL scheme)
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.$5 [R=302,L]
 
 # Profile metadata – explicit extension for tagged releases
-RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.$4 [R=302,L]
 
 # Dataset metadata – explicit extension for dev release
 RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/dev/metadata.$3 [R=302,L]
@@ -37,38 +45,94 @@ RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://
 # Dataset metadata – explicit extension for tagged releases
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.$3 [R=302,L]
 
-# Metadata dumps – dev and tagged releases
-RewriteRule ^dumps/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/$1/dump.$2.gz [R=302,L]
+# Task metadata – explicit extension for dev release
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.$4 [R=302,L]
 
-### SERVING HTML ###
+# Task metadata – explicit extension for tagged releases
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.$4 [R=302,L]
 
-# Redirect /v/dev* to /
+# Category metadata – explicit extension for dev release
+RewriteRule ^(v/dev/)?categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.$3 [R=302,L]
+
+# Category metadata – explicit extension for tagged releases
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.$3 [R=302,L]
+
+# Metadata dumps for dev release
+RewriteRule ^dumps/dev\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump.$1.gz [R=302,L]
+
+# Metadata dumps for tagged releases
+RewriteRule ^dumps/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump.$2.gz [R=302,L]
+
+# Dumps with benchmark results for dev release
+RewriteRule ^dumps-with-results/dev\.(trig|nq|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump-with-results.$1.gz [R=302,L]
+
+# Dumps with benchmark results for tagged releases
+RewriteRule ^dumps-with-results/([a-z0-9.-]+)\.(trig|nq|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump-with-results.$2.gz [R=302,L]
+
+### HTML DOCUMENTATION PAGES ###
+
+# Redirect /schema/{name} to /v/dev/schema/{name}
+# Tagged releases are handled via redirects set up in the gh-pages branch of the documentation repo.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^v/dev(.*)$ https://riverbench.github.io$1 [R=302,L]
+RewriteRule ^schema/([a-z0-9-]+)/?$ https://riverbench.github.io/v/dev/schema/$1 [R=302,L]
 
-# Redirect /schema/{name} to /schema/{name}/dev
+# Redirect /datasets/{name} to /v/dev/datasets/{name}
+# Tagged releases are handled via redirects set up in the gh-pages branch of the documentation repo.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^schema/([a-z0-9-]+)/?$ https://riverbench.github.io/schema/$1/dev [R=302,L]
+RewriteRule ^datasets/([a-z0-9-]+)/?$ https://riverbench.github.io/v/dev/datasets/$1 [R=302,L]
 
-# Redirect /datasets/{name} to /datasets/{name}/dev
+# Redirect /profiles/{name} to /v/dev/profiles/{name}
+# This is an old URL scheme (1.0.x), kept for back-compatibility.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^datasets/([a-z0-9-]+)/?$ https://riverbench.github.io/datasets/$1/dev [R=302,L]
+RewriteRule ^profiles/([a-z0-9-]+)/?$ https://riverbench.github.io/v/dev/profiles/$1 [R=302,L]
 
-# Redirect /profiles/{name} to /profiles/{name}/dev
+# Redirect /profiles/{name}/1.0.x to /v/1.0.x/profiles/{name}/1.0.x
+# This is an old URL scheme (1.0.x), kept for back-compatibility.
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^profiles/([a-z0-9-]+)/?$ https://riverbench.github.io/profiles/$1/dev [R=302,L]
+RewriteRule ^profiles/([a-z0-9-]+)/(1\.0\.\d)/?$ https://riverbench.github.io/v/$2/profiles/$1/$2 [R=302,L]
+
+# Redirect /profiles/{name}/{version} to /v/{version}/profiles/{name}
+# This is an old URL scheme (1.0.x), kept for back-compatibility and convenience.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)/?$ https://riverbench.github.io/v/$2/profiles/$1 [R=302,L]
+
+# Redirect /tasks/* to /v/dev/tasks/*
+# This URL should not be used really, but we add it here for convenience.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^tasks/(.+)$ https://riverbench.github.io/v/dev/tasks/$1 [R=302,L]
+
+# Redirect /categories/* to /v/dev/categories/*
+# This URL should not be used really, but we add it here for convenience.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^categories/(.+)$ https://riverbench.github.io/v/dev/categories/$1 [R=302,L]
+
+# Redirect several top-level important pages to /v/dev/
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(|documentation.*|datasets|schema)/?([#?].*)?$ https://riverbench.github.io/v/dev/$1$2 [R=302,L]
 
 # Serve HTML if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -77,7 +141,9 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^(.+)$ https://riverbench.github.io/$1 [R=302,L]
 
-### SERVING SCHEMAS (ONTOLOGIES) ###
+
+
+### SCHEMAS (ONTOLOGIES) -- CONTENT NEGOTIATION ###
 
 # Schema – RDF/XML for dev release
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -115,7 +181,9 @@ RewriteRule ^schema/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBenc
 RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
 RewriteRule ^schema/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/schema/releases/download/v$2/$1.jelly [R=302,L]
 
-### SERVING MAIN METADATA ###
+
+
+### MAIN METADATA -- CONTENT NEGOTIATION ###
 
 # Main metadata – RDF/XML for dev release
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -153,29 +221,57 @@ RewriteRule ^(v/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/relea
 RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
 RewriteRule ^v/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.jelly [R=302,L]
 
-### SERVING PROFILES ###
 
-# Profile metadata – RDF/XML for dev release
+
+### PROFILE METADATA -- CONTENT NEGOTIATION ###
+
+# Profile metadata – RDF/XML for dev release (with back-compat for 1.0.x URL scheme)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.rdf [R=302,L]
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.rdf [R=302,L]
+
+# Profile metadata – RDF/XML for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.rdf [R=302,L]
+
+# Profile metadata – N-Triples for dev release (with back-compat for 1.0.x URL scheme)
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.nt [R=302,L]
+
+# Profile metadata – N-Triples for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.nt [R=302,L]
+
+# Profile metadata – Turtle for dev release (with back-compat for 1.0.x URL scheme)
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.ttl [R=302,L]
+
+# Profile metadata – Turtle for tagged releases
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.ttl [R=302,L]
+
+# Profile metadata – Jelly for dev release (with back-compat for 1.0.x URL scheme)
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.jelly [R=302,L]
+
+# Profile metadata – Jelly for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.jelly [R=302,L]
+
+
+
+### PROFILE METADATA -- CONTENT NEGOTIATION (1.0.x back-compat) ###
 
 # Profile metadata – RDF/XML for tagged releases
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.rdf [R=302,L]
 
-# Profile metadata – N-Triples for dev release
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.nt [R=302,L]
-
 # Profile metadata – N-Triples for tagged releases
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.nt [R=302,L]
-
-# Profile metadata – Turtle for dev release
-RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.ttl [R=302,L]
 
 # Profile metadata – Turtle for tagged releases
 RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
@@ -183,15 +279,13 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.ttl [R=302,L]
 
-# Profile metadata – Jelly for dev release
-RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
-RewriteRule ^profiles/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/profile-$1.jelly [R=302,L]
-
 # Profile metadata – Jelly for tagged releases
 RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
 RewriteRule ^profiles/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.jelly [R=302,L]
 
-### SERVING DATASET METADATA ###
+
+
+### DATASET METADATA -- CONTENT NEGOTIATION ###
 
 # Dataset metadata – RDF/XML for dev release
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -229,7 +323,89 @@ RewriteRule ^datasets/([a-z0-9-]+)(/dev)?/?([#?].*)?$ https://github.com/RiverBe
 RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
 RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)/?([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.jelly [R=302,L]
 
-### SERVING DOCUMENTATION ###
+
+
+### TASK METADATA -- CONTENT NEGOTIATION ###
+
+# Task metadata – RDF/XML for dev release
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.rdf [R=302,L]
+
+# Task metadata – RDF/XML for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.rdf [R=302,L]
+
+# Task metadata – N-Triples for dev release
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.nt [R=302,L]
+
+# Task metadata – N-Triples for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.nt [R=302,L]
+
+# Task metadata – Turtle for dev release
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.ttl [R=302,L]
+
+# Task metadata – Turtle for tagged releases
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.ttl [R=302,L]
+
+# Task metadata – Jelly for dev release
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.jelly [R=302,L]
+
+# Task metadata – Jelly for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.jelly [R=302,L]
+
+
+
+### TASK METADATA -- CONTENT NEGOTIATION ###
+
+# Category metadata – RDF/XML for dev release
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v/dev/)?categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.rdf [R=302,L]
+
+# Category metadata – RDF/XML for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.rdf [R=302,L]
+
+# Category metadata – N-Triples for dev release
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v/dev/)?categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.nt [R=302,L]
+
+# Category metadata – N-Triples for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.nt [R=302,L]
+
+# Category metadata – Turtle for dev release
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(v/dev/)?categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.ttl [R=302,L]
+
+# Category metadata – Turtle for tagged releases
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.ttl [R=302,L]
+
+# Category metadata – Jelly for dev release
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(v/dev/)?categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.jelly [R=302,L]
+
+# Category metadata – Jelly for tagged releases
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)/?([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.jelly [R=302,L]
+
+
+
+### HTML DOCUMENTATION -- DEFAULT (FALLBACK) BEHAVIOR ###
 
 # Default response – redirect to documentation
 RewriteRule ^(.*)$ https://riverbench.github.io/$1 [R=302,L]

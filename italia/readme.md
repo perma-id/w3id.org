@@ -14,9 +14,9 @@ We define:
  
 Contacts:
 
-+ Fabio Bonelli: github (https://github.com/bfabio) - email (fabio.bonelli@teamdigitale.governo.it)
-+ Matteo Fortini: github (https://github.com/mfortini) - email (matteo.fortini@teamdigitale.governo.it)
++ Matteo Fortini: github (https://github.com/mfortini) - email (m.fortini@innovazione.gov.it)
 + Giorgia Lodi: github (https://github.com/giorgialodi) - email (giorgia.lodi@aistc.cnr.it)
++ Claudia Pollina: github (https://github.com/Clou-dia) - email (c.pollina@innovazione.gov.it)
 
 For any other inquiries, please contact contatti@developers.italia.it
 
