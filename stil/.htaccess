@@ -1,4 +1,7 @@
 RewriteEngine on
 
-RewriteRule ^(.*) https://sroertgen.github.io/stil-vocabs/$1 [R=302,L]
+# Redirect root /stil/ to GitHub Pages base
+RewriteRule ^/?$ https://sroertgen.github.io/stil-vocabs/ [R=302,L]
 
+# Redirect all subpaths with preserved path structure
+RewriteRule ^(.+)$ https://sroertgen.github.io/stil-vocabs/w3id.org/stil/$1 [R=302,L]
