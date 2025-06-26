@@ -1,0 +1,9 @@
+# Rewrite engine setup
+RewriteEngine on
+
+# JSON response from ScienceBase API
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)$ https://www.sciencebase.gov/catalog/item/$1?format=json [R=302,L]
+
+# HTML response from ScienceBase API
+RewriteRule ^(.*)$ https://www.sciencebase.gov/catalog/item/$1 [R=302,L]

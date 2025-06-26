@@ -15,7 +15,7 @@ The LPTO vocabulary is licensed under Creative Commons 4.0 International.
 
 ## Contacts
 
-* Our Github address [LPTOntology](https://github.com/LPTOntology)
+* Our Github address [LPTOntology](https://github.com/DACE-DL)
 
 **Raphaël Conde Salazar (University of Montpellier)**    
 [DACE-DL](https://github.com/DACE-DL)

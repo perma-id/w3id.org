@@ -1,0 +1,30 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType application/n-quads .nq
+AddType application/n-triples .nt
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# For audio retrieval, always return 403 Forbidden (copyright considerations)
+RewriteRule ^audio/ - [F]
+
+# Peaks are always served as json
+RewriteCond %{REQUEST_URI} \.peaks\.json$
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1 [R=303,L]
+
+# Rewrite rule to serve JSON-LD if JSON or JSON-LD content is requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json 
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.jsonld [R=303,L]
+
+# Rewrite rule to forward to the project's custom Platform for Review and Interaction with Music Annotation Linked-data if HTML is requested
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ([a-zA-Z0-9._\/:-]+)$ https://primal.mdw.ac.at/?obj=https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.jsonld [R=303,L]
+
+# Fallback rule if a non-supported content type is requested. Return 406 Not Acceptable.
+RewriteCond %{HTTP_ACCEPT} !(application/json|application/ld\+json|text/html)
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ - [R=406,L]

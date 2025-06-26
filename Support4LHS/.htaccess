@@ -1,0 +1,23 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://semantics.inf.um.es/support4lhs/metadata.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ https://semantics.inf.um.es/support4lhs/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the JSON-LD content by default
+RewriteRule ^$ https://semantics.inf.um.es/support4lhs/metadata.jsonld [R=303,L]

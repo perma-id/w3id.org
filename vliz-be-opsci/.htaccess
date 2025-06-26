@@ -1,0 +1,31 @@
+RewriteEngine on
+
+# Add types for .ttl and .jsonld and .json
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+AddType application/json .json
+
+# vliz-be-opsci home page
+# https://w3id.org/vliz-be-opsci redirects to https://open-science.vliz.be/
+RewriteRule ^$ https://vliz-be-opsci.github.io/ [R=302,L]
+
+# Ontologies / Vocabularies
+# https://w3id.org/vliz-be-opsci/ns redirects to https://open-science.vliz.be/ns
+RewriteRule ^ns$ https://vliz-be-opsci.github.io/ns/ [R=302,L]
+
+# Add rules for text/turtle files in /ns
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/(.*)$ https://vliz-be-opsci.github.io/ns/$1.ttl [R=303,L]
+
+# Rule to redirect subdirectories of /ns to the corresponding subdirectories of the GitHub Pages site
+RewriteRule ^ns/(.*)$ https://vliz-be-opsci.github.io/ns/$1 [R=302,L]
+
+# RO-Crates
+# Add rule for application/ld+json files in /rocrate
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^rocrate/(.*)$ https://vliz-be-opsci.github.io/$1/ro-crate-metadata.jsonld [R=303,L]
+# Add rule for application/json files in /rocrate
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^rocrate/(.*)$ https://vliz-be-opsci.github.io/$1/ro-crate-metadata.json [R=303,L]
+# example rocrate here https://w3id.org/vliz-be-opsci/rocrate/$1 redirects to https://vliz-be-opsci.github.io/$1
+RewriteRule ^rocrate/(.*)$ https://vliz-be-opsci.github.io/$1 [R=302,L]

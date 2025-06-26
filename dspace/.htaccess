@@ -1,6 +1,9 @@
+
+AddType application/ld+json .jsonld
+
 RewriteEngine On
 
-# Rules controling links with the /vX.Y/ path segment
+# Rules controlling links with the /vX.Y/ path segment pointing to IDSA
 ## Redirect main JSON-LD context
 RewriteRule ^(head|v[0-9][.][0-9])/context.json https://international-data-spaces-association.github.io/ids-specification/$1/common/schema/context.json [R=302,L,QSA]
 
@@ -12,18 +15,25 @@ RewriteRule ^(head|v[0-9][.][0-9])/common/([\w.-]+schema.json) https://internati
 RewriteRule ^(head|v[0-9][.][0-9])/(catalog|negotiation|transfer)/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1/$2/message/shape/$3 [R=302,L,QSA]
 RewriteRule ^(head|v[0-9][.][0-9])/common/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1/common/shape/$2 [R=302,L,QSA]
 
-# Rules controling links with the /<year>/<number>/ path segment, e.g. /2024-1/
+# Rules controlling links explicitly for release /2024-1/ pointing to IDSA
 ## Redirect main JSON-LD context
-RewriteRule ^([0-9]+)/([0-9]+)/context.json https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/schema/context.json [R=302,L,QSA]
+RewriteRule ^2024/1/context.json https://international-data-spaces-association.github.io/ids-specification/2024-1/common/schema/context.json [R=302,L,QSA]
 
 ## Redirect JSON Schemas
-RewriteRule ^([0-9]+)/([0-9]+)/(catalog|negotiation|transfer)/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1-$2/$3/message/schema/$4 [R=302,L,QSA]
-RewriteRule ^([0-9]+)/([0-9]+)/common/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/schema/$3 [R=302,L,QSA]
+RewriteRule ^2024/1/(catalog|negotiation|transfer)/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/2024-1/$1/message/schema/$2 [R=302,L,QSA]
+RewriteRule ^2024/1/common/([\w.-]+schema.json) https://international-data-spaces-association.github.io/ids-specification/2024-1/common/schema/$1 [R=302,L,QSA]
 
 ## Redirect SHACL Shapes
-RewriteRule ^([0-9]+)/([0-9]+)/(catalog|negotiation|transfer)/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1-$2/$3/message/shape/$4 [R=302,L,QSA]
-RewriteRule ^([0-9]+)/([0-9]+)/common/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/$1-$2/common/shape/$3 [R=302,L,QSA]
+RewriteRule ^2024/1/(catalog|negotiation|transfer)/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/2024-1/$1/message/shape/$2 [R=302,L,QSA]
+RewriteRule ^2024/1/common/([\w.-]+shapes?.ttl) https://international-data-spaces-association.github.io/ids-specification/2024-1/common/shape/$1 [R=302,L,QSA]
 
+# Rules controlling links explicitly for release /2025-1/ pointing to EDWG
+## Redirect main JSON-LD context
+RewriteRule ^2025/1/context.jsonld https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/dspace.jsonld [R=302,L,QSA]
+RewriteRule ^2025/1/odrl-profile.jsonld https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/odrl.jsonld [R=302,L,QSA]
+
+## Redirect JSON Schemas
+RewriteRule ^2025/1/(catalog|negotiation|transfer|common)/([\w.-]+schema.json) https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/$2 [R=302,L,QSA]
 
 # Redirect to repository
-RewriteRule ^.*$ https://github.com/International-Data-Spaces-Association/ids-specification [R=302,L,QSA]
+RewriteRule ^.*$ https://github.com/eclipse-dataspace-protocol-base/DataspaceProtocol [R=302,L,QSA]

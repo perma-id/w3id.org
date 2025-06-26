@@ -1,0 +1,35 @@
+# RDF-Connect ontology
+#
+# https://w3id.org/rdf-connect redirects to https://rdf-connect.github.io/ontology/rdf-connect.ttl
+#
+# ## Contact
+# This space is administered by:
+#
+# Julián Rojas
+# julianandres.rojasmelendez@ugent.be
+# GitHub username: julianrojas87
+#
+# Arthur Vercruysse
+# arthur.vercrusse@ugent.be
+# GitHub username: ajuvercr
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# JavaScript entities
+RewriteCond %{REQUEST_URI} js
+RewriteRule js https://rdf-connect.github.io/ontology/rdf-connect-js.ttl [R=302,L]
+
+# JVM entities
+RewriteCond %{REQUEST_URI} jvm
+RewriteRule jvm https://rdf-connect.github.io/ontology/rdf-connect-jvm.ttl [R=302,L]
+
+# Default response
+# ---------------------------
+RewriteRule ^$ https://rdf-connect.github.io/ontology/rdf-connect.ttl [R=302,L]
