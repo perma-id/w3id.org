@@ -1,0 +1,1 @@
+##Redirect to the FAIR2ADAPT Fairification Framework##
