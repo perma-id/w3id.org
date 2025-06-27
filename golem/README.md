@@ -13,4 +13,5 @@ This W3ID provides a persistent identifier for the GOLEM Ontology of Fiction and
 
 ## Maintainer
 
-- GOLEM Lab (https://ontology.golemlab.eu)
+- GOLEM Lab (<https://ontology.golemlab.eu>)  
+- [@ljutach](https://github.com/ljutach)
