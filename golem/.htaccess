@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# If Accept header prefers RDF/XML, XML, or Turtle — serve TTL
+RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml" [NC,OR]
+RewriteCond %{HTTP_ACCEPT} "application/xml" [NC,OR]
+RewriteCond %{HTTP_ACCEPT} "text/turtle" [NC]
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.ttl [R=302,L]
+
+# Otherwise serve HTML
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.html [R=302,L]
+
+
