@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Redirect to TTL when RDF is requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.ttl [R=302,L]
+
+# Fallback to HTML if not RDF
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.html [R=302,L]
+
