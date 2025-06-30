@@ -1,12 +1,20 @@
 RewriteEngine On
 
-# If Accept header prefers RDF/XML, XML, or Turtle — serve TTL
-RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml" [NC,OR]
-RewriteCond %{HTTP_ACCEPT} "application/xml" [NC,OR]
-RewriteCond %{HTTP_ACCEPT} "text/turtle" [NC]
-RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.ttl [R=302,L]
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.ttl [R=303,L]
 
-# Otherwise serve HTML
-RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.html [R=302,L]
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.ttl [R=303,L]
 
+# HTML
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.html [R=303,L]
+
+# Default fallback
+RewriteRule ^ontology$ https://ontology.golemlab.eu/golem.html [R=303,L]
+
+# Versioned URI (for FOOPS! VER2)
+Redirect 302 /ontology/v1.0 https://ontology.golemlab.eu/golem.ttl
 
