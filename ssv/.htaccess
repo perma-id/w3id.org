@@ -3,14 +3,19 @@ Options +FollowSymLinks
 
 AddType application/rdf+xml .rdf
 AddType application/ld+json .jsonld
-AddType application/n-quads .nq
 AddType application/n-triples .nt
+AddType text/n3 .n3
 AddType text/turtle .ttl
+
 
 RewriteEngine on
 
 # For audio retrieval, always return 403 Forbidden (copyright considerations)
+RewriteCond %{THE_REQUEST} /audio/ [NC] # capture the encoded URL to avoid encoded slash problems
 RewriteRule ^audio/ - [F]
+
+# If the URI starts with /data/ or /annot/, assume the main branch is being requested, so rewrite accordingly
+RewriteRule ^(data|annot|vocab)(/.*)?$ main/$1
 
 # Peaks are always served as json
 RewriteCond %{REQUEST_URI} \.peaks\.json$
@@ -21,9 +26,30 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json 
 RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.jsonld [R=303,L]
 
-# Rewrite rule to forward to the project's custom Platform for Review and Interaction with Music Annotation Linked-data if HTML is requested
-RewriteCond %{HTTP_ACCEPT} text/html
+# Rewrite rule to serve rdf+xml 
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.xml [R=303,L]
+
+# Rewrite rule to serve n-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.nt [R=303,L]
+
+# Rewrite rule to serve Notation3 (n3)
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.n3 [R=303,L]
+
+# Rewrite rule to serve turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.ttl [R=303,L]
+
+# Rewrite rule to forward annotations to the project's custom Platform for Review and Interaction with Music Annotation Linked-data if HTML is requested
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteCond %{REQUEST_URI} /annot/ [NC]
 RewriteRule ([a-zA-Z0-9._\/:-]+)$ https://primal.mdw.ac.at/?obj=https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.jsonld [R=303,L]
+
+# Other HTML requests get served turtle for now
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ([a-zA-Z0-9._\/:-]+)$ https://raw.githubusercontent.com/Signature-Sound-Vienna/data/$1.ttl [R=303,L]
 
 # Fallback rule if a non-supported content type is requested. Return 406 Not Acceptable.
 RewriteCond %{HTTP_ACCEPT} !(application/json|application/ld\+json|text/html)
