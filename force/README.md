@@ -14,8 +14,9 @@ FORCE is designed to assist in ODRL policy development and enhance comprehension
 | /test-suite                | DOI for the ODRL Test Suite                      | https://doi.org/10.5281/zenodo.14290517                                                                    |
 | /test-suite/repo           | Repository of the ODRL Test Suite                | https://github.com/SolidLabResearch/ODRL-Test-Suite                                                        |
 | /evaluator                 | ODRL Evaluator                                   | https://github.com/SolidLabResearch/ODRL-Evaluator                                                         |
-| /ESWC2025-demo             | Webpage with FORCE demo for ESWC 2025            | https://woutslabbinck.github.io/ODRL-Evaluator-Demo/                                                       |
-| /ESWC2025-demo/repo        | Repository of the FORCE demo                     | https://github.com/woutslabbinck/ODRL-Evaluator-Demo                                                       |
+| /demo                      | Webpage with FORCE demo                          | https://woutslabbinck.github.io/ODRL-Evaluator-Demo/                                                       |
+| /demo/odrl3proposal        | Webpage with FORCE demo with extension examples  | https://woutslabbinck.github.io/ODRL-Evaluator-Demo/odrl3.0.html                                           |
+| /demo/repo                 | Repository of the FORCE demo                     | https://github.com/woutslabbinck/ODRL-Evaluator-Demo                                                       |
 | /odrl3proposal             | ODRL 3.0 Proposal specification                  | https://spec.knows.idlab.ugent.be/odrl3proposal/latest                                                     |
 | /odrl3proposal/repo        | Repository of the ODRL 3.0 Proposal spec         | https://github.com/KNowledgeOnWebScale/odrl3proposal                                                       |
 | /sotw                      | State of the World for ODRL specification        | https://spec.knows.idlab.ugent.be/sotw/latest                                                              |
