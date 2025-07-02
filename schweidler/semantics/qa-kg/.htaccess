@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteBase /schweidler/semantics/qa-kg/
+
+# RDF requests (application/rdf+xml or .ttl)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{REQUEST_URI} \.ttl$
+RewriteRule ^$ https://schweidler.github.io/qa-kg/ontology/qa-upper.ttl [R=302,L]
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://schweidler.github.io/qa-kg/ [R=302,L]
+
+# Fallback
+Redirect 302 / https://schweidler.github.io/qa-kg/
