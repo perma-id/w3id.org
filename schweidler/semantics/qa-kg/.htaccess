@@ -1,15 +1,13 @@
-RewriteEngine On
-RewriteBase /schweidler/semantics/qa-kg/
+# Redirect HTML clients to the GitHub repo
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/Fl4gell4nt/qa-kg [R=302,L]
 
-# RDF requests (application/rdf+xml or .ttl)
+# Redirect RDF clients to the Turtle manifest
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{REQUEST_URI} \.ttl$
-RewriteRule ^$ https://schweidler.github.io/qa-kg/ontology/qa-upper.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/Fl4gell4nt/qa-kg/main/manifest.ttl [R=302,L]
 
-# HTML documentation
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^$ https://schweidler.github.io/qa-kg/ [R=302,L]
-
-# Fallback
-Redirect 302 / https://schweidler.github.io/qa-kg/
+# Fallback to Turtle manifest
+RewriteRule ^$ https://raw.githubusercontent.com/Fl4gell4nt/qa-kg/main/manifest.ttl [R=302,L]
