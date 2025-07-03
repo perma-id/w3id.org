@@ -7,9 +7,15 @@ https://w3id.org/emi redirects to https://www.earthmetabolome.org/earth_metabolo
 
 ## Contacts 
 
-- Pierre-Marie Allard (pierre-marie.allard@unifr.ch)
-- Emmanuel Defossez (emmanuel.defossez@unine.ch)
-- Tarcisio Mendes de Farias (tarcisio.mendes@sib.swiss)
+- Pierre-Marie Allard
+    - Email: pierre-marie.allard@unifr.ch
+    - GitHub: @oolonek
+- Emmanuel Defossez
+    - Email: emmanuel.defossez@unine.ch
+    - GitHub: @Edefossez
+- Tarcisio Mendes de Farias
+    - Email: tarcisio.mendes@sib.swiss
+    - Github: @tarcisiotmf
 
 - Earth Metabolome Initiative data stewardship team (data@earthmetabolome.org)
 
