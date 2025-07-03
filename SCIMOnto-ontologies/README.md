@@ -2,37 +2,37 @@ This repository hosts six interrelated domain ontologies developed for the Stati
 
 **SCIMOnto.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/SCIMOnto.owl 
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/SCIMOnto.owl 
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SCIMOnto.owl
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **CFMO.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/CFMO.owl  
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/CFMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/CFMO.owl  
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **ECMO.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/ECMO.owl  
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/ECMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/ECMO.owl  
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **EvMO.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/EvMO.owl  
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/EvMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/EvMO.owl  
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **IMO.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/IMO.owl  
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/IMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/IMO.owl  
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
 **SMO.owl**
 
-Ontology URI: https://w3id.org/SClMOnto-ontologies/SMO.owl  
+Ontology URI: https://w3id.org/SCIMOnto-ontologies/SMO.owl  
 Redirect target: https://zhu-huiwen.github.io/scimonto-ontology/SMO.owl  
 Maintainer: [@zhu-huiwen](https://github.com/zhu-huiwen)
 
