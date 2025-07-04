@@ -16,6 +16,9 @@ https://w3id.org/emi redirects to https://www.earthmetabolome.org/earth_metabolo
 - Tarcisio Mendes de Farias
     - Email: tarcisio.mendes@sib.swiss
     - Github: @tarcisiotmf
+- Disha Tandon
+    - Email: dishatandon.vit@gmail.com
+    - GitHub: @mdrishti
 
 - Earth Metabolome Initiative data stewardship team (data@earthmetabolome.org)
 
