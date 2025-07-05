@@ -1,5 +1,3 @@
-## 
-
 Redirections from entities defined in the NFDI4Objects Object Core Metadata Profile
 
 
