@@ -1,27 +1,33 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks -MultiViews
-
-
-# Directive to ensure *.rdf *.owl *.jsonld *.ttl files served as appropriate content type,
-# if not present in main apache config
+ 
+# Ensure RDF-related MIME types are handled properly
 AddType application/rdf+xml .rdf .owl
 AddType text/turtle .ttl
 AddType application/ld+json .jsonld
-
-
-# Rewrite engine setup
+ 
 RewriteEngine on
-
-
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/index-en  [R=303,L]
-
-
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+ 
+# Redirect based on Accept headers: If RDF is not accepted, but HTML is
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/index-en [R=303,L]
+ 
+# Redirect to RDF serialization when RDF is explicitly requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
 RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/serializations/ontology.owl [R=303,L]
+ 
+# Direct mappings for specific terms or actions
+RewriteRule ^sparql$ https://projects.dharc.unibo.it/atlas/sparql [R=302,L]
+RewriteRule ^records$ https://projects.dharc.unibo.it/atlas/records [R=302,L]
+RewriteRule ^model$ https://projects.dharc.unibo.it/atlas/model [R=302,L]
+RewriteRule ^documentation$ https://projects.dharc.unibo.it/atlas/documentation [R=302,L]
+ 
+# Generic fallback: if nothing else matches, return RDF description
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^(.+)$ https://projects.dharc.unibo.it/atlas/sparql?query=DESCRIBE%20<https://w3id.org/dh-atlas/$1> [R=303,L]
+ 
+# Otherwise, show the HTML view
+RewriteRule ^(.+)$ https://projects.dharc.unibo.it/atlas/view-$1 [R=303,L]
