@@ -1,0 +1,36 @@
+# Apache .htaccess file for w3id.org/iprok/
+Options +FollowSymLinks
+RewriteEngine On
+
+# --- Rule for the base PURL (e.g., https://w3id.org/iprok/) ---
+# Redirects to the main HTML documentation.
+RewriteRule ^/?$ https://konevenkatesh.github.io/IprokDoc/main.html [R=308,L]
+
+# --- Rules for versioned PURLs (e.g., https://w3id.org/iprok/1.0/) ---
+# The version pattern is captured as $1, e.g., "1.0" or "1.0.3".
+#
+# IMPORTANT NOTE ON TARGET URLs AND VERSIONING:
+# The target GitHub URLs below currently DO NOT use the captured version $1
+# in their path. This means all versioned PURLs will point to the same "latest" files.
+# If you set up versioned directories on GitHub (e.g., /IprokDoc/1.0/ontology.owl),
+# you MUST update the target URLs to include $1.
+
+# If Accept: application/rdf+xml is requested for a versioned PURL
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.owl [R=303,NE,L]
+
+# If Accept: text/turtle is requested for a versioned PURL
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.ttl [R=303,NE,L]
+
+# If Accept: application/ld+json is requested for a versioned PURL
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.jsonld [R=303,NE,L]
+
+# If Accept: application/n-triples is requested for a versioned PURL
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.nt [R=303,NE,L]
+
+# Default for a versioned PURL (if no specific Accept header above matches, or if Accept: text/html)
+# Redirects to the main HTML documentation.
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/main.html [R=303,NE,L]
