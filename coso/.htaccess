@@ -26,10 +26,12 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^v1/contaminoso#(.+) https://theSKAILab.github.io/COSO/contaminoso.html#$1
+RewriteRule ^v1/contaminoso#(.*)$ https://theSKAILab.github.io/COSO/contaminoso.html#$1
+RewriteRule ^contaminoso https://github.com/SAWGraph/contaminoso
 # backreference [B] flag ensures non alpha-numeric characters are url encoded 
 
 # Rewrite for specific ontology uris
+RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^v1/contaminoso-full# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl
 RewriteRule ^v1/contaminoso-stad-qudt# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_stad_qudt.ttl
 RewriteRule ^v1/contaminoso# https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl
