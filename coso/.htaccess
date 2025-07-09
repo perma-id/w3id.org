@@ -1,11 +1,12 @@
 # # /coso/
 #
-# https://w3id.org/coso/ html request redirects to https://theskailab.github.io/COSO/contaminoso.html#
+# https://w3id.org/coso/v1/contaminoso html request redirects to 
+# https://theskailab.github.io/COSO/contaminoso.html
 # 
-#
-# https://w3id.org/coso/ ttl request redirects to
-# to https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl for base request
-# or to specific raw ontology files if specified
+# https://w3id.org/coso/v1/contaminoso/ ttl request are redirected to the individual raw ttl files (githubusercontent)
+
+# All other requests are redirected to the main github repo  https://github.com/SAWGraph/contaminoso
+
 #
 # ## Contact
 # This space is administered by:
@@ -22,22 +23,15 @@ Options -MultiViews
 
 RewriteEngine on
 
+# Responses to requests for html or text
+# -----------------------------
 
 # Rewrite rule to serve directed HTML content from class/prop URIs
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 # To find the proper entity, we need to use the full identifier after the hash
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-# $ means end of string
-RewriteRule ^$ https://github.com/SAWGraph/contaminoso  [R=303,L,NE]
-
-
-# Rewrite rule to serve directed HTML content from class/prop URIs
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-# To find the proper entity, we need to use the full identifier after the hash
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-# $ means end of string
+# $ means end of string, that is, nothing comes after contaminoso 
 RewriteRule ^v1/contaminoso$ https://theSKAILab.github.io/COSO/contaminoso.html  [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -48,7 +42,10 @@ RewriteRule ^v1/contaminoso(.*)$ https://theSKAILab.github.io/COSO/contaminoso.h
 #may need escape sequence \x23 to properly match the hash
 #RewriteRule ^v1/contaminoso-full\x23 
 
-# Rewrite rule to serve TTL content if specifically requested
+
+# Responses to requests for turtle files
+# -----------------------------
+
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
@@ -69,21 +66,24 @@ RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^v1/contaminoso(.*) https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_core.ttl [R=303,L,NE]
 
 
-
-# Rewrite rule to serve TTL content if specifically requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
-RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl [R=303,L,NE]
+RewriteRule ^(.*) https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl [R=303,L,NE]
+
+
+# Responses to requests for RDF files 
+# -----------------------------
 
 # Rewrite rule to serve RDF (not in use currently)
 #RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 #RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 
 
+
 # Default response
 # -----------------------------
-# Rewrite rule to serve ttl content by default
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/SAWGraph/contaminoso/refs/heads/main/v1/contaminoso_full.ttl [R=303,L,NE]
 
+# Rewrite rule for all other request to point back to the main github repo 
+RewriteRule ^$ https://github.com/SAWGraph/contaminoso  [R=303,L,NE]
 
