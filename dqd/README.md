@@ -2,13 +2,13 @@
 
 ## Homepage
 
-* <https://dqm.faw.jku.at/ontologies/dqd>
+* <https://ontology.scch.at/dqd/0.5>
 
 ## References
 
-* The publication about the vocabulary is accepted at the [MTSR Conference 2023](http://www.mtsr-conf.org/); the reference to it will be added after the publication is available online.
+* The first publication about the ontology was presented at the [MTSR Conference 2023](http://www.mtsr-conf.org/) and is available at <https://doi.org/10.1007/978-3-031-65990-4_27>.
+* A second publication about the ontology has been accepted for the [QDB'25 Workshop](https://qdb-workshop.github.io).
 
 ## Contacts
 
-* Johannes Schrott, [johannes.schrott@scch.at](mailto:johannes.schrott@scch.at), ORCID: [0000-0003-2689-0876](https://orcid.org/0000-0003-2689-0876), GitHub: johannesschrott
-* Lisa Ehrlinger, [lisa.ehrlinger@scch.at](mailto:lisa.ehrlinger@scch.at), ORCID: [0000-0001-5313-0368](https://orcid.org/0000-0001-5313-0368)
+* Johannes Schrott, [johannes.schrott@tuwien.at](mailto:johannes.schrott@tuwien.at), ORCID: [0000-0003-2689-0876](https://orcid.org/0000-0003-2689-0876), GitHub: johannesschrott

@@ -67,6 +67,7 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/ontology.ttl [R=303,L]
 
+# Vocabularies
 # Serve RDF/XML content for data knowledge vocabulary
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -88,6 +89,13 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^vocabulary/scenario-knowledge/?$ https://semts-ontology.github.io/SemTS/vocabularies/vocab_scenario_knowledge.ttl [R=303,L]
+
+# Code
+# Serve HTML content
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^code/?$ https://github.com/semts-ontology/SemTS [R=303,L]
 
 # Final catch-all rule to serve the default HTML page for any unmatched path
 RewriteRule ^.*$ https://semts-ontology.github.io/SemTS/ontology/current/index.html [R=303,L]

@@ -1,0 +1,17 @@
+# OntoGSN
+# Ontology: https://w3id.org/ontogsn/ontology/ redirects to https://fortiss.github.io/OntoGSN/ontology
+# Homepage: https://w3id.org/ontogsn redirects to https://fortiss.github.io/OntoGSN/
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# MIME type for OWL
+AddType application/rdf+xml .owl
+
+RewriteEngine on
+
+# Redirect ontology path (relative to /ontogsn/)
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl [R=303,L]
+
+# Redirect base /ontogsn to GitHub Pages
+RewriteRule ^$ https://fortiss.github.io/OntoGSN [R=302,L]
