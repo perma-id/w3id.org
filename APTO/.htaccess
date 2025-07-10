@@ -1,7 +1,8 @@
-Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /apto/
 
-# Redirect requests to the OWL file
-RewriteRule ^$ https://raw.githubusercontent.com/AlmesCore/APTO/main/apto.owl [R=302,L]
-RewriteRule ^(.+)$ https://raw.githubusercontent.com/AlmesCore/APTO/main/apto.owl [R=302,L]
+# Base redirect to the AgroPortal landing page
+RewriteRule ^$ https://agroportal.lirmm.fr/ontologies/APTO [R=302,L]
+
+# Redirect specific entities to their AgroPortal page (e.g., classes or terms)
+RewriteCond %{REQUEST_URI} ^.*APTO.*$
+RewriteRule ^.*/([^/#]+)/?$ https://agroportal.lirmm.fr/ontologies/APTO/$1 [R=302,L]
