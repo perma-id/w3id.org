@@ -11,4 +11,5 @@ The FAIR Funding Framework (FAIR/FF) creates reusable information on workflows i
 Contacts: 
 
 - Margreet Bloemers <bloemers@zonmw.nl>
+- Barbara Magagna <barbara@gofair.foundation>
 - Tobias Kuhn <kuhntobias@gmail.com>
