@@ -10,3 +10,8 @@ https://github.com/appliedontolab/DOLCE-Bias
 
 
 * [Daniele Porello](mailto:danieleporello@gmail.com)
+  
+[My GitHub (diporello)](https://github.com/diporello)
+
+[Laboratory for Applied Ontology (LOA) GitHub (appliedontolab)](https://github.com/diporell](https://github.com/appliedontolab)o)
+
