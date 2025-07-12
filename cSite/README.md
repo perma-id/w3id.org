@@ -1,12 +1,12 @@
-# CSite Ontology
+# cSite Ontology
 
 This W3ID provides a persistent URI namespace for the **CSite Ontology** developed under the [DigiConstructLab at TU Delft](https://github.com/DigiConstructLab-TU-Delft). The ontology supports semantic integration of spatial, resource, activity, and document data in construction control environments — including live digital twin dashboards.
 
 The primary URI for the ontology is:
 
-📌 https://w3id.org/cSite
+https://w3id.org/cSite
 
-## 🔁 Redirects
+## Redirects
 
 | Path               | Redirect Target                                                                 |
 |--------------------|----------------------------------------------------------------------------------|
@@ -17,17 +17,17 @@ The primary URI for the ontology is:
 | `/cSite/resources/*`   | Images and assets for visualizing the ontology                              |
 | `/cSite/sections/*`    | Modular HTML documentation sections (abstract, usage, alignment, etc.)      |
 
-## 📚 Ontology Repository
+## Ontology Repository
 
 The ontology is maintained publicly at:  
-👉 https://github.com/DigiConstructLab-TU-Delft/cSiteOntology
+https://github.com/DigiConstructLab-TU-Delft/cSiteOntology
 
-## 👤 Maintainer
+## Maintainer
 
 **Name**: Ranjith Kuttantharappel Soman  
 **Affiliation**: Assistant Professor, TU Delft  
 **Contact**: ranjithsomantudelft@gmail.com  
-**GitHub**: [@rkuttantharapp](https://github.com/rkuttantharapp)
+**GitHub**: [@ranjithksoman](https://github.com/ranjithksoman)
 
 For questions or suggestions, feel free to raise an issue on the GitHub repository.
 
