@@ -5,5 +5,5 @@ Persistent identifiers for Dong Shin SEO.
 This w3id is maintained by:
 
 Dongshin SEO  
-📧 oriental.neo@gmail.com  
-🐙 GitHub: @dongshins
+* oriental.neo@gmail.com  
+* GitHub: @dongshins
