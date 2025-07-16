@@ -6,4 +6,4 @@ This w3id is maintained by:
 
 Dongshin SEO  
 * oriental.neo@gmail.com  
-* GitHub: @dongshins
+* GitHub: [@dongshins](https://github.com/dongshins)
