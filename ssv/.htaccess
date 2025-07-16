@@ -10,6 +10,9 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
+# Redirect visits to https://w3id.org/ssv or /ssv/ to the SSV GitHub organization
+RewriteRule ^$ https://github.com/signature-sound-vienna [R=301,L]
+
 # For audio retrieval, always return 403 Forbidden (copyright considerations)
 RewriteCond %{THE_REQUEST} /audio/ [NC] # capture the encoded URL to avoid encoded slash problems
 RewriteRule ^audio/ - [F]
