@@ -1,4 +1,4 @@
-Persistent identifiers for Dong Shin SEO. 
+Persistent identifier for Dong Shin SEO 
 
 # Maintainer Contact
 
