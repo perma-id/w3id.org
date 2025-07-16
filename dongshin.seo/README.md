@@ -1,1 +1,1 @@
-Persistent identifiers for Dong Shin SEO 
+Persistent identifiers for Dong Shin SEO. 
