@@ -7,3 +7,5 @@ https://github.com/Sabbus/COLREG-Ontology
 ## Contacts/Maintainers
 * [Daniele Porello](mailto:danieleporello@gmail.com)
 * [Nicola Sabatino](mailto:nicola.sabatino@edu.unige.it)
+
+[My Github (Sabbus)](https://github.com/Sabbus)
