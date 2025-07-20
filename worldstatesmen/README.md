@@ -1,4 +1,4 @@
-# Gaycities
+# worldstatesmen
 
 [Website](hhttps://www.worldstatesmen.org/) that is called "an online encyclopedia of the leaders of nations and territories". `.htaccess` file created by Clair Kronk for use at lgbtDB.
 
