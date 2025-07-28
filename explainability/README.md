@@ -1,6 +1,8 @@
 # explainability
 Redirection of the explainability namespace to SENSE Project
 
+https://w3id.org/sense/result/ redirects to https://sense-project.net/results/
+
 https://w3id.org/sense/simple/ redirects to http://semsys.ai.wu.ac.at/sense/doc/.
 
 ## Contact
