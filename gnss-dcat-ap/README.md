@@ -9,8 +9,10 @@ This namespace is used for the overall specification and the associated controll
 
 **Andras Fabian**
 ORCID: [0000-0002-9855-0494](https://orcid.org/0000-0002-9855-0494)
+GitHub: [@andrasfabian12](https://github.com/andrasfabian12)
 **Anna Miglio**
 ORCID: [0000-0001-7316-4952](https://orcid.org/0000-0001-7316-4952)
+GitHub: [@ROB-GNSS](https://github.com/ROB-GNSS)
 **Carine Bruyninx**
 ORCID: [0000-0001-6492-3945](https://orcid.org/0000-0001-6492-3945)
 
