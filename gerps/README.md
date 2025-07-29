@@ -9,6 +9,7 @@ Redirects:
 - https://w3id.org/gerps/ontology/process -> https://fusion-jena.github.io/GerPS-Process/ (with RDF content negotiation and versioning support)
 - https://w3id.org/gerps/ontology/datafield -> https://fusion-jena.github.io/GerPS-Datafield/ (with RDF content negotiation and versioning support)
 - https://w3id.org/gerps/ontology/software -> https://fusion-jena.github.io/GerPS-Software/ (with RDF content negotiation and versioning support)
+- https://w3id.org/gerps/ontology/law -> https://fusion-jena.github.io/GerPS-Law/ (with RDF content negotiation and versioning support)
 
 ### Versioning support
 
