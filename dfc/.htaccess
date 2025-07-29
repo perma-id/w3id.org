@@ -23,15 +23,32 @@ RewriteRule ^ontology/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/ontol
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
 
-# Rewrite rule for versioned taxonomies releases
+# Condition to capture rdf requests
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 
-RewriteRule ^taxonomies/v([0-9]+.[0-9]+.[0-9]+)/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies@v$1/$2 [R=302,L]
+# Rewrite rule for versioned taxonomies releases
+RewriteRule ^taxonomies/v([0-9]+.[0-9]+.[0-9]+)/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies@v$1/$2.rdf [R=302,L]
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
 
 # Rewrite rule for latest taxonomies folder
 
-RewriteRule ^taxonomies/(.*) https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies/$1 [R=302,L]
+RewriteRule ^taxonomies/(.*) https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies/$1.rdf [R=302,L]
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Condition to capture json-ld requests
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+
+
+# Rewrite rule for versioned taxonomies releases
+RewriteRule ^taxonomies/v([0-9]+.[0-9]+.[0-9]+)/(.*)  https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies@v$1/$2.json [R=302,L]
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
+
+# Rewrite rule for latest taxonomies folder
+
+RewriteRule ^taxonomies/(.*) https://cdn.jsdelivr.net/gh/datafoodconsortium/taxonomies/$1.json [R=302,L]
 Header add Access-Control-Allow-Origin "*"
 Header add Access-Control-Allow-Methods: "GET,POST,OPTIONS"
 
