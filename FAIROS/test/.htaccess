@@ -3,20 +3,20 @@ Options -MultiViews
 
 # Basic redirect to the project pages
 RewriteEngine On
-RewriteRule ^$ https://oeg-upm.github.io/fair_ontologies/doc/catalog.html#metric [R=301,L]
+RewriteRule ^$ https://oeg-upm.github.io/FAIR-Research-Object/catalog/catalog.html#test [R=301,L]
 
-# redirects for metrics
+# redirects for tests
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.+)$ https://oeg-upm.github.io/fair_ontologies/doc/metric/$1/$1.jsonld [R=303,L]
+RewriteRule ^(.+)$ https://oeg-upm.github.io/FAIR-Research-Object/docs/catalog/tests/$1/$1.jsonld [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^(.+)$ https://oeg-upm.github.io/fair_ontologies/doc/metric/$1/$1.ttl [R=303,L]
+RewriteRule ^(.+)$ https://oeg-upm.github.io/FAIR-Research-Object/docs/catalog/tests/$1/$1.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(.+)$ https://oeg-upm.github.io/fair_ontologies/doc/metric/$1/$1.html [R=303,L]
+RewriteRule ^(.+)$ https://oeg-upm.github.io/FAIR-Research-Object/docs/catalog/tests/$1/$1.html [R=303,L]
