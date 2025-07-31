@@ -11,6 +11,14 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\*
 RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.ttl [R=303,L]
 
+# RDF/XML preferred
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.owl [R=303,L]
+
+# JSON-LD preferred
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.jsonld [R=303,L]
+
 # Optional: Fallback 406 if unsupported
 RewriteCond %{HTTP_ACCEPT} .+
 RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/406.html [R=406,L]
