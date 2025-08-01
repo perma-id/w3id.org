@@ -38,8 +38,16 @@ RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.ttl [R=303,L]
 
 # Rewrite rule to serve TTL content for the EBI-OLS service 
-RewriteCond %{REQUEST_URI} ^/ols/?$
-RewriteRule ^.*$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/emi-ols.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} ols
+RewriteRule ols/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/emi-ols.ttl [R=301,L]
+
+# Rewrite rule to serve TTL content for the NPClassifier taxonomy
+RewriteCond %{REQUEST_URI} npc
+RewriteRule npc/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/npc_taxonomy.ttl [R=301,L]
+
+# Rewrite rule to serve content to the latest EMI version
+RewriteCond %{REQUEST_URI} version/1.0
+RewriteRule version/1.0/?$ https://w3id.org/emi [R=301,L]
 
 ## We will have to better handle the EMI ontology versions in the future.
 
