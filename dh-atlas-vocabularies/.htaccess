@@ -1,0 +1,24 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks -MultiViews
+ 
+# Ensure RDF-related MIME types are handled properly
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Redirect per JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/dh-atlas/Edition-Types-Vocabulary/refs/heads/main/1.0/ETV.json [R=303,L]
+
+# Redirect per RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/dh-atlas/Edition-Types-Vocabulary/refs/heads/main/1.0/ETV.rdf [R=303,L]
+
+# Redirect per Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/dh-atlas/Edition-Types-Vocabulary/refs/heads/main/1.0/ETV.ttl [R=303,L]
+
+# Default (es. browser)
+RewriteRule ^$ https://raw.githubusercontent.com/dh-atlas/Edition-Types-Vocabulary/refs/heads/main/1.0/ETV.ttl [R=303,L]
