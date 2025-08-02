@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# HTML: If the Accept header prefers HTML
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/index-en.html [R=303,L]
+
+# Turtle: If the Accept header prefers Turtle or anything else
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.ttl [R=303,L]
+
+# RDF/XML preferred
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.owl [R=303,L]
+
+# JSON-LD preferred
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.jsonld [R=303,L]
+
+# Optional: Fallback 406 if unsupported
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/406.html [R=406,L]
+
+# Default: If no Accept header at all
+RewriteRule ^$ https://cwrusdle.bitbucket.io/files/MDS_Onto/ontology.ttl [R=303,L]
+
+
