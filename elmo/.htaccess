@@ -9,7 +9,10 @@
 # tim.alamenciak@gmail.com
 # GitHub username: timalamenciak  
 Options +FollowSymLinks
-
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^w3id\.org/elmo/(.*)$
-RewriteRule ^(.*)$ https://timalamenciak.github.io/elmo/elmo.html#$1 [R=301,L]
+
+# Handle /elmo with additional path segments
+RewriteRule ^(.+)$ https://timalamenciak.github.io/elmo/elmo.html#$1 [R=301,NE,L,QSA]
+
+# Handle /elmo without additional path (exact match)
+RewriteRule ^$ https://timalamenciak.github.io/elmo/elmo.html [R=301,L,QSA]
