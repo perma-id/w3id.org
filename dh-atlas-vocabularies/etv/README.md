@@ -1,8 +1,10 @@
 
-DH ATLAS Vocabularies
+DH ATLAS Vocabularies - Edition Types Vocabulary (ETV)
 =======
 
-The ATLAS of Italian Digital Humanities - Controlled Vocabularies
+Edition Types Vocabulary (ETV)
+
+* https://w3id.org/dh-atlas-vocabularies/etv
 
 Contacts
 
