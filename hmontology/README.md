@@ -8,4 +8,4 @@ Maintainers:
 Ontology homepage:  
 https://hydro-knowledge-graph-f48785.pages.rwth-aachen.de/
 
-More info: Developed as part of the NFDI4Earth project to support FAIR data principles for hydrological datasets.
+More info: Developed as part of the [NFDI4Earth](https://www.nfdi4earth.de/) project to support FAIR data principles for hydrological datasets.
