@@ -9,4 +9,5 @@ evidence, designed to support personalised nutrition and health applications.
 
 ## Contact
 
-- Remzi Celebi <remzi.celebi@maastrichtuniversity.nl>
+- Remzi Celebi <remzi.celebi@maastrichtuniversity.nl> GitHub: <https://github.com/rcelebi>
+- Ensar Emir EROL <ensar.erol@maastrichtuniversity.nl> GitHub: <https://github.com/ensaremirerol>
