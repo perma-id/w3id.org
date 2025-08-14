@@ -32,41 +32,44 @@ RewriteRule       ^/?$     https://vocabs.ardc.edu.au/viewById/683 [R=303,L]
 
 # old style, with version number in URIs
 # get a concept like https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/artifact
+# these should get handled by the 1.0 subfolder in this directory
 
-RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.ttl?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+# RewriteCond %{HTTP:Accept} text/turtle [NC]
+# RewriteRule       ^/1.0/(.+)$                https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.ttl?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
 
-RewriteCond %{HTTP:Accept} application/json [NC]
-RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.json?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+# RewriteCond %{HTTP:Accept} application/json [NC]
+# RewriteRule       ^/1.0/(.+)$     https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.json?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
 
-RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
-RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.rdf?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+# RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+# RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.rdf?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
 
-RewriteCond %{HTTP:Accept} text/html [NC]
-RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.html?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+# RewriteCond %{HTTP:Accept} text/html [NC]
+# RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource.html?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
 
 # default format is html
-RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+# RewriteRule       ^/1.0/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
 
 
 #  **********************************
 #  2024-12-02 no version number URI. These get the 'current' version from ARDC using the htaccess ENV variable.
+# 2025-08-13 change rewrite rule from ^/(.+)$ to ^(.+)$.  Apache strips off the local path. question is whether
+# the version numbers will get caught here...
 
 # get a concept like https://w3id.org/isample/vocabulary/materialsampleobjecttype/artifact
 RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule       ^/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.ttl?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.ttl?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
 
 RewriteCond %{HTTP:Accept} application/json [NC]
-RewriteRule       ^/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.json?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.json?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
 
 RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
-RewriteRule       ^/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.rdf?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.rdf?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
 
 RewriteCond %{HTTP:Accept} text/html [NC]
-RewriteRule       ^/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.html?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource.html?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
 
 # default format is html
-RewriteRule       ^/(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/current/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/$1 [R=303,L]
 
-
-
+# requires a leading slash on the path that the rewrite rule is processing
+#^.*/([^/]+)$ 

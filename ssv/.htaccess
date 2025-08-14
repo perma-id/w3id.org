@@ -10,11 +10,14 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
+# Redirect visits to https://w3id.org/ssv or /ssv/ to the SSV GitHub organization
+RewriteRule ^$ https://github.com/signature-sound-vienna [R=301,L]
+
 # For audio retrieval, always return 403 Forbidden (copyright considerations)
 RewriteCond %{THE_REQUEST} /audio/ [NC] # capture the encoded URL to avoid encoded slash problems
 RewriteRule ^audio/ - [F]
 
-# If the URI starts with /data/ or /annot/, assume the main branch is being requested, so rewrite accordingly
+# If the URI starts with /data, /annot, or /vocab, assume the main branch is being requested, and rewrite accordingly
 RewriteRule ^(data|annot|vocab)(/.*)?$ main/$1
 
 # Peaks are always served as json
