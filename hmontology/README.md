@@ -3,7 +3,8 @@
 Permanent identifier for the HM-Ontology, a lightweight, domain-specific ontology describing hydrological concepts, variables, and relationships.
 
 Maintainers:  
-- Shamila Herath (shamilasri40@gmail.com)
+- [Shamila Herath](https://github.com/shamilasudalshana) (shamilasri40@gmail.com)
+- [Auriol Degbelo](https://github.com/aurioldegbelo) (auriol.degbelo@tu-dresden.de)
 
 Ontology homepage:  
 https://hydro-knowledge-graph-f48785.pages.rwth-aachen.de/
