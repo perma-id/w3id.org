@@ -4,7 +4,7 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # Trust Envelope specification
-RewriteRule ^$ https://github.com/KNowledgeOnWebScale/TrustEnvelope  [R=302,L]
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/trustenvelope/latest/  [R=302,L]
 
 # Trust Envelope ontology
 ## Rewrite rule to serve TTL content from the vocabulary URI if requested
@@ -18,4 +18,14 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ontology$ https://github.com/KNowledgeOnWebScale/TrustEnvelope [R=302,L]
+RewriteRule ^ontology$ https://spec.knows.idlab.ugent.be/trustenvelope/latest/#vocabulary [R=302,L]
+
+# Examples
+RewriteRule ^example$ https://github.com/KNowledgeOnWebScale/TrustEnvelope#example  [R=302,L]
+
+## Age verification 
+RewriteRule ^example/age-verification$ https://spec.knows.idlab.ugent.be/trustenvelope/latest/#age-verification  [R=302,L]
+
+## Cargo Monitoring
+
+RewriteRule ^example/cargo-monitoring$ https://spec.knows.idlab.ugent.be/trustenvelope/latest/#cargo-monitoring  [R=302,L]
