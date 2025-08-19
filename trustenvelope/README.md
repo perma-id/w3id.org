@@ -6,10 +6,13 @@ A Trust Envelope is a data package that explicitly embeds trust using cryptograp
 
 ## Uses
 
-| w3id      | Description                          | URL                                                                                    |
-| --------- | ------------------------------------ | -------------------------------------------------------------------------------------- |
-| /         | Main specification of Trust Envelope | https://github.com/KNowledgeOnWebScale/TrustEnvelope                                   |
-| /ontology | Trust Envelope Ontology              | https://cdn.jsdelivr.net/gh/KNowledgeOnWebScale/TrustEnvelope@master/trustenvelope.ttl |
+| w3id                      | Description                              | URL                                                                                    |
+| ------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------- |
+| /                         | Main specification of Trust Envelope     | https://spec.knows.idlab.ugent.be/trustenvelope/latest/                                |
+| /example                  | Example                                  | https://github.com/KNowledgeOnWebScale/TrustEnvelope#example                           |
+| /example/age-verification | Age Verification Example Materialization | https://spec.knows.idlab.ugent.be/trustenvelope/latest/#age-verification               |
+| /example/cargo-monitoring | Cargo Monitoring Example Materialization | https://spec.knows.idlab.ugent.be/trustenvelope/latest/#cargo-monitoring               |
+| /ontology                 | Trust Envelope Ontology                  | https://cdn.jsdelivr.net/gh/KNowledgeOnWebScale/TrustEnvelope@master/trustenvelope.ttl |
 
 ## Contacts
 
