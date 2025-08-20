@@ -15,10 +15,9 @@ Chair of Fluidics\
 Leonhard-Euler-Str. 5\
 44227 Dortmund
 
-Tel.:		[+49 231-755 57 28](tel:+492317555728)\
-Fax:		[+49 231-755 57 22](tel:+492317555722)\
+Tel.:		[+49 231-755 57 28](tel:+49-231-755-5728)\
+Fax:		[+49 231-755 57 22](tel:+49-231-755-5722)\
 E-Mail:		[sven.brock@tu-dortmund.de](mailto:sven.brock@tu-dortmund.de)\
-Website:	[www.ft.mb.tu-dortmund.de](https://ft.mb.tu-dortmund.de)\
 Website:	[www.ft.mb.tu-dortmund.de](https://ft.mb.tu-dortmund.de)\
 Github:		[sven-brock](https://github.com/sven-brock)\
 ORCID:		[0009-0000-0430-5408](https://orcid.org/0009-0000-0430-5408)
