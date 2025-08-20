@@ -6,6 +6,9 @@ RewriteEngine On
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
 RewriteRule ^$ https://raw.githubusercontent.com/Orphanet/ofco-ontology/main/OFCO.owl [R=303,L]
 
-# Default : documentation HTML
-RewriteRule ^$ https://raw.githubusercontent.com/Orphanet/ofco-ontology/ [R=303,L]
+# Default : HTML documentation
+RewriteRule ^$ https://github.com/Orphanet/ofco-ontology [R=303,L]
 
+# Web
+RewriteCond %{REQUEST_URI} !^/$
+RewriteRule ^.+$ https://raw.githubusercontent.com/Orphanet/ofco-ontology/main/OFCO.owl [R=303,L]
