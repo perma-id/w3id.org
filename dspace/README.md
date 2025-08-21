@@ -40,11 +40,11 @@ Find more information at [https://internationaldataspaces.org/](https://internat
 
 3. Links for the 2025-1 release version:
 
-* https://w3id.org/dspace/2025/1/context.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/dspace.jsonld
-* https://w3id.org/dspace/2025/1/odrl-profile.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/odrl.jsonld
-* https://w3id.org/dspace/2025/1/catalog/catalog-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/catalog-schema.json
-* https://w3id.org/dspace/2025/1/catalog/dataset-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/dataset-schema.json
-* https://w3id.org/dspace/2025/1/negotiation/contract-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/HEAD/message/schema/contract-schema.json
+* https://w3id.org/dspace/2025/1/context.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1/message/schema/dspace.jsonld
+* https://w3id.org/dspace/2025/1/odrl-profile.jsonld --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1/message/schema/odrl.jsonld
+* https://w3id.org/dspace/2025/1/catalog/catalog-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1/message/schema/catalog-schema.json
+* https://w3id.org/dspace/2025/1/catalog/dataset-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1/message/schema/dataset-schema.json
+* https://w3id.org/dspace/2025/1/negotiation/contract-schema.json --> https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1/message/schema/contract-schema.json
 
 4. Version-independent links:
 
