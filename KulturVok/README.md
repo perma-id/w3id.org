@@ -2,7 +2,7 @@
 Redirections from entities defined in KulturVok - Vokabulare in der Wissenschaftlichen Museumsdokumentation
 
 ## Vocabularies
-The following ressources will be provided
+The following resources will be provided:
 - skos thesauri for concepts of importance for museum documentation
 
 ## Contacts
