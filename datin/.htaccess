@@ -4,9 +4,37 @@
 # Ilia Bagov
 # ilia.bagov@datin.io
 # GitHub username: ibagov
-
 RewriteEngine On
 
-RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/blob/main/concept_scheme.ttl [R=303,L]
 
+# CORE — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/raw/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/raw/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
 RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/raw/main/$1.ttl [R=303,L]
+
+# CORE — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/blob/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/blob/main/$1.ttl [R=303,L]
+
+# IKFT — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/vocab/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/(.+)/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/$1.ttl [R=303,L]
+
+# IKFT — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/vocab/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/(.+)/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/$1.ttl [R=303,L]
