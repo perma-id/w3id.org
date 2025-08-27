@@ -30,8 +30,8 @@
 ## Contacts
 
 - [Rohit A. Deshmukh](https://github.com/rohitadeshmukh13) <rohit.deshmukh@fit.fraunhofer.de>
-- [Daham Mustafa](https://gitlab.com/Daham-Mustaf) <daham.mohammed.mustafa@fit.fraunhofer.de>
-- [Christoph Lange](https://gitlab.com/langec) <christoph.lange-bever@fit.fraunhofer.de>
+- [Daham Mustafa](https://github.com/Daham-Mustaf) <daham.mohammed.mustafa@fit.fraunhofer.de>
+- [Christoph Lange](https://github.com/clange) <christoph.lange-bever@fit.fraunhofer.de>
 
 ## Future Updates
 
