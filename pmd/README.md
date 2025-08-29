@@ -20,6 +20,7 @@ Current maintainers are:
 * [@BerndBayerlein](https://github.com/BerndBayerlein)
 * [@MarkusSchilling](https://github.com/MarkusSchilling)
 * [@Leibniz-IWT](https://github.com/Leibniz-IWT)
+* [@ThHanke](https://github.com/ThHanke)
 
 This space is administered by:  
 
