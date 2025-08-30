@@ -8,7 +8,7 @@ and more intuitive for developers.
 
 ### Authors/Maintainers: 
 
-- Pat McBennett (pat.mcbennett@gmail.com)
+- Pat McBennett (Email: pat.mcbennett@gmail.com, GitHub: https://github.com/pmcb55)
 
 > [!NOTE]
 > The LIT is currently private, but the intention is to make it freely available (probably under
