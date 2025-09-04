@@ -1,6 +1,14 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# Redirect everything under /gaidet/ to GitHub Pages
+# Redirect base GAIDeT namespace to the project homepage
 RewriteRule ^$ https://panbibliotekar.github.io/gaidet-declaration/ [R=302,L]
-RewriteRule (.*) https://panbibliotekar.github.io/gaidet-declaration/$1 [R=302,L]
+
+# Redirect OWL ontology
+RewriteRule ^gaidet.owl$ https://raw.githubusercontent.com/panbibliotekar/gaidet-declaration/main/gaidet.owl [R=302,L]
+
+# Redirect YAML source
+RewriteRule ^terms.yml$ https://raw.githubusercontent.com/panbibliotekar/gaidet-declaration/main/_data/terms.yml [R=302,L]
+
+# Fallback: redirect any other request under /gaidet/ to project homepage
+RewriteRule (.*) https://panbibliotekar.github.io/gaidet-declaration/ [R=302,L]
