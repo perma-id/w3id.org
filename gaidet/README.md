@@ -16,8 +16,7 @@ Suchikova, Y., Tsybuliak, N., Teixeira da Silva, J. A., & Nazarovets, S. (2025).
 **Accountability in Research.** https://doi.org/10.1080/08989621.2025.2544331
 
 ## Maintainers
-- Serhii Nazarovets (@panbibliotekar) – serhii.nazarovets@gmail.com  
-- Yana Suchikova – yanasuchikova@gmail.com  
+- Serhii Nazarovets (@panbibliotekar) – serhii.nazarovets@gmail.com
 
 ## License
 MIT License © 2025 Yana Suchikova, Natalia Tsybuliak, Jaime A. Teixeira da Silva, Serhii Nazarovets
