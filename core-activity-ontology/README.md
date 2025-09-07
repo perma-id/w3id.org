@@ -5,3 +5,7 @@ The Core Activity Ontology is derived from the Activity Theory and aims at repre
 Serge Sonfack Sounchio
 
 Email: sss.sounchio@gmail.com
+
+Github: https://github.com/sonfack
+
+Project Github: https://github.com/activity-knowledge-project
