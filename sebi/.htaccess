@@ -1,0 +1,18 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} html
+
+# REDIRECTS TO VISUALISATIONS
+RewriteRule ^sebi/data/urk/documents/(.*) http://projects.dharc.unibo.it/broast/documents/$1 [R=302,L]
+RewriteRule ^sebi/data/urk/people/(.*) http://projects.dharc.unibo.it/broast/scholars/$1 [R=302,L]
+RewriteRule ^sebi/data/urk/publications/(.*) http://projects.dharc.unibo.it/broast/publications/$1 [R=302,L]
+RewriteRule ^sebi/data/urk/documentation$ http://projects.dharc.unibo.it/broast/publications/$1 [R=302,L] 
+
+# REDIRECTS TO DOCUMENTATION
+RewriteRule ^ontology$ https://valentinapasqual.github.io/sebi/ [R=303,L]
+RewriteRule ^data$ https://github.com/orgs/conjectures-rdf/repositories/broast/app/graphDB/data/ [R=303,L]
+
+# DEFAULT RULE
+RewriteRule ^(.*)$ https://projects.dharc.unibo.it/broast$1 [L,R=301]

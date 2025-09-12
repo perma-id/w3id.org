@@ -1,0 +1,38 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType application/ld+json .json
+
+RewriteEngine on
+RewriteBase /rosettastmtont/
+
+# Rewrite rule for latest version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+
+
+# ---- Ontology Landing Page ----
+RewriteRule ^$ https://karanthpallavi.github.io/rosetta_statement_ontology/ [R=302,L]
+
+# ---- Ontology File (latest/latest format) ----
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology$ https://karanthpallavi.github.io/rosetta_statement_ontology/rosettastmtont-owl.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology$ https://karanthpallavi.github.io/rosetta_statement_ontology/rosettastmtont.json [R=303,L]
+
+# Fallback to HTML landing page
+RewriteRule ^ontology$ https://karanthpallavi.github.io/rosetta_statement_ontology/ [R=303,L]
+
+# ---- Versioned Ontology Files ----
+RewriteRule ^ontology/releases/(.*)/rosettastmtont.owl$ https://karanthpallavi.github.io/rosetta_statement_ontology/releases/$1/rosettastmtont.owl [R=302,L]
+RewriteRule ^ontology/releases/(.*)/rosettastmtont.json$ https://karanthpallavi.github.io/rosetta_statement_ontology/releases/$1/rosettastmtont.json [R=302,L]
+
+# ---- Redirect all terms (classes/properties) to the ontology landing page  owl html----
+RewriteRule ^([^/]+)$ https://karanthpallavi.github.io/rosetta_statement_ontology/rosettastmtont-owl.html [R=303,L]

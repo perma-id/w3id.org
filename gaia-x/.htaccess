@@ -8,6 +8,7 @@ AddType text/turtle .ttl
 AddType text/n3 .ttl
 AddType application/n-triples .nt
 AddType application/ld+json .json
+AddType application/yaml .yaml
 
 Options +FollowSymLinks
 
@@ -16,5 +17,38 @@ RewriteEngine on
 # Redirect to ODRL Verifiable Credential Profile
 RewriteRule ^ovc/* https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/raw/main/ovc-1.ttl [R=303,L]
 
-# BASE: Visit homepage
-RewriteRule /?(.*) https://registry.gaia-x.eu/$1 [R=303]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^specs/cd24.06/criteria/(.*)$ https://docs.gaia-x.eu/policy-rules-committee/compliance-document/24.06/criterions/?id=$1 [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^specs/cd24.06/criteria/(.*)$ https://docs.gaia-x.eu/policy-rules-committee/compliance-document/24.06/criterions/#$1 [R=303,L,NE]
+
+# Redirect to LinkML ontology
+RewriteRule ^/?development/linkml/types.yaml$ https://registry.lab.gaia-x.eu/development/linkml/types.yaml [R=303,L]
+
+RewriteRule ^/?([^/]+)/linkml/types.yaml$ https://registry.lab.gaia-x.eu/main/linkml/$1/types.yaml [R=303,L]
+
+# Redirect to Shacl shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/shapes/development [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/shapes/$1 [R=303,L]
+
+# Redirect to JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/context/development [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/context/$1 [R=303,L]
+
+# Redirect to OWL ontology
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?development$ https://registry.lab.gaia-x.eu/development/owl/development [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?([^/]*)$ https://registry.lab.gaia-x.eu/main/owl/$1 [R=303,L]
+
+# Default redirection to the Gaia-X Ontology documentation
+RewriteRule ^/?$ https://docs.gaia-x.eu/ontology/development/ [R=303,L]
+RewriteRule ^/?(.*)$ https://docs.gaia-x.eu/ontology/$1/ [R=303,L]

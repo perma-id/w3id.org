@@ -2,6 +2,12 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^nanopub-query-1.1/(.*)$ https://query.np.trustyuri.net/$1 [R,L]
-RewriteRule ^nanodash-2.x/(.*)$ https://nanodash.knowledgepixels.com/$1 [R,L]
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^nanopub-query-1.1/(.*)$ https://query.petapico.org/$1 [R=307,L]
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^nanopub-query-1.1/(.*)$ https://query.petapico.org/$1 [R=307,L]
 
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^nanodash-2.x/(.*)$ https://nanodash.knowledgepixels.com/$1 [R=307,L]
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^nanodash-2.x/(.*)$ https://nanodash.knowledgepixels.com/$1 [R=307,L]

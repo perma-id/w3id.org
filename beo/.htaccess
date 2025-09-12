@@ -1,0 +1,42 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://cramonell.github.io/beo/actual/index-en.html [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^beo.html$ https://cramonell.github.io/beo/actual/index-en.html [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^beo.rdf$ https://cramonell.github.io/beo/actual/ontology.rdf [R=302,NE,L]
+
+# If suffix ttl, redirect to ttl version
+RewriteRule ^beo.ttl$ https://cramonell.github.io/beo/actual/ontology.ttl [R=302,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^beo.nt$ https://cramonell.github.io/beo/actual/ontology.nt [R=302,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://cramonell.github.io/beo/actual/ontology.rdf [R=302,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://cramonell.github.io/beo/actual/ontology.ttl [R=302,NE,L]
+
+# Choose the default response
+# ---------------------------
+
+# Rewrite rule to serve the HTML content from the vocabulary URI by default
+RewriteRule ^$ https://cramonell.github.io/beo/actual/index-en.html [R=302]

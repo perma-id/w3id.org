@@ -1,0 +1,34 @@
+# XUnternehmen.Kerndatenmodell Ontology
+#
+# https://w3id.org/kdm/ redirects to
+# https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/#
+# 
+# https://w3id.org/kdm/Gesellschafter redirects to
+# https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/#Gesellschafter
+#
+# ## Contact
+# Email:  kontakt@xunternehmen.de
+# GitLab: https://gitlab.opencode.de/xunternehmen/kerndatenmodell-ontologie-owl
+
+RewriteEngine On
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} (^|,|\s)application/rdf\+xml([;,]|$) [NC]
+RewriteRule ^ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/ontology.owl [R=302,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} (^|,|\s)application/ld\+json([;,]|$) [NC]
+RewriteRule ^ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/ontology.jsonld [R=302,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} (^|,|\s)text/turtle([;,]|$) [NC]
+RewriteRule ^ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/ontology.ttl [R=302,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} (^|,|\s)application/n-triples([;,]|$) [NC]
+RewriteRule ^ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/ontology.nt [R=302,L]
+
+
+# HTML / Fallback
+RewriteRule ^/?$ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/ [R=302,L]
+RewriteRule ^(.*)$ https://kerndatenmodell-ontologie-owl-acb24d.usercontent.opencode.de/#$1 [R=302,NE,L]
