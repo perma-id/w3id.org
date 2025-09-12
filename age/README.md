@@ -1,9 +1,10 @@
 ## Vocabulary for Age-related Assertions
 
-Ontology
+### Ontology
 
-* Docs https://digitalbazaar.github.io/age-vocab/
+* https://convenience-org.github.io/age-vocab/
 
-Contact
+### Contact
 
-* Manu Sporny msporny@digitalbazaar.com
+* Manu Sporny <msporny@digitalbazaar.com> (@msporny)
+* David I. Lehn <dlehn@digitalbazaar.com> (@davidlehn)

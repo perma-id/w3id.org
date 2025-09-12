@@ -1,0 +1,13 @@
+Name of the project: Ontove
+
+Description: The OntoVE project, Ontologies for the valorization of Germanic Cultural Heritage in Veneto within the perspective of the European Open Science Cloud (EOSC), has as its goal the development of ontological modules for the description of Germanic Cultural Heritage (CH) items related to the Veneto region and provision of different visualization outputs designed for both academic and a non-academic audiences. 
+The ultimate aim of the project is to connect heterogeneous data, such as archaeological findings or written documents, and provide uniform descriptions of them. The dataset is constituted by CH items of Germanic origin linked to Venice and its neighbouring territories. 
+In order to capture the defining features of these items, established ontologies are reused. The module devised for the description of CH items is called OntoVE_Archeo and reuses the top-level ontology CIDOC-CRM, v. 7.1.2 (Bekiari et al. 2022) and the finer-grained ontology ArCo-Architettura della Conoscenza, developed by Carriero et al. (2019) in collaboration with the ICCD (http://www.iccd.beniculturali.it/) and CNR (https://www.cnr.it/). 
+The OntoVE_WrittenRecords module has as its centre the semantic description of bibliographic items; it reuses LRMoo v 0.9.6 (Bekiari et al. 2023), Bibframe (https://www.loc.gov/bibframe/implementation/), and the Bibo (D’Arcus/Giasson 2016, https://www.dublincore.org/specifications/bibo/) ontology. The modules where developed with Protégé Desktop, version 5.5.0 (http://protege.stanford.edu, Musen 2015). 
+Both modules align semantically equivalent classes and assign classes from finer-grained ontologies as subclasses of the more general and abstract classes provided by CIDOC-CRM and its interoperable bibliographic module LRMoo. By semantic alignment operations and the reuse of established ontologies, the project adheres to the FAIR principles (Kush et al. 2020).
+The project is being carried out at Ca’ Foscari university of Venice, in close collaboration with a partner IT company, Net7 (https://www.netseven.it/). It is funded by the Italian National Operational Plan (PON, http://www.ponricerca.gov.it/pon-ricerca/programme/) on Research and Innovation 2014-2020 and the European Social Fund (ESF, https://ec.europa.eu/esf/home.jsp?langId=en) within the Recovery assistance for cohesion and the territories of Europe (REACT-EU, https://www.europarl.europa.eu/factsheets/en/sheet/215/recovery-assistance-for-cohesion-and-the-territories-of-europe-react-eu-). 
+
+Contacts:
+
+Chiara De Bastiani chiara.debastiani@unive.it - GitHub: https://github.com/ChiDeBa
+Alessandro Bertozzi bertozzi@netseven.it - GitHub: https://github.com/AlessandroBertozzi
