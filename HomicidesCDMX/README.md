@@ -2,7 +2,7 @@
 
 RDF knowledge graph about homicides in Mexico City.
 
-- Author: Francisco Carrillo  
+- Author: fcarrillo-brenes
 - Contact: fcarrillob2022@cic.ipn.mx
 - Main RDF file: `homicidiosKG4.ttl`  
 
