@@ -1,0 +1,126 @@
+Header set Access-Control-Allow-Origin *
+Options -MultiViews
+RewriteEngine On
+
+### redirects for OntoStart projects
+###
+### https://w3id.org/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
+### redirects to https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
+### e.g. onto IRI:
+
+###  redirects to website if no format requested
+###  redirects to latest version if no version requested
+
+### main branch based ontology hosting
+### e.g. https://w3id.org/ontostart/
+
+### branch based ontology hosting
+### e.g. https://w3id.org/ontostart/testo/
+### e.g. Website:                 https://micheldumontier.github.io/ontostart/testo
+### e.g. GitHub:                  https://github.com/micheldumontier/ontostart/tree/testo
+### e.g. latest version IRI:      https://w3id.org/ontostart/testo/versions/latest/testo.owl
+### e.g. specified versioned IRI: https://w3id.org/ontostart/testo/versions/0.0.1/testo.owl
+### e.g. ontospy docs:            https://w3id.org/ontostart/testo/docs/ontospy/index.html
+### e.g. ontospy class docs:      https://w3id.org/ontostart/testo/docs/ontospy/class-testoThing.html
+### e.g. ontospy prop docs:       https://w3id.org/ontostart/testo/docs/ontospy/prop-testohasPart.html
+### e.g. pylode docs:             https://w3id.org/ontostart/testo/docs/pylode/index.html
+
+
+### Set parameters here
+RewriteRule ^ - [E=GH_USER:micheldumontier]
+RewriteRule ^ - [E=GH_REPO:ontostart]
+# RewriteRule ^ - [E=ONTO:testo]  # set to ontology name if not using branch-based resolution
+# RewriteRule ^ - [E=GH_BRANCH:main] # set to github branch if not using branch-based resolution
+
+# specify whether to generate ontospy documentation
+RewriteRule ^ - [E=ONTOSPY:true]
+# specify whether to resolve class and property IRIs to ontospy documentation
+RewriteRule ^ - [E=RESOLVE_IRI_WITH:ontospy]
+
+# Set to true if you want branch-based resolution (e.g. /testo/ in URL)
+# Set to false if you want main branch resolution (e.g. no branch in URL)
+RewriteRule ^ - [E=BRANCH_IN_URL:true]
+
+# specify the branch to use in the GH repo if not using branch-based resolution
+#RewriteRule ^ - [E=GH_BRANCH:testo]  # set to github branch if not using branch based resolution 
+# default to main if not set
+RewriteCond %{ENV:GH_BRANCH} !.
+RewriteRule ^ - [E=GH_BRANCH:main]
+
+#specify the ontology name (usually same as repo or the branch)  -> resolves to ONTO.EXT
+RewriteCond %{ENV:ONTO} !.
+RewriteRule ^ - [E=ONTO:default]
+
+# get the branch name from the URL if using branch-based resolution
+RewriteCond %{ENV:BRANCH_IN_URL} ^true$
+RewriteCond %{REQUEST_URI} ^/([^/]+)/.*$
+RewriteCond %1 !^(github|docs|versions)$
+RewriteRule ^ - [E=GH_BRANCH:%1]
+
+RewriteRule ^ - [E=GH_PROJECT:https://github.com/%{ENV:GH_USER}/%{ENV:GH_REPO}/tree/%{ENV:GH_BRANCH}]
+RewriteRule ^ - [E=WEBSITE:https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}]
+RewriteRule ^ - [E=DOCS:%{ENV:WEBSITE}/docs]
+RewriteRule ^ - [E=FILE_IRI:%{ENV:WEBSITE}/versions]
+
+### Content negotiation for ontology formats
+## JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ - [E=EXT:jsonld]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+RewriteCond %{HTTP_ACCEPT} xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ - [E=EXT:owl]
+
+# Turtle variants
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ - [E=EXT:ttl]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ - [E=EXT:nt]
+
+### Map requests to target resources
+RewriteCond %{REQUEST_URI} (^/?$)|(^/[^/]+/?$)
+RewriteCond %{ENV:EXT} .
+RewriteRule ^ - [E=TARGET:%{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT}]
+
+### Map requests to target resources for versioned IRIs
+RewriteCond %{REQUEST_URI} ^/(([^/]+)/)?versions/(latest|[0-9]+\.[0-9]+\.[0-9]+)/?$
+RewriteCond %{ENV:EXT} .
+RewriteRule ^(?:([^/]+)/)?versions/(latest|(\d+\.\d+\.\d+))/?$ - [E=TARGET:%{ENV:FILE_IRI}/$2/%{ENV:ONTO}.%{ENV:EXT}]
+
+# Redirect to target if set
+RewriteCond %{ENV:TARGET} .
+RewriteRule ^ %{ENV:TARGET} [R=303,L]
+
+# Default to Website if no target format requested
+RewriteCond %{ENV:TARGET} !.
+RewriteCond %{ENV:EXT} !.
+RewriteRule ^$ %{ENV:WEBSITE}  [R=303,L]
+
+# Redirect /github to GitHub project
+RewriteCond %{REQUEST_URI} ^/[^/]+/github/?(.*)$
+RewriteRule ^[^/]+/github/?(.*)$ %{ENV:GH_PROJECT}/$1 [R=303,L]
+
+# Redirect /docs to documentation
+RewriteCond %{REQUEST_URI} ^/[^/]+/docs/?(.*)$
+RewriteRule ^[^/]+/docs/?(.*)$ %{ENV:DOCS}/$1 [R=303,L]
+
+# Redirect class and property requests to OntoSpy documentation
+# exclude trailing slash to avoid directories
+RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
+RewriteCond %{ENV:EXT} !.
+RewriteRule ^([^/]+/)?([A-Z][a-zA-Z]*(?<!/))$ %{ENV:DOCS}/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
+
+RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
+RewriteCond %{ENV:EXT} !.
+RewriteRule ^(([^/]+)/)?([a-z][a-zA-Z]*)(?<!/)$ %{ENV:DOCS}/ontospy/prop-%{ENV:ONTO}$3.html [R=303,L]
+
+# default redirect
+RewriteRule ^(.*)$ %{ENV:WEBSITE} [R=303,L]
