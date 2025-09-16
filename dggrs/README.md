@@ -3,7 +3,7 @@ Discrete Global Grid Reference System Registry
 
 
 Ontologies:
-* https://w3id.org/dggrs/ontology (namespace: https://w3id.org/dggrs)
+* https://w3id.org/dggrs/ (namespace: https://w3id.org/dggrs)
 
 Registry:
 * https://w3id.org/dggrs/system (namespace: https://w3id.org/dggrs/system)
