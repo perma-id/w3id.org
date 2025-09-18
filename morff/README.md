@@ -9,4 +9,4 @@ This space is administered by:
 
 **Juan D. Correa**
 
-GitHub: [bact](https://github.com/juandcorreag)
+GitHub: [juandcorreag](https://github.com/juandcorreag)
