@@ -3,18 +3,15 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Redirect root to ontology README
-RewriteRule ^$ https://github.com/fcarrillo-brenes/Ontocrime [R=302,L]
+# Redirigir raíz directamente al RDF por defecto
+RewriteRule ^$ https://raw.githubusercontent.com/fcarrillo-brenes/Ontocrime/main/crimev5.rdf [R=302,L]
 
-# Redirect ontology files
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fcarrillo-brenes/Ontocrime/main/crimev5.rdf [R=302,L]
-
-# Content negotiation for different formats
+# Ontology con content negotiation
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^ontology$ https://raw.githubusercontent.com/fcarrillo-brenes/Ontocrime/main/crimev5.rdf [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ontology$ https://raw.githubusercontent.com/fcarrillo-brenes/Ontocrime/main/crimev5.ttl [R=302,L]
 
-# Default redirect to RDF
+# Por defecto RDF
 RewriteRule ^ontology$ https://raw.githubusercontent.com/fcarrillo-brenes/Ontocrime/main/crimev5.rdf [R=302,L]
