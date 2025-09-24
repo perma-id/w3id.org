@@ -12,8 +12,8 @@ Homepage:
 * https://w3id.org/circularfactory
 
 Contacts: 
-* Ratan Bahadur Thapa (<ratan.thapa@ki.uni-stuttgart.de>)
+* Ratan Bahadur Thapa (<ratan.thapa@ki.uni-stuttgart.de>), [OrcId](https://orcid.org/0009-0000-2368-5928)
 * Daniel Hernandez (<daniel.hernandez@ki.uni-stuttgart.de>)
-* Jan-Felix Klein (<jan-felix.klein@kit.edu>)
+* Jan-Felix Klein (<jan-felix.klein@kit.edu>), [Github](https://github.com/JaFeKl), [OrcId](https://orcid.org/0000-0002-3704-9567)
 * Etienne Hoffmann (<etienne.hoffmann@kit.edu>)
 
