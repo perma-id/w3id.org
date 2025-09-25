@@ -12,7 +12,7 @@ The redirects were created with the goal of providing NMDC stakeholders with con
 | `https://w3id.org/nmdc/Biosample` | `https://microbiomedata.github.io/nmdc-schema/Biosample/`                                |
 
 ## Contact people
-- Mark A. Miller: MAM@lbl.gov
-- Donny Winston: donny@polyneme.xyz
-- Chris Mungall: CJMungall@lbl.gov
-- GitHub user [@eecavanna](https://github.com/eecavanna/)
+- Mark A. Miller: MAM@lbl.gov (@turbomam) 
+- Donny Winston: donny@polyneme.xyz (@dwinston)
+- Chris Mungall: CJMungall@lbl.gov (@cmungall)
+- [@eecavanna](https://github.com/eecavanna/)
