@@ -15,3 +15,4 @@ The redirects were created with the goal of providing NMDC stakeholders with con
 - Mark A. Miller: MAM@lbl.gov
 - Donny Winston: donny@polyneme.xyz
 - Chris Mungall: CJMungall@lbl.gov
+- GitHub user [@eecavanna](https://github.com/eecavanna/)
