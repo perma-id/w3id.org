@@ -20,5 +20,6 @@ Content negotiation is supported, so different representations (HTML documentati
 ## Contact
 
 **Iván Castilla Rodríguez**  
-📧 [icasrod@ull.edu.es](mailto:icasrod@ull.edu.es)  
-🐙 [GitHub Organization: ontologies-ULL](https://github.com/ontologies-ULL)
+- 📧 [icasrod@ull.edu.es](mailto:icasrod@ull.edu.es)  
+- 🐙 [GitHub Organization: ontologies-ULL](https://github.com/ontologies-ULL)  
+- 👤 [GitHub User: icasrod](https://github.com/icasrod)

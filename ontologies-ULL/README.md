@@ -16,5 +16,6 @@ Each sub-level redirects to a different ontology, generally hosted in the [ontol
 ## Contact
 
 **Iván Castilla Rodríguez**  
-📧 [icasrod@ull.edu.es](mailto:icasrod@ull.edu.es)  
-🐙 [GitHub: ontologies-ULL](https://github.com/ontologies-ULL)
+- 📧 [icasrod@ull.edu.es](mailto:icasrod@ull.edu.es)  
+- 🐙 [GitHub Organization: ontologies-ULL](https://github.com/ontologies-ULL)  
+- 👤 [GitHub User: icasrod](https://github.com/icasrod)
