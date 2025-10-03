@@ -81,13 +81,18 @@ RewriteRule ^(.*)/research-areas$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/
 RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L]
 
 # Research Object
+# download RO-Crate
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.*
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L]
+# download SKG-IF
+RewriteCond %{HTTP_ACCEPT} ^.*application/vnd.skgif.ld+json.*
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/skg-if/download/ [R=302,L]
 # download RO as RDF (manifest), ZIP or PDF
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* [OR]
-RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.* [OR]
-RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
+#RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
