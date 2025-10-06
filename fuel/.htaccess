@@ -8,15 +8,31 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
-#Rewrite rules for fuel
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+# Rewrite rules for the FUsion Energy Lexicon (FUEL)
+
+# Content negotiation 
+# Turtle 
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ - [E=EXT:ttl]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} "application/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "text/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml"
+RewriteRule ^ - [E=EXT:owl]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^ - [E=EXT:jsonld]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ - [E=EXT:nt]
+
+# Redirect to website
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://ukaea.github.io/fuel/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ https://ukaea.github.io/fuel/fuel.ttl [R=303,NE,L]
-#default response: html
-RewriteRule ^$ https://ukaea.github.io/fuel/ [R=303,NE,L]
