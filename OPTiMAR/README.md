@@ -1,8 +1,18 @@
 
-## CONTACT
-Contact
+## Name of the project:
 
-Alejandro Flores (afloresb AT usal.es)
-Alberto Montero (albertomonfdez AT usal.es)
-Ohiana Garcia (ohiana.garcia AT tekniker.es)
-Cristina Aceta (cristina.aceta AT tekniker.es)
+OPTiMAR
+
+---
+
+## Description:
+Ontology modeling structural elements, sensors, events, and failures in offshore wind platforms, including measurement data and involved actors.
+
+---
+
+## CONTACT
+
+Alejandro Flores (afloresb@usal.es)<br>
+Alberto Montero (albertomonfdez@usal.es)<br>
+Cristina Aceta (cristina.aceta@tekniker.es)<br>
+Oihana Garcia (oihana.garcia@tekniker.es)
