@@ -1,38 +1,33 @@
 Options +FollowSymLinks
-# Turn off MultiViews
-Options -MultiViews
+RewriteEngine On
 
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
-AddType text/turtle .ttl
+# Rewrite rules for the FUsion Energy Lexicon (FUEL), including content negotiation
 
-RewriteEngine on
-
-# Rewrite rules for the FUsion Energy Lexicon (FUEL)
-
-# Content negotiation 
-# Turtle 
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
-RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^ - [E=EXT:ttl]
+# Default to Turtle if no Accept header is provided
+RewriteCond %{HTTP_ACCEPT} !(rdf\+xml|json-ld|n-triples|turtle|trig|n3|html) [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.ttl [R=303,L]
 
 # RDF/XML
-RewriteCond %{HTTP_ACCEPT} "application/xml" [OR]
-RewriteCond %{HTTP_ACCEPT} "text/xml" [OR]
-RewriteCond %{HTTP_ACCEPT} "xml" [OR]
-RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml"
-RewriteRule ^ - [E=EXT:owl]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.owl [R=303,L]
 
 # JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld+json
-RewriteRule ^ - [E=EXT:jsonld]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.jsonld [R=303,L]
 
 # N-Triples
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^ - [E=EXT:nt]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.nt [R=303,L]
 
-# Redirect to website
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://ukaea.github.io/fuel/  [R=303,NE,L]
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.ttl [R=303,L]
+
+# HTML (documentation on GitHub Pages)
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://ukaea.github.io/fuel/ [R=303,L]
+
+# Fallback: default to HTML
+RewriteRule ^$ https://ukaea.github.io/fuel/ [R=303,L]
