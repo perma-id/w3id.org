@@ -21,5 +21,3 @@ Contacts:
 * [Christoph Lange](https://gitlab.com/langec) <christoph.lange-bever@fit.fraunhofer.de>
 * [Pierre Gronlier](https://github.com/ticapix)
 * [Yassir SELLAMI](https://github.com/YassirSellami)
-* [Ewann Gavard](https://github.com/egavard)
-* [Vincent Kelleher](https://github.com/vincentkelleher)
