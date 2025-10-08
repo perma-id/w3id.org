@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# vocab/ end point
+RewriteRule ^vocab$ https://linkml.io/valuesets/$1
+RewriteRule ^vocab\/(.*)$ https://linkml.io/valuesets/$1 [R=301,L]
+
+# schema submodules
+RewriteRule ^schema\/(.*)$ https://raw.githubusercontent.com/linkml/valuesets/main/src/valuesets/$1 [R=301,L]
+
+# Schema artefacts use raw Github URLs
+# if suffix is yaml, redirect to LinkML YAML schema
+RewriteRule ^valuesets.yaml$ https://raw.githubusercontent.com/linkml/valuesets/main/src/valuesets/merged/merged_hierarchy.yaml [R=302,L]
+
+# if suffix is schema.json, redirect to JSON Schema
+RewriteRule ^valuesets.schema.json$ https://raw.githubusercontent.com/linkml/valuesets/main/project/jsonschema/valuesets.schema.json [R=302,L]
+
+# if suffix is owl, redirect to OWL
+RewriteRule ^valuesets.owl.ttl$ https://raw.githubusercontent.com/linkml/valuesets/main/project/owl/valuesets_merged.owl.ttl [R=302,L]
+
+
+# Schema elements use Github Pages
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://linkml.io/valuesets/$1 [R=302,L]
