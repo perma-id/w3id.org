@@ -9,6 +9,7 @@ The namespace currently only contains the project website, the conceptual thesau
 * **`/MoRe-SFB1475/`** redirects to the project website
 * **`/MoRe-SFB1475/CT/`** is the entry point to the thesaurus
 * **`/MoRe-SFB1475/CT/concepts/`** is used for the individual concepts
+* **`/MoRe-SFB1475/MITS`** is the entry point to a small controlled vocabulary, the "Metaphor Identification Tagset"
 * **`/MoRe-SFB1475/waps-annotation-migrator`** utility software
 * **`/MoRe-SFB1475/repo/util/`** (image) resources used inside our textual data 
 
