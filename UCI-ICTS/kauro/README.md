@@ -16,8 +16,8 @@ and metadata, even if the repository structure changes in the future.
 
 
 ### Maintainers
-- Jonathan LoTempio 
-- Hadley King — [kingch2@uci.edu](mailto:kingch2@uci.edu)
+- Jonathan LoTempio - @jlotempiojr
+- Hadley King — @HadleyKing [kingch2@uci.edu](mailto:kingch2@uci.edu)
 
 ### Contact
 For questions or updates regarding this redirect, please open an issue in the  
