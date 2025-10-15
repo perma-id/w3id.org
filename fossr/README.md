@@ -12,3 +12,5 @@ Source:
 
 Contacts: 
 * Andrea Giovanni Nuzzolese <andrea.nuzzolese@gmail.com>
+  GitHub: anuzzolese
+  ORCID: 0000-0003-2928-9496
