@@ -16,7 +16,7 @@ All requests are redirected to:
 
 ## Maintainers
 
-- **Kristina Vodorezova** — k.vodorezova@amsterdamumc.nl 
+- **Kristina Vodorezova** — k.vodorezova@amsterdamumc.nl vodor001
 
 ## Purpose
 
