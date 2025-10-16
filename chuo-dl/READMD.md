@@ -10,4 +10,6 @@
 * [https://chuo-dl.github.io/](https://chuo-dl.github.io/)
 
 ## Contact
-* Tsunekawa Mao <mtsunekawa493@g.chuo-u.ac.jp>
+* Tsunekawa Mao
+  * Mail: mtsunekawa493@g.chuo-u.ac.jp
+  * GitHub ID : [@tsunekawa](https://github.com/tsunekawa)
