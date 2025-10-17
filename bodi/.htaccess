@@ -1,6 +1,24 @@
-# BoDi (Born-Digital Module) 
-# Contact: @LuciaGiagnolini12
-# Repository: https://github.com/LuciaGiagnolini12/bodi
+# Disabilita MultiViews
+Options +FollowSymLinks -MultiViews
 
-RewriteEngine on
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/LuciaGiagnolini12/bodi/main/bodi.ttl$1 [R=302,L]
+# Tipi MIME per RDF/OWL/TTL/JSON-LD
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+# Abilita il motore di riscrittura
+RewriteEngine On
+
+# Se il client richiede HTML, serve index.html
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/index.html [R=303,L]
+
+# Se il client richiede RDF/XML o OWL/XML, serve bodi.owl
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.owl [R=303,L]
+
+# Se il client richiede Turtle, serve bodi.ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.ttl [R=303,L]
