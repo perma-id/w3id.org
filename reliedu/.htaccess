@@ -1,0 +1,133 @@
+# Religious Education Vocabulary (reliedu) - w3id.org Redirects
+# Maintainer: Jörg Lohrer
+# Target: SkoHub Vocabs on GitHub Pages
+# Documentation: https://github.com/rpi-virtuell/reliedu-vocab
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+# Rewrite engine setup
+RewriteEngine On
+RewriteBase /reliedu
+
+##########################################################################
+# BASE VOCABULARY URI - CONTENT NEGOTIATION
+##########################################################################
+
+# Serve Turtle content at vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^/?$ https://rpi-virtuell.github.io/reliedu-vocab//index.ttl [R=303,L]
+
+# Serve JSON-LD content at vocabulary URI if requested  
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} \*/json
+RewriteRule ^/?$ https://rpi-virtuell.github.io/reliedu-vocab/index.json [R=303,L]
+
+# Serve RDF/XML content at vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^/?$ https://rpi-virtuell.github.io/reliedu-vocab/index.rdf [R=303,L]
+
+# Default: Serve HTML content (SkoHub generated interface)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [OR]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]  
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^/?$ https://rpi-virtuell.github.io/reliedu-vocab/ [R=303,L]
+
+##########################################################################
+# CONCEPT URIs - SKOHUB GENERATED STRUCTURE
+##########################################################################
+# SkoHub creates hierarchical HTML pages for each concept
+# Pattern: https://USERNAME.github.io/reliedu-vocabulary/NAMESPACE/CONCEPT.html
+
+# Didactics namespace (13 concepts)
+RewriteRule ^didactics/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics.html [R=303,L]
+RewriteRule ^didactics/subjektorientierung/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/subjektorientierung.html [R=303,L]
+RewriteRule ^didactics/korrelation/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/korrelation.html [R=303,L]
+RewriteRule ^didactics/elementarisierung/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/elementarisierung.html [R=303,L]
+RewriteRule ^didactics/narration/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/narration.html [R=303,L]
+RewriteRule ^didactics/symbolisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/symbolisch.html [R=303,L]
+RewriteRule ^didactics/performativ/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/performativ.html [R=303,L]
+RewriteRule ^didactics/aesthetisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/aesthetisch.html [R=303,L]
+RewriteRule ^didactics/interreligioes/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/interreligioes.html [R=303,L]
+RewriteRule ^didactics/biblisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/biblisch.html [R=303,L]
+RewriteRule ^didactics/systematisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/systematisch.html [R=303,L]
+RewriteRule ^didactics/kirchengeschichtlich/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/kirchengeschichtlich.html [R=303,L]
+RewriteRule ^didactics/ethisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/ethisch.html [R=303,L]
+RewriteRule ^didactics/apologetisch/?$ https://rpi-virtuell.github.io/reliedu-vocab/didactics/apologetisch.html [R=303,L]
+
+# Resource Types namespace (8 concepts)
+RewriteRule ^resourcetype/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype.html [R=303,L]
+RewriteRule ^resourcetype/unterrichtseinheit/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/unterrichtseinheit.html [R=303,L]
+RewriteRule ^resourcetype/gottesdienst/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/gottesdienst.html [R=303,L]
+RewriteRule ^resourcetype/andacht/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/andacht.html [R=303,L]
+RewriteRule ^resourcetype/meditation/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/meditation.html [R=303,L]
+RewriteRule ^resourcetype/exegese/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/exegese.html [R=303,L]
+RewriteRule ^resourcetype/katechismus/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/katechismus.html [R=303,L]
+RewriteRule ^resourcetype/gebetbuch/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/gebetbuch.html [R=303,L]
+RewriteRule ^resourcetype/liederbuch/?$ https://rpi-virtuell.github.io/reliedu-vocab/resourcetype/liederbuch.html [R=303,L]
+
+# Competencies namespace (5 concepts)
+RewriteRule ^competency/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency.html [R=303,L]
+RewriteRule ^competency/wahrnehmung/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency/wahrnehmung.html [R=303,L]
+RewriteRule ^competency/deutung/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency/deutung.html [R=303,L]
+RewriteRule ^competency/urteil/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency/urteil.html [R=303,L]
+RewriteRule ^competency/dialog/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency/dialog.html [R=303,L]
+RewriteRule ^competency/gestaltung/?$ https://rpi-virtuell.github.io/reliedu-vocab/competency/gestaltung.html [R=303,L]
+
+# Content Areas namespace (6 concepts)  
+RewriteRule ^content/?$ https://rpi-virtuell.github.io/reliedu-vocab/content.html [R=303,L]
+RewriteRule ^content/gott/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/gott.html [R=303,L]
+RewriteRule ^content/jesus-christus/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/jesus-christus.html [R=303,L]
+RewriteRule ^content/bibel/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/bibel.html [R=303,L]
+RewriteRule ^content/kirche/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/kirche.html [R=303,L]
+RewriteRule ^content/religionen/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/religionen.html [R=303,L]
+RewriteRule ^content/ethik/?$ https://rpi-virtuell.github.io/reliedu-vocab/content/ethik.html [R=303,L]
+
+# Teaching Methods namespace (4 concepts)
+RewriteRule ^method/?$ https://rpi-virtuell.github.io/reliedu-vocab/method.html [R=303,L]
+RewriteRule ^method/handlungsorientiert/?$ https://rpi-virtuell.github.io/reliedu-vocab/method/handlungsorientiert.html [R=303,L]
+RewriteRule ^method/kreativ/?$ https://rpi-virtuell.github.io/reliedu-vocab/method/kreativ.html [R=303,L]
+RewriteRule ^method/kooperativ/?$ https://rpi-virtuell.github.io/reliedu-vocab/method/kooperativ.html [R=303,L]
+RewriteRule ^method/spirituell/?$ https://rpi-virtuell.github.io/reliedu-vocab/method/spirituell.html [R=303,L]
+
+# Learning Locations namespace (8 concepts)
+RewriteRule ^location/?$ https://rpi-virtuell.github.io/reliedu-vocab/location.html [R=303,L]
+RewriteRule ^location/klassenzimmer/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/klassenzimmer.html [R=303,L]
+RewriteRule ^location/kirche/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/kirche.html [R=303,L]
+RewriteRule ^location/gemeinde/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/gemeinde.html [R=303,L]
+RewriteRule ^location/kloster/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/kloster.html [R=303,L]
+RewriteRule ^location/friedhof/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/friedhof.html [R=303,L]
+RewriteRule ^location/museum/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/museum.html [R=303,L]
+RewriteRule ^location/natur/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/natur.html [R=303,L]
+RewriteRule ^location/digital/?$ https://rpi-virtuell.github.io/reliedu-vocab/location/digital.html [R=303,L]
+
+# Catch-all for any other concept URIs (fallback to SkoHub search)
+RewriteRule ^(.+)/?$ https://rpi-virtuell.github.io/reliedu-vocab/?search=$1 [R=303,L]
+
+##########################################################################
+# SPECIAL REDIRECTS
+##########################################################################
+
+# Redirect to curation tool
+RewriteRule ^tool/?$ https://rpi-virtuell.github.io/reliedu-vocab/tools/curation-tool-v02-amb.html [R=303,L]
+
+# Redirect to documentation
+RewriteRule ^docs/?$ https://rpi-virtuell.github.io/reliedu-vocab/#documentation [R=303,L]
+
+# Redirect to examples
+RewriteRule ^examples/?$ https://rpi-virtuell.github.io/reliedu-vocab/examples/ [R=303,L]
+
+# Final fallback to main SkoHub page
+RewriteRule ^.*$ https://rpi-virtuell.github.io/reliedu-vocab/ [R=303,L]
