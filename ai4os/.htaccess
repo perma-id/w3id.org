@@ -1,18 +1,23 @@
 RewriteEngine on
 
+# Redirect root to latest documentation
 RewriteRule ^$ https://docs.ai4os.eu/projects/ai4-metadata/latest/ [R=302,L]
 
-# Comment this until we have versions
+# Semantic version routing - uncomment when versioning is implemented
+# RewriteRule ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$ https://docs.ai4os.eu/projects/ai4-metadata/en/$1.$2.$3/ [R=302,L]
 
-#RewriteRule ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$ https://docs.ai4os.eu/projects/ai4-metadata/en/$1.$2.$3/ [R=302,L]
 
-# Lets point only to latest for the time being. We can add versioning afterwards
-RewriteRule ^vocabulary/(.+)/(.+)$  https://docs.ai4os.eu/projects/ai4-metadata/latest/reference/$1.html#$2 [R=302,L,NE]
+# Vocabulary reference pages (with and without trailing slash)
+RewriteRule ^vocabulary/([^/]+)/?$ https://docs.ai4os.eu/projects/ai4-metadata/latest/reference/$1.html [R=302,L,NE]
 
-# Add also RDF files for vocabularies
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^vocabulary/(.+)/$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/rdf/ai4eosc-$1.ttl
+# Vocabulary sections with anchors
+RewriteRule ^vocabulary/([^/]+)/([^/]+)/?$ https://docs.ai4os.eu/projects/ai4-metadata/latest/reference/$1.html#$2 [R=302,L,NE]
 
-# Redirect JSON-LD file to latest version
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^mldcat-ap-context.jsonld$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/json-ld/mldcat-ap-context-2.0.0.jsonld
+
+# Serve RDF/Turtle files for vocabulary requests
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^vocabulary/([^/]+)/?$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/rdf/ai4eosc-$1.ttl [R=302,L]
+
+# Serve JSON-LD context file
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^mldcat-ap-context\.jsonld$ https://docs.ai4os.eu/projects/ai4-metadata/latest/_static/json-ld/mldcat-ap-context-2.0.0.jsonld [R=302,L]
