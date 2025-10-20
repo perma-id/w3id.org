@@ -7,4 +7,4 @@ Website ZINL: https://www.zorginstituutnederland.nl/
 Website The Hyve: https://www.thehyve.nl/
 
 Contacts
-* Eelke van der Horst (eelke@thehyve.nl)
+* Eelke van der Horst <eelke@thehyve.nl> (GitHub: eelkevanderhorst)
