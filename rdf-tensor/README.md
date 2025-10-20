@@ -16,6 +16,12 @@ An extension of RDF and SPARQL to process multi-dimensional arrays of numerical 
 - https://w3id.org/rdf-tensor/aggregates.ttl
 - https://w3id.org/rdf-tensor/functions.ttl
 - https://w3id.org/rdf-tensor/datatypes.ttl
+- https://w3id.org/rdf-tensor/aggregates.jsonld
+- https://w3id.org/rdf-tensor/functions.jsonld
+- https://w3id.org/rdf-tensor/datatypes.jsonld
+- https://w3id.org/rdf-tensor/aggregates.rdf
+- https://w3id.org/rdf-tensor/functions.rdf
+- https://w3id.org/rdf-tensor/datatypes.rdf
 - https://w3id.org/rdf-tensor/aggregates.jelly
 - https://w3id.org/rdf-tensor/functions.jelly
 - https://w3id.org/rdf-tensor/datatypes.jelly
