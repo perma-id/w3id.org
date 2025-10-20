@@ -32,10 +32,9 @@ The dataset is represented using:
 
 ## Maintainers
 
-| Name | Contact |
-|------|---------|
-| **Maria Gomez** | [maria.castillo@kaust.edu.sa](mailto:maria.castillo@kaust.edu.sa) |
-| GitHub: [@mariacastillo982](https://github.com/mariacastillo982) |
+| Name | Contact | GitHub|
+|------|---------|-------|
+| **Maria Gomez** | [maria.castillo@kaust.edu.sa](mailto:maria.castillo@kaust.edu.sa) | [@mariacastillo982](https://github.com/mariacastillo982) |
 
 ### Repository
 [https://github.com/mariacastillo982/cpp-mechanisms](https://github.com/mariacastillo982/cpp-mechanisms)
