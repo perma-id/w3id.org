@@ -1,60 +1,42 @@
-## 🧬 Cell Penetrating Peptide Uptake Mechanisms (CPP-Mechanisms)
+# /cpp/
 
-Version: 1.0
-License: CC BY 4.0
+**Persistent identifier namespace for the "CPP Mechanisms Knowledge Base"**
 
-Created: 2025-10-19
+URLs for the **Cell Penetrating Peptide (CPP) Mechanisms Knowledge Base**, an RDF dataset describing molecular mechanisms of endocytic uptake (e.g., macropinocytosis, phagocytosis) and their associated genes, pathways, and inhibitory compounds.
 
-Maintainer: Maria Gomez
+All identifiers under `/cpp/` resolve to resources maintained by the GitHub user: [@mariacastillo982](https://github.com/mariacastillo982)
 
-Contact: maria.castillo@kaust.edu.sa
+## Namespace structure
 
-Base namespace: https://w3id.org/cpp/schema#
-Dataset IRI: https://w3id.org/cpp/dataset/mechanisms
+| Path | Description | Redirect target |
+|------|--------------|-----------------|
+| `/cpp/dataset/mechanisms` | Landing page for the dataset | [https://mariacastillo982.github.io/cpp-mechanisms/](https://mariacastillo982.github.io/cpp-mechanisms/) |
+| `/cpp/dataset/mechanisms.ttl` | RDF (Turtle) serialization | [https://mariacastillo982.github.io/cpp-mechanisms/data/mechanisms.ttl](https://mariacastillo982.github.io/cpp-mechanisms/data/mechanisms.ttl) |
+| `/cpp/dataset/mechanisms.jsonld` | RDF (JSON-LD) serialization | [https://mariacastillo982.github.io/cpp-mechanisms/data/mechanisms.jsonld](https://mariacastillo982.github.io/cpp-mechanisms/data/mechanisms.jsonld) |
+| `/cpp/schema#` | Vocabulary and ontology terms | [https://mariacastillo982.github.io/cpp-mechanisms/schema](https://mariacastillo982.github.io/cpp-mechanisms/schema) |
 
-## 📘 Overview
+## Example persistent identifiers
 
-The CPP-Mechanisms Knowledge Base is a structured RDF dataset describing the endocytic molecular mechanisms through which cell-penetrating peptides (CPPs) and related cargos enter cells such as macropinocytosis, phagocytosis, clathrin mediated and caveolae mediated endocytosis.
+- **Dataset IRI:** [https://w3id.org/cpp/dataset/mechanisms](https://w3id.org/cpp/dataset/mechanisms)  
+- **RDF (TTL):** [https://w3id.org/cpp/dataset/mechanisms.ttl](https://w3id.org/cpp/dataset/mechanisms.ttl)  
+- **RDF (JSON-LD):** [https://w3id.org/cpp/dataset/mechanisms.jsonld](https://w3id.org/cpp/dataset/mechanisms.jsonld)  
+- **Vocabulary:** [https://w3id.org/cpp/schema#](https://w3id.org/cpp/schema#)
 
-Each mechanism aggregates:
+These URIs redirect to the GitHub-hosted dataset and metadata.
 
-Core and regulatory genes (Ensembl identifiers)
+## Metadata standards
 
-Relevant pathways (GO, Reactome, KEGG, MSigDB)
+The dataset is represented using:
+- [RDF](https://www.w3.org/TR/rdf11-concepts/)
+- [ChEBI](https://www.ebi.ac.uk/chebi/), [GO](http://geneontology.org/), [Reactome](https://reactome.org/), [KEGG](https://www.genome.jp/kegg/)
 
-Known chemical inhibitors (mapped to ChEBI and MeSH)
+## Maintainers
 
-Literature-based evidence (DOIs)
+| Name | Contact |
+|------|---------|
+| **Maria Gomez** | [maria.castillo@kaust.edu.sa](mailto:maria.castillo@kaust.edu.sa) |
+| GitHub: [@mariacastillo982](https://github.com/mariacastillo982) |
 
-The dataset is published as FAIR, machine-readable RDF and can be queried with SPARQL or reused in ontology-driven analyses.
+### Repository
+[https://github.com/mariacastillo982/cpp-mechanisms](https://github.com/mariacastillo982/cpp-mechanisms)
 
-## 🗂️ Directory structure
-cpp-mechanisms/
-├── data/
-│   ├── mechanisms.json          # Original JSON input
-│   ├── mechanisms.ttl           # RDF Turtle serialization
-│   ├── mechanisms.jsonld        # RDF JSON-LD serialization
-├── metadata/
-│   └── dataset.ttl              # DCAT/PROV metadata file
-├── shapes/
-│   └── mechanism.shacl.ttl      # SHACL validation shapes
-├── src/
-│   └── json_to_rdf.py           # JSON → RDF conversion script
-├── docs/
-│   └── index.html               # Optional landing page for GitHub Pages
-└── README.md                    # This file
-
-## 🔍 Data model
-
-Main classes and relationships used:
-
-Entity	Description	Example
-ex:Mechanism	Cellular uptake mechanism (e.g. macropinocytosis)	mech:Macropinocytosis
-ex:GateCoreEntry	Core gene enabling internalization	ensembl:ENSG00000121879 (PIK3CA)
-ex:RegulatorEntry	Regulator gene that modulates pathway activity	ensembl:ENSG00000124181 (PLCG1)
-ex:ContextNegativeEntry	Drug or chemical that inhibits the mechanism	chebi:CHEBI_47499 (Imipramine)
-ex:hasExternalRef	Links to GO, KEGG, Reactome, MSigDB	obo:GO_0044351
-ex:evidence	Literature reference (DOI or PubMed link)	<https://doi.org/10.1111/bph.14439>
-
-All identifiers are dereferenceable (e.g., Ensembl, ChEBI, Reactome) following the Identifiers.org
- scheme.
