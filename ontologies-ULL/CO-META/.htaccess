@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Redirects to the HTML documentation (for humans)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://ontologies-ull.github.io/CO-META/index-en.html [R=303,L]
+
+# Redirects to a RDF/XML if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://ontologies-ull.github.io/CO-META/ontology.owl [R=303,L]
+
+# Redirects to a Turtle if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://ontologies-ull.github.io/CO-META/ontology.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://ontologies-ull.github.io/CO-META/ontology.jsonld [R=303,L]
+
+# Fallback: always redirects to the documentation
+RewriteRule ^$ https://ontologies-ull.github.io/CO-META/index-en.html [R=303,L]
