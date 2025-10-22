@@ -1,0 +1,136 @@
+@prefix : <https://w3id.org/bodyAgent/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://w3id.org/bodyAgent/> .
+
+<https://w3id.org/bodyAgent> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/bodyAgent/hasAvailability
+:hasAvailability rdf:type owl:ObjectProperty ;
+                 rdfs:domain [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasAvailability ;
+                               owl:someValuesFrom :Body
+                             ] ;
+                 rdfs:range [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasAvailability ;
+                              owl:someValuesFrom :Availability
+                            ] .
+
+
+###  https://w3id.org/bodyAgent/hasBodyType
+:hasBodyType rdf:type owl:ObjectProperty ;
+             rdfs:domain [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasBodyType ;
+                           owl:someValuesFrom :Body
+                         ] ;
+             rdfs:range [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasBodyType ;
+                          owl:someValuesFrom :BodyType
+                        ] .
+
+
+###  https://w3id.org/bodyAgent/hasLocation
+:hasLocation rdf:type owl:ObjectProperty ;
+             rdfs:domain [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasLocation ;
+                           owl:someValuesFrom :Body
+                         ] ;
+             rdfs:range [ rdf:type owl:Restriction ;
+                          owl:onProperty :hasLocation ;
+                          owl:someValuesFrom :Location
+                        ] .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/bodyAgent/hasLastAction
+:hasLastAction rdf:type owl:DatatypeProperty ;
+               rdfs:domain [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasLastAction ;
+                             owl:someValuesFrom xsd:string
+                           ] .
+
+
+###  https://w3id.org/bodyAgent/hasLocationURI
+:hasLocationURI rdf:type owl:DatatypeProperty ;
+                rdfs:domain [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasLocation ;
+                              owl:someValuesFrom :Location
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasLocationURI ;
+                              owl:someValuesFrom xsd:anyURI
+                            ] .
+
+
+###  https://w3id.org/bodyAgent/hasWorkspace
+:hasWorkspace rdf:type owl:DatatypeProperty ;
+              rdfs:domain [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasLocation ;
+                            owl:someValuesFrom :Location
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasWorkspace ;
+                            owl:someValuesFrom xsd:string
+                          ] .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/bodyAgent/Availability
+:Availability rdf:type owl:Class ;
+              rdfs:comment "Indicates whether an agent is available or unavailable, representing if the agent can currently perform actions or respond to requests." .
+
+
+###  https://w3id.org/bodyAgent/Available
+:Available rdf:type owl:Class ;
+           rdfs:subClassOf :Availability .
+
+
+###  https://w3id.org/bodyAgent/Body
+:Body rdf:type owl:Class ;
+      rdfs:comment "Represents the visible form of an agent on the web." .
+
+
+###  https://w3id.org/bodyAgent/BodyType
+:BodyType rdf:type owl:Class ;
+          rdfs:comment "Specifies the type of an agent's body. It can be physical (a real-world body), virtual (existing only on the web), or hybrid (a combination of physical and virtual presence)." .
+
+
+###  https://w3id.org/bodyAgent/HybridBody
+:HybridBody rdf:type owl:Class ;
+            rdfs:subClassOf :BodyType .
+
+
+###  https://w3id.org/bodyAgent/Location
+:Location rdf:type owl:Class ;
+          rdfs:comment "Specifies where the agent’s body is present. It can indicate the URI of the body and/or the workspaces in which the agent is active." .
+
+
+###  https://w3id.org/bodyAgent/PhysicalBody
+:PhysicalBody rdf:type owl:Class ;
+              rdfs:subClassOf :BodyType .
+
+
+###  https://w3id.org/bodyAgent/Unavailable
+:Unavailable rdf:type owl:Class ;
+             rdfs:subClassOf :Availability .
+
+
+###  https://w3id.org/bodyAgent/VirtualBody
+:VirtualBody rdf:type owl:Class ;
+             rdfs:subClassOf :BodyType .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
