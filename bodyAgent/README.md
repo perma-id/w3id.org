@@ -9,7 +9,8 @@ This folder contains the **bodyAgent** ontology defining concepts and properties
 ## Permanent URI
 
 You can access the ontology via the W3ID permanent URL:  
-[https://w3id.org/bodyAgent](https://w3id.org/bodyAgent)
+https://raw.githubusercontent.com/IderliSouza/bodyAgent-Ontology/refs/heads/main/bodyAgent.ttl
+
 
 ## Contact
 
