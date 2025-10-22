@@ -1,0 +1,1 @@
+Metadata file for Petro KGraph as a FAIR Resource

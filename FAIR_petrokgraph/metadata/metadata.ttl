@@ -1,0 +1,205 @@
+@prefix :        <https://w3id.org/FAIR-course-UT/2025/group19/petrokgraph/data/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix locn:    <http://www.w3.org/ns/locn#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+
+#################################################################
+# DATASET
+#################################################################
+
+:dataset/tabela_de_pocos
+ 
+ @prefix dct: <http://purl.org/dc/terms/> .
+ @prefix dcat: <http://www.w3.org/ns/dcat#> .
+ @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+ @prefix schema: <http://schema.org/> .
+ @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+ < https://data.gov.br/conjuntodados/cadastro-unico>
+ [ a dcat:Dataset ;
+ dcterms:title "Cadastro Unico" ;
+ dcterms:description "Conjunto de dados do Cadastro Unico, cadastro do governo federal que identifica e caracteriza famílias de baixa renda, para que possam ter acesso aos programas sociais." ;
+ dct:keywords " cadastro unico , governo federal , programa social , famílias de baixa renda" ;
+ dcterms:creator <https://www.mc.br/> ;
+ dcterms:publisher
+ [ a foaf:Organization ;
+ foaf:name "Ministério da Cidadania-Dados" ;
+ foaf:homepage <https://www.mc-dados.gov.br/> ;
+ ] ;
+ dcat:version "1.0.0" ;
+ dcat:contactPoint
+ [ a dcat:ContactPoint ;
+ vcard:organization <https://www.mc.br/> ;
+ vcard:email "dadoscadunico@gov.br" ;
+ vcard:tel "+55 61 2020-9000" ;
+ ] ;
+ dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+ # Propriedades opcionais
+ dcterms:issued "2023-05-15" ;
+ dcterms:modified "2023-07-25" ;
+ dcterms:accrualPeriodicity "mensal" ;
+ adms:status adms:Active ;
+ dcterms:conformsTo <https://www.w3.org/TR/vocab-dcat-br/> ;
+ dcterms:hasPart <https://data.gov.br> ;
+
+ dcat:distribution
+ [ a dcat:Distribution ;
+ dcat:accessURL <https://data.gov.br/dataset/cadastro-unico/resource/cadastro-unico.csv> ;
+ dcterms:title "Arquivo com dados do Cadastro Unico" ;
+ dcterms:description "Arquivo de distribuição com dados do Cadastro Unico" ;
+ dcterms:format "CSV" ;
+ # Propriedades opcionais
+ dcat:mediaType "text/csv" ;
+ dcat:byteSize 10000 ;
+ dcterms:issued "2023-07-25" ;
+ dcterms:modified "2023-07-27" ;
+ dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+ dcat:checksum "SHA-256:f3123234-4567-8901-2345-678901234567 "
+;
+
+ ] ;
+
+ dcat:distribution
+ [ a dcat:Distribution ;
+ dcat:accessURL <https://api.data.gov.br/datasets/cadastro-unico> ;
+ dcterms:title "API consulta Cadastro Unico" ;
+ dcterms:description "Endpoint para consulta de dados do Cadastro Unico" ;
+ dcterms:format "JSON" ;
+ # Propriedades opcionais
+ dcat:mediaType "application/json" ;
+ dcterms:issued "2023-07-20" ;
+ dcterms:modified "2023-07-20" ;
+ dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+ ] ;
+.
+
+
+  a dcat:Dataset ;
+  dcat:distribution :dist/tabela_de_pocos_sampled
+  dcat:inSeries
+  dcat:spatialResolutionInMeters
+  dcat:temporalResolution
+  dcterms:accrualPeriodicity
+  dcterms:spatial
+  dcterms:temporal
+  prov:wasGeneratedBy
+  adms:status
+  adms:versionNotes
+  dcat:contactPoint
+  dcat:hasCurrentVersion
+  dcat:first
+  dcat:hasVersion
+  dcat:keyword
+  dcat:landingPage
+  dcat:last
+  dcat:prev
+  dcat:previousVersion
+  dcat:qualifiedRelation
+  dcat:theme
+  dcat:version
+  dcterms:accessRights
+  dcterms:conformsTo
+  dcterms:creator
+  dcterms:description
+  dcterms:hasPart
+  dcterms:identifier
+  dcterms:isReferencedBy
+  dcterms:issued
+  dcterms:language
+  dcterms:license
+  dcterms:modified
+  dcterms:publisher
+  dcterms:relation
+  dcterms:replaces
+  dcterms:rights
+  dcterms:title
+  dcterms:type
+  odrl:hasPolicy
+  prov:qualifiedAttribution
+  
+    dct:title "Tabela de Poços Perfurados no País" ;
+  dct:description """Informação detalhada sobre os poços cadastrados no acervo da ANP.""" ;
+  dct:creator :Patricia ;
+  dct:issued "2025-10-13T14:14:59Z"^^xsd:dateTime ;
+  dct:language <http://id.loc.gov/vocabulary/iso639-1/pt> ;
+  dct:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+  dct:source <https://cdp.anp.gov.br/ords/r/cdp_apex/consulta-dados-publicos-cdp/consulta-de-po%C3%A7os> ;
+  dcat:keyword "well","geology","ANP" ;
+  dct:identifier "Tabela_pocos_2025_Setembro_19"
+  dct:temporal :t-2022 ;
+  dct:spatial  :bbox-chicago-ish ;
+  dcat:distribution :dist/no2-2022-csv ;
+  prov:wasDerivedFrom <https://aqs.epa.gov/aqsweb/airdata/download_files.html> ;
+  prov:wasGeneratedBy :activity/etl-1-2 ;
+  dct:conformsTo :shapes/dcat-shapes ;  
+.
+
+
+#################################################################
+# DISTRIBUTION (CSV)
+#################################################################
+
+:dist/no2-2022-csv
+  a dcat:Distribution ;
+  dct:title "Cleaned sample CSV (1,000 rows)"@en ;
+  dct:description "CSV distribution of the sampled & cleaned daily NO₂ 2022 records."@en ;
+  dct:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+  dcat:mediaType "text/csv" ;
+  dcat:downloadURL <https://raw.githubusercontent.com/aleksandarnn/FAIR_project/main/data/daily_42602_2022_sample1000.csv> ;
+  dct:issued "2025-10-03T00:00:00Z"^^xsd:dateTime .
+
+#################################################################
+# CREATOR (AGENT)
+#################################################################
+
+:agent/group5 a prov:Agent, foaf:Group ;
+  foaf:name "Aleksandar Nikolov, Emils Johansens — Group 5 (UT FAIR 2025)" .
+
+:team a foaf:Organization ;
+  foaf:name "Group 5 — University of Twente FAIR Course 2024–2025" .
+
+#################################################################
+# ACTIVITY
+#################################################################
+
+:activity/etl-1-2
+  a prov:Activity ;
+  prov:used <https://aqs.epa.gov/aqsweb/airdata/> ,
+            :code/etl.py ,
+            :config/cleaning.yml ;
+  prov:startedAtTime "2025-10-01T09:00:00Z"^^xsd:dateTime ;
+  prov:endedAtTime   "2025-10-01T09:07:00Z"^^xsd:dateTime ;
+  prov:wasAssociatedWith :agent/group5 ;
+  prov:generated :dataset/no2-2022-sample .
+
+
+#################################################################
+# TEMPORAL COVERAGE
+#################################################################
+
+:t-2022
+  a dct:PeriodOfTime ;
+  time:hasBeginning [ a time:Instant ; time:inXSDDate "2022-01-01"^^xsd:date ] ;
+  time:hasEnd       [ a time:Instant ; time:inXSDDate "2022-12-31"^^xsd:date ] ;
+.
+
+#################################################################
+# SPATIAL COVERAGE (BBOX from your sample)
+# WKT uses lon lat order; CRS84 ~ WGS84 lon/lat.
+#################################################################
+
+:bbox-chicago-ish
+  a dct:Location ;
+  locn:geometry """<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON ((
+    -87.70 41.59,
+    -87.62 41.59,
+    -87.62 41.89,
+    -87.70 41.89,
+    -87.70 41.59
+  ))"""^^geosparql:wktLiteral ;
+.
