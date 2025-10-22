@@ -1,0 +1,144 @@
+@prefix :          <http://fairdatapoint.org/> .
+@prefix :          <https://w3id.org/FAIR-course-UT/2025/group19/data#> .
+@prefix sh:        <http://www.w3.org/ns/shacl#> .
+@prefix osdu:      <https://community.opengroup.org/osdu/data/data-definitions/-/blob/master/E-R/master-data/> .
+@prefix dcat:      <http://www.w3.org/ns/dcat#> .
+@prefix dct:       <http://purl.org/dc/terms/> .
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:      <http://www.w3.org/2006/time#> .
+@prefix locn:      <http://www.w3.org/ns/locn#> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix geo:       <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix sosa:      <http://www.w3.org/ns/sosa/> .
+@prefix wd:        <http://www.wikidata.org/entity/> .
+@prefix obo:       <http://purl.obolibrary.org/obo/> .
+@prefix pkg:       <http://www.example.org/petrokgraph/> .
+
+
+:WellShape
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass osdu:Wellbore.1.5.1.md ;
+  sh:property 
+    [
+      sh:path dct:identifier ;
+      sh:minCount 1 ;
+      sh:datatype xsd:string ;
+    ] ;
+  sh:property
+    [
+      sh:path rdfs:label ;
+	    sh:minCount 1 ;
+      sh:datatype xsd:string ;
+    ] ;
+  sh:property
+  [
+    sh:path pkg:has_wellhead ;
+    sh:class osdu:Well.1.4.0.md ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ];
+  sh:property
+  [
+    sh:path obo:RO_0001025 ;
+    sh:minCount 1 ;
+    sh:maxCount 5 ;
+  ] ;
+  sh:property
+  [
+    sh:path obo:RO_0001025 ;
+    sh:qualifiedValueShape [ sh:class wd:Q485258 ] ;
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ];
+  sh:property
+  [
+    sh:path obo:RO_0001025 ;
+    sh:qualifiedValueShape [ sh:class osdu:Basin.1.2.0.md ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ] ;
+  sh:property
+  [
+    sh:path obo:RO_0001025 ;
+    sh:qualifiedValueShape [ sh:class osdu:Field:1.1.0.md ] ;
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 3 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ];
+  sh:property
+  [
+    sh:path pkg:crosses ;
+    sh:minCount 0 ;
+    sh:maxCount 100 ;
+  ] ;
+  sh:property
+  [
+    sh:path pkg:crosses ;
+    sh:qualifiedValueShape [ sh:class pkg:group ] ;
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 30 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ];
+  sh:property
+  [
+    sh:path pkg:crosses ;
+    sh:qualifiedValueShape [ sh:class pkg:formation ] ;
+        sh:qualifiedMinCount 0 ;
+        sh:qualifiedMaxCount 40 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ];
+  sh:property
+  [
+    sh:path pkg:crosses ;
+    sh:qualifiedValueShape [ sh:class pkg:member ] ;
+        sh:qualifiedMinCount 0 ;
+       sh:qualifiedMaxCount 30 ;
+        sh:qualifiedValueShapesDisjoint true ;
+  ];
+.
+:WellHeadShape	
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass osdu:Well.1.4.0.md ;
+  sh:property 
+    [
+    sh:path geo:lat ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+    ] ;
+   sh:property
+    [
+      sh:path geo:long ;
+      sh:minCount 1 ;
+      sh:maxCount 1 ;
+    ]
+.
+:WellActivityShape
+  a rdfs:Class, sh:NodeShape ;
+  sh:targetClass osdu:WellActivity.1.2.0.md ;
+  sh:property 
+    [
+      sh:path time:hasBeginning ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:date ;
+    ] ;
+  sh:property 
+    [
+      sh:path time:hasEnd ;
+      sh:maxCount 1 ;
+      sh:datatype xsd:date ;
+   ] ;
+  sh:property 
+    [
+      sh:path obo:RO_0002234 ;
+      sh:class osdu:Wellbore.1.5.1.md ;
+      sh:minCount 1 ;
+    ] ;
+  sh:property 
+    [
+      sh:path pkg:operated_by ;
+      sh:class osdu:Organisation.1.2.0.md ;
+    ] ;
+.

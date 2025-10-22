@@ -1,0 +1,42 @@
+@prefix :         <http://fairdatapoint.org/> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix dcat:     <http://www.w3.org/ns/dcat#> .
+@prefix dct:      <http://purl.org/dc/terms/> .
+@prefix prov:     <http://www.w3.org/ns/prov#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+
+:FairDatasetShape a sh:NodeShape ;
+  sh:targetClass dcat:Dataset ;
+  sh:property [
+    sh:path dct:title ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path dct:description ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path dct:creator ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property [
+    sh:path dct:license ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] ;
+  sh:property:
+  [
+    sh:path prov:wasDerivedFrom ;
+    sh:nodeKind sh:IRI ;
+  ]
+  .
+  :FairDistributionShape a sh:NodeShape ;
+  sh:targetClass dcat:Distribution ;
+  sh:property [
+    sh:path dcat:accessURL ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+  ] .
