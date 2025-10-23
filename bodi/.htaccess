@@ -8,17 +8,48 @@ AddType application/ld+json .jsonld
 
 # Abilita il motore di riscrittura
 RewriteEngine On
+RewriteBase /bodi/
 
-# Se il client richiede HTML, serve index.html
+# ============================================
+# VERSIONE 1.0 (esplicita)
+# ============================================
+
+# HTML per v1.0
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/index.html [R=303,L]
+
+# RDF/XML o OWL/XML per v1.0
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.owl [R=303,L]
+
+# Turtle per v1.0
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.ttl [R=303,L]
+
+# JSON-LD per v1.0
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.jsonld [R=303,L]
+
+# ============================================
+# VERSIONE CORRENTE (base URI)
+# ============================================
+
+# HTML per base URI
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/index.html [R=303,L]
 
-# Se il client richiede RDF/XML o OWL/XML, serve bodi.owl
+# RDF/XML o OWL/XML per base URI
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
 RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.owl [R=303,L]
 
-# Se il client richiede Turtle, serve bodi.ttl
+# Turtle per base URI
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.ttl [R=303,L]
+
+# JSON-LD per base URI
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.jsonld [R=303,L]
