@@ -1,2 +1,30 @@
-Redirect 301 /wmto/ https://labosca.github.io/wmto-ontology/index-en.html
-Redirect 301 /wmto/wmto.ttl https://labosca.github.io/wmto-ontology/wmto.ttl
+# wmto/.htaccess
+# Permanent namespace redirects for WMTO ontology
+# Maintainer: https://github.com/labosca
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Default (human-readable) documentation page
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/ [R=303,L]
+
+# Machine-readable formats
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.rdf [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.jsonld [R=303,L]
+
+# Direct file access (explicit redirects)
+Redirect 303 /wmto/wmto.ttl https://labosca.github.io/wmto-ontology/wmto.ttl
+Redirect 303 /wmto/wmto.rdf https://labosca.github.io/wmto-ontology/wmto.rdf
+Redirect 303 /wmto/wmto.jsonld https://labosca.github.io/wmto-ontology/wmto.jsonld
