@@ -8,4 +8,3 @@ Contact:
 Marta Boscariol, PhD Candidate, University of Turin 
 <marta.boscariol97@gmail.com>
 
-Hosted on [labosca.github.io/wmto-ontology]
