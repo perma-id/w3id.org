@@ -1,30 +1,43 @@
-# wmto/.htaccess
-# Permanent namespace redirects for WMTO ontology
-# Maintainer: https://github.com/labosca
+ # wmto/.htaccess
+ # Permanent namespace redirects for WMTO ontology
+ # Maintainer: https://github.com/labosca
 
-Options +FollowSymLinks
-RewriteEngine On
+ Options +FollowSymLinks
+ RewriteEngine On
 
-# Default (human-readable) documentation page
-RewriteRule ^$ https://labosca.github.io/wmto-ontology/index.html [R=303,L]
+ # Turn off MultiViews (can interfere with content negotiation)
+ Options -MultiViews
 
-# Machine-readable formats
-# RDF/XML
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/xml
-RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.rdf [R=303,L]
+ # Declare RDF-related MIME types for direct file access
+ AddType application/rdf+xml .rdf .owl
+ AddType text/turtle .ttl
+ AddType application/ld+json .jsonld
 
-# Turtle
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.ttl [R=303,L]
+ # First: if the client wants HTML (or a browser UA), send the human-readable page
+ RewriteCond %{HTTP_ACCEPT} text/html [OR]
+ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+ RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+ RewriteRule ^$ https://labosca.github.io/wmto-ontology/index.html [R=303,NE,L]
 
-# JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.jsonld [R=303,L]
+# If the accept header requests Turtle (prefer Turtle over RDF/XML)
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/x-turtle.*
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.ttl [R=303,NE,L]
 
-# Direct file access (explicit redirects)
-Redirect 303 /wmto/wmto.ttl https://labosca.github.io/wmto-ontology/wmto.ttl
-Redirect 303 /wmto/wmto.rdf https://labosca.github.io/wmto-ontology/wmto.rdf
-Redirect 303 /wmto/wmto.jsonld https://labosca.github.io/wmto-ontology/wmto.jsonld
+# If the accept header requests RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.rdf [R=303,NE,L]
+
+ # If the accept header requests JSON-LD
+ RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+ RewriteRule ^$ https://labosca.github.io/wmto-ontology/wmto.jsonld [R=303,NE,L]
+
+ # Suffixes: allow direct requests to specific serialisations
+ RewriteRule ^wmto\.ttl$ https://labosca.github.io/wmto-ontology/wmto.ttl [R=303,NE,L]
+ RewriteRule ^wmto\.rdf$ https://labosca.github.io/wmto-ontology/wmto.rdf [R=303,NE,L]
+ RewriteRule ^wmto\.jsonld$ https://labosca.github.io/wmto-ontology/wmto.jsonld [R=303,NE,L]
+
+ # Fallback default: human-readable documentation
+ RewriteRule ^$ https://labosca.github.io/wmto-ontology/index.html [R=303,NE,L]
