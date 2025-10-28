@@ -19,7 +19,9 @@ Survey:
 KROWN:
 * https://w3id.org/kg-construct/KROWN
 
+W3C-Chater
+* https://w3id.org/kg-construct/rml-wg-charter
+
 Contacts: 
-* David Chaves-Fraga <dchaves@fi.upm.es>
-* Pieter Heyvaert <pieter.heyvaert@ugent.be>
-* Anastasia Dimou <anastasia.dimou@ugent.be>
+* David Chaves-Fraga <david.chaves@usc.es>
+* Anastasia Dimou <anastasia.dimou@kuleuven.be>
