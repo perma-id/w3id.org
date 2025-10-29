@@ -2,37 +2,39 @@
 **Persistent identifier (PID) home** for the EDAAnOWL ontology and related resources.
 
 This directory hosts the redirection rules (via `.htaccess`) that resolve the PID
-<https://w3id.org/EDAAnOWL> and its associated vocabularies.
+<https://w3id.org/EDAAnOWL> and its associated versions and vocabularies.
 
 ## 🔗 Resolvable Resources
 
-This directory provides redirection for the main ontology PID and its modular vocabularies.
+### Main Ontology (Latest & Versioned)
 
-### Main Ontology: <https://w3id.org/EDAAnOWL>
+The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Specific versions can be accessed via `/<version>` (e.g., <https://w3id.org/EDAAnOWL/0.2.1>).
 
 * **HTML Docs (for browsers):**
-    `https://khaosresearch.github.io/EDAAnOWL/ontology/index-en.html`
-* **RDF/Turtle (for tools/machines):**
-    `https://raw.githubusercontent.com/KhaosResearch/EDAAnOWL/main/docs/ontology/edaan-owl.ttl`
+    * Latest: `https://khaosresearch.github.io/EDAAnOWL/latest/index.html`
+    * Versioned: `https://khaosresearch.github.io/EDAAnOWL/<version>/index.html`
+* **RDF Serializations (for tools):** Direct links to raw files:
+    * **Turtle (.ttl):** `.../docs/<latest_or_version>/ontology.ttl`
+    * **RDF/XML (.xml):** `.../docs/<latest_or_version>/ontology.xml`
+    * **N-Triples (.nt):** `.../docs/<latest_or_version>/ontology.nt`
+    * **JSON-LD (.jsonld):** `.../docs/<latest_or_version>/ontology.jsonld`
 
 ### Modular Vocabularies
 
-* **PID:** <https://w3id.org/EDAAnOWL/vocabularies/sector-scheme>
-    * **Target:** `https.../main/docs/vocabularies/sector-scheme.ttl`
-* **PID:** <https://w3id.org/EDAAnOWL/vocabularies/agro-vocab>
-    * **Target:** `https.../main/docs/vocabularies/agro-vocab.ttl`
-* **PID:** <https://w3id.org/EDAAnOWL/vocabularies/observed-properties>
-    * **Target:** `https.../main/docs/vocabularies/observed-properties.ttl`
-* **PID:** <https://w3id.org/EDAAnOWL/vocabularies/datatype-scheme>
-    * **Target:** `https.../main/docs/vocabularies/datatype-scheme.ttl`
+Vocabulary PIDs (e.g., <https://w3id.org/EDAAnOWL/vocabularies/sector-scheme>) resolve to their respective `.ttl` files.
+
+* Latest: `.../docs/latest/vocabularies/<vocab-name>.ttl`
+* Versioned: `.../docs/<version>/vocabularies/<vocab-name>.ttl`
 
 ## 📦 Content Negotiation
 
-The `.htaccess` provides standard content negotiation based on the `Accept` header:
-
-* **Browsers (`text/html`):** Redirected to the HTML documentation (GitHub Pages).
-* **Tools (`text/turtle`, `application/rdf+xml`, etc.):** Redirected to the raw `.ttl` file for the requested URI (GitHub Raw).
-* **Specific Terms (e.g., `/SomeClass`):** Redirected to the corresponding anchor in the HTML documentation.
+The `.htaccess` provides content negotiation based on the `Accept` header:
+* `text/html` → HTML documentation.
+* `text/turtle` → Turtle file (`ontology.ttl`).
+* `application/rdf+xml` → RDF/XML file (`ontology.xml`).
+* `application/n-triples` → N-Triples file (`ontology.nt`).
+* `application/ld+json` → JSON-LD file (`ontology.jsonld`).
+* Default/Fallback → Turtle file (`ontology.ttl`).
 
 ## 🧭 Scope
 
