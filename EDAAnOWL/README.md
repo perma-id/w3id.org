@@ -6,35 +6,41 @@ This directory hosts the redirection rules (via `.htaccess`) that resolve the PI
 
 ## 🔗 Resolvable Resources
 
+The redirection rules point to the ontology documentation and files hosted on GitHub Pages:
+**`https://khaosresearch.github.io/EDAAnOWL/`**
+
 ### Main Ontology (Latest & Versioned)
 
-The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Specific versions can be accessed via `/<version>` (e.g., <https://w3id.org/EDAAnOWL/0.2.1>).
+The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Specific versions can be accessed via `/<version>` (e.g., <https://w3id.org/EDAAnOWL/0.0.1>).
 
 * **HTML Docs (for browsers):**
-    * Latest: `https://khaosresearch.github.io/EDAAnOWL/latest/index.html`
-    * Versioned: `https://khaosresearch.github.io/EDAAnOWL/<version>/index.html`
-* **RDF Serializations (for tools):** Direct links to raw files:
-    * **Turtle (.ttl):** `.../docs/<latest_or_version>/ontology.ttl`
-    * **RDF/XML (.xml):** `.../docs/<latest_or_version>/ontology.xml`
-    * **N-Triples (.nt):** `.../docs/<latest_or_version>/ontology.nt`
-    * **JSON-LD (.jsonld):** `.../docs/<latest_or_version>/ontology.jsonld`
+    * `https://w3id.org/EDAAnOWL/` (Redirects to latest docs)
+    * `https://w3id.org/EDAAnOWL/0.0.1/` (Redirects to versioned docs)
+
+* **RDF Serializations (for tools, using `Accept` header):**
+    * **Turtle (.ttl):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.ttl`
+    * **RDF/XML (.owl):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.owl`
+    * **N-Triples (.nt):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.nt`
+    * **JSON-LD (.jsonld):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.jsonld`
 
 ### Modular Vocabularies
 
-Vocabulary PIDs (e.g., <https://w3id.org/EDAAnOWL/vocabularies/sector-scheme>) resolve to their respective `.ttl` files.
+Vocabulary PIDs are resolvable *per version*. For example:
+<https://w3id.org/EDAAnOWL/latest/vocabularies/sector-scheme>
 
-* Latest: `.../docs/latest/vocabularies/<vocab-name>.ttl`
-* Versioned: `.../docs/<version>/vocabularies/<vocab-name>.ttl`
+This PID will redirect to the raw `.ttl` file:
+* `https://khaosresearch.github.io/EDAAnOWL/latest/vocabularies/sector-scheme.ttl`
+* `https://khaosresearch.github.io/EDAAnOWL/0.0.1/vocabularies/agro-vocab.ttl`
 
 ## 📦 Content Negotiation
 
 The `.htaccess` provides content negotiation based on the `Accept` header:
-* `text/html` → HTML documentation.
-* `text/turtle` → Turtle file (`ontology.ttl`).
-* `application/rdf+xml` → RDF/XML file (`ontology.xml`).
-* `application/n-triples` → N-Triples file (`ontology.nt`).
-* `application/ld+json` → JSON-LD file (`ontology.jsonld`).
-* Default/Fallback → Turtle file (`ontology.ttl`).
+* `text/html` → HTML documentation (e.g., `.../latest/index.html`)
+* `text/turtle` → Turtle file (e.g., `.../latest/ontology.ttl`)
+* `application/rdf+xml` → RDF/XML file (e.g., `.../latest/ontology.owl`)
+* `application/n-triples` → N-Triples file (e.g., `.../latest/ontology.nt`)
+* `application/ld+json` → JSON-LD file (e.g., `.../latest/ontology.jsonld`)
+* Default/Fallback → Turtle file (e.g., `.../latest/ontology.ttl`)
 
 ## 🧭 Scope
 
