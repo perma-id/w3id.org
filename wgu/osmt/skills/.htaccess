@@ -1,0 +1,16 @@
+# w3id.org/wgu/osmt/skills → your ontology
+RewriteEngine On
+Options +FollowSymLinks
+
+# Content-negotiation: RDF gets TTL, others get HTML landing
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/craigtrim/wgu-osmt-skills-ontology/master/wgu-osmt-skills-ontology_v2025.11.01.ttl [R=302,L]
+
+# Fallback (humans)
+RewriteRule ^$ https://github.com/craigtrim/wgu-osmt-skills-ontology [R=302,L]
+
+# Optional frozen version path (example)
+RewriteRule ^2025\.11\.01$ https://raw.githubusercontent.com/craigtrim/wgu-osmt-skills-ontology/v2025.11.01/wgu-osmt-skills-ontology_v2025.11.01.ttl [R=302,L]
