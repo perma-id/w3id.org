@@ -19,13 +19,12 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-# Remove trailing slash if exists
-RewriteCond %{REQUEST_URI} /$
-RewriteRule ^(.*)/$ $1 [L,R=301]
-
 SetEnvIf Request_URI ^.*$ BASE=https://w3c.github.io/dpv
 SetEnvIf Request_URI ^.*$ DEV=https://dev.dpvcg.org
 SetEnvIf Request_URI ^.*$ LATEST=2.2
+
+# Remove trailing slash if exists
+RewriteRule ^(.*)/$ /$1 [R=302,L]
 
 ##### VOCAB: DPV #####
 
