@@ -18,6 +18,7 @@ It ensures that identifiers remain stable even if the underlying data or hosting
 
 ## Scope
 
+The scope of Oak National Academy's UKCO Project is the National Curriculum in England. 
 
 
 ## Maintainer
