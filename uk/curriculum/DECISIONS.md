@@ -1,2 +1,2 @@
-## Decision Log
+# Decision Log
 
