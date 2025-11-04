@@ -32,7 +32,7 @@ Oak National Academy
 # UK National Curriculum Ontology
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
-[![License](https://img.shields.io/badge/license-CC--BY--4.0-green.svg)]()
+[![License](https://img.shields.io/badge/MIT-License-green.svg)]()
 
 ## What is this?
 
