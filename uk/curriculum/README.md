@@ -1,5 +1,8 @@
 # UK Curriculum Ontology (UKCO) Namespace
 
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
+[![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen)]()
+
 This permanent [w3id.org](https://w3id.org) namespace provides stable, persistent identifiers for the **UK Curriculum Ontology (UKCO)** and related resources published by **Oak National Academy**.
 
 The namespace is intended to support linked data applications, educational resource discovery, and interoperability across curriculum datasets.
@@ -29,10 +32,7 @@ Oak National Academy
 🔗 [https://github.com/oaknational](https://github.com/oaknational)
 
 
-# UK National Curriculum Ontology
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
-[![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen)]()
 
 ## What is this?
 
