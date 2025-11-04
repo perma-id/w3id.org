@@ -5,7 +5,7 @@ This permanent [w3id.org](https://w3id.org) namespace provides stable, persisten
 The namespace is intended to support linked data applications, educational resource discovery, and interoperability across curriculum datasets.
 
 **Namespace:** [https://w3id.org/uk/curriculum/](https://w3id.org/uk/curriculum/)  
-**Redirects to:** [https://www.thenational.academy/uk/curriculum/](https://www.thenational.academy/uk/curriculum/)
+**Redirects to:** [https://github.com/oaknational/uk-curriculum-ontology/](https://github.com/oaknational/uk-curriculum-ontology/)
 
 ## Purpose
 
