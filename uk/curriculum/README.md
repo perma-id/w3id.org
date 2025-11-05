@@ -25,5 +25,5 @@ The scope of Oak National Academy's UKCO Project is the National Curriculum in E
 
 **Mark Hodierne**  
 Oak National Academy  
-📧 eng.mhodierne@thenational.academy  
-🔗 [https://github.com/oaknational](https://github.com/oaknational)
+📧 eng.mhodierne@thenational.academy
+🔗 [https://github.com/markhodierne](https://github.com/markhodierne)
