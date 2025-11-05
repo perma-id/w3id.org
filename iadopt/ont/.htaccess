@@ -17,16 +17,14 @@ RewriteEngine on
 # Rewrite rule to serve HTML with local name
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteCond %{REQUEST_URI} /ont/(\d+)\.(\d+)\.(\d+)/(.+)$
 RewriteRule ^ https://i-adopt.github.io/ontology/archive/%1.%2.%3/index.html#/%4 [NE,R=303,L]
 
 # Rewrite rule to serve HTML without local name
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteCond %{REQUEST_URI} /ont/(\d+)\.(\d+)\.(\d+)
 RewriteRule ^ https://i-adopt.github.io/ontology/archive/%1.%2.%3/index.html [R=303,L]
 
@@ -58,15 +56,13 @@ RewriteRule ^ https://i-adopt.github.io/ontology/archive/%1.%2.%3/ontology.ttl [
 # Rewrite rule to serve HTML with local name
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^(.+)$ https://i-adopt.github.io/ontology/index.html#/$1 [NE,R=303,L]
 
 # Rewrite rule to serve HTML without local name
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^(.*)$ https://i-adopt.github.io/ontology/index.html [R=303,L]
 
 # Rewrite rule to serve JSON-LD
