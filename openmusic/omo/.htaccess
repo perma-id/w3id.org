@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect base namespace (HTML)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} */*
+RewriteRule ^$ https://dataobservatory-eu.github.io/open-muisc-ontology/index.html [R=302,L]
+
+# Redirect TTL requests
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{QUERY_STRING} format=ttl
+RewriteRule ^$ https://dataobservatory-eu.github.io/open-muisc-ontology/omo.ttl [R=302,L]
+
+# Fallback: default to HTML
+RewriteRule ^$ https://dataobservatory-eu.github.io/open-muisc-ontology/index.html [R=302,L]
