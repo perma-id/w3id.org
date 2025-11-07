@@ -1,36 +1,80 @@
 # Turn off MultiViews
 Options -MultiViews
 
-# Directive to ensure *.rdf files served as appropriate content type,
-# if not present in main apache config
+# Add content types for RDF serializations
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
-AddType application/n-triples .n3
+AddType application/n-triples .nt
 AddType application/ld+json .jsonld
-# Rewrite engine setup
+
 RewriteEngine On
-#Change the path to the folder here
 RewriteBase /
 
-# Rewrite rule to serve HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/ontology/index-en.html [R=303,L]
+# -----------------------------------------------------------------------------
+# GENERIC RULES (FUTURE-PROOF)
+# This regex matches "latest" OR any "X.Y.Z" semantic version string.
+# $1 captures the folder name (e.g., "latest", "0.2.1", "1.0.0")
+# $3 captures the vocabulary name (if present)
+# -----------------------------------------------------------------------------
 
-# Rewrite rule to serve directed HTML content from class/prop URIs
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(.+) https://khaosresearch.github.io/EDAAnOWL/ontology/index-en.html#$1 [R=303,NE]
+# Rule 1: Vocabularies (e.g., /latest/vocabularies/sector-scheme) - Always serve Turtle
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))/vocabularies/([a-zA-Z0-9_-]+)$ https://khaosresearch.github.io/EDAAnOWL/$1/vocabularies/$3.ttl [R=303,L]
 
+# Rule 2: Versioned/Latest Ontology PID (e.g., /0.2.1 or /latest) - Content Negotiation
+# HTML request (browser) -> Widoco docs index for THAT version
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/index-en.html [R=303,L]
+
+# Specific RDF format requests -> Raw file with corresponding extension for THAT version
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/ontology.ttl [R=303,L]
+
+# RDF/XML request -> .owl file
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.+) https://raw.githubusercontent.com/KhaosResearch/EDAAnOWL/refs/heads/main/docs/ontology/ontology.owl [R=302,NE,L]
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/ontology.owl [R=303,L]
 
-# Default response
-# ---------------------------
-# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
-RewriteRule ^$ https://raw.githubusercontent.com/KhaosResearch/EDAAnOWL/refs/heads/main/docs/ontology/ontology.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/ontology.jsonld [R=303,L]
+
+# Fallback for versioned/latest PIDs (if Accept header is missing or doesn't match known RDF types) -> Turtle file
+RewriteRule ^(latest|([0-9]+\.[0-9]+\.[0-9]+))$ https://khaosresearch.github.io/EDAAnOWL/$1/ontology.ttl [R=303,L]
+
+# -----------------------------------------------------------------------------
+# RULES FOR THE BASE URI ( /EDAAnOWL ) -> Redirects to "latest"
+# -----------------------------------------------------------------------------
+
+# Rule 3: HTML request for base URI -> redirect to "latest" docs index
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/index-en.html [R=303,L]
+
+# Rule 4: HTML request for a term (e.g., /DataProfile) -> redirect to anchor in "latest" docs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+# Match only if it's NOT a version string or "latest" or "vocabularies" - i.e., it's likely a term
+RewriteCond %{REQUEST_URI} !^/(latest|([0-9]+\.[0-9]+\.[0-9]+)|vocabularies)/?$
+RewriteRule ^(.+)$ https://khaosresearch.github.io/EDAAnOWL/latest/index-en.html#$1 [R=303,NE,L]
+
+# Rule 5: Specific RDF format requests for base URI -> redirect to "latest" raw file
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/ontology.ttl [R=303,L]
+
+# RDF/XML request -> .owl file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/ontology.nt [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/ontology.jsonld [R=303,L]
+
+# Rule 6: Fallback for base URI -> "latest" Turtle file
+RewriteRule ^$ https://khaosresearch.github.io/EDAAnOWL/latest/ontology.ttl [R=303,L]
