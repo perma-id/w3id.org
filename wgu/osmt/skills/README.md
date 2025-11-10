@@ -7,4 +7,4 @@ Persistent IDs for the WGU OSMT Skills ontology.
 - Versioning: dated frozen paths like `/wgu/osmt/skills/2025.11.01`
 
 **Maintainer**
-- Craig Trim <craigtrim@gmail.com>
+- Craig Trim (@craigtrim) <craigtrim@gmail.com>
