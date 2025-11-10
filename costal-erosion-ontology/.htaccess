@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# If the client requests Turtle serialization
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://raw.githubusercontent.com/hdzyanie/costal-erosion-ontology/main/ontology.ttl [R=303,L]
+
+# Default: serve Turtle
+RewriteRule ^$ https://raw.githubusercontent.com/hdzyanie/costal-erosion-ontology/main/ontology.ttl [R=303,L]
