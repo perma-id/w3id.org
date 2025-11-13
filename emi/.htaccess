@@ -16,7 +16,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/index.html [R=303,L]
+RewriteRule ^$ https://www.earthmetabolome.org/earth_metabolome_ontology/ [R=303,L]
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
@@ -37,6 +37,17 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.ttl [R=303,L]
 
+# Rewrite rule to serve TTL content for the EBI-OLS service 
+RewriteCond %{REQUEST_URI} ols\.ttl$
+RewriteRule ols\.ttl$/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/emi-ols.ttl [R=301,L]
+
+# Rewrite rule to serve TTL content for the NPClassifier taxonomy
+RewriteCond %{REQUEST_URI} npc
+RewriteRule npc/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/npc_taxonomy.ttl [R=301,L]
+
+# Rewrite rule to serve content to the latest EMI version
+RewriteCond %{REQUEST_URI} version/1.0
+RewriteRule version/1.0/?$ https://w3id.org/emi [R=301,L]
 
 ## We will have to better handle the EMI ontology versions in the future.
 

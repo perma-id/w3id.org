@@ -11,12 +11,20 @@ RewriteEngine on
 # Redirect based on Accept headers: If RDF is not accepted, but HTML is
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/index-en [R=303,L]
+RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/2.0/index-en [R=303,L]
+RewriteRule ^2.0/?$ https://dh-atlas.github.io/deliverables/ontology/2.0/index-en [R=303,L]
+RewriteRule ^1.0/?$ https://dh-atlas.github.io/deliverables/ontology/1.0/index-en [R=303,L]
  
 # Redirect to RDF serialization when RDF is explicitly requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
-RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/serializations/ontology.owl [R=303,L]
+RewriteRule ^$ https://dh-atlas.github.io/deliverables/ontology/2.0/serializations/ontology.owl [R=303,L]
+RewriteRule ^2.0/?$ https://dh-atlas.github.io/deliverables/ontology/2.0/serializations/ontology.owl [R=303,L]
+RewriteRule ^1.0/?$ https://dh-atlas.github.io/deliverables/ontology/1.0/serializations/ontology.owl [R=303,L]
+
+# Direct mappings for specific versions
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
  
 # Direct mappings for specific terms or actions
 RewriteRule ^sparql$ https://projects.dharc.unibo.it/atlas/sparql [R=302,L]
