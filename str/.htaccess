@@ -1,0 +1,66 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Redirect to w3id.org/str/
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://semiceu.github.io/STR-AP/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.ttl [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.jsonld [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.rdf [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://semiceu.github.io/STR-AP/puri/$1.nt [NE,R,L]
+
+RewriteRule ^ActivityData$ https://semiceu.github.io/STR-AP/#ActivityData [NE,R,L]
+RewriteRule ^CoordinationGroup$ https://semiceu.github.io/STR-AP/#CoordinationGroup [NE,R,L]
+RewriteRule ^RegistrationNumber$ https://semiceu.github.io/STR-AP/#RegistrationNumber [NE,R,L]
+RewriteRule ^RegistrationProcedure$ https://semiceu.github.io/STR-AP/#RegistrationProcedure [NE,R,L]
+RewriteRule ^OnlineShortTermRentalPlatform$ https://semiceu.github.io/STR-AP/#OnlineShortTermRentalPlatform [NE,R,L]
+RewriteRule ^Order$ https://semiceu.github.io/STR-AP/#Order [NE,R,L]
+RewriteRule ^ShortTermAccomodationRentalService$ https://semiceu.github.io/STR-AP/#ShortTermAccomodationRentalService [NE,R,L]
+RewriteRule ^SingleDigitalEntryPoint$ https://semiceu.github.io/STR-AP/#SingleDigitalEntryPoint [NE,R,L]
+RewriteRule ^Unit$ https://semiceu.github.io/STR-AP/#Unit [NE,R,L]
+
+RewriteRule ^checks$ https://semiceu.github.io/STR-AP/#OnlineShortTermRentalPlatform.checks [NE,R,L]
+RewriteRule ^concerns$ https://semiceu.github.io/STR-AP/#Order.concerns [NE,R,L]
+RewriteRule ^countryOfResidence$ https://semiceu.github.io/STR-AP/#ActivityData.countryofresidence [NE,R,L]
+RewriteRule ^describes$ https://semiceu.github.io/STR-AP/#Evidence.describes [NE,R,L]
+RewriteRule ^establishes$ https://semiceu.github.io/STR-AP/#PublicOrganisation.establishes [NE,R,L]
+RewriteRule ^floorLevel$ https://semiceu.github.io/STR-AP/#Unit.floorlevel [NE,R,L]
+RewriteRule ^hasAuthorization$ https://semiceu.github.io/STR-AP/#Unit.hasauthorization [NE,R,L]
+RewriteRule ^hasLegalRepresentative$ https://semiceu.github.io/STR-AP/#LegalEntity.haslegalrepresentative [NE,R,L]
+RewriteRule ^hasListing$ https://semiceu.github.io/STR-AP/#Distribution.haslisting [NE,R,L]
+RewriteRule ^hasNationalCoordinator$ https://semiceu.github.io/STR-AP/#PublicOrganisation.hasnationalcoordinator [NE,R,L]
+RewriteRule ^hasUnitAddress$ https://semiceu.github.io/STR-AP/#Unit.hasunitaddress [NE,R,L]
+RewriteRule ^identifies$ https://semiceu.github.io/STR-AP/#RegistrationNumber.identifies [NE,R,L]
+RewriteRule ^isAbout$ https://semiceu.github.io/STR-AP/#ActivityData.isabout [NE,R,L]
+RewriteRule ^isAuthorizationObtained$ https://semiceu.github.io/STR-AP/#Unit.isauthorizationobtained [NE,R,L]
+RewriteRule ^isNotifiedBy$ https://semiceu.github.io/STR-AP/#Person.isnotifiedby [NE,R,L]
+RewriteRule ^isOfferedOn$ https://semiceu.github.io/STR-AP/#Unit.isofferedon [NE,R,L]
+RewriteRule ^isPointOfContactFor$ https://semiceu.github.io/STR-AP/#Person.ispointofcontactfor [NE,R,L]
+RewriteRule ^isReferredIn$ https://semiceu.github.io/STR-AP/#Person.isreferredin [NE,R,L]
+RewriteRule ^isSubjectToAuthorization$ https://semiceu.github.io/STR-AP/#Unit.issubjecttoauthorization [NE,R,L]
+RewriteRule ^issues$ https://semiceu.github.io/STR-AP/#PublicOrganisation.issues [NE,R,L]
+RewriteRule ^landRegister$ https://semiceu.github.io/STR-AP/#Address.landregister [NE,R,L]
+RewriteRule ^numberOfBedrooms$ https://semiceu.github.io/STR-AP/#Unit.numberofbedrooms [NE,R,L]
+RewriteRule ^numberOfGuests$ https://semiceu.github.io/STR-AP/#ActivityData.numberofguests [NE,R,L]
+RewriteRule ^occupancy$ https://semiceu.github.io/STR-AP/#Unit.occupancy [NE,R,L]
+RewriteRule ^offers$ https://semiceu.github.io/STR-AP/#Person.offers [NE,R,L]
+RewriteRule ^provides$ https://semiceu.github.io/STR-AP/#Person.provides [NE,R,L]
+RewriteRule ^providesAccessTo$ https://semiceu.github.io/STR-AP/#ShortTermAccomodationRentalService.providesaccessto [NE,R,L]
+RewriteRule ^providesInformationTo$ https://semiceu.github.io/STR-AP/#OnlineShortTermRentalPlatform.providesinformationto [NE,R,L]
+RewriteRule ^publishes$ https://semiceu.github.io/STR-AP/#OnlineShortTermRentalPlatform.publishes [NE,R,L]
+RewriteRule ^purpose$ https://semiceu.github.io/STR-AP/#Unit.purpose [NE,R,L]
+RewriteRule ^reason$ https://semiceu.github.io/STR-AP/#Order.reason [NE,R,L]
+RewriteRule ^sentTo$ https://semiceu.github.io/STR-AP/#Order.sentto [NE,R,L]
+RewriteRule ^submissionDate$ https://semiceu.github.io/STR-AP/#Document.submissiondate [NE,R,L]
+RewriteRule ^updateDate$ https://semiceu.github.io/STR-AP/#Document.updatedate [NE,R,L]
+RewriteRule ^verifies$ https://semiceu.github.io/STR-AP/#PublicOrganisation.verifies [NE,R,L]

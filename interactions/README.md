@@ -12,5 +12,8 @@ Ontologies: EMAS@AAMAS'22 Signifiers for Affordance-driven Multi-Agent Systems
 * https://w3id.org/interactions/ontologies/profile/v1 --> https://raw.githubusercontent.com/Interactions-HSG/signifier-java/master/src/ontologies/profile.owl
 * https://w3id.org/interactions/ontologies/hypermedia/v1 --> https://raw.githubusercontent.com/Interactions-HSG/signifier-java/master/src/ontologies/hypermedia.owl
 
+Ontologies: Interactions Lab
+* https://w3id.org/interactions/ontologies/xarm/v1 --> https://raw.githubusercontent.com/danaivach/xarm-ontology/main/core.ttl
+
 Contacts: 
-* Danai Vachtsevanou <danai.vacht@gmail.com>
+* Danai Vachtsevanou <danai.vacht@gmail.com> (@danaivach)

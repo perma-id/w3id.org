@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://wisib.de/ontologie/bridge/
-* Turtle   https://wisib.de/ontologie/bridge/ontology.ttl
+* Doc      https://alhakam.github.io/bridge/
+* Turtle   https://alhakam.github.io/bridge/ontology.ttl
 
 
 Contacts

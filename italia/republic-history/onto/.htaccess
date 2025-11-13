@@ -1,0 +1,25 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Set default value if none of the other rules match
+SetEnvIf Request_URI ^.*$ SYNTAX=ttl
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/PortaleFontiRepubblica/assets/main/ontologies/
+SetEnvIf Request_URI ^.*$ LODVIEW_URL=https://portalefontirepubblicaitaliana-test.ge.imati.cnr.it/lodview/onto/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/https://w3id.org/italia/republic-history/onto/
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl)$
+RewriteRule ^([a-zA-Z-_0-9]+)(/?)$ %{ENV:ROOT_URL}$1/latest/$1.%{ENV:SYNTAX} [R=303,L]
+# version-aware redirect
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl)$
+RewriteRule ^([a-zA-Z-_0-9]+)/([0-9]+.[0-9]+)(/?)$ %{ENV:ROOT_URL}$1/v$2/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+?)/?$ %{ENV:LODE_URL}$1 [R=303,L]

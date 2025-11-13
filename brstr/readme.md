@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://wisib.de/ontologie/brstr/
-* Turtle   https://wisib.de/ontologie/brstr/ontology.ttl
+* Doc      https://alhakam.github.io/brstr/
+* Turtle   https://alhakam.github.io/brstr/ontology.ttl
 
 
 Contacts

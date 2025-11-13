@@ -18,22 +18,25 @@ AddType application/trig .trig
 
 # entry point
 # this will point to rohub main page
-RewriteRule ^$ https://reliance.rohub.org/ [R=302,L]
+RewriteRule ^$ https://www.rohub.org/ [R=302,L]
+
+# ROHub vocab
+RewriteRule ^rohub/model(.*)$ https://raw.githubusercontent.com/rohub/model/refs/heads/main/rohub_vocab.ttl [R=302,L]
 
 # ROHub user (imported)
-RewriteRule ^users/(.*)$ https://reliance.rohub.org/userprofile?username=$1 [R=302,L]
+RewriteRule ^users/(.*)$ https://www.rohub.org/userprofile?username=$1 [R=302,L]
 
 # about page 
 # this will point to rohub main page
-RewriteRule ^about$ https://reliance.rohub.org/about [R=302,L]
+RewriteRule ^about$ https://www.rohub.org/about [R=302,L]
 
 # explore page 
 # this will point to rohub main page
-RewriteRule ^explore$ https://reliance.rohub.org/explore [R=302,L]
+RewriteRule ^explore$ https://www.rohub.org/explore [R=302,L]
 
 # Research Object resource
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)/resources/(.*)$ https://reliance.rohub.org/$1?activetab=content&resource=$2 [R=302,L]
+RewriteRule ^(.*)/resources/(.*)$ https://www.rohub.org/$1?activetab=content&resource=$2 [R=302,L]
 # download resource
 RewriteRule ^(.*)/resources/(.*)$ https://api.rohub.org/api/resources/$2/download/ [R=302,L]
 RewriteRule ^resources/(.*)$ https://api.rohub.org/api/resources/$1/download/ [R=302,L]
@@ -99,7 +102,11 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/trig.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
-RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://api.rohub.org/api/ros/$1/download/ [R=302,L]
 # else open RO in ROHub portal
 # RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)$ https://reliance.rohub.org/$1?activetab=overview [R=302,L]
+# original
+# RewriteRule ^(.*)$ https://www.rohub.org/$1?activetab=overview [R=302,L]
+RewriteRule ^([^/]*)/?$ https://www.rohub.org/$1?activetab=overview [R=302,L]

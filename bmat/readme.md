@@ -2,8 +2,8 @@
 
 Ontology
 
-* Doc      https://wisib.de/ontologie/bmat/
-* Turtle   https://wisib.de/ontologie/bmat/ontology.ttl
+* Doc      https://alhakam.github.io/bmat/
+* Turtle   https://alhakam.github.io/bmat/ontology.ttl
 
 
 Contacts

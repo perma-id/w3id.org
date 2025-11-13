@@ -8,4 +8,3 @@
 - Dave Longley (@dlongley)
 - David I. Lehn (@davidlehn)
 - Manu Sporny (@msporny)
-- Orie Steele (@OR13)

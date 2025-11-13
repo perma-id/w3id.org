@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# HTML:
+# RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{REQUEST_URI} ^(\/nfdi4ing\/profiles\/)$
+RewriteRule ^(.*)$ https://demo.aims-projekt.de [R=303,L,NE]
+
+# Depending on accept header, redirect to backend
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://pg4aims.ulb.tu-darmstadt.de/AIMS/application-profiles/RawRDF/https\%3A\%2F\%2Fw3id.org\%2Fnfdi4ing\%2Fprofiles\%2F$1 [R=303,L,NE]
+
+# Redirect all remaining requests to editor
+RewriteRule ^(.*)$ https://profiles.nfdi4ing.de/#/editor?applicationProfile=https\%3A\%2F\%2Fw3id.org\%2Fnfdi4ing\%2Fprofiles\%2F$1 [R=303,L,NE]

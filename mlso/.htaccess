@@ -1,0 +1,25 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine on
+
+## TAXONOMIES REDIRECTS
+RewriteRule ^vocab/dataset_characteristic$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_dataset_characteristics.ttl [R=302,L]
+RewriteRule ^vocab/feature_characteristic$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_feature_characteristics.ttl [R=302,L]
+RewriteRule ^vocab/evaluation_measure$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_evaluation_measures.ttl [R=302,L]
+RewriteRule ^vocab/estimation_procedure$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_estimation_procedures.ttl [R=302,L]
+RewriteRule ^vocab/learning_method$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_learning_methods.ttl [R=302,L]
+RewriteRule ^vocab/ml_algorithm$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_algorithms.ttl [R=302,L]
+RewriteRule ^vocab/ml_field$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_fields.ttl [R=302,L]
+RewriteRule ^vocab/ml_task_type$ https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/Taxonomies/mlso_ml_task_types.ttl [R=302,L]
+
+## CONTENT NEGOTIATION
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)\.conneg$ https://dtai-kg.github.io/MLSO/#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)\.conneg$  https://raw.githubusercontent.com/dtai-kg/MLSO/main/ontology/ml-onto.ttl#http://w3id.org/$1 [NE,R,L]
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule (.*)\.conneg$ https://dtai-kg.github.io/MLSO/406.html [NE,L,R=406] # Error Widoco page
+
+## ALL OTHER REDIRECTS
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/mlso/$1.conneg [NE,R,L]

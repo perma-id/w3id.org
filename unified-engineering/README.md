@@ -1,5 +1,5 @@
 # An ontology that integrates existing engineering ontologies for the purpose of building autonomous systems
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the interaction ontology (InterOnt) resources.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the ontologies in the Unified Engineering project.
 
 
 ## Contact

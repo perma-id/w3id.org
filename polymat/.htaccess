@@ -1,0 +1,37 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .owl
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Rewrite rule to serve RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://dlr-dw.gitlab.io/poly-ontologies/polymat-ontology/ontology.owl [R=303,L]
+
+# Rewrite rule to serve JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://dlr-dw.gitlab.io/poly-ontologies/polymat-ontology/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://dlr-dw.gitlab.io/poly-ontologies/polymat-ontology/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://dlr-dw.gitlab.io/poly-ontologies/polymat-ontology/ontology.ttl [R=303,L]
+
+# Default response
+# ---------------------------
+# default response is the documentation page
+RewriteRule ^(.*)$ https://dlr-dw.gitlab.io/poly-ontologies/polymat-ontology/index.html#$1 [NE,R=303,L]

@@ -1,0 +1,63 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/n-quads .nq
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# ------------------------------------------------------------------------------
+# Rewrite rule to serve JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/APD.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ https://traitecoevo.github.io/APD/APD.json [R=303,L]
+
+# ------------------------------------------------------------------------------
+# Rewrite rule to serve N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/APD.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ https://traitecoevo.github.io/APD/APD.nt [R=303,L]
+
+# ------------------------------------------------------------------------------
+# Rewrite rule to serve N-Quads
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/APD.nq [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-quads
+RewriteRule ^ https://traitecoevo.github.io/APD/APD.nq [R=303,L]
+
+# ------------------------------------------------------------------------------
+# Rewrite rule to serve TTL
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/APD.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^ https://traitecoevo.github.io/APD/APD.ttl [R=303,L]
+
+# ------------------------------------------------------------------------------
+# Rewrite rule to serve HTML
+# Don't need RewriteCond as only processed if none of the above are satisfied
+RewriteRule ^release/(\d+)\.(\d+)\.(\d+)(.+)?$ https://traitecoevo.github.io/APD/release/$1.$2.$3/index.html [R=303,L]
+
+RewriteRule ^traits/trait_(.+)$ https://traitecoevo.github.io/APD/index.html#trait_$1 [R=303,NE,L]
+RewriteRule ^traits/?$ https://traitecoevo.github.io/APD/index.html#trait-concepts [R=303,NE,L]
+RewriteRule ^glossary/glossary_(.+)/?$ https://traitecoevo.github.io/APD/index.html#glossary_$1 [R=303,NE,L]
+RewriteRule ^glossary/?$ https://traitecoevo.github.io/APD/index.html#glossary [R=303,NE,L]
+
+## Final call should catch all remaining calls that haven't been matched above 
+RewriteRule ^ https://traitecoevo.github.io/APD/index.html [R=303,L]

@@ -1,0 +1,25 @@
+RewriteEngine on
+
+# https://w3id.org/semanticarts/ns/ontology/gist
+# This is the gist namespace, we are redirecting it to a web page
+RewriteRule ^ns/ontology/gist$ https://ontologies.semanticarts.com/ontology/Namespace.html [R=302,L]
+RewriteRule ^ns/ontology/gist/$ https://ontologies.semanticarts.com/ontology/Namespace.html [R=302,L]
+
+# everything else to be redirected to a similar URL on our server
+# Ex: https://w3id.org/semanticarts/gistCore
+# Ex: https://w3id.org/semanticarts/gistCore.ttl
+# Ex: https://w3id.org/semanticarts/ns/ontology/gist/Person
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1 [R=302,L]
+
+## gist ontology terms to be redirected to similar URL on our server
+## Ex: https://w3id.org/semanticarts/ns/ontology/gist/Person
+#RewriteRule ^ns/(.+)$ https://ontologies.semanticarts.com/ns/$1 [R=302,L]
+#
+## gist ontology files and bundles to be redirected to current download URL on our server
+## Ex: w3id.org/semanticarts/gistCore
+## Ex: w3id.org/semanticarts/gistCore.ttl
+## Ex: w3id.org/semanticarts/gistCoreX.x.x.ttl
+## Ex: w3id.org/semanticarts/gistMediaTypes11.1.0.ttl
+## Ex: w3id.org/semanticarts/gist11.0.0_webDownload.zip
+#RewriteRule ^gist(.*)$ https://ontologies.semanticarts.com/gist$1 [R=302,L]
+

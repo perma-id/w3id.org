@@ -43,3 +43,4 @@ BioCompute standardized bioinformatics pipelines/workflows in the High-Throughpu
 - Vahan Simonyan <vahansim@gmail.com>
 - Hadley King <hadley_king@gwu.edu>
 - Jonathon Keeney <keeneyjg@gwu.edu>
+- Tianyi Wang <twang9@gwu.edu>

@@ -1,12 +1,20 @@
 # ixo
+
 Open protocols for the Internet of Impact.
 [Project Website](https://ixo.world)
 
-* Specifications
-* Vocab
-* Claims, Verifiable Credentials, Rubrics, Methods
-* Artefacts
+- Specifications
+- Vocab
+- Claims, Verifiable Credentials, Rubrics, Methods
+- Artefacts
 
-## Contacts
-Maintainer: Shaun Conway @ig_shaun
-Email: assistant [at] ixo.world
+### Contacts
+
+- Shaun Conway
+
+  - email: contact@emerging.eco
+  - github: ig-shaun
+
+- Michael Pretorius
+  - email: michael@ixo.world
+  - github: Michael-Ixo

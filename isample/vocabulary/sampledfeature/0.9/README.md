@@ -7,6 +7,8 @@
 
 catches https://w3id.org/isample/vocabulary/sampledfeature/0.9/{term}
 
+redirects to ESIPfed Community Ontology Repository (COR) http://cor.esipfed.org/ont#/
+
 
 **Contacts:**
 * Stephen Richard <smrTucson@gmail.com> - GitHub: https://github.com/smrgeoinfo

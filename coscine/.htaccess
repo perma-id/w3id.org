@@ -1,0 +1,117 @@
+# # Coscine Research Data Management Platform Redirect Rules
+
+Header set Access-Control-Allow-Origin *
+
+RewriteEngine on
+
+# ## Only Handle Known Set of Namespaces
+
+RewriteRule !^(ap|profiles|ontologies|terms|voc|vocabularies|p|r)/.+$ - [R=404,L,NE]
+
+# ## Get Acceptable File Extension from Accept Header for Content Negotiation
+
+# Human readable: HTML
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?text/html([,;].*)?$
+RewriteRule ^ - [E=ACCEPTEXT:html]
+
+# Machine readable: Turtle
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/x-turtle|text/turtle)([,;].*)?$
+RewriteRule ^ - [E=ACCEPTEXT:ttl]
+
+# Machine readable: JSON-LD
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/json-ld|application/json|text/json)([,;].*)?$
+RewriteRule ^ - [E=ACCEPTEXT:jsonld]
+
+# Machine readable: RDF-XML
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/rdf\+xml|application/xml|text/xml)([,;].*)?$
+RewriteRule ^ - [E=ACCEPTEXT:xml]
+
+# Machine readable: N-Triples
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteCond %{HTTP_ACCEPT} ^(.*[,;])?(application/n-triples|text/n3|text/rdf\+n3)([,;].*)?$
+RewriteRule ^ - [E=ACCEPTEXT:n3]
+
+# If no known content type found, fall back to Turtle
+RewriteCond %{ENV:ACCEPTEXT} ^$
+RewriteRule ^ - [E=ACCEPTEXT:ttl]
+
+# ## Get File, Path and Extension from Request.
+
+# The first path segment will be used as namespace to decide on wich ruleset to use below.
+# If the last path segment ends in `.something` we assume that this is supposed to be a file.
+# All other path segments are interpreted as directories.
+
+# Ignore the very first path segement and the very last if it ends with `.something`; take all others as the file path.
+# If the last segment contains a `.` but sould be interpreted as a path the requester should add an ending  `/`.
+# Other than that `.` in directory names should be fine.
+RewriteRule ^[^/]*/(.*?)(/[^/]*\.[^./]+)?$ - [E=FILEPATH:$1]
+# Whatever is before the `.` is saved as the file base name.
+RewriteRule ^.*/(.*)\.[^./]+$ - [E=FILEBASE:$1]
+# Whatever is after the `.` is saved as the file extension.
+RewriteRule ^.*/.*\.([^./]+)$ - [E=FILEEXT:$1]
+
+# ## Coscine Web, API and LDP in `/p/` and `/r/`
+
+# Generally assume to serve from LDP.
+RewriteRule ^ - [E=REMOTEURL:https://ldp.coscine.de]
+# Special case for non semantic json as they are served through own REST API
+RewriteCond %{HTTP_ACCEPT} ^(.*[;])?(application/json|text/json)([,;].*)?$
+RewriteRule ^ - [E=REMOTEURL:https://api.coscine.de/v2]
+# Human readable format is served through web app.
+RewriteCond %{ENV:ACCEPTEXT} =html
+RewriteRule ^ - [E=REMOTEURL:https://coscine.rwth-aachen.de]
+
+# Direct links to resources without projects currently only work on LDP
+RewriteCond %{ENV:REMOTEURL} =https://api.coscine.de/v2 [OR]
+RewriteCond %{ENV:REMOTEURL} =https://coscine.rwth-aachen.de
+RewriteRule ^r/(.+)$ - [R=406,L,NE]
+
+# LDP does not care about projects if deep linking to a resource
+RewriteCond %{ENV:REMOTEURL} =https://ldp.coscine.de
+RewriteRule ^p/.+?/r(/.*)$ %{ENV:REMOTEURL}/r$1 [R=303,L,NE]
+
+# API uses `projects` and `resources` for `p` and `r` and requires `trees/metadata` enpoint for paths
+RewriteCond %{ENV:REMOTEURL} !=https://api.coscine.de/v2
+RewriteRule ^ - [S=3]
+RewriteRule ^p/(.+?)/r/(.+)(/.*)$ %{ENV:REMOTEURL}/projects/$1/resources$2/trees/metadata?path=$3 [R=303,L,NE,QSA]
+RewriteRule ^p/(.+?)/r(/.*)?$ %{ENV:REMOTEURL}/projects/$1/resources$2 [R=303,L,NE]
+RewriteRule ^p(/.*)$ %{ENV:REMOTEURL}/projects$1 [R=303,L,NE]
+
+# In any other case just do the redirect
+RewriteRule ^(p|r)(/.*)$ %{ENV:REMOTEURL}/$1$2 [R=303,L,NE]
+
+# ## Coscine Static RDF Graphs in `/ap/`, `/profiles/`, `/ontologies/`, `/terms/`, `/voc/` and `/vocabularies/`
+
+# Machine readable formats are served from `raw` files URL.
+RewriteRule ^ - [E=REMOTEURL:https://git.rwth-aachen.de/coscine/graphs/applicationprofiles/-/raw/master/]
+# Human readable format is served HTML-rendered from `blob`/`tree` URLs. GitLab will automatically redirect to `tree` for a directory
+RewriteCond %{ENV:ACCEPTEXT} =html
+RewriteRule ^ - [E=REMOTEURL:https://git.rwth-aachen.de/coscine/graphs/applicationprofiles/-/blob/master/]
+
+# Some directories directly available in the static graphs.
+RewriteRule ^(ontologies|terms|vocabularies|profiles)/.+$ - [E=REMOTEPATH:$1/%{ENV:FILEPATH}]
+# `ap` and `voc` are shortcuts for `profiles` and `vocabularies`.
+RewriteRule ^ap/.+$ - [E=REMOTEPATH:profiles/%{ENV:FILEPATH}]
+RewriteRule ^voc/.+$ - [E=REMOTEPATH:vocabularies/%{ENV:FILEPATH}]
+
+# If the a specific file was requested get this from the remote.
+RewriteCond %{ENV:FILEBASE}%{ENV:FILEEXT} !^$
+RewriteRule ^ - [E=REMOTEFILE:%{ENV:FILEBASE}.%{ENV:FILEEXT}]
+
+# For machine readable formats add an index file when requesting a directory, as the server will not automatically do it.
+RewriteCond %{ENV:ACCEPTEXT} !=html
+RewriteCond %{ENV:FILEBASE}%{ENV:FILEEXT} ^$
+RewriteRule ^ - [E=REMOTEFILE:index.%{ENV:ACCEPTEXT}]
+
+# If a machine readable request specifies a different file extension than expected by content negotioation error out.
+RewriteCond %{ENV:ACCEPTEXT} !=html
+RewriteCond %{ENV:ACCEPTEXT}==%{ENV:FILEEXT} !^(.+)==(\1|)$
+RewriteRule ^(ap|profiles|ontologies|terms|voc|vocabularies)/.+ - [R=406,L,NE]
+
+# Finally do the redirect to the combined URL.
+RewriteRule ^(ap|profiles|ontologies|terms|voc|vocabularies)/.+/$ %{ENV:REMOTEURL}%{ENV:REMOTEPATH}%{ENV:REMOTEFILE} [R=303,L,NE]
+RewriteRule ^(ap|profiles|ontologies|terms|voc|vocabularies)/.+$ %{ENV:REMOTEURL}%{ENV:REMOTEPATH}/%{ENV:REMOTEFILE} [R=303,L,NE]

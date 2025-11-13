@@ -9,14 +9,44 @@ RewriteEngine on
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://www.researchobject.org/ro-terms/context.json [R=303,L]
+RewriteRule ^$ https://www.researchobject.org/ro-terms/context.jsonld [R=303,L]
 
 # Anything else, return csv
 RewriteRule ^$ https://www.researchobject.org/ro-terms/vocabulary.csv [R=303,L]
 
-# Subfolders
+
+# An exception for workflow-run directory which has special content negotiation
+#JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule (.+)$ https://www.researchobject.org/ro-terms/$1/context.json [R=303,L]
+RewriteRule ^workflow-run$ https://www.researchobject.org/ro-terms/workflow-run/wfrun.jsonld [R=303,L]
+
+#Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^workflow-run$ https://www.researchobject.org/ro-terms/workflow-run/wfrun.ttl [R=303,L]
+
+#NT
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^workflow-run$ https://www.researchobject.org/ro-terms/workflow-run/wfrun.nt [R=303,L]
+
+#RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^workflow-run$ https://www.researchobject.org/ro-terms/workflow-run/wfrun.rdf [R=303,L]
+
+#HTML (default)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^workflow-run$ https://www.researchobject.org/ro-terms/workflow-run [R=303,L]
+
+#context
+RewriteRule ^workflow-run/context(.*)$ https://www.researchobject.org/ro-terms/workflow-run/context.jsonld [R=303,L]
+
+
+# Any other subfolders
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule (.+)$ https://www.researchobject.org/ro-terms/$1/context.jsonld [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle

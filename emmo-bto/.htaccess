@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+RewriteEngine on
+
+# Rewrite rule for https://w3id.org/emmo-bto
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/emmo-repo/battery-testing-ontology/main/documentation/index-en.html [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-bto/bto
+RewriteRule ^bto$ https://raw.githubusercontent.com/emmo-repo/battery-testing-ontology/main/battery-testing-ontology.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-bto/bto/
+RewriteRule ^bto/$ https://raw.githubusercontent.com/emmo-repo/battery-testing-ontology/main/battery-testing-ontology.ttl  [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-bto/[VERSION]/bto
+RewriteRule ^[0-9a-z\.\-]+/bto$ https://raw.githubusercontent.com/emmo-repo/battery-testing-ontology/main/battery-testing-ontology.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-bto/[VERSION]/bto/
+RewriteRule ^[0-9a-z\.\-]+/bto/$ https://raw.githubusercontent.com/emmo-repo/battery-testing-ontology/main/battery-testing-ontology.ttl [R=303,NE,L]

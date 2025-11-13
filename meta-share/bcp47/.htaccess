@@ -1,0 +1,146 @@
+
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .json
+
+# Rewrite engine setup
+RewriteEngine On
+
+###################################
+##### BCP47 Vocabulary not defined yet
+###################################
+# Rewrite rule for resource HTML content  for the root vocabulary  IRI
+#RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+#RewriteCond %{HTTP_ACCEPT} !text/turtle
+#RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+#RewriteCond %{HTTP_ACCEPT} text/html [OR]
+#RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+#RewriteRule ^$ http://vocabhub.ilsp.gr/clarin_el_dict/en [R=302,L]
+
+###################################
+##### BCP47 - Variant Taxonomy
+###################################
+# Rewrite rule for resource HTML content for the concept IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^variant_(.+) http://vocabhub.ilsp.gr/bcp47_VariantsTaxonomy/en/page/variant_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^variant_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_VariantsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/variant_$1 [R=303,NE,L]
+               
+####################################
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^variant_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_VariantsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/variant_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve json content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^variant_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_VariantsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/variant_$1  [R=303,NE,L]
+
+####################################
+# Default response
+RewriteRule  ^variant_(.+) http://vocabhub.ilsp.gr/bcp47_VariantsTaxonomy/en/page/variant_$1 [R=303,NE,L]
+
+###################################
+##### BCP47 - Language Taxonomy
+###################################
+# Rewrite rule for resource HTML content for the concept IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^language_(.+) http://vocabhub.ilsp.gr/bcp47_LanguagesTaxonomy/en/page/language_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^language_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_LanguagesTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/language_$1 [R=303,NE,L]
+               
+####################################
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^variant_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_VariantsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/variant_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve json content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^language_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_LanguagesTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/language_$1  [R=303,NE,L]
+
+####################################
+# Default response
+RewriteRule  ^language_(.+) http://vocabhub.ilsp.gr/bcp47_LanguagesTaxonomy/en/page/language_$1 [R=303,NE,L]
+
+###################################
+##### BCP47 - Script Taxonomy
+###################################
+# Rewrite rule for resource HTML content for the concept IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^script_(.+) http://vocabhub.ilsp.gr/bcp47_ScriptsTaxonomy/en/page/script_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^script_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_ScriptsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/script_$1 [R=303,NE,L]
+               
+####################################
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^script_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_ScriptsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/script_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve json content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^script_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_ScriptsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/script_$1  [R=303,NE,L]
+
+####################################
+# Default response
+RewriteRule  ^script_(.+) http://vocabhub.ilsp.gr/bcp47_ScriptsTaxonomy/en/page/script_$1 [R=303,NE,L]
+
+###################################
+##### BCP47 - Location Taxonomy
+###################################
+# Rewrite rule for resource HTML content for the concept IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^region_(.+) http://vocabhub.ilsp.gr/bcp47_RegionsTaxonomy/en/page/region_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^region_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_RegionsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/region_$1 [R=303,NE,L]
+               
+####################################
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^region_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_RegionsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/region_$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve json content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^region_(.+) http://vocabhub.ilsp.gr/rest/v1/bcp47_RegionsTaxonomy/data?uri=http://w3id.org/meta-share/bcp47/region_$1  [R=303,NE,L]
+
+####################################
+# Default response
+RewriteRule  ^region_(.+) http://vocabhub.ilsp.gr/bcp47_RegionsTaxonomy/en/page/region_$1 [R=303,NE,L]
+
+

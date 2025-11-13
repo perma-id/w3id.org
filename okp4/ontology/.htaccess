@@ -1,0 +1,73 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# by extension
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*\.html$ https://docs.okp4.network/technical-documentation/ontology/the-power-of-ontologies [R=303,NC,QSD,L]
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*\.html$ https://docs.okp4.network/technical-documentation/ontology/the-power-of-ontologies [R=303,NC,QSD,L]
+
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*\.ttl$ https://ontology.okp4.space/v$1/thesaurus/$2.ttl [R=302,NC,L]
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*\.ttl$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.ttl [R=302,NC,L]
+
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*\.jsonld$ https://ontology.okp4.space/v$1/thesaurus/$2.jsonld [R=302,NC,L]
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*\.jsonld$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.jsonld [R=302,NC,L]
+
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*\.rdf.xml$ https://ontology.okp4.space/v$1/thesaurus/$2.rdf.xml [R=302,NC,L]
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*\.rdf.xml$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.rdf.xml [R=302,NC,L]
+
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*\.nt$ https://ontology.okp4.space/v$1/thesaurus/$2.nt [R=302,NC,L]
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*\.nt$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.nt [R=302,NC,L]
+
+# by accept-type
+
+# - Turtle
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/thesaurus/$2.ttl [R=302,NC,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.ttl [R=302,NC,L]
+
+# - JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/thesaurus/$2.jsonld [R=302,NC,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.jsonld [R=302,NC,L]
+
+# - N-TRIPLES
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/thesaurus/$2.nt [R=302,NC,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.nt [R=302,NC,L]
+
+# - HTML
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*$ https://docs.okp4.network/technical-documentation/ontology/the-power-of-ontologies [R=303,NC,QSD,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*$ https://docs.okp4.network/technical-documentation/ontology/the-power-of-ontologies [R=303,NC,QSD,L]
+
+# - RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^v([0-9]+|next)/thesaurus/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/thesaurus/$2.rdf.xml [R=302,NC,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*application/xml.* [OR]
+RewriteCond %{HTTP_ACCEPT} ^.*text/xml.*
+RewriteRule ^v([0-9]+|next)/schema/(\w+)/([\w-]+)/([\w-]+)(?:/[\w-]*)*$ https://ontology.okp4.space/v$1/schema/$3/$2-$3-$4.rdf.xml [R=302,NC,L]

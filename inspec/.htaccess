@@ -1,0 +1,31 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+Header set Access-Control-Allow-Origin *
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+RewriteEngine on
+
+# Rewrite rule to serve Turtle content from the data vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^datavoc.*$ https://diggsweden.github.io/interoperable-specifications/datavoc/vocabulary.ttl [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the data vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} \*/rdf\+xml
+RewriteRule ^datavoc.*$ https://diggsweden.github.io/interoperable-specifications/datavoc/vocabulary.rdf [R=303,L]
+
+# landing page for data vocabulary if content negotiation isn't used
+RewriteRule ^datavoc.*$ https://diggsweden.github.io/interoperable-specifications/datavoc/ [R=303,L]
+
+# landing page for latest version of formatted specification
+RewriteRule ^specification$ https://diggsweden.github.io/interoperable-specifications/docs/ [R=303,L]
+
+# Default response
+RewriteRule ^.*$ https://diggsweden.github.io/interoperable-specifications/ [R=303,L]

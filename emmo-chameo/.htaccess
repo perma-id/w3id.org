@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+RewriteEngine on
+
+# Rewrite rule for https://w3id.org/emmo-chameo
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/emmo-repo/domain-characterisation-methodology/main/documentation/index-en.html [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-chameo/chameo
+RewriteRule ^chameo$ https://raw.githubusercontent.com/emmo-repo/domain-characterisation-methodology/main/chameo.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-chameo/chameo/
+RewriteRule ^chameo/$ https://raw.githubusercontent.com/emmo-repo/domain-characterisation-methodology/main/chameo.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-chameo/[VERSION]/chameo
+RewriteRule ^[0-9a-z\.\-]+/chameo$ https://raw.githubusercontent.com/emmo-repo/domain-characterisation-methodology/main/chameo.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/emmo-chameo/[VERSION]/chameo/
+RewriteRule ^[0-9a-z\.\-]+/chameo/$ https://raw.githubusercontent.com/emmo-repo/domain-characterisation-methodology/main/chameo.ttl [R=303,NE,L]

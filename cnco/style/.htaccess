@@ -1,0 +1,19 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/plain .ttl
+
+AddDefaultCharset utf-8
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteRule ^$ https://www.emse.fr/~yousouf.taghzouti/cnco/style/index.html [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle 
+RewriteRule ^$ https://www.emse.fr/~yousouf.taghzouti/cnco/style/style.ttl [R=303,L]

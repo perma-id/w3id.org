@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# If accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/iocressource/ontology.ttl
+
+# If accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/iocressource/ontology.xml
+
+# If suffix ttl, redirect to turtle 
+RewriteRule ^.ttl$ https://ip.pages.rwth-aachen.de/ioc/iocressource/ontology.ttl
+
+# If suffix html, redirect to html 
+RewriteRule ^.html$ https://ip.pages.rwth-aachen.de/ioc/iocressource/
+
+# If suffix rdf, redirect to rdf 
+RewriteRule ^.rdf$ https://ip.pages.rwth-aachen.de/ioc/iocressource/ontology.xml
+
+# Default response: html
+RewriteRule ^$ https://ip.pages.rwth-aachen.de/ioc/iocressource/
