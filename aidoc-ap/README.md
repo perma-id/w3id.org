@@ -2,7 +2,7 @@
 
 The AI Documentation Application Profile (AIDOC-AP) is an ontology designed to provide a structured, machine-readable documentation of an AI system and its lifecycle.
 
-Author/Maintainer: Sebastian Neumaier (sebastian.neumaier@ustp.at)
+Author/Maintainer: Sebastian Neumaier (sebastian.neumaier@ustp.at) @sebneu
 
 Co-authors: Fabian Kovac, Timea Pahi, Tobias Dam
 
