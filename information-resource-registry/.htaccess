@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Let the top level redirect just redirect to the website
+RewriteRule ^$ https://biolink.github.io/information-resource-registry/ [R=302,L]
+
+# HARD CODED REDIRECTS
+# Future editor, please hard code (no patterns) _all_ redirects here, and make sure that none of the redirects
+# clash or can theoretically clash with the resources pages. An easy way to do this is to use the full path to the 
+# file in the redirect --> No resource will be "named like a path".
+RewriteRule ^infores_catalog.yaml$ https://raw.githubusercontent.com/biolink/information-resource-registry/refs/heads/main/infores_catalog.yaml [R=302,L]
+RewriteRule ^information_resource_registry.yaml$ https://raw.githubusercontent.com/biolink/information-resource-registry/refs/heads/main/src/information_resource_registry/schema/information_resource_registry.yaml [R=302,L]
+
+# Fall through (if none of the above matches, redirect to the resources pages)
+RewriteRule ^(.+) https://biolink.github.io/information-resource-registry/resources/$1 [R=302,L]

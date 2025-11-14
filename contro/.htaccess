@@ -1,19 +1,94 @@
-# Allow all (*) origins to access the resource on the server
+# https://w3id.org/contro/ redirects to https://cccontro.github.io/contro/
+
+
+# Allow access to all origins
 Header set Access-Control-Allow-Origin *
 
-# Turn off MultiViews
-Options +FollowSymLinks -MultiViews
 
-# Directive to ensure *.csv *.json *.rdf *.owl *.jsonld *.ttl files served as appropriate content type
-# if not present in main apache config
-AddType text/csv csv
-AddType application/json json
+# Turn off MultiViews (auto map of extension-less URLs to the best matching file)
+Options -MultiViews
+
+
+# Add content type in the response
 AddType application/rdf+xml rdf owl
 AddType text/turtle ttl
 AddType application/ld+json jsonld
 
+
 # Rewrite engine setup
 RewriteEngine On
 
-# 3. Redirect everything else to the website
+
+# 1. Serve RDF file (with extension)
+
+# Main ontology from uri + extension
+# contro.ttl -> contro/ont/contro.ttl
+RewriteRule ^/?\.(ttl|jsonld)$ https://cccontro.github.io/contro/ont/contro.$1 [R=303,L]
+RewriteRule ^/?\.(owl|rdf|xml)$ https://cccontro.github.io/contro/ont/contro.owl [R=303,L]
+
+# Ontology module + extension
+# contro/arg.ttl -> contro/ont/arg.ttl
+RewriteRule ^(.+)\.(ttl|jsonld)$ https://cccontro.github.io/contro/ont/$1.$2 [R=303,L]
+RewriteRule ^(.+)\.(owl|rdf|xml)$ https://cccontro.github.io/contro/ont/$1.owl [R=303,L]
+
+
+# 2. Serve HTML (browser + no RDF file request)
+
+# Go to element description
+# contro/arg#Argument -> contro/elements/arg/#Argument
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla
+RewriteRule ^(arg|persp|data|example)$ https://cccontro.github.io/contro/elements/$1 [R=303,L]
+
+# Redirect everything else to the website
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla
+RewriteRule ^(.*)$ https://cccontro.github.io/contro/$1 [R=303,L]
+
+
+# 3. Serve RDF file via content negotiation (url without extension)
+
+# Turtle
+# contro/ -> contro/ont/contro.ttl
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://cccontro.github.io/contro/ont/contro.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.+)$ https://cccontro.github.io/contro/ont/$1.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://cccontro.github.io/contro/ont/contro.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://cccontro.github.io/contro/ont/$1.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://cccontro.github.io/contro/ont/contro.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(.+)$ https://cccontro.github.io/contro/ont/$1.owl [R=303,L]
+
+# RDF/XML Fallback
+RewriteCond %{HTTP_ACCEPT} !text/html
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^$ https://cccontro.github.io/contro/ont/contro.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !text/html
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(.+)$ https://cccontro.github.io/contro/ont/$1.owl [R=303,L]
+
+
+# 4. Fallback to the website
 RewriteRule ^(.*)$ https://cccontro.github.io/contro/$1 [R=303,L]
