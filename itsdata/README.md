@@ -1,13 +1,13 @@
 # Ontology for Intelligent Transport Systems
 
-The Ontology for Intelligent Transport Systems (ITS) is an effort to standardize definitions of data used within ITS. The content of the models are developed in an open community on GitHub but are ultimately referenced and standardized in various standards developed by ISO TC 204. 
+## Uses
 
-The files are maintained at https://github.com/ISO-TC204/ontology-its-xxxxx (where xxxxx indicates data topic of interest). Current topics include:
+The Ontology for Intelligent Transport Systems (ITS) is an effort to standardize definitions of data used within ITS. The content of the models are developed in an open community on GitHub but are ultimately referenced and standardized in various standards developed by ISO TC 204.
 
-* Location
-* Registration
-* Time
+The files are maintained on the [ISO TC 204 GitHub account](https://github.com/ISO-TC204/) in repositories of the form ontology-its-xxxxx, where xxxxx indicates the data topic of interest.
 
-Contact:
- * ISO/TC 204 WG 1 convenor: [Ken Vaughn](mailto:kvaughn@trevilon.com)
- 
+## Contact
+
+This space is administered by ISO TC 204, including:
+
+*[Kenneth Vaughn](mailto:kvaughn@trevilon.com)*<br />_Convenor of ISO TC 204 WG 1_<br />GitHub: [k-vaughn](https://github.com/k-vaughn)
