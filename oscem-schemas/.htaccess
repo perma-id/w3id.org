@@ -1,0 +1,20 @@
+# Example
+# https://w3id.org/osc-em/oscem-schemas/ redirects to https://osc-em.github.io/oscem-schemas/
+#
+# Contact
+# This space is administered by:
+# Spencer Bliven
+# spencer.bliven@gmail.com
+# GitHub username: sbliven
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect latest version
+RewriteRule ^latest/(.+)$ https://osc-em.github.io/oscem-schemas/artifacts/latest/$1 [R=302,L]
+
+# Redirect specific versions (e.g., v1.0.0, v1.2.3)
+RewriteRule ^(v[0-9]+\.[0-9]+\.[0-9]+)/(.+)$ https://osc-em.github.io/oscem-schemas/artifacts/$1/$2 [R=302,L]
+
+# Default: redirect to documentation
+RewriteRule ^$ https://osc-em.github.io/oscem-schemas/ [R=302,L]
