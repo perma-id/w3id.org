@@ -1,8 +1,66 @@
+# ============================================================================
+# W3ID.org PURL configuration for Agent Ontology
+#
+# This configuration provides content negotiation and versioned redirects
+# for the AI Agent Ontology.
+#
+# Maintainer: Semantic Agent Communication Community Group
+# GitHub: https://github.com/s-agent-comm/agent-ontology
+# ============================================================================
+
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirect base
-RewriteRule ^$ https://s-agent-comm.github.io/agent-ontology/ [R=302,L]
+# ----------------------------------------------------------------------------
+# 1. CONTENT NEGOTIATION
+#
+# These rules handle requests for extension-less URLs (e.g., .../agent)
+# and serve the appropriate format based on the HTTP Accept header.
+# ----------------------------------------------------------------------------
 
-# Redirect ontology files
-RewriteRule ^(.+)$ https://s-agent-comm.github.io/agent-ontology/$1 [R=302,L]
+# A. Content Negotiation for SPECIFIC versions (e.g., /0.1.0/agent)
+#    The regex now matches any numeric version string (e.g., 0.1.0, 0.2.0).
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9\.]+)/([^.]+)$ https://s-agent-comm.github.io/agent-ontology/$1/$2.ttl [R=302,L,NC]
+
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^([0-9\.]+)/([^.]+)$ https://s-agent-comm.github.io/agent-ontology/$1/$2.jsonld [R=302,L,NC]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9\.]+)/([^.]+)$ https://s-agent-comm.github.io/agent-ontology/$1/docs/index.html [R=302,L,NC]
+
+
+# B. Content Negotiation for UNVERSIONED URLs (e.g., /agent), defaulting to 'latest'
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([^.]+)$ https://s-agent-comm.github.io/agent-ontology/latest/$1.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^([^.]+)$ https://s-agent-comm.github.io/agent-ontology/latest/$1.jsonld [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([^.]+)$ https://s-agent-comm.github.io/agent-ontology/latest/docs/index.html [R=302,L]
+
+
+# ----------------------------------------------------------------------------
+# 2. DIRECT FILE REDIRECTS
+#
+# These rules are a fallback for requests that already include a file
+# extension (e.g., .../agent.ttl), or when content negotiation fails.
+# ----------------------------------------------------------------------------
+
+# A. Redirect for SPECIFIC versions (e.g., /0.1.0/agent.ttl)
+#    The regex now matches any numeric version string (e.g., 0.1.0, 0.2.0).
+RewriteRule ^([0-9\.]+)/(.*)$ https://s-agent-comm.github.io/agent-ontology/$1/$2 [R=302,L,NC]
+
+
+# B. Redirect for UNVERSIONED URLs (e.g., /agent.ttl), defaulting to 'latest'
+RewriteRule ^(.+)$ https://s-agent-comm.github.io/agent-ontology/latest/$1 [R=302,L]
+
+
+# ----------------------------------------------------------------------------
+# 3. ROOT REDIRECT
+#
+# Redirects the base PURL (https://w3id.org/agent-ontology/) to the
+# human-readable specification page of the latest version.
+# ----------------------------------------------------------------------------
+RewriteRule ^$ https://s-agent-comm.github.io/agent-ontology/latest/index.html [R=302,L]
