@@ -1,11 +1,10 @@
-Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-# 1. Redirect root to the browser UI
+# 1 Root URI → main browser
 RewriteRule ^$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/ [R=302,L]
 
-# 2. Redirect individual concept IRIs
-#    Example:
-#    /hi-thesaurus/Agent → index.html#Agent
-RewriteRule ^([^/]+)/?$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/index.html#$1 [R=302,L]
+# 2 Concept URI with a local name → redirect with fragment
+#    e.g. /MetaAnalysisCapability → .../#MetaAnalysisCapability
+RewriteRule ^([^/]+)/?$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/#$1 [R=302,L]
