@@ -3,31 +3,30 @@ Options +FollowSymLinks
 RewriteEngine on
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/ICCD-MiBACT/ArCo/master/ArCo-release
-SetEnvIf Request_URI ^.*$ LODE_URL=https://dati.cultura.gov.it/lode/extract?url=
-SetEnvIf Request_URI ^.*$ ROOT_ENC=https%3A%2F%2Fraw.githubusercontent.com%2FICCD-MiBACT%2FArCo%2Fmaster%2FArCo-release
+SetEnvIf Request_URI ^.*$ LODE_URL=https://dati.cultura.gov.it/lode/extract\?url=
 
 RewriteRule ^resource/(.+)$ https://dati.cultura.gov.it/lodview-arco/resource/$1 [R=303,L]
 
 # Rules for version-aware URIs of ontologies
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_ENC}/ontologie/$1/$2/$1.owl [R=303,L]
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)/([0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$2/$1.owl [R=303,L]
 
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)/(.+)$ https://dati.cultura.gov.it/lodview-arco-onto/ontology/$1/$2 [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:LODE_URL}%{ENV:ROOT_ENC}/ontologie/$1/$1$2.owl [R=303,L]
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
 
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)(\-aligns)(/?)$ %{ENV:ROOT_URL}/ontologie/$1/$1$2.owl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_ENC}%2Fontologie%2F$1%2F$1.owl [R=303,L]
+RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
 
 RewriteRule ^ontology/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/$1/$1.owl [R=303,L]
 
 
 RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
-RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_ENC}/ontologie/patterns/$1.owl [R=303,L]
+RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/ontologie/patterns/$1.owl [R=303,L]
 
 RewriteRule ^pattern/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/ontologie/pattern/$1.owl [R=303,L]
 
