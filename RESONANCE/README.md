@@ -11,13 +11,13 @@ The following ontologies are part of the namespace and are redirected to their c
 
 - **SRI4ALL** — Core SRI ontology  
   `https://w3id.org/resonance/SRI4ALL`
-- **SRI4PV** — Photovoltaic domain ontology  
+- **SRI4PV** — Photovoltaic ontology  
   `https://w3id.org/resonance/SRI4PV`
-- **SRI4EV** — Electric vehicle domain ontology  
+- **SRI4EV** — Electric Vehicle ontology  
   `https://w3id.org/resonance/SRI4EV`
-- **SRI4Weather** — Weather and environmental data ontology  
+- **SRI4Weather** — Weather ontology  
   `https://w3id.org/resonance/SRI4Weather`
-- **SRI4Building** — Building-level characteristics ontology  
+- **SRI4Building** — Building ontology  
   `https://w3id.org/resonance/SRI4Building`
 
 ## Repository
