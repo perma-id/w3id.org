@@ -29,6 +29,7 @@ https://github.com/EU-Resonance-Software/SRI/tree/main/RESONANCE-Ontology
 
 This namespace is maintained by the RESONANCE project team.  
 Contact person GitHub username id: HenonLamboro-Trialog
+
 For updates or issues, please contact the maintainers through the GitHub repository.
 
 
