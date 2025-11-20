@@ -16,4 +16,43 @@
 # GitHub: https://github.com/oaknational
 
 RewriteEngine on
+
+# ----------------------------------------------------------------------
+# CORE ONTOLOGY
+# ----------------------------------------------------------------------
+
+# Main ontology file
+RewriteRule ^core/curriculum-ontology\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/core/curriculum-ontology.ttl [R=303,L]
+
+# Versioned files
+RewriteRule ^core/versions/([0-9]+\.[0-9]+\.[0-9]+)\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/core/versions/$1.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - STRUCTURE
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/structure\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - SUBJECTS
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/subjects\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/subjects.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - KNOWLEDGE
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/knowledge/science-primary-knowledge\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/knowledge/science-primary-knowledge.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - PROGRAMMES
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/programmes/science-primary-programmes\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/programmes/science-primary-programmes.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# FALLBACK - Catch any other files in the repository
+# ----------------------------------------------------------------------
+
 RewriteRule ^(.*)$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/$1 [R=303,L]
