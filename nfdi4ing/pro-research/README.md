@@ -1,4 +1,4 @@
-Metadata4Ing
+PRO Research
 ==============================
 
 Documentation:
@@ -31,7 +31,9 @@ Redirections:
 
 
 Support:
-* [Tobias Hamann](https://orcid.org/0000-0002-8021-5524) <tobias.hamann@wzl-iqs.rwth-aachen.de>
+* [PRO Research](https://github.com/PRO-Research): <tobias.hamann@wzl-iqs.rwth-aachen.de>
+* [Tobias Hamann](https://github.com/tobias-hamann): <tobias.hamann@wzl-iqs.rwth-aachen.de>
 
 Contacts:
-* [Tobias Hamann](https://orcid.org/0000-0002-8021-5524) <tobias.hamann@wzl-iqs.rwth-aachen.de>
+* [PRO Research](https://github.com/PRO-Research): <tobias.hamann@wzl-iqs.rwth-aachen.de>
+* [Tobias Hamann](https://github.com/tobias-hamann): <tobias.hamann@wzl-iqs.rwth-aachen.de>
