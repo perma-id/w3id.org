@@ -10,8 +10,12 @@
 # GitHub username: julianrojas87
 #
 # Arthur Vercruysse
-# arthur.vercrusse@ugent.be
+# arthur.vercruysse@ugent.be
 # GitHub username: ajuvercr
+#
+# Ieben Smessaert
+# ieben.smessaert@ugent.be
+# GitHub username: smessie
 
 # Turn off MultiViews
 Options -MultiViews
@@ -22,14 +26,18 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
-# JavaScript entities
-RewriteCond %{REQUEST_URI} js
-RewriteRule js https://rdf-connect.github.io/ontology/rdf-connect-js.ttl [R=302,L]
+# Ontology
+RewriteCond %{REQUEST_URI} ontology
+RewriteRule ontology https://rdf-connect.github.io/ontology [R=302,L]
 
-# JVM entities
-RewriteCond %{REQUEST_URI} jvm
-RewriteRule jvm https://rdf-connect.github.io/ontology/rdf-connect-jvm.ttl [R=302,L]
+# Specification
+RewriteCond %{REQUEST_URI} specification
+RewriteRule specification https://rdf-connect.github.io/specification [R=302,L]
+
+# Rewrite rule to serve TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://rdf-connect.github.io/ontology/rdf-connect.ttl [R=302,L]
 
 # Default response
 # ---------------------------
-RewriteRule ^$ https://rdf-connect.github.io/ontology/rdf-connect.ttl [R=302,L]
+RewriteRule ^$ https://rdf-connect.github.io/ [R=302,L]

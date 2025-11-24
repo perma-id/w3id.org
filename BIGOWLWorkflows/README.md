@@ -1,11 +1,23 @@
-# OntoGraphDB - Graph Databases Ontology
+# BIGOWLWorkflows
 
-Documentation is available at: https://proyectoaether.github.io/BIGOWL/workflows.html
+## 📖 Documentation
 
-The ontology is available in:
+- **Online:** https://w3id.org/BIGOWLWorkflows
 
-OWL: https://raw.githubusercontent.com/ProyectoAether/BIGOWL/main/BIGOWLWorkflows.owl
+---
 
-Contact: 
+## 📦 Files
 
-Cristóbal Barba González <cbarba@uma.es> (https://github.com/cbarba)
+| Format        | MIME type               | URL                                                                                           |
+| ------------- | ----------------------- | --------------------------------------------------------------------------------------------- |
+| **OWL**       | `application/rdf+xml`   | https://raw.githubusercontent.com/KhaosResearch/BIGOWL-DS/main/docs/Workflows/ontology.owl    |
+| **Turtle**    | `text/turtle`           | https://raw.githubusercontent.com/KhaosResearch/BIGOWL-DS/main/docs/Workflows/ontology.ttl    |
+| **N-Triples** | `application/n-triples` | https://raw.githubusercontent.com/KhaosResearch/BIGOWL-DS/main/docs/Workflows/ontology.nt     |
+| **JSON-LD**   | `application/ld+json`   | https://raw.githubusercontent.com/KhaosResearch/BIGOWL-DS/main/docs/Workflows/ontology.jsonld |
+
+---
+
+## 👥 Contact
+
+- **Cristóbal Barba González** — <cbarba@uma.es> · https://github.com/cbarba
+- **Martín J. Salvachúa** — <martinjs@uma.es> · https://github.com/MartinM10
