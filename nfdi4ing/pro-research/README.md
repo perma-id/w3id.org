@@ -1,5 +1,3 @@
-PRO Research
-==============================
 
 Documentation:
 * https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology
@@ -18,16 +16,13 @@ Redirections:
 * JSON-LD context files:
   * pror only:
     * `https://w3id.org/nfdi4ing/pro-research/pror_context.jsonld`
-    * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/master/pror_context.jsonld`
+    * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pro-research_context.jsonld`
   * pror in RO-Crates:
     * `https://w3id.org/nfdi4ing/pro-research/pror2rocrate_context.jsonld`
-    * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/master/pror2rocrate_context.jsonld`
+    * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pror2rocrate_context.jsonld`
 * Logo file:
   * `https://w3id.org/nfdi4ing/pro-research/PROResearch_Logo.png`
-  * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/master/visualizations/Logo.png`
-* First steps guide:
-  * `https://w3id.org/nfdi4ing/pro-research/first-steps-guide.md`
-  * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/blob/master/training/first-steps-guide.md`
+  * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/visualizations/Logo.png`
 
 
 Support:
