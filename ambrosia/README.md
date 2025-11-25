@@ -8,6 +8,6 @@ This repository contains the vocabulary and semantic represantion of predictive 
 - **Semantic Layer Repository:** [https://github.com/ambrosia2024/Semantic-Layer](https://github.com/ambrosia2024/Semantic-Layer)
 
 ## Maintainer
-- **Name:** Michael Zarske
+- **Name:** Michael Zarske (ZarskeM)
 - **Contact:** Michael.Zarske@bfr.bund.de
 
