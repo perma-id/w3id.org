@@ -9,8 +9,14 @@ OSC-EM can be used to store metadata for the full data lifecycle, from data acqu
 https://osc-em.github.io/oscem-schemas/
 
 ## Contact
-**Spencer Bliven**
+- **Spencer Bliven**
 
-<spencer.bliven@gmail.com>
+  Email: <spencer.bliven@gmail.com>
 
-GitHub: [sbliven](https://github.com/sbliven)
+  GitHub: [sbliven](https://github.com/sbliven)
+
+- **Despina Adamopoulou**
+
+  Email: <adamopouloudespoina@gmail.com>
+
+  GitHub: [despadam](https://github.com/despadam)
