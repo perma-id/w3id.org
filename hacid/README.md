@@ -19,3 +19,6 @@ Some redirect rules will refer to the [GitHub repository of the project](https:/
 + **Vito Trianni** (CNR-ISTC)
   + GitHub: [vito-trianni](https://github.com/vito-trianni)
   + email: [vito.trianni@cnr.it](mailto:vito.trianni@cnr.it)
++ **Miguel Ceriani** (CNR-ISTC)
+  + GitHub: [miguel76](https://github.com/miguel76)
+  + email: [miguel.ceriani@cnr.it](miguel.ceriani@cnr.it)

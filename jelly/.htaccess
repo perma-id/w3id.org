@@ -1,4 +1,12 @@
 RewriteEngine on
 
+AddType application/x-sh .sh
+
+# Install script for jelly-cli
+RewriteRule ^setup-cli.sh$ https://raw.githubusercontent.com/Jelly-RDF/cli/main/install.sh [R=302,L]
+
+# Redirect by default to the dev version of the docs
+RewriteRule ^$ https://jelly-rdf.github.io/dev/ [R=302,L]
+
 # Default response – redirect to documentation
 RewriteRule ^(.*)$ https://jelly-rdf.github.io/$1 [R=302,L]

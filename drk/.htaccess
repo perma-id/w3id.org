@@ -1,0 +1,53 @@
+# Turn off MultiViews
+Options -MultiViews
+Options +FollowSymLinks
+
+Header set Access-Control-Allow-Origin *
+
+# Rewrite engine setup
+RewriteEngine On
+
+# ---------------------------------------------
+# Content negotiation for the Culture (DRK) Ontology
+# ---------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/ontology.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/ontology.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/ontology.nt [R=303,L]
+
+# RDF/XML (OWL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^ontology/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/ontology.owl [R=303,L]
+
+# By default, serve the WIDOCO HTML documentation
+RewriteRule ^ontology/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/index.html [R=303,L]
+
+# ---------------------------------------------
+# Versioned ontology: /ontology/{version of the form <number>.<number>.<number>} -> TTL (Serves Turtle version only)
+# ---------------------------------------------
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/$1/ontology.ttl [R=302,L]
+
+# ---------------------------------------------
+# Controlled vocabularies (Serves Turtle version only)
+# ---------------------------------------------
+RewriteRule ^vocabs/theatrical-genres/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/theatrical-genres.ttl [R=302,L]
+RewriteRule ^vocabs/theatrical-production-types/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/theatrical-production-types.ttl [R=302,L]
+RewriteRule ^vocabs/theatrical-event-types/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/theatrical-event-types.ttl [R=302,L]
+RewriteRule ^vocabs/character-types/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/character-types.ttl [R=302,L]
+RewriteRule ^vocabs/performer-types/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/performer-types.ttl [R=302,L]
+RewriteRule ^vocabs/personal-profile-for-accessibility/?$ https://fraunhofer-fit-dsai.github.io/drk-information-model/vocabs/personal-profile-for-accessibility.ttl [R=302,L]
+
+# ---------------------------------------------
+# Default catch‑all redirect to the HTML docs if nothing else matches
+# ---------------------------------------------
+RewriteRule ^.*$ https://fraunhofer-fit-dsai.github.io/drk-information-model/latest/index.html [R=303,L]

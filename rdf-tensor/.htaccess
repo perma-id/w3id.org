@@ -1,0 +1,47 @@
+Options -MultiViews
+
+RewriteEngine on
+
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType application/x-jelly-rdf .jelly
+
+# Ontology files -- explicit file extension
+RewriteRule ^([a-z]+)\.(ttl|nt|jsonld|rdf|jelly)([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.$2 [R=302,L]
+
+# Ontology files -- content negotiation
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(datatypes|functions|aggregates)/?([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.nt [R=302,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(datatypes|functions|aggregates)/?([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.ttl [R=302,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(datatypes|functions|aggregates)/?([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.jsonld [R=302,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(datatypes|functions|aggregates)/?([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.rdf [R=302,L]
+
+# Jelly
+RewriteCond %{HTTP_ACCEPT} application/x-jelly-rdf
+RewriteRule ^(datatypes|functions|aggregates)/?([#?].*)?$ https://github.com/RDF-tensor/jena-datatensor/releases/download/dev/$1.jelly [R=302,L]
+
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^((datatypes|functions|aggregates)/?([#?].*)?)$ https://rdf-tensor.github.io/jena-datatensor/ontology/$1 [R=302,L]
+RewriteRule ^(.*)$ https://rdf-tensor.github.io/jena-datatensor/$1 [R=302,L]
+
+# Redirect by default to the docs
+RewriteRule ^((datatypes|functions|aggregates)/?([#?].*)?)$ https://rdf-tensor.github.io/jena-datatensor/ontology/$1 [R=302,L]
+RewriteRule ^$ https://rdf-tensor.github.io/jena-datatensor/$1 [R=302,L]

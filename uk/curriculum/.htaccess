@@ -1,0 +1,58 @@
+# This permanent w3id provides stable identifiers for
+# the UK Curriculum Ontology (UKCO) and related resources
+# published by Oak National Academy.
+#
+# The namespace https://w3id.org/uk/curriculum/ redirects to:
+# https://github.com/oaknational/uk-curriculum-ontology/
+#
+# This W3ID is used to provide persistent, resolvable URIs
+# for curriculum concepts, relationships, and metadata
+# used in educational technology, data integration,
+# and linked open data applications.
+#
+# ## Contact
+# Maintainer: Mark Hodierne
+# Email: eng.mhodierne@thenational.academy
+# GitHub: https://github.com/oaknational
+
+RewriteEngine on
+
+# ----------------------------------------------------------------------
+# CORE ONTOLOGY
+# ----------------------------------------------------------------------
+
+# Main ontology file
+RewriteRule ^core/curriculum-ontology\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/core/curriculum-ontology.ttl [R=303,L]
+
+# Versioned files
+RewriteRule ^core/versions/([0-9]+\.[0-9]+\.[0-9]+)\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/core/versions/$1.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - STRUCTURE
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/structure\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - SUBJECTS
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/subjects\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/subjects.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - KNOWLEDGE
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/knowledge/science-primary-knowledge\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/knowledge/science-primary-knowledge.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ENGLAND - PROGRAMMES
+# ----------------------------------------------------------------------
+
+RewriteRule ^england/programmes/science-primary-programmes\.ttl$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/england/programmes/science-primary-programmes.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# FALLBACK - Catch any other files in the repository
+# ----------------------------------------------------------------------
+
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/oaknational/uk-curriculum-ontology/main/$1 [R=303,L]

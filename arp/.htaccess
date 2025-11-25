@@ -66,3 +66,35 @@ RewriteRule ^localdev/ro-id/(.*)?/(.*)$ http://%{ENV:DATAVERSE_DOMAIN_LOCALDEV}/
 
 # Add homepage of project
 RewriteRule ^home$ https://researchdata.hu/en [R=302,L]
+
+# ===========================================================================
+# Catchall rules for dynamic domains (using the fixed prefix /arp/)
+#
+# These rules expect that the URL begins with /arp/ then a domain name
+# (for example: "arpdemo.orgx") followed immediately by
+# the service path ("schema" or "ro-id").
+#
+# Examples:
+#
+#   https://w3id.org/arp/arpdemo.orgx/ro-id/hdl:21.15109/ARP/C27YUE/file/512862
+#     → http://dataverse.arpdemo.orgx/file.xhtml?persistentId=hdl:21.15109/ARP/C27YUE&fileId=512862
+#
+#   https://w3id.org/arp/arpdemo.orgx/schema/someSchemaID
+#     → https://openview.arpdemo.orgx/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.arpdemo.orgx%%{ENV:SLASH}templates%%{ENV:SLASH}someSchemaID
+# ===========================================================================
+
+# (A) CEDAR schema identifiers:
+#    Format: /<domain>/schema/<schema id>
+RewriteRule ^([^/]+)/schema/(.*)$ https://openview.$1/templates/https:%%{ENV:SLASH}%%{ENV:SLASH}repo.$1%%{ENV:SLASH}templates%%{ENV:SLASH}$2 [R=302,L,NE]
+
+# (B) RO-Crate file identifier:
+#    Format: /<domain>/ro-id/<PID>/file/<fileID>
+RewriteRule ^([^/]+)/ro-id/(.+)/file/([0-9]+)$ http://dataverse.$1/file.xhtml?persistentId=$2&fileId=$3 [R=302,L]
+
+# (C) Compound field dataset view:
+#    Format: /<domain>/ro-id/<PID>/<fieldName>/<fieldId>
+RewriteRule ^([^/]+)/ro-id/(.+)/([^/]+)/([0-9]+)$ http://dataverse.$1/dataset.xhtml?persistentId=$2&fieldName=$3&fieldId=$4 [R=302,L]
+
+# (D) RO-Crate only data (non-Dataverse):
+#    Format: /<domain>/ro-id/<PID>/<UUID>
+RewriteRule ^([^/]+)/ro-id/(.+)/(.+)$ http://dataverse.$1/ro-id?persistentId=$2&elementId=$3 [R=302,L]
