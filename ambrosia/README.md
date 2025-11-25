@@ -1,7 +1,7 @@
 # AMBROSIA Semantic Layer
 
 ## Overview
-This repository contains the vocabulary and models for the AMBROSIA project, which focuses on creating a semantic layer for climate, crop, hazard, and model data. This semantic layer is used to enhance interoperability across various agricultural datasets and improve data-driven innovation in the agri-food sector.
+This repository contains the vocabulary and semantic represantion of predictive models for the AMBROSIA project, which focuses on creating a semantic layer for climate, crop, hazard, and model data.
 
 ## Project Links
 - **AMBROSIA Project:** [https://www.ambrosia-project.eu](https://www.ambrosia-project.eu)
