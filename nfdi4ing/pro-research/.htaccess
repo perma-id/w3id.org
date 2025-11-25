@@ -1,0 +1,87 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# Specific content-type -> Access respective ontology
+
+# HTML:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/index-en.html [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/index-en.html [R=303,L,NE]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.ttl [R=303,L,NE]
+
+# Turtle with versioning
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.ttl [R=303,L,NE]
+
+# XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.xml [R=303,L,NE]
+
+# XML with versioning
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.xml [R=303,L,NE]
+
+# N-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.nt [R=303,L,NE]
+
+# N-triples with versioning
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.nt [R=303,L,NE]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.jsonld [R=303,L,NE]
+
+# JSON-LD with versioning
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.jsonld [R=303,L,NE]
+
+
+#Ontology file distribution with file endings (ontology.ttl/.xml/.nt/.jsonld) 
+
+RewriteRule ^ontology.ttl https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.ttl [R=303,L,NE]
+RewriteRule ^ontology.jsonld https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.jsonld [R=303,L,NE]
+RewriteRule ^ontology.nt https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.nt [R=303,L,NE]
+RewriteRule ^ontology.xml https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/ontology.xml [R=303,L,NE]
+
+
+#Ontology files with file ending and versioning
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.ttl https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.ttl [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.jsonld https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.jsonld [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.nt https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.nt [R=303,L,NE]
+#RewriteRule ^([0-9]).([0-9]).([0-9])/ontology.xml https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/ontology.xml [R=303,L,NE]
+
+# Context-File
+RewriteRule ^pror_context.jsonld hhttps://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pro-research_context.jsonld [R=303,L,NE]
+
+# Context-File with RO-Crate integration
+RewriteRule ^pror2rocrate_context.jsonld https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pror2rocrate_context.jsonld [R=303,L,NE]
+
+
+# Logo-File
+RewriteRule ^PROResearch_Logo.png https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/visualizations/Logo.png [R=303,L,NE]
+
+# First steps guide
+# RewriteRule ^first-steps-guide.md https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/blob/master/training/first-steps-guide.md [R=303,L,NE]
+
+# No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
+RewriteRule ^$ https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology [R=303,L,NE]
+RewriteRule ^([0-9]).([0-9]).([0-9]) https://nfdi4ing.pages.rwth-aachen.de/pro-research/pro-research-ontology/$1.$2.$3/index-en.html [R=303,L,NE]
