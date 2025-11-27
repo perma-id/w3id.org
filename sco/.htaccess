@@ -1,12 +1,31 @@
 Options -MultiViews
 RewriteEngine on
-AddType text/turtle .owl
+AddType text/turtle .ttl
 
-RedirectMatch 302 ^/sco/(home|git|repo)/?$ https://github.com/gioUbbiali/Sustainability-Core-Ontology
-RedirectMatch 302 ^/sco/(docs|spec)/?$ https://gioubbiali.github.io/Sustainability-Core-Ontology/
+# CONTENT NEGOTIATION ----------------------------------------------------------------------------------------
 
-# Rewrite rule to serve TTL content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle
-RedirectMatch 302 ^/sco/?$ https://raw.githubusercontent.com/gioUbbiali/Sustainability-Core-Ontology/refs/heads/main/SCO.owl
+## Serve TTL content when RDF formats are explicitly requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^sco([^/]*)$ https://raw.githubusercontent.com/gioUbbiali/Sustainability-Core-Ontology/refs/heads/main/sco$1.ttl [R=303,L]
+
+# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+
+## Latest release
+RedirectMatch 302 ^/sco/(latest|current)/?$  https://github.com/GioUbbiali/Sustainability-Core-Ontology/releases/latest
+
+## All releases
+RedirectMatch 302 ^/sco/releases/?$  https://github.com/GioUbbiali/Sustainability-Core-Ontology/releases
+
+# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+
+## Redirect to RDF content when accessing the root namespace
+RedirectMatch 302 ^/sco/?$ https://raw.githubusercontent.com/gioUbbiali/Sustainability-Core-Ontology/refs/heads/main/sco-b.ttl
+RedirectMatch 302 ^/sco/(sco[^/]*)$ https://raw.githubusercontent.com/gioUbbiali/Sustainability-Core-Ontology/refs/heads/main/$1.ttl
+
+## Redirect documentation requests explicitly
+RedirectMatch 302 ^/sco/docs/?$ https://GioUbbiali.github.io/Sustainability-Core-Ontology/docs-sco-b/index.html
+RedirectMatch 302 ^/sco/sco-b/docs/?$ https://GioUbbiali.github.io/Sustainability-Core-Ontology/docs-sco-b/index.html
+RedirectMatch 302 ^/sco/sco-u/docs/?$ https://GioUbbiali.github.io/Sustainability-Core-Ontology/docs-sco-u/index.html
+
+## Repository links
+RedirectMatch 302 ^/sco/(git|repo)/?$  https://github.com/GioUbbiali/Sustainability-Core-Ontology

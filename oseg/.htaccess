@@ -13,6 +13,7 @@ AddType text/trig               .trig
 AddType application/trix        .trix
 AddType text/html               .html
 AddType application/xhtml+xml   .html
+AddType application/schema-instance+json  .schema.json
 RewriteEngine on
 
 SetEnvIf Accept ^                          FILE_EXT=ttl    # *Default*
@@ -29,6 +30,7 @@ SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
 SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
 SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/schema-instance\+json  FILE_EXT=schema.json   # JSON-Schema
 
 # This is a service running <https://github.com/elevont/ontprox>
 SetEnvIf Request_URI ^ PROXY=https://ontprox.dev.opensourceecology.de
@@ -513,10 +515,106 @@ RewriteRule \
 	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
 	[R=302,L]
 
+# ### Prtr
+
+SetEnvIf Request_URI ^ SRC_URL_PRTR_BASE=https://codeberg.org/elevont/prtr-ont/raw
+SetEnvIf Request_URI ^ SRC_URL_PRTR_FILE_PATH=src/ont/prtr.ttl
+
+# latest
+RewriteRule \
+	^ont/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/master/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/tag/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/master/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/tag/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ## Schemas
+
+# ### OKH
+
+SetEnvIf Request_URI ^ SRC_URL_SCHEMA_OKH_BASE=https://json.schemastore.org
+SetEnvIf Request_URI ^ SRC_URL_SCHEMA_OKH_FILE_PATH=okh.json
+
+RewriteRule \
+	^schemas?/okh((.schema)?.json)?(#[^/]*)?$ \
+	%{ENV:SRC_URL_SCHEMA_OKH_BASE}/%{ENV:SRC_URL_SCHEMA_OKH_FILE_PATH}$3 \
+	[R=302,L]
+
 # ## People
 
-# Robin Vobruba
+# ### Alexander Stellmach
+
 RewriteRule \
-	^p/((robin([._-]?vobruba)?)|hoijui([._-]quaero)?) \
+	^p/([Aa]lex(ander)?([._-]?[Ss]tellmach)?)/orcid \
+	https://orcid.org/0009-0009-2399-0864 \
+	[R=302,L]
+
+# ### Benjamin Kashlan (Bene)
+
+RewriteRule \
+	^p/([Bb]en(e|jamin)([._-]?[/Kk]ashlan)?)/orcid \
+	https://orcid.org/0009-0001-4393-1310 \
+	[R=302,L]
+
+# ### Martin Haeuer
+
+RewriteRule \
+	^p/(([Mm]artin([._-]?[Hh]aeuer)?)|moe)/orcid \
+	https://orcid.org/0000-0002-1611-7129 \
+	[R=302,L]
+
+# ### Oliver Schlüter
+
+RewriteRule \
+	^p/(([Oo]liver([._-]?[Ss]chlueter)?)|case06)/orcid \
+	https://orcid.org/0009-0009-4222-3396 \
+	[R=302,L]
+
+# ### Robin Vobruba
+
+RewriteRule \
+	^p/(([Rr]obin([._-]?[Vv]obruba)?)|hoijui([._-]quaero)?)/orcid \
+	https://orcid.org/0009-0004-3559-6542 \
+	[R=302,L]
+
+RewriteRule \
+	^p/(([Rr]obin([._-]?[Vv]obruba)?)|hoijui([._-]quaero)?) \
 	https://hoijui.codeberg.page \
+	[R=302,L]
+
+# ### Timm Wille
+
+RewriteRule \
+	^p/([Tt]imm([._-]?[Ww]ille)?)/orcid \
+	https://orcid.org/0009-0008-7682-0132 \
 	[R=302,L]

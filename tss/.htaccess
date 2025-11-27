@@ -18,11 +18,11 @@ RewriteCond %{HTTP_ACCEPT} .+
 RewriteRule (.*)\.(tss).conneg$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/406.html [NE,L,R=406]
 
 # === TSS ===
-RewriteCond %{REQUEST_URI} tss
-RewriteRule /?$ https://knowledgeonwebscale.github.io/rdf-timerseriessnippets/tss.ttl [NE,R,L]
 RewriteCond %{REQUEST_URI} tss/spec
 RewriteRule spec/?$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets [NE,R,L]
 RewriteCond %{REQUEST_URI} (about|from|until|pointType|points|timePath|valuePath|Snippet|PointTemplate)$
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/rdf-timeseriessnippets/$1.tss.conneg [NE,R,L]
+RewriteCond %{REQUEST_URI} tss
+RewriteRule /?$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/tss.ttl [NE,R,L]
 
 RewriteRule ^(.*)$ https://knowledgeonwebscale.github.io/rdf-timeseriessnippets/404.html [NE,L,R=404]

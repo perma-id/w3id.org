@@ -10,12 +10,17 @@ This namespace represents a general ontology namespace for the platform material
 - `mo`: Microscopy Ontology (MO)
 - `ont_pub_tmplt`: PMD Ontology Publication Template
 - `materials-mechanics-ontology`: Materials Mechanics Ontology
+- `fsp`: Flame Spray Pyrolysis Ontology (FSP)
+- `log`: Logistics Ontology alligned from IOF SupplyChain module (LOG)
+- `hto`: Heat Treatment Ontology (HTO)
 
 ## Contact
 Current maintainers are:
 * [@joergwa](https://github.com/joergwa)
 * [@BerndBayerlein](https://github.com/BerndBayerlein)
 * [@MarkusSchilling](https://github.com/MarkusSchilling)
+* [@Leibniz-IWT](https://github.com/Leibniz-IWT)
+* [@ThHanke](https://github.com/ThHanke)
 
 This space is administered by:  
 

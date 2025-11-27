@@ -1,0 +1,27 @@
+# CSRO
+# Ontology: https://w3id.org/csro/ontology/ redirects to https://github.com/fortiss/CSRO/raw/main/csro.ttl
+# Homepage: https://w3id.org/csro redirects to https://github.com/fortiss/CSRO
+#
+# ## Contact
+# This space is administered by:
+#
+# Yannick Landeck
+# landeck@fortiss.org
+# GitHub username: YannickLand
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# MIME type for TTL
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# Handle lowercase redirects
+# These rules apply when accessing /csro/ (this directory)
+
+# Redirect ontology path (relative to /csro/)
+RewriteRule ^ontology/?$ https://github.com/fortiss/CSRO/raw/main/csro.ttl [R=303,L]
+
+# Redirect base /csro to GitHub Pages
+RewriteRule ^$ https://github.com/fortiss/CSRO [R=302,L]

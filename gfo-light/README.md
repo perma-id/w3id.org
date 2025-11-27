@@ -7,12 +7,12 @@ development and foundation of domain/application ontologies.
 ## Redirects
 
 https://w3id.org/gfo-light redirects to:
-- https://onto-med.github.io/gfo-light/latest/
-- <https://onto-med.github.io/gfo-light/latest/gfo-light.(jsonld|owl|nt|ttl)> (according to HTTP `Accept` header)
+- https://onto-med.github.io/gfo-light/gfo-light/latest/
+- <https://onto-med.github.io/gfo-light/gfo-light/latest/gfo-light.(jsonld|owl|nt|ttl)> (according to HTTP `Accept` header)
 
 https://w3id.org/gfo-light/release/_ redirects to:
-- https://onto-med.github.io/gfo-light/_/
-- <https://onto-med.github.io/gfo-light/_/gfo-light.(jsonld|owl|nt|ttl)> (according to HTTP `Accept` header)
+- https://onto-med.github.io/gfo-light/gfo-light/_/
+- <https://onto-med.github.io/gfo-light/gfo-light/_/gfo-light.(jsonld|owl|nt|ttl)> (according to HTTP `Accept` header)
 
 https://w3id.org/gfo-light/_ redirects to https://top.imise.uni-leipzig.de/ontology/gfo-light/_
 (RDF browser [Rickview](https://github.com/KonradHoeffner/rickview))
