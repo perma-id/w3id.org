@@ -36,7 +36,8 @@ prefix nen2660:      <https://w3id.org/nen2660/def#>
 ## Contact
 This space is administered by:
 
-- **Redmer Kronemeijer (or other CROW colleagues)**   
-E-mail: <redmer.kronemeijer@crow.nl>  
-ORCID: [0000-0001-9821-0193](https://orcid.org/0000-0001-9821-0193)  
+- **Stichting CROW**   
+E-mail: <data@crow.nl>  
 GitHub: [@redmer](https://github.com/redmer)
+ORCID: [0000-0001-9821-0193](https://orcid.org/0000-0001-9821-0193)  
+GitHub: [@RiX012](https://github.com/RiX012)
