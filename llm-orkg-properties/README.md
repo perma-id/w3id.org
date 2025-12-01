@@ -1,7 +1,7 @@
 # ORKG Properties Extractor
 # LLM-driven ORKG Properties Extraction, Matching and Evaluation Using GPT-3.5-Turbo
 
-**Permanent Identifier:** https://w3id.org/LLM-ORKG-property-extraction-and-matching
+**Permanent Identifier:** https://w3id.org/llm-orkg-properties
 
 **Repository:** https://anonymous.4open.science/r/LLM-ORKG-property-extraction-and-matching-FA51/
 
