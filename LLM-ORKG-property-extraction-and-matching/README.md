@@ -18,6 +18,7 @@ This repository contains the Python script developed as part of the study "LLM-d
 Sandra Schaftner  
 Technische Universität Chemnitz  
 sandra.schaftner@informatik.tu-chemnitz.de
+GitHub username ID: SandraSchaftner
 
 ## License
 CC BY-SA 4.0
