@@ -1,6 +1,9 @@
 Options +FollowSymLinks
 RewriteEngine on
 
+
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/JonasHeinickeBio/pyeuropepmc/main/data/$1 [R=302,L]
+
 # Permanent identifier for PyEuropePMC RDF data
 # Redirects all requests under /pyeuropepmc/ to the corresponding RDF files
 # hosted on GitHub raw.githubusercontent.com
@@ -11,4 +14,13 @@ RewriteEngine on
 #
 # Using 302 (temporary) redirect initially; change to 301 (permanent) once tested.
 
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/JonasHeinickeBio/pyeuropepmc/main/data/$1 [R=302,L]
+# Example
+#
+# https://w3id.org/pyeuropepmc/paper/10.1038/nature11476 redirects to https://raw.githubusercontent.com/JonasHeinickeBio/pyeuropepmc/main/data/paper/10.1038/nature11476
+#
+# ## Contact
+# This space is administered by:
+#
+# Jonas Heinicke
+# jonas.heinicke@helmholtz-hzi.de
+# GitHub username: JonasHeinickeBio
