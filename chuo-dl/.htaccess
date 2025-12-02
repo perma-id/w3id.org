@@ -1,6 +1,10 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^resource/(.*) https://chuo-dl.github.io/snorql/?describe=https://w3id.org/chuo-dl/resource/$1 [R=302,L]
+# Redirect For IIIF Image API v3
+RewriteRule ^iiif/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^.]*)\.(.*)$ https://chuo-dl.github.io/iiif/$1--$2--$3--$4--$5--$6.$7 [R=302,L]
+RewriteRule ^iiif/([^/]+)/([^/]+)/info\.json$ https://chuo-dl.github.io/iiif/$1--$2--info.json [R=302,L]
 
+
+RewriteRule ^resource/(.*) https://chuo-dl.github.io/snorql/?describe=https://w3id.org/chuo-dl/resource/$1 [R=302,L]
 RewriteRule ^(.*) https://chuo-dl.github.io/$1 [R=302,L]
