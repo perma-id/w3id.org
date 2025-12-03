@@ -20,6 +20,9 @@ Redirections:
   * pror in RO-Crates:
     * `https://w3id.org/nfdi4ing/pro-research/pror2rocrate_context.jsonld`
     * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pror2rocrate_context.jsonld`
+* Shapes file:
+  * `https://w3id.org/nfdi4ing/pro-research/shapes`
+  * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/pro-research_shapes.ttl`
 * Logo file:
   * `https://w3id.org/nfdi4ing/pro-research/PROResearch_Logo.png`
   * --> `https://git.rwth-aachen.de/nfdi4ing/pro-research/pro-research-ontology/-/raw/main/visualizations/Logo.png`
