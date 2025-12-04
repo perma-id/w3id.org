@@ -2,4 +2,9 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^.*$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/ [R=302,L]
+# 1 Root URI → main browser
+RewriteRule ^$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/ [R=302,L]
+
+# 2 Concept URI with a local name → redirect with fragment
+#    e.g. /MetaAnalysisCapability → .../#MetaAnalysisCapability
+RewriteRule ^([^/]+)/?$ https://kai-vu.github.io/Hybrid-Intelligence-Thesaurus/#$1 [R=302,L]
