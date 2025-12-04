@@ -1,0 +1,33 @@
+# CommonsDB Schema & Context Redirects
+# https://w3id.org/commonsdb
+#
+# Repository: https://github.com/CommonsDB/docs
+#
+# Contact:
+#   Paul Keller <paul.keller@gmail.com> - https://github.com/paul2keller
+#   Doug McCarthy - https://github.com/CultureDoug
+
+# Turn off MultiViews
+Options -MultiViews
+
+# MIME type declarations
+AddType application/json .json
+
+# Rewrite engine setup
+RewriteEngine On
+RewriteBase /commonsdb/
+
+# ------------------------------
+# Schema files
+# ------------------------------
+RewriteRule ^schema/(.+)\.json$ https://raw.githubusercontent.com/CommonsDB/docs/main/schema/$1.json [R=303,L]
+
+# ------------------------------
+# Context files
+# ------------------------------
+RewriteRule ^context/(.+)\.json$ https://raw.githubusercontent.com/CommonsDB/docs/main/context/$1.json [R=303,L]
+
+# ------------------------------
+# Default response (redirect to GitHub repo)
+# ------------------------------
+RewriteRule ^$ https://github.com/CommonsDB/docs [R=303,L]
