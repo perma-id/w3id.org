@@ -21,4 +21,5 @@ Reference these files via w3id.org persistent URLs:
 ## Contact
 
 - **Paul Keller** — <paul.keller@gmail.com> · https://github.com/paul2keller
+- **Yury Kharytanovich** — <yury.kharytanovich.liccium@gmail.com> · https://github.com/yurykharytanovich
 - **Doug McCarthy** · https://github.com/CultureDoug
