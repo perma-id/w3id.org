@@ -10,3 +10,4 @@ Enrique Iglesias: iglesias@l3s.de
 Yashrajsinh Chudasama: yashrajsinh.chudasama@tib.eu 
 Disha Purohit: disha.purohit@tib.eu
 
+GitHub username: yashrajchudasama26
