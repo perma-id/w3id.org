@@ -1,0 +1,988 @@
+@prefix : <https://w3id.org/gcdfo/salmon#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://w3id.org/gcdfo/salmon#> .
+
+<https://w3id.org/gcdfo/salmon> rdf:type owl:Ontology ;
+                                  owl:versionIRI <https://w3id.org/gcdfo/salmon/1.0.0> ;
+                                  <http://purl.obolibrary.org/obo/IAO_0000115> "Hybrid OWL+SKOS ontology for DFO salmon data. Uses SKOS for controlled vocabularies (methods, criteria) and OWL for formal relationships and events."@en ;
+                                  <http://purl.org/dc/terms/created> "2025-09-06"^^xsd:date ;
+                                  <http://purl.org/dc/terms/creator> "Fishery & Assessment Data Section (FADS) Data Stewardship Unit"@en ;
+                                  <http://purl.org/dc/terms/description> "OWL + SKOS ontology for DFO salmon data: stocks/CUs/MUs, survey events, escapement measurements, and GSI constructs; aligns to DwC via rdfs:subClassOf; hybrid approach with SKOS for methods and OWL for events."@en ;
+                                  <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> ;
+                                  <http://purl.org/dc/terms/modified> "2025-12-08"^^xsd:date ;
+                                  <http://purl.org/dc/terms/publisher> "Fisheries and Oceans Canada (DFO) Pacific Region Science Branch"@en ;
+                                  <http://purl.org/dc/terms/title> "GC DFO Salmon Ontology"@en ;
+                                  rdfs:seeAlso <https://github.com/dfo-pacific-science/salmon-ontology> ;
+                                  owl:versionInfo "1.0.0 (hybrid OWL+SKOS approach)" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/IAO_0000115
+<http://purl.obolibrary.org/obo/IAO_0000115> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000119
+<http://purl.obolibrary.org/obo/IAO_0000119> rdf:type owl:AnnotationProperty ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "definition source"@en .
+
+
+###  http://purl.org/dc/terms/created
+<http://purl.org/dc/terms/created> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+<http://purl.org/dc/terms/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+<http://purl.org/dc/terms/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/identifier
+<http://purl.org/dc/terms/identifier> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/isPartOf
+<http://purl.org/dc/terms/isPartOf> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/isVersionOf
+<http://purl.org/dc/terms/isVersionOf> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+<http://purl.org/dc/terms/modified> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+<http://purl.org/dc/terms/publisher> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+<http://purl.org/dc/terms/source> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+<http://purl.org/dc/terms/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+<http://www.w3.org/2004/02/skos/core#altLabel> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broader
+<http://www.w3.org/2004/02/skos/core#broader> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+<http://www.w3.org/2004/02/skos/core#closeMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+<http://www.w3.org/2004/02/skos/core#definition> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+<http://www.w3.org/2004/02/skos/core#exactMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hasTopConcept
+<http://www.w3.org/2004/02/skos/core#hasTopConcept> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+<http://www.w3.org/2004/02/skos/core#inScheme> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+<http://www.w3.org/2004/02/skos/core#prefLabel> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#anyURI
+xsd:anyURI rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#boolean
+xsd:boolean rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#dateTime
+xsd:dateTime rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#decimal
+xsd:decimal rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#gYear
+xsd:gYear rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#integer
+xsd:integer rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#string
+xsd:string rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/ns/dqv#inDimension
+<http://www.w3.org/ns/dqv#inDimension> rdf:type owl:ObjectProperty ;
+                                       <http://purl.obolibrary.org/obo/IAO_0000115> "Represents the dimensions a quality metric, certificate and annotation allow a measurement of."@en ;
+                                       <http://purl.obolibrary.org/obo/IAO_0000119> <https://www.w3.org/TR/vocab-dqv/> ;
+                                       rdfs:comment "Dimensions are meant to systematically organize metrics, quality certificates and quality annotations. The Data Quality Vocabulary defines no specific cardinality constraints for dqv:inDimension, since distinct quality frameworks might have different perspectives over a metric. A metric may therefore be associated to more than one dimension. However, those who define new quality metrics should try to avoid this as much as possible and assign only one dimension to the metrics they define. More than one dimension can be indicated for each quality annotation or certificate."@en ;
+                                       rdfs:isDefinedBy <http://www.w3.org/ns/dqv#> ;
+                                       rdfs:label "in dimension"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.dataone.org/odo/ECSO_00002050
+<http://purl.dataone.org/odo/ECSO_00002050> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000109> ;
+                                            <http://purl.obolibrary.org/obo/IAO_0000115> "year of measurement"@en ;
+                                            rdfs:isDefinedBy <http://purl.dataone.org/odo/> ;
+                                            rdfs:label "year of measurement"@en .
+
+
+###  http://purl.dataone.org/odo/SALMON_00000137
+<http://purl.dataone.org/odo/SALMON_00000137> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "The Food and Agriculture Organization of the United Nations (FAO) defines a fishery as '...an activity leading to harvesting of fish. It may involve capture of wild fish or raising of fish through aquaculture.'"@en ;
+                                              rdfs:isDefinedBy <http://purl.dataone.org/odo/> ;
+                                              rdfs:label "Fishery type"@en .
+
+
+###  http://purl.dataone.org/odo/SALMON_00000167
+<http://purl.dataone.org/odo/SALMON_00000167> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "A measurement type taken of some physical, biological, or ecological aspect of a fish or fishes."@en ;
+                                              rdfs:isDefinedBy <http://purl.dataone.org/odo/> ;
+                                              rdfs:label "Fish measurement type"@en .
+
+
+###  http://purl.dataone.org/odo/SALMON_00000479
+<http://purl.dataone.org/odo/SALMON_00000479> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000109> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "The number of salmon which do not get caught by commercial or recreational fisheries and return to their freshwater spawning habitat."@en ;
+                                              rdfs:isDefinedBy <http://purl.dataone.org/odo/> ;
+                                              rdfs:label "Salmon escapement count"@en .
+
+
+###  http://purl.dataone.org/odo/SALMON_00000639
+<http://purl.dataone.org/odo/SALMON_00000639> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "Group of individuals of a species which can be regarded as an entity for management or assessment purposes; a separate breeding population of a species; term used to identify a management unit of fishery species. A distinct genetic population, a population defined by movement pattern, part of a population potentially harvestable, or a quantity of fish from a given area. May be a total or a spawning stock."@en ;
+                                              rdfs:isDefinedBy <http://purl.dataone.org/odo/> ;
+                                              rdfs:label "Fish stock type"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000015
+<http://purl.obolibrary.org/obo/BFO_0000015> rdf:type owl:Class ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "An occurrent that has temporal parts and for some time t, p s-depends_on some material entity at t."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/bfo.owl> ;
+                                             rdfs:label "process"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000020
+<http://purl.obolibrary.org/obo/BFO_0000020> rdf:type owl:Class ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "b is a specifically dependent continuant = Def. b is a continuant & there is some independent continuant c which is not a spatial region and which is such that b s-depends_on c at every time t during the course of b’s existence. (axiom label in BFO2 Reference: [050-003])"@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/bfo.owl> ;
+                                             rdfs:label "specifically dependent continuant"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000031
+<http://purl.obolibrary.org/obo/BFO_0000031> rdf:type owl:Class ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "A continuant that is dependent on one or more independent continuants and whose instances can be multiply instantiated."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/bfo.owl> ;
+                                             rdfs:label "generically dependent continuant"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000040
+<http://purl.obolibrary.org/obo/BFO_0000040> rdf:type owl:Class ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "An independent continuant that is spatially extended whose identity is independent of that of other entities and can be maintained through time."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/bfo.owl> ;
+                                             rdfs:label "material entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_00000020
+<http://purl.obolibrary.org/obo/ENVO_00000020> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_01000617> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A body of water or other liquid of considerable size contained in a depression on a landmass."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "lake"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_00000022
+<http://purl.obolibrary.org/obo/ENVO_00000022> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_01000618> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A stream which, through permanent or seasonal flow processes, moves from elevated land towards lower elevations through a definite channel and empties either into a sea, lake, or another river or ends on land as bed seepage and evapotranspiration exceed water supply."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "river"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_00000023
+<http://purl.obolibrary.org/obo/ENVO_00000023> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_01000618> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A watercourse which is linear and flows across the solid portion of a planetary surface."@en ;
+                                               rdfs:comment "A creek is typically smaller than a stream."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "stream"@en ;
+                                               <http://www.w3.org/2004/02/skos/core#altLabel> "creek"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_00000033
+<http://purl.obolibrary.org/obo/ENVO_00000033> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_01000617> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A body of water, usually of smaller size than a lake."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "pond"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_00000234
+<http://purl.obolibrary.org/obo/ENVO_00000234> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_00000023> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A small, slow-moving stream or creek; usually located in low-lying areas."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "bayou"@en ;
+                                               <http://www.w3.org/2004/02/skos/core#altLabel> "slough"@en ;
+                                               <http://www.w3.org/2004/02/skos/core#prefLabel> "slough"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_01000617
+<http://purl.obolibrary.org/obo/ENVO_01000617> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A lentic water body is a water body in which the accumulated water, in its totality, has very little to no directed flow."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "lentic water body"@en .
+
+
+###  http://purl.obolibrary.org/obo/ENVO_01000618
+<http://purl.obolibrary.org/obo/ENVO_01000618> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                               <http://purl.obolibrary.org/obo/IAO_0000115> "A lotic water body is a water body in which the accumulated water, in its totality, is flowing."@en ;
+                                               rdfs:isDefinedBy <http://purl.obolibrary.org/obo/envo.owl> ;
+                                               rdfs:label "lotic water body"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000030
+<http://purl.obolibrary.org/obo/IAO_0000030> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000031> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "A generically dependent continuant that is about some thing."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "information content entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000033
+<http://purl.obolibrary.org/obo/IAO_0000033> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "An information content entity whose concretizations indicate to their bearer how to realize them in a process."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "directive information entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000104
+<http://purl.obolibrary.org/obo/IAO_0000104> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "A directive information entity with action specifications and objective specifications as parts, and that may be concretized as a realizable entity that, if realized, is realized in a process in which the bearer tries to achieve the objectives by taking the actions specified."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "plan specification"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000109
+<http://purl.obolibrary.org/obo/IAO_0000109> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "A measurement datum is an information content entity that is a recording of the output of a measurement such as produced by a device."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "measurement datum"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000310
+<http://purl.obolibrary.org/obo/IAO_0000310> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "A collection of information content entities intended to be understood together as a whole."@en ;
+                                             rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "document"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Event
+<http://rs.tdwg.org/dwc/terms/Event> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000115> "An action that occurs at some location during some time."@en ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000119> <https://dwc.tdwg.org/list/> ;
+                                     rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                     rdfs:label "Event"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Identification
+<http://rs.tdwg.org/dwc/terms/Identification> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "A taxonomic determination (e.g., the assignment to a dwc:Taxon)."@en ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000119> <https://dwc.tdwg.org/list/> ;
+                                              rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                              rdfs:label "Identification"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/MaterialEntity
+<http://rs.tdwg.org/dwc/terms/MaterialEntity> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000115> "An entity that can be identified, exists for some period of time, and consists in whole or in part of physical matter while it exists."@en ;
+                                              <http://purl.obolibrary.org/obo/IAO_0000119> <https://dwc.tdwg.org/list/> ;
+                                              rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                              rdfs:label "Material Entity"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Occurrence
+<http://rs.tdwg.org/dwc/terms/Occurrence> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                                          <http://purl.obolibrary.org/obo/IAO_0000115> "An existence of a dwc:Organism at a particular place at a particular time."@en ;
+                                          <http://purl.obolibrary.org/obo/IAO_0000119> <https://dwc.tdwg.org/list/> ;
+                                          rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                          rdfs:label "Occurrence"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Organism
+<http://rs.tdwg.org/dwc/terms/Organism> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> ;
+                                        <http://purl.obolibrary.org/obo/IAO_0000115> "A particular organism or defined group of organisms considered to be taxonomically homogeneous."@en ;
+                                        <http://purl.obolibrary.org/obo/IAO_0000119> <https://dwc.tdwg.org/list/> ;
+                                        rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                        rdfs:label "Organism"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+<http://www.w3.org/2004/02/skos/core#Concept> rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+<http://www.w3.org/2004/02/skos/core#ConceptScheme> rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/dqv#Dimension
+<http://www.w3.org/ns/dqv#Dimension> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Concept> ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000115> "Represents criteria relevant for assessing quality. Each quality dimension must have one or more metric to measure it. A dimension is linked with a category using the dqv:inCategory property."@en ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000119> <https://www.w3.org/TR/vocab-dqv/> ;
+                                     rdfs:isDefinedBy <http://www.w3.org/ns/dqv#> ;
+                                     rdfs:label "Dimension"@en .
+
+
+###  http://www.w3.org/ns/dqv#QualityAnnotation
+<http://www.w3.org/ns/dqv#QualityAnnotation> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.w3.org/ns/oa#Annotation> ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000115> "Represents quality annotations, including ratings, quality certificates or feedback that can be associated to datasets or distributions. Quality annotations must have one oa:motivatedBy statement with an instance of oa:Motivation (and skos:Concept) that reflects a quality assessment purpose. We define this instance as dqv:qualityAssessment."@en ;
+                                             <http://purl.obolibrary.org/obo/IAO_0000119> <https://www.w3.org/TR/vocab-dqv/> ;
+                                             rdfs:isDefinedBy <http://www.w3.org/ns/dqv#> ;
+                                             rdfs:label "Quality Annotation"@en .
+
+
+###  http://www.w3.org/ns/oa#Annotation
+<http://www.w3.org/ns/oa#Annotation> rdf:type owl:Class ;
+                                     rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000115> "The class for Web Annotations."@en ;
+                                     <http://purl.obolibrary.org/obo/IAO_0000119> <http://www.w3.org/ns/oa#Annotation> ;
+                                     rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+                                     rdfs:label "Annotation"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#AlgorithmThreshold
+:AlgorithmThreshold rdf:type owl:Class ;
+                    rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                    <http://purl.obolibrary.org/obo/IAO_0000115> "Threshold value used by the rapid-status algorithm (such as Learning Tree 3) that may differ from expert-defined benchmarks to incorporate precautionary buffers."@en ;
+                    <http://purl.obolibrary.org/obo/IAO_0000119> "DFO (2024). Rapid Status Approximations for Pacific Salmon Derived from Integrated Expert Assessments under Canada’s Wild Salmon Policy. CSAS Science Response 2024/004."@en ;
+                    <http://purl.org/dc/terms/source> <https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ScR-RS/2024/2024_004-eng.pdf> ;
+                    rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                    rdfs:label "Algorithm threshold"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#BroodYear
+:BroodYear rdf:type owl:Class ;
+           rdfs:subClassOf :YearBasis ;
+           <http://purl.obolibrary.org/obo/IAO_0000115> "The year that a cohort of salmon spawns."@en ;
+           <http://purl.obolibrary.org/obo/IAO_0000119> "Adapted from the Government of Canada Pacific Salmon Glossary"@en ;
+           <http://purl.org/dc/terms/source> <https://www.pac.dfo-mpo.gc.ca/fm-gp/salmon-saumon/gloss-eng.html> ;
+           rdfs:comment "The parental year for a group of returning salmon, i.e. the calendar year when the majority of parents of these fish spawned."@en ;
+           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+           rdfs:label "Brood year"@en ;
+           <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.dataone.org/odo/SALMON_00000520> .
+
+
+###  https://w3id.org/gcdfo/salmon#CatchYear
+:CatchYear rdf:type owl:Class ;
+           rdfs:subClassOf :YearBasis ;
+           <http://purl.obolibrary.org/obo/IAO_0000115> "The calendar year in which returning salmon are caught in fisheries (as opposed to the brood year in which the cohort was spawned)."@en ;
+           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+           rdfs:label "Catch year"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ConfidenceCategory
+:ConfidenceCategory rdf:type owl:Class .
+
+
+###  https://w3id.org/gcdfo/salmon#ConservationUnit
+:ConservationUnit rdf:type owl:Class ;
+                  rdfs:subClassOf :ReportingOrManagementStratum ;
+                  <http://purl.obolibrary.org/obo/IAO_0000115> "A group of fish sufficiently isolated from other groups that, if extirpated, is very unlikely to recolonize naturally within an acceptable timeframe."@en ;
+                  <http://purl.obolibrary.org/obo/IAO_0000119> "Canada's Policy for Conservation of Wild Pacific Salmon Glossary."@en ,
+                                                               "Fisheries and Oceans Canada. (2005). Canada's Policy for Conservation of Wild Pacific Salmon. Retrieved from https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/315577.pdf."@en ;
+                  <http://purl.org/dc/terms/isPartOf> <urn:ISBN:0662405382> ;
+                  <http://purl.org/dc/terms/source> <https://www.pac.dfo-mpo.gc.ca/fm-gp/salmon-saumon/wsp-pss/policy-politique-eng.html#glossary> ;
+                  rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                  rdfs:label "Conservation Unit"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Escapement
+:Escapement rdf:type owl:Class ;
+            rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+            <http://purl.obolibrary.org/obo/IAO_0000115> "The process by which mature salmon pass through (or escape) fisheries and return to fresh water to spawn."@en ;
+            <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2005). Canada's Policy for Conservation of Wild Pacific Salmon. Retrieved from https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/315577.pdf."@en ;
+            <http://purl.org/dc/terms/isPartOf> <urn:ISBN:0662405382> ;
+            rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+            rdfs:label "Escapement"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EscapementMeasurement
+:EscapementMeasurement rdf:type owl:Class ;
+                       rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000109> ;
+                       <http://purl.obolibrary.org/obo/IAO_0000115> "A measurement or estimate of escapement tied to a stock and a survey event."@en ;
+                       rdfs:comment "Salmon escapement count"@en ;
+                       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                       rdfs:label "Escapement measurement"@en ;
+                       <http://www.w3.org/2004/02/skos/core#closeMatch> <http://purl.dataone.org/odo/SALMON_00000479> .
+
+
+###  https://w3id.org/gcdfo/salmon#EscapementSurveyEvent
+:EscapementSurveyEvent rdf:type owl:Class ;
+                       rdfs:subClassOf :SurveyEvent ;
+                       <http://purl.obolibrary.org/obo/IAO_0000115> "A survey event specifically for estimating escapement."@en ;
+                       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                       rdfs:label "Escapement Survey Event"@en ;
+                       <http://www.w3.org/2004/02/skos/core#prefLabel> "Escapement Survey Event"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ExploitationRate
+:ExploitationRate rdf:type owl:Class ;
+                  rdfs:subClassOf :TargetOrLimitRateOrAbundance ;
+                  <http://purl.obolibrary.org/obo/IAO_0000115> "Expressed as a percentage, the proportion of the total return of adult salmon in a given year that die (harvested or removed) as a result of fishing activity. ER = total fishing mortality / (total fishing mortality + escapement)"@en ;
+                  <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2019). Government of Canada. Pacific Salmon - Glossary. https://www.pac.dfo-mpo.gc.ca/fm-gp/salmon-saumon/gloss-eng.html. [Accessed 09-10-2025] "@en ;
+                  rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                  rdfs:label "Exploitation rate"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#IndicatorRiver
+:IndicatorRiver rdf:type owl:Class ;
+                rdfs:subClassOf <http://purl.obolibrary.org/obo/ENVO_01000618> ;
+                <http://purl.obolibrary.org/obo/IAO_0000115> "All spawning streams that are listed to be monitored by DFO are classified as an indicator or non-indicator stream. Indicator streams are those that have been identified in some Regions as providing more reliable indices of spawner abundance. Indicator streams tend to give relatively accurate annual spawner abundance estimates, given that they use higher quality methodologies and are more intensively/regularly surveyed. Indicator streams are also assumed to be representative of spawner returns to other streams in close geographic proximity. Non-indicator streams are typically less consistently surveyed, using more variable methodologies, and/or may simply be difficult to survey (e.g., poor water quality, remote location, etc.)."@en ;
+                rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                rdfs:label "Indicator river"@en ;
+                <http://www.w3.org/2004/02/skos/core#altLabel> "Indicator stream"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#LimitReferencePoint
+:LimitReferencePoint rdf:type owl:Class ;
+                     rdfs:subClassOf :ReferencePoint ;
+                     <http://purl.obolibrary.org/obo/IAO_0000115> "A fish stock experiencing serious harm may be depleted to the point where it has impaired productivity or reproductive capacity. As a result, the stock would be less resilient to fishing and could not easily rebuild. Serious harm may be irreversible, or only slowly reversible over the long-term, and can be due to fishing, other human-induced impacts, or natural causes. Under the Precautionary Approach policy and the Fish Stocks Provisions (FSPs), breaching the LRP is a trigger for a rebuilding plan."@en ;
+                     <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2024). Introduction to Stock Assessment - Glossary. https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/glossary-glossaire/index-eng.html. [Accessed 09-10-2025]."@en ;
+                     rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                     rdfs:label "Limit reference point"@en ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "LRP"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#MetricBenchmark
+:MetricBenchmark rdf:type owl:Class ;
+                 rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                 <http://purl.obolibrary.org/obo/IAO_0000115> "Benchmark value for a WSP metric that helps delineate status zones (for example, the limit reference point for absolute abundance)."@en ;
+                 <http://purl.obolibrary.org/obo/IAO_0000119> "Pestal, G. et al. (2023). State of the Salmon: Rapid Status Assessment Approach for Pacific Salmon under Canada’s Wild Salmon Policy."@en ;
+                 <http://purl.org/dc/terms/source> <https://publications.gc.ca/site/eng/9.928944/publication.html> ;
+                 rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                 rdfs:label "Metric benchmark"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ObservedRateOrAbundance
+:ObservedRateOrAbundance rdf:type owl:Class ;
+                         rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000109> ;
+                         <http://purl.obolibrary.org/obo/IAO_0000115> "A measurement datum representing an empirically observed rate, count, or abundance derived from monitoring or survey data."@en ;
+                         rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                         rdfs:label "Observed rate or abundance"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ReferencePoint
+:ReferencePoint rdf:type owl:Class ;
+                rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                <http://purl.obolibrary.org/obo/IAO_0000115> "Reference points are used as targets to achieve or as limits to avoid."@en ;
+                <http://purl.obolibrary.org/obo/IAO_0000119> "DFO Introduction to Stock Assessment Glossary."@en ;
+                <http://purl.org/dc/terms/source> <https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/glossary-glossaire/index-eng.html> ;
+                rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                rdfs:label "Reference point"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ReportingOrManagementStratum
+:ReportingOrManagementStratum rdf:type owl:Class ;
+                              rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                              <http://purl.obolibrary.org/obo/IAO_0000115> "An information-defined grouping of fish populations used for reporting, conservation assessment, or management purposes. Examples include Conservation Units (CUs), Stock Management Units (MUs), and Designatable Units (DUs)."@en ;
+                              rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                              rdfs:label "Reporting or management stratum"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Stock
+:Stock rdf:type owl:Class ;
+       rdfs:subClassOf <http://rs.tdwg.org/dwc/terms/Organism> ;
+       <http://purl.obolibrary.org/obo/IAO_0000115> "A biologically meaningful but operationally-focused salmon demographic unit used in assessment and reporting."@en ;
+       <http://purl.obolibrary.org/obo/IAO_0000119> "DFO Introduction to Stock Assessment Glossary; Pacific Salmon Commission Technical Report No. 49."@en ;
+       <http://purl.org/dc/terms/source> <https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/glossary-glossaire/index-eng.html> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       rdfs:label "Stock"@en ;
+       rdfs:seeAlso <http://purl.dataone.org/odo/SALMON_00000639> ;
+       <http://www.w3.org/2004/02/skos/core#altLabel> "Fish stock type"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#StockAssessment
+:StockAssessment rdf:type owl:Class ;
+                 rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                 <http://purl.obolibrary.org/obo/IAO_0000115> "The scientific process of analyzing data to estimate the abundance and productivity of fish stocks in the past, present, and future. It is the backbone of successful science-based fisheries management."@en ;
+                 <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2024). Introduction to Stock Assessment. Available at https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/module-1/09-eng.html [Accessed 10-28-2025]."@en ;
+                 rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                 rdfs:label "Stock assessment"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#StockManagementUnit
+:StockManagementUnit rdf:type owl:Class ;
+                     rdfs:subClassOf :ReportingOrManagementStratum ;
+                     <http://purl.obolibrary.org/obo/IAO_0000115> "A collection of stocks that are managed together with a joint stock status."@en ;
+                     <http://purl.obolibrary.org/obo/IAO_0000119> "DFO Introduction to Stock Assessment Glossary."@en ,
+                                                                  "Fisheries and Oceans Canada. (2024). Introduction to Stock Assessment - Glossary. https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/glossary-glossaire/index-eng.html. [Accessed 09-10-2025]."@en ;
+                     <http://purl.org/dc/terms/source> <https://www.dfo-mpo.gc.ca/science/species-especes/fisheries-halieutiques/assessment-evaluation/glossary-glossaire/index-eng.html> ;
+                     rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                     rdfs:label "Stock Management Unit"@en ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "SMU"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#SurveyEvent
+:SurveyEvent rdf:type owl:Class ;
+             rdfs:subClassOf <http://rs.tdwg.org/dwc/terms/Event> ;
+             <http://purl.obolibrary.org/obo/IAO_0000115> "A field event that collects information about key fish stocks to track their status, and track progress to implement fishery policies and measures for these stocks."@en ;
+             <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2021). About the Sustainability Survey for Fisheries. Available at https://www.dfo-mpo.gc.ca/reports-rapports/regs/sff-cpd/survey-sondage/about-propos-en.html. [Accessed 09-10-2025]."@en ;
+             rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+             rdfs:label "Survey event"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#TargetOrLimitRateOrAbundance
+:TargetOrLimitRateOrAbundance rdf:type owl:Class ;
+                              rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000109> ;
+                              <http://purl.obolibrary.org/obo/IAO_0000115> "A value specification representing a policy- or model-defined target or limit, such as TAC, UMSY, or reference points."@en ;
+                              rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                              rdfs:label "Target or limit rate or abundance"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#TotalExploitationRate
+:TotalExploitationRate rdf:type owl:Class ;
+                       rdfs:subClassOf :ExploitationRate ;
+                       <http://purl.obolibrary.org/obo/IAO_0000115> "The overall proportion of the total return of adult salmon removed by all fisheries over a defined period, aggregating across gear or fishery components."@en ;
+                       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                       rdfs:label "Total exploitation rate"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#UpperStockReferencePoint
+:UpperStockReferencePoint rdf:type owl:Class ;
+                          rdfs:subClassOf :ReferencePoint ;
+                          <http://purl.obolibrary.org/obo/IAO_0000115> "A threshold below which fishing must be reduced to avoid reaching the LRP. The USR must be set at an appropriate distance above the LRP to provide sufficient opportunity for managers to recognize a declining stock status and sufficient time for management actions to take effect. "@en ;
+                          <http://purl.obolibrary.org/obo/IAO_0000119> "DFO Introduction to Stock Assessment Glossary."@en ;
+                          rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                          rdfs:label "Upper stock reference"@en ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "USR"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#WSPBiologicalStatusZone
+:WSPBiologicalStatusZone rdf:type owl:Class .
+
+
+###  https://w3id.org/gcdfo/salmon#WSPRapidStatus
+:WSPRapidStatus rdf:type owl:Class ;
+                <http://purl.obolibrary.org/obo/IAO_0000115> "The WSP rapid status assessment approach builds on previously completed WSP integrated status assessments. The detailed WSP integrated assessments are labour intensive, taking 10-40 experts up to three days to complete for each group of CUs. For this reason, assessments have only been completed for ~11% of the 377 current Pacific Salmon CUs, many of which are outdated. The WSP rapid approach can fill gaps by expanding coverage of CU statuses across time, species, and geographic areas. The WSP rapid status approach ensures statuses are scientifically objective, consistent, and comparable across BC/Yukon CUs. This approach is also relatively easy to implement, applicable to data rich and data poor CUs, and can be updated annually."@en ;
+                <http://purl.obolibrary.org/obo/IAO_0000119> "Pestal, G., MacDonald, B. L., Grant, S. C. H., and Holt, C. A. (2023). State of the Salmon: rapid status assessment approach for Pacific salmon under Canada’s Wild Salmon Policy. Can. Tech. Rep. Fish. Aquat. Sci. 3570: xiv + 200 p."@en ;
+                rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                rdfs:label "WSP rapid status"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#YearBasis
+:YearBasis rdf:type owl:Class ;
+           <http://purl.obolibrary.org/obo/IAO_0000115> "A year-based temporal reference used to contextualize measurements or rates (e.g., brood year or catch year)."@en ;
+           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+           rdfs:label "Year basis"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://w3id.org/gcdfo/salmon#AerialSurveyCount
+:AerialSurveyCount rdf:type owl:NamedIndividual ,
+                            <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                   <http://www.w3.org/2004/02/skos/core#broader> :EnumerationMethod ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "Repeated overflights enumerate visible spawners over defined waterbodies using helicopter fixed wing or drone platforms. Flight lines altitude sensor settings and ground sampling distance are documented and imagery may be reviewed post flight."@en ;
+                   <http://www.w3.org/2004/02/skos/core#inScheme> :EnumerationMethodScheme ;
+                   <http://www.w3.org/2004/02/skos/core#prefLabel> "Aerial Survey Count"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#AmberZone
+:AmberZone rdf:type owl:NamedIndividual ,
+                    <http://www.w3.org/2004/02/skos/core#Concept> ,
+                    :WSPBiologicalStatusZone ;
+           <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2021). Wild Salmon Policy 2018-2022 Implementation Plan. Available at https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/40728109.pdf."@en ;
+           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+           <http://www.w3.org/2004/02/skos/core#definition> "Amber status implies caution in the management of the Conservation Unit. While a CU in the Amber zone should be at a low risk of loss, there will be a degree of lost production. Decisions about the conservation of CUs in the Amber zone will involve broader consideration of biological, social, and economic issues. "@en ;
+           <http://www.w3.org/2004/02/skos/core#inScheme> :WSPBiologicalStatusZoneScheme ;
+           <http://www.w3.org/2004/02/skos/core#prefLabel> "Amber zone"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#AreaUnderTheCurve
+:AreaUnderTheCurve rdf:type owl:NamedIndividual ,
+                            <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "AUC"@en ;
+                   <http://www.w3.org/2004/02/skos/core#broader> :EnumerationMethod ,
+                                                                 :EstimateMethod ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "Integrates serial counts over time using a survey‑life parameter; may apply observer efficiency."@en ;
+                   <http://www.w3.org/2004/02/skos/core#inScheme> :EnumerationMethodScheme ,
+                                                                  :EstimateMethodScheme ;
+                   <http://www.w3.org/2004/02/skos/core#prefLabel> "Area Under the Curve"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#BiologicalBenchmarkAndIndicatorScheme
+:BiologicalBenchmarkAndIndicatorScheme rdf:type owl:NamedIndividual ,
+                                                <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                                       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                                       <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for key biological benchmarks, performance indicators, and reference points used in salmon stock assessment and management (e.g., SMSY, Sgen, spawner abundance)."@en ;
+                                       <http://www.w3.org/2004/02/skos/core#hasTopConcept> :TargetOrLimitRateOrAbundance ;
+                                       <http://www.w3.org/2004/02/skos/core#prefLabel> "Biological Benchmark and Indicator Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#COSEWICStatusScheme
+:COSEWICStatusScheme rdf:type owl:NamedIndividual ,
+                              <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                     rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                     <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for COSEWIC statuses"@en ;
+                     <http://www.w3.org/2004/02/skos/core#hasTopConcept> :COSEWICStatusCategory ;
+                     <http://www.w3.org/2004/02/skos/core#prefLabel> "COSEWIC Status Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#CensusByManualCountAtFixedSite
+:CensusByManualCountAtFixedSite rdf:type owl:NamedIndividual ,
+                                         <http://www.w3.org/2004/02/skos/core#Concept> ;
+                                rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                                <http://www.w3.org/2004/02/skos/core#broader> :EnumerationMethod ;
+                                <http://www.w3.org/2004/02/skos/core#definition> "Salmon are guided through a controlled opening in a fence/weir where trained observers visually tally each passage event on a continuous or daily schedule. Counting chambers/windows and SIL/SEN daily logs document coverage; bypass routes are monitored and closed where possible."@en ;
+                                <http://www.w3.org/2004/02/skos/core#inScheme> :EnumerationMethodScheme ;
+                                <http://www.w3.org/2004/02/skos/core#prefLabel> "Census by Manual Count at Fixed Site"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#ConfidenceCategory
+:ConfidenceCategory rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/2004/02/skos/core#Concept> .
+
+
+###  https://w3id.org/gcdfo/salmon#DowngradeCriteriaScheme
+:DowngradeCriteriaScheme rdf:type owl:NamedIndividual ,
+                                  <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                         rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                         <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for estimate type downgrade criteria"@en ;
+                         <http://www.w3.org/2004/02/skos/core#hasTopConcept> :DowngradeCriteria ;
+                         <http://www.w3.org/2004/02/skos/core#prefLabel> "Downgrade Criteria Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EnumerationMethod
+:EnumerationMethod rdf:type owl:NamedIndividual ,
+                            <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "A method used to enumerate or count salmon in the field"@en ;
+                   <http://www.w3.org/2004/02/skos/core#inScheme> :EnumerationMethodScheme ;
+                   <http://www.w3.org/2004/02/skos/core#prefLabel> "Enumeration Method"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EnumerationMethodScheme
+:EnumerationMethodScheme rdf:type owl:NamedIndividual ,
+                                  <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                         rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                         <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for salmon enumeration methods"@en ;
+                         <http://www.w3.org/2004/02/skos/core#hasTopConcept> :EnumerationMethod ;
+                         <http://www.w3.org/2004/02/skos/core#prefLabel> "Enumeration Method Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EstimateMethod
+:EstimateMethod rdf:type owl:NamedIndividual ,
+                         <http://www.w3.org/2004/02/skos/core#Concept> ;
+                rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                <http://www.w3.org/2004/02/skos/core#definition> "A method used to analyze and estimate salmon abundance from enumeration data"@en ;
+                <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateMethodScheme ;
+                <http://www.w3.org/2004/02/skos/core#prefLabel> "Estimate Method"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EstimateMethodScheme
+:EstimateMethodScheme rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                      rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                      <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for salmon estimate methods"@en ;
+                      <http://www.w3.org/2004/02/skos/core#hasTopConcept> :EstimateMethod ;
+                      <http://www.w3.org/2004/02/skos/core#prefLabel> "Estimate Method Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EstimateType
+:EstimateType rdf:type owl:NamedIndividual ,
+                       <http://www.w3.org/2004/02/skos/core#Concept> ;
+              rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+              <http://www.w3.org/2004/02/skos/core#definition> "Classification of escapement estimate quality based on Hyatt 1997 framework"@en ;
+              <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+              <http://www.w3.org/2004/02/skos/core#prefLabel> "Estimate Type"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#EstimateTypeScheme
+:EstimateTypeScheme rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                    rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                    <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for Hyatt 1997 estimate types"@en ;
+                    <http://www.w3.org/2004/02/skos/core#hasTopConcept> :EstimateType ;
+                    <http://www.w3.org/2004/02/skos/core#prefLabel> "Estimate Type Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#FixedStationTally
+:FixedStationTally rdf:type owl:NamedIndividual ,
+                            <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                   <http://www.w3.org/2004/02/skos/core#broader> :EstimateMethod ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "Seasonal total = roll‑up of daily/continuous counts from a fixed (non‑sonar) station; simple arithmetic with documented coverage."@en ;
+                   <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateMethodScheme ;
+                   <http://www.w3.org/2004/02/skos/core#prefLabel> "Fixed‑Station Tally"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#GreenZone
+:GreenZone rdf:type owl:NamedIndividual ,
+                    <http://www.w3.org/2004/02/skos/core#Concept> ,
+                    :WSPBiologicalStatusZone ;
+           <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2021). Wild Salmon Policy 2018-2022 Implementation Plan. Available at https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/40728109.pdf."@en ;
+           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+           <http://www.w3.org/2004/02/skos/core#definition> "Social and economic considerations will tend to be the primary drivers for the management of Conservation Units in the Green zone, though ecosystem or other non-consumptive use values could also be considered."@en ;
+           <http://www.w3.org/2004/02/skos/core#inScheme> :WSPBiologicalStatusZoneScheme ;
+           <http://www.w3.org/2004/02/skos/core#prefLabel> "Green zone"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#PeakCountAnalysis
+:PeakCountAnalysis rdf:type owl:NamedIndividual ,
+                            <http://www.w3.org/2004/02/skos/core#Concept> ;
+                   rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                   <http://www.w3.org/2004/02/skos/core#broader> :EstimateMethod ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "Uses the peak survey (live ± dead variants) as the season estimate/index."@en ;
+                   <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateMethodScheme ;
+                   <http://www.w3.org/2004/02/skos/core#prefLabel> "Peak Count Analysis"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#RapidStatusConfidenceHigh
+:RapidStatusConfidenceHigh rdf:type owl:NamedIndividual ,
+                                    <http://www.w3.org/2004/02/skos/core#Concept> ,
+                                    :ConfidenceCategory ;
+                           <http://purl.obolibrary.org/obo/IAO_0000115> "Rapid status confidence category indicating that high-quality abundance metrics support the result."@en ;
+                           rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                           rdfs:label "High rapid-status confidence"@en ;
+                           <http://www.w3.org/2004/02/skos/core#inScheme> :RapidStatusConfidenceScheme ;
+                           <http://www.w3.org/2004/02/skos/core#prefLabel> "High confidence"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#RapidStatusConfidenceLow
+:RapidStatusConfidenceLow rdf:type owl:NamedIndividual ,
+                                   <http://www.w3.org/2004/02/skos/core#Concept> ,
+                                   :ConfidenceCategory ;
+                          <http://purl.obolibrary.org/obo/IAO_0000115> "Rapid status confidence category indicating limited supporting data (for example, derived from trend metrics alone)."@en ;
+                          rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                          rdfs:label "Low rapid-status confidence"@en ;
+                          <http://www.w3.org/2004/02/skos/core#inScheme> :RapidStatusConfidenceScheme ;
+                          <http://www.w3.org/2004/02/skos/core#prefLabel> "Low confidence"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#RapidStatusConfidenceMedium
+:RapidStatusConfidenceMedium rdf:type owl:NamedIndividual ,
+                                      <http://www.w3.org/2004/02/skos/core#Concept> ,
+                                      :ConfidenceCategory ;
+                             <http://purl.obolibrary.org/obo/IAO_0000115> "Rapid status confidence category indicating mixed evidence or reliance on trend metrics supplemented by some abundance information."@en ;
+                             rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                             rdfs:label "Medium rapid-status confidence"@en ;
+                             <http://www.w3.org/2004/02/skos/core#inScheme> :RapidStatusConfidenceScheme ;
+                             <http://www.w3.org/2004/02/skos/core#prefLabel> "Medium confidence"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#RapidStatusConfidenceScheme
+:RapidStatusConfidenceScheme rdf:type owl:NamedIndividual ,
+                                      <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                             rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                             <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for categorical confidence ratings attached to rapid status assessments."@en ;
+                             <http://www.w3.org/2004/02/skos/core#hasTopConcept> :ConfidenceCategory ;
+                             <http://www.w3.org/2004/02/skos/core#prefLabel> "Rapid status confidence scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#RedZone
+:RedZone rdf:type owl:NamedIndividual ,
+                  <http://www.w3.org/2004/02/skos/core#Concept> ,
+                  :WSPBiologicalStatusZone ;
+         <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2021). Wild Salmon Policy 2018-2022 Implementation Plan. Available at https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/40728109.pdf."@en ;
+         rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+         <http://www.w3.org/2004/02/skos/core#definition> "A Conservation Unit in the Red zone is undesirable because of the risk of extirpation, and the loss of ecological benefits and salmon production. Changes in status will trigger management actions that will vary depending on species, geographic regions, and cause of the decline."@en ;
+         <http://www.w3.org/2004/02/skos/core#inScheme> :WSPBiologicalStatusZoneScheme ;
+         <http://www.w3.org/2004/02/skos/core#prefLabel> "Red zone"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#SalmonOriginScheme
+:SalmonOriginScheme rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                    rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                    <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for describing the origin of individual salmon (e.g., natural-origin, hatchery-origin, mixed-origin)."@en ;
+                    <http://www.w3.org/2004/02/skos/core#prefLabel> "Salmon Origin Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#StockStatusZoneScheme
+:StockStatusZoneScheme rdf:type owl:NamedIndividual ,
+                                <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                       <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for stock status zones under the Precautionary Approach."@en ;
+                       <http://www.w3.org/2004/02/skos/core#hasTopConcept> :StockStatusZone ;
+                       <http://www.w3.org/2004/02/skos/core#prefLabel> "Stock Status Zone Scheme"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type1
+:Type1 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "Total, seasonal counts through fence or fishway; virtually no bypass. Simple, often single step analysis. Reliable resolution of between year differences >10% (in absolute units)."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-1, True Abundance, high resolution"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type2
+:Type2 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "High effort (5 or more trips), standard methods (e.g. mark-recapture, serial counts for area under curve, etc.). Simple to complex multi-step, but always rigorous. Reliable resolution of between year differences >25% (in absolute units)."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-2, True Abundance, medium resolution"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type3
+:Type3 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "High effort (5 or more trips), standard methods (e.g. equal effort surveys executed by walk, swim, overflight, etc.). Simple to complex multi-step, but always rigorous. Reliable resolution of between year differences >25% (in relative units)."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-3, Relative Abundance, high resolution"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type4
+:Type4 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "Low to moderate effort (1-4 trips), known survey method. Simple analysis by known methods. Reliable resolution of between year differences >200% (in relative units)."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-4, Relative Abundance, medium resolution"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type5
+:Type5 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "Low effort (e.g. 1 trip), use of vaguely defined, inconsistent or poorly executed methods. Unknown to ill defined; inconsistent or poorly executed. Uncertain numeric comparisons, but high reliability for presence or absence."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-5, Relative Abundance, low resolution"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#Type6
+:Type6 rdf:type owl:NamedIndividual ,
+                <http://www.w3.org/2004/02/skos/core#Concept> ;
+       rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+       <http://www.w3.org/2004/02/skos/core#broader> :EstimateType ;
+       <http://www.w3.org/2004/02/skos/core#definition> "Any of above methods. Not required for analysis. Moderate to high reliability for presence/absence."@en ;
+       <http://www.w3.org/2004/02/skos/core#inScheme> :EstimateTypeScheme ;
+       <http://www.w3.org/2004/02/skos/core#prefLabel> "Type-6, Presence or Absence"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#VisualSnorkelCount
+:VisualSnorkelCount rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/2004/02/skos/core#Concept> ;
+                    rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                    <http://www.w3.org/2004/02/skos/core#broader> :EnumerationMethod ;
+                    <http://www.w3.org/2004/02/skos/core#definition> "Two or more trained snorkelers conduct standardized passes within defined segments, tallying live/dead by species. Field forms capture visibility class, segment boundaries, and repeat‑visit schedule; counts are aggregated across observers/passes."@en ;
+                    <http://www.w3.org/2004/02/skos/core#inScheme> :EnumerationMethodScheme ;
+                    <http://www.w3.org/2004/02/skos/core#prefLabel> "Visual Snorkel Count"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#WSPBiologicalStatusZone
+:WSPBiologicalStatusZone rdf:type owl:NamedIndividual ,
+                                  <http://www.w3.org/2004/02/skos/core#Concept> .
+
+
+###  https://w3id.org/gcdfo/salmon#WSPBiologicalStatusZoneScheme
+:WSPBiologicalStatusZoneScheme rdf:type owl:NamedIndividual ,
+                                        <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                               rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                               <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for biological status zones under the Wild Salmon Policy."@en ;
+                               <http://www.w3.org/2004/02/skos/core#hasTopConcept> :WSPBiologicalStatusZone ;
+                               <http://www.w3.org/2004/02/skos/core#prefLabel> "Wild Salmon Policy Status Zone"@en .
+
+
+###  https://w3id.org/gcdfo/salmon#WSPMetricScheme
+:WSPMetricScheme rdf:type owl:NamedIndividual ,
+                          <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+                 rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                 <http://www.w3.org/2004/02/skos/core#definition> "Controlled vocabulary for the Wild Salmon Policy rapid-status metrics and related analytical concepts."@en ;
+                 <http://www.w3.org/2004/02/skos/core#hasTopConcept> :WSPMetric ;
+                 <http://www.w3.org/2004/02/skos/core#prefLabel> "Wild Salmon Policy metric scheme"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://purl.obolibrary.org/obo/IAO_0000115> rdfs:isDefinedBy <http://purl.obolibrary.org/obo/iao.owl> ;
+                                             rdfs:label "definition"@en .
+
+
+:ConfidenceCategory rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                    <http://www.w3.org/2004/02/skos/core#definition> "Categorical confidence rating (High, Medium, Low) reported alongside a rapid status assessment."@en ;
+                    <http://www.w3.org/2004/02/skos/core#inScheme> :RapidStatusConfidenceScheme ;
+                    <http://www.w3.org/2004/02/skos/core#prefLabel> "Confidence category"@en .
+
+
+:WSPBiologicalStatusZone <http://purl.obolibrary.org/obo/IAO_0000119> "Fisheries and Oceans Canada. (2021). Wild Salmon Policy 2018-2022 Implementation Plan. Available at https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/40728109.pdf."@en ;
+                         rdfs:isDefinedBy <https://w3id.org/gcdfo/salmon> ;
+                         rdfs:seeAlso :WSPBiologicalStatusZoneScheme ;
+                         <http://www.w3.org/2004/02/skos/core#definition> "The biological status of a Conservation Unit (CU) will normally be based on the abundance and distribution of spawners in the unit, or proxies thereof. For each CU, higher and lower benchmarks will be defined that will delimit three status zones: Green, Amber, and Red. As spawner abundance decreases, a CU moves towards the lower status zone, and the extent of management intervention for conservation purposes will increase."@en ;
+                         <http://www.w3.org/2004/02/skos/core#prefLabel> "Wild Salmon Policy biological status zone"@en .
+
+
+###  Generated by the OWL API (version 5.1.18) https://github.com/owlcs/owlapi/
