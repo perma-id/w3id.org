@@ -3,8 +3,6 @@ Options +FollowSymLinks
 RewriteEngine on
 
 # BASE: Visit homepage
-RewriteRule ^$ https://www.nfdi.de [R=303,L]
-
-# Redirect /code to GitHub
-RewriteCond %{REQUEST_URI} ^/code/?$
-RewriteRule ^.*$ https://github.com/nfdi-de/ [R=302,L,NE,NC]
+RewriteCond %{REQUEST_URI} !dcat-ap-plus/ [NC]
+RewriteCond %{REQUEST_URI} !dcat-ap-linkml/ [NC]
+RewriteRule ^.*$ https://www.nfdi.de [R=303,DNC,R, L]

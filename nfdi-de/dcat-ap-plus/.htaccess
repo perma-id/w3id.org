@@ -19,6 +19,11 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/?.*$"  https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
 
 # ====================================
@@ -27,49 +32,30 @@ RewriteRule ^$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
 
 # main linkml yaml schema
 RewriteCond %{HTTP_ACCEPT} application/yaml
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/src/dcat_ap_plus/schema/dcat_ap_plus.yaml [R=302,L]
-
-# main python model (not pydantic)
-RewriteCond %{HTTP_ACCEPT} text/x-python
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/src/dcat_ap_plus/datamodel/dcat_ap_plus.py [R=302,L]
-
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/dcat_ap_plus.yaml [R=302,L]
 
 # ====================================
 # Various artefacts
 # ====================================
 
-# Content negotiation for LinkML excel
-# xlsx format
-RewriteCond %{HTTP_ACCEPT} application/Linkml\+xlsx
-RewriteRule ^$ https://github.com/nfdi-de/dcat-ap-plus/raw/refs/heads/main/project/excel/dcat_ap_plus.xlsx [R=302,L]
 
-# Content negotiation for graphql formats
-# JSON format
-RewriteCond %{HTTP_ACCEPT} application/graphql-response\+json
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/graphql/dcat_ap_plus.graphql [R=302,L]
 
 # Content negotiation for JSON-LD formats
 # JSON-LD format
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/jsonld/dcat_ap_plus.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/jsonld/dcat_ap_plus.jsonld[R=302,L]
+
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema/jsonld/dcat_ap_plus.jsonld" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/jsonld/dcat_ap_plus.jsonld[R=302,L]
+
+# Content negotiation for JSON-LD contextformats
+# JSON-LD format
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema/jsonld/dcat_ap_plus.context.jsonld" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/jsonld/dcat_ap_plus.context.jsonld[R=302,L]
 
 # Content negotiation for JSON-Schema formats
 # JSON format
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/jsonschema/dcat_ap_plus.schema.json [R=302,L]
-
-# Content negotiation for OWL formats
-# TTL format
-RewriteCond %{HTTP_ACCEPT} application/owl\+turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/owl\+x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/owl\+turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/owl\+x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/x-turtle
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/owl/dcat_ap_plus.owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/jsonschema/dcat_ap_plus.schema.json [R=302,L]
 
 # Content negotiation for SHACL formats
 # TTL format
@@ -77,32 +63,49 @@ RewriteCond %{HTTP_ACCEPT} application/shacl\+turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/shacl\+x-turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/shacl\+turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/shacl\+x-turtle
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/shacl/dcat_ap_plus.shacl.ttl [R=302,L]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/shacl/dcat_ap_plus.shacl.ttl [R=302,L]
 
-# Content negotiation for SHEX formats
-# ShExC format
-RewriteCond %{HTTP_ACCEPT} application/shex\+json [OR]
-RewriteCond %{HTTP_ACCEPT} text/shex
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/shex/dcat_ap_plus.shex [R=302,L]
+# Content negotiation for Prefix map. Implemented before 
+# YAML format
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})\prefixmap/dcat_ap_plus.yaml$" https://nfdi-de.github.io/dcat-ap-plus/v$1/schema/prefixmap/dcat_ap_plus.yaml [R=302,L]
 
-# Content negotiation for SQLschema formats
-# OWL format
-RewriteCond %{HTTP_ACCEPT} application/sql
-RewriteRule ^$ https://raw.githubusercontent.com/nfdi-de/dcat-ap-plus/refs/heads/main/project/sqlschema/dcat_ap_plus.sql [R=302,L]
 
-# ====================================
-# Documentation redirects
-# ====================================
+# HTML - individual documentation for class elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/class/(.*)$" https://nfdi-de.github.io/dcat-ap-plus/v$1/elements/classes/$2 [R=303,L,NE,NC]
 
-# Documentation index
-RewriteRule ^docs/?$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
+# HTML - individual documentation for slot elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/slot/(.*)$" https://nfdi-de.github.io/dcat-ap-plus/v$1/elements/slots/$2 [R=303,L,NE,NC]
 
-# Individual element documentation (example pattern)
-RewriteRule ^docs/elements/(.+)$ https://nfdi-de.github.io/dcat-ap-plus/elements/$1 [R=302,L]
+# HTML - individual documentation for enum elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi-de.github.io/dcat-ap-plus/v$1/elements/enums/$2 [R=303,L,NE,NC]
+
+# HTML - individual documentation for type elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/type/(.*)$" https://nfdi-de.github.io/dcat-ap-plus/v$1/elements/types/$2 [R=303,L,NE,NC]
+
+
+# HTML - schema documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^elements.*$" https://nfdi-de.github.io/dcat-ap-plus/latest/elements/overview [R=303,L,NE,NC]
+
+# HTML - general documentation
+RewriteCond %{REQUEST_URI} !chemistry/ [NC]
+RewriteCond %{REQUEST_URI} !materials/ [NC]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^.*$" https://nfdi-de.github.io/dcat-ap-plus/latest [R=303,L,NE,NC]
+
 
 # ====================================
 # Fallback - redirect to main documentation
 # ====================================
+# Fallback to HTML for version-tagged and latest.
+RewriteCond %{REQUEST_URI} !chemistry/ [NC]
+RewriteCond %{REQUEST_URI} !materials/ [NC]
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}).*$" https://nfdi-de.github.io/dcat-ap-plus/v$1 [R=303,L,NE,NC]
 
-# Catch-all: anything not matched above goes to the documentation home
-RewriteRule ^(.*)$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
+RewriteCond %{REQUEST_URI} !chemistry/ [NC]
+RewriteCond %{REQUEST_URI} !materials/ [NC]
+RewriteRule "^.*$" https://nfdi-de.github.io/dcat-ap-plus/latest [R=303,L,NE]
