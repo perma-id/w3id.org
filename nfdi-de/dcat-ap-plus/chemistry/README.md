@@ -9,22 +9,19 @@ Base URL:
 Subschema:
 
 - DCAT-AP+NMR-measurements: (for an NMR Measurement specific Schemas)
-<BR> GitHub-repository https://github.com/nfdi-de/chem-dcat-ap
+<BR> GitHub-repository https://github.com/NFDI4Chem/nmr-dcat-ap
 
 
 ## Redirects to the latest release
 
 Documentation
--  https://github.com/nfdi-de/chem-dcat-ap)
+-  https://nfdi-de.github.io/chem-dcat-ap/latest/)
 
 Technical Artefacts
-- yaml: &emsp; https://github.com/nfdi-de/chem-dcat-ap/blob/main/src/dcat_4c_ap/schema/dcat_ap_plus.yaml
-- json: &emsp; https://github.com/nfdi-de/chem-dcat-ap/blob/main/project/jsonschema/dcat_4c_ap.schema.json
-- owl: &emsp; https://github.com/nfdi-de/chem-dcat-ap/blob/main/project/owl/dcat_4c_ap.owl.ttl
-
-- shacl: &emsp; https://github.com/nfdi-de/chem-dcat-ap/blob/main/project/shacl/dcat_4c_ap.shacl.ttl
-
-- pydantic: &emsp; https://github.com/nfdi-de/chem-dcat-ap/blob/main/src/dcat_4c_ap/datamodel/dcat_4c_ap_pydantic.py
+- yaml: &emsp; https://nfdi-de.github.io/chem-dcat-ap/latest/schema/dcat_ap_plus.yaml
+- json: &emsp; https://nfdi-de.github.io/chem-dcat-ap/latest/jsonschema/dcat_ap_plus.schema.json
+- jsonld: &emsp; https://nfdi-de.github.io/chem-dcat-ap/latest/schema/jsonld/dcat_ap_plus.context.jsonld
+- shacl: &emsp; https://nfdi-de.github.io/chem-dcat-ap/latest/schema/shacl/dcat_ap_plus.shacl.ttl
 
 ## Contacts
 
