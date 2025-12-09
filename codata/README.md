@@ -4,7 +4,7 @@ https://codata.org/
 
 Contacts: 
 
-- simon@codata.org
+- simon@codata.org @simonhodson99
 - asha@codata.org
-- pascal@codata.org
-- dr.shorthair@pm.me
+- pascal@codata.org @kulnor
+- dr.shorthair@pm.me @dr-shorthair
