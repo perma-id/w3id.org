@@ -12,3 +12,4 @@ More information about CPPs can be found here: https://eden-fidelis.eu/core-pres
 
 [1] EOSC EDEN T1.2, Lindlar, M., Caron, B., Benauer, M., Kylander, J., Dekeyser, K., Addis, M., Levlin, M., Laukkanen, M., Lehtonen, J., Burger, F., Koho, T., Schwab, F., Molloy, L., & Zhang, F. (2025). M1.1 Report on Identification of Core Preservation Processes. Zenodo. https://doi.org/10.5281/zenodo.16992452
 
+Maintainer: Robert Huber (rhuber@uni-bremen.de)
