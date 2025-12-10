@@ -2,6 +2,10 @@
 
 A SKOS (Turtle) representation of the core preservation processes defined in the EOSC-EDEN project [1].
 
+Namespace URI: 
+
+> <i class="icon-file"></i>`https://w3id.org/cppv/`
+
 Core Preservation Processes (CPPs) refer to specific actions that every Trustworthy Digital Archive should adequately undertake - either directly or through associated parties or services—to fulfil its digital preservation mission, as evidenced in its preservation policy.
 
 More information about CPPs can be found here: https://eden-fidelis.eu/core-preservation-processes
