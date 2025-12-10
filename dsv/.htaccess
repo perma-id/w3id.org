@@ -7,11 +7,27 @@ RewriteEngine on
 # Turn off MultiViews
 Options -MultiViews
 
+Header append Vary Accept
+
 AddType text/turtle .ttl
 
 # In case of accept header <text/turtle>
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.ttl [R=303,NE,L]
+
+AddType application/rdf+xml .rdf
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.rdf [R=303,NE,L]
+
+AddType application/ld+json .jsonld
+
+# In case of Accept header <application/ld+json>
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.jsonld [R=303,NE,L]
+
+RewriteRule ^1\.0\.0/?$ https://w3id.org/dsv [R=301,L]
 
 # Default response: html
-RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/ [R=303,NE,L]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/ [R=303,NE,L]

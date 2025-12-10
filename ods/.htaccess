@@ -1,0 +1,62 @@
+# https://w3id.org/ods redirects to https://profile.mydata-control.de/ods/
+#
+# ## Contact
+# This space is administered by: 
+#
+# Arghavan Hosseinzadeh
+# arghavan.hosseinzadeh@iese.fraunhofer.de
+# GitHub username: https://github.com/hosseinzadeha
+#
+# Jessica Chwalek
+# jessica.chwalek@iese.fraunhofer.de
+# GitHub username: https://github.com/jsc-chwlk
+#
+# Robin Brandstädter
+# robin.brandstaedter@iese.fraunhofer.de
+# GitHub username: https://github.com/Brandstaedter
+#
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://github.com/Fraunhofer-IESE/ODS/blob/main/ods-profile.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://profile.mydata-control.de/ods/ [R=303,L]
+
+# Rewrite rule to serve TTL content from previous versions of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^0.1$ https://github.com/Fraunhofer-IESE/ODS/blob/main/ods-profile.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content from previous versions of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^0.1$ https://profile.mydata-control.de/ods/ [R=303,L]
+
+# Rewrite rule to serve HTML content from the repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^repo/?$ https://github.com/Fraunhofer-IESE/ODS/ [R=303,L]
+
+# Rewrite rule to serve HTML content from the policies repo URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^policies/?$ https://github.com/Fraunhofer-IESE/ODS/tree/main/policies [R=303,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^$ https://github.com/Fraunhofer-IESE/ODS/blob/main/ods-profile.ttl [R=303,L]

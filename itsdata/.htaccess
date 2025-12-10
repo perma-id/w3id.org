@@ -1,0 +1,39 @@
+# https://w3id.org/itsdata/ redirects to https://isotc204.org/ontology-its-xxx/latest/ where xxx is the topic area
+#
+# ## Contact
+# This space is administered by:
+# ISO/TC 204 WG 1 Convenor
+# Kenneth Vaughn
+# kvaughn@trevilon.com
+# GitHub username: k-vaughn
+
+RewriteEngine On
+Options -MultiViews
+
+# Content negotiation: Set FORMAT env variable based on Accept header
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^ - [E=FORMAT:rdf]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ - [E=FORMAT:html]
+
+# Default to RDF if no Accept header (safer for semantic tools)
+RewriteCond %{ENV:FORMAT} ^$
+RewriteRule ^ - [E=FORMAT:rdf]
+
+# Rule for location
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^location$ https://isotc204.org/ontology-its-time/latest/itsLocation.ttl [R=303,L]
+RewriteRule ^location$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page; update if specific HTML exists (e.g., itsLocation.html)
+
+# Rule for regulation
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^regulation$ https://isotc204.org/ontology-its-time/latest/itsRegulation.ttl [R=303,L]
+RewriteRule ^regulation$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page
+
+# Rule for time
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^time$ https://isotc204.org/ontology-its-time/latest/itsTime.ttl [R=303,L]
+RewriteRule ^time$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page

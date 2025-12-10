@@ -1,19 +1,27 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirects for individual terms within the schema
-RewriteRule ^data/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#data [R=302,L]
-RewriteRule ^descriptiveStatistics/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#descriptiveStatistics [R=302,L]
-RewriteRule ^metadataId/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#metadataId [R=302,L]
-RewriteRule ^productGroup/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productGroup [R=302,L]
-RewriteRule ^productGroupName/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productGroupName [R=302,L]
-RewriteRule ^productGroupURI/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productGroupURI [R=302,L]
-RewriteRule ^productType/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productType [R=302,L]
-RewriteRule ^productTypeName/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productTypeName [R=302,L]
-RewriteRule ^productTypeURI/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#productTypeURI [R=302,L]
-RewriteRule ^statisticalMethod/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#statisticalMethod [R=302,L]
-RewriteRule ^theme/?$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md#theme [R=302,L]
+# Redirects for AlmesCore main namespace (https://w3id.org/AlmesCore#)
+# Redirect deprecated terms to the deprecated elements page
+RewriteRule ^data/?$ https://almescore.github.io/Almes-Core/deprecatedElements.html#data [R=302,L]
+RewriteRule ^metadataId/?$ https://almescore.github.io/Almes-Core/deprecatedElements.html#metadataid [R=302,L]
 
-# Redirect to the schema page
-RewriteRule ^$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md [R=302,L]
-RewriteRule ^(.*)$ https://github.com/AlmesCore/Almes-Core/blob/main/core2024-07-08.md/$1 [R=302,L]
+# Redirect active terms to GitHub Pages reference guide
+RewriteRule ^descriptiveStatistics/?$ https://almescore.github.io/Almes-Core/#descriptivestatistics [R=302,L]
+RewriteRule ^productGroup/?$ https://almescore.github.io/Almes-Core/#productgroup [R=302,L]
+RewriteRule ^productGroupName/?$ https://almescore.github.io/Almes-Core/#productgroupname [R=302,L]
+RewriteRule ^productGroupURI/?$ https://almescore.github.io/Almes-Core/#productgroupuri [R=302,L]
+RewriteRule ^productType/?$ https://almescore.github.io/Almes-Core/#producttype [R=302,L]
+RewriteRule ^productTypeName/?$ https://almescore.github.io/Almes-Core/#producttypename [R=302,L]
+RewriteRule ^productTypeURI/?$ https://almescore.github.io/Almes-Core/#producttypeuri [R=302,L]
+RewriteRule ^statisticalMethod/?$ https://almescore.github.io/Almes-Core/#statisticalmethod [R=302,L]
+RewriteRule ^theme/?$ https://almescore.github.io/Almes-Core/#theme [R=302,L]
+RewriteRule ^[Hh]asObservation/?$ https://almescore.github.io/Almes-Core/#hasobservation [R=302,L]
+RewriteRule ^[Oo]bservation/?$ https://almescore.github.io/Almes-Core/#observation [R=302,L]
+
+# Redirect RDF namespace (https://w3id.org/AlmesCore/rdf#) to the RDF file
+RewriteRule ^rdf/?$ https://raw.githubusercontent.com/AlmesCore/Almes-Core/refs/heads/main/Serializations/alm.json [R=302,L]
+RewriteRule ^rdf/(.*)$ https://raw.githubusercontent.com/AlmesCore/Almes-Core/refs/heads/main/Serializations/alm.json [R=302,L]
+
+# Final catch-all - Redirects to main reference guide
+RewriteRule ^(.*)$ https://almescore.github.io/Almes-Core/ [R=302,L]
