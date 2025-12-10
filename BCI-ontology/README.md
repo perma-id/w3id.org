@@ -8,7 +8,7 @@ Its structure depicts a conceptual framework that BCI applications can extend an
 
 Namespace URI: 
 
-> <i class="icon-file"></i>`https://w3id.org/BCI-ontology#`
+> <i class="icon-file"></i>`https://w3id.org/cppv/`
 
 As one of the ontologies ("[concept producers](https://w3c.github.io/sdw/ssn-usage/#usage-ontologies "OGC & W3C, On the usage of the SSN ontology (W3C Document): (3) Usage in ontologies (Producers)")") that reuse [SSN](https://www.w3.org/TR/vocab-ssn/ "OGC & W3C, Semantic Sensor Network"), BCI-O was selected as part of the analysis [on the usage of SSN](https://w3c.github.io/sdw/ssn-usage/ "OGC & W3C, On the usage of the SSN ontology (W3C Document)").
 
