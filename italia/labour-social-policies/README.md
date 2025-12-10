@@ -13,4 +13,4 @@ Some redirect rules will be to the [github repository of MLPS DG Innovazione –
 
 Contacts:
 
-+ Giorgia Salsa: github (https://github.com/MlpsDgInnovazioneDivIII) - email (dginnovazionediv3@lavoro.gov.it)
++ Giorgia Salsa: @MlpsDgInnovazioneDivIII - email dginnovazionediv3@lavoro.gov.it
