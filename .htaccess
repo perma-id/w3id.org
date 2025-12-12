@@ -3,40 +3,24 @@
 # Canonical namespace:
 #   https://w3id.org/geof3d#
 #
-# Redirect target (spec site):
-#   https://diellzaelshani.github.io/geof3d/
+# Redirect target:
+#   https://diellzaelshani.github.io/geof3D/
 #
 # Contact:
 #   Diellza Elshani
-#  dielshani@gmail.com
 #   GitHub: DiellzaElshani
 
 RewriteEngine On
-
 AddType text/turtle .ttl
-AddType application/rdf+xml .rdf
-AddType application/ld+json .jsonld
 
-# Content negotiation for https://w3id.org/geof3d (fragments are not sent to servers)
+# Content negotiation for https://w3id.org/geof3d
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/turtle
-RewriteRule ^$ https://diellzaelshani.github.io/geof3d/ontology/geof3d.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://diellzaelshani.github.io/geof3D/ontology/geof3d.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://diellzaelshani.github.io/geof3d/ontology/geof3d.rdf [R=303,L]
+# Default: HTML landing page
+RewriteRule ^$ https://diellzaelshani.github.io/geof3D/ [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://diellzaelshani.github.io/geof3d/ontology/geof3d.jsonld [R=303,L]
-
-# Default: HTML documentation
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\*
-RewriteRule ^$ https://diellzaelshani.github.io/geof3d/ [R=303,L]
-
-# Fallback
-RewriteRule ^$ https://diellzaelshani.github.io/geof3d/ [R=303,L]
-
-# Pass-through for any subpaths under /geof3d/
-RewriteRule ^(.+)$ https://diellzaelshani.github.io/geof3d/$1 [R=302,L]
+# Pass-through for subpaths
+RewriteRule ^(.+)$ https://diellzaelshani.github.io/geof3D/$1 [R=302,L]
