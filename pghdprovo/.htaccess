@@ -1,3 +1,4 @@
+# Target: https://abdullahikawu.github.io/pghdprovo
 # Turn off MultiViews
 Options -MultiViews
 
@@ -7,26 +8,63 @@ AddType application/owl+xml .owl
 AddType text/turtle .ttl
 AddType application/ld+json .jsonld
 
+# Preserve host header when proxying
+# ProxyPreserveHost On
+
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
+# ==============================================================================
+# PART 1: HANDLE SPECIFIC VERSIONS (e.g., w3id.org/pghdprovo/1.0)
+# ==============================================================================
+
+# 1. N-Triples (.nt)
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.nt [R=302,L]
+RewriteRule ^(\d+\.\d)$ https://abdullahikawu.github.io/pghdprovo/releases/$1/pghdprovo.nt [R=303,L]
 
-
+# 2. RDF/XML or OWL/XML (.owl)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
-RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.owl [R=302,L]
+RewriteRule ^(\d+\.\d)$ https://abdullahikawu.github.io/pghdprovo/releases/$1/pghdprovo.owl [R=303,L]
 
+# 3. Turtle (.ttl)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d+\.\d)$ https://abdullahikawu.github.io/pghdprovo/releases/$1/pghdprovo.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.ttl [R=302,L]
-
+# 4. JSON-LD (.json)
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.jsonld [R=302,L]
+RewriteRule ^(\d+\.\d)$ https://abdullahikawu.github.io/pghdprovo/releases/$1/pghdprovo.json [R=303,L]
 
-# https://abdullahikawu.github.io/pghdprovo/1.0
-RewriteRule ^1.0$ https://abdullahikawu.github.io/pghdprovo/ [R=302,L]
+# 5. Default Fallback (Browsers/HTML)
+# If none of the above matched, send the user to the documentation index
+RewriteRule ^(\d+\.\d)$ https://abdullahikawu.github.io/pghdprovo/releases/$1 [R=303,L]
+RewriteRule ^(\d+\.\d)/(.*)$ https://abdullahikawu.github.io/pghdprovo/releases/$1/$2 [R=303,L]
 
-RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo [R=302,L]
-RewriteRule ^(.*)$ https://abdullahikawu.github.io/pghdprovo/$1 [R=302,L]
+
+# ==============================================================================
+# PART 2: HANDLE THE ROOT (Latest Version) (e.g., w3id.org/pghdprovo)
+# ==============================================================================
+
+# 1. N-Triples (.nt)
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.nt [R=303,L]
+
+# 2. RDF/XML or OWL/XML (.owl)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.owl [R=303,L]
+
+# 3. Turtle (.ttl)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.ttl [R=303,L]
+
+# 4. JSON-LD (.json)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo/pghdprovo.json [R=303,L]
+
+# 5. Default Fallback (Browsers/HTML)
+RewriteRule ^$ https://abdullahikawu.github.io/pghdprovo [R=303,L]
+RewriteRule ^(.*)$ https://abdullahikawu.github.io/pghdprovo/$1 [R=303,L]
