@@ -1,6 +1,6 @@
 # geof3d (W3ID)
 
-This directory registers the permanent identifier (W3ID) namespace for **geof3D**:
+This directory registers the permanent identifier (W3ID) namespace for **geof3d**:
 
 - Canonical namespace: `https://w3id.org/geof3d#`
 
