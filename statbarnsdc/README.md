@@ -8,7 +8,7 @@ See online docs here: [https://ai-sdc.github.io/statbarnsdc/](https://ai-sdc.git
 
 
 
-### maintainers Jim Smith abd Trupti Padiya
+### maintainers Jim Smith and Trupti Padiya
  - james.smith@uwe.ac.uk
  -  trupti.padiya@uwe.ac.uk
  
