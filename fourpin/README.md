@@ -2,5 +2,5 @@
 
 ## Maintainers
 
-* Natalia_Pasishnyk@iscte-iul.pt
-* Rui.Lopes@iscte-iul.pt
+* [Natalia Pasishnyk] Natalia_Pasishnyk@iscte-iul.pt
+* [Rui J. Lopes} Rui.Lopes@iscte-iul.pt     (@rjlop)
