@@ -1,9 +1,30 @@
-# w3id.org global rewrites
+# Turn off MultiViews
+Options -MultiViews
 
-Options +FollowSymLinks
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+
 RewriteEngine on
 
-# special directory redirects due to case insensitive file systems issues
-RewriteRule ^AIRO(.*)$ /airo$1
-RewriteRule ^ceir(.*)$ /CEIR$1
-RewriteRule ^UN(.*)$ /un$1
+# Rewrite rule for latest version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/hfpatricio/lro/index.htm [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/hfpatricio/lro/lro.rdf [R=303,L]
+
+# Rewrite rules for any other version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://github.com/hfpatricio/lro/index.htm [R=303,L]
+
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://github.com/hfpatricio/lro/lro.rdf [R=303,L]
