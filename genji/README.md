@@ -4,5 +4,5 @@ Structured data for Genji Monogatari Works
 
 ## Contact
 
-* Hikari Ikeda : s2211025@u.tsukuba.ac.jp
-* Masao Takaku : masao@slis.tsukuba.ac.jp
+* Hikari Ikeda : https://github.com/genji-data
+* Masao Takaku : https://github.com/masao
