@@ -34,7 +34,14 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://theskailab.github.io/fio/index-en.html [R=303,L]
+RewriteRule ^v1/fio$ https://theskailab.github.io/fio/index-en.html [R=303,L,NE]
+
+#direct to specific classes / properties
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/fio(.*)$ https://theSKAILab.github.io/fio/index-en.html#http://w3id.org/fio/v1/fio#$1  [R=303,L,NE]
 
 # Rewrite rule to serve TTL content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
@@ -44,7 +51,32 @@ RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/fio/refs/heads/main/on
 
 RewriteCond %{HTTP_ACCEPT} .+
 RewriteRule ^$ https://theskailab.github.io/fio/406.html [R=406,L]
+
+# NAICS codes
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/naics(.*)$ https://www.census.gov/naics/?input=$1  [R=303,L,NE]
+
+# FRS vocabulary
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/epa-frs(.*)$  https://github.com/SAWGraph/fio/blob/main/datasets/federal/us-frs/ontology/epa-frs.ttl [R=303,L,NE]
+
+# FRS facilities
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/epa-frs-data#d.FRS-Facility.(.*)$  https://frs-public.epa.gov/ords/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=$1 [R=303,L,NE]
+
+
 # Default response
-# ---------------------------
-# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
-RewriteRule ^$ ontology.owl [R=303,L]
+# -----------------------------
+
+# Rewrite rule for all other request to point back to the main github repo 
+RewriteRule ^(.*) https://raw.githubusercontent.com/SAWGraph/fio/refs/heads/main/ontology/fio.ttl [R=303,L,NE]
