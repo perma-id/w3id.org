@@ -11,7 +11,7 @@ Dieser Namespace stellt ein SKOS-Vokabular für Kompetenzen bereit. Es wird im R
 ## Weiterleitung
 Alle Anfragen an diesen Namespace werden automatisch weitergeleitet zu:
 
-https://amarmalis.github.io/idsl_systematik/
+https://amarmalis.github.io/skohub-pages/
 
 ## Hinweise
 - Die Weiterleitung erfolgt über die `.htaccess` Datei.
