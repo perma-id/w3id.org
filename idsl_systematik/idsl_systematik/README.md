@@ -10,7 +10,7 @@ This w3id namespace is maintained by:
 - @amarmalis
 - @Ida-git
 - @miringa83
-- mzy931
+- @mzy931
 
   
 ## Zweck
