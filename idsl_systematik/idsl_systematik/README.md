@@ -4,6 +4,14 @@ Namespace für das SKOS-Vokabular „IDSL Systematik“ (Kompetenzen).
 
 ## Verantwortlich
 - Projektgruppe mit drei Studentinnen im Rahmen eines IT-Projekts im MALIS Studiengang der TH Köln
+
+## Maintainers
+This w3id namespace is maintained by:
+- @amarmalis
+- @Ida-git
+- @miringa83
+- mzy931
+
   
 ## Zweck
 Dieser Namespace stellt ein SKOS-Vokabular für Kompetenzen bereit. Es wird im Rahmen eines IT Projekts erstellt.
