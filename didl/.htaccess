@@ -1,2 +1,12 @@
 RewriteEngine on
-RewriteRule ^$ https://github.com/digital-identity-description-language/didl-core/blob/main/didl.ttl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://digital-identity-description-language.github.io/didl-core/ [R=303,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://digital-identity-description-language.github.io/didl-core/ontology.ttl [R=303,L]
+
+# 默认也给 HTML
+RewriteRule ^$ https://digital-identity-description-language.github.io/didl-core/index.html [R=303,L]
