@@ -15,12 +15,12 @@ Contact
 
 This registration is administered by:
 
- * Nicolas A. Seydoux (@NSeydoux)
-   Engineer, [Inrupt, Inc.](https://inrupt.com)
+ * Nicolas A. Seydoux (@NSeydoux) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
    <nseydoux@inrupt.com>
- * Aaron Coburn (@acoburn)
-   Engineer, [Inrupt, Inc.](https://inrupt.com)
+ * Aaron Coburn (@acoburn) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
    <aaronc@inrupt.com>
- * Jarlath Holleran (@jholleran)
-   Engineer, [Inrupt, Inc.](https://inrupt.com)
+ * Jarlath Holleran (@jholleran) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
    <jarlathh@inrupt.com>
