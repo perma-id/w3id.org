@@ -3,7 +3,7 @@
 A semantic ontology for occupant-centric building control, integrating visual comfort metrics, control strategies, and performance evaluation.
 
 ## Maintainer
-**Saif Alramahi**  
+**Saif Alramahi** (@saiframahii)
 Birmingham City University  
 saif.alramahi@mail.bcu.ac.uk
 
