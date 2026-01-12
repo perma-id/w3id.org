@@ -1,0 +1,41 @@
+# ==================================================
+# w3id.org persistent identifiers for DSMS vocabularies
+#
+# Pattern:
+#   https://w3id.org/dsms/<namespace>/<term>
+#   https://w3id.org/dsms/<namespace>/<usecase>/<term>
+#
+# Redirects to:
+#   https://kiran.materials-data.space/vocabulary/docs/<namespace>#<term>
+#
+# Notes:
+# - <usecase> is optional and ignored for documentation
+# - Namespace is preserved
+# - Term becomes a fragment identifier
+# ## Contact
+# This space is administered by:
+#
+# Kiran Kumaraswamy
+# kiran.kumaraswamy@iwm.fraunhofer.de
+# GitHub username: Kirankumaraswamy
+#
+# Yoav Nahshon
+# yoav.nahshon@iwm.fraunhofer.de
+# GitHub username: yoavnash
+# ==================================================
+
+RewriteEngine On
+
+# --------------------------------------------------
+# Case 1: /<namespace>/<term>
+# --------------------------------------------------
+RewriteRule ^([^/]+)/([^/]+)$ \
+https://kiran.materials-data.space/vocabulary/docs/$1#$2 \
+[R=302,L]
+
+# --------------------------------------------------
+# Case 2: /<namespace>/<usecase>/<term>
+# --------------------------------------------------
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)$ \
+https://kiran.materials-data.space/vocabulary/docs/$1#$3 \
+[R=302,L]
