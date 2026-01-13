@@ -47,7 +47,7 @@ Notes:
 
 ---
 
-## Maintenance Commitment
+## RDF Usage
 
 The canonical identifiers for RDF **must use w3id.org URIs**, not the
 documentation URLs.
@@ -63,7 +63,7 @@ dsms:Material a owl:Class ;
   rdfs:seeAlso <https://kiran.materials-data.space/vocabulary/docs/steel#Material> .
 ```
 
-## RDF Usage
+## Maintenance Commitment
 
 The DSMS team commits to:
 
