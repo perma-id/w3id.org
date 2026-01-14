@@ -18,5 +18,12 @@ RewriteRule ^connector/management/v2(.*)$ https://eclipse-edc.github.io/Connecto
 ## Redirect JSON Schemas
 RewriteRule ^connector/management/schema/v4/([\w.-]+schema.json) https://eclipse-edc.github.io/Connector/schema/management/v4/$1 [R=302,L,QSA]
 
+
+# Rewrite rule to resolve virtual connector management context
+RewriteRule ^virtual-connector/management/v2(.*)$ https://eclipse-edc.github.io/Virtual-Connector/context/v-management-context-v2.jsonld [R=302,L]
+
+## Redirect JSON Schemas
+RewriteRule ^virtual-connector/management/schema/v4/([\w.-]+schema.json) https://eclipse-edc.github.io/Virtual-Connector/schema/management/v4/$1 [R=302,L,QSA]
+
 # Rewrite rule to default to the EDC docs page
 RewriteRule ^(.*)$ https://eclipse-edc.github.io/docs [R=303,L]
