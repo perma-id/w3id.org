@@ -7,15 +7,27 @@
 # pier.buttigieg@awi.de
 # GitHub username: pbuttigieg
 #
-# roblinksdata
+# Robert Barry
 # robert.barry@awi.de
 # GitHub username: roblinksdata
+#
+# Steve Formel
+# steve@thedatapatch.com
+# GitHub username: sformel
 
 RewriteEngine on
 
+# MARCO-BOLO Metadata Catalogue - Main records (UUID-based)
+RewriteRule ^metadata-catalogue/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$ https://lab.marcobolo-project.eu/csv-to-json-ld/schema-jsonld/mbo_$1.json [R=302,L]
+
+# MARCO-BOLO Metadata Catalogue - Input metadata
+RewriteRule ^metadata-catalogue/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/input-metadata$ https://lab.marcobolo-project.eu/csv-to-json-ld/schema-jsonld/mbo_$1-input-metadata.json [R=302,L]
+
+# Legacy/specific identifiers for grants and organizations
 RewriteRule ^mbo_0000001$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/grants/marco-bolo-grant.json [R=302,L]
 RewriteRule ^mbo_0000002$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/organisations-and-projects/european-union.json [R=302,L]
 RewriteRule ^mbo_0000003$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/organisations-and-projects/marco-bolo.json [R=302,L]
 
 # Redirect the top level identifier to the MARCO-BOLO CORDIS page.
 RewriteRule ^$ https://doi.org/10.3030/101082021 [R=302,L]
+
