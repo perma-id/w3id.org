@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Root of the namespace:
+# https://w3id.org/agrisemantics/
+# -> https://agroportal.lirmm.fr/ontologies/
+RewriteRule ^$ https://agroportal.lirmm.fr/ontologies/ [R=302,L]
+
+# https://w3id.org/agrisemantics/{X}
+# -> https://agroportal.lirmm.fr/ontologies/{X}
+RewriteRule ^([^/]+)/?$ https://agroportal.lirmm.fr/ontologies/$1 [R=301,L,QSA]
+
+# https://w3id.org/agrisemantics/{X}/{REST}
+# -> https://agroportal.lirmm.fr/ontologies/{X}/{REST}
+RewriteRule ^([^/]+)/(.+)$ https://agroportal.lirmm.fr/ontologies/$1/$2 [R=301,L,QSA]
