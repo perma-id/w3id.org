@@ -5,5 +5,8 @@ URI: https://w3id.org/lang-dcat-ap/ (@prefix `ldsdcat`)
 
 ## Contacts
 
-- katerina.gkirtzou@athenarc.gr
-- penny@athenarc.gr
+| Email                         | Github username |
+|-------------------------------|-----------------|
+| katerina.gkirtzou@athenarc.gr | gkirtzou        |
+| penny@athenarc.gr             | pennyl67        |
+
