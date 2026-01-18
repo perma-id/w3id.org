@@ -32,28 +32,6 @@ RewriteRule ^raw/(.*)$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$
 
 
 ##########################################################################
-##  Redirections for HUME
-##########################################################################
-
-# Rule 7: https://w3id.org/emmo/{VERSION}/hume
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^([0-9][^/]*)/hume/?$ https://emmo-repo.github.io/versions/$1/hume.html [R=303,NE,L]
-RewriteRule ^([0-9][^/]*)/hume/?$ https://emmo-repo.github.io/versions/$1/hume.ttl [R=303,NE,L]
-
-# Rule 9: https://w3id.org/emmo/{VERSION}/hume/{PATH}
-RewriteRule ^([0-9][^/]*)/hume/(.*)/?$ https://emmo-repo.github.io/versions/$1/hume/$2.ttl [R=303,NE,L]
-
-# Rule 10: https://w3id.org/emmo/hume
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^hume/?$ https://emmo-repo.github.io/hume.html [R=303,NE,L]
-RewriteRule ^hume/?$ https://emmo-repo.github.io/hume.ttl [R=303,NE,L]
-
-# Rule 12: https://w3id.org/emmo/hume/{PATH}
-RewriteRule ^hume/([^0-9].*)/?$ https://emmo-repo.github.io/hume/$1.ttl [R=303,NE,L]
-
-
-
-##########################################################################
 ##  Redirections for ELITE
 ##########################################################################
 
@@ -216,33 +194,49 @@ RewriteRule ^application/(application-)?([^/]+)/([^0-9].*[^/])/?$ https://raw.gi
 ##########################################################################
 
 # Rule 7a: https://w3id.org/emmo/{VERSION}
+#          https://w3id.org/emmo/{VERSION}/hume
 # Specific version of EMMO namespace on GitHub pages (html/ttl)
 # If the request appears coming from a browser, redirect to html documentation otherwise to squashed turtle file for given version.
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^([0-9][^/]*)/?$ https://emmo-repo.github.io/versions/$1/emmo.html [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/?$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9][^/]*)/hume/?$ https://emmo-repo.github.io/versions/$1/hume.html [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/?$ https://emmo-repo.github.io/versions/$1/hume.ttl [R=303,NE,L]
 #
 # Rule 7b: https://w3id.org/emmo/{VERSION}/turtle
+#          https://w3id.org/emmo/{VERSION}/hume/turtle
 # Specific version of EMMO namespace on GitHub Pages (always turtle)
 RewriteRule ^([0-9][^/]*)/turtle/?$ https://emmo-repo.github.io/versions/$1/emmo.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/turtle/?$ https://emmo-repo.github.io/versions/$1/hume.ttl [R=303,NE,L]
 #
 # Rule 7c: https://w3id.org/emmo/{VERSION}/full (deprecated)
-#          https://w3id.org/emmo/{VERSION}/hume
 #          https://w3id.org/emmo/{VERSION}/emmo-for-humans (deprecated)
 #          https://w3id.org/emmo/{VERSION}/inferred
 #          https://w3id.org/emmo/{VERSION}/full/inferred (deprecated)
 #          https://w3id.org/emmo/{VERSION}/hume/inferred
 # Specific version of squashed or inferred ontologies on GitHub Pages
 RewriteRule ^([0-9][^/]*)/full/?$ https://emmo-repo.github.io/versions/$1/full.ttl [R=303,NE,L]
-RewriteRule ^([0-9][^/]*)/hume/?$ https://emmo-repo.github.io/versions/$1/hume.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/emmo-for-humans/?$ https://emmo-repo.github.io/versions/$1/hume.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/inferred/?$ https://emmo-repo.github.io/versions/$1/emmo-inferred.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/full/inferred/?$ https://emmo-repo.github.io/versions/$1/full-inferred.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/hume/inferred/?$ https://emmo-repo.github.io/versions/$1/hume-inferred.ttl [R=303,NE,L]
 #
 # Rule 7d: https://w3id.org/emmo/{VERSION}/hume/hume
+#          https://w3id.org/emmo/{VERSION}/hume/foundation
+#          https://w3id.org/emmo/{VERSION}/hume/perspectives
+#          https://w3id.org/emmo/{VERSION}/hume/reference
+#          https://w3id.org/emmo/{VERSION}/hume/disciplines
+#          https://w3id.org/emmo/{VERSION}/hume/disciplines/units
+#          https://w3id.org/emmo/{VERSION}/hume/{PATH}/{MODULE}
 # Specific version of generated HUME ontology on GitHub Pages
 RewriteRule ^([0-9][^/]*)/hume/hume/?$ https://emmo-repo.github.io/versions/$1/hume/hume.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/foundation/?$ https://emmo-repo.github.io/versions/$1/hume/foundation/foundation.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/perspectives/?$ https://emmo-repo.github.io/versions/$1/hume/perspectives/perspectives.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/reference/?$ https://emmo-repo.github.io/versions/$1/hume/reference/reference.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/disciplines/?$ https://emmo-repo.github.io/versions/$1/hume/disciplines/disciplines.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/disciplines/units/?$ https://emmo-repo.github.io/versions/$1/hume/disciplines/units/units.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/(.*[^/])/?$ https://emmo-repo.github.io/versions/$1/hume/$2.ttl [R=303,NE,L]
 
 # Rule 8: https://w3id.org/emmo/{VERSION}/emmo
 #         https://w3id.org/emmo/{VERSION}/source (deprecated)
@@ -252,7 +246,7 @@ RewriteRule ^([0-9][^/]*)/hume/hume/?$ https://emmo-repo.github.io/versions/$1/h
 #         https://w3id.org/emmo/{VERSION}/foundation
 #         https://w3id.org/emmo/{VERSION}/mereocausality (deprecated)
 #         https://w3id.org/emmo/{VERSION}/perspectives
-#         https://w3id.org/emmo/{VERSION}/multiperspective
+#         https://w3id.org/emmo/{VERSION}/multiperspective (deprecated)
 #         https://w3id.org/emmo/{VERSION}/reference
 #         https://w3id.org/emmo/{VERSION}/disciplines
 #         https://w3id.org/emmo/{VERSION}/disciplines/units
@@ -262,7 +256,7 @@ RewriteRule ^([0-9][^/]*)/source/?$ https://raw.githubusercontent.com/emmo-repo/
 RewriteRule ^([0-9][^/]*)/emax/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/emax.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/tlo/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/tlo.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/mlo/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/mlo.ttl [R=303,NE,L]
-RewriteRule ^([0-9][^/]*)/foundation/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/foundation/mereocausality.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/foundation/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/foundation/foundation.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/mereocausality/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/mereocausality/mereocausality.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/perspectives/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/perspectives/perspectives.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/multiperspective/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/multiperspective/multiperspective.ttl [R=303,NE,L]
@@ -273,36 +267,52 @@ RewriteRule ^([0-9][^/]*)/disciplines/units/?$ https://raw.githubusercontent.com
 # Rule 9: https://w3id.org/emmo/{VERSION}/{PATH}/{MODULE}
 # Redirect to specified version branch
 # Turtle file for given version and module of EMMO
-RewriteRule ^([0-9][^/]*)/([^0-9].*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/(.*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2.ttl [R=303,NE,L]
 
 # Rule 10a: https://w3id.org/emmo
+#           https://w3id.org/emmo/hume
 # EMMO namespace on GitHub Pages (html/ttl)
 # If the request appears coming from a browser, redirect to html documentation otherwise to squashed turtle file.
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^/?$ https://emmo-repo.github.io/emmo.html [R=303,NE,L]
 RewriteRule ^/?$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^hume/?$ https://emmo-repo.github.io/hume.html [R=303,NE,L]
+RewriteRule ^hume/?$ https://emmo-repo.github.io/hume.ttl [R=303,NE,L]
 #
 # Rule 10b: https://w3id.org/emmo/turtle
+#           https://w3id.org/emmo/hume/turtle
 # EMMO namespace on GitHub Pages (always turtle)
 RewriteRule ^turtle/?$ https://emmo-repo.github.io/emmo.ttl [R=303,NE,L]
+RewriteRule ^hume/turtle/?$ https://emmo-repo.github.io/hume.ttl [R=303,NE,L]
 #
 # Rule 10c: https://w3id.org/emmo/full (deprecated)
-#           https://w3id.org/emmo/hume
 #           https://w3id.org/emmo/emmo-for-humans (deprecated)
 #           https://w3id.org/emmo/inferred
 #           https://w3id.org/emmo/full/inferred (deprecated)
 #           https://w3id.org/emmo/hume/inferred
 # Squashed or inferred ontologies on GitHub Pages
 RewriteRule ^full/?$ https://emmo-repo.github.io/full.ttl [R=303,NE,L]
-RewriteRule ^hume/?$ https://emmo-repo.github.io/hume.ttl [R=303,NE,L]
 RewriteRule ^emmo-for-humans/?$ https://emmo-repo.github.io/hume.ttl [R=303,NE,L]
 RewriteRule ^inferred/?$ https://emmo-repo.github.io/emmo-inferred.ttl [R=303,NE,L]
 RewriteRule ^full/inferred/?$ https://emmo-repo.github.io/full-inferred.ttl [R=303,NE,L]
 RewriteRule ^hume/inferred/?$ https://emmo-repo.github.io/hume-inferred.ttl [R=303,NE,L]
 #
 # Rule 10d: https://w3id.org/emmo/hume/hume
+#           https://w3id.org/emmo/hume/foundation
+#           https://w3id.org/emmo/hume/perspectives
+#           https://w3id.org/emmo/hume/reference
+#           https://w3id.org/emmo/hume/disciplines
+#           https://w3id.org/emmo/hume/disciplines/units
+#           https://w3id.org/emmo/hume/{PATH}/{MODULE}
 # Generated HUME ontology on GitHub Pages
 RewriteRule ^hume/hume/?$ https://emmo-repo.github.io/hume/hume.ttl [R=303,NE,L]
+RewriteRule ^hume/foundation/?$ https://emmo-repo.github.io/hume/foundation/foundation.ttl [R=303,NE,L]
+RewriteRule ^hume/perspectives/?$ https://emmo-repo.github.io/hume/perspectives/perspectives.ttl [R=303,NE,L]
+RewriteRule ^hume/reference/?$ https://emmo-repo.github.io/hume/reference/reference.ttl [R=303,NE,L]
+RewriteRule ^hume/disciplines/?$ https://emmo-repo.github.io/hume/disciplines/disciplines.ttl [R=303,NE,L]
+RewriteRule ^hume/disciplines/units/?$ https://emmo-repo.github.io/hume/disciplines/units/units.ttl [R=303,NE,L]
+RewriteRule ^hume/(.*[^/])/?$ https://emmo-repo.github.io/hume/$1.ttl [R=303,NE,L]
 
 # Rule 11: https://w3id.org/emmo/emmo
 #          https://w3id.org/emmo/source (deprecated)
@@ -313,7 +323,7 @@ RewriteRule ^hume/hume/?$ https://emmo-repo.github.io/hume/hume.ttl [R=303,NE,L]
 #          https://w3id.org/emmo/foundation
 #          https://w3id.org/emmo/mereocausality (deprecated)
 #          https://w3id.org/emmo/perspectives
-#          https://w3id.org/emmo/multiperspective
+#          https://w3id.org/emmo/multiperspective (deprecated)
 #          https://w3id.org/emmo/reference
 #          https://w3id.org/emmo/disciplines
 #          https://w3id.org/emmo/disciplines/units
@@ -324,7 +334,7 @@ RewriteRule ^latest/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/e
 RewriteRule ^emax/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/emax.ttl [R=303,NE,L]
 RewriteRule ^tlo/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/tlo.ttl [R=303,NE,L]
 RewriteRule ^mlo/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/mlo.ttl [R=303,NE,L]
-RewriteRule ^foundation/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/foundation/mereocausality.ttl [R=303,NE,L]
+RewriteRule ^foundation/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/foundation/foundation.ttl [R=303,NE,L]
 RewriteRule ^mereocausality/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/mereocausality/mereocausality.ttl [R=303,NE,L]
 RewriteRule ^perspectives/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/perspectives/perspectives.ttl [R=303,NE,L]
 RewriteRule ^multiperspective/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/multiperspective/multiperspective.ttl [R=303,NE,L]
@@ -332,7 +342,8 @@ RewriteRule ^reference/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/maste
 RewriteRule ^disciplines/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/disciplines.ttl [R=303,NE,L]
 RewriteRule ^disciplines/units/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/disciplines/units/units.ttl [R=303,NE,L]
 
+
 # Rule 12: https://w3id.org/emmo/{PATH}/{MODULE}
 # Redirect to specified version branch
 # Turtle file for given module of EMMO
-RewriteRule ^([^0-9].*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1.ttl [R=303,NE,L]
+RewriteRule ^(.*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1.ttl [R=303,NE,L]
