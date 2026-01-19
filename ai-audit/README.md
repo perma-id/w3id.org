@@ -7,5 +7,5 @@ Requests to `https://w3id.org/ai-audit/` are redirected to:
 - `https://laurawalters.github.io/ai-audit/`
 
 ## Maintainer
-- Name/Org: Laura Walters
+- Name/Org: Laura Waltersdorfer
 - Contact: https://github.com/laurawalters
