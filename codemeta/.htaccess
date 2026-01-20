@@ -9,13 +9,40 @@ RewriteEngine on
 
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/3.0/codemeta.jsonld [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/refs/heads/master/codemeta.jsonld [R=303,L]
 
-# Rewrite rules for latest version.
+# Rewrite rules for latest version (https://w3id.org/codemeta)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^$ https://codemeta.github.io/terms/ [R=303,L]
+
+# rewrite rule for terms/ (empty namespace)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^terms/$ https://raw.githubusercontent.com/codemeta/codemeta/refs/heads/master/codemeta.jsonld [R=303,L]
+
+# Rewrite rules for latest version (https://w3id.org/codemeta/terms)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://codemeta.github.io/terms/ [R=303,L]
+
+# rewrite rule for versions in CodeMeta https://w3id.org/codemeta/1.0/terms/ -->  https://raw.githubusercontent.com/codemeta/codemeta/1.0/codemeta.jsonld (json-ld)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+(\.[0-9]+)*)(/terms)?/?$ https://raw.githubusercontent.com/codemeta/codemeta/$1/codemeta.jsonld [R=303,L]
+
+# rewrite rule for versions in CodeMeta https://w3id.org/codemeta/1.0/terms/ -->  https://codemeta.github.io/terms 
+RewriteRule ^([0-9]+(\.[0-9]+)*)(/terms)?/?$ https://codemeta.github.io/terms [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^terms/(.+)$ https://raw.githubusercontent.com/codemeta/codemeta/refs/heads/master/codemeta.jsonld [R=303,L]
+
+# Rewrite rules for any other version.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^terms/(.+)$ https://codemeta.github.io/terms/ [R=303,L]
 
 # Rewrite rules for the crosswalks
 RewriteRule ^mappings/?$ https://codemeta.github.io/crosswalk/ [R=303,L]
@@ -36,13 +63,6 @@ RewriteRule ^mappings/(.+)$ https://github.com/oeg-upm/codemeta/blob/crosswalks_
 # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^v(.+)$ https://raw.githubusercontent.com/codemeta/codemeta/$1/codemeta.jsonld [R=303,L]
-RewriteRule ^(.+)$ https://raw.githubusercontent.com/codemeta/codemeta/$1/codemeta.jsonld [R=303,L]
-
-# Rewrite rules for any other version.
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(.+)$ https://codemeta.github.io/terms/ [R=303,L]
 
 # not acceptable requests (asking for other than JSON-LD or html)
 RewriteCond %{HTTP_ACCEPT} .+
@@ -51,4 +71,4 @@ RewriteRule ^(.*)$ https://dgarijo.github.io/example/release/1.0.1/406.html [R=4
 # Default response
 # ---------------------------
 # Rewrite rule to serve the JSON-LD content from the vocabulary URI by default
-RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/3.0/codemeta.jsonld [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/codemeta/codemeta/3.1/codemeta.jsonld [R=303,L]
