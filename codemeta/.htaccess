@@ -60,6 +60,13 @@ RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^mappings/(.+)$ https://github.com/oeg-upm/codemeta/blob/crosswalks_oeg/crosswalks-sssom/$1/$1-codemeta-mappings.csv [R=303,L]
 
 
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^v(.+)$ https://raw.githubusercontent.com/codemeta/codemeta/$1/codemeta.jsonld [R=303,L]
+
+# not acceptable requests (asking for other than JSON-LD or html)
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://dgarijo.github.io/example/release/1.0.1/406.html [R=406,L]
 
 # Default response
 # ---------------------------

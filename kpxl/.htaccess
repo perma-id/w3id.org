@@ -2,26 +2,36 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^$ https://knowledgepixels.com/ [R=302,L]
+RewriteRule ^$ https://knowledgepixels.com/ [R=307,L]
 
-RewriteRule ^query/v1/(.*)$ https://query.np.trustyuri.net/$1
+RewriteRule ^query/v1/(.*)$ https://query.np.trustyuri.net/$1 [R=307,L]
 
-RewriteRule ^(gen/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+RewriteRule ^(gen/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1 [R=307,L]
 
-RewriteRule ^(group/terms/.*)$ https://nanodash.knowledgepixels.com/group?id=https://w3id.org/kpxl/$1
+RewriteRule ^(custom/project/terms/.*)$ https://nanodash.knowledgepixels.com/project?id=https://w3id.org/kpxl/$1 [R=307,L]
+
+RewriteRule ^(group/terms/.*)$ https://nanodash.knowledgepixels.com/group?id=https://w3id.org/kpxl/$1 [R=307,L]
 
 
+RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$4&mode=$3 [R=302,L]
+
+RewriteRule ^([a-z]+)/([a-z]+)/np/([a-z]+)/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$4 [R=307,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/connector/$1/$2/np?id=$3&mode=final [R=302,L]
 
+RewriteRule ^([a-z]+)/([a-z]+)/np/(RA[A-Za-z0-9_\-]{43})$ https://np.knowledgepixels.com/$3 [R=307,L]
 
-RewriteRule ^biodiv/terms/hasSubjectLifeCycleStage$ http://purl.org/np/RAgCS0rra2pm2liceluTzr1K0dhQcIo0pB36T4Kd2T6gE
-RewriteRule ^biodiv/terms/hasObjectLifeCycleStage$ http://purl.org/np/RAVNWZiXwxIMNFGn9VXombcc8gwW7r0i2lYGeIddjOrSQ
-RewriteRule ^biodiv/terms/OrganismTaxonToGeneAssociation$ http://purl.org/np/RAe6BUoHzTqPA2lviJEwdrujn8WGSsRegR3ni7yACCx4s
 
-RewriteRule ^([a-z]+/[a-z]+/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+RewriteRule ^biodiv/terms/hasSubjectLifeCycleStage$ http://purl.org/np/RAgCS0rra2pm2liceluTzr1K0dhQcIo0pB36T4Kd2T6gE [R=307,L]
+RewriteRule ^biodiv/terms/hasObjectLifeCycleStage$ http://purl.org/np/RAVNWZiXwxIMNFGn9VXombcc8gwW7r0i2lYGeIddjOrSQ [R=307,L]
+RewriteRule ^biodiv/terms/OrganismTaxonToGeneAssociation$ http://purl.org/np/RAe6BUoHzTqPA2lviJEwdrujn8WGSsRegR3ni7yACCx4s [R=307,L]
 
-RewriteRule ^(biodiv/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1
+RewriteRule ^([a-z]+/[a-z]+/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1 [R=307,L]
+
+RewriteRule ^(biodiv/terms/.*)$ https://nanodash.knowledgepixels.com/term?id=https://w3id.org/kpxl/$1 [R=307,L]
 
 
 RewriteRule ^rel(/(terms)?)?$ https://w3id.org/kpxl/rel/terms/ [R=302,L,NE]
@@ -104,3 +114,7 @@ RewriteRule ^opo/latest/thinksIsOverrated$ http://purl.org/np/RAQpTSS1gac4yddlrQ
 RewriteRule ^opo/latest/thinksIsUnderrated$ http://purl.org/np/RAjrXKCuC4WmSlvBH2kbVRreh24-dU8o4ZLBjnLlsKjGw [R=302,L]
 
 RewriteRule ^opo/latest/index$ http://purl.org/np/RA_HPGSLNnQqd2mi6Zy2z9hpQSv_GL-uso5XI_0aFmosY [R=302,L]
+
+
+RewriteRule ^(.+)$ https://nanodash.knowledgepixels.com/explore?id=https://w3id.org/kpxl/$1 [R=307,L,NE]
+

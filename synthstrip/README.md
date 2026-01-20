@@ -2,6 +2,6 @@
 
 SynthStrip: skull-stripping for any brain image
 
-https://w3id.org/synthstrip -> https://surfer.nmr.mgh.harvard.edu/docs/synthstrip
+https://w3id.org/synthstrip -> https://synthstrip.io
 
 Malte Hoffmann (mhoffmann@mgh.harvard.edu)

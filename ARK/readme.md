@@ -13,6 +13,7 @@ ARK Ontologies:
 - Hospital Adverse Incidents Categories And Subcategories Terminology <https://w3id.org/ARK/HAdvIncCats>
 - Controls Ontology: <https://w3id.org/ARK/ControlsOntology>
 - Cybersecurity Terminology: <https://w3id.org/ARK/CybersecurityTerminology>
+- Logging Ontology: <https://w3id.org/ARK/LoggingOntology>
 
 Contacts:
 
