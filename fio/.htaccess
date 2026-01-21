@@ -41,16 +41,13 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^$ https://raw.githubusercontent.com/SAWGraph/fio/refs/heads/main/ontology/fio.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} .+
-RewriteRule ^$ https://theskailab.github.io/fio/406.html [R=406,L]
-
 # NAICS codes
 
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 # To find the proper entity, we need to use the full identifier after the hash
-RewriteRule ^v1/naics(.*)$ https://theskailab.github.io/fio/$1  [R=303,L,NE]
+RewriteRule ^v1/naics(.*)$ https://theskailab.github.io/fio/naics.html$1  [R=303,L,NE]
 
 # FRS vocabulary
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
@@ -64,7 +61,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 # To find the proper entity, we need to use the full identifier after the hash
-RewriteRule ^v1/epa-frs-data#d.FRS-Facility.(.*)$  https://frs-public.epa.gov/ords/frs_public2/fii_query_detail.disp_program_facility?p_registry_id=$1 [R=303,L,NE]
+RewriteRule ^v1/epa-frs-data$  https://theskailab.github.io/fio/epa-frs-data.html$1 [R=303,L,NE]
 
 
 # Default response
