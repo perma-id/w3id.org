@@ -25,7 +25,7 @@ RewriteEngine On
 #direct to specific classes / properties to documentation
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
 # To find the proper entity, we need to use the full identifier after the hash
 RewriteRule ^v1/fio(.*)$ https://theSKAILab.github.io/fio/index-en.html#http://w3id.org/fio/v1/fio#$1  [R=303,L,NE]
 
@@ -49,17 +49,32 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 # To find the proper entity, we need to use the full identifier after the hash
 RewriteRule ^v1/naics(.*)$ https://theskailab.github.io/fio/naics.html$1  [R=303,L,NE]
 
-# FRS vocabulary
+# NAICS vocabulary documentation
+
+# NAICS vocabulary turtle
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^v1/naics(.*)$  https://github.com/SAWGraph/fio/blob/main/datasets/federal/naics/naics_base.ttl [R=303,L,NE]
+
+# FRS vocabulary turtle
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
 # To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/epa-frs(.*)$  https://github.com/SAWGraph/fio/blob/main/datasets/federal/us-frs/ontology/epa-frs.ttl [R=303,L,NE]
+
+# FRS vocabulary documentation
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^v1/epa-frs(.*)$  https://github.com/SAWGraph/fio/blob/main/datasets/federal/us-frs/ontology/epa-frs.ttl [R=303,L,NE]
 
 # FRS facilities
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 # To find the proper entity, we need to use the full identifier after the hash
 RewriteRule ^v1/epa-frs-data$  https://theskailab.github.io/fio/epa-frs-data.html$1 [R=303,L,NE]
 
