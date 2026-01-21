@@ -15,9 +15,9 @@ The ontology captures the essential elements of MQTT, such as the network entiti
 
 ## Contact
 
-Niklas Doerner
-Email: doernern@hsu-hh.de  
-GitHub: https://github.com/doernern
+Niklas Doerner<br>
+Email: doernern@hsu-hh.de<br>
+GitHub: https://github.com/doernern<br>
 ORCID: https://orcid.org/0009-0004-0088-8633
 
 ## Documentation
