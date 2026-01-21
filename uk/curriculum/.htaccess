@@ -32,6 +32,11 @@ RewriteRule ^core/curriculum-ontology$ https://raw.githubusercontent.com/oaknati
 # Core ontology namespace (for individual terms like curric:Phase)
 RewriteRule ^core/$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/ontology/dfe-curriculum-ontology.ttl [R=303,L]
 
+# Ontology documentation - HTML requests go to GitHub Pages
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
+RewriteRule ^core/?$ https://oaknational.github.io/dfe-curriculum-ontology/ [R=303,L]
+
 # ----------------------------------------------------------------------
 # CORE ONTOLOGY CONSTRAINTS (SHACL)
 # ----------------------------------------------------------------------
