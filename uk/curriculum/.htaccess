@@ -72,6 +72,80 @@ RewriteRule ^england/themes\.ttl$ https://raw.githubusercontent.com/oaknational/
 RewriteRule ^england/themes$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/data/national-curriculum-for-england/themes.ttl [R=303,L]
 
 # ----------------------------------------------------------------------
+# NATIONAL CURRICULUM FOR ENGLAND - INDIVIDUAL RESOURCE CONTENT NEGOTIATION
+# ----------------------------------------------------------------------
+# These handle content negotiation for individual curriculum resources
+
+# Subject resources - Turtle format
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^england/([a-z0-9-]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1.ttl [R=303,L]
+
+# Subject resources - RDF/XML format
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^england/([a-z0-9-]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1.rdf [R=303,L]
+
+# Subject resources - JSON-LD format
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^england/([a-z0-9-]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1.jsonld [R=303,L]
+
+# Subject resources - N-Triples format
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^england/([a-z0-9-]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1.nt [R=303,L]
+
+# Subject resources - HTML (browsers) - redirect to web interface
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
+RewriteRule ^england/([a-z0-9-]+)$ https://curriculum.education.gov.uk/id/subjects/$1 [R=303,L]
+
+# Subject with key stage - Turtle format
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1-$2.ttl [R=303,L]
+
+# Subject with key stage - RDF/XML format
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1-$2.rdf [R=303,L]
+
+# Subject with key stage - JSON-LD format
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1-$2.jsonld [R=303,L]
+
+# Subject with key stage - N-Triples format
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1-$2.nt [R=303,L]
+
+# Subject with key stage - HTML (browsers) - redirect to web interface
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://curriculum.education.gov.uk/id/subjects/$1?keystage=$2 [R=303,L]
+
+# Default: if no Accept header matched, return Turtle (default RDF format)
+RewriteRule ^england/([a-z0-9-]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1.ttl [R=303,L]
+
+# Default for key stage specific: return Turtle
+RewriteRule ^england/([a-z0-9-]+)/(key-stage-[0-9]+)$ https://raw.githubusercontent.com/oaknational/dfe-curriculum-ontology/main/distributions/$1-$2.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# NOTES:
+#
+# 1. These rules redirect individual resource URIs to either:
+#    - Static RDF files in /distributions/ for machine clients
+#    - HTML web interface for human browsers
+#
+# 2. File naming convention in distributions/:
+#    - Full subject: {subject}.{ext} (e.g., mathematics.ttl)
+#    - Key stage specific: {subject}-{keystage}.{ext} (e.g., mathematics-key-stage-3.ttl)
+#
+# 3. Insert these rules BEFORE existing subject-specific rules
+#    so content negotiation happens before hardcoded redirects
+#
+# 4. The (key-stage-[0-9]+) pattern matches key-stage-1, key-stage-2, etc.
+#
+# 5. For HTML requests, we check both Accept header AND User-Agent
+#    to catch browsers that send */* in Accept header
+#
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
 # NATIONAL CURRICULUM FOR ENGLAND - HISTORY SUBJECT
 # ----------------------------------------------------------------------
 
