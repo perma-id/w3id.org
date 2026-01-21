@@ -31,7 +31,7 @@ An Ontology Specification Draft was automatically generated with the help of the
 [![Visualize with](https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg)](https://doernern.github.io/MQTT4SSNOntology/documentation/webvowl/index.html#)
 
 ## How to cite
-In case you want to use this ontology in your own research, please cite as:
+If you want to use this ontology in your own research, please cite as:
 ```
 Doerner, N., & Maleshkova, M. (2025). MQTT4SSN: An Ontology for the MQTT Message Protocol. In F. Novakazi & A. S. Dalal (Eds.), Joint Proceedings of the 16th Workshop on Ontology Design and Patterns (WOP 2025) and the 1st Workshop on Bridging Hybrid Intelligence and the Semantic Web (HAIBRIDGE 2025), co-located with ISWC 2025 (CEUR Workshop Proceedings, Vol. 4093, pp. 57–70). CEUR-WS.org. https://doi.org/10.5281/zenodo.16704302
 ```
