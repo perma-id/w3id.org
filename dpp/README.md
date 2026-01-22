@@ -1,9 +1,8 @@
-DPP (Digital Product Passpot ontology)
+# DPP ontology and alignment
 
-Documentation avalible at: https://jthproflow.hj.se/ontologies/ppon/dpp/index.html
 
-OWL: https://jthproflow.hj.se/ontologies/ppon/dpp/ontology.owl
+Redirection for project repository: https://w3id.org/dpp -> https://richzele.github.io/dpp-ontology-site/
 
-Contact: Rahel Kebede: rahel.kebede@ju.se
-
-Contact: Filip Larsson: lafi21rx@ju.student.se (https://github.com/LarssonFilip)
+### Maintainer
+[Rahel Kebede](rahel.kebede@ju.se), [@huanyu-li](https://github.com/RichZele), rahel.kebede@ju.se
+[Huanyu Li](http://huanyuli.se), [@huanyu-li](https://github.com/huanyu-li), huanyu.li@liu.se
