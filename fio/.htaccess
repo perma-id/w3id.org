@@ -61,6 +61,13 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^v1/naics(.*)$  https://github.com/SAWGraph/fio/blob/main/datasets/federal/naics/naics_base.ttl [R=303,L,NE]
 
+# FRS facilities
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+# To find the proper entity, we need to use the full identifier after the hash
+RewriteRule ^v1/epa-frs-data$  https://theskailab.github.io/fio/epa-frs-data.html$1 [R=303,L,NE]
+
 # FRS vocabulary turtle
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -74,12 +81,7 @@ RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle 
 RewriteRule ^v1/epa-frs(.*)$  https://theskailab.github.io/fio/epa-frs/index-en.html [R=303,L,NE] 
 
-# FRS facilities
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-# To find the proper entity, we need to use the full identifier after the hash
-RewriteRule ^v1/epa-frs-data$  https://theskailab.github.io/fio/epa-frs-data.html$1 [R=303,L,NE]
+
 
 
 # Default response
