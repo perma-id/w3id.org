@@ -1,9 +1,9 @@
 # ExpO
 
-This namespace is for the resources related the ExpO framework: a framework for explaining Ontology-Driven Conceptual Models.
+This namespace is for the resources related the ExpO project: a system for explaining Ontology-Driven Conceptual Models.
 
 
-The ExpO framework consists of:
+The ExpO system consists of:
 1. an API that implements explanation operators [ExpO REST API](https://expose.eng.unibz.it),
 2. a plugin for Visual Paradigm that is aimed at conceptual model engineers working with OntoUML [ExpO Plugin](https://github.com/mozzherina/ontouml-vp-plugin/tree/features/abstraction), and 
 3. a web application for model exploration mostly designed for domain experts [ExpO](https://expo.eng.unibz.it).

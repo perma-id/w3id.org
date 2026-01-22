@@ -8,8 +8,10 @@ for [Open Source Ecology Germany (OSEG)][OSEG-eV] resources.
 This namespace is broken down into different parts for [OSEG][OSEG-eV]s:
 
 - (RDF) ontologies
+- (JSON-)Schemas
 - standards (TODO)
 - services (TODO)
+- identities/profiles (in RDF/OWL format)
 - maybe more in the future (TODO)
 
 ## Contact

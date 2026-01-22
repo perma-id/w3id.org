@@ -10,13 +10,19 @@ R2RML Implementation Report:
 TPAC Website:
 * https://w3id.org/kg-construct/tpac
 
-RML-FnO-Spec:
-* https://w3id.org/kg-construct/rml-fno-spec
-
 Survey:
 * https://w3id.org/kg-construct/survey
 
+KROWN:
+* https://w3id.org/kg-construct/KROWN
+
+W3C-Chater
+* https://w3id.org/kg-construct/rml-wg-charter
+
 Contacts: 
-* David Chaves-Fraga <dchaves@fi.upm.es>
-* Pieter Heyvaert <pieter.heyvaert@ugent.be>
-* Anastasia Dimou <anastasia.dimou@ugent.be>
+* David Chaves-Fraga
+	* Email: <david.chaves@usc.es>
+	* GitHub ID : [@dachafra](https://github.com/dachafra)
+* Anastasia Dimou 
+	* Email: <anastasia.dimou@kuleuven.be>
+	* GitHub ID : [@andimou](https://github.com/andimou)

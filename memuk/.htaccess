@@ -1,0 +1,28 @@
+# ## Contact
+# This space is administered by:
+#
+# Esther Giuliano
+# esther.giuliano@studio.unibo.it
+# GitHub username: esthy13
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+AddType application/rdf+xml .owl
+ 
+RewriteEngine on
+
+# https://w3id.org/memuk
+
+RewriteRule ^$ https://github.com/esthy13/memuk [R=303,L]
+
+# https://w3id.org/memuk/resource
+
+RewriteRule ^resource/?$ https://github.com/esthy13/memuk/tree/main/kg-generation/knowledge-graph [R=303,L]
+
+# https://w3id.org/memuk/ontology/meis
+
+RewriteRule ^ontology/meis/?$ https://raw.githubusercontent.com/esthy13/memuk/refs/heads/main/ontology/meis.owl [R=302,L]
+
+# https://w3id.org/memuk/<generic>
+RewriteRule ^(?!ontology/meis|resource)(.+)$ https://github.com/esthy13/memuk [R=303,L]

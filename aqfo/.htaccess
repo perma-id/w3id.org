@@ -7,4 +7,10 @@
 # GitHub username: marieALaporte
 
 RewriteEngine on
-RewriteRule ^ https://raw.githubusercontent.com/WorldFishCenter/fish-ontology/main/aquaculture_small_scale_fisheries_ontology.owl [R=303,L]
+#RewriteRule ^ https://raw.githubusercontent.com/WorldFishCenter/fish-ontology/main/aquaculture_small_scale_fisheries_ontology.owl [R=303,L]
+# Base redirect to the AgroPortal landing page
+RewriteRule ^$ https://agroportal.lirmm.fr/ontologies/AQFO [R=302,L]
+
+# Redirect specific entities to their AgroPortal page (e.g., classes or terms)
+RewriteCond %{REQUEST_URI} ^.*aqfo.*$
+RewriteRule ^([^/]+)/?$ https://agroportal.lirmm.fr/ontologies/AQFO/$1 [R=302,L]

@@ -1,0 +1,30 @@
+#
+# Eclipse Dataspace Components Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+Options -MultiViews
+
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to resolve connector management context
+RewriteRule ^connector/management/v0.0.1(.*)$ https://eclipse-edc.github.io/Connector/context/management-context-v1.jsonld [R=302,L]
+RewriteRule ^connector/management/v2(.*)$ https://eclipse-edc.github.io/Connector/context/management-context-v2.jsonld [R=302,L]
+RewriteRule ^dspace/v0.0.1$ https://eclipse-edc.github.io/Connector/context/dspace-edc-context-v1.jsonld [R=302,L]
+
+## Redirect JSON Schemas
+RewriteRule ^connector/management/schema/v4/([\w.-]+schema.json) https://eclipse-edc.github.io/Connector/schema/management/v4/$1 [R=302,L,QSA]
+
+
+# Rewrite rule to resolve virtual connector management context
+RewriteRule ^virtual-connector/management/v2(.*)$ https://eclipse-edc.github.io/Virtual-Connector/context/v-management-context-v2.jsonld [R=302,L]
+
+## Redirect JSON Schemas
+RewriteRule ^virtual-connector/management/schema/v4/([\w.-]+schema.json) https://eclipse-edc.github.io/Virtual-Connector/schema/management/v4/$1 [R=302,L,QSA]
+
+# Rewrite rule to default to the EDC docs page
+RewriteRule ^(.*)$ https://eclipse-edc.github.io/docs [R=303,L]

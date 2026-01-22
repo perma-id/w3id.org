@@ -15,6 +15,6 @@ This space is administered by:
 
 Mail: [sebastian.barzaghi2@unibo.it](mailto:sebastian.barzaghi2@unibo.it)
 
-GitHub: [sebastianbarzaghi](https://github.com/sebastianbarzaghi)
+GitHub: [sbrzt](https://github.com/sbrzt)
 
 ORCID: [0000-0002-0799-1527](https://orcid.org/0000-0002-0799-1527)

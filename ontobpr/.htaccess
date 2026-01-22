@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ontobpr/index.html [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ontobpr/ontobpr.ttl [R=303,NE,L]
+
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^ontobpr.ttl$ https://rub-informatik-im-bauwesen.github.io/ontobpr/ontobpr.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^ontobpr.html$ https://rub-informatik-im-bauwesen.github.io/ontobpr/index.html[R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/ontobpr/index.html [R=303,NE,L]

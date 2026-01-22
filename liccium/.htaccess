@@ -1,0 +1,40 @@
+# Liccium Schema, Context & Ontology Redirects
+# https://w3id.org/liccium
+#
+# Repository: https://github.com/liccium/w3id.docs
+#
+# Contact:
+#   Yury Kharytanovich <yury.kharytanovich.liccium@gmail.com> - https://github.com/yurykharytanovich
+#   Sebastian Post     <info@liccium.com> - https://github.com/sposth
+
+
+# Turn off MultiViews
+Options -MultiViews
+
+# MIME type declarations
+AddType application/json .json
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+RewriteBase /liccium/
+
+# ------------------------------
+# Schema files
+# ------------------------------
+RewriteRule ^schema/(.+)\.json$ https://raw.githubusercontent.com/liccium/w3id.docs/main/schema/$1.json [R=303,L]
+
+# ------------------------------
+# Context files
+# ------------------------------
+RewriteRule ^context/(.+)\.json$ https://raw.githubusercontent.com/liccium/w3id.docs/main/context/$1.json [R=303,L]
+
+# ------------------------------
+# Ontology files
+# ------------------------------
+RewriteRule ^ont/(.+)\.ttl$ https://raw.githubusercontent.com/liccium/w3id.docs/main/ont/$1.ttl [R=303,L]
+
+# ------------------------------
+# Default response (redirect to GitHub repo)
+# ------------------------------
+RewriteRule ^$ https://github.com/liccium/w3id.docs [R=303,L]

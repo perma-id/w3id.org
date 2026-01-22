@@ -1,0 +1,22 @@
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+#Rewrite rules to serve HTML content, TTL...
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://jendersen.github.io/TSoR-vocab/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://jendersen.github.io/TSoR-vocab/cmd.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://jendersen.github.io/TSoR-vocab/cmd.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^$ https://jendersen.github.io/TSoR-vocab/cmd.owl [R=303,NE,L]

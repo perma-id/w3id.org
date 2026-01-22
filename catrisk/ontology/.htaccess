@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /catrisk/ontology/
+
+# Redirect to RDF
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/catriskscientist/catrisk-ontology/refs/heads/main/ontology.ttl [R=303,L]
+
+# Redirect to HTML (optional)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/catriskscientist/catrisk-ontology [R=303,L]
+
+# Fallback
+RewriteRule ^$ https://raw.githubusercontent.com/catriskscientist/catrisk-ontology/refs/heads/main/ontology.ttl [R=303,L]
