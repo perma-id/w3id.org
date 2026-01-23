@@ -1,0 +1,58 @@
+# https://w3id.org/MQTT4SSN-Ontology/ redirects via HTTP 303 using content negotiation:
+# - HTML requests are redirected to:
+#   https://doernern.github.io/MQTT4SSNOntology/documentation/index-en.html
+# - RDF/OWL requests are redirected to:
+#   https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.owl
+
+# ## Contact
+# This space is administered by:
+#
+# Niklas Doerner
+# Email: doernern@hsu-hh.de  
+# GitHub: https://github.com/doernern
+# ORCID: https://orcid.org/0009-0004-0088-8633
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+# --- Human-facing documentation (HTML) ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://doernern.github.io/MQTT4SSNOntology/documentation/index-en.html [R=303,L]
+
+# --- Machine-facing ontology (RDF/OWL) ---
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)$ https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.owl [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.jsonld [R=303,L]
+
+# --- Fallback (if no/unknown Accept header) ---
+RewriteRule ^$ https://doernern.github.io/MQTT4SSNOntology/documentation/ontology.owl [R=303,L]
+
+
+
+

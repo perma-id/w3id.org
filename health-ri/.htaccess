@@ -1,31 +1,77 @@
 Options -MultiViews
-RewriteEngine on
 
-# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------
+# RESOURCES' VERSIONING
+# --------------------------------------------------------------------------------------------------------------
 
 ## Latest release
-RedirectMatch 302 ^/health-ri/metadata/releases/(latest|current)/?$  https://github.com/Health-RI/health-ri-metadata/releases/latest
+RedirectMatch 302 ^/health-ri/metadata/releases/(latest|current)/?$ https://github.com/Health-RI/health-ri-metadata/releases/latest
 
 ## All releases
-RedirectMatch 302 ^/health-ri/metadata/releases/?$  https://github.com/Health-RI/health-ri-metadata/releases
+RedirectMatch 302 ^/health-ri/metadata/releases/?$ https://github.com/Health-RI/health-ri-metadata/releases
 
 ## Specific release
-RedirectMatch 302 ^/health-ri/metadata/releases/(.+)/?$  https://github.com/Health-RI/health-ri-metadata/releases/tag/$1
+RedirectMatch 302 ^/health-ri/metadata/releases/(.+)/?$ https://github.com/Health-RI/health-ri-metadata/releases/tag/$1
 
-# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------
+# RESOURCES' HOMEPAGES
+# --------------------------------------------------------------------------------------------------------------
 
-# Health-RI Metadata Schema
-RedirectMatch 302 ^/health-ri/metadata/?$  https://github.com/Health-RI/health-ri-metadata/
-RedirectMatch 302 ^/health-ri/metadata/(git|repo)/?$  https://github.com/Health-RI/health-ri-metadata/
+## Health-RI Metadata Schema
+RedirectMatch 302 ^/health-ri/metadata/?$ https://github.com/Health-RI/health-ri-metadata/
+RedirectMatch 302 ^/health-ri/metadata/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata/
 
-# Health-RI Semantic Interoperability
-RedirectMatch 302 ^/health-ri/semantic-interoperability/?$  https://health-ri.github.io/semantic-interoperability/
-RedirectMatch 302 ^/health-ri/semantic-interoperability/git/?$  https://github.com/Health-RI/semantic-interoperability/
+## Health-RI Semantic Interoperability
+RedirectMatch 302 ^/health-ri/semantic-interoperability/?$ https://health-ri.github.io/semantic-interoperability/
+RedirectMatch 302 ^/health-ri/semantic-interoperability/git/?$ https://github.com/Health-RI/semantic-interoperability/
 
-# GENERAL REDIRECTIONS ----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------
+# GENERAL REDIRECTIONS
+# --------------------------------------------------------------------------------------------------------------
 
 # Redirect the root /health-ri path to the official website
 RedirectMatch 302 ^/health-ri/?$ https://www.health-ri.nl/
 
-# (REMOVED) Redirect everything else to the corresponding GitHub repository
-# RewriteRule ^(.*)$ https://github.com/Health-RI/$1 [R=302,L]
+# --------------------------------------------------------------------------------------------------------------
+# ONTOLOGY FILES
+# --------------------------------------------------------------------------------------------------------------
+
+## Latest ontology files (ttl, vpp, json, documentation.html, specification.html)
+RedirectMatch 302 ^/health-ri/ontology(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.ttl
+RedirectMatch 302 ^/health-ri/ontology/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.$1
+RedirectMatch 302 ^/health-ri/ontology/(doc|documentation)/?$ https://health-ri.github.io/semantic-interoperability/ontology/documentation/
+RedirectMatch 302 ^/health-ri/ontology/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/ontology/specification-ontology.html
+
+## Versioned ontology files (ttl, vpp, json, documentation.md, specification.html)
+# Matches semantic versions like v1.2.3 and redirects to the corresponding static files
+RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.ttl
+RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.$2
+RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(doc|documentation)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/documentation-v$1.md
+RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/specification-v$1.html
+
+# --------------------------------------------------------------------------------------------------------------
+# SSSOM MAPPINGS FILES
+# --------------------------------------------------------------------------------------------------------------
+
+## Latest SSSOM mappings files (ttl, tsv)
+RedirectMatch 302 ^/health-ri/semantic-interoperability/mappings(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.ttl
+RedirectMatch 302 ^/health-ri/semantic-interoperability/mappings/tsv/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.tsv
+
+# --------------------------------------------------------------------------------------------------------------
+# MAPPING VOCABULARY FILES
+# --------------------------------------------------------------------------------------------------------------
+
+## Latest vocabulary files (ttl and specification.html)
+RedirectMatch 302 ^/health-ri/mapping-vocabulary(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/latest/health-ri-vocabulary.ttl
+RedirectMatch 302 ^/health-ri/mapping-vocabulary/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/method/specification-vocabulary.html
+
+## Versioned vocabulary files (ttl and specification.html)
+# Matches semantic versions like v1.2.3 and redirects to the corresponding static files
+RedirectMatch 302 ^/health-ri/mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/health-ri-vocabulary-v$1.ttl
+RedirectMatch 302 ^/health-ri/mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/documentations/specification-v$1.html
+
+# --------------------------------------------------------------------------------------------------------------
+# FALLBACK FOR SEMANTIC-INTEROPERABILITY PATHS
+# --------------------------------------------------------------------------------------------------------------
+# Any other /health-ri/semantic-interoperability/XXX → GitHub Pages /XXX
+RedirectMatch 302 ^/health-ri/semantic-interoperability/(.+)$ https://health-ri.github.io/semantic-interoperability/$1

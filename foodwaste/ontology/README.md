@@ -6,7 +6,7 @@ This [w3id.org](https://w3id.org) permanent identifier redirects to the RDF/XML 
 https://w3id.org/MonarchRyuzaki/foodwaste/ontology
 
 **Redirects to:**
-https://raw.githubusercontent.com/MonarchRyuzaki/FoodWastageOntology/refs/heads/master/FoodWastageOntologyNew.rdf
+https://monarchryuzaki.github.io/FoodWastageOntology/FoodWastageOntologyNew.rdf
 
 ## Maintainer
 
