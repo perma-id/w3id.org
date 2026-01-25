@@ -4,10 +4,11 @@ An ontology for PDT
 
 
 ## Repository
-- https://pdto.pkgi40/codelib.re
+- https://pdto.pkgi40.codelib.re
 
 
 ## Contact
 Quang-Duy Nguyen, PhD   
 CEA List, France   
-* Quang-Duy Nguyen <nqduy35@gmail.com>  
+* Github id: nqduy35  
+* Email: nqduy35@gmail.com  
