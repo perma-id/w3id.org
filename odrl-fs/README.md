@@ -17,3 +17,5 @@ This [w3id.org/odrl-fs](https://w3id.org/odrl-fs) redirects to the proper Ontolo
 * [Nicoletta Fornara](https://github.com/fornaran)
 * [Víctor Rodríguez-Doncel](https://github.com/vroddon)
 * [Yassir SELLAMI](https://github.com/YassirSellami)
+* [Andrea Cimmino Arriaga](https://github.com/AndreaCimminoArriaga)
+* [Beatriz Esteves](https://github.com/besteves4)
