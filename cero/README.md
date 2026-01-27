@@ -10,6 +10,6 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for **CERO** O
 ## Contact
 This space is administered by:  
 
-   * [Dr. Philipp Hagedorn](https://orcid.org/0000-0002-6249-243X)
-    [[ORCID]](https://orcid.org/0000-0002-6249-243X) [[Github: philhag]](https://github.com/philhag)
+   * [Dr. Philipp Hagedorn](https://orcid.org/0000-0002-6249-243X) <br>
+    [[ORCID]](https://orcid.org/0000-0002-6249-243X) [[Github: philhag]](https://github.com/philhag) <br>
     (philipp.hagedorn-n6v@rub.de) of [Ruhr University Bochum, DE](https://www.inf.bi.ruhr-uni-bochum.de/iib/lehrstuhl/mitarbeiter/philipp_hagedorn.html.en)
