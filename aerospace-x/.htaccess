@@ -1,7 +1,9 @@
 Header set Access-Control-Allow-Origin *
 
 # Directive to ensure *.rdf files served as appropriate content type,
+
 # if not present in main apache config
+
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
@@ -11,10 +13,12 @@ AddType application/ld+json .json
 AddType application/yaml .yaml
 
 # For ESMF Models
+
 AddType application/schema+json .schema.json
 AddType application/asset-administration-shell-package .aasx
 
 # Base url for Resolving ESMF Models
+
 Define SEMANTIC_BASE https://aerospace-x.pages.fraunhofer.de/data-product-model
 
 Options +FollowSymLinks
@@ -28,38 +32,42 @@ RewriteEngine on
 ######################################################################
 
 # Redirect to ODRL Verifiable Credential Profile
+
 RewriteRule ^ovc/* https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/raw/main/ovc-1.ttl [R=303,L]
 
+# Redirect to Shacl shapes (specific pattern to avoid matching other routes)
 
-# Redirect to Shacl shapes (updated .ttl endpoint)
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^/?development$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/development/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^/?([^/]*)$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/?([0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
 
 # Redirect to OWL ontology
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^/?development$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^/?([^/]*)$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/development/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
 
-######################################################################
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/?([0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
 
-# AEROSPACE-X SEMANTIC MODELS - Content Negotiation
+############################################################################################################################################
 
-######################################################################
-
-# ============================================
-
-# AEROSPACE-X MODELS (org.w3id.aerospace-x.*)
+# AEROSPACE-X Data Products - Unified Content Negotiation
 
 # Pattern: /aerospace-x/data-product-model/{model-name}/{version}
+
+# Supporting (JSON-LD, JSON-SCHEMA, TTL, AASX, HTML(Default))
+
+############################################################################################################################################
 
 # ============================================
 
 # JSON-LD Context (application/ld+json)
+
+# ============================================
+
+# Aerospace-X Native Models
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
 RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.json [R=303,L,NE]
@@ -88,7 +96,42 @@ RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANT
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
 RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.json [R=303,L,NE]
 
+# Catena-X Models (Integrated under unified pattern)
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.json [R=303,L,NE]
+
+# ============================================
+
 # Turtle/RDF (text/turtle)
+
+# ============================================
+
+# Aerospace-X Native Models
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
@@ -126,7 +169,51 @@ RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
 RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.ttl [R=303,L,NE]
 
+# Catena-X Models (Integrated)
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.ttl [R=303,L,NE]
+
+# ============================================
+
 # JSON Schema (application/schema+json)
+
+# ============================================
+
+# Aerospace-X Native Models
 
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
 RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.schema.json [R=303,L,NE]
@@ -155,7 +242,42 @@ RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANT
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
 RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.schema.json [R=303,L,NE]
 
+# Catena-X Models (Integrated)
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.schema.json [R=303,L,NE]
+
+# ============================================
+
 # AASX Package (application/asset-administration-shell-package)
+
+# ============================================
+
+# Aerospace-X Native Models
 
 RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
 RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.aasx [R=303,L,NE]
@@ -184,7 +306,42 @@ RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANT
 RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
 RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.aasx [R=303,L,NE]
 
-# Default: Redirect to HTML (if no specific Accept header)
+# Catena-X Models (Integrated)
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.aasx [R=303,L,NE]
+
+# ============================================
+
+# Default: Redirect to HTML (no specific Accept header)
+
+# ============================================
+
+# Aerospace-X Native Models
 
 RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.html [R=303,L,NE]
 
@@ -204,137 +361,32 @@ RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANT
 
 RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.html [R=303,L,NE]
 
+# Catena-X Models (Integrated)
+
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.html [R=303,L,NE]
 
 # ============================================
 
-# CATENA-X MODELS (io.catenax.*)
-
-# Pattern: /catenax/{model-name}/{version}
+# Catch-all Pattern
 
 # ============================================
 
-# JSON-LD
+# Redirect to semantic hub documentation for anything else
 
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/shared/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/shared/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/shared/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/shared/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^catenax/shared/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.json [R=303,L,NE]
-
-# Turtle
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/shared/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/shared/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/shared/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/shared/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^catenax/shared/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.ttl [R=303,L,NE]
-
-# AASX
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/shared/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/shared/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/shared/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/shared/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^catenax/shared/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.aasx [R=303,L,NE]
-
-# Default to HTML
-
-RewriteRule ^catenax/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.html [R=303,L,NE]
-
-RewriteRule ^catenax/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.html [R=303,L,NE]
-
-RewriteRule ^catenax/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.html [R=303,L,NE]
-
-RewriteRule ^catenax/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.html [R=303,L,NE]
-
-RewriteRule ^catenax/shared/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.html [R=303,L,NE]
-
-RewriteRule ^catenax/shared/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.html [R=303,L,NE]
-
-RewriteRule ^catenax/shared/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.html [R=303,L,NE]
-
-RewriteRule ^catenax/shared/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.html [R=303,L,NE]
-
-RewriteRule ^catenax/shared/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.html [R=303,L,NE]
-
-# ============================================
-
-# Catch ALL Pattern 
-
-# ============================================
-
-# Redirect to semantic hub documentation catch all the rest
 RewriteRule ^(.*)$ https://int.semantic-hub.axdata.space/$1 [R=303,L]
-
