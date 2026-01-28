@@ -1,392 +1,362 @@
-Header set Access-Control-Allow-Origin *
+# ============================================
 
-# Directive to ensure *.rdf files served as appropriate content type,
+# AEROSPACE-X Content Negotiation
 
-# if not present in main apache config
+# Für .htaccess optimiert
 
-AddType application/rdf+xml .rdf
-AddType application/rdf+xml .owl
+# ============================================
+
+Header set Access-Control-Allow-Origin "*"
+
+# Content-Type Definitions
+
+AddType application/rdf+xml .rdf .owl
 AddType text/turtle .ttl
-AddType text/n3 .ttl
+AddType text/n3 .n3
 AddType application/n-triples .nt
 AddType application/ld+json .json
 AddType application/yaml .yaml
-
-# For ESMF Models
-
 AddType application/schema+json .schema.json
 AddType application/asset-administration-shell-package .aasx
 
-# Base url for Resolving ESMF Models
-
-Define SEMANTIC_BASE https://aerospace-x.pages.fraunhofer.de/data-product-model
-
 Options +FollowSymLinks
-
 RewriteEngine on
 
-######################################################################
+# ============================================
 
-# AEROSPACE-X Ontology - Content Negotiation
+# 1. ODRL Verifiable Credential Profile
 
-######################################################################
+# ============================================
 
-# Redirect to ODRL Verifiable Credential Profile
+RewriteRule ^ovc(/.*)?$ https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/raw/main/ovc-1.ttl [R=303,L]
 
-RewriteRule ^ovc/* https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/raw/main/ovc-1.ttl [R=303,L]
+# ============================================
 
-# Redirect to Shacl shapes (specific pattern to avoid matching other routes)
+# 2. Ontology Content Negotiation
 
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/development/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+# ============================================
 
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/?([0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+# Turtle (SHACL shapes)
 
-# Redirect to OWL ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^ontology/(development|[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+
+# RDF/XML (OWL)
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/development/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/?([0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
-
-############################################################################################################################################
-
-# AEROSPACE-X Data Products - Unified Content Negotiation
-
-# Pattern: /aerospace-x/data-product-model/{model-name}/{version}
-
-# Supporting (JSON-LD, JSON-SCHEMA, TTL, AASX, HTML(Default))
-
-############################################################################################################################################
+RewriteRule ^ontology/(development|[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
 
 # ============================================
 
-# JSON-LD Context (application/ld+json)
+# 3. Data Product Models - Content Negotiation
+
+# Pattern: /aerospace-x/data-product-model/{model}/{version}
 
 # ============================================
 
-# Aerospace-X Native Models
+# --- JSON-LD (application/ld+json) ---
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.json [R=303,L,NE]
 
-# Catena-X Models (Integrated under unified pattern)
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.json [R=303,L,NE]
+# Catena-X Models - JSON-LD
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.batch/$1/Batch.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.part_type_information/$1/PartTypeInformation.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.serial_part/$1/SerialPart.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_classification/$1/PartClassification.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.json [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.json [R=303,L,NE]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.quantity/$1/Quantity.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.uuid/$1/Uuid.json [R=303,L,NE]
+
+# --- Turtle (text/turtle) ---
+
+# Aerospace-X Models
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.ttl [R=303,L,NE]
+
+# Catena-X Models - Turtle
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.batch/$1/Batch.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.part_type_information/$1/PartTypeInformation.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.serial_part/$1/SerialPart.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_classification/$1/PartClassification.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.quantity/$1/Quantity.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.uuid/$1/Uuid.ttl [R=303,L,NE]
+
+# --- JSON Schema (application/schema+json) ---
+
+# Aerospace-X Models
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.schema.json [R=303,L,NE]
+
+# Catena-X Models
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.batch/$1/Batch.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.part_type_information/$1/PartTypeInformation.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.serial_part/$1/SerialPart.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_classification/$1/PartClassification.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.quantity/$1/Quantity.schema.json [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.uuid/$1/Uuid.schema.json [R=303,L,NE]
+
+# --- AASX Package (application/asset-administration-shell-package) ---
+
+# Aerospace-X Models
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.aasx [R=303,L,NE]
+
+# Catena-X Models
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.batch/$1/Batch.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.part_type_information/$1/PartTypeInformation.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.serial_part/$1/SerialPart.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_classification/$1/PartClassification.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.quantity/$1/Quantity.aasx [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.uuid/$1/Uuid.aasx [R=303,L,NE]
+
+# --- Default: HTML (no specific Accept header) ---
+
+# Aerospace-X Models
+
+RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.html [R=303,L,NE]
+
+# Catena-X Models
+
+RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.batch/$1/Batch.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.part_type_information/$1/PartTypeInformation.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.serial_part/$1/SerialPart.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_classification/$1/PartClassification.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.quantity/$1/Quantity.html [R=303,L,NE]
+
+RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ https://aerospace-x.pages.fraunhofer.de/data-product-model/io.catenax.shared.uuid/$1/Uuid.html [R=303,L,NE]
 
 # ============================================
 
-# Turtle/RDF (text/turtle)
+# Catch-All: Redirect to semantic hub
 
 # ============================================
-
-# Aerospace-X Native Models
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.ttl [R=303,L,NE]
-
-# Catena-X Models (Integrated)
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.ttl [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.ttl [R=303,L,NE]
-
-# ============================================
-
-# JSON Schema (application/schema+json)
-
-# ============================================
-
-# Aerospace-X Native Models
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.schema.json [R=303,L,NE]
-
-# Catena-X Models (Integrated)
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.schema.json [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.schema.json [R=303,L,NE]
-
-# ============================================
-
-# AASX Package (application/asset-administration-shell-package)
-
-# ============================================
-
-# Aerospace-X Native Models
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.aasx [R=303,L,NE]
-
-# Catena-X Models (Integrated)
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.aasx [R=303,L,NE]
-
-RewriteCond %{HTTP_ACCEPT} application/asset-administration-shell-package [NC]
-RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.aasx [R=303,L,NE]
-
-# ============================================
-
-# Default: Redirect to HTML (no specific Accept header)
-
-# ============================================
-
-# Aerospace-X Native Models
-
-RewriteRule ^aerospace-x/data-product-model/identification/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.identification/$1/Identification.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/characteristic/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.characteristic/$1/Characteristic.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/additional-data/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.additionalData/$1/AdditionalData.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.digital-product-passport/$1/DigitalProductPassport.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/end-of-life-handling/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.endOfLifeHandling/$1/EndOfLifeHandling.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/materials/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.materials/$1/Materials.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/metadata/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.metadata/$1/Metadata.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/sustainability/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.sustainability/$1/Sustainability.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/usage-repair-reuse-refurbishment/([0-9.]+)/?$ ${SEMANTIC_BASE}/org.w3id.aerospace-x.data-product-model.usageRepairReuseRefurbishment/$1/UsageRepairReuseRefurbishment.html [R=303,L,NE]
-
-# Catena-X Models (Integrated)
-
-RewriteRule ^aerospace-x/data-product-model/batch/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.batch/$1/Batch.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/generic-digital-product-passport/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.generic.digital_product_passport/$1/DigitalProductPassport.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/part-type-information/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.part_type_information/$1/PartTypeInformation.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/serial-part/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.serial_part/$1/SerialPart.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/business-partner-number/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.business_partner_number/$1/BusinessPartnerNumber.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/part-classification/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_classification/$1/PartClassification.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/part-site-information-as-built/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.part_site_information_as_built/$1/PartSiteInformationAsBuilt.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/quantity/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.quantity/$1/Quantity.html [R=303,L,NE]
-
-RewriteRule ^aerospace-x/data-product-model/uuid/([0-9.]+)/?$ ${SEMANTIC_BASE}/io.catenax.shared.uuid/$1/Uuid.html [R=303,L,NE]
-
-# ============================================
-
-# Catch-all Pattern
-
-# ============================================
-
-# Redirect to semantic hub documentation for anything else
 
 RewriteRule ^(.*)$ https://int.semantic-hub.axdata.space/$1 [R=303,L]
