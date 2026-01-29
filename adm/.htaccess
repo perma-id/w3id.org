@@ -3,39 +3,56 @@ Options +FollowSymLinks
 # Rewrite engine setup
 RewriteEngine On
 
-# Redirect to w3id.org/str/
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^$ https://semiceu.github.io/ADM/ [R=302,L]
+# Specific model class redirects
+RewriteRule ^model/Beneficiary$ https://semiceu.github.io/ADM/model/#Beneficiary [NE,R=302,L]
+RewriteRule ^model/Block$ https://semiceu.github.io/ADM/model/#Block [NE,R=302,L]
+RewriteRule ^model/ESF$ https://semiceu.github.io/ADM/model/#ESF [NE,R=302,L]
+RewriteRule ^model/KeyExpert$ https://semiceu.github.io/ADM/model/#KeyExpert [NE,R=302,L]
+RewriteRule ^model/Partner$ https://semiceu.github.io/ADM/model/#Partner [NE,R=302,L]
+RewriteRule ^model/Subcontract$ https://semiceu.github.io/ADM/model/#Subcontract [NE,R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.*)$ https://semiceu.github.io/ADM/puri/$1.ttl [NE,R,L]
+# Specific property redirects
+RewriteRule ^model/belongsTo$ https://semiceu.github.io/ADM/model/#Contract.belongsto [NE,R=302,L]
+RewriteRule ^model/hasKeyExpert$ https://semiceu.github.io/ADM/model/#Contract.hasKeyExpert [NE,R=302,L]
+RewriteRule ^model/ECfinancialAssistance$ https://semiceu.github.io/ADM/model/#Project.ECfinancialassistance [NE,R=302,L]
+RewriteRule ^model/hasBeneficiary$ https://semiceu.github.io/ADM/model/#Project.hasbeneficiary [NE,R=302,L]
+RewriteRule ^model/hasBlock$ https://semiceu.github.io/ADM/model/#Project.hasblock [NE,R=302,L]
+RewriteRule ^model/income$ https://semiceu.github.io/ADM/model/#Project.income [NE,R=302,L]
+RewriteRule ^model/otherContributions$ https://semiceu.github.io/ADM/model/#Project.othercontributions [NE,R=302,L]
+RewriteRule ^model/totalCost$ https://semiceu.github.io/ADM/model/#Project.totalcost [NE,R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.*)$ https://semiceu.github.io/ADM/puri/$1.jsonld [NE,R,L]
+# Specific codelist redirects
+RewriteRule ^codelist/projectStatus/1$ https://semiceu.github.io/ADM/model/#table-project-Status-1 [NE,R=302,L]
+RewriteRule ^codelist/projectStatus/2$ https://semiceu.github.io/ADM/model/#table-project-Status-2 [NE,R=302,L]
+RewriteRule ^codelist/projectStatus/3$ https://semiceu.github.io/ADM/model/#table-project-Status-3 [NE,R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(.*)$ https://semiceu.github.io/ADM/puri/$1.rdf [NE,R,L]
+# Content negotiation for Turtle format (excluding specific paths)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteCond %{REQUEST_URI} !^/?model/
+RewriteCond %{REQUEST_URI} !^/?codelist/
+RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.ttl [NE,R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(.*)$ https://semiceu.github.io/ADM/puri/$1.nt [NE,R,L]
+# Content negotiation for JSON-LD format (excluding specific paths)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteCond %{REQUEST_URI} !^/?model/
+RewriteCond %{REQUEST_URI} !^/?codelist/
+RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.jsonld [NE,R=302,L]
 
-RewriteRule ^/model/Beneficiary$ https://semiceu.github.io/ADM/model/#Beneficiary [NE,R,L]
-RewriteRule ^/model/Block$ https://semiceu.github.io/ADM/model/#Block [NE,R,L]
-RewriteRule ^/model/ESF$ https://semiceu.github.io/ADM/model/#ESF [NE,R,L]
-RewriteRule ^/model/KeyExpert$ https://semiceu.github.io/ADM/model/#KeyExpert [NE,R,L]
-RewriteRule ^/model/MonetaryAmount$ https://semiceu.github.io/ADM/model/#MonetaryAmount [NE,R,L]
-RewriteRule ^/model/Partner$ https://semiceu.github.io/ADM/model/#Partner [NE,R,L]
-RewriteRule ^/model/Subcontract$ https://semiceu.github.io/ADM/model/#Subcontract [NE,R,L]
+# Content negotiation for RDF/XML format (excluding specific paths)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteCond %{REQUEST_URI} !^/?model/
+RewriteCond %{REQUEST_URI} !^/?codelist/
+RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.rdf [NE,R=302,L]
 
-RewriteRule ^/model/belongsTo$ https://semiceu.github.io/ADM/model/#Contract.belongsto [NE,R,L]
-RewriteRule ^/model/hasKeyExpert$ https://semiceu.github.io/ADM/model/#Contract.hasKeyExpert [NE,R,L]
-RewriteRule ^/model/ECfinancialAssistance$ https://semiceu.github.io/ADM/model/#Project.ECfinancialassistance [NE,R,L]
-RewriteRule ^/model/hasBeneficiary$ https://semiceu.github.io/ADM/model/#Project.hasbeneficiary [NE,R,L]
-RewriteRule ^/model/hasBlock$ https://semiceu.github.io/ADM/model/#Project.hasblock [NE,R,L]
-RewriteRule ^/model/income$ https://semiceu.github.io/ADM/model/#Project.income [NE,R,L]
-RewriteRule ^/model/otherContributions$ https://semiceu.github.io/ADM/model/#Project.othercontributions [NE,R,L]
-RewriteRule ^/model/totalCost$ https://semiceu.github.io/ADM/model/#Project.totalcost [NE,R,L]
+# Content negotiation for N-Triples format (excluding specific paths)
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteCond %{REQUEST_URI} !^/?model/
+RewriteCond %{REQUEST_URI} !^/?codelist/
+RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.nt [NE,R=302,L]
 
-RewriteRule ^/codelist/projectStatus/1$ https://semiceu.github.io/ADM/model/#table-project-Status-1 [NE,R,L]
-RewriteRule ^/codelist/projectStatus/2$ https://semiceu.github.io/ADM/model/#table-project-Status-2 [NE,R,L]
-RewriteRule ^/codelist/projectStatus/3$ https://semiceu.github.io/ADM/model/#table-project-Status-3 [NE,R,L]
+# Default redirect to HTML documentation for root request
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://semiceu.github.io/ADM/model/ [R=302,L]
+
+# Fallback for any other root requests
+RewriteRule ^$ https://semiceu.github.io/ADM/model/ [R=302,L]
