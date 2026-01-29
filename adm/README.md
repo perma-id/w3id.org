@@ -14,5 +14,5 @@ GitHub: [EmidioStani](https://github.com/EmidioStani)
 **Valy Van den Broeck** <br>
 *Editor of SEMIC specifications* <br>
 <valyrood@gmail.com> <br>
-GitHub: [EmidioStani](https://github.com/ValyVandenBroeck) 
+GitHub: [ValyVandenBroeck](https://github.com/ValyVandenBroeck) 
 
