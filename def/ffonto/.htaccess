@@ -1,2 +1,24 @@
+# -----------------------------------------------------------------------
+# W3ID Redirection for FFOnto
+# -----------------------------------------------------------------------
+Options +FollowSymLinks
 RewriteEngine On
-RewriteRule ^$ https://raw.githubusercontent.com/kosala0514/FFOnto/main/ffonto.ttl [R=302,L]
+
+# 1. Main Ontology Redirection (w3id.org/def/ffonto)
+# Checks if the requester wants Turtle or RDF/XML data
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/kosala0514/FFOnto/main/ffonto.ttl [R=303,L]
+
+# 2. Default Browser Redirect for the Main Link
+# If a human visits the link, show them the raw file
+RewriteRule ^$ https://raw.githubusercontent.com/kosala0514/FFOnto/main/ffonto.ttl [R=303,L]
+
+# 3. FFOnto Documentation (w3id.org/def/ffontoDocs)
+# Redirects to your documentation repository
+RewriteRule ^ffontoDocs$ https://github.com/kosala0514/FFonto-Document [R=303,L]
+
+# 4. FFOnto Knowledge Graph/Dataset (w3id.org/def/ffontoDS)
+# Redirects to your main ontology project repository
+RewriteRule ^ffontoDS$ https://github.com/kosala0514/FFOnto-DS [R=303,L]
