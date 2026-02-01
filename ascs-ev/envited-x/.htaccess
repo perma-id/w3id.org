@@ -1,0 +1,69 @@
+Header set Access-Control-Allow-Origin *
+
+# MIME types for RDF serializations
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# =============================================================================
+# ENVITED-X Simulation Asset Ontologies - Fire-and-Forget Resolution
+# Pattern: /ascs-ev/envited-x/{ontology}/{version}[/][shapes]
+#
+# This configuration redirects to a Smart Resolver hosted on GitHub Pages,
+# which handles version-to-release mapping via registry.json.
+# =============================================================================
+
+# Base URL for the GitHub Pages resolver
+# The resolver reads registry.json to map version -> releaseTag -> file
+
+# -----------------------------------------------------------------------------
+# Smart Resolver Route - Versioned requests
+# Pattern: /{ontology}/v{version} or /{ontology}/{version}
+# Redirects to GitHub Pages resolver which handles the rest
+# -----------------------------------------------------------------------------
+
+# Turtle format requests -> resolver with format=turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/?$ https://gaia-x4plc-aad.github.io/ontology-management-base/resolve/?ontology=$1&version=$2&format=turtle [R=303,L]
+
+# SHACL Shapes requests -> resolver with resource=shacl
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/shapes$ https://gaia-x4plc-aad.github.io/ontology-management-base/resolve/?ontology=$1&version=$2&resource=shacl&format=turtle [R=303,L]
+
+# JSON-LD requests -> resolver with format=jsonld
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/?$ https://gaia-x4plc-aad.github.io/ontology-management-base/resolve/?ontology=$1&version=$2&format=jsonld [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Direct Raw GitHub Routes (Fallback for backward compatibility)
+# These go directly to raw.githubusercontent.com for the new structure
+# -----------------------------------------------------------------------------
+
+# Direct TTL ontology request (no conneg)
+RewriteRule ^([^/]+)/(v[0-9]+)/ontology\.ttl$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/owl/$1_ontology.ttl [R=303,L]
+
+# Direct TTL shacl request (no conneg)
+RewriteRule ^([^/]+)/(v[0-9]+)/shacl\.ttl$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/shacl/$1_shacl.ttl [R=303,L]
+
+# Direct JSON instance request (no conneg)
+RewriteRule ^([^/]+)/(v[0-9]+)/instance\.json$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/tests/data/$1/valid/$1_instance.json [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Default: Redirect to documentation (HTML)
+# -----------------------------------------------------------------------------
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/?$ https://gaia-x4plc-aad.github.io/ontology-management-base/ontologies/#$1 [R=303,L]
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/shapes$ https://gaia-x4plc-aad.github.io/ontology-management-base/ontologies/#$1 [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Root redirect to documentation
+# -----------------------------------------------------------------------------
+RewriteRule ^$ https://gaia-x4plc-aad.github.io/ontology-management-base/ [R=303,L]

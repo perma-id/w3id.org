@@ -1,0 +1,62 @@
+Header set Access-Control-Allow-Origin *
+
+# MIME types for RDF serializations
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# =============================================================================
+# GAIA-X 4 PLC AAD Research Project Ontologies (Dynamic Resolution)
+# Pattern: https://w3id.org/gaia-x4plcaad/ontologies/{ontology}/v{version}[/][shapes][/]
+# 
+# This configuration dynamically resolves to GitHub raw content based on:
+# 1. HTTP Accept headers (content negotiation)
+# 2. Registry-based version mapping (maintained in docs/registry.json)
+# 
+# Fire-and-forget: Updates to registry.json automatically apply to all requests
+# =============================================================================
+
+# =============================================================================
+# TURTLE/RDF-XML CONTENT NEGOTIATION (Default for Semantic Web tools)
+# =============================================================================
+
+# Ontology requests with Turtle accept (OWL ontologies)
+# Matches: /ontology/v1, /ontology/v1/, /ontology/v1/shapes, /ontology/v1/shapes/
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{REQUEST_URI} !\.html$ [OR]
+RewriteCond %{REQUEST_URI} !\.json$
+# Map requests to GitHub raw content (main branch - always latest)
+# Format: artifacts/{ontology}/{ontology}.owl.ttl for ontologies
+#         artifacts/{ontology}/{ontology}.shacl.ttl for shapes
+RewriteRule ^([^/]+)/v([0-9]+)/shapes/?$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/$1/$1.shacl.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)/v([0-9]+)/?$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/$1/$1.owl.ttl [R=303,NE,L]
+
+# =============================================================================
+# JSON-LD CONTENT NEGOTIATION (for linked data applications)
+# =============================================================================
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+# Map to JSON-LD context or instance data
+RewriteRule ^([^/]+)/v([0-9]+)/context/?$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/$1/$1.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/v([0-9]+)/?$ https://raw.githubusercontent.com/GAIA-X4PLC-AAD/ontology-management-base/main/artifacts/$1/$1_instance.json [R=303,NE,L]
+
+# =============================================================================
+# HTML FALLBACK (for human-readable documentation)
+# =============================================================================
+
+# Redirect SHACL resources to GitHub folder for documentation
+RewriteRule ^([^/]+)/v([0-9]+)/shapes/?$ https://github.com/GAIA-X4PLC-AAD/ontology-management-base/tree/main/artifacts/$1 [R=303,L]
+
+# Redirect ontology resources to GitHub folder for documentation
+RewriteRule ^([^/]+)/v([0-9]+)/?$ https://github.com/GAIA-X4PLC-AAD/ontology-management-base/tree/main/artifacts/$1 [R=303,L]
+
+# -----------------------------------------------------------------------------
+RewriteRule ^$ https://github.com/GAIA-X4PLC-AAD/ontology-management-base [R=303,L]
