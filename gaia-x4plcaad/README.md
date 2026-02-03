@@ -4,7 +4,7 @@ GAIA-X 4 Product Lifecycle Across Automated Driving (PLC-AAD) research project o
 
 ## Homepage
 
-* https://www.gaia-x4futuremobility.de/en/projects/plc-aad
+* https://gaia-x4plc-aad.github.io/ontology-management-base/
 
 ## Subfolders
 
@@ -12,7 +12,7 @@ GAIA-X 4 Product Lifecycle Across Automated Driving (PLC-AAD) research project o
 
 ## GitHub Repository
 
-* https://github.com/GAIA-X4PLC-AAD
+* https://github.com/GAIA-X4PLC-AAD/ontology-management-base
 
 ## Contacts
 

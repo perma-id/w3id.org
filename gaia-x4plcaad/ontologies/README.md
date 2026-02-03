@@ -4,7 +4,7 @@ Ontologies developed as part of the GAIA-X 4 PLC AAD research project.
 
 ## Homepage
 
-- <https://www.gaia-x4futuremobility.de/en/projects/plc-aad>
+- <https://gaia-x4plc-aad.github.io/ontology-management-base/>
 
 ## Ontologies
 
@@ -24,9 +24,9 @@ Ontologies developed as part of the GAIA-X 4 PLC AAD research project.
 
 ## Content Negotiation
 
-- `Accept: text/turtle` - Returns Turtle serialization (.ttl)
-- `Accept: application/ld+json` - Returns JSON-LD instance example (.json)
-- Default - Returns GitHub repository page
+- `Accept: text/turtle` - Resolves via the GitHub Pages resolver (registry-based)
+- `Accept: application/ld+json` - Resolves via the GitHub Pages resolver (registry-based)
+- Default - Documentation page
 
 ## GitHub Repository
 

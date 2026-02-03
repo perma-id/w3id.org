@@ -4,7 +4,7 @@ ENVITED-X ontologies for describing simulation assets in the automotive domain.
 
 ## Homepage
 
-- https://envited-x.net/
+- https://gaia-x4plc-aad.github.io/ontology-management-base/
 
 ## Ontologies
 
@@ -31,9 +31,9 @@ ENVITED-X ontologies for describing simulation assets in the automotive domain.
 
 ## Content Negotiation
 
-- `Accept: text/turtle` - Returns Turtle serialization (.ttl)
-- `Accept: application/ld+json` - Returns JSON-LD instance example (.json)
-- Default - Returns GitHub repository page
+- `Accept: text/turtle` - Resolves via the GitHub Pages resolver (registry-based)
+- `Accept: application/ld+json` - Resolves via the GitHub Pages resolver (registry-based)
+- Default - Documentation page
 
 ## GitHub Repository
 
