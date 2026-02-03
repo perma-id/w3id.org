@@ -6,4 +6,4 @@ References:
 * https://www.researchobject.org/
 
 Contacts: 
-* Raul Palma <rpalma@man.poznan.pl>
+* Raul Palma <rpalma@man.poznan.pl> GitHub username: rapw3k
