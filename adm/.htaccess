@@ -28,26 +28,18 @@ RewriteRule ^codelist/projectStatus/3$ https://semiceu.github.io/ADM/model/#tabl
 
 # Content negotiation for Turtle format (excluding specific paths)
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteCond %{REQUEST_URI} !^/?model/
-RewriteCond %{REQUEST_URI} !^/?codelist/
 RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.ttl [NE,R=302,L]
 
 # Content negotiation for JSON-LD format (excluding specific paths)
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteCond %{REQUEST_URI} !^/?model/
-RewriteCond %{REQUEST_URI} !^/?codelist/
 RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.jsonld [NE,R=302,L]
 
 # Content negotiation for RDF/XML format (excluding specific paths)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteCond %{REQUEST_URI} !^/?model/
-RewriteCond %{REQUEST_URI} !^/?codelist/
 RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.rdf [NE,R=302,L]
 
 # Content negotiation for N-Triples format (excluding specific paths)
 RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteCond %{REQUEST_URI} !^/?model/
-RewriteCond %{REQUEST_URI} !^/?codelist/
 RewriteRule ^(.+)$ https://semiceu.github.io/ADM/puri/$1.nt [NE,R=302,L]
 
 # Default redirect to HTML documentation for root request
