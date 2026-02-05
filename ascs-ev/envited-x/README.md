@@ -4,24 +4,13 @@ ENVITED-X ontologies for describing simulation assets in the automotive domain.
 
 ## Homepage
 
-- https://gaia-x4plc-aad.github.io/ontology-management-base/
+- https://envited-x.net/
 
-## Ontologies
+## Documentation
 
-| Ontology             | Description           | IRI                                                                  |
-| -------------------- | --------------------- | -------------------------------------------------------------------- |
-| hdmap                | HD Map assets         | `https://w3id.org/ascs-ev/envited-x/hdmap/v5/`                       |
-| georeference         | Georeference data     | `https://w3id.org/ascs-ev/envited-x/georeference/v5/`                |
-| scenario             | Driving scenarios     | `https://w3id.org/ascs-ev/envited-x/scenario/v5/`                    |
-| ositrace             | OSI trace data        | `https://w3id.org/ascs-ev/envited-x/ositrace/v5/`                    |
-| simulation-model     | Simulation models     | `https://w3id.org/ascs-ev/envited-x/simulation-model/v2/`            |
-| surface-model        | Surface models        | `https://w3id.org/ascs-ev/envited-x/surface-model/v6/`               |
-| environment-model    | Environment models    | `https://w3id.org/ascs-ev/envited-x/environment-model/v5/`           |
-| simulated-sensor     | Simulated sensors     | `https://w3id.org/gaia-x4plcaad/ontologies/simulated-sensor/v2`      |
-| automotive-simulator | Automotive simulators | `https://w3id.org/gaia-x4plcaad/ontologies/automotive-simulator/v1/` |
-| survey               | Survey data           | `https://w3id.org/ascs-ev/envited-x/survey/v6/`                      |
-| manifest             | Asset manifests       | `https://w3id.org/ascs-ev/envited-x/manifest/v5/`                    |
-| envited-x            | ENVITED-X federation  | `https://w3id.org/ascs-ev/envited-x/envited-x/v3/`                   |
+Refer to the documentation site for the current ontology catalog, version details, and downloadable artifacts:
+
+- https://ascs-ev.github.io/ontology-management-base/ontologies/
 
 ## URL Patterns
 
@@ -29,16 +18,14 @@ ENVITED-X ontologies for describing simulation assets in the automotive domain.
 - `https://w3id.org/ascs-ev/envited-x/{ontology}/v{version}` - Ontology IRI (for owl:Ontology)
 - `https://w3id.org/ascs-ev/envited-x/{ontology}/v{version}/shapes` - SHACL shapes
 
-## Content Negotiation
+## Resolution
 
-- `Accept: text/turtle` - Resolves via the GitHub Pages resolver (registry-based)
-- `Accept: application/ld+json` - Resolves via the GitHub Pages resolver (registry-based)
-- Default - Documentation page
+W3ID IRIs resolve to static files published on GitHub Pages. Use the documentation site for the full catalog and links to each published file.
 
 ## GitHub Repository
 
-- https://github.com/GAIA-X4PLC-AAD/ontology-management-base
+- https://github.com/ASCS-eV/ontology-management-base
 
 ## Contacts
 
-- Carlo van Driesten (GitHub: [@2w2cs](https://github.com/2w2cs))
+- Carlo van Driesten (GitHub: [@jdsika](https://github.com/jdsika))

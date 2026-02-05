@@ -11,7 +11,7 @@ Homepage:
 
 ## GitHub Repository
 
-- <https://github.com/ascs-ev>
+- <https://github.com/ASCS-eV/ontology-management-base>
 
 ## Contacts
 
