@@ -10,7 +10,7 @@ This folder defines persistent redirects for the **LCABIM Ontology** namespaces 
 
 The ontology documentation and RDF serializations are currently hosted via GitHub Pages:
 
-- `https://g3rezz.github.io/lcabim-ontology/`
+- `https://design-computation-rwth.github.io/lcabim-ontology/`
 
 The w3id.org namespace provides persistent IRIs that redirect to the current hosting location.
 
