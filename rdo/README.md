@@ -10,9 +10,9 @@ This ontology provides a semantic framework for representing roof condition insp
 
 ## Ontology URI
 - Namespace: `https://w3id.org/rdo#`
-- Documentation: https://github.com/CyberbuildLab/rdo/
+- Documentation: https://CyberbuildLab.github.io/rdo/
 
 ## Serializations
-- Turtle: https://github.com/CyberbuildLab/rdo/rdo.ttl
-- RDF/XML: https://github.com/CyberbuildLab/rdo/rdo.xml
-- JSON-LD: https://github.com/CyberbuildLab/rdo/rdo.jsonld
+- Turtle: https://CyberbuildLab.github.io/rdo/rdo.ttl
+- RDF/XML: https://CyberbuildLab.github.io/rdo/rdo.xml
+- JSON-LD: https://CyberbuildLab.github.io/rdo/rdo.jsonld
