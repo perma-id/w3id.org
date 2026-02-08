@@ -6,7 +6,7 @@ This ontology provides a semantic framework for representing roof condition insp
 ## Contact
 - **Name**: Frédéric Bosché
 - **Email**: f.bosche@ed.ac.uk
-- **GitHub**: @CyberbuildLab
+- **GitHub**: @CyberbuildLab, @fbosche
 
 ## Ontology URI
 - Namespace: `https://w3id.org/rdo#`
