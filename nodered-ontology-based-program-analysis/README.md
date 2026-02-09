@@ -9,4 +9,4 @@ This space is administered by:
 
 **Mirco Soderi**
 
-GitHub: [Mirco Soderi](https://github.com/mircosoderi/)
+GitHub: [Mirco Soderi](https://github.com/mircosoderi/)  
