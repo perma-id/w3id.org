@@ -1,4 +1,5 @@
-Contact
+Maintainers
 
-Cristina Aceta - cristina.aceta@tekniker.es
-Ignacio Lázaro - ignacio.lazaro@tekniker.es
+Cristina Aceta - cristina.aceta@tekniker.es (@cristinacm)
+Ignacio Lázaro - ignacio.lazaro@tekniker.es (@ignaciolazaro)
+
