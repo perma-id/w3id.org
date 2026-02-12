@@ -1,4 +1,4 @@
-# https://w3id.org/itsdata/ redirects to https://isotc204.org/ontology-its-xxx/latest/ where xxx is the topic area
+# https://w3id.org/itsdata/xxx/v# redirects to https://isotc204.org/ontology-its-xxx-v#/latest/ where xxx is the topic area
 #
 # ## Contact
 # This space is administered by:
@@ -10,30 +10,40 @@
 RewriteEngine On
 Options -MultiViews
 
-# Content negotiation: Set FORMAT env variable based on Accept header
+RewriteEngine On
+
+# Set FORMAT based on Accept header for RDF formats
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
 RewriteRule ^ - [E=FORMAT:rdf]
 
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^ - [E=FORMAT:html]
 
-# Default to RDF if no Accept header (safer for semantic tools)
+# Default to RDF (OWL) if no Accept header (common for some tools; safer than HTML default for ontologies)
 RewriteCond %{ENV:FORMAT} ^$
 RewriteRule ^ - [E=FORMAT:rdf]
 
-# Rule for location
-RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^location$ https://isotc204.org/ontology-its-time/latest/itsLocation.ttl [R=303,L]
-RewriteRule ^location$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page; update if specific HTML exists (e.g., itsLocation.html)
 
-# Rule for regulation
+# /regulation/v2 -> regulation-v2 (or regulation-v2/regulation.owl if RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^regulation$ https://isotc204.org/ontology-its-time/latest/itsRegulation.ttl [R=303,L]
-RewriteRule ^regulation$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page
+RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$1.owl [R=303,L]  
+RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/ [R=303,L]
 
-# Rule for time
+# /regulation/v2/Tro -> regulation-v2/latest/Tro (.owl for RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^time$ https://isotc204.org/ontology-its-time/latest/itsTime.ttl [R=303,L]
-RewriteRule ^time$ https://isotc204.org/ontology-its-time/latest/ [R=303,L]  # HTML doc page
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/latest/$3.owl [R=303,L] 
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/latest/$3 [R=303,L]
+
+# Specific release: /regulation/v2/Tro/r3.0 -> regulation-v2/r3.0/Tro (.owl for RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/$4/$3 [R=303,L]
+
+# Fallback: Redirect to main page if no specific match
+RewriteRule ^ https://isotc204.org/ritso/ [R=303,L]
+
+
