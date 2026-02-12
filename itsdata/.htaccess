@@ -35,13 +35,13 @@ RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/ 
 
 # /regulation/v2/Tro -> regulation-v2/latest/Tro (.owl for RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/latest/$3.owl [R=303,L] 
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/latest/$3 [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3.owl [R=303,L] 
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3 [R=303,L]
 
 # Specific release: /regulation/v2/Tro/r3.0 -> regulation-v2/r3.0/Tro (.owl for RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-its-$1-v$2/$4/$3 [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3 [R=303,L]
 
 # Fallback: Redirect to main page if no specific match
 RewriteRule ^ https://isotc204.org/ritso/ [R=303,L]

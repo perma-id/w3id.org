@@ -38,13 +38,13 @@ RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/lates
 
 # /part1/v2/Agent -> p1-v2/latest/Agent (.owl for RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3.owl [R=303,L]  # $1=part#, $2=submodule
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3 [R=303,L]
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3.owl [R=303,L]  # $1=part#, $2=submodule
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3 [R=303,L]
 
 # Specific release: /part1/v2/Agent/r3.0 -> p1-v2/r3.0/Agent)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3 [R=303,L]
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3 [R=303,L]
 
 # Fallback: Redirect to main page if no specific match
 RewriteRule ^ https://isotc204.org/ontology-cdm-p1-v1/latest/ [R=303,L]
