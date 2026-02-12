@@ -2,15 +2,14 @@
 
 This [w3id](https://w3id.org/trustflows) provides a persistent URI namespace for work related to Trustflows.
 
-A Trustflow is a secure data flow that explicitly embeds trust using cryptographic methods, provenance, usage policies, etc., to ensure reliability and integrity. 
-Unlike current web data flows, which, amongst others things, rely on implicit trust based on sender reputation or manual checks, Trustflows make trust verifiable and integral to the data itself.
+Trustflows is a Linked Data community in Flanders/Belgium/Europe that designs and shares interoperable patterns for trustworthy data flows. 
 
 
 ## Uses
 
-| w3id | Description                      | URL                                                  |
-| ---- | -------------------------------- | ---------------------------------------------------- |
-| /    | Main specification of Trustflows | https://spec.knows.idlab.ugent.be/trustflows/latest/ |
+| w3id | Description                | URL                    |
+| ---- | -------------------------- | ---------------------- |
+| /    | Main website of Trustflows | https://trustflows.eu/ |
 
 ## Contacts
 
@@ -23,3 +22,8 @@ Unlike current web data flows, which, amongst others things, rely on implicit tr
 - Postdoctoral Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
 - email: [beatriz.esteves@ugent.be](mailto:beatriz.esteves@ugent.be)
 - github: [besteves4](https://github.com/besteves4)
+
+**Pieter Colpaert**
+- Professor, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
+- email: [pieter.colpaert@ugent.be](mailto:pieter.colpaert@ugent.be)
+- github: [pietercolpaert](https://github.com/pietercolpaert)

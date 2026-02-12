@@ -1,0 +1,34 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+AddType application/rdf+xml .rdf
+AddType application/owl+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://certain-project.github.io/aidoc-ap/ontology.owl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://certain-project.github.io/aidoc-ap/ontology.owl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://certain-project.github.io/aidoc-ap/ontology.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://certain-project.github.io/aidoc-ap/ontology.jsonld [R=302,L]
+
+# https://w3id.org/aidoc-ap/1.0
+RewriteRule ^1.0$ https://certain-project.github.io/aidoc-ap/ [R=302,L]
+
+# Default
+
+RewriteRule ^$ https://certain-project.github.io/aidoc-ap [R=302,L]
+RewriteRule ^(.*)$ https://certain-project.github.io/aidoc-ap/$1 [R=302,L]

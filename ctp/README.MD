@@ -16,8 +16,8 @@ Other links are for specific pieces of documentation.
 + `https://w3id.org/ctp/ncf` for the ontology instantiation related to DigitXL - Novum Corpus Fontanianum scenario
 + `https://w3id.org/ctp/santiagodecompostela` for the ontology instantiation related to Cultural Routes - Camino de Santiago de Compostela scenario
 + `https://w3id.org/ctp/transitions` for the ontology instantiation related to the exhibition Transitions | enterprise - work - society
-
-  
++ `https://w3id.org/ctp/git` the Git in which the ontology sources and pertaining materials are available
++ `https://w3id.org/ctp/diagram` the URI to the diagram of the ontology in different formats
 
 Contacts:
 + Riccardo Albertoni (CNR-IMATI): github (https://github.com/riccardoAlbertoni) - email (riccardo.albertoni@cnr.it)
