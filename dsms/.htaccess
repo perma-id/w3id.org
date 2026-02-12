@@ -1,0 +1,32 @@
+# ==================================================
+# w3id.org persistent identifiers for DSMS vocabularies
+#
+# Pattern:
+#   https://w3id.org/dsms/<namespace>/<term>
+#   https://w3id.org/dsms/<namespace>/<usecase>/<term>
+#
+# Redirects to:
+#   https://kiran.materials-data.space/vocabulary/docs/<namespace>#<term>
+#
+# Notes:
+# - <usecase> is optional and ignored for documentation
+# - Namespace is preserved
+# - Term becomes a fragment identifier
+#
+# Contact:
+#   Kiran Kumaraswamy (Kirankumaraswamy)
+#   Yoav Nahshon (yoavnash)
+# ==================================================
+
+# --------------------------------------------------
+# Case 1: /<namespace>/<usecase>/<term>
+# (must come FIRST – more specific)
+# --------------------------------------------------
+RedirectMatch 302 ^/dsms/([^/]+)/([^/]+)/([^/]+)/?$ \
+https://kiran.materials-data.space/vocabulary/docs/$1#$3
+
+# --------------------------------------------------
+# Case 2: /<namespace>/<term>
+# --------------------------------------------------
+RedirectMatch 302 ^/dsms/([^/]+)/([^/]+)/?$ \
+https://kiran.materials-data.space/vocabulary/docs/$1#$2

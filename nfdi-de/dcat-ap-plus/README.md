@@ -6,11 +6,18 @@ A LinkML based Extension of DCAT-AP serving as the Toplevel extension for variou
 Base URL:
 - GitHub-repository [https://github.com/nfdi-de/dcat-ap-plus](https://github.com/nfdi-de/dcat-ap-plus)
 
+LinkML representation of DCAT-AP:
+- GitHub-repository [https://github.com/nfdi-de/dcat-ap-plus/blob/main/src/dcat_ap_plus/schema/dcat_ap_plus.yaml](https://github.com/nfdi-de/dcat-ap-plus/blob/main/src/dcat_ap_plus/schema/dcat_ap_plus.yaml)
+- GitHub-Pages [https://nfdi-de.github.io/dcat-ap-plus/latest/schema/dcat_ap_linkml.yaml](https://nfdi-de.github.io/dcat-ap-plus/latest/schema/dcat_ap_linkml.yaml)
+
 Subschema:
-- Chem-DCAT-AP: (for Chemistry specific Schemas)
+- Chemistry: (for Chemistry specific Schemas)
 <BR> GitHub-repository https://github.com/nfdi-de/chem-dcat-ap
+- Materials: (for Material specific Schemas)
+<BR> GitHub-repository https://github.com/nfdi-de/chem-dcat-ap
+
 - DCAT-AP+NMR-measurements: (for an NMR Measurement specific Schemas)
-<BR> GitHub-repository https://github.com/nfdi-de/chem-dcat-ap
+<BR> GitHub-repository https://github.com/NFDI4Chem/nmr-dcat-ap
 
 
 ## Redirects to the latest release
@@ -19,13 +26,13 @@ Documentation
 -  https://github.com/nfdi-de/dcat-ap-plus
 
 Technical Artefacts
-- yaml: &emsp; https://github.com/nfdi-de/dcat-ap-plus/blob/main/src/dcat_ap_plus/schema/dcat_ap_plus.yaml
-- json: &emsp; https://github.com/nfdi-de/dcat-ap-plus/blob/main/project/jsonschema/dcat_ap_plus.schema.json
-- owl: &emsp; https://github.com/nfdi-de/dcat-ap-plus/blob/main/project/owl/dcat_ap_plus.owl.ttl
+- yaml: &emsp; https://nfdi-de.github.io/dcat-ap-plus/latest/schema/dcat_ap_plus.yaml
+- json: &emsp; https://nfdi-de.github.io/dcat-ap-plus/latest/jsonschema/dcat_ap_plus.schema.json
+- jsonld: &emsp; https://nfdi-de.github.io/dcat-ap-plus/latest/schema/jsonld/dcat_ap_plus.context.jsonld
+- shacl: &emsp; https://nfdi-de.github.io/dcat-ap-plus/latest/schema/shacl/dcat_ap_plus.shacl.ttl
 
-- shacl: &emsp; https://github.com/nfdi-de/dcat-ap-plus/blob/main/project/shacl/dcat_ap_plus.shacl.ttl
 
-- pydantic: &emsp; https://github.com/nfdi-de/dcat-ap-plus/blob/main/src/dcat_ap_plus/datamodel/dcat_ap_plus_pydantic.py
+## Versioning redirects
 
 ## Contacts
 
