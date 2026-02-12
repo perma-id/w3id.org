@@ -1,16 +1,19 @@
 # GAIA-X 4 PLC AAD Research Project Ontologies
 
+> **Note:** This project has been archived. Active development continues at
+> [ASCS-eV/ontology-management-base](https://github.com/ASCS-eV/ontology-management-base).
+
 Ontologies developed as part of the GAIA-X 4 PLC AAD research project.
 
 ## Homepage
 
-- <https://gaia-x4plc-aad.github.io/ontology-management-base/>
+- <https://ascs-ev.github.io/ontology-management-base/>
 
 ## Documentation
 
 Refer to the documentation site for the current ontology catalog, version details, and downloadable artifacts:
 
-- https://gaia-x4plc-aad.github.io/ontology-management-base/ontologies/
+- https://ascs-ev.github.io/ontology-management-base/ontologies/catalog/
 
 ## URL Patterns
 
@@ -20,11 +23,13 @@ Refer to the documentation site for the current ontology catalog, version detail
 
 ## Resolution
 
-W3ID IRIs resolve to static files published on GitHub Pages. Use the documentation site for the full catalog and links to each published file.
+W3ID IRIs resolve to static files published on GitHub Pages at `ascs-ev.github.io`.
+Use the documentation site for the full catalog and links to each published file.
 
 ## GitHub Repository
 
-- <https://github.com/GAIA-X4PLC-AAD/ontology-management-base>
+- <https://github.com/ASCS-eV/ontology-management-base> (active)
+- <https://github.com/GAIA-X4PLC-AAD/ontology-management-base> (archived)
 
 ## Contacts
 
