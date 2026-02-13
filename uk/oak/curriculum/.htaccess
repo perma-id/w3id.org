@@ -1,0 +1,95 @@
+# W3ID redirects for Oak Curriculum Ontology
+# Namespace: https://w3id.org/uk/oak/curriculum/
+#
+# Maintainer: Mark Hodierne
+# Email: eng.mhodierne@thenational.academy
+# GitHub: https://github.com/oaknational
+
+RewriteEngine on
+
+# Repo: oaknational/oak-curriculum-ontology-public
+
+# ----------------------------------------------------------------------
+# ONTOLOGY (https://w3id.org/uk/oak/curriculum/ontology/)
+# ----------------------------------------------------------------------
+
+# HTML requests → GitHub Pages documentation
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
+RewriteRule ^ontology/?$ https://oaknational.github.io/oak-curriculum-ontology-public/ [R=303,L]
+
+# RDF requests → raw TTL file
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/ontology/oak-curriculum-ontology.ttl [R=303,L]
+
+# Explicit .ttl extension
+RewriteRule ^ontology\.ttl$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/ontology/oak-curriculum-ontology.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# SHACL CONSTRAINTS (https://w3id.org/uk/oak/curriculum/ontology/shapes/)
+# ----------------------------------------------------------------------
+
+RewriteRule ^ontology/shapes/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/ontology/oak-curriculum-constraints.ttl [R=303,L]
+RewriteRule ^ontology/shapes\.ttl$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/ontology/oak-curriculum-constraints.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# NATIONAL CURRICULUM DATA (https://w3id.org/uk/oak/curriculum/nationalcurriculum/)
+# Used for: phases, key stages, subjects, strands etc
+# ----------------------------------------------------------------------
+
+# Temporal structure (phases, key stages, year groups)
+RewriteRule ^nationalcurriculum/temporal-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/temporal-structure.ttl [R=303,L]
+
+# Subject programme structure files
+RewriteRule ^nationalcurriculum/([a-z]+)-programme-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/subjects/$1/$1-programme-structure.ttl [R=303,L]
+
+# Subject knowledge taxonomy files
+RewriteRule ^nationalcurriculum/([a-z]+)-knowledge-taxonomy/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/subjects/$1/$1-knowledge-taxonomy.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# OAK CURRICULUM DATA (https://w3id.org/uk/oak/curriculum/oakcurriculum/)
+# Used for: programmes, units, lessons, key learning points etc
+# ----------------------------------------------------------------------
+
+# Programme structure (Oak-specific)
+RewriteRule ^oakcurriculum/programme-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/programme-structure.ttl [R=303,L]
+
+# Threads
+RewriteRule ^oakcurriculum/threads/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/threads.ttl [R=303,L]
+
+# Subject key stage files (e.g., oakcurriculum/mathematics-key-stage-3)
+RewriteRule ^oakcurriculum/([a-z]+)-key-stage-([0-9]+)/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology-public/main/data/subjects/$1/$1-key-stage-$2.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# DISTRIBUTIONS (content negotiation for full dataset)
+# ----------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology-public/releases/latest/download/oak-curriculum-full.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology-public/releases/latest/download/oak-curriculum-full.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology-public/releases/latest/download/oak-curriculum-full.rdf [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology-public/releases/latest/download/oak-curriculum-full.nt [R=303,L]
+
+# Default → Turtle
+RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology-public/releases/latest/download/oak-curriculum-full.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# ROOT NAMESPACE
+# ----------------------------------------------------------------------
+
+# HTML → GitHub repo
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
+RewriteRule ^$ https://github.com/oaknational/oak-curriculum-ontology-public [R=303,L]
+
+# Default → repo
+RewriteRule ^$ https://github.com/oaknational/oak-curriculum-ontology-public [R=303,L]
