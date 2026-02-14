@@ -1,0 +1,83 @@
+# w3id.org Permanent Identifier for FiCR Ontology
+# https://w3id.org/bam/ficr
+# 
+# Fire Compliance and Risk Analysis Ontology
+# Authors: Yu Zhang, Long Chen, Dayou Chen
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Base GitHub raw URL for ontology files
+SetEnvIf Request_URI ".*" ONTOLOGY_BASE=https://raw.githubusercontent.com/RainGo111/FiCR/main/project/public
+
+# -----------------------------------
+# Versioned Ontology Requests
+# -----------------------------------
+
+# Version 0.10.0 - Turtle format (development version)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^0\.10\.0$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.ttl [R=303,NE,L]
+
+# Version 0.10.0 - RDF/XML format
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^0\.10\.0$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.rdf [R=303,NE,L]
+
+# Version 0.10.0 - JSON-LD format
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^0\.10\.0$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.jsonld [R=303,NE,L]
+
+# Version 0.10.0 - HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^0\.10\.0$ https://raingo111.github.io/FiCR/#/documentation [R=303,NE,L]
+
+# Version 0.10.0 - Default (Turtle)
+RewriteRule ^0\.10\.0$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.ttl [R=303,NE,L]
+
+# -----------------------------------
+# Latest Version (root namespace)
+# -----------------------------------
+
+# Latest - Turtle format
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.ttl [R=303,NE,L]
+
+# Latest - RDF/XML format
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.rdf [R=303,NE,L]
+
+# Latest - JSON-LD format
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.jsonld [R=303,NE,L]
+
+# Latest - HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://raingo111.github.io/FiCR/#/documentation [R=303,NE,L]
+
+# Latest - Default (Turtle)
+RewriteRule ^$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.ttl [R=303,NE,L]
+
+# -----------------------------------
+# Hash Fragment Support
+# -----------------------------------
+
+# Handle requests with hash fragments (e.g., #FireCompartment)
+# These will redirect to the HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(.+)$ https://raingo111.github.io/FiCR/#/documentation [R=303,NE,L]
+
+# Non-HTML requests with fragments redirect to Turtle
+RewriteRule ^(.+)$ %{ENV:ONTOLOGY_BASE}/ficr_tbox-0.10.0.ttl [R=303,NE,L]
