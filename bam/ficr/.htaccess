@@ -1,0 +1,30 @@
+# FiCR ontology w3id redirect
+# Namespace: https://w3id.org/bam/ficr#
+# Base IRI:   https://w3id.org/bam/ficr
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Latest published Turtle file (must exist)
+SetEnv FICR_TTL https://raw.githubusercontent.com/RainGo111/FiCR/main/public/ficr_tbox-0.10.0.ttl
+
+# HTML documentation
+SetEnv FICR_DOC https://raingo111.github.io/FiCR/#/documentation
+
+# -----------------------------
+# Version path: /bam/ficr/0.10.0
+# -----------------------------
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^0\.10\.0$ %{ENV:FICR_DOC} [R=303,L]
+
+RewriteRule ^0\.10\.0$ %{ENV:FICR_TTL} [R=303,L]
+
+# -----------------------------
+# Latest path: /bam/ficr
+# -----------------------------
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ %{ENV:FICR_DOC} [R=303,L]
+
+RewriteRule ^$ %{ENV:FICR_TTL} [R=303,L]
