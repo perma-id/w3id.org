@@ -1,0 +1,18 @@
+Header set Access-Control-Allow-Origin "*"
+Options +FollowSymLinks
+RewriteEngine on
+
+# ----------------------------------------------------------------------
+# 1. CONTENT NEGOTIATION (For Machines & Software)
+# ----------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/open-rdip/core-ontology/main/ontology/rdip.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# 2. DEFAULT REDIRECT (For Humans/Browsers)
+# ----------------------------------------------------------------------
+RewriteRule ^(.*)$ https://open-rdip.github.io/core-ontology/ [R=303,L]

@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /OntoEvents/
+
+# Content negotiation (RDF/XML)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/fcarrillo-brenes/OntoEvents/refs/heads/main/eventsv2.rdf [R=303,L]
+
+# Default: show the GitHub repo (HTML view)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/fcarrillo-brenes/OntoEvents [R=303,L]
+
+# Fallback: if no Accept header, go to the repo
+RewriteRule ^$ https://github.com/fcarrillo-brenes/OntoEvents [R=303,L]

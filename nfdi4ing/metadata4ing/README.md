@@ -15,9 +15,13 @@ Redirections:
   * or via direct redirect of the filename
     * `https://w3id.org/nfdi4ing/metadata4ing/ontology.ttl` (or `.xml`/`.nt`/`.jsonld`)
     * --> `https://nfdi4ing.pages.rwth-aachen.de/metadata4ing/metadata4ing/ontology.ttl` (or `.xml`/`.nt`/`.jsonld`)
-* JSON-LD context file:
-  * `https://w3id.org/nfdi4ing/metadata4ing/m4i_context.jsonld`
-  * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld`
+* JSON-LD context files:
+  * m4i only:
+    * `https://w3id.org/nfdi4ing/metadata4ing/m4i_context.jsonld`
+    * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i_context.jsonld`
+  * m4i in RO-Crates:
+    * `https://w3id.org/nfdi4ing/metadata4ing/m4i2rocrate_context.jsonld`
+    * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/m4i2rocrate_context.jsonld`
 * Logo file:
   * `https://w3id.org/nfdi4ing/metadata4ing/m4i_logo.png`
   * --> `https://git.rwth-aachen.de/nfdi4ing/metadata4ing/metadata4ing/-/raw/master/visualizations/Logo.png`

@@ -12,9 +12,10 @@ AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .jsonld
 
-# https://w3id.org/ctp  actual ontology in different syntaxes
 Options +FollowSymLinks
 RewriteEngine on
+
+# https://w3id.org/ctp  actual ontology in different syntaxes
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/documentation/ontology.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
@@ -50,7 +51,18 @@ RewriteRule ^ncf$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology
 #RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^santiagodecompostela$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Instances/CTP_Ontology_core_InstanceSantiago.ttl [R=303,L]
 
-
 ## https://w3id.org/ctp/transitions
 #RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
 RewriteRule ^transitions$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Instances/CTP_Ontology_core_InstanceTransitions.ttl [R=303,L]
+
+## https://w3id.org/ctp/diagram
+RewriteCond %{HTTP_ACCEPT} ^.*image/png.* 
+RewriteRule ^diagram$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Conceptualization_TPs.png [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*image/svg+xml.* 
+RewriteRule ^diagram$ https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Conceptualization_TPs.svg [R=303,L]
+#default response: svg
+RewriteRule ^diagram$  https://raw.githubusercontent.com/TizianaPasciuto/CTP_Ontology/master/Conceptualization_TPs.svg [R=303,NE,L]
+
+## https://w3id.org/ctp/git
+#RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^git$ https://github.com/TizianaPasciuto/CTP_Ontology [R=303,L]

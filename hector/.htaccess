@@ -1,0 +1,40 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# ---------------------------
+# Canonical redirects
+# ---------------------------
+
+# Redirect /about (with or without trailing slash) to GitHub repo
+RewriteRule ^about/?$ https://github.com/docuracy/hector [R=303,L]
+
+# Redirect /context (with or without trailing slash) to JSON-LD context
+RewriteRule ^context/?$ https://docuracy.github.io/hector/context/hector.jsonld [R=303,L]
+
+# ---------------------------
+# Content negotiation for ontology
+# ---------------------------
+
+# Serve RDF/XML if explicitly requested
+#RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+#RewriteRule ^(.*)$ https://docuracy.github.io/hector/$1/ontology.owl [R=303,L]
+
+# Serve JSON-LD if explicitly requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://docuracy.github.io/hector/$1/ontology.json [R=303,L]
+
+# ---------------------------
+# SPA fallback
+# ---------------------------
+
+# Anything under / not matched above goes to SPA
+RewriteRule ^(.*)$ https://docuracy.github.io/hector/index.html?path=$1 [R=303,L]

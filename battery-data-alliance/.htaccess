@@ -1,0 +1,76 @@
+# This namespace is maintained by the Battery Data Alliance, https://lfenergy.org/projects/battery-data-alliance/
+# Current maintainers are:
+# Gabe Hege (https://github.com/pghege) – NVIDIA, AmpLabs  
+# Simon Clark (https://github.com/jsimonclark) – SINTEF
+# If testing on https://htaccess.madewithlove.com/ , remove w3id.org such that https://w3id.org/battery-data-alliance/ becomes https://battery-data-alliance/
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# ==============================================
+# Non-Versioned Redirects
+# ==============================================
+
+# [R1] /ontology/{name} → HTML if browser
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^ontology/([^/]+)/?$ https://battery-data-alliance.github.io/$1-ontology/$1.html [R=303,NE,L]
+
+# [R2] /ontology/{name} → TTL fallback
+RewriteRule ^ontology/([^/]+)/?$ https://battery-data-alliance.github.io/$1-ontology/$1.ttl [R=303,NE,L]
+
+# [R3] /ontology/{name}/inferred
+RewriteRule ^ontology/([^/]+)/inferred/?$ https://battery-data-alliance.github.io/$1-ontology/$1-inferred.ttl [R=303,NE,L]
+
+# [R4] /ontology/{name}-inferred (alternate form)
+RewriteRule ^ontology/([^/]+)-inferred/?$ https://battery-data-alliance.github.io/$1-ontology/$1-inferred.ttl [R=303,NE,L]
+
+# [R5] /ontology/{name}/latest
+RewriteRule ^ontology/([^/]+)/latest/?$ https://raw.githubusercontent.com/battery-data-alliance/$1-ontology/main/$1.ttl [R=303,NE,L]
+
+# [R6] /ontology/{name}/source
+RewriteRule ^ontology/([^/]+)/source/?$ https://raw.githubusercontent.com/battery-data-alliance/$1-ontology/main/$1.ttl [R=303,NE,L]
+
+# [R7] /ontology/{name}/context
+RewriteRule ^ontology/([^/]+)/context/?$ https://battery-data-alliance.github.io/$1-ontology/context/context.json [R=303,NE,L]
+
+# [R8] /ontology/{name}/schema
+RewriteRule ^ontology/([^/]+)/schema/?$ https://battery-data-alliance.github.io/$1-ontology/schema/schema.json [R=303,NE,L]
+
+# ==============================================
+# Versioned Redirects
+# ==============================================
+
+# [R9] /ontology/{name}/{version} → HTML if browser
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1.html [R=303,NE,L]
+
+# [R10] /ontology/{name}/{version} → TTL fallback
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1.ttl [R=303,NE,L]
+
+# [R11] /ontology/{name}/{version}/{name} (alternate path) → HTML if browser
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/\1/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1.html [R=303,NE,L]
+
+# [R12] /ontology/{name}/{version}/{name} → TTL fallback
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/\1/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1.ttl [R=303,NE,L]
+
+# [R13] /ontology/{name}/{version}/inferred
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/inferred/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1-inferred.ttl [R=303,NE,L]
+
+# [R14] /ontology/{name}/{version}/{name}-inferred (alternate path)
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/\1-inferred/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/$1-inferred.ttl [R=303,NE,L]
+
+# [R15] /ontology/{name}/{version}/latest
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/latest/?$ https://raw.githubusercontent.com/battery-data-alliance/$1-ontology/$2/$1.ttl [R=303,NE,L]
+
+# [R16] /ontology/{name}/{version}/source
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/source/?$ https://raw.githubusercontent.com/battery-data-alliance/$1-ontology/$2/$1.ttl [R=303,NE,L]
+
+# [R17] /ontology/{name}/{version}/context
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/context/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/context/context.json [R=303,NE,L]
+
+# [R18] /ontology/{name}/{version}/schema
+RewriteRule ^ontology/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/schema/?$ https://battery-data-alliance.github.io/$1-ontology/versions/$2/schema/schema.json [R=303,NE,L]

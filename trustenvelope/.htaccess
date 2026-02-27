@@ -1,0 +1,32 @@
+AddType text/turtle .ttl
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Trust Envelope specification
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/trustenvelope/latest/  [R=302,L]
+
+# Trust Envelope ontology
+## Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^ontology$ https://cdn.jsdelivr.net/gh/KNowledgeOnWebScale/TrustEnvelope@master/trustenvelope.ttl [R=302,L]
+
+## Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology$ https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/trustenvelope.ttl [R=302,L]
+
+# Examples
+## Age verification 
+RewriteRule ^example/age-verification$ https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Age-verification.md  [R=302,L]
+
+## Cargo Monitoring
+RewriteRule ^example/cargo-monitoring$ https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Cargo-monitoring.md  [R=302,L]
+
+# Papers
+## WOP2025
+RewriteRule ^papers/WOP2025$ https://raw.githubusercontent.com/woutslabbinck/papers/main/2025/Trust-Envelopes_Contextualization-of-History-and-Destiny.pdf [R=302,L]

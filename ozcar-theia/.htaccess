@@ -12,29 +12,33 @@ RewriteEngine on
 ####################################################################################
 #                  Resource rules for web negotiation                             #
 ####################################################################################
+# Rewrite rule for Resource HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^text/html [OR]
+RewriteCond %{HTTP_ACCEPT} ^application/xhtml\+xml
+RewriteRule ^$ https://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/ [R=302,L]
 
-#Rewrite rules for Resource HTML content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
-RewriteCond %{HTTP_ACCEPT} !text/turtle
-RewriteCond %{HTTP_ACCEPT} !application/json
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-
-# Redirect to website for the root URI
-RewriteRule	^$ https://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/ [R=302,L]
+RewriteCond %{HTTP_ACCEPT} ^text/html [OR]
+RewriteCond %{HTTP_ACCEPT} ^application/xhtml\+xml
 RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/theia_ozcar_thesaurus/page/?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0  [R=303,NE,L]
 
-# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?format=application/rdf\%2Bxml [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml  [R=303,NE,L]
 
-# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+# Rewrite rule to serve TURTLE content if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?format=text/turtle [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=text/turtle  [R=303,NE,L]
 
-# Rewrite rule to serve json content from the vocabulary URI if requested
-RewriteCond %{HTTP_ACCEPT} application/json
+# Rewrite rule to serve JSON content if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json 
 RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/json  [R=303,NE,L]
 
-#default response
+# Default response for unsupported Accept types
 RewriteRule ^(.+) https://in-situ.theia-land.fr/skosmos/rest/v1/theia_ozcar_thesaurus/data?uri=https\%3A\%2F\%2Fw3id.org\%2Fozcar-theia\%2F$0&format=application/rdf\%2Bxml [R=303,NE,L]

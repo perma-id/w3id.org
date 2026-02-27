@@ -2,6 +2,11 @@
 
 Documentation is available at: https://catena-x.net/, https://github.com/catenax-eV, https://eclipse-tractusx.github.io, https://big-data-spaces.github.io/ and https://big-data-spaces.github.io/ontology
 
+The Policy Constraint schemas for the Catena-X Saturn Release are in the ODRL Profile Repo:
+
+https://github.com/catenax-eV/cx-odrl-profile
+
+
 The complete ontology is available as:
 
 TTL: https://github.com/big-data-spaces/ontology/blob/v24.12/ontology.ttl (current)
@@ -47,7 +52,7 @@ Profiles can be found under:
 https://github.com/catenax-eV/cx-odrl-profile
 https://github.com/eclipse-tractusx/tractusx-profiles
 
-Contact: 
+Contact:
 
 - Hanno Focken <hanno.focken@catena-x.net> (https://github.com/HFocken)
 - Oguzhan Balandi <oguzhan.balandi@t-systems.com> (https://github.com/obalandi)

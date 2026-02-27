@@ -1,0 +1,24 @@
+RewriteEngine On
+
+# Serve RDF/XML if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/ontology.owl [R=303,L]
+
+# Serve Turtle if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/ontology.ttl [R=303,L]
+
+# Serve JSON-LD if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/ontology.jsonld [R=303,L]
+
+# Serve N-Triples if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/ontology.nt [R=303,L]
+
+# Serve HTML if requested
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/index.html [R=303,L]
+
+# Fallback for all other cases
+RewriteRule ^$ https://chris-bishop8.github.io/RoboOntology/ [R=303,L]

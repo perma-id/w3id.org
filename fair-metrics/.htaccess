@@ -1,0 +1,32 @@
+RewriteEngine On
+RewriteBase /fair-metrics/
+
+# Trailing slash removal
+RewriteRule ^(.+)/$ $1 [R=301,L]
+
+# Set FAIR_SLUG (works perfectly in your tests)
+SetEnvIf Request_URI "^/fair-metrics/general/(.+?)(?:\.(md|html|htm))?$" FAIR_SLUG=$1
+
+# Headers – Vary + TWO Signposting Link headers (using append!)
+<IfModule mod_headers.c>
+    Header always set Vary "Accept"
+
+    Header always append Link "<https://fairmetrics.github.io/Metrics/metrics/general/%{FAIR_SLUG}e.ttl>; rel=\"describedby\"; type=\"text/turtle\""
+    Header always append Link "<https://fairmetrics.github.io/Metrics/landingpages/%{FAIR_SLUG}e.md>; rel=\"alternate\"; type=\"text/markdown\""
+</IfModule>
+
+# Content Negotiation
+RewriteCond %{REQUEST_URI} ^/fair-metrics/general/
+RewriteCond %{HTTP:Accept} text/html [OR]
+RewriteCond %{HTTP:Accept} application/xhtml\+xml
+RewriteRule ^general/(.+?)(?:\.(md|html|htm))?$ https://fairmetrics.github.io/Metrics/landingpages/$1.md [R=303,L]
+
+RewriteCond %{REQUEST_URI} ^/fair-metrics/general/
+RewriteRule ^general/(.+?)(?:\.(md|html|htm))?$ https://fairmetrics.github.io/Metrics/metrics/general/$1.ttl [R=303,L]
+
+# Other paths under /fair-metrics/
+RewriteCond %{REQUEST_URI} !^/fair-metrics/general/
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metrics/$1.ttl [R=303,L]
+
+# Root
+RewriteRule ^$ https://fairmetrics.github.io/Metrics/ [R=303,L]

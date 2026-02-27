@@ -1,0 +1,26 @@
+# geof3d
+#
+# Canonical namespace:
+#   https://w3id.org/geof3d#
+#
+# Redirect target:
+#   https://diellzaelshani.github.io/geof3D/
+#
+# Contact:
+#   Diellza Elshani
+#   GitHub: DiellzaElshani
+
+RewriteEngine On
+AddType text/turtle .ttl
+
+# Content negotiation for https://w3id.org/geof3d
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://diellzaelshani.github.io/geof3D/ontology/geof3d.ttl [R=303,L]
+
+# Default: HTML landing page
+RewriteRule ^$ https://diellzaelshani.github.io/geof3D/ [R=303,L]
+
+# Pass-through for subpaths
+RewriteRule ^(.+)$ https://diellzaelshani.github.io/geof3D/$1 [R=302,L]
