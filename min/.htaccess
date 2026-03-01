@@ -1,0 +1,27 @@
+# w3id.org redirect configuration for MIN ontology
+# Repository: https://github.com/lepy/min-ontology
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Versioned MIN IRI (e.g. /min/1.0.0): RDF clients -> raw file at tag
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/lepy/min-ontology/refs/tags/v$1/min-v$1.ttl [R=303,L]
+
+# Versioned MIN IRI: browser fallback
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/lepy/min-ontology/blob/v$1/min-v$1.ttl [R=303,L]
+
+# Canonical MIN IRI (/min): RDF clients -> current ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/lepy/min-ontology/main/min.ttl [R=303,L]
+
+# Canonical MIN IRI (/min): browser fallback
+RewriteRule ^$ https://github.com/lepy/min-ontology [R=303,L]
