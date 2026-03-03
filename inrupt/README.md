@@ -15,10 +15,12 @@ Contact
 
 This registration is administered by:
 
- * Pat McBennett
-   Technical Architect, [Inrupt, Inc.](https://inrupt.com)
-   <patm@inrupt.com>
-
- * Nicolas A. Seydoux
-   Devtools Developer, [Inrupt, Inc.](https://inrupt.com)
+ * Nicolas A. Seydoux (@NSeydoux) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
    <nseydoux@inrupt.com>
+ * Aaron Coburn (@acoburn) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
+   <aaronc@inrupt.com>
+ * Jarlath Holleran (@jholleran) <br>
+   Engineer, [Inrupt, Inc.](https://inrupt.com) <br>
+   <jarlathh@inrupt.com>

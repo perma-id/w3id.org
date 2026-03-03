@@ -1,0 +1,13 @@
+# Redirect HTML clients to the GitHub repo
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/Fl4gell4nt/qa-kg [R=302,L]
+
+# Redirect RDF clients to the Turtle manifest
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/Fl4gell4nt/qa-kg/main/manifest.ttl [R=302,L]
+
+# Fallback to Turtle manifest
+RewriteRule ^$ https://raw.githubusercontent.com/Fl4gell4nt/qa-kg/main/manifest.ttl [R=302,L]

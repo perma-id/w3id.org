@@ -1,0 +1,49 @@
+# /xch-mind/
+#
+# Persistent URI namespace for the xch-MIND ontology and resources.
+# xch-MIND (Multi-agent Interpretive Nexus Discovery)
+#
+# https://w3id.org/xch-mind/ redirects to https://github.com/6MicheleStingo9/xch-MIND
+#
+# ## Contact
+# This space is administered by:
+#
+# Michele Stingo
+# michele.stingo@activadigital.it
+# GitHub username: 6MicheleStingo9
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks -MultiViews
+RewriteEngine on
+
+# === ONTOLOGY ===
+
+# Turtle content negotiation
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/6MicheleStingo9/xch-MIND/main/ontology/xch/xch-core.ttl [R=303,L]
+
+# HTML (default) — redirect to GitHub folder
+RewriteRule ^ontology/?$ https://github.com/6MicheleStingo9/xch-MIND/tree/main/ontology/xch [R=303,L]
+
+# Ontology version IRIs (currently all resolve to latest)
+# TODO: implement versioned releases via Git tags or release folders
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/6MicheleStingo9/xch-MIND/main/ontology/xch/xch-core.ttl [R=303,L]
+
+# === SHACL SHAPES ===
+
+# Turtle content negotiation
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^shapes/?$ https://raw.githubusercontent.com/6MicheleStingo9/xch-MIND/main/ontology/xch/xch-shapes.ttl [R=303,L]
+
+# HTML (default) — redirect to GitHub folder
+RewriteRule ^shapes/?$ https://github.com/6MicheleStingo9/xch-MIND/tree/main/ontology/xch [R=303,L]
+
+# === RESOURCES (placeholder) ===
+
+RewriteRule ^resource/(.*)$ https://github.com/6MicheleStingo9/xch-MIND [R=303,L]
+
+# === DATA (placeholder) ===
+
+RewriteRule ^data/(.*)$ https://github.com/6MicheleStingo9/xch-MIND [R=303,L]

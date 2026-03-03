@@ -1,6 +1,7 @@
 # First Responder Vocabulary
 
-- https://github.com/credential-handler/vc-examples/tree/main/contexts/first-responder
+- https://digitalbazaar.github.io/fr-spec/
+- https://github.com/digitalbazaar/fr-spec
 
 ## Maintainers
 
@@ -8,3 +9,4 @@
 - David I. Lehn (@davidlehn)
 - Ganesh Annan (@gannan08)
 - Manu Sporny (@msporny)
+- Wesley Smith (@wes-smith)

@@ -1,0 +1,29 @@
+# Enable following symlinks and turn on rewrite engine
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Serve Turtle and RDF formats
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# If the client accepts HTML or is a browser, redirect root to the HTML page
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://sebseis.github.io/OBPI/ [R=302,NE,L]
+
+# If the client accepts Turtle, redirect root to the Turtle file
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://sebseis.github.io/OBPI/obpi.ttl [R=303,NE,L]
+
+# If the request explicitly asks for the Turtle file
+RewriteRule ^obpi\.ttl$ https://sebseis.github.io/OBPI/obpi.ttl [R=302,NE,L]
+
+# If the request explicitly asks for the HTML version
+RewriteRule ^obpi\.html$ https://sebseis.github.io/OBPI/ [R=302,NE,L]
+
+# Default for root if none of the above matched: serve HTML
+RewriteRule ^$ https://sebseis.github.io/OBPI/ [R=303,NE,L]

@@ -5,6 +5,7 @@
 This folder contains the following ontologies that have been developed in the aerOS project:
 
 - Continuum Ontology: https://w3id.org/aerOS/continuum#
+- Data Catalog Ontology: https://w3id.org/aerOS/data-catalog#
 - Building Ontology: https://w3id.org/aerOS/building#
 
 # Contact

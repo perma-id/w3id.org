@@ -1,0 +1,26 @@
+# # /examples/
+#
+# A collection of URL redirection examples.
+#
+# https://w3id.org/examples/ redirects to
+# https://github.com/perma-id/w3id.org/tree/master/examples
+#
+# ## Contact
+# This space is administered by:
+#
+# Raphael Tsz-Kin Chau
+# GitHub username: chauraph
+
+RewriteEngine On
+
+# Redirect /murtenpanorama/resource/ to https://scholar.terapixelpanorama.ch/resource/
+RewriteCond %{REQUEST_URI} ^/murtenpanorama/resource/(.*)$
+RewriteRule ^ https://scholar.terapixelpanorama.ch/resource/?uri=https://w3id.org%{REQUEST_URI} [R=302,L] 
+
+# Redirect /murtenpanorama/iiif/manifest/ to https://murtenpanorama.epfl.ch/manifest/
+RewriteCond %{REQUEST_URI} ^/murtenpanorama/iiif/manifest/(.*)$
+RewriteRule ^ https://murtenpanorama.epfl.ch/manifest/%1 [R=302,L] 
+
+# Redirect the root URL to GitHub repository
+RewriteCond %{REQUEST_URI} ^/murtenpanorama/*$
+RewriteRule ^ https://github.com/perma-id/w3id.org/tree/master/murtenpanorama [R=302,L]

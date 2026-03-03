@@ -1,0 +1,49 @@
+# https://w3id.org/itsdata/xxx/v# redirects to https://isotc204.org/ontology-its-xxx-v#/latest/ where xxx is the topic area
+#
+# ## Contact
+# This space is administered by:
+# ISO/TC 204 WG 1 Convenor
+# Kenneth Vaughn
+# kvaughn@trevilon.com
+# GitHub username: k-vaughn
+
+RewriteEngine On
+Options -MultiViews
+
+RewriteEngine On
+
+# Set FORMAT based on Accept header for RDF formats
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^ - [E=FORMAT:rdf]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ - [E=FORMAT:html]
+
+# Default to RDF (OWL) if no Accept header (common for some tools; safer than HTML default for ontologies)
+RewriteCond %{ENV:FORMAT} ^$
+RewriteRule ^ - [E=FORMAT:rdf]
+
+
+# /regulation/v2 -> regulation-v2 (or regulation-v2/regulation.owl if RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$1.owl [R=303,L]  
+RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/ [R=303,L]
+
+# /regulation/v2/Tro -> regulation-v2/latest/Tro (.owl for RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3.owl [R=303,L] 
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3 [R=303,L]
+
+# Specific release: /regulation/v2/Tro/r3.0 -> regulation-v2/r3.0/Tro (.owl for RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3 [R=303,L]
+
+# Fallback: Redirect to main page if no specific match
+RewriteRule ^ https://isotc204.org/ritso/ [R=303,L]
+
+

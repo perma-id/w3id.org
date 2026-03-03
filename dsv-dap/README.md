@@ -9,6 +9,8 @@ It is implemented in the [Dataspecer](https://dataspecer.com) tool.
 ## Ontology resources
 * HTML      https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/
 * Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.ttl
+* RDF/XML   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.rdf
+* JSON-LD   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.jsonld
 * GitHub    https://github.com/mff-uk/data-specification-vocabulary
 
 ## Contact

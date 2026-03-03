@@ -11,10 +11,10 @@ properties, and restrictions that can be used to represent content and metadata 
 
 This space is administered by:
 
-**Lilin Yu**
-*PhD Candidate*
-[School of Computer Science in University of St Andrews](www.st-andrews.ac.uk)
-St Andrews, Scotland
-<damonyu97@gmail.com>
+**Lilin Yu** <br>
+*PhD Candidate* <br>
+[EPCC, at University of Edinburgh](https://www.ed.ac.uk) <br>
+Edinburgh, Scotland <br>
+<damonyu97@gmail.com> <br>
 GitHub: [DamonYu97](https://github.com/DamonYu97)
 

@@ -7,6 +7,6 @@ This space is administered by:
 **Luca Martinelli**  
 *Web Developer*  
 [Website](https://lucamartinelli.eu.org)  
-<luca.martinelli@comune.sona.vr.it>
+<luca.martinelli@prolocosona.it>
 
 GitHub: [luca-martinelli-09](https://github.com/luca-martinelli-09)

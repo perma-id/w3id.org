@@ -1,15 +1,42 @@
 AddType application/ld+json .jsonld
+AddType application/rdf+xml .xml
+AddType text/turtle .ttl
+AddType application/n-triples .nt
 
 RewriteEngine on
 
-# latest version (not supported yet until we publish draft)
+# latest version 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate/ro-crate-metadata.jsonld [R=303,L]
-RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate [L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate/ro-crate-metadata.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate/ro-crate-metadata.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate/ro-crate-metadata.ttl [R=303,L]
+
+RewriteRule ^$ https://www.researchobject.org/workflow-run-crate/profiles/workflow_run_crate [R=303,L]
 
 
 # Workflow Run RO-Crate profiles (versioned)
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^(.+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate/ro-crate-metadata.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate/ro-crate-metadata.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate/ro-crate-metadata.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate/ro-crate-metadata.ttl [R=303,L]
+
 # HTML as default for humans
 RewriteRule ^(.+)$ https://www.researchobject.org/workflow-run-crate/profiles/$1/workflow_run_crate [R=303,L]

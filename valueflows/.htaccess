@@ -4,6 +4,7 @@ Options +FollowSymLinks
 AddType application/rdf+xml     .rdf      .owl
 #AddType application/xml         .xml
 AddType application/ld+json     .jsonld
+AddType text/n3                 .n3
 AddType application/n-quads     .nq
 AddType application/n-triples   .nt
 AddType text/turtle             .ttl
@@ -14,49 +15,66 @@ AddType text/html               .html
 AddType application/xhtml+xml   .html
 RewriteEngine on
 
-SetEnvIf Accept ^                          FILE_EXT=TTL    # *Default*
+SetEnvIf Accept ^                          FILE_EXT=ttl    # *Default*
 SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML
 SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
 #SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/inofficial form)
+SetEnvIf Accept ^.*text/n3                 FILE_EXT=n3     # Notation3
 SetEnvIf Accept ^.*application/n-quads     FILE_EXT=nq     # N-Quads
 SetEnvIf Accept ^.*application/n-triples   FILE_EXT=nt     # N-Triples
-SetEnvIf Accept ^.*text/turtle             FILE_EXT=TTL    # Turtle
+SetEnvIf Accept ^.*text/turtle             FILE_EXT=ttl    # Turtle
 SetEnvIf Accept ^.*application/rdf\+json   FILE_EXT=rj     # RDF/JSON
 SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
 SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
 SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
 SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
 
-# HACK Because I (hoijui) was unable to set PROXY to the empty string,
-#      we resort to this hack, of always setting it to something.
-SetEnvIf Request_URI ^ ROOT_URL=lab.allmende.io/valueflows/valueflows/-/raw
-SetEnvIf Request_URI ^ PROXY_NONE=https://
-SetEnvIf Request_URI ^ PROXY=https://
-SetEnvIf FILE_EXT ^html$ PROXY=https://html-preview.github.io/?url=https://
+# This is a service running <https://github.com/elevont/ontprox>
+SetEnvIf Request_URI ^ PROXY=https://ontprox.dev.opensourceecology.de
 
 # [Recommended IRI patterns for ontologies and their terms](
 # https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
 
+SetEnvIf Request_URI ^ SRC_URL_VF_BASE=https://codeberg.org/valueflows/pages/raw
+SetEnvIf Request_URI ^ SRC_URL_VF_BRANCH_LATEST=main
+SetEnvIf Request_URI ^ SRC_URL_VF_FILE_PATH=assets/all_vf.TTL
+
 # The preffered URLs
+
 # latest
 RewriteRule \
-	^ont/vf(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$1 \
+	^ont/vf([/_-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/%{ENV:SRC_URL_VF_BRANCH_LATEST}/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
 	[R=302,L]
-# versioned & other branches
+
+# versioned
 RewriteRule \
-	^ont/([^/]+)/vf(#[^/]+)?$ \
-	%{ENV:PROXY}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.%{ENV:FILE_EXT}$2 \
+	^ont/([0-9][^/]*)/vf([/_-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/tag/$1/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/vf([/_-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/$1/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
 	[R=302,L]
 
 # For debugging, we also support adding the format specific file-extension
-# latest
+
+# latest - debugging
 RewriteRule \
-	^ont/vf\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/master/release-doc-in-process/all_vf.$1$2 \
+	^ont/vf([/_-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/%{ENV:SRC_URL_VF_BRANCH_LATEST}/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=$2$3 \
 	[R=302,L]
-# versioned & other branches
+
+# versioned - debugging
 RewriteRule \
-	^ont/([^/]+)/vf\.([^/#]+)(#[^/]+)?$ \
-	%{ENV:PROXY_NONE}%{ENV:ROOT_URL}/$1/release-doc-in-process/all_vf.$2$3 \
+	^ont/([0-9][^/]+)/vf([/_-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/tag/$1/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/vf([/_-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_VF_BASE}/branch/$1/%{ENV:SRC_URL_VF_FILE_PATH}&file-ext=$3$4 \
 	[R=302,L]

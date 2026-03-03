@@ -17,7 +17,7 @@ prefix nta8035: <https://w3id.org/nta8035/def#>
 ## Contact
 This space is administered by:
 
-- **Redmer Kronemeijer**   
-E-mail: <redmer.kronemeijer@crow.nl>  
-ORCID: [0000-0001-9821-0193](https://orcid.org/0000-0001-9821-0193)  
-GitHub: [@redmer](https://github.com/redmer)  
+- **NEN (delegated to Stichting CROW)**   
+E-mail: <data@crow.nl>  
+GitHub: [@RiX012](https://github.com/RiX012)
+GitHub: [@lonnekevanurk](https://github.com/lonnekevanurk)

@@ -1,0 +1,50 @@
+# https://w3id.org/citydata/ redirects to https://isotc204.org/ontology-cdm-p1/latest/
+#
+# ## Contact
+# This space is administered by:
+# The ISO/IEC 5087 series editors, including:
+# Kenneth Vaughn
+# kvaughn@trevilon.com
+# GitHub username: k-vaughn
+
+RewriteEngine On
+
+# Set FORMAT based on Accept header for RDF formats
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^ - [E=FORMAT:rdf]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ - [E=FORMAT:html]
+
+# Default to RDF (OWL) if no Accept header (common for some tools; safer than HTML default for ontologies)
+RewriteCond %{ENV:FORMAT} ^$
+RewriteRule ^ - [E=FORMAT:rdf]
+
+
+# /21972/v1 -> i72-v1 (or i72-v1/i72.owl if RDF)
+# For RDF: Redirect to main ontology file
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/i72.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
+RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/ [R=303,L]
+
+# /part1/v2 -> p1-v2 (or p1-v2/5087-1.owl if RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/5087-$1.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
+RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/ [R=303,L]
+
+# /part1/v2/Agent -> p1-v2/latest/Agent (.owl for RDF)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3.owl [R=303,L]  # $1=part#, $2=submodule
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3 [R=303,L]
+
+# Specific release: /part1/v2/Agent/r3.0 -> p1-v2/r3.0/Agent)
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3 [R=303,L]
+
+# Fallback: Redirect to main page if no specific match
+RewriteRule ^ https://isotc204.org/ontology-cdm-p1-v1/latest/ [R=303,L]

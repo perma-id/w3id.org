@@ -3,17 +3,20 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Open 
 
 The following sub-namespaces are defined:
 
-* `/ogc/hosted/`
+* OGC
+  * `/geopose`
+* Hosted by OGC
+  * `/hosted`
 
 ## Contact
 This space is administered by:
 
-**Alejandro Villar**
+**Alejandro Villar** (@avillar)
 <avillar@ogc.org>
 
-**Rob Atkinson**
+**Rob Atkinson** (@rob-metalinkage)
 <ratkinson@ogc.org>
 
-**Piotr Zaborowski**
+**Piotr Zaborowski** (@pzaborowski)
 <pzaborowski@ogc.org>
 
