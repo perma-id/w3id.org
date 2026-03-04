@@ -1,0 +1,12 @@
+# Rewrite rule to serve HTML content for Geocs extension
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://geoplegma.github.io/dggrs-registry/doc/implement/index-en.html [R=303,L]
+
+
+# Choose the default response for the registry
+# --------------------------------------------
+# Default Rule
+RewriteRule ^$ https://geoplegma.github.io/dggrs-registry/implement.ttl [R=303,L]

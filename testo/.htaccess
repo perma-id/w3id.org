@@ -1,0 +1,75 @@
+Header set Access-Control-Allow-Origin *
+Options -MultiViews
+
+RewriteEngine On
+
+RewriteRule ^ - [E=ONTO:testo]
+RewriteRule ^ - [E=ONTO_IRI:https://w3id.org/%{ENV:ONTO}/]
+RewriteRule ^ - [E=GH_USER:micheldumontier]
+RewriteRule ^ - [E=GH_REPO:ontostart]
+RewriteRule ^ - [E=GH_BRANCH:testo]
+RewriteRule ^ - [E=ONTOSPY:true]
+RewriteRule ^ - [E=GH_PROJECT:https://%{ENV:GH_USER}.github.com/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}]
+RewriteRule ^ - [E=WEBSITE:https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}]
+RewriteRule ^ - [E=DOCS:%{ENV:WEBSITE}/docs]
+
+RewriteRule ^ - [E=VERSIONS:versions]
+RewriteRule ^ - [E=FILE_IRI:%{ENV:WEBSITE}/%{ENV:VERSIONS}]
+
+### Content negotiation for ontology formats
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^ - [E=EXT:jsonld]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} "application/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "text/xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "xml" [OR]
+RewriteCond %{HTTP_ACCEPT} "application/rdf\+xml"
+RewriteRule ^ - [E=EXT:owl]
+
+# Turtle variants
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ - [E=EXT:ttl]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ - [E=EXT:nt]
+
+### Map requests to target resources
+RewriteCond %{REQUEST_URI} ^/?$
+RewriteCond %{ENV:EXT} .
+RewriteRule ^ - [E=TARGET:%{ENV:FILE_IRI}/latest/%{ENV:ONTO}.%{ENV:EXT}]
+
+RewriteCond %{REQUEST_URI} ^/versions/(latest|[0-9]+\.[0-9]+\.[0-9]+)/?$
+RewriteCond %{ENV:EXT} .
+RewriteRule ^versions/(latest|[0-9]+\.[0-9]+\.[0-9]+)/?$ - [E=TARGET:%{ENV:FILE_IRI}/$1/%{ENV:ONTO}.%{ENV:EXT}]
+
+# Redirect to target if set
+RewriteCond %{ENV:TARGET} .
+RewriteRule ^ %{ENV:TARGET} [R=303,L]
+
+# Default to Website if no target format requested
+RewriteCond %{ENV:TARGET} !.
+RewriteCond %{ENV:EXT} !.
+RewriteRule ^/?$ %{ENV:WEBSITE}  [R=303,L]
+
+# Redirect /docs to documentation
+RewriteCond %{REQUEST_URI} ^/docs/?(.*)$
+RewriteRule ^docs/?(.*)$ %{ENV:DOCS}/$1 [R=303,L]
+
+# Redirect /github to GitHub project
+RewriteCond %{REQUEST_URI} ^/github/?(.*)$
+RewriteRule ^github/?(.*)$ %{ENV:WEBSITE}/$1 [R=303,L]
+
+# Redirect Class and prop to OntoSpy documentation
+RewriteCond %{REQUEST_URI} ^/([A-Z]+.*)$
+RewriteCond %{ENV:ONTOSPY} ^true$
+RewriteRule ^([A-Z]+.*)$ ${ENV:DOCS}/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
+
+RewriteCond %{REQUEST_URI} ^/([a-z]+.*)$
+RewriteCond %{ENV:ONTOSPY} ^true$
+RewriteRule ^([a-z]+.*)$ ${ENV:DOCS}/ontospy/prop-%{ENV:ONTO}$1.html [R=303,L]

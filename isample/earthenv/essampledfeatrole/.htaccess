@@ -3,6 +3,7 @@ RewriteEngine on
 
 # set environmental variable for the current version
 SetEnvIf Request_URI "^.*" currentversion=1.0
+# note if the current version is updated, have to change teh version number in vocabs.ardc.edu.au part of the redirect path.
 
 
 # ../isample/earthenv/essampledfeatrole get vocabulary ttl format with text/turtle accept header
@@ -23,5 +24,5 @@ RewriteRule       ^/?$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/
 RewriteRule       ^(^\d+.\d+\/.+)$    https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-sampled/1-0/resource?uri=https://w3id.org/isample/earthenv/essampledfeatrole/$1/sfrolevocabulary [R=303,L]
 
 # no version number gets ARDC vocabulary landing page
-RewriteRule       ^(.+)$    https://vocabs.ardc.edu.au/viewById/669 [R=303,L]
+RewriteRule       ^(.+)$    https://vocabs.ardc.edu.au/repository/api/lda/isamples/earth-and-environmental-science-extension-sampled/1-0/resource.html?uri=https://w3id.org/isample/earthenv/essampledfeatrole/%{ENV:currentversion}/$1 [R=303,L]
 

@@ -2,10 +2,12 @@ Options +FollowSymLinks
 RewriteEngine on
 
 SetEnvIf Request_URI ^.*$ LODVIEW_URL=https://semantics.istc.cnr.it/hacid/lodview/
-
+SetEnvIf Request_URI ^.*$ LODVIEW_CS_URL=https://keng.istc.cnr.it/hacid-cs-kg/id/
 
 RewriteRule ^$ https://www.hacid-project.eu [R=303,L]
 RewriteRule ^sparql$ https://semantics.istc.cnr.it/hacid/sparql [R=303,L]
 RewriteRule ^sparql-ui(/?)$ https://semantics.istc.cnr.it/hacid/sparql-ui/ [R=303,L]
+RewriteRule ^cs/sparql$ https://keng.istc.cnr.it/hacid-cs-kg/sparql [R=303,L]
 
+RewriteRule ^data/cs(/.+)$ %{ENV:LODVIEW_CS_URL}$1$2 [R=303,L]
 RewriteRule ^(mdx|data)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]

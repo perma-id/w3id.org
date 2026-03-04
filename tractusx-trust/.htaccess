@@ -1,0 +1,19 @@
+#
+# Tractus-X Trust Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to resolve policy context
+RewriteRule ^v0.8(.*)$ https://eclipse-dataspace-dcp.github.io/decentralized-claims-protocol/0.8.1/specifications/context.json [R=302,L]
+
+# Rewrite rule to default to the last release with said namespace
+RewriteRule ^(.*)$ https://github.com/eclipse-dataspace-dcp/decentralized-claims-protocol/releases/tag/0.8.1 [R=303,L]

@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+
+AddType application/rdf+xml .owl.xml
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+AddType application/yaml .yaml
+
+RewriteEngine on
+
+# Redirect to JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.jsonld [R=303,L]
+
+# handle URI to ontology object
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.owl.xml [R=303,L]
+
+#RewriteCond %{HTTP_ACCEPT} text/turtle # commented to be the default format
+RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.owl.ttl [R=303,L]
+
+# handle the rest
+RewriteRule ^(.*)$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/tag/$1 [R=303,L]

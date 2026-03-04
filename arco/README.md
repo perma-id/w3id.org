@@ -14,5 +14,14 @@ All releases of the project will be published on GitHub.
 
 # Maintainers
 
-- [Luigi Asprino](http://luigiasprino.it)
-- [Andrea Giovanni Nuzzolese](https://www.istc.cnr.it/it/people/andrea-giovanni-nuzzolese)
+
++ **Fabrizio Magnani** (ICCD)
+  + GitHub: [fabriziomagnani](https://github.com/fabriziomagnani)
+  + email: [fabrizio.magnani@cultura.gov.it](mailto:fabrizio.magnani@cultura.gov.it)
++ **Cristiana Cordone** (ICCD)
+  + GitHub: [CristianaCordone](https://github.com/CristianaCordone)
+  + email: [cristiana.cordone@cultura.gov.it](mailto:cristiana.cordone@cultura.gov.it)
++ **Fabio Ginestrini**
+  + GitHub: [oibaf](https://github.com/oibaf)
+  + email: [fabio.ginestrini@gmail.com](mailto:fabio.ginestrini@gmail.com)
+

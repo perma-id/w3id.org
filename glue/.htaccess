@@ -1,0 +1,29 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+RewriteEngine on
+
+## CONTENT NEGOTIATION
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [OR]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://dtai-kg.github.io/GLUE-Ontology [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$  https://raw.githubusercontent.com/dtai-kg/GLUE-Ontology/refs/heads/documentation/ontology.nt [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^(.*)$  https://raw.githubusercontent.com/dtai-kg/GLUE-Ontology/refs/heads/documentation/ontology.ttl [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$  https://raw.githubusercontent.com/dtai-kg/GLUE-Ontology/refs/heads/documentation/ontology.owl [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$  https://raw.githubusercontent.com/dtai-kg/GLUE-Ontology/refs/heads/documentation/ontology.jsonld [NE,R,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule (.*)$ https://raw.githubusercontent.com/dtai-kg/GLUE-Ontology/refs/heads/documentation/406.html [NE,L,R=406] # Error Widoco page

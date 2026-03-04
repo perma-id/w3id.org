@@ -1,0 +1,25 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# The "L" flag ensures that if the rule matches no further rules are processed
+
+# Match empty string to FUMCO.ttl: www.w3id.org/fumco/ --> https://kataph.github.io/FUMCO/FUMCO.ttl
+RewriteRule ^$ https://kataph.github.io/FUMCO/FUMCO.ttl [R=303,L]
+
+# Match anything that does not contain "." and ends with "/" -- "/" excluded -- assuming to be a request to .ttl file  e.g. www.w3id.org/fumco/FUMCO/ --> https://kataph.github.io/FUMCO/FUMCO.ttl
+RewriteRule ^([^.]+)\/$ https://kataph.github.io/FUMCO/$1.ttl [R=303,L]
+
+# Match anything that does not contain "." and does not end with "/" assuming to be a request to .ttl file e.g. www.w3id.org/fumco/FUMCO -->  https://kataph.github.io/FUMCO/FUMCO.ttl
+RewriteRule ^([^.]+[^\/])$ https://kataph.github.io/FUMCO/$1.ttl [R=303,L]
+
+# Match anything that ends with .owl, .ttl, or .rdf (including possibly strings containing dots and dashes) e.g. www.w3id.org/fumco/FUMCO-0.1.owl --> https://kataph.github.io/FUMCO/FUMCO-0.1.owl
+RewriteRule ^(.+)\.(owl|ttl|rdf)$ https://kataph.github.io/FUMCO/$1.$2 [R=303,L]
+
+# Match anything that ends (after a "/") with "."s or numbers (e.g. /0.1 or /1.2.3 or /9.9.9.9) to an appropriate versioning file e.g. www.w3id.org/fumco/FUMCO/0.1 --> https://kataph.github.io/FUMCO/FUMCO-0.1.ttl
+RewriteRule ^(.*)\/([0-9\.]+)(?!.*\/)$ https://kataph.github.io/FUMCO/$1-$2.ttl [R=303,L]
+
+# Match anything that ends (after a "/") with "."s or numbers followed by a "/" (e.g. /0.1/ or /1.2.3/ or /9.9.9.9/) to an appropriate versioning file e.g. www.w3id.org/fumco/FUMCO/0.1/ --> https://kataph.github.io/FUMCO/FUMCO-0.1.ttl
+RewriteRule ^(.*)\/([0-9\.]+)\/(?!.*\/)$ https://kataph.github.io/FUMCO/$1-$2.ttl [R=303,L]

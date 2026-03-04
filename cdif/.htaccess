@@ -1,0 +1,199 @@
+#
+# CDIF (Cross-Domain Interoperability Framework) persistent identifiers
+#
+# ## Contact
+# This space is administered by:
+#
+# Stephen Richard
+# GitHub username: smrgeoinfo
+# simon@codata.org
+#
+# Building block identifiers follow the pattern:
+#   https://w3id.org/cdif/bbr/metadata/{category}/{name}
+# which maps to the OGC Building Blocks identifier:
+#   cdif.bbr.metadata.{category}.{name}
+#
+# Profile identifiers add a third path segment:
+#   https://w3id.org/cdif/bbr/metadata/profiles/{family}/{name}
+# which maps to:
+#   cdif.bbr.metadata.profiles.{family}.{name}
+#
+# Content negotiation on the BB URI (Accept header):
+#   text/html                                                      → landing page (HTML viewer)
+#   application/schema+json                                        → JSON Schema (JSON)
+#   application/yaml; profile="https://json-schema.org/draft/2020-12/schema"
+#                                                                  → JSON Schema (YAML)
+#   application/yaml                                               → JSON Schema (YAML, fallback)
+#   text/turtle; profile="http://www.w3.org/ns/shacl#"            → SHACL validation rules
+#   text/turtle                                                    → SHACL validation rules (fallback)
+#   application/ld+json; profile="http://www.w3.org/ns/json-ld#context"
+#                                                                  → JSON-LD context
+#   application/ld+json                                            → JSON-LD context (fallback)
+#
+# Explicit sub-path resources (no content negotiation needed):
+#   .../schema            JSON Schema (YAML default; JSON via Accept: application/json)
+#   .../resolved          resolved schema with all $ref inlined (JSON)
+#   .../shacl             SHACL validation rules (Turtle)
+#   .../context           JSON-LD context
+
+Header set Access-Control-Allow-Origin *
+Options -MultiViews +FollowSymLinks
+RewriteEngine on
+
+# Base target for GitHub Pages
+SetEnvIf Request_URI ^.*$ BB_BASE=https://usgin.github.io/metadataBuildingBlocks
+
+# ============================================================
+# Profile resources (three-segment): /cdif/bbr/metadata/profiles/{family}/{name}/{resource}
+# These MUST come before the two-segment rules so that
+# bbr/metadata/profiles/{family}/{name} is not consumed as
+# bbr/metadata/{profiles}/{family}
+# ============================================================
+
+# --- /schema with content negotiation ---
+
+# Accept: application/schema+json or application/json → annotated JSON schema
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# Accept: application/yaml (with or without profile param) → annotated YAML schema
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# Default for /schema → YAML (the source format)
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- /resolved → resolvedSchema.json (all $ref inlined) ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/resolved/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/resolvedSchema.json [R=303,L]
+
+# --- /shacl → SHACL validation rules ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/shacl/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- /context → JSON-LD context ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# ============================================================
+# Profile landing page with content negotiation:
+#   /cdif/bbr/metadata/profiles/{family}/{name}
+# ============================================================
+
+# --- text/html → bblocks-viewer landing page ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# --- application/schema+json → JSON Schema (JSON) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# --- application/yaml → JSON Schema (YAML) ---
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- text/turtle → SHACL validation rules ---
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- application/ld+json → JSON-LD context ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# --- application/json (generic) → full JSON documentation ---
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/profiles/$1/$2/index.json [R=303,L]
+
+# --- Default (browser user-agent or unknown Accept) → viewer page ---
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# Fallback → viewer page
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# ============================================================
+# Building Block resources (two-segment): /cdif/bbr/metadata/{category}/{name}/{resource}
+# Explicit sub-paths — these always resolve to the named resource
+# ============================================================
+
+# --- /schema with content negotiation ---
+
+# Accept: application/schema+json or application/json → annotated JSON schema
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.json [R=303,L]
+
+# Accept: application/yaml (with or without profile param) → annotated YAML schema
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# Default for /schema → YAML (the source format)
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# --- /resolved → resolvedSchema.json (all $ref inlined) ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/resolved/?$ %{ENV:BB_BASE}/_sources/$1/$2/resolvedSchema.json [R=303,L]
+
+# --- /shacl → SHACL validation rules ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/shacl/?$ %{ENV:BB_BASE}/_sources/$1/$2/rules.shacl [R=303,L]
+
+# --- /context → JSON-LD context ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/context.jsonld [R=303,L]
+
+# ============================================================
+# Building Block landing page with content negotiation:
+#   /cdif/bbr/metadata/{category}/{name}
+# The same URI serves different representations via Accept header
+# ============================================================
+
+# --- text/html → bblocks-viewer landing page ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# --- application/schema+json → JSON Schema (JSON) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.json [R=303,L]
+
+# --- application/yaml with JSON Schema profile → JSON Schema (YAML) ---
+# Matches both the profile-qualified and bare application/yaml
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# --- text/turtle with SHACL profile → SHACL validation rules ---
+# Matches both profile-qualified and bare text/turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/_sources/$1/$2/rules.shacl [R=303,L]
+
+# --- application/ld+json with context profile → JSON-LD context ---
+# The W3C JSON-LD spec defines profile="http://www.w3.org/ns/json-ld#context"
+# Matches both profile-qualified and bare application/ld+json
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/context.jsonld [R=303,L]
+
+# --- application/json (generic) → full JSON documentation ---
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/$1/$2/index.json [R=303,L]
+
+# --- Default (browser user-agent or unknown Accept) → viewer page ---
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# Fallback → viewer page
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# ============================================================
+# Building Block register: /cdif/bbr/metadata
+# ============================================================
+
+# Register index → bblocks-viewer home
+RewriteRule ^bbr/metadata/?$ %{ENV:BB_BASE}/ [R=303,L]
+
+# ============================================================
+# Base CDIF redirect: /cdif
+# ============================================================
+RewriteRule ^$ https://cdif.codata.org/ [R=302,L]

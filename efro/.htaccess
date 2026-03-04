@@ -1,0 +1,29 @@
+# Options to follow symbolic links
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+
+<IfModule mod_rewrite.c>
+    # Rewrite engine
+    RewriteEngine on
+    RewriteBase /efro/
+    
+    # Rewrite rule to serve HTML content from the vocabulary URI
+    RewriteCond %{HTTP_ACCEPT} !application/rdf+xml.*(text/html|application/xhtml+xml)
+    RewriteCond %{HTTP_ACCEPT} text/html [OR]
+    RewriteCond %{HTTP_ACCEPT} application/xhtml+xml [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+    RewriteRule ^efro$ https://rgu-computing.github.io/EFRO/EFRO/docs/index-en.html [R=303,L]
+    
+    # Default response - owl rdf
+    RewriteRule ^efro$ https://rgu-computing.github.io/EFRO/EFRO/EFRO.rdf [R=303,NE,L]
+</IfModule>
+
+# GitHub user: RGU-Computing
+# GitHub Repository: https://github.com/RGU-Computing/EFRO

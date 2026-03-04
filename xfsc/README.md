@@ -4,8 +4,9 @@ XFSC
 This W3ID provides a persistent URI namespace for the XFSC resources.
 
 Redirections:
-* `/catalogue` to [Federated Catalogue](https://gitlab.com/gaia-x/data-infrastructure-federation-services/cat/)
+* `/catalogue` to [Federated Catalogue](https://github.com/eclipse-xfsc/federated-catalogue/)
 
 Contacts:
-* [Philipp Hertweck](https://github.com/phertweck/) <philipp.hertweck@iosb.fraunhofer.de>
-* [Christoph Lange](https://gitlab.com/langec) <christoph.lange-bever@fit.fraunhofer.de>
+* [Lauresha Toska](https://github.com/lmemeti) <lauresha.toska@eco.de> (Eclipse XFSC project lead)
+* [Christoph Lange](https://github.com/clange) <christoph.lange-bever@fit.fraunhofer.de> (coordinator of the XFSC Catalogue development community)
+* [Philipp Hertweck](https://github.com/phertweck/) <philipp.hertweck@iosb.fraunhofer.de> (member of the XFSC Catalogue development team)

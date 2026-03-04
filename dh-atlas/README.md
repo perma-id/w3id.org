@@ -11,3 +11,7 @@ Contacts
  * Sebastiano Giacomini <sebastiano.giacomin2@unibo.it>
  * Marilena Daquino <marilena.daquino2@unibo.it>
 
+Maintained by
+
+ * Sebastiano-G <https://github.com/Sebastiano-G>
+

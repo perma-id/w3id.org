@@ -1,9 +1,19 @@
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
 Header set Access-Control-Allow-Origin *
 Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
 Options +FollowSymLinks
 RewriteEngine on
 RewriteRule ^specification$ https://semiceu.github.io/LinkedDataEventStreams/ [R=303,L]
+RewriteRule ^server-primer$ https://semiceu.github.io/LinkedDataEventStreams/server-primer.html [R=303,L]
 
 RewriteRule ^context(.jsonld)?$ https://semiceu.github.io/LinkedDataEventStreams/context.jsonld [R=303,L]
 
-RewriteRule ^.*$ https://semiceu.github.io/LinkedDataEventStreams/vocabulary.ttl [R=303,L]
+# Rewrite rule to serve HTML content on the vocabulary
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://semiceu.github.io/LinkedDataEventStreams/vocabulary.html [R=303,L]
+
+# Rewrite rule to serve TTL content on the vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^.*$ https://cdn.jsdelivr.net/gh/semiceu/LinkedDataEventStreams@master/vocabulary.ttl [R=303,L]

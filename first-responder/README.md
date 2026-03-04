@@ -1,6 +1,7 @@
 # First Responder Vocabulary
 
-- https://github.com/credential-handler/vc-examples/tree/main/contexts/first-responder
+- https://digitalbazaar.github.io/fr-spec/
+- https://github.com/digitalbazaar/fr-spec
 
 ## Maintainers
 

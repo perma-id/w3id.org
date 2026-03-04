@@ -8,5 +8,7 @@ Vocabulary:
 * https://w3id.org/EVI
 
 Contact:
-* Sadnan Al Manir <ma3xy@virginia.edu>, University of Virginia, USA
-* Tim Clark <twclark@virginia.edu>, University of Virginia, USA
+* [Sadnan Al Manir](https://github.com/sadnanalmanir) <ma3xy@virginia.edu>, University of Virginia, USA
+* [Tim Clark](https://github.com/timwclark) <twclark@virginia.edu>, University of Virginia, USA
+* [Maxwell Adam Levinson](https://github.com/mlev71) <mal8ch@virginia.edu>, University of Virginia, USA
+* [Justin Niestroy](https://github.com/jniestroy) <jniestroy@gmail.com>, University of Virginia, USA
