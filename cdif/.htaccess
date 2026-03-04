@@ -13,6 +13,11 @@
 # which maps to the OGC Building Blocks identifier:
 #   cdif.bbr.metadata.{category}.{name}
 #
+# Profile identifiers add a third path segment:
+#   https://w3id.org/cdif/bbr/metadata/profiles/{family}/{name}
+# which maps to:
+#   cdif.bbr.metadata.profiles.{family}.{name}
+#
 # Content negotiation on the BB URI (Accept header):
 #   text/html                                                      → landing page (HTML viewer)
 #   application/schema+json                                        → JSON Schema (JSON)
@@ -39,7 +44,77 @@ RewriteEngine on
 SetEnvIf Request_URI ^.*$ BB_BASE=https://usgin.github.io/metadataBuildingBlocks
 
 # ============================================================
-# Building Block resources: /cdif/bbr/metadata/{category}/{name}/{resource}
+# Profile resources (three-segment): /cdif/bbr/metadata/profiles/{family}/{name}/{resource}
+# These MUST come before the two-segment rules so that
+# bbr/metadata/profiles/{family}/{name} is not consumed as
+# bbr/metadata/{profiles}/{family}
+# ============================================================
+
+# --- /schema with content negotiation ---
+
+# Accept: application/schema+json or application/json → annotated JSON schema
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# Accept: application/yaml (with or without profile param) → annotated YAML schema
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# Default for /schema → YAML (the source format)
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- /resolved → resolvedSchema.json (all $ref inlined) ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/resolved/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/resolvedSchema.json [R=303,L]
+
+# --- /shacl → SHACL validation rules ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/shacl/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- /context → JSON-LD context ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# ============================================================
+# Profile landing page with content negotiation:
+#   /cdif/bbr/metadata/profiles/{family}/{name}
+# ============================================================
+
+# --- text/html → bblocks-viewer landing page ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# --- application/schema+json → JSON Schema (JSON) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# --- application/yaml → JSON Schema (YAML) ---
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- text/turtle → SHACL validation rules ---
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- application/ld+json → JSON-LD context ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# --- application/json (generic) → full JSON documentation ---
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/profiles/$1/$2/index.json [R=303,L]
+
+# --- Default (browser user-agent or unknown Accept) → viewer page ---
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# Fallback → viewer page
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# ============================================================
+# Building Block resources (two-segment): /cdif/bbr/metadata/{category}/{name}/{resource}
 # Explicit sub-paths — these always resolve to the named resource
 # ============================================================
 
