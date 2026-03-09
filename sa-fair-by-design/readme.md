@@ -1,9 +1,8 @@
-## Example repository
+## Semantic Artefacts - Fair By Design 
 
-This permanent w3id is meant to showcase an example on how to publish vocabularies with w3id.
+Permanent w3id for the FAIR by sedign methodology for Semantic Artefacts by Poveda and Garijo
 
-https://w3id.org/example redirects to https://dgarijo.github.io/example/release/1.0.1/index-en.html
-
+https://w3id.org/sa-fair-by-design redirects to  https://oeg-upm.github.io/fair-by-desing-web/ 
 
 Maintainer: Daniel Garijo (@dgarijo) 
 
