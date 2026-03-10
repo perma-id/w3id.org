@@ -11,11 +11,3 @@ including ontology, SKOS vocabularies, and RDF datasets (Tang and Heian).
 All RDF files are hosted in the GitHub repository:
 https://github.com/TASYU78/Hanpoetry
 
-## General Checklist
-- [x] Changes have been tested.
-- [x] The number of commits is minimal.
-- [x] Commits only include redirects and basic information.
-
-## New ID Directory Checklist
-- [x] Maintainer details are in `.htaccess` or `README.md`.
-- [x] GitHub username ids are listed in the maintainer details.
