@@ -4,24 +4,38 @@
 Options +FollowSymLinks
 RewriteEngine On
 
+# Allow cross-origin requests for identifier/API consumers.
 Header set Access-Control-Allow-Origin *
 
 # Content negotiation for base namespace (JSON -> API schema)
+# If a client asks for JSON/JSON-LD, send the schema endpoint.
 RewriteCond %{HTTP_ACCEPT} application/json [OR]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://whgazetteer.org/api/schema/ [R=303,L]
 
 # Content negotiation for base namespace (HTML -> website)
+# If a browser asks for HTML, send the human-facing homepage.
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^$ https://whgazetteer.org/ [R=303,L]
 
 # Base namespace
+# No generic redirect beyond the negotiated cases above.
 RewriteRule ^$ - [R=404,L]
 
+# Content negotiation for identifier (HTML -> website entity page)
+# For browser requests to identifiers, redirect to the entity page.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^id/(.+)$ https://whgazetteer.org/entity/$1/ [R=303,L]
+
 # Canonical identifier pattern
+# For JSON/JSON-LD requests, redirect identifiers to the API resource.
 # https://w3id.org/whg/id/{id} -> https://whgazetteer.org/entity/{id}/api
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^id/(.+)$ https://whgazetteer.org/entity/$1/api [R=303,L]
 
 # Fallback: do not redirect to the main website
+# Return 404 for everything else under this namespace.
 RewriteRule ^.*$ - [R=404,L]

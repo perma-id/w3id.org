@@ -2,17 +2,74 @@ Header set Access-Control-Allow-Origin "*"
 Options +FollowSymLinks
 RewriteEngine on
 
-# ----------------------------------------------------------------------
-# 1. CONTENT NEGOTIATION (For Machines & Software)
-# ----------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/open-rdip/core-ontology/main/ontology/rdip.ttl [R=303,L]
+# Namespace: https://w3id.org/rdip
+# Repository: https://github.com/open-rdip/rdip-ontology
 
-# ----------------------------------------------------------------------
-# 2. DEFAULT REDIRECT (For Humans/Browsers)
-# ----------------------------------------------------------------------
-RewriteRule ^(.*)$ https://open-rdip.github.io/core-ontology/ [R=303,L]
+# BLOCK 1 — /1.0.0  (v1)
+
+# v1 — Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/?1\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/versions/v1.0/rdip-v1.ttl [R=303,L]
+
+# v1 — RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?1\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/1.0.0/ontology.owl [R=303,L]
+
+# v1 — JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?1\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/1.0.0/ontology.jsonld [R=303,L]
+
+# v1 — N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^/?1\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/1.0.0/ontology.nt [R=303,L]
+
+# v1 — HTML (browser default)
+RewriteRule ^/?1\.0\.0(/.*)?$ https://open-rdip.github.io/rdip-ontology/1.0.0/ [R=303,L]
+
+# BLOCK 2 — /rdip/2.0.0  (v2)
+
+# v2 — Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/?2\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/versions/v2.0/rdip-v2.ttl [R=303,L]
+
+# v2 — RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?2\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/2.0.0/ontology.owl [R=303,L]
+
+# v2 — JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?2\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/2.0.0/ontology.jsonld [R=303,L]
+
+# v2 — N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^/?2\.0\.0(/.*)?$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/2.0.0/ontology.nt [R=303,L]
+
+# v2 — HTML (browser default)
+RewriteRule ^/?2\.0\.0(/.*)?$ https://open-rdip.github.io/rdip-ontology/2.0.0/ [R=303,L]
+
+# BLOCK 3 — /rdip  (Latest)
+
+# core — Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/?(.*)$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/core/rdip.ttl [R=303,L]
+
+# core — RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?(.*)$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/latest/ontology.owl [R=303,L]
+
+# core — JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?(.*)$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/latest/ontology.jsonld [R=303,L]
+
+# core — N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^/?(.*)$ https://raw.githubusercontent.com/open-rdip/rdip-ontology/main/docs/latest/ontology.nt [R=303,L]
+
+# core — HTML (browser default)
+RewriteRule ^/?(.*)$ https://open-rdip.github.io/rdip-ontology/ [R=303,L]
