@@ -4,5 +4,5 @@ SCOSy is a mapping between the [Sustainability Core Ontology (SCO)](https://w3id
 
 ## Contact
 
-Giorgio A. Ubbiali - Giorgio.Ubbiali@pthsta.it
+Giorgio A. Ubbiali - Giorgio.Ubbiali@pthsta.it - https://github.com/gioUbbiali 
 
