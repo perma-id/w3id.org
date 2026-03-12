@@ -1,16 +1,22 @@
 RewriteEngine on
 
-# Redirect ontology version IRI to the given version
+# Redirect ontology version IRI to the given version (until v1.0.0 to .owl)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^(\d\.\d\.\d)/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-IEEE1872-2/v$1/AuR_IEEE1872-2.owl [R=303,NC,L]
+RewriteRule ^(1\.0\.0)/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-IEEE1872-2/v$1/AuR_IEEE1872-2.owl [R=303,NC,L]
+
+# Redirect ontology version IRI to the given version (from v1.1.0 to .ttl)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d\.\d\.\d)/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-IEEE1872-2/v$1/AuR_IEEE1872-2.ttl [R=303,NC,L]
 
 # Redirect ontology IRI (without version) to the current main branch version
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-IEEE1872-2/main/AuR_IEEE1872-2.owl [R=303,NC,L]
+RewriteRule ^/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-IEEE1872-2/main/AuR_IEEE1872-2.ttl [R=303,NC,L]
 
 # Redirect HTML requests to the main repository page
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)

@@ -1,0 +1,39 @@
+# KYA Manifest Standard Redirection
+# Permanent Namespace: https://w3id.org/kya
+
+RewriteEngine On
+
+# 0. Safety & Normalization
+RewriteRule ^(.*)/$ $1 [R=301,L]
+<IfModule mod_headers.c>
+  Header set Vary "Accept"
+</IfModule>
+
+# --- 1. Specific Artifacts ---
+
+# JSON Schema
+RewriteRule ^v1/schema$ https://open-kya.github.io/kya-standard/schema/kya-manifest.schema.json [R=302,L]
+
+# Vocabulary Index
+RewriteRule ^vocab$ https://open-kya.github.io/kya-standard/spec/vocab.html [R=302,L]
+
+# Specification
+RewriteRule ^spec$ https://open-kya.github.io/kya-standard/spec/index.html [R=302,L]
+
+# --- 2. Content Negotiation for /v1 ---
+
+# A. HTML Representation (Humans)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^v1$ https://open-kya.github.io/kya-standard/spec/vocab.html [R=303,L]
+
+# B. Machine Representation (Agents/Validators)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^v1$ https://open-kya.github.io/kya-standard/schema/context.jsonld [R=303,L]
+
+# C. Default Fallback
+RewriteRule ^v1$ https://open-kya.github.io/kya-standard/schema/context.jsonld [R=303,L]
+
+# --- 3. Root Redirection ---
+RewriteRule ^$ https://open-kya.github.io/kya-standard/spec/index.html [R=302,L]

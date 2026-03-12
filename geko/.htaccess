@@ -1,4 +1,20 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteRule ^$ https://mariafrancesca6.github.io/geko/ [R=302,L]
-RewriteRule (.*) https://mariafrancesca6.github.io/geko/$1 [R=302,L]
+
+# 1. VERSION-SPECIFIC REDIRECTS
+# These allow users to access specific versions directly via w3id.org/geko/v1 or /v2
+
+# Version 1.0
+RewriteRule ^v1$ https://mariafrancesca6.github.io/geko/v1/ [R=302,L]
+RewriteRule ^v1/(.*)$ https://mariafrancesca6.github.io/geko/v1/$1 [R=302,L]
+
+# Version 2.0 (The New Version)
+RewriteRule ^v2$ https://mariafrancesca6.github.io/geko/v2/ [R=302,L]
+RewriteRule ^v2/(.*)$ https://mariafrancesca6.github.io/geko/v2/$1 [R=302,L]
+
+# 2. DEFAULT REDIRECT (LATEST)
+# If someone visits w3id.org/geko/ without a version number, 
+# they are automatically sent to the v2 folder.
+
+RewriteRule ^$ https://mariafrancesca6.github.io/geko/v2/ [R=302,L]
+RewriteRule ^(.*)$ https://mariafrancesca6.github.io/geko/v2/$1 [R=302,L]

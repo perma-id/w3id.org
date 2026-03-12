@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+AddType application/trig .trig
+
+### PROD links
+
+# entry point
+# this will point to main page (this will be changed with content negotiation)
+RewriteRule ^$ https://fair2adapt.github.io/cca-crate-profile/ [R=302,L]
+
+RewriteRule ^0.9$ https://fair2adapt.github.io/cca-crate-profile/ [R=302,L]
