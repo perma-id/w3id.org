@@ -1,32 +1,28 @@
+Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /fair-metrics/
 
-# Trailing slash removal
-RewriteRule ^(.+)/$ $1 [R=301,L]
+# 1. Remove trailing slash (non-root only, to keep clean URLs)
+RewriteCond %{REQUEST_URI} !^/fair-metrics/?$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-# Set FAIR_SLUG (works perfectly in your tests)
-SetEnvIf Request_URI "^/fair-metrics/general/(.+?)(?:\.(md|html|htm))?$" FAIR_SLUG=$1
+# 2. Root: /fair-metrics/ or /fair-metrics → main documentation
+RewriteRule ^$ https://fairmetrics.github.io/Metrics/ [R=303,L]
 
-# Headers – Vary + TWO Signposting Link headers (using append!)
-<IfModule mod_headers.c>
-    Header always set Vary "Accept"
+# --------------------------------------------------------------------
+# Content negotiation for all paths under /fair-metrics/
+# Captures everything after /fair-metrics/ (including subdirs like esrf/xxx)
+# Redirects to landingpages/ with .html or .ttl extension
+# --------------------------------------------------------------------
 
-    Header always append Link "<https://fairmetrics.github.io/Metrics/metric/general/%{FAIR_SLUG}.ttl>; rel=\"describedby\"; type=\"text/turtle\""
-    Header always append Link "<https://fairmetrics.github.io/Metrics/landingpages/%{FAIR_SLUG}.html>; rel=\"alternate\"; type=\"text/html\""
-</IfModule>
-
-# Content Negotiation
-RewriteCond %{REQUEST_URI} ^/fair-metrics/general/
+# Prefer HTML if client accepts text/html or application/xhtml+xml
 RewriteCond %{HTTP:Accept} text/html [OR]
 RewriteCond %{HTTP:Accept} application/xhtml\+xml
-RewriteRule ^general/(.+?)(?:\.(md|html|htm))?$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R=303,L]
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R=303,L,NE]
 
-RewriteCond %{REQUEST_URI} ^/fair-metrics/general/
-RewriteRule ^general/(.+?)(?:\.(md|html|htm))?$ https://fairmetrics.github.io/Metrics/metrics/general/$1.ttl [R=303,L]
+# Turtle if text/turtle is acceptable (only if HTML conditions didn't match)
+RewriteCond %{HTTP:Accept} text/turtle
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.ttl [R=303,L,NE]
 
-# Other paths under /fair-metrics/
-RewriteCond %{REQUEST_URI} !^/fair-metrics/general/
-RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metric/$1.ttl [R=303,L]
-
-# Root
-RewriteRule ^$ https://fairmetrics.github.io/Metrics/ [R=303,L]
+# Default fallback: HTML (for browsers, no Accept header, or unknown types)
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R=303,L,NE]
