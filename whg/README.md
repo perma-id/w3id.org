@@ -7,7 +7,7 @@ A resolver namespace for WHG place identifiers. Identifiers resolve via a 303 re
 | WHG Vector      | Behaviour |
 |----------------|-----------|
 | `/`            | If the client accepts HTML, redirects (303) to `https://whgazetteer.org/`. If the client accepts JSON/JSON-LD, redirects (303) to `https://whgazetteer.org/api/schema/`. Otherwise returns HTTP 404. |
-| `/id/{id}`     | Redirects (303) to the WHG Entity API at `https://whgazetteer.org/entity/{id}/api`. |
+| `/id/{id}`     | If the client accepts HTML, redirects (303) to `https://whgazetteer.org/entity/{id}/`. If the client accepts JSON/JSON-LD, redirects (303) to `https://whgazetteer.org/entity/{id}/api`. Otherwise returns HTTP 404. |
 | `*`            | Returns HTTP 404 (no fallback to the main website). |
 
 > **Note:** Identifiers are path-style. For example, `whg:place:169687` expands to `https://w3id.org/whg/id/place:169687`.
