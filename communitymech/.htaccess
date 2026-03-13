@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# vocab/ end point
+RewriteRule ^vocab$ https://CultureBotAI.github.io/CommunityMech/
+RewriteRule ^vocab\/(.*)$ https://CultureBotAI.github.io/CommunityMech/ [R=301,L]
+
+# schema submodules
+RewriteRule ^schema\/(.*)$ https://raw.githubusercontent.com/CultureBotAI/CommunityMech/main/src/communitymech/ [R=301,L]
+
+# Schema artefacts use raw Github URLs
+# if suffix is yaml, redirect to LinkML YAML schema
+RewriteRule ^communitymech.yaml$ https://raw.githubusercontent.com/CultureBotAI/CommunityMech/main/src/communitymech/schema/communitymech.yaml [R=302,L]
+
+# if suffix is schema.json, redirect to JSON Schema
+RewriteRule ^communitymech.schema.json$ https://raw.githubusercontent.com/CultureBotAI/CommunityMech/main/project/jsonschema/communitymech.schema.json [R=302,L]
+
+# if suffix is owl, redirect to OWL
+RewriteRule ^communitymech.owl.ttl$ https://raw.githubusercontent.com/CultureBotAI/CommunityMech/main/project/owl/communitymech.owl.ttl [R=302,L]
+
+# Schema elements use Github Pages
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://CultureBotAI.github.io/CommunityMech/elements/ [R=302,L]
