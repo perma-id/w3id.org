@@ -41,7 +41,7 @@ Options -MultiViews +FollowSymLinks
 RewriteEngine on
 
 # Base targets for GitHub Pages (per-repo)
-SetEnvIf Request_URI ^.*$ BB_BASE=https://usgin.github.io/metadataBuildingBlocks
+SetEnvIf Request_URI ^.*$ BB_BASE=https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks
 SetEnvIf Request_URI ^.*$ ADA_BASE=https://usgin.github.io/geochemBuildingBlocks
 SetEnvIf Request_URI ^.*$ DDE_BASE=https://usgin.github.io/ddeBuildingBlocks
 SetEnvIf Request_URI ^.*$ ECRR_BASE=https://usgin.github.io/ecrrBuildingBlocks
@@ -61,6 +61,75 @@ SetEnvIf Request_URI ^.*$ ECRR_BASE=https://usgin.github.io/ecrrBuildingBlocks
 #   xasDiscovery/1.0 → xasProperties/xasOptional
 #   xasCore/1.0      → xasProperties/xasRequired
 # ============================================================
+
+# ---- Conformance URI sub-paths ----
+# These MUST come before the bare conformance URI rules so that
+# {component}/{version}/{resource} is matched before {component}/{version}
+
+# --- core/1.0 sub-paths → cdifMandatory ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^core/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.json [R=303,L]
+RewriteRule ^core/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.yaml [R=303,L]
+RewriteRule ^core/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifMandatory/resolvedSchema.json [R=303,L]
+RewriteRule ^core/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifMandatory/rules.shacl [R=303,L]
+RewriteRule ^core/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/context.jsonld [R=303,L]
+
+# --- discovery/1.0 sub-paths → cdifOptional ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^discovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifOptional/schema.json [R=303,L]
+RewriteRule ^discovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifOptional/schema.yaml [R=303,L]
+RewriteRule ^discovery/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^discovery/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifOptional/rules.shacl [R=303,L]
+RewriteRule ^discovery/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifOptional/context.jsonld [R=303,L]
+
+# --- data_description/1.0 sub-paths → cdifDataDescription ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_description/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifDataDescription/schema.json [R=303,L]
+RewriteRule ^data_description/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifDataDescription/schema.yaml [R=303,L]
+RewriteRule ^data_description/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifDataDescription/resolvedSchema.json [R=303,L]
+RewriteRule ^data_description/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifDataDescription/rules.shacl [R=303,L]
+RewriteRule ^data_description/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifDataDescription/context.jsonld [R=303,L]
+
+# --- manifest/1.0 sub-paths → cdifArchiveDistribution ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^manifest/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifArchiveDistribution/schema.json [R=303,L]
+RewriteRule ^manifest/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifArchiveDistribution/schema.yaml [R=303,L]
+RewriteRule ^manifest/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifArchiveDistribution/resolvedSchema.json [R=303,L]
+RewriteRule ^manifest/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifArchiveDistribution/rules.shacl [R=303,L]
+RewriteRule ^manifest/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifArchiveDistribution/context.jsonld [R=303,L]
+
+# --- provenance/1.0 sub-paths → cdifProvenance ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^provenance/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifProvenance/schema.json [R=303,L]
+RewriteRule ^provenance/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifProvenance/schema.yaml [R=303,L]
+RewriteRule ^provenance/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifProvenance/resolvedSchema.json [R=303,L]
+RewriteRule ^provenance/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/cdifProperties/cdifProvenance/rules.shacl [R=303,L]
+RewriteRule ^provenance/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/cdifProperties/cdifProvenance/context.jsonld [R=303,L]
+
+# --- xasDiscovery/1.0 sub-paths → xasOptional ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasOptional/schema.json [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasOptional/context.jsonld [R=303,L]
+
+# --- xasCore/1.0 sub-paths → xasRequired ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasRequired/schema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasRequired/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasRequired/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasRequired/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasRequired/context.jsonld [R=303,L]
+
+# ---- Conformance URI bare paths (content negotiation) ----
 
 # --- core/1.0 → cdifMandatory ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json
