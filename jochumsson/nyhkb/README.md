@@ -4,8 +4,8 @@ Persistent identifier for the NYHKB knowledge base by Thorvaldur Jochumsson, git
 
 Namespace: https://w3id.org/jochumsson/nyhkb
 
-Maintainer: Thorvaldur Jochumsson
-GitHub ID: jochumsson
+Maintainer: Thorvaldur Jochumsson <br>
+GitHub ID: jochumsson <br>
 GitHub profile: https://github.com/jochumsson
 
 Repository: https://github.com/jochumsson/h2hoa
