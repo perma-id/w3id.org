@@ -4,24 +4,57 @@
 Options +FollowSymLinks
 RewriteEngine on
 
-# Versioned MIN IRI (e.g. /min/1.0.0): RDF clients -> raw file at tag
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
-RewriteCond %{HTTP_ACCEPT} application/owl\+xml
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/lepy/min-ontology/refs/tags/v$1/min-v$1.ttl [R=303,L]
+# -----------------------------------------------------------------------------
+# Canonical class convenience IRIs
+#   /min/class/Typus -> https://w3id.org/min#Typus
+# Notes:
+# - Hash fragments are client-side and cannot be matched server-side.
+# - These slash IRIs are convenience aliases to canonical hash IRIs.
+# -----------------------------------------------------------------------------
+RewriteRule ^class/(Entity|Nexus|Object|Process|Data|Agent|Boundary|Forma|Lex|Structura|Possibile|Norma|Institutio|Typus)/?$ https://w3id.org/min#$1 [R=303,L]
 
-# Versioned MIN IRI: browser fallback
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/lepy/min-ontology/blob/v$1/min-v$1.ttl [R=303,L]
-
-# Canonical MIN IRI (/min): RDF clients -> current ontology
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
-RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+# -----------------------------------------------------------------------------
+# Canonical MIN IRI
+#   /min
+#   /min/
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} "(^|,|\s)(text/turtle|application/turtle|application/rdf\+xml|application/ld\+json|application/n-triples|application/owl\+xml)(\s*;[^,]*)?(,|$)" [NC]
 RewriteRule ^$ https://raw.githubusercontent.com/lepy/min-ontology/main/min.ttl [R=303,L]
 
-# Canonical MIN IRI (/min): browser fallback
+# Browser fallback for canonical IRI
 RewriteRule ^$ https://github.com/lepy/min-ontology [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Versioned MIN IRIs
+#   /min/3.3.0
+#   /min/3.3.0/
+#   /min/v3.3.0
+#   /min/v3.3.0/
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} "(^|,|\s)(text/turtle|application/turtle|application/rdf\+xml|application/ld\+json|application/n-triples|application/owl\+xml)(\s*;[^,]*)?(,|$)" [NC]
+RewriteRule ^v?([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lepy/min-ontology/refs/tags/v$1/min-v$1.ttl [R=303,L]
+
+# Browser fallback for versioned MIN IRI
+RewriteRule ^v?([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/lepy/min-ontology/blob/v$1/min-v$1.ttl [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Direct release-file IRIs (optional convenience)
+#   /min/min-v3.3.0.ttl
+#   /min/min_v3.3.0.ttl
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} "(^|,|\s)(text/turtle|application/turtle|application/rdf\+xml|application/ld\+json|application/n-triples|application/owl\+xml)(\s*;[^,]*)?(,|$)" [NC]
+RewriteRule ^min[-_]v?([0-9]+\.[0-9]+\.[0-9]+)\.ttl$ https://raw.githubusercontent.com/lepy/min-ontology/refs/tags/v$1/min-v$1.ttl [R=303,L]
+
+# Browser fallback for direct release-file IRI
+RewriteRule ^min[-_]v?([0-9]+\.[0-9]+\.[0-9]+)\.ttl$ https://github.com/lepy/min-ontology/blob/v$1/min-v$1.ttl [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Legacy OPA snapshot IRI (historical)
+#   /min/opa/1.0.0
+#   /min/opa/v1.0.0
+# -----------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} "(^|,|\s)(text/turtle|application/turtle|application/rdf\+xml|application/ld\+json|application/n-triples|application/owl\+xml)(\s*;[^,]*)?(,|$)" [NC]
+RewriteRule ^opa/v?([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lepy/min-ontology/refs/tags/v$1/opa-v$1.ttl [R=303,L]
+
+# Browser fallback for OPA IRI
+RewriteRule ^opa/v?([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/lepy/min-ontology/blob/v$1/opa-v$1.ttl [R=303,L]
