@@ -1,0 +1,25 @@
+# OpenCredentials — JSON-LD context and vocabulary
+#
+# Homepage: https://github.com/TinyCloudLabs/opencredentials
+#
+# Maintainers:
+#   - Sam Gbafa (@skgbafa)
+#
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type
+Options +FollowSymLinks
+RewriteEngine on
+
+# Serve JSON-LD context if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://spec.opencredentials.xyz/contexts/v1 [R=302,L]
+
+# Serve HTML documentation by default
+RewriteRule ^$ https://spec.opencredentials.xyz/ [R=302,L]
+
+# Versioned contexts
+RewriteRule ^v1$ https://spec.opencredentials.xyz/contexts/v1 [R=302,L]
+
+# Catch-all for sub-paths
+RewriteRule ^(.+)$ https://spec.opencredentials.xyz/$1 [R=302,L]
