@@ -1,0 +1,55 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# CELINE Core Ontology — https://w3id.org/celine-eu
+# Contact: https://github.com/celine-eu
+# Docs:    https://celine-eu.github.io/ontologies/
+
+AddType text/turtle                .ttl
+AddType application/rdf+xml        .owl
+AddType application/ld+json        .jsonld
+AddType application/n-triples      .nt
+
+# ── Ontology root IRI: https://w3id.org/celine-eu ──────────────────────────
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.nt [R=303,L]
+
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ [R=303,L]
+
+# ── Versioned IRI: https://w3id.org/celine-eu/vX.Y ─────────────────────────
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://celine-eu.github.io/ontologies/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/$1/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/$1/ontology.nt [R=303,L]
+
+RewriteRule ^(v[0-9]+\.[0-9]+)$ https://celine-eu.github.io/ontologies/ [R=303,L]
