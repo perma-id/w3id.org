@@ -11,4 +11,4 @@ validatable (SHACL), queryable (SPARQL), and AI-ready (MCP).
 
 ### Contact
 
-* Fred Robert Hauschel <info@hauschel.de> – https://github.com/naturzukunft
+* Fred Robert Hauschel <info@hauschel.de>
