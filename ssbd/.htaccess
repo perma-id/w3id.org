@@ -93,24 +93,25 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https:/
 ##########################################################################
 ##  IRIs to asserted ontologies (modules)
 ##########################################################################
+# Note the swap of order - we match for versionIRI before the unversioned IRI.
 
-# Source: https://w3id.org/ssbd/{PATH}/{MODULE}
-# Target: https://github.com/ssbd-ontology/core/main/{PATH}/{MODULE}
-RewriteRule ^([a-zA-Z).*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/main/$1/$2.ttl [R=303,NE,L]
-
-# Source: https://w3id.org/ssbd/{VERSION}/{PATH}/{MODULE}
+# Source: https://w3id.org/ssbd/core/{VERSION}/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/core/{VERSION}/{PATH}/{MODULE}
-RewriteRule ^([0-9][^/]*)/(.*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/main/$1/$2/$3.ttl [R=303,NE,L]
+RewriteRule ^core/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/$1$2/$3.ttl [R=303,NE,L]
 
-# Source: https://w3id.org/ssbd/domain/{DOMAIN}/{PATH}/{MODULE}
-# Target: https://github.com/ssbd-ontology/domain-{DOMAIN}/main/{PATH}/{MODULE}
-RewriteRule ^domain/(domain-)?([^/]+)/([a-zA-Z].*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/main/$3/$4.ttl [R=303,NE,L]
-RewriteRule ^application/(application-)?([^/]+)/([a-zA-Z].*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/main/$3/$4.ttl [R=303,NE,L]
+# Source: https://w3id.org/ssbd/core/{PATH}/{MODULE}
+# Target: https://github.com/ssbd-ontology/core/main/{PATH}/{MODULE}
+RewriteRule ^core(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/main$1/$2.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/domain-{DOMAIN}/{VERSION}/{PATH}/{MODULE}
-RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/([a-zA-Z].*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/$3/$4/$5.ttl [R=303,NE,L]
-RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([a-zA-Z].*)/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/$3/$4/$5.ttl [R=303,NE,L]
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/$3$4/$5.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/$3$4/$5.ttl [R=303,NE,L]
+
+# Source: https://w3id.org/ssbd/domain/{DOMAIN}/{PATH}/{MODULE}
+# Target: https://github.com/ssbd-ontology/domain-{DOMAIN}/main/{PATH}/{MODULE}
+RewriteRule ^domain/(domain-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/main$3/$4.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/main$3/$4.ttl [R=303,NE,L]
 
 
 ##########################################################################
