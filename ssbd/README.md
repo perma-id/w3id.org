@@ -10,8 +10,8 @@ Variable names used in the IRIs below.
 * **{VERSION}**: Version number. Must start with a digit, e.g. "0.5.3".
 * **{NAME}**: Name of SSbD domain or application ontology.
 * **{TERM}**: Final component of the IRI of an ontological concept.
-* **{PATH}**: Directory path.
-* **{MODULE}**: Name of a (sub-)ontology module.
+* **{PATH}**: Directory path. May be empty.
+* **{MODULE}**: Name of a (sub-)ontology module. Should be the file name with the .ttl extension stripped off.
 * **{CONTEXTNAME}**: Name of an additional JSON-LD context.
 * **{NAMESPACE}**: IRI to a namespace, see below.
 
@@ -46,8 +46,8 @@ If the request comes from a browser, the redirection will be to a html file, oth
 
 ### IRIs to asserted ontologies (modules)
 
-* https://w3id.org/ssbd/{PATH}/{MODULE} -> Module in the SSbD Core Ontology, latest
-* https://w3id.org/ssbd/{VERSION}/{PATH}/{MODULE} -> Module in the SSbD Core Ontology, latest
+* https://w3id.org/ssbd/core/{PATH}/{MODULE} -> Module in the SSbD Core Ontology, latest
+* https://w3id.org/ssbd/core/{VERSION}/{PATH}/{MODULE} -> Module in the SSbD Core Ontology, latest
 * https://w3id.org/ssbd/domain/{NAME}/{PATH}/{MODULE} -> Module in domain ontology, latest
 * https://w3id.org/ssbd/domain/{NAME}/{VERSION}/{PATH}/{MODULE} -> Module in domain ontology, given version
 * https://w3id.org/ssbd/application/{NAME}/{PATH}/{MODULE} -> Module in application ontology, latest
