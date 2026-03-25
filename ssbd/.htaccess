@@ -2,7 +2,7 @@
 # .htaccess file https://w3id.org/ssbd
 #
 # If testing interactively with https://htaccess.madewithlove.com/
-# remember to remove the initial "ssbd/" in the URL to test.
+# remember to remove the initial "/ssbd" in the URL to test.
 #
 ##########################################################################
 
@@ -20,8 +20,8 @@ RewriteEngine On
 # Target from browser: https://ssbd-ontology.github.io/core/core.html
 # Target, otherwise:   https://ssbd-ontology.github.io/core/core.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^/?$    https://ssbd-ontology.github.io/core.html [R=303,NE,L]
-RewriteRule ^/?$    https://ssbd-ontology.github.io/core.ttl [R=303,NE,L]
+RewriteRule ^/?$    https://ssbd-ontology.github.io/core/core.html [R=303,NE,L]
+RewriteRule ^/?$    https://ssbd-ontology.github.io/core/core.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/{VERSION}
 # Target from browser: https://ssbd-ontology.github.io/core/versions/{VERSION}/core.html
@@ -59,8 +59,8 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/?$ https://ssbd-ont
 # Target from browser: https://ssbd-ontology.github.io/core/core.html?section={TERM}
 # Target, otherwise:   https://ssbd-ontology.github.io/core/core.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core.html?section=$1 [R=303,NE,L]
-RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core/core.html?section=$1 [R=303,NE,L]
+RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core/core.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/{VERSION}/{TERM}
 # Target from browser: https://ssbd-ontology.github.io/core/versions/{VERSION}/core.html?section={TERM}
@@ -119,7 +119,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([a-zA-Z].*)/([^/]+
 
 # Source: {NAMESPACE}/html/
 # Target: HTML documentation on GitHub Pages
-RewriteRule ^html/$    https://ssbd-ontology.github.io/core.html [R=303,NE,L]
+RewriteRule ^html/$    https://ssbd-ontology.github.io/core/core.html [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/html/$    https://ssbd-ontology.github.io/core/versions/$1/core.html [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/html/$    https://ssbd-ontology.github.io/domain-$2/$2.html [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/html/$    https://ssbd-ontology.github.io/application-$2/$2.html [R=303,NE,L]
@@ -128,7 +128,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/html/$     https://
 
 # Source: {NAMESPACE}/turtle/
 # Target: Squashed turtle file on GitHub Pages
-RewriteRule ^turtle/$    https://ssbd-ontology.github.io/core.ttl [R=303,NE,L]
+RewriteRule ^turtle/$    https://ssbd-ontology.github.io/core/core.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/turtle/$    https://ssbd-ontology.github.io/core/versions/$1/core.ttl [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/turtle/$    https://ssbd-ontology.github.io/domain-$2/$2.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/turtle/$    https://ssbd-ontology.github.io/application-$2/$2.ttl [R=303,NE,L]
@@ -137,7 +137,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/turtle/$    https:/
 
 # Source: {NAMESPACE}/inferred/
 # Target: Inferred ontology on GitHub Pages
-RewriteRule ^inferred/$    https://ssbd-ontology.github.io/core-inferred.ttl [R=303,NE,L]
+RewriteRule ^inferred/$    https://ssbd-ontology.github.io/core/core-inferred.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/inferred/$    https://ssbd-ontology.github.io/core/versions/$1/core-inferred.ttl [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/inferred/$    https://ssbd-ontology.github.io/domain-$2/$2-inferred.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/inferred/$    https://ssbd-ontology.github.io/application-$2/$2-inferred.ttl [R=303,NE,L]
@@ -146,7 +146,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/inferred/$    https
 
 # Source: {NAMESPACE}/dependencies/
 # Target: Inferred ontology on GitHub Pages
-RewriteRule ^dependencies/$    https://ssbd-ontology.github.io/core-dependencies.ttl [R=303,NE,L]
+RewriteRule ^dependencies/$    https://ssbd-ontology.github.io/core/core-dependencies.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/dependencies/$    https://ssbd-ontology.github.io/core/versions/$1/core-dependencies.ttl [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/dependencies/$    https://ssbd-ontology.github.io/domain-$2/$2-dependencies.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/dependencies/$    https://ssbd-ontology.github.io/application-$2/$2-dependencies.ttl [R=303,NE,L]
@@ -155,7 +155,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/dependencies/$    h
 
 # Source: {NAMESPACE}/context/
 # Target: JSON-LD context on GitHub Pages
-RewriteRule ^context/$    https://ssbd-ontology.github.io/context/context.json [R=303,NE,L]
+RewriteRule ^context/$    https://ssbd-ontology.github.io/core/context/context.json [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/context/$    https://ssbd-ontology.github.io/core/versions/$1/context/context.json [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/context/$    https://ssbd-ontology.github.io/domain-$2/context/context.json [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/context/$    https://ssbd-ontology.github.io/application-$2/context/context.json [R=303,NE,L]
@@ -164,7 +164,7 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/context/$    https:
 
 # Source: {NAMESPACE}/context/{CONTEXTNAME}/
 # Target: JSON-LD context on GitHub Pages
-RewriteRule ^context/([^/]+)/$    https://ssbd-ontology.github.io/context/$1.json [R=303,NE,L]
+RewriteRule ^context/([^/]+)/$    https://ssbd-ontology.github.io/core/context/$1.json [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/context/([^/]+)/$    https://ssbd-ontology.github.io/core/versions/$1/context/$2.json [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/context/([^/]+)/$    https://ssbd-ontology.github.io/domain-$2/context/$3.json [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/context/([^/]+)/$    https://ssbd-ontology.github.io/application-$2/context/$3.json [R=303,NE,L]
