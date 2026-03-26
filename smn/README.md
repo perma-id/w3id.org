@@ -2,11 +2,12 @@
 
 Salmon Domain Ontology shared namespace (`smn:`).
 
-[`https://w3id.org/smn`](https://w3id.org/smn) is intended to be the persistent base for the shared Salmon Domain Ontology layer.
+[`https://w3id.org/smn`](https://w3id.org/smn) is the persistent base for the shared Salmon Domain Ontology layer.
 
 ## Canonical IRIs
 
 - Latest ontology IRI: `https://w3id.org/smn`
+- Version IRIs: `https://w3id.org/smn/X.Y.Z`
 - Term namespace: `https://w3id.org/smn/`
 - Module namespace: `https://w3id.org/smn/modules/<module-name>`
 - Research build: `https://w3id.org/smn/research`
@@ -16,18 +17,36 @@ Salmon Domain Ontology shared namespace (`smn:`).
   - `https://w3id.org/smn/profile/neville/`
   - `https://w3id.org/smn/profile/rda-case-study/`
 
-## Current redirect behavior
+## Redirect behavior
 
-This first registration uses conservative `303` redirects to the current published Turtle artifacts in the maintainer repository.
+This update makes the root and version IRIs follow the same content-negotiation pattern used by the live DFO Salmon Ontology redirects at `https://w3id.org/gcdfo/salmon`:
 
-It currently supports:
-- the main shared ontology
-- module paths
-- research and case-study builds
-- profile bridge paths
-- term-path redirects into the main shared graph
+- root IRI serves HTML by default
+- root IRI serves Turtle / RDF/XML / JSON-LD via the HTTP `Accept` header
+- version IRIs (`/X.Y.Z`) serve release HTML by default
+- version IRIs serve versioned Turtle / RDF/XML / JSON-LD via the HTTP `Accept` header
+- `/latest` is intentionally not part of this updated contract
 
-A future follow-up may replace these raw-GitHub Turtle redirects with the fuller DFO-style publication pattern (HTML/Turtle/RDFXML/JSON-LD plus versioned release redirects) once those public targets exist.
+Existing secondary surfaces remain supported and Turtle-first for now:
+
+- `/research`
+- `/rda-case-study`
+- `/modules/*`
+- `/profile/*`
+- term paths such as `/Stock`
+
+## Redirect targets
+
+GitHub Pages publication surface:
+
+- HTML docs (latest): `https://salmon-data-mobilization.github.io/salmon-domain-ontology/`
+- Turtle (latest): `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.ttl`
+- RDF/XML (latest): `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.owl`
+- JSON-LD (latest): `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.jsonld`
+- Version snapshot HTML: `https://salmon-data-mobilization.github.io/salmon-domain-ontology/releases/X.Y.Z/`
+- Version snapshot Turtle: `.../releases/X.Y.Z/smn.ttl`
+- Version snapshot RDF/XML: `.../releases/X.Y.Z/smn.owl`
+- Version snapshot JSON-LD: `.../releases/X.Y.Z/smn.jsonld`
 
 ## Maintainer repository
 
