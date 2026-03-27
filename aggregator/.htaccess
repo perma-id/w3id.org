@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect root directly to the external latest specification
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/aggregator-protocol/latest/ [R=302,L]
+
+# Redirect latest to the external specification
+RewriteRule ^latest/?$ https://spec.knows.idlab.ugent.be/aggregator-protocol/latest/ [R=302,L]
+
+# Redirect all/<id>/ to the matching external all/<id>/ path
+RewriteRule ^all/([^/]+)/?$ https://spec.knows.idlab.ugent.be/aggregator-protocol/all/$1/ [R=302,L]
