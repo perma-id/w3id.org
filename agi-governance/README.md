@@ -15,6 +15,7 @@ Persistent URI namespace for the AGI Governance Compliance Model vocabulary and 
 - Pablo Corona Fraga — pablo.coronaf@infotec.mx  
   INFOTEC, Mexico City, Mexico  
   ORCID: 0000-0001-5012-9468
+  Github username: pcoronaf
 
 - Amin M.E-A. Diab — adiab3@jhu.edu  
   Johns Hopkins University, Baltimore, MD, USA
