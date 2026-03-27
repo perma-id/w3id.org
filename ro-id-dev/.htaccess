@@ -129,10 +129,4 @@ RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activet
 # FAIR Signposting Level 2 discovery on w3id redirect responses
 # ----------------------------------------
 
-<IfModule mod_headers.c>
-    # Advertise one or two serializations of the Link Set.
-    # Replace these endpoints with your actual Link Set URLs.
-
-    Header always add Link "<https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/%{REDIRECT_ROID}e/linkset>; rel=\"linkset\"; type=\"application/linkset\"" "expr=-n %{reqenv:REDIRECT_SP} && -n %{reqenv:REDIRECT_ROID}"
-    Header always add Link "<https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/%{REDIRECT_ROID}e/linkset.json>; rel=\"linkset\"; type=\"application/linkset+json\"" "expr=-n %{reqenv:REDIRECT_SP} && -n %{reqenv:REDIRECT_ROID}"
-</IfModule>
+Header always add Link "<https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/%{REDIRECT_ROID}e/linkset.json>; rel=\"linkset\"; type=\"application/linkset+json\""
