@@ -19,21 +19,27 @@ Salmon Domain Ontology shared namespace (`smn:`).
 
 ## Redirect behavior
 
-This update makes the root and version IRIs follow the same content-negotiation pattern used by the live DFO Salmon Ontology redirects at `https://w3id.org/gcdfo/salmon`:
+Root and SemVer version IRIs keep the current DFO-style content negotiation contract:
 
 - root IRI serves HTML by default
 - root IRI serves Turtle / RDF/XML / JSON-LD via the HTTP `Accept` header
 - version IRIs (`/X.Y.Z`) serve release HTML by default
 - version IRIs serve versioned Turtle / RDF/XML / JSON-LD via the HTTP `Accept` header
-- `/latest` is intentionally not part of this updated contract
+- `/latest` is intentionally not part of this public contract
 
-Existing secondary surfaces remain supported and Turtle-first for now:
+Canonical shared-term IRIs are now human-friendly by default while still negotiable for machines:
+
+- browser/default request for `/Term` redirects to the matching WIDOCO anchor, e.g. `https://salmon-data-mobilization.github.io/salmon-domain-ontology/#/Escapement`
+- `Accept: text/turtle` on `/Term` redirects to the latest Turtle serialization
+- `Accept: application/rdf+xml` on `/Term` redirects to the latest RDF/XML serialization
+- `Accept: application/ld+json` on `/Term` redirects to the latest JSON-LD serialization
+
+Secondary surfaces remain supported and Turtle-first for now:
 
 - `/research`
 - `/rda-case-study`
 - `/modules/*`
 - `/profile/*`
-- term paths such as `/Stock`
 
 ## Redirect targets
 
@@ -47,6 +53,22 @@ GitHub Pages publication surface:
 - Version snapshot Turtle: `.../releases/X.Y.Z/smn.ttl`
 - Version snapshot RDF/XML: `.../releases/X.Y.Z/smn.owl`
 - Version snapshot JSON-LD: `.../releases/X.Y.Z/smn.jsonld`
+
+## Verification examples
+
+```bash
+curl -I https://w3id.org/smn/Escapement
+curl -I -H 'Accept: text/turtle' https://w3id.org/smn/Escapement
+curl -I -H 'Accept: application/rdf+xml' https://w3id.org/smn/Escapement
+curl -I -H 'Accept: application/ld+json' https://w3id.org/smn/Escapement
+```
+
+Expected after merge:
+
+- default term request → `303` to `https://salmon-data-mobilization.github.io/salmon-domain-ontology/#/Escapement`
+- Turtle → `303` to `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.ttl`
+- RDF/XML → `303` to `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.owl`
+- JSON-LD → `303` to `https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.jsonld`
 
 ## Maintainer repository
 
