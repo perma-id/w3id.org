@@ -23,70 +23,90 @@ RewriteRule ^$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/ [R=302,L]
 # ROHub user (imported)
 RewriteRule ^users/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/userprofile?username=$1 [R=302,L]
 
+# ----------------------------------------
 # Research Object resource
+# ----------------------------------------
+# landing-page view of a resource
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=content&resource=$2 [R=302,L]
-# download resource
-RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$2/download/ [R=302,L]
+RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=content&resource=$2 [R=302,L,E=ROID:$1,E=SP:1]
+# resource download via RO-scoped path
+RewriteRule ^(.*)/resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$2/download/ [R=302,L,E=ROID:$1,E=SP:1]
+# resource download via direct resource path
 RewriteRule ^resources/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/resources/$1/download/ [R=302,L]
 
+# ----------------------------------------
 # Research Object manifest body
-# download manifest
-RewriteRule ^(.*)/.ro/manifest.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
+# ----------------------------------------
+# download RO manifest body
+RewriteRule ^(.*)/.ro/manifest.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L,E=ROID:$1,E=SP:1]
 
-# Research Object evo info 
+# ----------------------------------------
+# Research Object evo info
+# ----------------------------------------
 # download evo info annotation
-RewriteRule ^(.*)/annotations/evo_info$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+RewriteRule ^(.*)/annotations/evo_info$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # download evo info body
-RewriteRule ^(.*)/.ro/evo_info.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L]
+RewriteRule ^(.*)/.ro/evo_info.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/evo_info/download/ [R=302,L,E=ROID:$1,E=SP:1]
 
-# Research Object enrichment info 
+# ----------------------------------------
+# Research Object enrichment info
+# ----------------------------------------
 # download enrichment annotation
-RewriteRule ^(.*)/annotations/enrichment$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+RewriteRule ^(.*)/annotations/enrichment$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # download enrichment body
-RewriteRule ^(.*)/.ro/annotations/enrichment.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L]
+RewriteRule ^(.*)/.ro/annotations/enrichment.ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/annotations/enrichment/download/ [R=302,L,E=ROID:$1,E=SP:1]
 
+# ----------------------------------------
 # Research Object annotation bodies
+# ----------------------------------------
 # download annotation body
-RewriteRule ^(.*)/.ro/annotations/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L]
+RewriteRule ^(.*)/.ro/annotations/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L,E=ROID:$1,E=SP:1]
 
+# ----------------------------------------
 # Research Object annotation
+# ----------------------------------------
 # download annotation
-RewriteRule ^(.*)/annotations/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L]
+RewriteRule ^(.*)/annotations/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$2/download/ [R=302,L,E=ROID:$1,E=SP:1]
 RewriteRule ^annotations/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/annotations/$1/download/ [R=302,L]
 
+# ----------------------------------------
 # Research Object folder
+# ----------------------------------------
 # folder manifest
-RewriteRule ^(.*)/folders/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2.ttl [R=302,L]
+RewriteRule ^(.*)/folders/(.*).ttl$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2.ttl [R=302,L,E=ROID:$1,E=SP:1]
 # download folder using path
-RewriteRule ^(.*)/folders/(.*)/$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2/download/ [R=302,L]
+RewriteRule ^(.*)/folders/(.*)/$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/folders/$2/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # download folder using identifier
-RewriteRule ^(.*)/folders/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$2/download/ [R=302,L]
+RewriteRule ^(.*)/folders/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$2/download/ [R=302,L,E=ROID:$1,E=SP:1]
 RewriteRule ^folders/(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/folders/$1/download/ [R=302,L]
 
-# Research Object activities
+# ----------------------------------------
+# Research Object activities / geolocation / research areas
+# ----------------------------------------
 # download activities
-RewriteRule ^(.*)/activities$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/activities/ [R=302,L]
+RewriteRule ^(.*)/activities$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/activities/ [R=302,L,E=ROID:$1,E=SP:1]
 
-# Research Object geolocation
 # download geolocation
-RewriteRule ^(.*)/geolocation$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/geolocation/ [R=302,L]
+RewriteRule ^(.*)/geolocation$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/geolocation/ [R=302,L,E=ROID:$1,E=SP:1]
 
-# Research Object research areas
 # download research areas
-RewriteRule ^(.*)/research-areas$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/research-areas/ [R=302,L]
+RewriteRule ^(.*)/research-areas$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/research-areas/ [R=302,L,E=ROID:$1,E=SP:1]
 
+# ----------------------------------------
 # Research Object crate
+# ----------------------------------------
 # download ro-crate
-RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L]
+RewriteRule ^(.*)/crate$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L,E=ROID:$1,E=SP:1]
 
-# Research Object
+# ----------------------------------------
+# Base RO PID with content negotiation
+# ----------------------------------------
 # download RO-Crate
 RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
-RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/crate/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # download SKG-IF
 RewriteCond %{HTTP_ACCEPT} ^.*application/vnd\.skgif\.ld\+json.*
-RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/skg-if/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/skg-if/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # download RO as RDF (manifest), ZIP or PDF
 RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
@@ -98,9 +118,21 @@ RewriteCond %{HTTP_ACCEPT} ^.*application/zip.* [OR]
 RewriteCond %{HTTP_ACCEPT} ^.*application/pdf.*
 # original
 # RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
-RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/$1/download/ [R=302,L,E=ROID:$1,E=SP:1]
 # else open RO in ROHub portal
 # RewriteCond %{HTTP_ACCEPT} text/html
 # original
 # RewriteRule ^(.*)$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]
-RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L]
+RewriteRule ^([^/]*)/?$ https://rohub2020-rohub.apps.paas-dev.psnc.pl/$1?activetab=overview [R=302,L,E=ROID:$1,E=SP:1]
+
+----------------------------------------
+# FAIR Signposting Level 2 discovery on w3id redirect responses
+# ----------------------------------------
+
+<IfModule mod_headers.c>
+    # Advertise one or two serializations of the Link Set.
+    # Replace these endpoints with your actual Link Set URLs.
+
+    Header always add Link "<https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/%{REDIRECT_ROID}e/linkset>; rel=\"linkset\"; type=\"application/linkset\"" "expr=-n %{reqenv:REDIRECT_SP} && -n %{reqenv:REDIRECT_ROID}"
+    Header always add Link "<https://rohub2020-rohub.apps.paas-dev.psnc.pl/api/ros/%{REDIRECT_ROID}e/linkset.json>; rel=\"linkset\"; type=\"application/linkset+json\"" "expr=-n %{reqenv:REDIRECT_SP} && -n %{reqenv:REDIRECT_ROID}"
+</IfModule>
