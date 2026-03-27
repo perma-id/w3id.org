@@ -7,4 +7,4 @@ This space is administered by:
 **Project:** DG-Assist <br>
 **Organization:** [dg-assist](https://github.com/dg-assist) <br>
 **Repository:** https://github.com/dg-assist/mqto <br>
-**Email:** Stefan Bischof [stefanbischof](https://github.com/stefanbischof/) ORCID: [0000-0001-9521-8907](https://orcid.org/0000-0001-9521-8907)
+**Email:** bischof.stefan@siemens.com - https://github.com/stefanbischof/ - [0000-0001-9521-8907](https://orcid.org/0000-0001-9521-8907)
