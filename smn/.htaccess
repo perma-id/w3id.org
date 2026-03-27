@@ -18,8 +18,10 @@
 # Pattern note:
 # - Root + version content negotiation below intentionally mirrors the live
 #   DFO Salmon Ontology (`/gcdfo/salmon/`) routing pattern.
-# - Research / case-study / module / profile / term paths remain Turtle-first.
-# - `/latest` is intentionally not part of this updated public contract.
+# - Canonical term IRIs now default to the WIDOCO HTML anchor for humans while
+#   still serving Turtle / RDF/XML / JSON-LD via `Accept`-based redirects.
+# - Research / case-study / module / profile paths remain Turtle-first.
+# - `/latest` is intentionally not part of this public contract.
 #
 # Maintainer repository:
 #   https://github.com/salmon-data-mobilization/salmon-domain-ontology
@@ -67,4 +69,16 @@ RewriteRule ^modules/([A-Za-z0-9._-]+)/?$ https://raw.githubusercontent.com/salm
 RewriteRule ^profile/hakai/?$ https://raw.githubusercontent.com/salmon-data-mobilization/salmon-domain-ontology/main/ontology/modules/08-rda-case-study-profile-bridges.ttl [R=303,L]
 RewriteRule ^profile/neville/?$ https://raw.githubusercontent.com/salmon-data-mobilization/salmon-domain-ontology/main/ontology/modules/09-rda-neville-decomposition-profile-bridges.ttl [R=303,L]
 RewriteRule ^profile/rda-case-study/?$ https://raw.githubusercontent.com/salmon-data-mobilization/salmon-domain-ontology/main/ontology/salmon-domain-ontology-rda-case-study.ttl [R=303,L]
-RewriteRule ^[A-Za-z0-9._-]+/?$ https://raw.githubusercontent.com/salmon-data-mobilization/salmon-domain-ontology/main/ontology/salmon-domain-ontology.ttl [R=303,L]
+
+# Canonical shared-term IRIs: human-friendly by default, negotiable for machines
+# -------------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([A-Za-z0-9._-]+)/?$ https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([A-Za-z0-9._-]+)/?$ https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([A-Za-z0-9._-]+)/?$ https://salmon-data-mobilization.github.io/salmon-domain-ontology/smn.jsonld [R=303,L]
+
+RewriteRule ^([A-Za-z0-9._-]+)/?$ https://salmon-data-mobilization.github.io/salmon-domain-ontology/#/$1 [NE,R=303,L]
