@@ -3,7 +3,7 @@
 - **Description**: Persistent identifiers for the SMT Library, its ontology and knowledge graph.
 - **Project URL**: https://hexwitches.github.io/semantic-tarot-library/
 - **Maintainers**: 
-  - [hexWitches] (https://github.com/hexWitches)
+  - [hexWitches](https://github.com/hexWitches)
 - **Status**: Active
 
 This directory provides redirection for:
@@ -13,4 +13,4 @@ This directory provides redirection for:
 
 ## Contact
 For issues or updates regarding these identifiers, please contact 
-[mir-pin] (https://github.com/mir-pin) or [sararoggi] (https://github.com/sararoggi) via GitHub.
+[mir-pin](https://github.com/mir-pin) or [sararoggi](https://github.com/sararoggi) via GitHub.
