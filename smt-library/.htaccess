@@ -1,6 +1,5 @@
 ### 1. Enable Rewriting
 RewriteEngine On
-RewriteBase /smt-library/
 
 ### 2. Redirect for the Ontology
 # Request: https://w3id.org/smt-library/ontology
@@ -8,9 +7,12 @@ RewriteRule ^ontology$ https://hexwitches.github.io/semantic-tarot-library/ontol
 
 ### 3. Redirect for the Knowledge Graph
 # Request: https://w3id.org/smt-library/graph
-RewriteRule ^graph$ https://hexwitches.github.io/semantic-tarot-library/ontology/smtGraph.ttl [R=303,L]
+RewriteRule ^graph(.*)$ https://hexwitches.github.io/semantic-tarot-library/ontology/smtGraph.ttl [R=303,L]
 
-### 4. Redirect for the Website
+### 4. Redirect for the Website Pages
+# Request: https://w3id.org/smt-library/page
+RewriteRule ^([^/.]+)$ https://hexwitches.github.io/semantic-tarot-library/website/$1.html [R=303,L]
+
+### 5. Redirect for the Website
 # Request: https://w3id.org/smt-library/
-RewriteRule ^([^/.]+)$ website/$1.html [R=301,L]
-RewriteRule ^$ https://hexwitches.github.io/semantic-tarot-library/ [R=301,L]
+RewriteRule ^$ https://hexwitches.github.io/semantic-tarot-library/ [R=303,L]
