@@ -1,10 +1,56 @@
 # OCCO - Occupant-Centric Control Ontology
+# Namespace: https://w3id.org/occo#
 # Contact: Saif Alramahi (@saiframahii) <saif.alramahi@mail.bcu.ac.uk>
-# Repository: https://github.com/saiframahii/occo
+# Repository: https://github.com/saiframahii/saiframahii.github.io
 
 Options +FollowSymLinks
 RewriteEngine on
 
-# Redirect to ontology landing page
-RewriteRule ^$ https://saiframahii.github.io/occo/ [R=302,L]
-RewriteRule ^(.*)$ https://saiframahii.github.io/occo/$1 [R=302,L]
+# ---------------------------------------------------------------------------
+# https://w3id.org/occo/0.0.2  — version IRI (frozen release)
+# ---------------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^0\.0\.2/?$ https://saiframahii.github.io/occo/releases/0.0.2/occo.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^0\.0\.2/?$ https://saiframahii.github.io/occo/releases/0.0.2/occo.rdf [R=303,L]
+
+# HTML / default
+RewriteRule ^0\.0\.2/?$ https://saiframahii.github.io/occo/index-en.html [R=303,L]
+
+# ---------------------------------------------------------------------------
+# https://w3id.org/occo  — base URI (latest version)
+# ---------------------------------------------------------------------------
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://saiframahii.github.io/occo/ontology.jsonld [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://saiframahii.github.io/occo/occo.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://saiframahii.github.io/occo/occo.rdf [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://saiframahii.github.io/occo/ontology.nt [R=303,L]
+
+# OWL/XML
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://saiframahii.github.io/occo/ontology.owl [R=303,L]
+
+# HTML / browser default
+RewriteRule ^$ https://saiframahii.github.io/occo/index-en.html [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Pass-through for all sub-paths (evaluation, provenance, releases, etc.)
+# ---------------------------------------------------------------------------
+RewriteRule ^(.+)$ https://saiframahii.github.io/occo/$1 [R=303,L]
