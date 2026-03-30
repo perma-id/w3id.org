@@ -9,71 +9,150 @@ RewriteEngine on
 
 # Repo: oaknational/oak-curriculum-ontology
 
-# ----------------------------------------------------------------------
+# ======================================================================
 # ONTOLOGY (https://w3id.org/uk/oak/curriculum/ontology/)
-# ----------------------------------------------------------------------
+# ======================================================================
 
 # HTML requests → GitHub Pages documentation
 RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
 RewriteRule ^ontology/?$ https://oaknational.github.io/oak-curriculum-ontology/ [R=303,L]
 
-# RDF requests → raw TTL file
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-ontology.ttl [R=303,L]
+# Versioned ontology IRIs (used in owl:versionIRI)
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/versions/oak-curriculum-ontology-$1.ttl [R=303,L]
 
-# Explicit .ttl extension
-RewriteRule ^ontology\.ttl$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-ontology.ttl [R=303,L]
+# Main ontology file - with and without .ttl extension
+RewriteRule ^ontology(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-ontology.ttl [R=303,L]
 
-# ----------------------------------------------------------------------
+# ======================================================================
 # SHACL CONSTRAINTS (https://w3id.org/uk/oak/curriculum/ontology/shapes/)
-# ----------------------------------------------------------------------
+# ======================================================================
 
-RewriteRule ^ontology/shapes/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-constraints.ttl [R=303,L]
-RewriteRule ^ontology/shapes\.ttl$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-constraints.ttl [R=303,L]
+# Versioned constraints
+RewriteRule ^ontology/shapes/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/versions/oak-curriculum-constraints-$1.ttl [R=303,L]
 
-# ----------------------------------------------------------------------
+# Main constraints file - with and without .ttl extension
+RewriteRule ^ontology/shapes(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/oak-curriculum-constraints.ttl [R=303,L]
+
+# ======================================================================
 # NATIONAL CURRICULUM DATA (https://w3id.org/uk/oak/curriculum/nationalcurriculum/)
 # Used for: phases, key stages, subjects, strands etc
-# ----------------------------------------------------------------------
-
-# Temporal structure (phases, key stages, year groups)
-RewriteRule ^nationalcurriculum/temporal-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/temporal-structure.ttl [R=303,L]
-
-# Science-related programme structure (biology, chemistry, physics, combined-science, science)
-RewriteRule ^nationalcurriculum/(biology|chemistry|physics|combined-science|science)-programme-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-programme-structure.ttl [R=303,L]
-
-# Science-related knowledge taxonomy (biology, chemistry, physics)
-RewriteRule ^nationalcurriculum/(biology|chemistry|physics)-knowledge-taxonomy/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-knowledge-taxonomy.ttl [R=303,L]
-
-# Other subjects programme structure (citizenship, english, geography, history, mathematics)
-RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-programme-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-programme-structure.ttl [R=303,L]
-
-# Other subjects knowledge taxonomy (citizenship, english, geography, history, mathematics)
-RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-knowledge-taxonomy/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-knowledge-taxonomy.ttl [R=303,L]
+# ======================================================================
 
 # ----------------------------------------------------------------------
+# Temporal Structure
+# ----------------------------------------------------------------------
+
+# Versioned temporal structure
+RewriteRule ^nationalcurriculum/temporal-structure/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/versions/temporal-structure-$1.ttl [R=303,L]
+
+# Main temporal structure file - with and without .ttl extension
+RewriteRule ^nationalcurriculum/temporal-structure(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/temporal-structure.ttl [R=303,L]
+
+# Namespace root
+RewriteRule ^nationalcurriculum/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/temporal-structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Science-related Programme Structure (biology, chemistry, physics, combined-science, science)
+# ----------------------------------------------------------------------
+
+# Versioned
+RewriteRule ^nationalcurriculum/(biology|chemistry|physics|combined-science|science)-programme-structure/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/versions/$2/$1-programme-structure-$2.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^nationalcurriculum/(biology|chemistry|physics|combined-science|science)-programme-structure(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-programme-structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Science-related Knowledge Taxonomy (biology, chemistry, physics)
+# ----------------------------------------------------------------------
+
+# Versioned
+RewriteRule ^nationalcurriculum/(biology|chemistry|physics)-knowledge-taxonomy/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/versions/$2/$1-knowledge-taxonomy-$2.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^nationalcurriculum/(biology|chemistry|physics)-knowledge-taxonomy(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-knowledge-taxonomy.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Other Subjects Programme Structure (citizenship, english, geography, history, mathematics)
+# ----------------------------------------------------------------------
+
+# Versioned
+RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-programme-structure/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/versions/$2/$1-programme-structure-$2.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-programme-structure(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-programme-structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Other Subjects Knowledge Taxonomy (citizenship, english, geography, history, mathematics)
+# ----------------------------------------------------------------------
+
+# Versioned
+RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-knowledge-taxonomy/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/versions/$2/$1-knowledge-taxonomy-$2.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^nationalcurriculum/(citizenship|english|geography|history|mathematics)-knowledge-taxonomy(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-knowledge-taxonomy.ttl [R=303,L]
+
+# ======================================================================
 # OAK CURRICULUM DATA (https://w3id.org/uk/oak/curriculum/oakcurriculum/)
 # Used for: programmes, units, lessons, key learning points etc
+# ======================================================================
+
+# ----------------------------------------------------------------------
+# Programme Structure (Oak-specific)
 # ----------------------------------------------------------------------
 
-# Programme structure (Oak-specific)
-RewriteRule ^oakcurriculum/programme-structure/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/programme-structure.ttl [R=303,L]
+# Versioned
+RewriteRule ^oakcurriculum/programme-structure/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/versions/programme-structure-$1.ttl [R=303,L]
 
+# Main file - with and without .ttl extension
+RewriteRule ^oakcurriculum/programme-structure(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/programme-structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
 # Threads
-RewriteRule ^oakcurriculum/threads/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/threads.ttl [R=303,L]
+# ----------------------------------------------------------------------
 
-# Science KS4 files (biology, chemistry, physics, combined science)
-RewriteRule ^oakcurriculum/(biology|chemistry|physics|combined-science)-key-stage-([0-9]+)/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-key-stage-$2.ttl [R=303,L]
+# Versioned
+RewriteRule ^oakcurriculum/threads/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/versions/threads-$1.ttl [R=303,L]
 
+# Main file - with and without .ttl extension
+RewriteRule ^oakcurriculum/threads(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/threads.ttl [R=303,L]
+
+# Namespace root
+RewriteRule ^oakcurriculum/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/programme-structure.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Science KS4 files (biology, chemistry, physics, combined-science)
+# ----------------------------------------------------------------------
+
+# Versioned
+RewriteRule ^oakcurriculum/(biology|chemistry|physics|combined-science)-key-stage-([0-9]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/versions/$3/$1-key-stage-$2-$3.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^oakcurriculum/(biology|chemistry|physics|combined-science)-key-stage-([0-9]+)(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/$1-key-stage-$2.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
 # Science KS1-KS3 files (science)
-RewriteRule ^oakcurriculum/science-key-stage-([0-9]+)/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/science-key-stage-$1.ttl [R=303,L]
+# ----------------------------------------------------------------------
 
+# Versioned
+RewriteRule ^oakcurriculum/science-key-stage-([0-9]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/versions/$2/science-key-stage-$1-$2.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^oakcurriculum/science-key-stage-([0-9]+)(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/science/science-key-stage-$1.ttl [R=303,L]
+
+# ----------------------------------------------------------------------
 # Other subjects key stage files (citizenship, english, geography, history, mathematics)
-RewriteRule ^oakcurriculum/(citizenship|english|geography|history|mathematics)-key-stage-([0-9]+)/?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-key-stage-$2.ttl [R=303,L]
+# ----------------------------------------------------------------------
 
-# ----------------------------------------------------------------------
+# Versioned
+RewriteRule ^oakcurriculum/(citizenship|english|geography|history|mathematics)-key-stage-([0-9]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/versions/$3/$1-key-stage-$2-$3.ttl [R=303,L]
+
+# Main file - with and without .ttl extension
+RewriteRule ^oakcurriculum/(citizenship|english|geography|history|mathematics)-key-stage-([0-9]+)(\.ttl)?$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/subjects/$1/$1-key-stage-$2.ttl [R=303,L]
+
+# ======================================================================
 # DISTRIBUTIONS (content negotiation for full dataset)
-# ----------------------------------------------------------------------
+# ======================================================================
 
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
@@ -94,14 +173,26 @@ RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-onto
 # Default → Turtle
 RewriteRule ^distributions/?$ https://github.com/oaknational/oak-curriculum-ontology/releases/latest/download/oak-curriculum-full.ttl [R=303,L]
 
-# ----------------------------------------------------------------------
-# ROOT NAMESPACE
-# ----------------------------------------------------------------------
+# ======================================================================
+# FALLBACK - Repository root and other files
+# ======================================================================
 
-# HTML → GitHub repo
+# Ontology fallback - any unmatched ontology/* paths
+RewriteRule ^ontology/(.+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/ontology/$1 [R=303,L]
+
+# National curriculum fallback - any unmatched nationalcurriculum/* paths
+RewriteRule ^nationalcurriculum/(.+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/$1 [R=303,L]
+
+# Oak curriculum fallback - any unmatched oakcurriculum/* paths
+RewriteRule ^oakcurriculum/(.+)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/data/$1 [R=303,L]
+
+# Root namespace - HTML → GitHub repo
 RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} Mozilla [NC]
 RewriteRule ^$ https://github.com/oaknational/oak-curriculum-ontology [R=303,L]
 
-# Default → repo
+# Root namespace - Default → repo
 RewriteRule ^$ https://github.com/oaknational/oak-curriculum-ontology [R=303,L]
+
+# Final catch-all for anything else
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/oaknational/oak-curriculum-ontology/main/$1 [R=303,L]
