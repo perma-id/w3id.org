@@ -6,6 +6,7 @@ RewriteEngine on
 RewriteRule .* - [E=BASE:https://hse-ucd.github.io/hse-ontology]
 RewriteRule .* - [E=LATEST:latest]
 RewriteRule .* - [E=TERMINOLOGY:https://hse-ucd.github.io/hse-terminology]
+RewriteRule .* - [E=DATAPORTAL:https://hse-ucd.github.io/hse-data-portal]
 
 RewriteRule ^$ https://hse-ucd.github.io/ [R=302,L]
 
@@ -36,3 +37,15 @@ RewriteRule ^terminology/(\d+\.\d+\.\d+)/$ %{ENV:TERMINOLOGY}/$1/ [NE,R=302,L]
 # terminology latest
 RewriteRule ^terminology$ %{ENV:TERMINOLOGY}/ [NE,R=302,L]
 RewriteRule ^terminology/$ %{ENV:TERMINOLOGY}/ [NE,R=302,L]
+
+# @prefix indicator: <https://w3id.org/hse/indicator/>
+# indicator: https://w3id.org/hse/indicator/hse0000042
+RewriteRule ^indicator/(.+)$ %{ENV:DATAPORTAL}/indicator/$1/ [NE,R=302,L]
+
+# @prefix indicator-group: <https://w3id.org/hse/indicator-group/>
+# indicator-group: https://w3id.org/hse/indicator-group/hse0001001
+RewriteRule ^indicator-group/(.+)$ %{ENV:DATAPORTAL}/indicator-group/$1/ [NE,R=302,L]
+
+# @prefix dataset: <https://w3id.org/hse/dataset/>
+# dataset: https://w3id.org/hse/dataset/AGS01/
+RewriteRule ^dataset/(.+)$ %{ENV:DATAPORTAL}/dataset/$1/ [NE,R=302,L]
