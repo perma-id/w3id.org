@@ -1,20 +1,22 @@
-# Déclare le type MIME pour RDF/XML
-AddType application/rdf+xml .rdf .xml
+# Declare MIME type for RDF/XML
+AddType application/rdf+xml .rdf 
 
-# Active le moteur de réécriture
+# Enable rewrite engine
 RewriteEngine On
 
-# ---- Version HTML via LODE avec reasoner pour les navigateurs ----
-# Détecte tout navigateur humain via User-Agent classique
+# ---- HTML version via LODE with reasoner (for human users / browsers) ----
+# Detect browsers via Accept headers and User-Agent
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} (Mozilla|Chrome|Safari|Edge|Opera) [NC]
-RewriteRule ^ucomm$ https://w3id.org/lode/reasoner/https://raw.githubusercontent.com/fazia97/ucomm-ontology/main/ucommXML.rdf [R=303,L]
 
-# ---- Version RDF/XML si demandé par un client RDF (Protégé, script, robot) ----
+# Redirect to LODE with OWLAPI preprocessing and reasoning
+RewriteRule ^ucomm$ https://w3id.org/lode/owlapi/reasoner/https://raw.githubusercontent.com/fazia97/ucomm-ontology/main/ucommXML.rdf [R=303,L]
+
+# ---- RDF/XML version for semantic web clients (Protégé, scripts, etc.) ----
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^ucomm$ https://raw.githubusercontent.com/fazia97/ucomm-ontology/main/ucommXML.rdf [R=303,L]
 
-# ---- Fallback par défaut sur RDF/XML ----
+# ---- Default fallback: serve RDF/XML ----
 RewriteRule ^ucomm$ https://raw.githubusercontent.com/fazia97/ucomm-ontology/main/ucommXML.rdf [R=303,L]
