@@ -18,3 +18,7 @@ UNSW Centre for Ecosystem Science (https://www.unsw.edu.au/research/ecosystem)
 University of New South Wales, Sydney, Australia  
 GitHub: [@ces-unsw-edu-au](https://github.com/ces-unsw-edu-au)
 
+# Maintainer
+j.ferrer@unsw.edu.de (@jrfep)
+
+
