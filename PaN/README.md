@@ -14,3 +14,4 @@ This repository manages persistent HTTP identifiers (PIDs) under `w3id.org/PaN/`
 * Nadine Fischer (nadine.fischer@esrf.fr), ESRF, France
 * Heike Görzig (heike.goerzig@helmholtz-berlin.de), [Helmholtz Zentrum Berlin](https://www.helmholtz-berlin.de/), Germany, [@hgoerzig](https://github.com/hgoerzig)
 * Aaron Brewster (NIAC Chair) (nexus-committee@nexusformat.org), [Lawrence Berkeley National Laboratory](https://www.lbl.gov/), USA
+* Paul Millar (paul.millar@desy.de), [Deutsches Elektronen-Synchrotron (DESY)](https://desy.de/), Germany, [@paulmillar](https://github.com/paulmillar)
