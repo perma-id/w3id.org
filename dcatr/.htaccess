@@ -1,0 +1,48 @@
+# /dcatr/
+#
+# DCAT-R (Data Catalog Vocabulary for RDF Repositories)
+# https://w3id.org/dcatr redirects to https://dcat-r.github.io/spec/
+#
+# ## Contact
+# This space is administered by:
+#
+# Marcel Otto
+# marcelotto@gmx.de
+# GitHub username: marcelotto
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Content negotiation for https://w3id.org/dcatr ---
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://dcat-r.github.io/spec/dcatr.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://dcat-r.github.io/spec/dcatr.jsonld [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://dcat-r.github.io/spec/dcatr.rdf [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://dcat-r.github.io/spec/dcatr.nt [R=303,NE,L]
+
+# HTML (explicit)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://dcat-r.github.io/spec/ [R=303,NE,L]
+
+# Default: HTML
+RewriteRule ^$ https://dcat-r.github.io/spec/ [R=303,NE,L]
+
+# --- Direct file access ---
+RewriteRule ^dcatr\.ttl$ https://dcat-r.github.io/spec/dcatr.ttl [R=303,NE,L]
+RewriteRule ^dcatr\.nt$ https://dcat-r.github.io/spec/dcatr.nt [R=303,NE,L]
+RewriteRule ^dcatr\.rdf$ https://dcat-r.github.io/spec/dcatr.rdf [R=303,NE,L]
+RewriteRule ^dcatr\.jsonld$ https://dcat-r.github.io/spec/dcatr.jsonld [R=303,NE,L]
+RewriteRule ^context\.jsonld$ https://dcat-r.github.io/spec/context.jsonld [R=303,NE,L]

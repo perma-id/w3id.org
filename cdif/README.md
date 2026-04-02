@@ -4,9 +4,51 @@ Redirect home for Cross-Domain Interoperability Framework identifier redirects.
 
 [`https://w3id.org/cdif`](https://w3id.org/cdif/) redirects to [`https://cdif.codata.org/`](https://cdif.codata.org/).
 
+## Conformance URIs
+
+CDIF specification components have persistent conformance URIs that metadata records declare in `dcterms:conformsTo`:
+
+| URI | Specification Component |
+|-----|------------------------|
+| `https://w3id.org/cdif/core/1.0/` | CDIF Core (mandatory properties) |
+| `https://w3id.org/cdif/discovery/1.0/` | CDIF Discovery (optional properties) |
+| `https://w3id.org/cdif/data_description/1.0/` | CDIF Data Description |
+| `https://w3id.org/cdif/manifest/1.0/` | CDIF Manifest (archive distribution) |
+| `https://w3id.org/cdif/provenance/1.0/` | CDIF Provenance |
+| `https://w3id.org/cdif/xasDiscovery/1.0/` | CDIF XAS Discovery |
+| `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core |
+
+Each conformance URI supports the same content negotiation as building block identifiers (see below). The default (browser) redirect goes to the corresponding building block landing page.
+
+```bash
+# Landing page (browser default)
+curl -L https://w3id.org/cdif/core/1.0/
+
+# JSON Schema
+curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/core/1.0/
+
+# YAML Schema
+curl -L -H "Accept: application/yaml" https://w3id.org/cdif/core/1.0/
+
+# SHACL rules
+curl -L -H "Accept: text/turtle" https://w3id.org/cdif/core/1.0/
+
+# JSON-LD context
+curl -L -H "Accept: application/ld+json" https://w3id.org/cdif/core/1.0/
+```
+
 ## Building Block Identifiers
 
-CDIF metadata building blocks have persistent identifiers under `https://w3id.org/cdif/bbr/metadata/`. Each building block maps to the OGC Building Blocks identifier `cdif.bbr.metadata.{category}.{name}`.
+CDIF metadata building blocks have persistent identifiers under `https://w3id.org/cdif/bbr/metadata/`. Building blocks are hosted across multiple repositories:
+
+| Category | Repository | Identifier Prefix |
+|----------|-----------|-------------------|
+| `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties` | [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks) | `cdif.bbr.metadata.` |
+| `adaProperties`, `adaProfiles` | [geochemBuildingBlocks](https://github.com/usgin/geochemBuildingBlocks) | `ada.bbr.metadata.` |
+| `DDEproperties`, `DDEProfiles` | [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) | `dde.bbr.metadata.` |
+| `ecrrProperties`, `ecrrProfiles` | [ecrrBuildingBlocks](https://github.com/usgin/ecrrBuildingBlocks) | `ecrr.bbr.metadata.` |
+
+All share the same URI pattern `https://w3id.org/cdif/bbr/metadata/{category}/{name}` but redirect to different GitHub Pages hosts based on the category.
 
 ### Content negotiation on the BB URI
 
@@ -39,7 +81,11 @@ These always resolve to the named resource regardless of `Accept` header:
 
 ### Categories
 
-`schemaorgProperties`, `cdifProperties`, `adaProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties`, `DDEproperties`, `ecrrProperties`
+Core: `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties`
+
+Domain-specific (separate repos): `adaProperties`, `DDEproperties`, `ecrrProperties`
+
+Profiles: `cdifProfiles`, `adaProfiles`, `DDEProfiles`, `ecrrProfiles`
 
 ### Examples
 
