@@ -2,7 +2,7 @@
 
 ## What is the MARS Ontology ?
 
-In systems engineering, functional requirements are often subject to analysis and optimisation. Less formalized aspects, such as maintainability, play a major role in system quality but are, nevertheless, often addressed late in system development, resulting in cost overruns. To establish the semantic links between maintainability requirements and optimization tools such as Multidisciplinary Design Analysis and Optimization (MDAO) matrices, we propose a dedicated ontology: MARS (Maintainability and Architecture Requirements of Systems).
+In systems engineering, functional requirements are often subject to analysis and optimisation. Less formalized aspects, such as maintainability, play a major role in system quality but are, nevertheless, often addressed late in system development, resulting in cost overruns. To establish semantic links between maintainability requirements and optimization tools such as Multidisciplinary Design Analysis and Optimization (MDAO) matrices, we propose a dedicated ontology: MARS (Maintainability and Architecture Requirements of Systems).
 
 Ontology documentation redirection: https://w3id.org/mars -> https://www.irit.fr/recherches/MELODI/ontologies/mars/
 
