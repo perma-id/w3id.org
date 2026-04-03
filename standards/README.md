@@ -15,12 +15,16 @@ of the above organizations.
 > if you wish to register redirections for your projects
 > please contact the IEC and ISO maintainers mentioned below.
 
-The first project to rely on ```w3id``` instead of ```purl``` URLs is
-[IEC/ISO SMART](https://www.iso.org/smart).
+The first project to rely on ```w3id``` instead of ```purl``` URLs is [IEC/ISO SMART](https://www.iso.org/smart).
 
 Allowed maintainers of the "/standards" identifier are:
 
-- For ISO: Laurent Tettoni, tettoni@iso.org, github: [ltettoni](https://github.com/ltettoni)
-- For IEC: Stéphane da Costa Silva, sco@iec.ch, github: [stephanecosta](https://github.com/stephanecosta)
-- On behalf of IEC: Mikalai Zubok, Mikalai_Zubok@epam.com, github: [mzubok](https://github.com/mzubok)
-- For CCMC (the [CEN-CENELEC Management Centre](https://www.cencenelec.eu/management-centre/)): Eric Cornez, ecornez@cencenelec.eu
+- For IEC/ISO's Single Delivery Unit:
+  - Mohameth François Sy, sy@smartsdu.org, github: [MFSY](https://github.com/MFSY)
+  - Panagiotis Mitzias, ext-mitzias@smartsdu.org, github: [panmitz](https://github.com/panmitz)
+- For ISO: 
+  - Laurent Tettoni, tettoni@iso.org, github: [ltettoni](https://github.com/ltettoni)
+- For IEC:
+  - Stéphane da Costa Silva, sco@iec.ch, github: [stephanecosta](https://github.com/stephanecosta)
+- For CCMC (the [CEN-CENELEC Management Centre](https://www.cencenelec.eu/management-centre/)):
+  - Eric Cornez, ecornez@cencenelec.eu
