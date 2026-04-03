@@ -11,8 +11,8 @@ used by IT solutions specified and implemented by joint projects
 of the above organizations.
 
 > [!NOTE]
-> Administrators of other globally-scoped Standards Development Organizations,
-> if you wish to register redirections for your projects
+> Administrators of other globally-scoped Standards Development Organizations:
+> if you wish to register redirections for your projects,
 > please contact the IEC and ISO maintainers mentioned below.
 
 The first project to rely on ```w3id``` instead of ```purl``` URLs is [IEC/ISO SMART](https://www.iso.org/smart).
