@@ -1,14 +1,21 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# Default landing page (human-readable)
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
+
+# HTML fallback
+RewriteCond %{HTTP_ACCEPT} !text/turtle
 RewriteRule ^$ https://earthportal.eu/ontologies/OSO [R=302,L]
 
-# Turtle serialization
-RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/develop/OSO.ttl [R=302,L]
+# Explicit Turtle serialization
+RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
 
-# VoID
-RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/develop/void.ttl [R=302,L]
+# Metadata artifacts
+RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/void.ttl [R=302,L]
+RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/dcat.ttl [R=302,L]
 
-# DCAT
-RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/develop/dcat.ttl [R=302,L]
+# Future endpoints
+# RewriteRule ^sparql/?$ https://ton-endpoint/sparql [R=302,L]
+# RewriteRule ^yasgui/?$ https://ton-yasgui/ [R=302,L]
