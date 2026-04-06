@@ -1,17 +1,9 @@
-> [!IMPORTANT]
-> The ontology name and its directory have been updated. Previously **EDAAnOWL**, now **AgoraOWL**.
-> The ontology name and its directory have been updated. Previously **EDAAnOWL**, it is now **AgoraOWL**.
-
-> [!NOTE] 
-> The **EDAAnOWL** PermaID remains the same and now references **AgoraOWL**.
-
-
 # AgoraOWL
 
-**Persistent identifier (PID) home** for the EDAAnOWL ontology and related resources.
+**Persistent identifier (PID) home** for the AgoraOWL ontology and related resources.
 
 This directory hosts the redirection rules (via `.htaccess`) that resolve the PID
-<https://w3id.org/EDAAnOWL> and its associated versions and vocabularies.
+<https://w3id.org/AgoraOWL> and its associated versions and vocabularies.
 
 ## 🔗 Resolvable Resources
 
@@ -20,12 +12,11 @@ The redirection rules point to the ontology documentation and files hosted on Gi
 
 ### Main Ontology (Latest & Versioned)
 
-The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Specific versions can be accessed via `/<version>` (e.g., <https://w3id.org/EDAAnOWL/0.0.1>).
+The base PID <https://w3id.org/AgoraOWL> redirects to the **latest** version. Specific versions can be accessed via `/<version>` (e.g., <https://w3id.org/AgoraOWL/0.0.1>).
 
 - **HTML Docs (for browsers):**
-
-  - `https://w3id.org/EDAAnOWL/` (Redirects to latest docs)
-  - `https://w3id.org/EDAAnOWL/0.0.1/` (Redirects to versioned docs)
+  - `https://w3id.org/AgoraOWL/` (Redirects to latest docs)
+  - `https://w3id.org/AgoraOWL/0.0.1/` (Redirects to versioned docs)
 
 - **RDF Serializations (for tools, using `Accept` header):**
   - **Turtle (.ttl):** `https://khaosresearch.github.io/AgoraOWL/latest/ontology.ttl`
@@ -36,7 +27,7 @@ The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Sp
 ### Modular Vocabularies
 
 Vocabulary PIDs are resolvable _per version_. For example:
-<https://w3id.org/EDAAnOWL/latest/vocabularies/sector-scheme>
+<https://w3id.org/AgoraOWL/latest/vocabularies/sector-scheme>
 
 This PID will redirect to the raw `.ttl` file:
 
