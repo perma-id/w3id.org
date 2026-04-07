@@ -1,0 +1,104 @@
+# https://w3id.org/bcore redirects to https://github.com/TUD-IMB/bcore
+#
+# ## Contact
+# This space is administered by:
+#
+# Tim Noack
+# tim.noack@tu-dresden.de
+# GitHub username: NoackTim
+
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+### Rewrite rules for latest version
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/TUD-IMB/bcore [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/bcore.ttl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/bcore.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/bcore.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/bcore.nt [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/bcore.n3 [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^bcore.ttl$ https://github.com/TUD-IMB/bcore/bcore.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^bcore.html$ https://github.com/TUD-IMB/bcore/ [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^bcore.rdf$ https://github.com/TUD-IMB/bcore/bcore.rdf [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^bcore.jsonld$ https://github.com/TUD-IMB/bcore/bcore.jsonld [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^bcore.nt$ https://github.com/TUD-IMB/bcore/bcore.nt [R=303,L]
+
+# If suffix n3, redirect to N3 version
+RewriteRule ^bcore.n3$ https://github.com/TUD-IMB/bcore/bcore.n3 [R=303,L]
+
+
+### Rewrite rules for any other version
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/TUD-IMB/bcore/bcore-$1.ttl [R=302,NE,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/TUD-IMB/bcore/bcore-$1.jsonld [R=302,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/TUD-IMB/bcore/bcore-$1.rdf [R=302,NE,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/TUD-IMB/bcore/bcore-$1.nt [R=302,NE,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/TUD-IMB/bcore/bcore-$1.n3 [R=302,NE,L]
+
+### Default response
+RewriteRule ^$ https://github.com/TUD-IMB/bcore/ [R=303,L]
