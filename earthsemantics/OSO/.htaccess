@@ -1,6 +1,16 @@
 Options +FollowSymLinks
 RewriteEngine On
 
+# Version IRIs
+RewriteRule ^1\.0\.0/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.0/OSO.ttl [R=302,L]
+RewriteRule ^1\.0\.1/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.1/OSO.ttl [R=302,L]
+
+# SPARQL endpoint
+RewriteRule ^sparql/?$ https://virtuoso.ifremer.fr/oso/sparql/ [R=302,L]
+
+# SPARQL UI
+RewriteRule ^ui/?$ https://virtuoso.ifremer.fr/oso/ [R=302,L]
+
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
@@ -15,7 +25,3 @@ RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/mai
 # Metadata artifacts
 RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/void.ttl [R=302,L]
 RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/dcat.ttl [R=302,L]
-
-# Future endpoints
-# RewriteRule ^sparql/?$ https://ton-endpoint/sparql [R=302,L]
-# RewriteRule ^yasgui/?$ https://ton-yasgui/ [R=302,L]
