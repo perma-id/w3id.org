@@ -16,9 +16,9 @@ ontology extensions, with particular focus on 4D extensional ontologies.
 
 This space is administered by:
 
-[Dave Dyke]
-[23141680+aigora-de@users.noreply.github.com]
-GitHub: [aigora-de]
+Dave Dyke
+23141680+aigora-de@users.noreply.github.com
+GitHub: aigora-de
 
 ## Repository
 
