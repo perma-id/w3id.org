@@ -5,63 +5,24 @@ RewriteEngine On
 </IfModule>
 
 # =========================
-# NEGOTIATION POLICY
-# =========================
-# Simple Accept-header substring matching (NOT q-value aware)
-# Priority: Turtle > JSON-LD > RDF/XML > N-Triples > HTML
-# Default fallback: HTML documentation
+# CONTENT NEGOTIATION (/wedowind)
 # =========================
 
-# ROOT
-# =========================
+# Turtle (highest priority)
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.ttl [R=303,L]
+RewriteRule ^$ https://dkwakye.github.io/wedowind/docs/ontology.ttl [R=303,L]
 
+# JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.jsonld [R=303,L]
+RewriteRule ^$ https://dkwakye.github.io/wedowind/docs/ontology.jsonld [R=303,L]
 
+# RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.rdf [R=303,L]
+RewriteRule ^$ https://dkwakye.github.io/wedowind/docs/ontology.rdf [R=303,L]
 
+# N-Triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteRule ^$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.nt [R=303,L]
+RewriteRule ^$ https://dkwakye.github.io/wedowind/docs/ontology.nt [R=303,L]
 
-# Default: HTML documentation (includes text/html and catch-all)
-RewriteRule ^$ https://dkwakye.github.io/wedowind/docu/ [R=303,L]
-
-# =========================
-# ONTOLOGY BASE (latest)
-# =========================
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/?$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^ontology/?$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.jsonld [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/?$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.rdf [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteRule ^ontology/?$ https://dkwakye.github.io/wedowind/ontology/latest/ontology.nt [R=303,L]
-
-# Default: HTML documentation
-RewriteRule ^ontology/?$ https://dkwakye.github.io/wedowind/docu/ [R=303,L]
-
-# =========================
-# VERSIONED ONTOLOGY
-# Supports: 1.0, 1.2.3, etc. (unlimited segments)
-# =========================
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/([0-9]+(?:\.[0-9]+)*)/?$ https://dkwakye.github.io/wedowind/ontology/$1/ontology.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^ontology/([0-9]+(?:\.[0-9]+)*)/?$ https://dkwakye.github.io/wedowind/ontology/$1/ontology.jsonld [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/([0-9]+(?:\.[0-9]+)*)/?$ https://dkwakye.github.io/wedowind/ontology/$1/ontology.rdf [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteRule ^ontology/([0-9]+(?:\.[0-9]+)*)/?$ https://dkwakye.github.io/wedowind/ontology/$1/ontology.nt [R=303,L]
-
-# Default: HTML documentation
-RewriteRule ^ontology/([0-9]+(?:\.[0-9]+)*)/?$ https://dkwakye.github.io/wedowind/docu/ [R=303,L]
+# HTML fallback (LAST rule only)
+RewriteRule ^$ https://dkwakye.github.io/wedowind/docs/ [R=303,L]
