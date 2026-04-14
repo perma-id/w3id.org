@@ -17,7 +17,7 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
-# Main ontology IRI: Turtle if requested
+# Main ontology IRI: RDF/Turtle-oriented fallback
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
@@ -25,7 +25,7 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} text/plain
 RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
 
-# Default fallback: HTML landing page
+# Default fallback: documentation
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
 # Explicit Turtle serialization
