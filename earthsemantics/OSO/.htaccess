@@ -1,16 +1,10 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# MIME types
-AddType text/turtle .ttl
-AddType application/rdf+xml .rdf
-AddType application/ld+json .jsonld
-AddType text/n3 .n3
-
-# Version IRIs
-RewriteRule ^1\.0\.0/?$ /earthsemantics/OSO/1.0.0.ttl [R=302,L]
-RewriteRule ^1\.0\.1/?$ /earthsemantics/OSO/1.0.1.ttl [R=302,L]
-RewriteRule ^1\.0\.2/?$ /earthsemantics/OSO/1.0.2.ttl [R=302,L]
+# Version IRIs -> archived Turtle files in the OSO repository
+RewriteRule ^1\.0\.0/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.0/OSO.ttl [R=302,L]
+RewriteRule ^1\.0\.1/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.1/OSO.ttl [R=302,L]
+RewriteRule ^1\.0\.2/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.2/OSO.ttl [R=302,L]
 
 # SPARQL endpoint
 RewriteRule ^sparql/?$ https://virtuoso.ifremer.fr/oso/sparql/ [R=302,L]
@@ -18,17 +12,25 @@ RewriteRule ^sparql/?$ https://virtuoso.ifremer.fr/oso/sparql/ [R=302,L]
 # SPARQL UI
 RewriteRule ^ui/?$ https://virtuoso.ifremer.fr/oso/ [R=302,L]
 
+# Main ontology IRI: HTML if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
+
 # Main ontology IRI: Turtle if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ /earthsemantics/OSO/OSO.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
 
-# Main ontology IRI: HTML fallback
+# Default fallback: HTML landing page
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
 # Explicit Turtle serialization
-RewriteRule ^ttl/?$ /earthsemantics/OSO/OSO.ttl [R=302,L]
+RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
 
 # Metadata artifacts
-RewriteRule ^void/?$ /earthsemantics/OSO/void.ttl [R=302,L]
-RewriteRule ^dcat/?$ /earthsemantics/OSO/dcat.ttl [R=302,L]
+RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/void.ttl [R=302,L]
+RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/dcat.ttl [R=302,L]
