@@ -13,7 +13,7 @@ The Bridge Inspection Ontology (BrIO) is designed to represent knowledge about b
 * GitHub    https://github.com/SebSeis/BRIO
 
 ## Example resources
-* Example case and SPARQL queries  [add folder link here]
+* Example case and SPARQL queries are provided in the online documentation
 
 ## Contacts
 * Sebastian Seiß <sebastian.seiss@uni-weimar.de>
