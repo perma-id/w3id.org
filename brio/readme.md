@@ -17,6 +17,7 @@ The Bridge Inspection Ontology (BrIO) is designed to represent knowledge about b
 
 ## Contacts
 * Sebastian Seiß <sebastian.seiss@uni-weimar.de>
+* Patricia Peralta <patricia.peralta.abadia@tuhh.de>
 * Yuan Zheng <yuan.zheng@aalto.fi>
 
 ## This space is administered by:
