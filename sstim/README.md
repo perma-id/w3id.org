@@ -46,10 +46,16 @@ individual terms.
 ## Project
 
 - **Source repository:** <https://github.com/laBioSynCare/laBioSynCare.github.io>
-- **Ontology license:** CC BY 4.0 (planned; being finalized in Phase 1)
+  (open-source — ontology and documentation under CC BY 4.0; application
+  code under a permissive OSI-approved license, both being finalized in Phase 1)
+- **Scope:** BSC Lab is the open scientific infrastructure for sensory
+  stimulation: ontology, evidence framework, and a planned multi-engine
+  audiovisual stimulation application (Web Audio, AudioWorklets, PixiJS).
+  The SSTIM ontology is designed to be reusable beyond BSC Lab by any
+  project in this domain.
 - **Related commercial project:** BioSynCare (React Native app, separate
-  repository) consumes BSC Lab's preset catalog exported as JSON; the
-  ontology itself is reusable beyond BSC Lab.
+  closed-source repository) will consume BSC Lab's exported preset catalog
+  as JSON; it does not use or import the ontology namespace directly.
 
 ## Contact
 
