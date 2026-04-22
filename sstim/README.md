@@ -7,7 +7,8 @@ project.
 
 - **Base PID:** <https://w3id.org/sstim>
 - **Target (GitHub Pages):** <https://labiosyncare.github.io/ontology/>
-- **Maintainer:** Renato Fabbri — `renato.fabbri@gmail.com` —
+- **Maintainer:** Renato Fabbri — GitHub [@ttm](https://github.com/ttm) —
+  `renato.fabbri@gmail.com` —
   ORCID [0000-0002-9699-629X](https://orcid.org/0000-0002-9699-629X)
 
 SSTIM is an OWL ontology with a companion SKOS vocabulary and SHACL
