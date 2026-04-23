@@ -46,8 +46,9 @@ project repository for full license texts.
 ## Maintainers
 
 - Michael Bouzinier — <michael.bouzinier@forome.org>
-  (GitHub: [@mmcentre](https://github.com/mbouzinier))
-- Forome Association — <https://forome.org>
+  (GitHub: [@mmcentre](https://github.com/mmcentre))
+- Forome Association — <https://forome.org>; [Forome GitHub](https://github.com/ForomePlatform)
+
 
 Please open issues and pull requests against the namespace content at
 the project repository linked above. For questions specifically
