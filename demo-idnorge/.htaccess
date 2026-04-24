@@ -1,0 +1,40 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+
+Options +FollowSymLinks
+RewriteEngine On
+
+###############################################################
+######## Rewrite rules for /demo-idnorge/organisations/<number>
+######## example: w3id.org/demo-idnorge/organisations/991825827
+RewriteCond %{REQUEST_URI} ^/demo-idnorge/organisations/([0-9]+)$
+
+# 1. Norwegian Bokmål (nb)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nb [OR]
+RewriteCond %{HTTP:Accept-Language} nb
+RewriteRule ^demo-idnorge/organisations/([0-9]+)$ https://virksomhet.brreg.no/nb/oppslag/enheter/$1 [R=302,L]
+
+# 2. Norwegian Nynorsk (nn)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nn [OR]
+RewriteCond %{HTTP:Accept-Language} nn
+RewriteRule ^demo-idnorge/organisations/([0-9]+)$ https://virksomhet.brreg.no/nn/oppslag/enheter/$1 [R=302,L]
+
+# 3. English (en)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=en [OR]
+RewriteCond %{HTTP:Accept-Language} en
+RewriteRule ^demo-idnorge/organisations/([0-9]+)$ https://virksomhet.brreg.no/en/oppslag/enheter/$1 [R=302,L]
+
+# 4. Turtle (RDF)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^demo-idnorge/organisations/([0-9]+)$ https://organization-catalog.fellesdatakatalog.digdir.no/organizations/$1 [R=302,L]
+
+# Fallback: default to Bokmål HTML
+RewriteRule ^demo-idnorge/organisations/([0-9]+)$ https://virksomhet.brreg.no/nb/oppslag/enheter/$1 [R=302,L]
