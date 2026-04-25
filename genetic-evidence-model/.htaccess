@@ -1,0 +1,23 @@
+# Genetic Evidence Model (GEM)
+# https://w3id.org/genetic-evidence-model/
+# Contact: Michael Bouzinier <michael.bouzinier@forome.org>
+# Project: https://github.com/ForomePlatform/genetic-evidence-model
+
+Options +FollowSymLinks
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Base URI -> project repository root
+RewriteRule ^$ https://github.com/ForomePlatform/genetic-evidence-model [R=302,L]
+
+# Named sub-paths for commonly dereferenced resources
+RewriteRule ^schema/?$ https://raw.githubusercontent.com/ForomePlatform/genetic-evidence-model/master/schema/genetic_evidence.shacl.ttl [R=302,L]
+RewriteRule ^dimensions/?$ https://github.com/ForomePlatform/genetic-evidence-model/blob/master/schema/dimensions.md [R=302,L]
+
+# Catch-all: resolve any other sub-path against the repository tree,
+# preserving URL fragments (NE) so term IRIs like
+# https://w3id.org/genetic-evidence-model/GeneticEvidence keep their
+# anchor when targeting a future HTML/TTL render of the ontology.
+RewriteRule ^(.*)$ https://github.com/ForomePlatform/genetic-evidence-model/blob/master/$1 [R=302,NE,L]

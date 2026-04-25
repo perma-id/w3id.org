@@ -14,7 +14,7 @@ RewriteEngine on
 # =============================================================================
 # SimpulseID Credentials Ontology - Static GitHub Pages resolution
 # Pattern: /ascs-ev/simpulse-id/v{version}[/][shapes|context]
-# Target:  ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/...
+# Target:  ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/...
 # =============================================================================
 
 # --- Turtle / RDF-XML ---
@@ -22,46 +22,46 @@ RewriteEngine on
 # Ontology (versioned)
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/ontology.ttl [R=303,L]
+RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/ontology.ttl [R=303,L]
 
 # SHACL shapes (versioned)
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/shapes.ttl [R=303,L]
+RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/shapes.ttl [R=303,L]
 
 # --- JSON-LD ---
 
 # JSON-LD context (versioned)
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
+RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
 
 # JSON-LD shapes (versioned) — no JSON-LD shapes published, serve Turtle
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/shapes.ttl [R=303,L]
+RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/shapes.ttl [R=303,L]
 
 # --- Context sub-path (direct URL for JSON-LD @context references) ---
 # JSON-LD processors fetch @context URLs with a plain GET (no Accept header),
 # so these rules have no content-negotiation guard.
 
 # Versioned context
-RewriteRule ^(v[0-9]+)/context/?$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
+RewriteRule ^(v[0-9]+)/context/?$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
 
 # --- Bare class IRIs: /simpulse-id/v1/ClassName ---
 # Individual class IRIs resolve to the ontology
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/ontology.ttl [R=303,L]
+RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/ontology.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
+RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/simpulse-id-credentials/w3id/ascs-ev/simpulse-id/$1/context.jsonld [R=303,L]
 
 # --- HTML fallback — redirect browsers to documentation ---
-RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/credentials/reference/schemas/ [R=303,L]
-RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/credentials/reference/schemas/ [R=303,L]
-RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/credentials/reference/schemas/ [R=303,L]
+RewriteRule ^(v[0-9]+)/?$ https://ascs-ev.github.io/simpulse-id-credentials/reference/schemas/ [R=303,L]
+RewriteRule ^(v[0-9]+)/shapes/?$ https://ascs-ev.github.io/simpulse-id-credentials/reference/schemas/ [R=303,L]
+RewriteRule ^(v[0-9]+)/.+$ https://ascs-ev.github.io/simpulse-id-credentials/reference/schemas/ [R=303,L]
 
 # --- Root redirect to documentation ---
-RewriteRule ^$ https://ascs-ev.github.io/credentials/ [R=303,L]
+RewriteRule ^$ https://ascs-ev.github.io/simpulse-id-credentials/ [R=303,L]
