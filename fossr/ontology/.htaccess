@@ -8,7 +8,7 @@ SetEnvIf Accept ^.*text/html.* SYNTAX=html
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/fossr-project/ontology/refs/heads/main
 
 RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
-RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1/$1.%{ENV:SYNTAX} [R=302,L]
+RewriteRule ^(.+)/?$ %{ENV:ROOT_URL}/$1/$1.%{ENV:SYNTAX} [R=302,L]
 
 RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^(.+)$ https://github.com/fossr-project/ontology/blob/main/$1/$1.rdf [R=302,L]
+RewriteRule ^(.+)/?$ http://semantics.istc.cnr.it/lode/extract?url=https://w3id.org/fossr/ontology/bdi [R=302,L]

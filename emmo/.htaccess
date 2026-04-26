@@ -267,7 +267,7 @@ RewriteRule ^([0-9][^/]*)/disciplines/units/?$ https://raw.githubusercontent.com
 # Rule 9: https://w3id.org/emmo/{VERSION}/{PATH}/{MODULE}
 # Redirect to specified version branch
 # Turtle file for given version and module of EMMO
-RewriteRule ^([0-9][^/]*)/(.*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2.ttl [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/(.*)/([^/]*)/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/$1/$2/$3.ttl [R=303,NE,L]
 
 # Rule 10a: https://w3id.org/emmo
 #           https://w3id.org/emmo/hume
@@ -355,4 +355,9 @@ RewriteRule ^disciplines/units/?$ https://raw.githubusercontent.com/emmo-repo/EM
 # Rule 12: https://w3id.org/emmo/{PATH}/{MODULE}
 # Redirect to specified version branch
 # Turtle file for given module of EMMO
-RewriteRule ^([^0-9].*[^/])/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1.ttl [R=303,NE,L]
+RewriteRule ^([^0-9].*)/([^/]*)/?$ https://raw.githubusercontent.com/emmo-repo/EMMO/master/$1/$2.ttl [R=303,NE,L]
+
+
+# Fallback to turtle file on GitHub Pages
+RewriteRule ^([0-9][^/]*)/([^/]*)/?$ https://emmo-repo.github.io/versions/$1/$2.ttl [R=303,NE,L]
+RewriteRule ^([^0-9][^/]*)/?$ https://emmo-repo.github.io/$1.ttl [R=303,NE,L]
