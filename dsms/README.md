@@ -30,7 +30,7 @@ Examples:
 
 All DSMS identifiers redirect to human-readable documentation hosted at:
 
-https://kiran.materials-data.space/vocabulary/docs/
+https://vocabulary.materials-data.space/vocabularies/docs/
 
 The redirection rules are:
 
@@ -60,7 +60,7 @@ Example (Turtle):
 dsms:Material a owl:Class ;
   rdfs:label "Material" ;
   rdfs:isDefinedBy <https://w3id.org/dsms/steel/> ;
-  rdfs:seeAlso <https://kiran.materials-data.space/vocabulary/docs/steel#Material> .
+  rdfs:seeAlso <https://vocabulary.materials-data.space/vocabularies/docs/steel#Material> .
 ```
 
 ## Maintenance Commitment
