@@ -1,0 +1,47 @@
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure RDF files served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+
+### Ontology modules: core, process, architecture, tech, privacy
+# Serve Turtle content for ontology modules
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(core|process|architecture|tech|privacy)$ https://git.changinggraph.org/kogn-io/arknet/raw/branch/main/ontology/$1.ttl [R=303,L]
+
+# Serve HTML content for ontology modules
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(core|process|architecture|tech|privacy)$ https://git.changinggraph.org/kogn-io/arknet/src/branch/main/ontology/$1.ttl [R=303,L]
+
+# Serve RDF/XML content for ontology modules
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|process|architecture|tech|privacy)$ https://git.changinggraph.org/kogn-io/arknet/raw/branch/main/ontology/$1.ttl [R=303,L]
+
+
+### SHACL shapes
+RewriteRule ^shapes/(.+)$ https://git.changinggraph.org/kogn-io/arknet/raw/branch/main/shapes/$1.ttl [R=303,L]
+
+
+### Root: redirect to repository
+# Serve Turtle for root namespace
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://git.changinggraph.org/kogn-io/arknet/raw/branch/main/ontology/core.ttl [R=303,L]
+
+# Default: redirect to repository
+RewriteRule ^$ https://git.changinggraph.org/kogn-io/arknet [R=303,L]

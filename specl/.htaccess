@@ -1,0 +1,39 @@
+# SPECL — RDF-native, SHACL-validated spec language
+# https://github.com/zwelz3/specl
+#
+# Contact:
+#   Zachary Welz
+#   GitHub: zwelz3
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Ontology namespace: content negotiation
+# Turtle
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.ttl [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.jsonld [R=303,NE,L]
+
+# HTML (default for browsers)
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ [R=303,NE,L]
+
+# Shapes
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^shapes/?$ https://zwelz3.github.io/specl/shapes.ttl [R=303,NE,L]
+RewriteRule ^shapes/?$ https://zwelz3.github.io/specl/ [R=303,NE,L]
+
+# Spec instances — hash namespace, single document
+RewriteRule ^spec/?$ https://github.com/zwelz3/specl/tree/main/specs [R=303,NE,L]
+
+# Explorer
+RewriteRule ^explorer/?$ https://zwelz3.github.io/specl/explorer.html [R=303,NE,L]
+
+# Root — repo landing
+RewriteRule ^$ https://github.com/zwelz3/specl [R=303,NE,L]

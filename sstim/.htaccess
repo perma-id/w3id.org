@@ -1,0 +1,54 @@
+# SSTIM — Sensory Stimulation Ontology
+# Persistent identifier base: https://w3id.org/sstim
+# Target:                     https://labiosyncare.github.io/ontology/
+# Maintainer:                 Renato Fabbri <renato.fabbri@gmail.com>
+# Source repository:          https://github.com/laBioSynCare/laBioSynCare.github.io
+
+Options +FollowSymLinks
+Options -MultiViews
+
+# Ensure RDF MIME types (belt-and-suspenders; GitHub Pages handles .ttl already)
+AddType text/turtle           .ttl
+AddType application/rdf+xml   .rdf .owl
+AddType application/ld+json   .jsonld
+AddType application/n-triples .nt
+
+Header set Access-Control-Allow-Origin *
+
+RewriteEngine On
+
+# -------------------------------------------------------------------------
+# /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^vocab$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/shapes — SHACL validation shapes
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^shapes$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/alignments — external ontology alignments (BFO, OBI, Wikidata, …)
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^alignments$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim — core ontology (OWL classes and properties). Fragment IRIs such
+# as /sstim#Preset resolve here; the fragment is handled client-side.
+# -------------------------------------------------------------------------
+# Browser → human-readable landing page (WIDOCO docs will replace this
+# target in Phase 1 once they are generated).
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^$ https://labiosyncare.github.io/ [R=303,L]
+
+# Turtle or unspecified → core ontology file
+RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-core.ttl [R=303,L]

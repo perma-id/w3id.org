@@ -9,9 +9,12 @@
 
 RewriteEngine On
 
-# Content negotiation: Set FORMAT env variable based on Accept header
+# Set FORMAT based on Accept header for RDF formats
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
 RewriteRule ^ - [E=FORMAT:rdf]
 
 RewriteCond %{HTTP_ACCEPT} text/html
@@ -22,49 +25,29 @@ RewriteCond %{ENV:FORMAT} ^$
 RewriteRule ^ - [E=FORMAT:rdf]
 
 
-
-# Stable base IRI for part1 (no subpath): Redirect based on format
-# For RDF: Redirect to main directory or a placeholder 
+# /21972/v1 -> i72-v1 (or i72-v1/i72.owl if RDF)
+# For RDF: Redirect to main ontology file
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part1$ https://isotc204.org/ontology-cdm-p1/latest/ [R=303,L]  # Adjust to a main .owl if exists, e.g., /cdm-p1.owl
-RewriteRule ^part1$ https://isotc204.org/ontology-cdm-p1/latest/ [R=303,L]  # HTML doc page
+RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/i72.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
+RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/ [R=303,L]
 
-# Submodule-specific (e.g., /part1/Agent -> Agent.owl for RDF, doc page for HTML)
+# /imported/time -> import-time
+RewriteRule ^imported/(.*)/?$ https://isotc204.org/ontology-import-$1 [R=303,L]
+
+# /part1/v2 -> p1-v2 (or p1-v2/5087-1.owl if RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part1/([^/]+)$ https://isotc204.org/ontology-cdm-p1/latest/$1.owl [R=303,L]
-RewriteRule ^part1/([^/]+)$ https://isotc204.org/ontology-cdm-p1/latest/ [R=303,L]  # Main doc; update to /$1.html if per-file docs exist
+RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/5087-$1.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
+RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/ [R=303,L]
 
-# Submodule with version (e.g., /part1/v1/Agent)
+# /part1/v2/Agent -> p1-v2/latest/Agent (.owl for RDF)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part1/v1/([^/]+)$ https://isotc204.org/ontology-cdm-p1/v1.0.1/$1.owl [R=303,L]
-RewriteRule ^part1/v1/([^/]+)$ https://isotc204.org/ontology-cdm-p1/v1.0.1/ [R=303,L]
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3.owl [R=303,L]  # $1=part#, $2=submodule
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3 [R=303,L]
 
-
-
-# Stable base IRI for part2 (no subpath): Redirect based on format
-# For RDF: Redirect to main directory or a placeholder 
+# Specific release: /part1/v2/Agent/r3.0 -> p1-v2/r3.0/Agent)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part2$ https://isotc204.org/ontology-cdm-p2/latest/ [R=303,L]  # Adjust to a main .owl if exists, e.g., /cdm-p2.owl
-RewriteRule ^part2$ https://isotc204.org/ontology-cdm-p2/latest/ [R=303,L]  # HTML doc page
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
+RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3 [R=303,L]
 
-# Submodule-specific (e.g., /part2/Agent -> Agent.owl for RDF, doc page for HTML)
-RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part2/([^/]+)$ https://isotc204.org/ontology-cdm-p2/latest/$1.owl [R=303,L]
-RewriteRule ^part2/([^/]+)$ https://isotc204.org/ontology-cdm-p2/latest/ [R=303,L]  # Main doc; update to /$1.html if per-file docs exist
-
-# Submodule with version (e.g., /part2/v1/Agent)
-RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part2/v1/([^/]+)$ https://isotc204.org/ontology-cdm-p2/v1.0.2/$1.owl [R=303,L]
-RewriteRule ^part2/v1/([^/]+)$ https://isotc204.org/ontology-cdm-p2/v1.0.2/ [R=303,L]
-
-
-# Stable base IRI for part3 (single file: transport_network.ofn)
-# For RDF: Redirect base to the single .ofn file
-RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part3$ https://isotc204.org/ontology-cdm-p3/latest/transport_network.ofn [R=303,L]
-RewriteRule ^part3$ https://isotc204.org/ontology-cdm-p3/latest/ [R=303,L]  # HTML doc page
-
-# Version-specific for part3 (e.g., /part3/v1 for major 1 latest)
-RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part3/v1$ https://isotc204.org/ontology-cdm-p3/v1.0.0/transport_network.ofn [R=303,L]
-RewriteRule ^part3/v1$ https://isotc204.org/ontology-cdm-p3/v1.0.0/ [R=303,L]
+# Fallback: Redirect to main page if no specific match
+RewriteRule ^ https://isotc204.org/ontology-cdm-p1-v1/latest/ [R=303,L]

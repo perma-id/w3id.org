@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# vocab/ end point
+RewriteRule ^vocab$ https://monarch-initiative.github.io/namo/
+RewriteRule ^vocab\/(.*)$ https://monarch-initiative.github.io/namo/ [R=301,L]
+
+# schema submodules
+RewriteRule ^schema\/(.*)$ https://raw.githubusercontent.com/monarch-initiative/namo/main/src/namo/ [R=301,L]
+
+# Schema artefacts use raw Github URLs
+# if suffix is yaml, redirect to LinkML YAML schema
+RewriteRule ^namo.yaml$ https://raw.githubusercontent.com/monarch-initiative/namo/main/src/namo/schema/namo.yaml [R=302,L]
+
+# if suffix is schema.json, redirect to JSON Schema
+RewriteRule ^namo.schema.json$ https://raw.githubusercontent.com/monarch-initiative/namo/main/project/jsonschema/namo.schema.json [R=302,L]
+
+# if suffix is owl, redirect to OWL
+RewriteRule ^namo.owl.ttl$ https://raw.githubusercontent.com/monarch-initiative/namo/main/project/owl/namo.owl.ttl [R=302,L]
+
+# Schema elements use Github Pages
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://monarch-initiative.github.io/namo/elements/ [R=302,L]
