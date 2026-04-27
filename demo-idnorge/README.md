@@ -6,8 +6,9 @@ To config and maintain the dereferencing of W3id-URIs for demonstrating an id-se
 
 ## Content
 
-Currently the following dereferencings/redirections are created: 
+Currently rules for the following dereferencing/redirection are created: 
 
+* `https://w3id.org/demo-idnorge/vocabularies/los/<lostag>` -> html (in `nb`, `nn`, `en`) and `text/turtle`
 * `https://w3id.org/demo-idnorge/organisations/<number>` -> html (in `nb`, `nn`, `en`) and `text/turtle`
 
 ## Contact  
