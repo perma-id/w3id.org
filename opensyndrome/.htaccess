@@ -1,12 +1,28 @@
 # /opensyndrome/
-# Redirects https://w3id.org/opensyndrome/* to https://opensyndrome.org/schema/*
+# Permanent identifiers for the Open Syndrome Definition.
+#
+# Root:
+#   /opensyndrome/                  → GitHub repository
+#
+# Latest aliases (track the current schema version):
+#   /opensyndrome/ns                → ontology.ttl  (also ns/, ns/<Term>)
+#   /opensyndrome/schema.json       → schema.json
+#   /opensyndrome/context.jsonld    → context.jsonld
+#
+# Versioned aliases (pin to a specific schema version):
+#   /opensyndrome/v<N>/<file>       → schema/v<N>/<file>
 
 Options -MultiViews
 RewriteEngine on
 
-# Redirect root to GitHub repository
+# --- Root ---
 RewriteRule ^$ https://github.com/OpenSyndrome/schema/ [R=302,L]
 
-# Redirect everything else to the schema site
-RewriteRule ^(.+)$ https://opensyndrome.org/schema/$1 [R=302,L]
+# --- Latest aliases ---
+RewriteRule ^ns(/.*)?$        https://opensyndrome.org/ontology.ttl   [R=302,L]
+RewriteRule ^schema\.json$    https://opensyndrome.org/schema.json    [R=302,L]
+RewriteRule ^context\.jsonld$ https://opensyndrome.org/context.jsonld [R=302,L]
+
+# --- Versioned aliases ---
+RewriteRule ^(v[0-9]+/.+)$    https://opensyndrome.org/schema/$1      [R=302,L]
 
