@@ -13,6 +13,12 @@
 #   - `Accept: text/html` (browsers)     -> human-readable documentation
 #   - `Accept: text/turtle|rdf+xml|...`  -> raw Turtle for RDF tooling
 #   - `Accept: */*` or no header (curl)  -> raw Turtle (Linked Data default)
+#
+# Resolution policy:
+#   - Persistent IRIs always resolve to a fixed Git tag (v1.x.0), never
+#     to `main`. This guarantees that future repository refactorings do
+#     not break already-published IRIs. Update the redirect targets in
+#     this file whenever a new tag is cut.
 # -----------------------------------------------------------------------------
 
 Options +FollowSymLinks
@@ -29,11 +35,11 @@ RewriteBase /ontodisinfo/
 # Browsers -> documentation site
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/  [R=302,L]
-# RDF tools -> consolidated Turtle (ontodis-full.ttl imports all modules)
+# RDF tools -> consolidated Turtle pinned to the latest release tag
 RewriteCond %{HTTP_ACCEPT} (text/turtle|application/(rdf\+xml|x-turtle|ld\+json|n-triples|n-quads))
-RewriteRule ^$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/infrastructure/ontodis-full.ttl  [R=302,L]
+RewriteRule ^$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/composition/ontodis-full.ttl  [R=302,L]
 # Default (no Accept header, curl, etc.) -> Turtle, Linked Data convention
-RewriteRule ^$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/infrastructure/ontodis-full.ttl  [R=302,L]
+RewriteRule ^$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/composition/ontodis-full.ttl  [R=302,L]
 
 # =============================================================================
 # 2. Individual modules with content negotiation
@@ -43,38 +49,38 @@ RewriteRule ^$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main
 # --- core ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^core/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/modules/core/  [R=302,L]
-RewriteRule ^core/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/domain/core/ontodis-core.ttl  [R=302,L]
+RewriteRule ^core/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/core/ontodis-core.ttl  [R=302,L]
 
 # --- ml ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^ml/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/modules/ml/  [R=302,L]
-RewriteRule ^ml/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/domain/ml/ontodis-ml.ttl  [R=302,L]
+RewriteRule ^ml/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/ml/ontodis-ml.ttl  [R=302,L]
 
 # --- electoral ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^electoral/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/modules/electoral/  [R=302,L]
-RewriteRule ^electoral/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/domain/electoral/ontodis-elec.ttl  [R=302,L]
+RewriteRule ^electoral/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/electoral/ontodis-elec.ttl  [R=302,L]
 
 # --- legal ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^legal/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/modules/legal/  [R=302,L]
-RewriteRule ^legal/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/domain/legal/ontodis-legal.ttl  [R=302,L]
+RewriteRule ^legal/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/legal/ontodis-legal.ttl  [R=302,L]
 
 # --- inference ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^inference/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/modules/inference/  [R=302,L]
-RewriteRule ^inference/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/application/ontodis-inference.ttl  [R=302,L]
+RewriteRule ^inference/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/application/ontodis-inference.ttl  [R=302,L]
 
 # --- alignments (external) ---
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^alignments/?$  https://gustavosouto.gitlab.io/ontodisinfo-electoral/reference/alignments/  [R=302,L]
-RewriteRule ^alignments/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/adapter/ontodis-alignments.ttl  [R=302,L]
+RewriteRule ^alignments/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/adapter/ontodis-alignments.ttl  [R=302,L]
 
 # --- gufo-alignment (no dedicated doc page; always Turtle) ---
-RewriteRule ^gufo-alignment/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/adapter/ontodis-gufo-alignment.ttl  [R=302,L]
+RewriteRule ^gufo-alignment/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/adapter/ontodis-gufo-alignment.ttl  [R=302,L]
 
 # --- full integrated (entry point for Protege/reasoners) ---
-RewriteRule ^full/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/infrastructure/ontodis-full.ttl  [R=302,L]
+RewriteRule ^full/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/composition/ontodis-full.ttl  [R=302,L]
 
 # =============================================================================
 # 3. Versioned IRIs (owl:versionIRI)
@@ -111,6 +117,18 @@ RewriteRule ^1\.2\.0/alignments$      https://gitlab.com/gustavosouto/ontodisinf
 RewriteRule ^1\.2\.0/gufo-alignment$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.2.0/ontology/adapter/ontodis-gufo-alignment.ttl    [R=302,L]
 RewriteRule ^1\.2\.0/full$            https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.2.0/ontology/infrastructure/ontodis-full.ttl       [R=302,L]
 
+# --- 1.3.0 ---
+# First release after the DDD/REUSE refactor: ontology/infrastructure/ became
+# ontology/composition/ (master) + ontology/validation/shapes/ (SHACL).
+RewriteRule ^1\.3\.0/core$            https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/core/ontodis-core.ttl          [R=302,L]
+RewriteRule ^1\.3\.0/ml$              https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/ml/ontodis-ml.ttl              [R=302,L]
+RewriteRule ^1\.3\.0/electoral$       https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/electoral/ontodis-elec.ttl     [R=302,L]
+RewriteRule ^1\.3\.0/legal$           https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/domain/legal/ontodis-legal.ttl        [R=302,L]
+RewriteRule ^1\.3\.0/inference$       https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/application/ontodis-inference.ttl     [R=302,L]
+RewriteRule ^1\.3\.0/alignments$      https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/adapter/ontodis-alignments.ttl        [R=302,L]
+RewriteRule ^1\.3\.0/gufo-alignment$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/adapter/ontodis-gufo-alignment.ttl    [R=302,L]
+RewriteRule ^1\.3\.0/full$            https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/composition/ontodis-full.ttl          [R=302,L]
+
 # =============================================================================
 # 4. Documentation shortcuts (HTML site sections)
 #    Citable URLs for specific parts of the public documentation.
@@ -126,5 +144,5 @@ RewriteRule ^metrics/?$          https://gustavosouto.gitlab.io/ontodisinfo-elec
 # =============================================================================
 # 5. Convenience redirects
 # =============================================================================
-RewriteRule ^latest/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/main/ontology/infrastructure/ontodis-full.ttl  [R=302,L]
+RewriteRule ^latest/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v1.3.0/ontology/composition/ontodis-full.ttl  [R=302,L]
 RewriteRule ^repo/?$    https://gitlab.com/gustavosouto/ontodisinfo-electoral                                                      [R=302,L]
