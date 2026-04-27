@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://miltiadisgkatzios.github.io/spsh/data/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^example/?$ https://miltiadisgkatzios.github.io/spsh/data/examples.ttl [R=303,L]
+
+# All other requests (browsers) → ReSpec HTML page
+RewriteRule ^$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
+RewriteRule ^example/?$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
+
+# Sub-paths: function, operator, symbol fragments → HTML page
+RewriteRule ^(function|operator|symbol)/?(.*)$ https://miltiadisgkatzios.github.io/spsh/#$1-$2 [R=303,L,NE]
