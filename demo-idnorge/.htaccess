@@ -10,6 +10,46 @@ Options +FollowSymLinks
 RewriteEngine On
 
 ###############################################################
+######## Rewrite rules for /demo-idnorge/vocabularies/los/<lostag>
+######## example: w3id.org/demo-idnorge/vocabularies/los/01005
+
+# 1. Norwegian Bokmål (nb) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nb [OR]
+RewriteCond %{HTTP:Accept-Language} nb
+RewriteRule ^vocabularies/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nb/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 2. Norwegian Nynorsk (nn) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nn [OR]
+RewriteCond %{HTTP:Accept-Language} nn
+RewriteRule ^vocabularies/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nn/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 3. English (en) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=en [OR]
+RewriteCond %{HTTP:Accept-Language} en
+RewriteRule ^vocabularies/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/en/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 4. Turtle (RDF) — full path
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabularies/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/rest/v1/los/data?uri=https://id.norge.no/los/$1&format=text/turtle [R=302,L,NE]
+
+# 5. Fallback for full path — default to Bokmål HTML
+RewriteRule ^vocabularies/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nb/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 6. Turtle for bare /vocabularies/los and /vocabularies/los/
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabularies/los/?$ https://raw.githubusercontent.com/fellesdatakatalog/skosmos-config/refs/heads/main/apps/skosmos-store/src/main/resources/LOS/los-export.ttl [R=302,L]
+
+# 7. Fallback for bare /vocabularies/los and /vocabularies/los/
+RewriteRule ^vocabularies/los/?$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/ [R=302,L]
+
+# 8. Fallback for bare /vocabularies/ and anything else under it
+RewriteRule ^vocabularies/?$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/ [R=302,L]
+
+
+###############################################################
 ######## Rewrite rules for /demo-idnorge/organisations/<number>
 ######## example: w3id.org/demo-idnorge/organisations/991825827
 RewriteCond %{REQUEST_URI} ^organisations/([0-9]+)$
