@@ -1,0 +1,33 @@
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://jthsemweblab.github.io/Lighting_Product_Property_Ontology/ontology.jsonld [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://jthsemweblab.github.io/Lighting_Product_Property_Ontology/ontology.ttl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://jthsemweblab.github.io/Lighting_Product_Property_Ontology/ontology.nt [R=303,L]
+
+# HTML (browsers)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://jthsemweblab.github.io/Lighting_Product_Property_Ontology/index.html [R=303,L]
+
+# RDF/XML (default fallback)
+RewriteRule ^$ https://jthsemweblab.github.io/Lighting_Product_Property_Ontology/ontology.owl [R=303,L]

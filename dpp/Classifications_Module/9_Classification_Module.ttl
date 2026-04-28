@@ -1,0 +1,55 @@
+@prefix dpp: <https://example.org/DPP_ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/DPP_ontology> a owl:Ontology .
+
+dpp:classificationCode a owl:DatatypeProperty ;
+    rdfs:label "classification code"@en ;
+    rdfs:comment "A unique code or identifier for the classification"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range xsd:string .
+
+dpp:classificationDescription a owl:DatatypeProperty ;
+    rdfs:label "classification description"@en ;
+    rdfs:comment "A description of the classification"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range xsd:string .
+
+dpp:classificationName a owl:DatatypeProperty ;
+    rdfs:label "classification name"@en ;
+    rdfs:comment "The name of the classification"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range xsd:string .
+
+dpp:classifiesComponent a owl:ObjectProperty ;
+    rdfs:label "classifies component"@en ;
+    rdfs:comment "Links the classification to the components it classifies"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range dpp:Component .
+
+dpp:classifiesMaterial a owl:ObjectProperty ;
+    rdfs:label "classifies material"@en ;
+    rdfs:comment "Links the classification to the materials it classifies"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range dpp:Material .
+
+dpp:classifiesProduct a owl:ObjectProperty ;
+    rdfs:label "classifies products"@en ;
+    rdfs:comment "Links the classification to the products it classifies"@en ;
+    rdfs:domain dpp:Classification ;
+    rdfs:range dpp:Product .
+
+dpp:hasClassification a owl:ObjectProperty ;
+    rdfs:label "has classification"@en ;
+    rdfs:comment "Links a product, material, or component to its classification"@en ;
+    rdfs:domain dpp:Component,
+        dpp:Material,
+        dpp:Product ;
+    rdfs:range dpp:Classification .
+
+dpp:Classification a owl:Class ;
+    rdfs:label "Classification"@en ;
+    rdfs:comment "A hierarchical or categorical system used for organizing and classifying information about products, components, or other items based on their shared characteristics, properties, or features."@en .
+
