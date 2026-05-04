@@ -33,4 +33,4 @@ https://raw.githubusercontent.com/GabrieleT0/FAIR-Assessment-Ontology/main/FAIR-
 ```
 
 ## Maintener 
-Gabriele Tuozzo
+Gabriele Tuozzo - GitHub: [@GabrieleT0](https://github.com/GabrieleT0)
