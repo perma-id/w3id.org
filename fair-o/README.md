@@ -32,5 +32,5 @@ https://gabrielet0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/
 https://raw.githubusercontent.com/GabrieleT0/FAIR-Assessment-Ontology/main/FAIR-O.ttl
 ```
 
-## Maintener 
+## Maintainer 
 Gabriele Tuozzo - GitHub: [@GabrieleT0](https://github.com/GabrieleT0)
