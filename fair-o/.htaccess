@@ -1,0 +1,18 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# FAIR-O persistent identifier
+# Namespace: https://w3id.org/fair-o#
+
+# HTML documentation for browsers
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ [R=303,L]
+
+# Turtle serialization
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://raw.githubusercontent.com/GabrieleT0/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/main/FAIR-O.ttl [R=303,L]
+
+# Default fallback: HTML documentation
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ [R=303,L]
