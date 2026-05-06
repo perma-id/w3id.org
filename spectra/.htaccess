@@ -1,0 +1,26 @@
+# /spectra/.htaccess — to be placed at github.com/perma-id/w3id.org : spectra/.htaccess
+#
+# Redirects https://w3id.org/spectra and https://w3id.org/spectra# to the
+# latest GitHub release of the SPECTRA ontology, with content negotiation:
+#  - Accept: text/turtle      → ontology TTL
+#  - Accept: text/html (default) → PyLODE documentation on GitHub Pages
+#  - sub-paths (term IRIs) → ontology TTL (single-file ontology)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect bare ontology IRI based on Accept header
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=302,L]
+
+# Default (HTML / browser): GitHub Pages PyLODE documentation
+RewriteRule ^$ https://spectra-ontology.github.io/spec-trace/ [R=302,L]
+
+# Any sub-path (e.g., w3id.org/spectra/Tdoc): same TTL (the ontology is single-file)
+RewriteRule ^(.*)$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=302,L]
