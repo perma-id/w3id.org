@@ -18,15 +18,16 @@
 Options +FollowSymLinks
 RewriteEngine on
 Header set Access-Control-Allow-Origin *
+Header set Vary "Accept"
 
-# Content negotiation for ontology IRI
-RewriteCond %{HTTP_ACCEPT} text/turtle
+# Content negotiation for ontology IRI (case-insensitive Accept matching)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
 RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
 RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
 RewriteRule ^$ https://github.com/spectra-ontology/spec-trace/releases/latest/download/spectra.ttl [R=303,L]
 
 # Default (HTML / browser): PyLODE documentation on GitHub Pages
