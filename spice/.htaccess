@@ -1,0 +1,61 @@
+# Name of the project: SPICE H2020 (https://cordis.europa.eu/project/id/870811)
+#
+# Description: The overall aim of the project is to foster diverse participation
+# in the heritage domain through a process of ""citizen curation"". Citizens will
+# be supported to: develop their own personal interpretations of cultural objects;
+# work together to present their collective view of life through culture and heritage;
+# and gain an appreciation of alternative cultural viewpoints.
+# Methods will be codesigned that can be used by citizen groups to produce personal
+# interpretations of cultural objects and analyse and compare them against the
+# interpretations of others. Tools will be developed for modelling users and groups
+# and recommending content in a way that assists citizen groups in building a
+# representation of themselves and appreciating variety within groups and similarity across
+# groups to enhance social cohesion. A Linked Data infrastructure will support citizen
+# curation using social media platforms in a way that gives heritage institutions control
+# over rights protected digital assets and access to citizens responses to their collections.
+# User experiences will be designed that enable inclusive participation in citizen curation
+# activities across cultures and abilities. A series of citizen curation case studies with
+# a diverse set of museums and citizen groups will demonstrate how the approach can promote
+# inclusive participation and social cohesion in a variety of contexts.
+# The project brings together 13 partners from 7 countries. The consortium comprises:
+# three SMEs from the visitor guide (GVAM), mobile game (PadaOne) and data mining
+# (CELI) sectors; four heritage institutions (Design Museum Helsinki, Irish Museum
+# of Modern Art, Gallery of Modern Art Turin, Hecht Museum); and seven research
+# centres (Bologna, Aalto, Aalborg, OU, UCM, Turin, Haifa) with expertise in codesign,
+# museology, HCI, Linked Data, narratology, ontologies, visualisation and user modelling.
+#
+# Contacts:
+# - Silvio Peroni <silvio.peroni@unibo.it>
+# - Aldo Gangemi <aldo.gangemi@unibo.it>
+# - Luigi Asprino <luigi.asprino@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+### SON behaviour
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/spice-h2020/SON/
+SetEnvIf Request_URI ^.*$ DEV_ROOT_URL=https://raw.githubusercontent.com/spice-h2020/SON/main/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+SetEnvIf Request_URI ^.*$ LATEST_STABLE_RELEASE=0.0.1
+
+# Rules for release under development, currently 0.0.2
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/0.0.2(/)?$ %{ENV:LODE_URL}%{ENV:DEV_ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/0.0.2(/)?$ %{ENV:DEV_ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/([0-9].[0-9].[0-9])(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)/([0-9].[0-9].[0-9])(/)?$ %{ENV:ROOT_URL}/$2/$1/ontology.owl [R=303,L]
+
+# Rules for latest version
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^SON/([a-zA-Z-_0-9]+)(/)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/%{ENV:LATEST_STABLE_RELEASE}/$1/ontology.owl [R=303,L]
+RewriteRule ^SON/([a-zA-Z-_0-9]+)(/)?$ %{ENV:ROOT_URL}/%{ENV:LATEST_STABLE_RELEASE}/$1/ontology.owl [R=303,L]
+
+# Default behaviour
+RewriteRule ^$ https://spice-h2020.eu/ [R=303,L]
+RewriteRule ^SON(/)?$ https://github.com/spice-h2020/SON [R=303,L]
+RewriteRule ^tr_explorer(/)?$ http://framester.istc.cnr.it/tr_explorer/

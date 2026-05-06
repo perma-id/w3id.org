@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteRule ^$ https://www.epsilon-italia.it [R=302,L]
+RewriteRule ^go-peg/go-depth/metadata$ https://data.europa.eu/api/hub/repo/datasets/ispra_rm-ge_3dmod_pobasin_dt.rdf?useNormalizedId=true&locale=en [R=302,L,QSA]
+RewriteRule ^go-peg/go-depth$ https://data.europa.eu/data/datasets/ispra_rm-ge_3dmod_pobasin_dt?locale=en [R=302,L,QSA]
+
+# 1. geoIACS Vocabulary
+# 1.1 Rule for codelist value (2 parameters)
+# Esempio: geoIACS/AgriculturalAreaTypeValue/arableLand
+RewriteRule ^geoIACS/([^/]+)/([^/]+)/?$ https://showvoc.semantic.epsilon-italia.it/showvoc/#/datasets/$1/data?resId=https://w3id.org/epsilonitalia/geoIACS/$1/$2 [R=302,L,NE]
+
+# 1.2 Rule for codelist (1 parameter)
+# Esempio: geoIACS/AgriculturalAreaTypeValue
+RewriteRule ^geoIACS/([^/]+)/?$ https://showvoc.semantic.epsilon-italia.it/showvoc/#/datasets/$1/data [R=302,L,NE]

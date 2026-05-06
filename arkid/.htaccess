@@ -1,0 +1,23 @@
+# w3id .htaccess rules for arkid
+Options +FollowSymLinks
+RewriteEngine on
+
+# ARK specification
+RewriteRule ^spec|ark:?$ https://datatracker.ietf.org/doc/draft-kunze-ark/ [R=302,L]
+
+# Any ARK identifier resolution request (/ark:value or /ark:/value)
+# e.g. https://w3id.org/arkid/ark:12345/foo
+RewriteRule ^ark:(.+)$ https://n2t.net/ark:$1 [R=302,L]
+
+# Any ARK value resolution
+# e.g. https://w3id.org/arkid/12345/foo
+RewriteRule ^([0-9]{4,8})/(.*)$ https://n2t.net/ark:$1/$2 [R=302,L]
+
+# NAAN registry in ANVL
+RewriteRule ^naans?|registry$ https://n2t.net/e/pub/naan_registry.txt [R=302,L]
+
+# Register or update NAAN
+RewriteRule ^register$ http://n2t.net/e/naan_request [R=302,L]
+
+# ARK org site
+RewriteRule ^(.*)$ https://arks.org/$1 [R=302,L]

@@ -1,0 +1,44 @@
+RewriteEngine On
+
+RewriteRule ^es\/?$ https://herculescrue.github.io/ROH/roh/extensions-es/extensions-es.ttl [R=302,L]
+RewriteRule ^geo\/?$ https://herculescrue.github.io/ROH/roh/geopolitical/geopolitical.ttl [R=302,L]
+RewriteRule ^scientific-domain\/?$ https://herculescrue.github.io/ROH/roh/knowledge-area/es-scientific-domain.ttl [R=302,L]
+RewriteRule ^subject-areas\/?$ https://herculescrue.github.io/ROH/roh/knowledge-area/es-subject-area.ttl [R=302,L]
+RewriteRule ^unesco-individuals\/?$ https://herculescrue.github.io/ROH/roh/knowledge-area/unesco-knowledge-area.rdf [R=302,L]
+RewriteRule ^project-classification\/?$ https://herculescrue.github.io/ROH/roh/project-classification/project-classification.owl [R=302,L]
+RewriteRule ^university-hr\/es\/?$ https://herculescrue.github.io/ROH/roh/university-hr/university-hr-es.ttl [R=302,L]
+RewriteRule ^university-hr\/pt\/?$ https://herculescrue.github.io/ROH/roh/university-hr/university-hr-pt.ttl [R=302,L]
+RewriteRule ^university-hr\/uk\/?$ https://herculescrue.github.io/ROH/roh/university-hr/university-hr-uk.ttl [R=302,L]
+RewriteRule ^university-structure\/?$ https://herculescrue.github.io/ROH/roh/university-structure/university-structure.ttl [R=302,L]
+# Mirrored ontologies
+RewriteRule ^mirror\/dc\/terms\/?$ https://herculescrue.github.io/ROH/mirror/DCTerms/dcterms.rdf [R=302,L]
+RewriteRule ^mirror\/cerif\/?$ https://herculescrue.github.io/ROH/mirror/cerif/cerif.rdf [R=302,L]
+RewriteRule ^mirror\/foaf\/?$ https://herculescrue.github.io/ROH/mirror/foaf/foaf.rdf [R=302,L]
+RewriteRule ^mirror\/geonames\/?$ https://herculescrue.github.io/ROH/mirror/geonames/geonames.rdf [R=302,L]
+RewriteRule ^mirror\/obo\/bfo\/?$ https://herculescrue.github.io/ROH/mirror/obo/bfo.owl [R=302,L]
+RewriteRule ^mirror\/obo\/ero\/?$ https://herculescrue.github.io/ROH/mirror/obo/ero.owl [R=302,L]
+RewriteRule ^mirror\/obo\/iao\/?$ https://herculescrue.github.io/ROH/mirror/obo/iao.owl [R=302,L]
+RewriteRule ^mirror\/obo\/ro\/?$ https://herculescrue.github.io/ROH/mirror/obo/ro.owl [R=302,L]
+RewriteRule ^mirror\/org\/? https://herculescrue.github.io/ROH/mirror/org/org.rdf [R=302,L]
+RewriteRule ^mirror\/skos\/?$ https://herculescrue.github.io/ROH/mirror/skos/skos.rdf [R=302,L]
+RewriteRule ^mirror\/swrc\/?$ https://herculescrue.github.io/ROH/mirror/swrc/swrc.owl [R=302,L]
+RewriteRule ^mirror\/swrcfe\/?$ https://herculescrue.github.io/ROH/mirror/swrcfe/swrcfe.rdf [R=302,L]
+RewriteRule ^mirror\/vcard\/?$ https://herculescrue.github.io/ROH/mirror/vcard/vcard.ttl [R=302,L]
+RewriteRule ^mirror\/vivo\/?$ https://herculescrue.github.io/ROH/mirror/vivo/vivo.owl [R=302,L] 
+RewriteRule ^mirror\/oa\/?$ https://herculescrue.github.io/ROH/mirror/oa/oa.rdf [R=302,L] 
+RewriteRule ^mirror\/cito\/?$ https://herculescrue.github.io/ROH/mirror/cito/cito.ttl [R=302,L] 
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/ [R=302,NE,L] 
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.rdf [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.ttl [R=302,NE,L]
+# Default: OWL file
+RewriteRule ^$ https://herculescrue.github.io/ROH/roh/core/roh-core.owl [R=302,NE,L]
+

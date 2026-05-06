@@ -1,0 +1,15 @@
+Header set Access-Control-Allow-Origin *
+
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+AddType text/turtle .ttl
+
+RewriteEngine On
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^.*$ https://alephdata.github.io/followthemoney/ns/ftm.xml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^.*$ https://alephdata.github.io/followthemoney/ns/ftm.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^.*$ https://alephdata.github.io/followthemoney/ns/ftm.jsonld [R=303,L]
+RewriteRule ^.*$ http://www.essepuntato.it/lode/owlapi/https://alephdata.github.io/followthemoney/ns/ftm.xml [R=303,L]

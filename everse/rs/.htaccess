@@ -1,0 +1,36 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/EVERSE-ResearchSoftware/schemas/refs/heads/main/software/0.0.1/context.jsonld [R=303,L]
+
+# Rewrite rule for latest version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/EVERSE-ResearchSoftware/schemas/blob/main/software/0.0.1/README.md [R=303,L]
+
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested (commented out for now)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://raw.githubusercontent.com/EVERSE-ResearchSoftware/schemas/refs/heads/main/software/$1/context.jsonld [R=303,L]
+
+# Rewrite rules for any other version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://github.com/EVERSE-ResearchSoftware/schemas/blob/main/software/$1/README.md [R=303,L]
+
+
+# RewriteCond %{HTTP_ACCEPT} .+
+# RewriteRule ^(.*)$ {TO DO} [R=406,L]

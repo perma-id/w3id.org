@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+### eReefs definitions ###
+# simple definitions, currently hosted at RVA
+
+RewriteRule ^def$ https://demo.vocabs.ardc.edu.au/viewById/484 [R=303,L]
+RewriteRule ^def/([\S]*)$ https://demo.vocabs.ardc.edu.au/repository/api/lda/csiro/ereefs-vocabularies/initial-version/resource?uri=https://w3id.org/ereefs/def/$1 [R=303,L]

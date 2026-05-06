@@ -1,0 +1,50 @@
+
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .json
+
+# Rewrite engine setup
+RewriteEngine On
+
+###################################
+# Rewrite rule for resource HTML content  for the root vocabulary  IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^$ http://vocabhub.ilsp.gr/clarin_el_dict/en [R=302,L]
+
+###################################
+# Rewrite rule for resource HTML content for the concept IRI
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} !text/turtle
+RewriteCond %{HTTP_ACCEPT} !application/ld\+json
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteRule ^(.+) http://vocabhub.ilsp.gr/clarin_el_dict/en/page/$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+) http://vocabhub.ilsp.gr/rest/v1/clarin_el_dict/data?uri=http://w3id.org/clarin_el_dictionary/$1 [R=303,NE,L]
+               
+####################################
+# Rewrite rule to serve TURTLE content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+) http://vocabhub.ilsp.gr/rest/v1/clarin_el_dict/data?uri=http://w3id.org/clarin_el_dictionary/$1 [R=303,NE,L]
+
+####################################
+# Rewrite rule to serve json content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+) http://vocabhub.ilsp.gr/rest/v1/clarin_el_dict/data?uri=http://w3id.org/clarin_el_dictionary/$1  [R=303,NE,L]
+
+####################################
+# Default response
+RewriteRule ^(.+)  http://vocabhub.ilsp.gr/clarin_el_dict/en/page/$1 [R=303,NE,L]

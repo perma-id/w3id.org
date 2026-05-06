@@ -1,0 +1,18 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/whow-project/semantic-assets/main/controlled-vocabularies
+
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
+RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:ROOT_URL}/$1/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^([a-zA-Z-_0-9]+)$ https://semscout.istc.cnr.it/whow/lodview/controlled-vocabulary/$1 [R=303,L]
+
+RewriteRule ^(.+)/(.+)$ https://semscout.istc.cnr.it/whow/lodview/controlled-vocabulary/$1/$2 [R=303,L]

@@ -1,0 +1,31 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Make ontology artifacts in the "export" folder (https://github.com/biopragmatics/obo-db-ingest/tree/main/export) resolvable.
+# For example, we want https://w3id.org/biopragmatics/resources/interpro/92.0/interpro.obo to redirect to https://github.com/biopragmatics/obo-db-ingest/raw/main/export/interpro/92.0/interpro.obo
+RewriteRule ^resources/(.+) https://github.com/biopragmatics/obo-db-ingest/raw/main/export/$1
+
+########################
+# Schema rewrite rules #
+########################
+# This is the schema for extended prefix maps (EPMs)
+RewriteRule ^schema/epm.json https://raw.githubusercontent.com/biopragmatics/curies/main/docs/schema.json
+
+# Make biomappings SSSOM artifacts available
+# For example, we want https://w3id.org/biopragmatics/biomappings/biomappings.sssom.tsv to redirect to https://raw.githubusercontent.com/biopragmatics/biomappings/master/docs/_data/sssom/biomappings.sssom.tsv
+RewriteRule ^biomappings/sssom/(.+) https://raw.githubusercontent.com/biopragmatics/biomappings/master/docs/_data/sssom/$1
+
+# Make Bioregistry artifacts available
+# Redirect registry objects
+# For example, we want https://w3id.org/biopragmatics/bioregistry.epm.json to redirect to https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/bioregistry.epm.json
+RewriteRule ^(.+).epm.json https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/$1.epm.json
+RewriteRule ^(.+).context.jsonld https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/$1.context.jsonld
+RewriteRule ^(.+).context.ttl https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/$1.context.ttl
+
+# Redirect registry objects
+# For example, we want https://w3id.org/biopragmatics/bioregistry/registry.json to redirect to https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.json
+RewriteRule ^bioregistry/registry\.(.+) https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/registry/registry.$1
+
+# Redirect Bioregistry contexts
+# For example, we want https://w3id.org/biopragmatics/bioregistry/context/bioregistry.rpm.json to redirect to https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/bioregistry.rpm.json
+RewriteRule ^bioregistry/context/(.+) https://raw.githubusercontent.com/biopragmatics/bioregistry/main/exports/contexts/$1

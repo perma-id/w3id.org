@@ -1,0 +1,22 @@
+#
+# Tractus-X Namespace Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.ttl and *.jsonld files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+# Rewrite rule to resolve policy context
+RewriteRule ^policy/v1.0.0(.*)$ https://eclipse-tractusx.github.io/tractusx-profiles/cx/context/policy.context.json [R=302,L]
+
+# Rewrite rule to default to the tx webpage
+RewriteRule ^(.*)$ https://eclipse-tractusx.github.io/ [R=303,L]

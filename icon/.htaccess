@@ -1,0 +1,22 @@
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://br0ast.github.io/ICON/ [R=301]
+
+# Rewrite rules for ontology
+RewriteRule ^ontology/([\d\.]+)$ https://raw.githubusercontent.com/br0ast/ICON/main/Ontology/$1/icon.rdf [R=303,L]
+RewriteRule ^ontology/current(.*)$ https://raw.githubusercontent.com/br0ast/ICON/main/Ontology/current/icon.rdf [R=303,L]
+RewriteRule ^ontology/(.*)$ https://raw.githubusercontent.com/br0ast/ICON/main/Ontology/current/icon.rdf [R=303,L]
+
+# Rewrite rules for docs
+RewriteRule ^docs/([\d\.]+)$ https://br0ast.github.io/ICON/ICONOntologyDocumentation$1/index-en.html [R=303,L]
+RewriteRule ^docs/current(.*)$ https://br0ast.github.io/ICON/ICONOntologyDocumentationcurrent/index-en.html [R=303,L]
+RewriteRule ^docs/(.*)$ https://br0ast.github.io/ICON/ICONOntologyDocumentationcurrent/index-en.html [R=303,L]
+
+# Additional rewrite rules (if needed)
+RewriteRule ^development(.*)$ https://github.com/br0ast/ICON/tree/main/Development [R=303,L]
+RewriteRule ^data(.*)$ https://raw.githubusercontent.com/SofiBar/IconologyDataset/main/data/icondataset.ttl [R=303,L]
+
+

@@ -1,0 +1,29 @@
+# Name of the project: OWLunit
+# Description: OWLunit is a tool that allows you to run unit tests for
+# ontologies defined according to OWLUnit Ontology. OWLunit is also able
+# too run test cases defined by using ODP's test annotation schema and TESTaLOD.
+# Contacts:
+# - Luigi Asprino <luigi.asprino@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/luigi-asprino/owl-unit/
+SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Rules for version-aware URIs of ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/([0-9].[0-9].[0-9])(/.*)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/$1/ontology/ontology.owl [R=303,L]
+RewriteRule ^ontology/([0-9].[0-9].[0-9])(/.*)?$ %{ENV:ROOT_URL}/$1/ontology/ontology.owl [R=303,L]
+
+# Rules for latest version
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology(/.*)?$ %{ENV:LODE_URL}%{ENV:ROOT_URL}/0.2.0/ontology/ontology.owl [R=303,L]
+RewriteRule ^ontology(/.*)?$ %{ENV:ROOT_URL}/0.2.0/ontology/ontology.owl [R=303,L]
+
+# Default behaviour
+RewriteRule ^$ https://github.com/luigi-asprino/owl-unit/ [R=303,L]
+
+# Default behaviour
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/luigi-asprino/owl-unit/main/$1 [R=303,L]

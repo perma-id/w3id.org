@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect base ontology URI
+RewriteRule ^$ https://github.com/liadraetta/talkidz-ontology [R=303,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/liadraetta/talkidz-ontology/main/talkidz.ttl [R=303,L]
+
+# File-specific redirections
+RewriteRule ^(.*)\.ttl$ https://raw.githubusercontent.com/liadraetta/talkidz-ontology/main/talkidz.ttl [R=303,L]

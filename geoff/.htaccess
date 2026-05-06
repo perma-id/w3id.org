@@ -1,0 +1,13 @@
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$  http://theme-e.adaptcentre.ie/geoff/geoffv1.02.006.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$  http://theme-e.adaptcentre.ie/geoff/geoffv1.02.006.ttl [R=303,NE,L]
+
+RewriteRule ^/?$ http://theme-e.adaptcentre.ie/geoff/ [R=302,L]

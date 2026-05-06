@@ -1,0 +1,18 @@
+RewriteEngine on
+
+# Reserved path components
+RewriteRule ^schemas/(.*)$ https://docuracy.github.io/Locolligo/schemas/$1 [NE,R=302,L]
+RewriteRule ^contexts/(.*)$ https://docuracy.github.io/Locolligo/contexts/$1 [NE,R=302,L]
+
+# Dataset features: https://w3id.org/locolligo/name/id -> https://docuracy.github.io/Locolligo/datasets/#name/id
+# (Dataset names may include a '.', but feature ids may not, generally)
+RewriteRule ^([^/]+)/([^/\.]+)$ https://docuracy.github.io/Locolligo/datasets/#$1/$2 [NE,R=302,L]
+# (Mapping-Museums dataset employs '.' in feature ids; add others using '|' separator)
+RewriteRule ^(Mapping-Museums|dotty-dataset)/([^/]+)$ https://docuracy.github.io/Locolligo/datasets/#$1/$2 [NE,R=302,L]
+
+# Datasets: https://w3id.org/locolligo/name -> https://docuracy.github.io/Locolligo/datasets/name.lp.json
+# (Catch any non-blank URL that is not a filename)
+RewriteRule ^([^\.]+)$ https://docuracy.github.io/Locolligo/datasets/$1.lp.json [NE,R=302,L]
+
+# Default: redirect unreserved-path/filename URLs (and blank-path/blank-filename to index.html)
+RewriteRule ^(.*)$ https://docuracy.github.io/Locolligo/$1 [NE,R=302,L]

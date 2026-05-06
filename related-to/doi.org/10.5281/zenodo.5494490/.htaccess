@@ -1,0 +1,49 @@
+RewriteEngine On
+
+# More information about this entity itself
+# -------------------
+# It is not possible to retrieve the identifier
+# https://w3id.org/related-to/doi.org/10.5281/zenodo.5494490
+# (i.e. without trailing slash) because of the structure of the w3id.org configuration.
+# We therefore provide a separate endpoint for information about this entity itself:
+#
+# COMMENT: ^$ is matching https://w3id.org/related-to/doi.org/10.5281/zenodo.5494490/ ,
+#          i.e. the final part after the slash is matched by the RewriteRule
+#
+RewriteRule ^$       https://w3id.org/related-to/doi.org/10.5281/zenodo.5494490/meta [R=301,L,QSA]
+RewriteRule ^meta$   https://github.com/perma-id/w3id.org/blob/master/related-to/doi.org/10.5281/zenodo.5494490/README.md [R=303,L,QSA]
+
+
+# Catch all trailing-slash URLs
+# -------------------
+# Catch the trailing-slash variation of all URLs in this namespace, and remove the slash;
+# do this because the slashed versions shall have no meaning
+#
+# COMMENT: %{REQUEST_URI} is of the form "/related-to/doi.org/..."
+#
+RewriteCond %{REQUEST_URI} /(.*)/$
+RewriteRule ^ /%1 [R=301,L]
+
+
+# Active Identifiers
+# ------------------
+# This block contains active identifier redirects:
+#
+RewriteRule ^files$                      https://doi.org/10.5281/zenodo.5494490 [R=303,L,QSA]
+RewriteRule ^files/TableS1_deltaH.csv$   https://zenodo.org/record/5494490/files/TableS1_deltaH.csv [R=303,L,QSA]
+RewriteRule ^files/TableS1_Keq.csv$      https://zenodo.org/record/5494490/files/TableS1_Keq.csv [R=303,L,QSA]
+
+
+# Obsolete Identifiers
+# --------------------
+# Obsolete Identifiers have been minted once, and are gone now.
+# Best-practice handling to communicate this is not specified yet.
+#
+RewriteRule ^gone$ - [R=410,L,QSA]
+
+
+# Requests to resources that were not defined above
+# ------------------------------------------
+# Catch identifers not yet caught until here, and redirect the user to a 404 page to explain this fact:
+#
+RewriteRule "^\/(.+)$" "-" [R=404,L,QSA]

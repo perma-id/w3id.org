@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+## vocab/ end point
+# RewriteRule ^vocab$ https://genomicsstandardsconsortium.github.io/mixs/$1
+RewriteRule ^vocab\/(.*)$ https://genomicsstandardsconsortium.github.io/mixs/$1 [R=301,L]
+
+# Schema artefacts use raw Github URLs
+# if suffix is yaml, redirect to LinkML YAML schema
+RewriteRule ^mixs.yaml$ https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/src/mixs/schema/mixs.yaml [R=302,L]
+
+# if suffix is schema.json, redirect to JSON Schema
+RewriteRule ^mixs.schema.json$ https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/project/jsonschema/mixs.schema.json [R=302,L]
+
+## if suffix is context.jsonld, redirect to JSON LD context
+#RewriteRule ^mixs.context.jsonld$ https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/mixs/jsonld/mixs.jsonld [R=302,L]
+
+# if suffix is owl, redirect to OWL
+RewriteRule ^mixs.owl.ttl$ https://raw.githubusercontent.com/GenomicsStandardsConsortium/mixs/main/project/owl/mixs.owl.ttl [R=302,L]
+
+
+# Schema elements use Github Pages
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://genomicsstandardsconsortium.github.io/mixs/$1 [R=302,L]

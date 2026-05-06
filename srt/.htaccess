@@ -1,0 +1,37 @@
+# Selected Options [+ on] [- off]
+Options +FollowSymLinks
+
+# Runtime rewriting engine
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/srt/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://raw.githubusercontent.com/RUB-Informatik-im-Bauwesen/srt/main/Ontology_for_Spatial_Reasoning_in_Tunnel_Projects_(srt).ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/RUB-Informatik-im-Bauwesen/srt/main/Ontology_for_Spatial_Reasoning_in_Tunnel_Projects_(srt).rdf [R=302,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^srt.ttl$ https://raw.githubusercontent.com/RUB-Informatik-im-Bauwesen/srt/main/Ontology_for_Spatial_Reasoning_in_Tunnel_Projects_(srt).ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^srt.html$ https://rub-informatik-im-bauwesen.github.io/srt/ [R=302,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^bcom.rdf$ https://raw.githubusercontent.com/RUB-Informatik-im-Bauwesen/srt/main/Ontology_for_Spatial_Reasoning_in_Tunnel_Projects_(srt).rdf [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://rub-informatik-im-bauwesen.github.io/srt/ [R=303,NE,L]

@@ -1,0 +1,93 @@
+# Allow all (*) origins to access the resource on the server
+Header set Access-Control-Allow-Origin *
+
+# Allow following symbolic links / symlinks / softlinks
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Ensure files are served as appropriate content type
+# reminder: https://www.w3.org/2001/12/semweb-fin/swlevels.png
+AddType application/ld+json json
+AddType application/rdf+xml owl rdf
+AddType text/turtle ttl
+
+# Required for the redirects
+RewriteEngine On
+
+## BEGIN: Redirects using extension
+
+# Redirects - w/o version number
+RewriteRule ^/?\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.$1 [R=303,L]
+RewriteRule ^/?\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.owl [R=303,L]
+RewriteRule ^/?\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]
+
+# Redirects - w/ version number
+RewriteRule ^/?(\d+(\.\d+)+)\.(json|png|svg|ttl)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.$3 [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)\.(owl|rdf|xml)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.owl [R=303,L]
+RewriteRule ^/?(\d+(\.\d+)+)\.html$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/SocDOnt.html [R=303,L]
+
+## END: Redirects using extension
+
+## BEGIN: content negotiation - w/o version number
+
+# Serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]
+
+# Serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.json [R=303,L]
+
+# Serve RDF/XML content from the vocabulary URI if requested
+#RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.owl [R=303,L]
+
+# Serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/current/SocDOnt.ttl [R=303,L]
+
+## END: content negotiation - w/o version number
+
+
+## BEGIN: content negotiation - w/ version number
+
+# Serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^/?(\d+(\.\d+)+)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/$1/SocDOnt.html [R=303,L]
+
+# Serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?(\d+(\.\d+)+)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.json [R=303,L]
+
+# Serve RDF/XML content from the vocabulary URI if requested
+#RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^/?(\d+(\.\d+)+)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.owl [R=303,L]
+
+# Serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^/?(\d+(\.\d+)+)$ https://raw.githubusercontent.com/ceir-koblenz/ontologies/main/SocDOnt/$1/SocDOnt.ttl [R=303,L]
+
+## END: content negotiation - w/ version number
+
+# Default response: redirect everything to the github pages site
+RewriteRule ^(.*)$ https://ceir-koblenz.github.io/ontologies/SocDOnt/current/SocDOnt.html [R=303,L]

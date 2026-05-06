@@ -1,0 +1,24 @@
+Options -MultiViews
+
+AddType application/rdf+xml .rdf
+AddType text/n3 .n3
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^onto/(.*)$ https://semantic-audio.github.io/afo/ [R=303]
+RewriteRule ^vocab/(.*)$ https://semantic-audio.github.io/afv/ [R=303]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^onto/(.*)$ https://semantic-audio.github.io/afo/af-ontology.rdf [R=303]
+RewriteRule ^vocab/(.*)$ https://semantic-audio.github.io/afv/af-vocabulary.rdf [R=303]
+
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^onto/(.*)$ https://semantic-audio.github.io/afo/af-ontology.n3 [R=303]
+RewriteRule ^vocab/(.*)$ https://semantic-audio.github.io/afv/af-vocabulary.n3 [R=303]
+
+RewriteRule ^onto/(.*)$ https://semantic-audio.github.io/afo/ [R=303]
+RewriteRule ^vocab/(.*)$ https://semantic-audio.github.io/afv/ [R=303]

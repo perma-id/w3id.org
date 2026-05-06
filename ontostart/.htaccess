@@ -1,0 +1,107 @@
+Header set Access-Control-Allow-Origin *
+Options -MultiViews
+RewriteEngine On
+
+### redirects for OntoStart projects
+###
+### https://w3id.org/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
+### redirects to https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
+### e.g. onto IRI:
+
+###  redirects to website if no format requested
+###  redirects to latest version if no version requested
+
+### main branch based ontology hosting
+### e.g. https://w3id.org/ontostart/
+
+### branch based ontology hosting
+### e.g. https://w3id.org/ontostart/testo/
+### e.g. Website:                 https://micheldumontier.github.io/ontostart/testo
+### e.g. GitHub:                  https://github.com/micheldumontier/ontostart/tree/testo
+### e.g. latest version IRI:      https://w3id.org/ontostart/testo/versions/latest/testo.owl
+### e.g. specified versioned IRI: https://w3id.org/ontostart/testo/versions/0.0.1/testo.owl
+### e.g. ontospy docs:            https://w3id.org/ontostart/testo/docs/ontospy/index.html
+### e.g. ontospy class docs:      https://w3id.org/ontostart/testo/docs/ontospy/class-testoThing.html
+### e.g. ontospy prop docs:       https://w3id.org/ontostart/testo/docs/ontospy/prop-testohasPart.html
+### e.g. pylode docs:             https://w3id.org/ontostart/testo/docs/pylode/index.html
+
+### Set parameters here
+RewriteRule ^ - [E=GH_USER:micheldumontier]
+RewriteRule ^ - [E=GH_REPONAME:ontostart]
+RewriteRule ^ - [E=GH_DEFAULT_BRANCH:main]
+RewriteRule ^ - [E=ONTO:ontostart]
+
+# specify whether to resolve class and property IRIs to ontospy documentation
+RewriteRule ^ - [E=RESOLVE_IRI_WITH:ontospy]
+
+RewriteRule ^ - [E=GH_REPO:https://github.com/%{ENV:GH_USER}/%{ENV:GH_REPONAME}/tree]
+RewriteRule ^ - [E=GH_PAGE:https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPONAME}]
+
+
+### Content negotiation for ontology formats
+## JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ - [E=EXT:jsonld]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} !text/html 
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+RewriteCond %{HTTP_ACCEPT} xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ - [E=EXT:owl]
+
+# Turtle variants
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ - [E=EXT:ttl]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ - [E=EXT:nt]
+
+
+# Ontology class and property documentation with ontospy
+# https://w3id.org/ontostart/hasUnit -> https://micheldumontier.github.io/ontostart/main/docs/ontospy/prop-hasUnit.html
+RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
+RewriteCond %{ENV:EXT} !.
+RewriteCond %{REQUEST_URI} ([a-z][a-zA-Z]*(?<!/))$
+RewriteCond %1 !^(github|docs|versions)$
+RewriteRule ^([a-z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/docs/ontospy/prop-%{ENV:ONTO}$1.html [R=303,L]
+
+RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
+RewriteCond %{ENV:EXT} !.
+RewriteCond %{REQUEST_URI} ([A-Z][a-zA-Z]*(?<!/))$
+RewriteCond %1 !^(github|docs|versions)$
+RewriteRule ^([A-Z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/docs/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
+
+
+# Content-type redirections to the latest version for branch-based path
+# Accept: text/turtle https://w3id.org/ontostart/testo/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/ontostart.ttl
+RewriteCond %{ENV:EXT} .
+RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+
+# Content-type redirections to provided path
+# Accept: text/turtle https://w3id.org/ontostart/versions/latest/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.ttl
+# Accept: text/turtle https://w3id.org/ontostart/versions/1.0.0/ -> https://micheldumontier.github.io/ontostart/main/versions/1.0.0/ontostart.ttl
+RewriteCond %{ENV:EXT} .
+RewriteRule ^(.+?)/?$ %{ENV:GH_PAGE}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+
+# Path provided, no content type redirections
+# https://w3id.org/ontostart/main/ -> https://micheldumontier.github.io/ontostart/main
+# https://w3id.org/ontostart/main/versions/latest -> https://micheldumontier.github.io/ontostart/main/versions/latest
+# https://w3id.org/ontostart/main/docs/ontospy/index.html -> https://micheldumontier.github.io/ontostart/main/docs/ontospy/index.html
+RewriteCond !%{ENV:EXT} .
+RewriteRule ^(.+)$ %{ENV:GH_PAGE}/$1 [R=303,L]
+
+# Root, content-type redirects to main branch
+# https://w3id.org/ontostart/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.(owl|ttl|jsonld|nt)
+RewriteCond %{ENV:EXT} .
+RewriteRule ^$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+
+# Root, no content-type redirects to main branch
+# https://w3id.org/ontostart/ -> https://micheldumontier.github.io/ontostart/main
+RewriteRule ^$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH} [R=303,L]
+

@@ -1,0 +1,28 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+# https://w3id.org/moneygraph/ns/ontology/*
+# This is the moneygraph ontology namespace; we are redirecting it to a web page
+RewriteRule ^moneygraph.ttl$ https://github.com/turingtest37/moneygraph/blob/main/export/moneygraph.ttl [R=302,L]
+RewriteRule ^moneygraph.xml$ https://github.com/turingtest37/moneygraph/blob/main/export/moneygraph.xml [R=302,L]
+
+###   ###   ###   ###   ###   ###   ###   
+# Moneygraph Ontology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+# Everything else goes to the website.
+RewriteRule ^(.+)$ https://moneygraph.info/$1 [R=302,L]

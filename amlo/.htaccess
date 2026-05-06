@@ -1,0 +1,17 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://mopso.gitlab.io/amlo/
+         
+RewriteCond %{ENV:SYNTAX} ^(ttl|rdf|html)$
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}$1/$1.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^plain$
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}$1/README.md [R=303,L]
+
+# default points to rdf
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}$1/$1.rdf [R=303,L]

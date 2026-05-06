@@ -1,0 +1,87 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# Rewrite rule for latest version.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://www.earthmetabolome.org/earth_metabolome_ontology/ [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.owl [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.ttl [R=303,L]
+
+# Rewrite rule to serve TTL content for the EBI-OLS service 
+RewriteCond %{REQUEST_URI} ols\.ttl$
+RewriteRule ols\.ttl$/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/emi-ols.ttl [R=301,L]
+
+# Rewrite rule to serve TTL content for the NPClassifier taxonomy
+RewriteCond %{REQUEST_URI} npc
+RewriteRule npc/?$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/npc_taxonomy.ttl [R=301,L]
+
+# Rewrite rule to serve content to the latest EMI version
+RewriteCond %{REQUEST_URI} version/1.0
+RewriteRule version/1.0/?$ https://w3id.org/emi [R=301,L]
+
+## We will have to better handle the EMI ontology versions in the future.
+
+# # Rewrite rules for any other version.
+# RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+# RewriteCond %{HTTP_ACCEPT} text/html [OR]
+# RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+# RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+# RewriteRule ^(.+)$ https://dgarijo.github.io/example/release/$1/index-en.html [R=303,L]
+
+# # Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# RewriteRule ^(.+)$ https://dgarijo.github.io/example/release/$1/ontology.json [R=303,L]
+
+# # Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+# RewriteRule ^(.+)$ https://dgarijo.github.io/example/release/$1/ontology.owl [R=303,L]
+
+# # Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} application/n-triples
+# RewriteRule ^(.+)$ https://dgarijo.github.io/example/release/$1/ontology.nt [R=303,L]
+
+# # Rewrite rule to serve TTL content from the vocabulary URI if requested
+# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+# RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+# RewriteCond %{HTTP_ACCEPT} \*/turtle
+# RewriteRule ^(.+)$ https://dgarijo.github.io/example/release/$1/ontology.ttl [R=303,L]
+
+
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/406.html [R=406,L]
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://raw.githubusercontent.com/earth-metabolome-initiative/earth_metabolome_ontology/refs/heads/main/docs/ontology.owl [R=303,L]

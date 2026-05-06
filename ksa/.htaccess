@@ -1,0 +1,18 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Homepage
+RewriteRule ^$ https://defs-dev.opengis.net/vocprez-ksa/ [R=302,L]
+RewriteRule ^feature-types/?$ https://defs-dev.opengis.net/vocprez-ksa/ [R=302,L]
+
+## Feature Type Catalog
+RewriteRule ^feature-types/(.+)$ https://defs-dev.opengis.net/vocprez-ksa/object?uri=https://w3id.org/ksa/feature-types/$1 [R=303,L]
+

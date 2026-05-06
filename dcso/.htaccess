@@ -1,0 +1,50 @@
+# Selected Options [+ on] [- off]
+Options +FollowSymLinks
+
+# Runtime rewriting engine
+RewriteEngine on
+
+# DCSO Core -----------------------------------------------------------------
+# Rewrite rule to serve RDF/XML content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^core$ http://semantics.id/dcso/ns/core/ontology.xml [R=303,NE,L]
+
+# Rewrite rule to serve TTL content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^core$ http://semantics.id/dcso/ns/core/ontology.ttl [R=303,NE,L]
+
+# Rewrite rule to serve JSON-LD content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^core$ http://semantics.id/dcso/ns/core/ontology.json [R=303,NE,L]
+
+# Rewrite rule to serve ntriples content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* 
+RewriteRule ^core$ http://semantics.id/dcso/ns/core/ontology.nt  [R=303,NE,L]
+
+RewriteRule ^core$ http://semantics.id/dcso/ns/core/  [R=303,NE,L]
+
+# DCSO Extensions -----------------------------------------------------------------
+
+# DCSX -----------------------------------------------------------------
+# Rewrite rule to serve RDF/XML content from the DCSX if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^extension$ http://semantics.id/dcso/ns/extension/ontology.xml [R=303,NE,L]
+
+# Rewrite rule to serve TTL content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^extension$ http://semantics.id/dcso/ns/extension/ontology.ttl [R=303,NE,L]
+
+# Rewrite rule to serve JSON-LD content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^extension$ http://semantics.id/dcso/ns/extension/ontology.json [R=303,NE,L]
+
+# Rewrite rule to serve ntriples content from the DCSO if requested
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.* 
+RewriteRule ^extension$ http://semantics.id/dcso/ns/extension/ontology.nt  [R=303,NE,L]
+
+RewriteRule ^extension$ http://semantics.id/dcso/ns/extension/  [R=303,NE,L]
+
+#  -----------------------------------------------------------------
+
+RewriteRule ^$ http://semantics.id/dcso [R=302,L]
+RewriteRule ^(.*)$ http://semantics.id/dcso/$1 [R=302,L]

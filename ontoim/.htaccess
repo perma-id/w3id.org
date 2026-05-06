@@ -1,0 +1,19 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/luca-martinelli-09/ontoim/master/ontology/latest/OntoIM
+SetEnvIf Request_URI ^.*$ DOC_URL=https://luca-martinelli-09.github.io/ontoim/ontology
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
+RewriteRule ^$ %{ENV:ROOT_URL}.%{ENV:SYNTAX} [R=303,L]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^/([a-zA-Z0-9]+)$ %{ENV:DOC_URL}#$1 [R=303,L,NE]
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^$ %{ENV:DOC_URL} [R=303,L]

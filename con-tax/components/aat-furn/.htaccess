@@ -1,0 +1,40 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://mathib.github.io/aat-furn-taxonomy/ [R=303,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://mathib.github.io/aat-furn-taxonomy/ontology.ttl [R=303,NE,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://mathib.github.io/aat-furn-taxonomy/ontology.xml [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^aat-furn.ttl$ https://mathib.github.io/aat-furn-taxonomy/ontology.ttl [R=303,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^aat-furn.html$ https://mathib.github.io/aat-furn-taxonomy/ [R=303,NE,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^aat-furn.rdf$ https://mathib.github.io/aat-furn-taxonomy/ontology.xml [R=303,NE,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^aat-furn.jsonld$ https://mathib.github.io/aat-furn-taxonomy/ontology.json [R=303,NE,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^aat-furn.nt$ https://mathib.github.io/aat-furn-taxonomy/ontology.nt [R=303,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://mathib.github.io/aat-furn-taxonomy/ [R=303,NE,L]

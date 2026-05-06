@@ -1,0 +1,455 @@
+# LD4P Art and Rare Materials Ontology Extensions
+# https://w3id.org/arm/...
+Options +FollowSymLinks -MultiViews
+RewriteEngine on
+
+AddType application/rdf+xml .rdf .owl
+
+# Base
+RewriteRule ^$ https://art-and-rare-materials-bf-ext.github.io/arm/ [R=302,L]
+
+
+### Setup for https://w3id.org/arm/core/ontology
+
+# Version 1.0
+RewriteRule ^ontology/1.0/arm.rdf$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=302,L]
+RewriteRule ^ontology/1.0/arm.html$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/1.0/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/1.0/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^ontology/1.0/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=303,L]
+
+# Version 0.1
+RewriteRule ^core/ontology/0.1/core.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.rdf [R=302,L]
+RewriteRule ^core/ontology/0.1/core.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/ontology/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/ontology/0.1/core.rdf [R=303]
+RewriteRule ^core/ontology/1.0/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/ontology/arm_1_0.rdf [R=303]
+
+# Unversioned -> latest version which is 1.0
+RewriteRule ^core/ontology/?$ https://w3id.org/arm/ontology/1.0/ [R=302,L]
+RewriteRule ^core/ontology/core.rdf$ https://w3id.org/arm/core/ontology/0.1/core.rdf [R=302,L]
+RewriteRule ^core/ontology/core.html$ https://w3id.org/arm/core/ontology/0.1/core.html [R=302,L]
+
+### Setup for https://w3id.org/arm/activity/ontology
+
+# Version 0.1
+RewriteRule ^activity/ontology/0.1/activity.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.rdf [R=302,L]
+RewriteRule ^activity/ontology/0.1/activity.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^activity/ontology/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^activity/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^activity/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/activity/ontology/0.1/activity.rdf [R=303]
+
+# Unversioned -> latest version (note also wierd pattern as published without ontology component)
+RewriteRule ^activity/?$ https://w3id.org/arm/activity/ontology/0.1/ [R=302,L]
+RewriteRule ^activity/ontology/?$ https://w3id.org/arm/activity/ontology/0.1/ [R=302,L]
+RewriteRule ^activity/ontology/activity.rdf$ https://w3id.org/arm/activity/ontology/0.1/activity.rdf [R=302,L]
+RewriteRule ^activity/ontology/activity.html$ https://w3id.org/arm/activity/ontology/0.1/activity.html [R=302,L]
+
+### Setup for https://w3id.org/arm/award/ontology
+
+# Version 0.1
+RewriteRule ^award/ontology/0.1/award.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/award/ontology/0.1/award.rdf [R=302,L]
+RewriteRule ^award/ontology/0.1/award.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/award/ontology/0.1/award.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^award/ontology/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/award/ontology/0.1/award.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^award/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/award/ontology/0.1/award.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^award/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/award/ontology/0.1/award.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^award/ontology/?$ https://w3id.org/arm/award/ontology/0.1/ [R=302,L]
+RewriteRule ^award/ontology/award.rdf$ https://w3id.org/arm/award/ontology/0.1/award.rdf [R=302,L]
+RewriteRule ^award/ontology/award.html$ https://w3id.org/arm/award/ontology/0.1/award.html [R=302,L]
+
+### Setup for https://w3id.org/arm/custodial_history/ontology
+
+# Version 0.1
+RewriteRule ^custodial_history/ontology/0.1/custodial_history.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/custodial_history/ontology/0.1/custodial_history.rdf [R=302,L]
+RewriteRule ^custodial_history/ontology/0.1/custodial_history.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/custodial_history/ontology/0.1/custodial_history.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^custodial_history/ontology/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/custodial_history/ontology/0.1/custodial_history.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^custodial_history/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/custodial_history/ontology/0.1/custodial_history.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^custodial_history/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/custodial_history/ontology/0.1/custodial_history.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^custodial_history/ontology/?$ https://w3id.org/arm/custodial_history/ontology/0.1/ [R=302,L]
+RewriteRule ^custodial_history/ontology/custodial_history.rdf$ https://w3id.org/arm/custodial_history/ontology/0.1/custodial_history.rdf [R=302,L]
+RewriteRule ^custodial_history/ontology/custodial_history.html$ https://w3id.org/arm/custodial_history/ontology/0.1/custodial_history.html [R=302,L]
+
+### Setup for https://w3id.org/arm/measurement/ontology
+
+# Version 0.1
+RewriteRule ^measurement/ontology/0.1/measurement.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/measurement/ontology/0.1/measurement.rdf [R=302,L]
+RewriteRule ^measurement/ontology/0.1/measurement.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/measurement/ontology/0.1/measurement.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^measurement/ontology/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/measurement/ontology/0.1/measurement.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^measurement/ontology/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/measurement/ontology/0.1/measurement.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^measurement/ontology/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/measurement/ontology/0.1/measurement.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^measurement/ontology/?$ https://w3id.org/arm/measurement/ontology/0.1/ [R=302,L]
+RewriteRule ^measurement/ontology/measurement.rdf$ https://w3id.org/arm/measurement/ontology/0.1/measurement.rdf [R=302,L]
+RewriteRule ^measurement/ontology/measurement.html$ https://w3id.org/arm/measurement/ontology/0.1/measurement.html [R=302,L]
+
+### Setup for https://w3id.org/arm/vocabularies/1.0/physical_presentation/ which replaces https://w3id.org/arm/core/vocabularies/arrangement
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/physical_presentation.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/physical_presentation.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/physical_presentation.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/physical_presentation.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/physical_presentation/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/physical_presentation.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/physical_presentation/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/physical_presentation.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/physical_presentation/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/physical_presentation.rdf [R=303,L]
+
+# Version 0.1
+RewriteRule ^core/vocabularies/arrangement/0.1/arrangement.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/arrangement/0.1/arrangement.rdf [R=302,L]
+RewriteRule ^core/vocabularies/arrangement/0.1/arrangement.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/arrangement/0.1/arrangement.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/arrangement/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/arrangement/0.1/arrangement.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/arrangement/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/arrangement/0.1/arrangement.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/vocabularies/arrangement/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/arrangement/0.1/arrangement.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^core/vocabularies/arrangement/?$ https://w3id.org/arm/vocabularies/1.0/physical_presentation/ [R=302,L]
+RewriteRule ^core/vocabularies/arrangement/arrangement.rdf$ https://w3id.org/arm/core/vocabularies/arrangement/0.1/arrangement.rdf [R=302,L]
+RewriteRule ^core/vocabularies/arrangement/arrangement.html$ https://w3id.org/arm/core/vocabularies/arrangement/0.1/arrangement.html [R=302,L]
+
+### Setup for https://w3id.org/arm/core/vocabularies/handwriting_type
+
+# Version 0.1
+RewriteRule ^core/vocabularies/handwriting_type/0.1/handwriting_type.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/handwriting_type/0.1/handwriting_type.rdf [R=302,L]
+RewriteRule ^core/vocabularies/handwriting_type/0.1/handwriting_type.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/handwriting_type/0.1/handwriting_type.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/handwriting_type/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/handwriting_type/0.1/handwriting_type.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/handwriting_type/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/handwriting_type/0.1/handwriting_type.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/vocabularies/handwriting_type/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/handwriting_type/0.1/handwriting_type.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^core/vocabularies/handwriting_type/?$ https://w3id.org/arm/core/vocabularies/handwriting_type/0.1/ [R=302,L]
+RewriteRule ^core/vocabularies/handwriting_type/handwriting_type.rdf$ https://w3id.org/arm/core/vocabularies/handwriting_type/0.1/handwriting_type.rdf [R=302,L]
+RewriteRule ^core/vocabularies/handwriting_type/handwriting_type.html$ https://w3id.org/arm/core/vocabularies/handwriting_type/0.1/handwriting_type.html [R=302,L]
+
+## Setup for https://w3id.org/arm/vocabularies/1.0/note_types/
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/note_types.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/note_types.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/note_types/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/note_types/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/note_types/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/note_types.rdf [R=303,L]
+
+# Unversioned -> latest version
+RewriteRule ^vocabularies/note_types/?$ https://w3id.org/arm/vocabularies/1.0/note_types/ [R=302,L]
+
+### Setup for https://w3id.org/arm/vocabularies/origin
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/origin.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/origin.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/origin.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/origin.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/origin/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/origin.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/origin/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/origin.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/origin/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/origin.rdf [R=303,L]
+
+# Version 0.1
+RewriteRule ^core/vocabularies/origin/0.1/origin.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/origin/0.1/origin.rdf [R=302,L]
+RewriteRule ^core/vocabularies/origin/0.1/origin.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/origin/0.1/origin.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/origin/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/origin/0.1/origin.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/origin/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/origin/0.1/origin.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/vocabularies/origin/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/origin/0.1/origin.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^vocabularies/origin/?$ https://w3id.org/arm/vocabularies/1.0/origin/ [R=302,L]
+RewriteRule ^core/vocabularies/origin/?$ https://w3id.org/arm/vocabularies/1.0/origin/ [R=302,L]
+RewriteRule ^core/vocabularies/origin/origin.rdf$ https://w3id.org/arm/core/vocabularies/origin/0.1/origin.rdf [R=302,L]
+RewriteRule ^core/vocabularies/origin/origin.html$ https://w3id.org/arm/core/vocabularies/origin/0.1/origin.html [R=302,L]
+
+## Setup for https://w3id.org/arm/vocabularies/1.0/relator/
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/relator.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/relator.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/relator/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/relator/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/relator/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/relator.rdf [R=303,L]
+
+# Unversioned -> latest version
+RewriteRule ^vocabularies/relator/?$ https://w3id.org/arm/vocabularies/1.0/relator/ [R=302,L]
+
+### Setup for https://w3id.org/arm/core/vocabularies/status
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/status.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/status.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/status.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/status.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/status/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/status.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/status/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/status.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/status/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/status.rdf [R=303,L]
+
+# Version 0.1
+RewriteRule ^core/vocabularies/status/0.1/status.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/status/0.1/status.rdf [R=302,L]
+RewriteRule ^core/vocabularies/status/0.1/status.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/status/0.1/status.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/status/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/status/0.1/status.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/status/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/status/0.1/status.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/vocabularies/status/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/status/0.1/status.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^vocabularies/status/?$ https://w3id.org/arm/vocabularies/1.0/status/ [R=302,L]
+RewriteRule ^core/vocabularies/status/?$ https://w3id.org/arm/vocabularies/1.0/status/ [R=302,L]
+RewriteRule ^core/vocabularies/status/status.rdf$ https://w3id.org/arm/core/vocabularies/status/0.1/status.rdf [R=302,L]
+RewriteRule ^core/vocabularies/status/status.html$ https://w3id.org/arm/core/vocabularies/status/0.1/status.html [R=302,L]
+
+### Setup for https://w3id.org/arm/core/vocabularies/typeface
+
+# Version 1.0
+RewriteRule ^vocabularies/1.0/typeface.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/typeface.rdf [R=302,L]
+RewriteRule ^vocabularies/1.0/typeface.html https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/typeface.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/typeface/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/typeface.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^vocabularies/1.0/typeface/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/typeface.html#$1 [R=303,NE]
+# Else RDF if not caught by above
+RewriteRule ^vocabularies/1.0/typeface/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v1.0/vocabularies/typeface.rdf [R=303,L]
+
+# Version 0.1
+RewriteRule ^core/vocabularies/typeface/0.1/typeface.rdf https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/typeface/0.1/typeface.rdf [R=302,L]
+RewriteRule ^core/vocabularies/typeface/0.1/typeface.html https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/typeface/0.1/typeface.html [R=302,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/typeface/0.1/?$ https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/typeface/0.1/typeface.html [R=303]
+
+# Rewrite rule to serve directed HTML content from class/prop URIs
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^core/vocabularies/typeface/0.1/?([^/]+) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/typeface/0.1/typeface.html#$1 [R=303,NE]
+
+# Rewrite rule to serve RDF/XML content if request is not HTML
+#any non-HTML gives RDF so omit this: RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/vocabularies/typeface/0.1/?([^/]*) https://art-and-rare-materials-bf-ext.github.io/arm/v0.1/core/vocabularies/typeface/0.1/typeface.rdf [R=303]
+
+# Unversioned -> latest version
+RewriteRule ^vocabularies/typeface/?$ https://w3id.org/arm/vocabularies/typeface/1.0/ [R=302,L]
+RewriteRule ^core/vocabularies/typeface/?$ https://w3id.org/arm/vocabularies/typeface/1.0/ [R=302,L]
+RewriteRule ^core/vocabularies/typeface/typeface.rdf$ https://w3id.org/arm/core/vocabularies/typeface/0.1/typeface.rdf [R=302,L]
+RewriteRule ^core/vocabularies/typeface/typeface.html$ https://w3id.org/arm/core/vocabularies/typeface/0.1/typeface.html [R=302,L]

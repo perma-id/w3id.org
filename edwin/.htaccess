@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^repository$ https://github.com/luigi-asprino/edwin [R=301,L]
+RewriteRule ^iswc2019_esgs$ https://drive.google.com/open?id=170j5qQ_k9_G57Ba-2NpgtUjYvImUu8dY [R=301,L]
+RewriteRule ^garr2019$ http://90.147.188.89/data/LSA/txtInNS/textDB/dump.tsv [R=301,L]
+
+
+
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology(.*)$ https://ontopia-lode.pdnd.italia.it/lode/extract?url=https://raw.githubusercontent.com/luigi-asprino/edwin/master/ontology/latest/ontology.owl [R=303,L]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology(.*)$ https://raw.githubusercontent.com/luigi-asprino/edwin/master/ontology/latest/ontology.owl [R=303,L]
+
+# Choose the default response
+RewriteRule ^ontology(.*)$ https://raw.githubusercontent.com/luigi-asprino/edwin/master/ontology/latest/ontology.owl [R=303,L]

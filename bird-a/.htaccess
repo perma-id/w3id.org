@@ -1,0 +1,30 @@
+
+# Redirect to:
+#  - Dev / Testing: https://rawgit.com/caiogit/bird-a/master/ontology/bird-a.owl
+#  - Production: https://cdn.rawgit.com/caiogit/bird-a/master/ontology/bird-a.owl
+
+# Sources:
+#  - https://github.com/perma-id/w3id.org/blob/master/food/.htaccess
+#  - http://www.essepuntato.it/lode
+
+
+RewriteEngine on
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# Rewrite rule to serve bird-a ontology directly
+RewriteRule ^bird-a.owl$ https://rawgit.com/caiogit/bird-a/master/doc/ontology/bird-a.owl [R=303,L]
+
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^.*$ http://www.essepuntato.it/lode/owlapi/https://rawgit.com/caiogit/bird-a/master/doc/ontology/bird-a.owl [R=303,L]
+
+# Rewrite rule to serve RDF/XML content if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^.*$ https://rawgit.com/caiogit/bird-a/master/doc/ontology/bird-a.owl [R=303,L]
+
+# Choose the default response
+RewriteRule ^.*$ https://rawgit.com/caiogit/bird-a/master/doc/ontology/bird-a.owl [R=303]

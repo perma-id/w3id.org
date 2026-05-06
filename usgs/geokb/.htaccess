@@ -1,0 +1,32 @@
+# Rewrite engine setup
+RewriteEngine on
+
+# JSON (Wikibase-specific) response from Wikibase "special pages" interface
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1.json [R=302,L]
+
+# JSON-LD response from Wikibase "special pages" interface
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1.jsonld [R=302,L]
+
+# N-Triples response from Wikibase "special pages" interface
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1.nt [R=302,L]
+
+# TTL (Turtle) text response from Wikibase "special pages" interface
+RewriteCond %{HTTP_ACCEPT} text/ttl
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1.ttl [R=302,L]
+
+# Notation3 (N3) text response from Wikibase "special pages" interface
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1.n3 [R=302,L]
+
+# HTML resolver for entity documentation
+RewriteRule ^doc/(.*)$ https://geokb.wikibase.cloud/wiki/Item_talk:$1 [R=302,L]
+
+# JSON (Wikibase-specific) response from the Wikibase API for an "item talk" page
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^doc/(.*)$ https://geokb.wikibase.cloud/w/api.php?action=query&format=json&prop=revisions&rvprop=ids%7Ctimestamp%7Cflags%7Ccomment%7Cuser%7Ccontent&rvslots=*&rvlimit=1&titles=Item_talk%3A$1 [R=302,L]
+
+# HTML resolver for /entity/ calls to the Wikibase instance
+RewriteRule ^(.*)$ https://geokb.wikibase.cloud/entity/$1 [R=302,L]

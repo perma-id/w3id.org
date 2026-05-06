@@ -1,0 +1,50 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^fao/?$ http://www.fao.org [R=301,L]
+
+# UNDO
+RewriteRule ^ontology/undo\.html$ https://unsceb-hlcm.github.io/onto-undo/index.html [R=303,L]
+RewriteRule ^ontology/undo\.(xml|json|ttl|nt)$ https://rawgit.com/unsceb-hlcm/undo/master/ontology/current/undo.$1 [R=303,L]
+RewriteRule ^ontology/undo/([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])\.(html|xml|json|ttl|nt)$ https://rawgit.com/unsceb-hlcm/undo/master/ontology/$1/undo.$2 [R=303,L]
+RewriteRule ^repository/undo/?$ https://github.com/unsceb-hlcm/undo [R=303,L]
+
+# SDG
+RewriteRule ^ontology/sdg/(.*) https://sustainabledevelopment.un.org/sdg$1 [R=303,L]
+
+
+### CONFIGURATION redir ontology/data: begin ########################
+
+# Rewrite rule for no content
+RewriteRule ^(ontology/.+|data/.+)\.(html|xml|json|ttl|nt)$ - [R=404,L]
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^(ontology/.+|data/.+)$ /un/$1.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(ontology/.+|data/.+)$ /un/$1.xml [R=303,L]
+
+# Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl
+RewriteRule ^(ontology/.+|data/.+)$ /un/$1.ttl [R=303,L]
+
+# Rewrite rule to serve Notation3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^(ontology/.+|data/.+)$ /un/$1.nt [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(ontology/.+|data/.+)$ /un/$1.json [R=303,L]
+
+######################## CONFIGURATION redir ontology/data: end #####
+
+# Default behaviour
+#RewriteRule ^(.*)$ https://www.un.org/$1 [R=301,L]
+
+RewriteRule ^(.*)$ https://unsceb-hlcm.github.io/
+##https://goo.gl/JW8zNZ

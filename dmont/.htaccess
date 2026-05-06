@@ -1,0 +1,34 @@
+# === Directory: /dmont/ ======================================================
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# === Rewrite Rules ===========================================================
+
+# Main reference: https://github.com/Orange-OpenSource/device-mgmt-ontology
+# e.g. https://w3id.org/dmont/ => https://github.com/Orange-OpenSource/device-mgmt-ontology
+RewriteRule ^$ https://github.com/Orange-OpenSource/device-mgmt-ontology [R=302,L]
+
+# Direct access to versioned ontology file
+# e.g. https://w3id.org/dmont/ontology/dm_ont-2.0 => https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/dm_ont-2.0/dm_ont.ttl
+RewriteRule ^ontology/(.*-\d+\.\d+)/?$ https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/$1/dm_ont.ttl [R=302,L]
+
+# Direct access to named ontology file
+# e.g. https://w3id.org/dmont/ontology/dm_ont-2.0/dm_ont.ttl => https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/dm_ont-2.0/dm_ont.ttl
+RewriteRule ^ontology/(.*\.ttl)$ https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/$1 [R=302,L]
+
+# Redirect ontology/<concept|property> to full **latest ontology Turtle file** for computer access
+# e.g. https://w3id.org/dmont/ontology/Client => https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/dm_ont-2.0/dm_ont.ttl
+RewriteRule ^ontology/?(.*)$ https://raw.githubusercontent.com/Orange-OpenSource/device-mgmt-ontology/main/ontology/dm_ont-2.0/dm_ont.ttl [R=302,L]
+
+# Redirect doc/<concept|property> to documentation for user-friendly display of a concept/property
+# See also: https://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_ne
+# e.g. https://w3id.org/dmont/ontology/Client => https://orange-opensource.github.io/device-mgmt-ontology/DMOnt/doc/index-en.html#Client
+RewriteRule ^doc/(.+)$ https://orange-opensource.github.io/device-mgmt-ontology/DMOnt/doc/index-en.html#$1 [R=302,NE,L]
+
+# Redirect for documentation (general case)
+# e.g. https://w3id.org/dmont/doc => https://orange-opensource.github.io/device-mgmt-ontology/
+# e.g. https://w3id.org/dmont/doc/ => https://orange-opensource.github.io/device-mgmt-ontology/
+RewriteRule ^doc/?$ https://orange-opensource.github.io/device-mgmt-ontology/ [R=302,L]
+
+# === END =====================================================================
