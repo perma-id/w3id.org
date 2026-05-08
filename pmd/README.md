@@ -13,6 +13,7 @@ This namespace represents a general ontology namespace for the platform material
 - `fsp`: Flame Spray Pyrolysis Ontology (FSP)
 - `log`: Logistics Ontology alligned from IOF SupplyChain module (LOG)
 - `hto`: Heat Treatment Ontology (HTO)
+- `noes`: Nonoriented Electrical Steel Ontology (NOES)
 
 ## Contact
 Current maintainers are:
