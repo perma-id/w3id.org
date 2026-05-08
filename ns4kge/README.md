@@ -28,3 +28,6 @@ NS4KGE is a Semantic Web resource suite for representing scientific articles abo
 Ilyes Tebourski  
 GitHub: `@IlyesTebourski`  
 Email: ilyes.tebourski@lisn.fr
+
+Pierre-Henri Paris
+[PHParis](https://github.com/PHParis)
