@@ -14,5 +14,6 @@ Content negotiation is used to choose a suitable RDF serialisation format.
 This space is administered by:  
 
 **Mark Saccomano**
+
 GitHub: [mss2221](https://github.com/mss2221)  
 ORCID: [0000-0002-4635-7684](https://orcid.org/0000-0002-4635-7684)
