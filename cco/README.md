@@ -1,6 +1,6 @@
 # CCO Namespace
 
-Maintainer: Umair Arshad 
+Maintainer: Umair Arshad (@UmairMarry )
 
 Contact: u.arshad1@rgu.ac.uk
 
