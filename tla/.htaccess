@@ -1,4 +1,17 @@
 RewriteEngine on
 Options +FollowSymLinks
 
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://tlatoolbox.com/$1.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://tlatoolbox.com/$1.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://tlatoolbox.com/$1.rdf [R=303,L]
+
+# Default → HTML (browsers, everything else)
 RewriteRule ^(.*)$ https://tlatoolbox.com/$1 [R=303,L]
