@@ -1,0 +1,11 @@
+# w3id.org/comicslod redirect rules
+# Steward: Valerio De Luce (ORCID 0009-0006-6190-6406)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Resource URIs -> SPARQL DESCRIBE on Fuseki endpoint
+RewriteRule ^resource/(.*)$ https://armchair-angriness-prelaw.ngrok-free.dev/comicslod/sparql?query=DESCRIBE+%3Chttps%3A%2F%2Fw3id.org%2Fcomicslod%2Fresource%2F$1%3E [R=303,L]
+
+# Default: namespace landing page (this README)
+RewriteRule ^$ https://github.com/perma-id/w3id.org/tree/master/comicslod [R=303,L]
