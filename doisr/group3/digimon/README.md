@@ -4,7 +4,7 @@ This permanent w3id is meant to publish the Digimon Ontology developed for the D
 
 https://w3id.org/doisr/group3/digimon redirects to:
 
-https://alvaroogarciia1.github.io/DOISR-25-26/release/1.1.0/index-en.html
+https://alvaroogarciia1.github.io/DOISR-25-26/release/1.1.1/index-en.html
 
 Maintainers:
 
