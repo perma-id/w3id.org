@@ -12,7 +12,7 @@ RewriteEngine on
 # This is a single ontology (The Scholarly Domain Activities Ontology)
 # served in different RDF serialisations on request
 
-## If the base directory or /latest is used, then will go to the current version (which is 1.0, the only version)
+## If the base directory or /latest is used, we'll go to the current version (which is 1.0, the only version)
 
 # Rewrite rule to serve RDF/XML content if requested
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -29,6 +29,9 @@ RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/sda/1.0/sda-ont
 # Rewrite rule to serve Turtle content if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/sda/1.0/sda-ontology.ttl [R=303,L]
+
+# Fallback to HTML landing page
+RewriteRule ^(latest)?/?$ https://domestic-beethoven.eu/ontology/sda/1.0/sda-ontology.html [R=303,L]
 
 ## We assume that a path of the form [0-9]+.[0-9]+ is a version number and should be persisted
 
@@ -47,3 +50,6 @@ RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/sda/$1/
 # Rewrite rule to serve Turtle content if requested
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/sda/$1/sda-ontology.ttl [R=303,L]
+
+# Fallback to HTML for versioned requests
+RewriteRule ^([0-9]+[.][0-9]+)/?$ https://domestic-beethoven.eu/ontology/sda/$1/sda-ontology.html [R=303,L]
