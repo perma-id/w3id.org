@@ -5,6 +5,7 @@ This is a permanent identifier namespace for Research Groups Viewer.
 Mantainer: 
 - Name: Simone Angioni
 - Email: simone.angioni@isti.cnr.it
+- GitHub Username: simone-angioni
 
 https://w3id.org/rgviewer/
 
