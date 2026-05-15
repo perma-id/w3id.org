@@ -1,38 +1,108 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# Version IRIs -> archived Turtle files in the OSO repository
-RewriteRule ^1\.0\.0/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.0/OSO.ttl [R=302,L]
-RewriteRule ^1\.0\.1/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.1/OSO.ttl [R=302,L]
-RewriteRule ^1\.0\.2/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.2/OSO.ttl [R=302,L]
-RewriteRule ^1\.0\.3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.3/OSO.ttl [R=302,L]
-RewriteRule ^1\.0\.4/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/1.0.4/OSO.ttl [R=302,L]
+# ====================================================================
+# Versioned ontology IRIs
+# ====================================================================
+#
+# Examples:
+# /1.0.5
+# /1.0.5.ttl
+# /1.0.5.owl
+# /1.0.5.jsonld
+# /1.0.5.nt
+# /1.0.5.n3
+# /1.0.5.trig
+# /1.0.5.rdfjson
+#
+# ====================================================================
 
-# SPARQL endpoint
-RewriteRule ^sparql/?$ https://virtuoso.ifremer.fr/oso/sparql/ [R=302,L]
+# Default version access -> Turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
 
-# SPARQL UI
-RewriteRule ^ui/?$ https://virtuoso.ifremer.fr/oso/ [R=302,L]
+# Explicit versioned serializations
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.owl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.owl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.rdf/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.owl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.jsonld/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.jsonld [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.nt/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.nt [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.n3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.n3 [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.trig/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.trig [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.rdfjson [R=303,L]
 
-# Main ontology IRI: HTML if requested
+# ====================================================================
+# SPARQL endpoint and UI
+# ====================================================================
+
+RewriteRule ^sparql/?$ https://virtuoso.ifremer.fr/oso/sparql [R=303,L]
+RewriteRule ^ui/?$ https://virtuoso.ifremer.fr/oso/ [R=303,L]
+
+# ====================================================================
+# Main ontology IRI content negotiation
+# https://w3id.org/earthsemantics/OSO
+# ====================================================================
+
+# HTML documentation
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
+RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 
-# Main ontology IRI: RDF/Turtle-oriented fallback
+# Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+
+# Generic XML fallback
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.jsonld [R=303,L]
+
+# RDF/JSON
+RewriteCond %{HTTP_ACCEPT} application/rdf\+json
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.nt [R=303,L]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.n3 [R=303,L]
+
+# TriG
+RewriteCond %{HTTP_ACCEPT} application/trig
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.trig [R=303,L]
+
+# Plain text fallback -> Turtle
 RewriteCond %{HTTP_ACCEPT} text/plain
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
+RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
 
-# Default fallback: documentation
-RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
+# Default fallback -> documentation
+RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 
-# Explicit Turtle serialization
-RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=302,L]
+# ====================================================================
+# Explicit serialization URLs
+# ====================================================================
 
+RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
+RewriteRule ^owl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+RewriteRule ^rdf/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+RewriteRule ^jsonld/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.jsonld [R=303,L]
+RewriteRule ^rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
+RewriteRule ^nt/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.nt [R=303,L]
+RewriteRule ^n3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.n3 [R=303,L]
+RewriteRule ^trig/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.trig [R=303,L]
+
+# ====================================================================
 # Metadata artifacts
-RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/void.ttl [R=302,L]
-RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/dcat.ttl [R=302,L]
+# ====================================================================
+
+RewriteRule ^void/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/void.ttl [R=303,L]
+RewriteRule ^dcat/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/dcat.ttl [R=303,L]
