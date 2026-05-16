@@ -6,7 +6,7 @@
 |-------|-------|
 | Namespace | `https://w3id.org/catalysis-data-format/` |
 | Maintainer | CorsinBattaglia |
-| GitHub | https://github.com/CorsinBattaglia/catalysis-data-format |
+| GitHub | https://github.com/catalysis-data-alliance/catalysis-data-format |
 | Contact | 104415854+CorsinBattaglia@users.noreply.github.com |
 
 ## Namespace structure
