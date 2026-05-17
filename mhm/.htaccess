@@ -1,0 +1,38 @@
+# w3id.org/mhm — Mapping Hebrew Manuscripts (MHM) project permalinks
+#
+# This is the permalink layer for the MHM project at Bar-Ilan University.
+# All URIs minted by the pipeline (Wikidata P2888 exact-match, HMO ontology,
+# scholarly citation URIs) resolve through this prefix so the canonical
+# identifiers stay valid even if the underlying hosting changes.
+#
+# Project:    https://github.com/alexandergolbergwix/pipeline
+# Hosting:    https://mhm-hmo.wikibase.cloud
+# Maintainer: Alexander Goldberg <alexandergo@wix.com>
+# Institution: Bar-Ilan University
+# Date:       2026-05-17
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ── Manuscript permalinks ───────────────────────────────────────────
+# The path segment is the NLI System Number (control number) of the
+# manuscript record, e.g.:
+#   https://w3id.org/mhm/manuscript/990000827290205171
+# → https://mhm-hmo.wikibase.cloud/wiki/MS_990000827290205171
+RewriteRule ^manuscript/(.+)$ https://mhm-hmo.wikibase.cloud/wiki/MS_$1 [R=302,L]
+
+# ── Person permalinks ────────────────────────────────────────────────
+# The path segment is the local HMO Wikibase ID (assigned by the project
+# Wikibase Cloud instance on upload).
+RewriteRule ^person/(.+)$ https://mhm-hmo.wikibase.cloud/wiki/Person_$1 [R=302,L]
+
+# ── Work permalinks ──────────────────────────────────────────────────
+RewriteRule ^work/(.+)$ https://mhm-hmo.wikibase.cloud/wiki/Work_$1 [R=302,L]
+
+# ── Ontology TTL ─────────────────────────────────────────────────────
+# Resolve to the canonical HMO ontology Turtle source on GitHub.
+RewriteRule ^ontology$ https://raw.githubusercontent.com/alexandergolbergwix/pipeline/main/ontology/hebrew-manuscripts.ttl [R=302,L]
+RewriteRule ^ontology/(.+)$ https://raw.githubusercontent.com/alexandergolbergwix/pipeline/main/ontology/$1 [R=302,L]
+
+# ── Project landing ──────────────────────────────────────────────────
+RewriteRule ^/?$ https://mhm-hmo.wikibase.cloud/ [R=302,L]
