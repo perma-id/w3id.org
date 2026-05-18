@@ -1,0 +1,30 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/ld+json .jsonld
+
+
+# Documentation
+RewriteRule ^$ https://github.com/ILIAD-ocean-twin/APKG [R=302,L]
+
+
+### METADATA LAYER #####
+# JSON-LD context
+RewriteRule ^apkg/main-context.jsonld$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/apkg-profile-context.jsonld [R=302,L]
+
+
+### TERMS #####
+RewriteRule ^/apkg/terms$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl [R=302,L]
+
+
+### MAP #####
+RewriteRule ^/apkg/map$ https://github.com/ILIAD-ocean-twin/APKG/tree/main [R=302,L]
+
+
+### EXAMPLES #####
+RewriteRule ^/apkg/examples$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples [R=302,L]
+
+
+### SHACL #####
+RewriteRule ^/apkg/SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=302,L]
