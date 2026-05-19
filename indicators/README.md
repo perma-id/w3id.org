@@ -1,4 +1,6 @@
-# /SEADots/SEATwins @EDITO
+# /indicators
+
+Indicators of SEADots-SEATwins 
 This [W3ID](https://w3id.org) provides a persistent URI namespace for EDITO hosted, SeaDOTs provided vocabulary service for SEATwins sibling projects indicators list. SEATwins is the consortium of research projects providing Digitial Twin applications for EDITO.
 
 The following sub-namespaces are defined:
