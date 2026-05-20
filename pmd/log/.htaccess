@@ -1,0 +1,39 @@
+# .htaccess for platform material digital vocabs - logistics ontology
+# Maintainer: Thomas Hanke <thomas.hanke@iwm.fraunhofer.de> [@ThHanke]
+RewriteEngine On
+
+SetEnvIf Request_URI ^/pmd/log$                          ONT_BASE=https://materialdigital.github.io/logistics-application-ontology ONT_DOC=/dev/doc
+SetEnvIf Request_URI ^/pmd/log/(.*)$                     ONT_BASE=https://materialdigital.github.io/logistics-application-ontology ONT_DOC=/dev/doc ONT_ANCHOR=$1
+SetEnvIf Request_URI ^/pmd/log/(\d+\.\d+\.\d+)$         ONT_BASE=https://materialdigital.github.io/logistics-application-ontology ONT_DOC=/$1/doc
+SetEnvIf Request_URI ^/pmd/log/(\d+\.\d+\.\d+)/(.*)$    ONT_BASE=https://materialdigital.github.io/logistics-application-ontology ONT_DOC=/$1/doc ONT_ANCHOR=$2
+
+# HTML
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/index-en.html#%{ENV:ONT_ANCHOR} [R=303,L,NE]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/ontology.owl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/ontology.nt [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^.*$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/406.html [R=406,L]
+
+# Default
+RewriteRule ^(.*)$ %{ENV:ONT_BASE}%{ENV:ONT_DOC}/ontology.owl [R=303,L]

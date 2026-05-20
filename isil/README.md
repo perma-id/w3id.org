@@ -44,7 +44,7 @@ https://w3id.org/isil/CH-000001-5 -> https://culture.ld.admin.ch/isil/CH-000001-
 https://w3id.org/isil/BE-BUE02 -> http://isil.kbr.be/search.php?query=BE-BUE02&type=ISIL
 
 ## CA
-https://w3id.org/isil/CA-ACU -> https://sigles-symbols.bac-lac.gc.ca/eng/Search/Lookup?LibrarySymbol=ACU
+https://w3id.org/isil/CA-ACU -> https://sigles-symbols.bac-lac.gc.ca/eng/Search/Symbol?LibrarySymbol=ACU
 
 ## KR
 https://w3id.org/isil/KR-011001 -> https://lod.nl.go.kr/page/library/011001

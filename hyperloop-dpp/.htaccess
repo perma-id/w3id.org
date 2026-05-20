@@ -1,0 +1,21 @@
+Options -MultiViews
+RewriteEngine on
+
+# ── Segment SGTIN: /01/[GTIN]/21/[SN] ────────────────────────────────────────
+# Content negotiation: JSON-LD for machines
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^01/([0-9]{14})/21/([0-9]+)$ https://DPPIP.github.io/DPP-EUROTUBE/passports/$2.jsonld [R=303,L]
+
+# HTML viewer for humans
+RewriteRule ^01/([0-9]{14})/21/([0-9]+)$ https://DPPIP.github.io/DPP-EUROTUBE/passports/viewer.html?sn=$2 [R=303,L,QSA]
+
+# ── Batch LGTIN: /01/[GTIN]/10/[LOT] ─────────────────────────────────────────
+# Content negotiation: JSON-LD for machines
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^01/([0-9]{14})/10/([0-9]+)$ https://DPPIP.github.io/DPP-EUROTUBE/batch/$2.jsonld [R=303,L]
+
+# HTML batch viewer for humans
+RewriteRule ^01/([0-9]{14})/10/([0-9]+)$ https://DPPIP.github.io/DPP-EUROTUBE/batch/index.html?batch=$2 [R=303,L,QSA]
+
+# ── Fallback ──────────────────────────────────────────────────────────────────
+RewriteRule ^$ https://DPPIP.github.io/DPP-EUROTUBE/ [R=303,L]

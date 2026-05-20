@@ -7,16 +7,38 @@ SetEnvIf Request_URI "^.*" currentversion=1-0
 
 # ../isample/vocabulary/sampledfeature get vocabulary ttl format with text/turtle accept header
 RewriteCond %{HTTP:Accept} text/turtle [NC]
-RewriteRule       ^/?$   https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.ttl [R=303,L]
+RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/5059/sampled_feature_type.ttl
+# was   https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.ttl [R=303,L]
 
 RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
-RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.rdf [R=303,L]
+RewriteRule  ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/5061/isamples_isamples-sampled-feature-type-vocabulary_current.rdf
+# was https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.rdf [R=303,L]
 
 RewriteCond %{HTTP:Accept} application/ld+json [NC]
-RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.jsonld [R=303,L]
+RewriteRule       ^/?$ https://vocabs.ardc.edu.au/registry/api/resource/downloads/5061/isamples_isamples-sampled-feature-type-vocabulary_current.jsonld
+# was https://vocabs.ardc.edu.au/registry/api/resource/downloads/3199/isamples_isamples-sampled-feature-type-vocabulary_%{ENV:currentversion}.jsonld [R=303,L]
 
 RewriteRule       ^/?$     https://vocabs.ardc.edu.au/viewById/665 [R=303,L]
 
+# **********************************************************
+
+#  uri to access individual term
+
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^([^0,1].+)$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-sampled-feature-type-vocabulary/current/resource.ttl?uri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/json [NC]
+RewriteRule       ^([^0,1].+)$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-sampled-feature-type-vocabulary/current/resource.json?uri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule       ^([^0,1].+)$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-sampled-feature-type-vocabulary/current/resource.rdf?uri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule       ^([^0,1].+)$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-sampled-feature-type-vocabulary/current/resource.html?uri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
+
+# default format is html
+
+RewriteRule       ^([^0,1].+)$   https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-sampled-feature-type-vocabulary/current/resource?uri=https://w3id.org/isample/vocabulary/sampledfeature/$1 [R=303,L]
 
 
 

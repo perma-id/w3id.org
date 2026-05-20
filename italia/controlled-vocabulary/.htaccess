@@ -6,7 +6,7 @@ SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
 SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
 SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
 SetEnvIf Accept ^.*text/html.* SYNTAX=html
-SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/VocabolariControllati
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/italia/dati-semantic-assets/master/VocabolariControllati
 
 RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
 RewriteRule ^(territorial-classifications/countries/|classifications-for-public-services/life-business-event/)(business-event|life-event|italy)(/)?$ %{ENV:ROOT_URL}/$1$2/$2.%{ENV:SYNTAX} [R=303,L]

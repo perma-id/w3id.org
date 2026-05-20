@@ -1,0 +1,101 @@
+# Turn off MultiViews
+Options -MultiViews
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Condition to check for a version number in the URL
+RewriteCond %{REQUEST_URI} ^/ontology/([0-9]+)/?(.*)$
+
+# Rewrite rule to serve HTML content from a versioned URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/([0-9]+)/?(.*)$ https://semts-ontology.github.io/SemTS/ontology/versioned/$1/index.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from a versioned URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/([0-9]+)/?(.*)$ https://semts-ontology.github.io/SemTS/ontology/versioned/$1/ontology.owl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from a versioned URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/([0-9]+)/?(.*)$ https://semts-ontology.github.io/SemTS/ontology/versioned/$1/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve N-Triples content from a versioned URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/([0-9]+)/?(.*)$ https://semts-ontology.github.io/SemTS/ontology/versioned/$1/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from a versioned URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^ontology/([0-9]+)/?(.*)$ https://semts-ontology.github.io/SemTS/ontology/versioned/$1/ontology.ttl [R=303,L]
+
+# Default response for URLs without a version
+# Serve HTML content
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/index.html [R=303,L]
+
+# Serve RDF/XML content
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/ontology.owl [R=303,L]
+
+# Serve JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/ontology.jsonld [R=303,L]
+
+# Serve N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/ontology.nt [R=303,L]
+
+# Serve TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^ontology/?$ https://semts-ontology.github.io/SemTS/ontology/current/ontology.ttl [R=303,L]
+
+# Vocabularies
+# Serve RDF/XML content for data knowledge vocabulary
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^vocabulary/data-knowledge/?$ https://semts-ontology.github.io/SemTS/vocabularies/vocab_data_knowledge.owl [R=303,L]
+
+# Serve TTL content for data knowledge vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^vocabulary/data-knowledge/?$ https://semts-ontology.github.io/SemTS/vocabularies/vocab_data_knowledge.ttl [R=303,L]
+
+# Serve RDF/XML content for scenario knowledge vocabulary
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^vocabulary/scenario-knowledge/?$ https://semts-ontology.github.io/SemTS/vocabularies/vocab_scenario_knowledge.owl [R=303,L]
+
+# Serve TTL content for scenario knowledge vocabulary
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^vocabulary/scenario-knowledge/?$ https://semts-ontology.github.io/SemTS/vocabularies/vocab_scenario_knowledge.ttl [R=303,L]
+
+# Code
+# Serve HTML content
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^code/?$ https://github.com/semts-ontology/SemTS [R=303,L]
+
+# Final catch-all rule to serve the default HTML page for any unmatched path
+RewriteRule ^.*$ https://semts-ontology.github.io/SemTS/ontology/current/index.html [R=303,L]

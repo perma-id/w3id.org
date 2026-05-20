@@ -98,3 +98,11 @@ Local dev RO-Crate data: http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK
  curl -s -o /dev/null -w "%{response_code}: %{redirect_url}" "http://localhost:6080/arp/localdev/ro-id/doi:10.5072/FK2/ZL0O25/a4ea1276-54d3-418b-9008-455c1c691bb5"
 302: http://localhost:8080/ro-id?persistentId=doi:10.5072/FK2/ZL0O25&elementId=a4ea1276-54d3-418b-9008-455c1c691bb5
 ```
+
+Dynamic domains for demo environments
+```
+http://localhost:6080/arp/arpdemo.orgx/schema/my-schema-id
+http://localhost:6080/arp/arpdemo.orgx/ro-id/hdl:21.15109/ARP/C27YUE/file/512862
+http://localhost:6080/arp/arpdemo.orgx/ro-id/hdl:21.15109/title/1234
+http://localhost:6080/arp/arpdemo.orgx/ro-id/hdl:21.15109/unique-element
+```

@@ -1,0 +1,17 @@
+RewriteEngine On
+
+AddType text/turtle .ttl
+
+# RDF (Turtle)
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$ https://kurrawong.github.io/kw-model/model.ttl [R=303,L]
+RewriteRule .ttl$ https://kurrawong.github.io/kw-model/model.ttl [R=303,L]
+
+# Validator
+RewriteRule ^validator https://kurrawong.github.io/kw-model/validator.ttl [R=303,L]
+
+# HTML - default
+RewriteRule ^$ https://kurrawong.github.io/kw-model/model.html [R=302,L]
+
+# JSON-LD context
+RewriteRule ^context.json$ https://kurrawong.github.io/kw-model/context.json [R=302,L]

@@ -1,0 +1,50 @@
+# https://w3id.org/grace/ontology redirects to https://dhi-roma.github.io/grace-ontology/grace.ttl
+
+#
+# ## Contact
+# This space is administered by:
+#
+# Jörg Hörnschemeyer
+# admin@dhi-roma.it
+# GitHub username: jhoernsc
+
+
+RewriteEngine on
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+# Rewrite rule to serve HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ https://dhi-roma.github.io/grace-ontology/docs/widoco/doc/index.html  [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology[/#](.+)$ https://dhi-roma.github.io/grace-ontology/docs/widoco/doc/index.html#$1  [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^widoco/?$ https://dhi-roma.github.io/grace-ontology/docs/widoco/doc/index.html  [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^widoco[/#](.+)$ https://dhi-roma.github.io/grace-ontology/docs/widoco/doc/index.html#$1  [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontospy/?$ https://dhi-roma.github.io/grace-ontology/docs/ontospy/index.html  [R=303,L]
+
+
+# Rewrite rule to serve <text/turtle>
+# RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+# No content type redirect (default)
+RewriteRule ^ontology/(([0-9]+(?:\.[0-9]+)+))/?$ https://dhi-roma.github.io/grace-ontology/ontology/$1/grace.ttl [R=301,L,NE]
+
+# No content type redirect (default)
+RewriteRule ^ontology/?$ https://dhi-roma.github.io/grace-ontology/ontology/grace.ttl [R=303,L]

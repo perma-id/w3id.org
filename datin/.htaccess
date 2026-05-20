@@ -1,0 +1,67 @@
+# ## Contact
+# This space is administered by:
+#
+# Ilia Bagov
+# ilia.bagov@datin.io
+# GitHub username: ilia-bagov
+RewriteEngine On
+
+
+# CORE — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/raw/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/raw/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/raw/main/$1.ttl [R=303,L]
+
+# CORE — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/blob/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/blob/main/$1.ttl [R=303,L]
+
+# IKFT — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/vocab/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/(.+)/?$ https://gitlab.com/datin-publications/ikft/-/raw/main/$1.ttl [R=303,L]
+
+# IKFT — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/data.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/vocab/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^ikft/(.+)/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/$1.ttl [R=303,L]
+
+
+
+# ==========================================
+# TRIBOLOGY DATA SURVEY (EXACT MATCHES)
+# ==========================================
+
+# TRIBOLOGY DATA SURVEY — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_results.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/onto/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_owl_onto.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/vocab/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_skos_vocab.ttl [R=303,L]
+
+# TRIBOLOGY DATA SURVEY — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_results.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/onto/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_owl_onto.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/vocab/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_skos_vocab.ttl [R=303,L]
+

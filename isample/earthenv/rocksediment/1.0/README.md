@@ -1,5 +1,5 @@
 
-# https://w3id.org/isample/earthenv/rocksediment
+# https://w3id.org/isample/earthenv/rocksediment/1.0
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 

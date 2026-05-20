@@ -11,7 +11,7 @@ The namespace will mainly be used to provide persistent identifiers for the cont
   https://w3id.org/zpid/vocabs/{vocid}/{Concept} will be redirected to https://vocabs.leibniz-psychology.org/{vocid}/page/{Concept}
   Example: https://w3id.org/zpid/vocabs/class/2100 -> https://vocabs.leibniz-psychology.org/class/page/2100
 - Uris of concept schemes (vocabularies) themselves go to the scheme's homepage on Skosmos: https://w3id.org/zpid/vocabs/class/ -> https://vocabs.leibniz-psychology.org/class/
-- For licensing reasons some vocabulary concept uris will be redirected to a url within our institute's vpn which is not publicly accessible.
+- For licensing reasons some vocabulary concept uris will be redirected to a password protected url.
 - the root URL will redirect to our Skosmos instance's homepage: https://w3id.org/zpid/ -> https://vocabs.leibniz-psychology.org (may change when there is more linked open data available from us, for now there are just the vocabularies).
 
 ## Contact

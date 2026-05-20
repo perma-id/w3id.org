@@ -1,5 +1,5 @@
 
-# /isample/vocabulary/material/0.9/
+# /isample/vocabulary/mingroup/1.0/
 
 **Name of the project:** [iSamples](https://isamplesorg.github.io/home/)
 
