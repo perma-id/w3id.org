@@ -8,16 +8,13 @@ RewriteEngine on
 # so these are belt-and-braces - useful only if a representation is ever
 # served directly from this host.
 ##
-AppType application/rdf+xml        .rdf
-AppType application/rdf+xml        .owl
-AppType text/turtle                .ttl
-AppType application/n-triples      .nt
-AppType application/ld+json        .jsonld
-AppType text/shex                  .shex
-AppType application/yaml           .yaml
-
-# Rewrite Base URL
-RewriteRule ^(.*)$ https://www.linuxfoundation.org/$1 [R=301,L]
+AddType application/rdf+xml        .rdf
+AddType application/rdf+xml        .owl
+AddType text/turtle                .ttl
+AddType application/n-triples      .nt
+AddType application/ld+json        .jsonld
+AddType text/shex                  .shex
+AddType application/yaml           .yaml
 
 ## Section: Core Linked Data Artifacts - representations of the model (non-information
 # resource) -> 303 See Other. All use [^/]+ for the repo segment to avoid
@@ -25,8 +22,8 @@ RewriteRule ^(.*)$ https://www.linuxfoundation.org/$1 [R=301,L]
 ##
 
 ## Section: Non-Core artifacts - concrete information sources / code-gen outputs.
-# Use 302 (cacheable). Not in scope for content negoitation: MIME type
-# collide across path-segmented outputs (.py: pandear/sqla/namespaces;
+# Use 302 (cacheable). Not in scope for content negotiation: MIME types
+# collide across path-segmented outputs (.py: pandera/sqla/namespaces;
 # .yaml: schema/golr/prefixmap; .md: mermaid/markdown-datadict;
 # .sql: sqlschema/sqlvalidation) - only the URL path disambiguates
 
@@ -36,9 +33,12 @@ RewriteRule ^(.*)$ https://www.linuxfoundation.org/$1 [R=301,L]
 # choose the representation). Each rule emits a single 303 See Other to
 # the canonical raw artifact (or to the docs site for HTML).
 #
-# Scope: repo root AND any depth - so class/slots IRIs like
+# Scope: repo root AND any depth - so class/slot IRIs like
 # /linuxfoundation/<repo>/<TermName> also content-negotiate. The repo segment
 # determines the artifact stem (gen-project convention).
 #
 ##
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://www.linuxfoundation.org/$1 [R=301,L]
 
