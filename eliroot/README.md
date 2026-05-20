@@ -6,4 +6,4 @@ Homepage:
 
 
 Contacts: 
-* Alexandre Bento <alexandre.bento@nightrain.fr>
+* Alexandre Bento <alexandre.bento@nightrain.fr> (GitHub: [@albento](https://github.com/albento))
