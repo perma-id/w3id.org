@@ -22,5 +22,6 @@ redirects to:
 
 ## Maintainer
 
+`https://github.com/simplestdata` [Simplest Data](https://github.com/simplestdata)
 Gregory Kulp  
 Email: <greg@simplestdata.com>
