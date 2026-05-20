@@ -44,7 +44,7 @@ CDIF metadata building blocks have persistent identifiers under `https://w3id.or
 | Category | Repository | Identifier Prefix |
 |----------|-----------|-------------------|
 | `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties` | [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks) | `cdif.bbr.metadata.` |
-| `adaProperties`, `adaProfiles` | [geochemBuildingBlocks](https://github.com/usgin/geochemBuildingBlocks) | `ada.bbr.metadata.` |
+| `adaProperties`, `adaProfiles` | [geochemBuildingBlocks](https://github.com/usgin/geochemBuildingBlocks) | `ogch.` |
 | `DDEproperties`, `DDEProfiles` | [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) | `dde.bbr.metadata.` |
 | `ecrrProperties`, `ecrrProfiles` | [ecrrBuildingBlocks](https://github.com/usgin/ecrrBuildingBlocks) | `ecrr.bbr.metadata.` |
 
