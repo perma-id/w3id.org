@@ -17,7 +17,10 @@ HSV is organised around two main axes:
 
 The ontology also captures contextual knowledge relevant to heritage interpretation, including traditional construction techniques and seismic zonation.
 
+## Maintainer
 
+[@mlaura1996](https://github.com/mlaura1996)
+  
 ## Authors
 
 Maria Laura Leonardi, Stefano Cursi, Letizia Martinelli, Elena Gigliarelli, Filippo Calcerano, Miguel Azenha, Daniel V. Oliveira, Michele Calvano
