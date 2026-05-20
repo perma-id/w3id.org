@@ -70,3 +70,6 @@ The project timeframe is 2024-2027.
 ## Recommended literature citation
 
 S. Chiacchiera, M. Gebser, G. Goldbeck, M. Petit, D. Toti, F. Al Machot, I. E. Castelli, S. Drvarič Talian, P. Dubatouka, M. El Bahnasawi, L. Liu, C. Nieto-Draghi, S. Stephan, I. T. Todorov, N. Vizcaino, X. Zhang, & M. T. Horsch (2025). BatCAT deliverable 4.4: Semantic artefacts, schema alignments and mappings. BatCAT consortium. [DOI](https://doi.org/10.5281/zenodo.18059132)
+
+## Contacts
+This space is maintained by [Daniele Toti](https://github.com/Leienad).
