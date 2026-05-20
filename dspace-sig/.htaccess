@@ -1,0 +1,18 @@
+#
+# Eclipse Data Plane Signaling project Forwarding Rules
+# tested with https://htaccess.madewithlove.com/
+#
+
+Options -MultiViews
+
+AddType application/ld+json .jsonld
+# Rewrite engine setup
+RewriteEngine On
+#Change the path to the folder here
+RewriteBase /
+
+## Redirect JSON Schemas for 1.0
+RewriteRule ^v1.0/([\w.-]+schema.json) https://eclipse-dataplane-signaling.github.io/dataplane-signaling/schemas/$1 [R=302,L]
+
+# Rewrite rule to default to the signaling spec page
+RewriteRule ^(.*)$ https://eclipse-dataplane-signaling.github.io/dataplane-signaling [R=303,L]

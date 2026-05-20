@@ -1,21 +1,57 @@
 # # /gcdfo/salmon/
 #
+# GC DFO Salmon Ontology (OWL + SKOS)
 #
-# https://w3id.org/gcdfo/salmon redirects to
-# https://dfo-pacific-science.github.io/dfo-salmon-ontology/
+# Latest ontology IRI (unversioned):
+#   https://w3id.org/gcdfo/salmon
+#
+# Version IRIs:
+#   https://w3id.org/gcdfo/salmon/X.Y.Z
+#
+# Redirect targets (GitHub Pages):
+# - HTML docs (latest): https://dfo-pacific-science.github.io/dfo-salmon-ontology/
+# - Turtle (latest):    https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.ttl
+# - RDF/XML (latest):   https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.owl
+# - JSON-LD (latest):   https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.jsonld
+# - Version snapshot:   https://dfo-pacific-science.github.io/dfo-salmon-ontology/releases/X.Y.Z/
 #
 # ## Contact
-# This space is administered by:  
+# This space is administered by:
 #
-# Data Stewardship Unit, Fishery & Assessment Data Section 
-# Fisheries and Oceans Canada, Pacific Region
+# Data Stewardship Unit, Fishery & Assessment Data Section (FADS)
+# Fisheries and Oceans Canada (DFO), Pacific Region
 #
 # Brett Johnson     GitHub: Br-Johnson
 # Melissa Morrison  GitHub: mkmor
 
-# Rewrite engine setup
+Options +FollowSymLinks
 RewriteEngine On
 
-# Default response
+# Tell caches that responses vary by content negotiation.
+Header merge Vary "Accept"
+
+# Latest (no version path)
 # ---------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/gcdfo.jsonld [R=303,L]
+
 RewriteRule ^$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/ [R=303,L]
+
+# Version paths (SemVer: X.Y.Z)
+# ---------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/releases/$1/gcdfo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/releases/$1/gcdfo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/releases/$1/gcdfo.jsonld [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://dfo-pacific-science.github.io/dfo-salmon-ontology/releases/$1/ [R=303,L]

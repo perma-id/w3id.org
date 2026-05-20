@@ -1,77 +1,228 @@
-Options -MultiViews
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+# --------------------------------------------------------------------------------------------------------------
+# CACHE SAFETY
+# Always emit Vary: Accept for this namespace (simple + robust for negotiated redirects).
+# mod_headers is used in w3id.org namespaces (e.g., /security/).
+# --------------------------------------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always merge Vary "Accept"
+</IfModule>
 
 # --------------------------------------------------------------------------------------------------------------
 # RESOURCES' VERSIONING
 # --------------------------------------------------------------------------------------------------------------
 
-## Latest release
-RedirectMatch 302 ^/health-ri/metadata/releases/(latest|current)/?$ https://github.com/Health-RI/health-ri-metadata/releases/latest
+# Latest release
+RewriteRule ^metadata/releases/(latest|current)/?$ https://github.com/Health-RI/health-ri-metadata/releases/latest [R=302,L]
 
-## All releases
-RedirectMatch 302 ^/health-ri/metadata/releases/?$ https://github.com/Health-RI/health-ri-metadata/releases
+# All releases
+RewriteRule ^metadata/releases/?$ https://github.com/Health-RI/health-ri-metadata/releases [R=302,L]
 
-## Specific release
-RedirectMatch 302 ^/health-ri/metadata/releases/(.+)/?$ https://github.com/Health-RI/health-ri-metadata/releases/tag/$1
+# Specific release (single path segment)
+RewriteRule ^metadata/releases/([^/]+)/?$ https://github.com/Health-RI/health-ri-metadata/releases/tag/$1 [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
 # RESOURCES' HOMEPAGES
 # --------------------------------------------------------------------------------------------------------------
 
-## Health-RI Metadata Schema
-RedirectMatch 302 ^/health-ri/metadata/?$ https://github.com/Health-RI/health-ri-metadata/
-RedirectMatch 302 ^/health-ri/metadata/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata/
+# Health-RI Metadata Schema
+RewriteRule ^metadata/?$ https://github.com/Health-RI/health-ri-metadata/ [R=302,L]
+RewriteRule ^metadata/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata/ [R=302,L]
 
-## Health-RI Semantic Interoperability
-RedirectMatch 302 ^/health-ri/semantic-interoperability/?$ https://health-ri.github.io/semantic-interoperability/
-RedirectMatch 302 ^/health-ri/semantic-interoperability/git/?$ https://github.com/Health-RI/semantic-interoperability/
+# Health-RI Semantic Interoperability
+RewriteRule ^semantic-interoperability/?$ https://health-ri.github.io/semantic-interoperability/ [R=302,L]
+RewriteRule ^semantic-interoperability/git/?$ https://github.com/Health-RI/semantic-interoperability/ [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
 # GENERAL REDIRECTIONS
 # --------------------------------------------------------------------------------------------------------------
 
-# Redirect the root /health-ri path to the official website
-RedirectMatch 302 ^/health-ri/?$ https://www.health-ri.nl/
+# Namespace root (/health-ri/) -> official website
+RewriteRule ^$ https://www.health-ri.nl/ [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
-# ONTOLOGY FILES
+# CHATGPT ASSISTANTS / GUIDES (simple redirects; no content negotiation applicable)
 # --------------------------------------------------------------------------------------------------------------
 
-## Latest ontology files (ttl, vpp, json, documentation.html, specification.html)
-RedirectMatch 302 ^/health-ri/ontology(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.ttl
-RedirectMatch 302 ^/health-ri/ontology/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.$1
-RedirectMatch 302 ^/health-ri/ontology/(doc|documentation)/?$ https://health-ri.github.io/semantic-interoperability/ontology/documentation/
-RedirectMatch 302 ^/health-ri/ontology/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/ontology/specification-ontology.html
+# from: w3id.org/health-ri/semantic-interoperability/hrio-mapping-assistant
+RewriteRule ^semantic-interoperability/hrio-mapping-assistant/?$ https://chatgpt.com/g/g-6990a7e348c4819190ef2de88503ff5e-hrio-mapping-assistant [R=302,L]
 
-## Versioned ontology files (ttl, vpp, json, documentation.md, specification.html)
-# Matches semantic versions like v1.2.3 and redirects to the corresponding static files
-RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.ttl
-RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.$2
-RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(doc|documentation)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/documentation-v$1.md
-RedirectMatch 302 ^/health-ri/ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/specification-v$1.html
+# from: w3id.org/health-ri/semantic-interoperability/health-ri-semantic-interoperability-guide
+RewriteRule ^semantic-interoperability/health-ri-semantic-interoperability-guide/?$ https://chatgpt.com/g/g-6992c8eb8780819185f0922ac33d79ce-health-ri-semantic-interoperability-guide [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
-# SSSOM MAPPINGS FILES
+# ONTOLOGY (HRIO) — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/ontology
+# Representation URIs:        .../ontology/ttl | .../ontology/json | .../ontology/doc | ...
 # --------------------------------------------------------------------------------------------------------------
 
-## Latest SSSOM mappings files (ttl, tsv)
-RedirectMatch 302 ^/health-ri/semantic-interoperability/mappings(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.ttl
-RedirectMatch 302 ^/health-ri/semantic-interoperability/mappings/tsv/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.tsv
+# HTML for browsers
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [NC]
+RewriteRule ^ontology/?$ https://w3id.org/health-ri/ontology/doc [R=303,L]
+
+# JSON / JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^ontology/?$ https://w3id.org/health-ri/ontology/json [R=303,L]
+
+# Turtle (serve Turtle also for */* and RDF/XML Accept if no RDF/XML representation exists)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [NC]
+RewriteRule ^ontology/?$ https://w3id.org/health-ri/ontology/ttl [R=303,L]
+
+# Default
+RewriteRule ^ontology/?$ https://w3id.org/health-ri/ontology/ttl [R=303,L]
+
+# --- Representation URIs: latest ontology files/docs ---
+RewriteRule ^ontology/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.ttl [R=302,L]
+RewriteRule ^ontology/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/latest/health-ri-ontology.$1 [R=302,L]
+RewriteRule ^ontology/(doc|documentation)/?$ https://health-ri.github.io/semantic-interoperability/deliverables/documentation/ [R=302,L]
+RewriteRule ^ontology/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/deliverables/specification-ontology.html [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
-# MAPPING VOCABULARY FILES
+# VERSIONED ONTOLOGY (vX.Y.Z) — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/ontology/v1.2.3
+# Representation URIs:        .../ontology/v1.2.3/ttl (etc.)
 # --------------------------------------------------------------------------------------------------------------
 
-## Latest vocabulary files (ttl and specification.html)
-RedirectMatch 302 ^/health-ri/mapping-vocabulary(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/latest/health-ri-vocabulary.ttl
-RedirectMatch 302 ^/health-ri/mapping-vocabulary/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/method/specification-vocabulary.html
+# HTML for browsers
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [NC]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/ontology/v$1/spec [R=303,L]
 
-## Versioned vocabulary files (ttl and specification.html)
-# Matches semantic versions like v1.2.3 and redirects to the corresponding static files
-RedirectMatch 302 ^/health-ri/mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)(/ttl)?/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/health-ri-vocabulary-v$1.ttl
-RedirectMatch 302 ^/health-ri/mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/documentations/specification-v$1.html
+# JSON / JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/ontology/v$1/json [R=303,L]
+
+# Turtle (also for */* and RDF/XML Accept)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [NC]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/ontology/v$1/ttl [R=303,L]
+
+# Default
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/ontology/v$1/ttl [R=303,L]
+
+# --- Representation URIs: versioned ontology files/docs ---
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.ttl [R=302,L]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(vpp|json|shacl)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/health-ri-ontology-v$1.$2 [R=302,L]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(doc|documentation)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/documentation-v$1.md [R=302,L]
+RewriteRule ^ontology/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/ontologies/versioned/documentations/specification-v$1.html [R=302,L]
+
+# --------------------------------------------------------------------------------------------------------------
+# SSSOM MAPPINGS — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/semantic-interoperability/mappings
+# Representation URIs:        .../mappings/ttl | .../mappings/tsv
+# --------------------------------------------------------------------------------------------------------------
+
+# HTML for browsers -> TSV
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [NC]
+RewriteRule ^semantic-interoperability/mappings/?$ https://w3id.org/health-ri/semantic-interoperability/mappings/tsv [R=303,L]
+
+# TSV-ish requests
+RewriteCond %{HTTP_ACCEPT} text/tab-separated-values [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/csv [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/plain [NC]
+RewriteRule ^semantic-interoperability/mappings/?$ https://w3id.org/health-ri/semantic-interoperability/mappings/tsv [R=303,L]
+
+# RDF-ish (and */*) -> Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [NC]
+RewriteRule ^semantic-interoperability/mappings/?$ https://w3id.org/health-ri/semantic-interoperability/mappings/ttl [R=303,L]
+
+# Default
+RewriteRule ^semantic-interoperability/mappings/?$ https://w3id.org/health-ri/semantic-interoperability/mappings/ttl [R=303,L]
+
+# --- Representation URIs: mappings files ---
+RewriteRule ^semantic-interoperability/mappings/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.ttl [R=302,L]
+RewriteRule ^semantic-interoperability/mappings/tsv/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/mappings/health-ri-mappings.tsv [R=302,L]
+
+# --------------------------------------------------------------------------------------------------------------
+# MAPPING VOCABULARY — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/mapping-vocabulary
+# Representation URIs:        .../mapping-vocabulary/ttl | .../mapping-vocabulary/spec
+# --------------------------------------------------------------------------------------------------------------
+
+# HTML for browsers -> specification page
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [NC]
+RewriteRule ^mapping-vocabulary/?$ https://w3id.org/health-ri/mapping-vocabulary/spec [R=303,L]
+
+# RDF-ish (and */*) -> Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [NC]
+RewriteRule ^mapping-vocabulary/?$ https://w3id.org/health-ri/mapping-vocabulary/ttl [R=303,L]
+
+# Default
+RewriteRule ^mapping-vocabulary/?$ https://w3id.org/health-ri/mapping-vocabulary/ttl [R=303,L]
+
+# --- Representation URIs: latest vocabulary files/docs ---
+RewriteRule ^mapping-vocabulary/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/latest/health-ri-vocabulary.ttl [R=302,L]
+RewriteRule ^mapping-vocabulary/(spec|specification)/?$ https://health-ri.github.io/semantic-interoperability/method/specification-vocabulary.html [R=302,L]
+
+# --- Versioned vocabulary (vX.Y.Z) ---
+# Negotiation
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [NC]
+RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/mapping-vocabulary/v$1/spec [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [NC]
+RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/mapping-vocabulary/v$1/ttl [R=303,L]
+
+RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/mapping-vocabulary/v$1/ttl [R=303,L]
+
+# Representations
+RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/health-ri-vocabulary-v$1.ttl [R=302,L]
+RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/documentations/specification-v$1.html [R=302,L]
+
+# --------------------------------------------------------------------------------------------------------------
+# DOCUMENTS
+# --------------------------------------------------------------------------------------------------------------
+
+RewriteRule ^semantic-interoperability/documents/(.+)$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/main/documents/$1 [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
 # FALLBACK FOR SEMANTIC-INTEROPERABILITY PATHS
 # --------------------------------------------------------------------------------------------------------------
-# Any other /health-ri/semantic-interoperability/XXX → GitHub Pages /XXX
-RedirectMatch 302 ^/health-ri/semantic-interoperability/(.+)$ https://health-ri.github.io/semantic-interoperability/$1
+
+RewriteRule ^semantic-interoperability/(.+)$ https://health-ri.github.io/semantic-interoperability/$1 [R=302,L]

@@ -21,7 +21,7 @@ RewriteEngine on
 
 SetEnvIf Request_URI ^.*$ BASE=https://w3c.github.io/dpv
 SetEnvIf Request_URI ^.*$ DEV=https://dev.dpvcg.org
-SetEnvIf Request_URI ^.*$ LATEST=2.2
+SetEnvIf Request_URI ^.*$ LATEST=2.3
 
 # Remove trailing slash if exists
 RewriteRule ^(.*)/$ /dpv/$1 [R=302,L]
@@ -63,6 +63,42 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^\d\.\d-dev$ %{ENV:DEV}/dpv/dpv.jsonld [R=302,L]
 
 RewriteRule ^\d\.\d-dev$ %{ENV:DEV}/dpv [R=302,L]
+
+## DPV modules latest version ##
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^modules/([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^modules/([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^modules/([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^modules/([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1.jsonld [R=302,L]
+
+RewriteRule ^modules/([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1.html [R=302,L]
+
+## DPV modules vx.y ##
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(\d\.\d)/modules/([\w-]+)$ %{ENV:BASE}/$1/dpv/modules/$2.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(\d\.\d)/modules/([\w-]+)$ %{ENV:BASE}/$1/dpv/modules/$2.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(\d\.\d)/modules/([\w-]+)$ %{ENV:BASE}/$1/dpv/modules/$2.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(\d\.\d)/modules/([\w-]+)$ %{ENV:BASE}/$1/dpv/modules/$2.jsonld [R=302,L]
+
+RewriteRule ^(\d\.\d)/modules/([\w-]+)$ %{ENV:BASE}/$1/dpv/modules/$2.html [R=302,L]
+
+## DPV modules vx.y-dev ##
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^\d\.\d-dev/modules/([\w-]+)$ %{ENV:DEV}/dpv/modules/$1.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^\d\.\d-dev/modules/([\w-]+)$ %{ENV:DEV}/dpv/modules/$1.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^\d\.\d-dev/modules/([\w-]+)$ %{ENV:DEV}/dpv/modules/$1.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^\d\.\d-dev/modules/([\w-]+)$ %{ENV:DEV}/dpv/modules/$1.jsonld [R=302,L]
+
+RewriteRule ^\d\.\d-dev/modules/([\w-]+)$ %{ENV:DEV}/dpv/modules/$1.html [R=302,L]
 
 ## DPV OWL Serialisation latest version
 
@@ -107,6 +143,34 @@ RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
 RewriteRule ^1.0/dpv-owl$ %{ENV:BASE}/1.0/dpv-owl/dpv.omn [R=302,L]
 
 RewriteRule ^1.0/dpv-owl$ %{ENV:BASE}/1.0/dpv-owl [R=302,L]
+
+## DPV modules OWL latest version ##
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.omn [R=302,L]
+
+RewriteRule ^modules/([\w-]+)/owl$ %{ENV:BASE}/%{ENV:LATEST}/dpv/modules/$1-owl.html [R=302,L]
+
+## DPV modules OWL vx.y ##
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/owl\-manchester
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.omn [R=302,L]
+
+RewriteRule ^(\d\.\d)/modules/([\w-]+)/owl$ %{ENV:BASE}/$1/dpv/modules/$2-owl.html [R=302,L]
 
 ##### VOCAB: PD #####
 
@@ -852,69 +916,93 @@ RewriteRule ^(\d\.\d)/justifications/owl$ %{ENV:BASE}/$1/justifications/justific
 
 RewriteRule ^(\d\.\d)/justifications/owl$ %{ENV:BASE}/$1/justifications/justifications-owl.html [R=302,L]
 
-##### VOCAB: STANDARDS - P7012 #####
+##### VOCAB: STANDARDS #####
 
-## STANDARDS - P7012 latest version ##
+## STANDARDS - IEEE 7012 latest version ##
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^standards/p7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012.rdf [R=302,L]
+RewriteRule ^standards/ieee/7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^standards/p7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012.ttl [R=302,L]
+RewriteRule ^standards/ieee/7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^standards/p7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012.n3 [R=302,L]
+RewriteRule ^standards/ieee/7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^standards/p7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012.jsonld [R=302,L]
+RewriteRule ^standards/ieee/7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012.jsonld [R=302,L]
 
-RewriteRule ^standards/p7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012 [R=302,L]
+RewriteRule ^standards/ieee/7012$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012 [R=302,L]
 
-## STANDARDS - P7012 vx.y ##
+## STANDARDS - IEEE 7012 vx.y ##
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(\d\.\d)/standards/p7012$ %{ENV:BASE}/$1/standards/p7012/p7012.rdf [R=302,L]
+RewriteRule ^(\d\.\d)/standards/ieee/7012$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(\d\.\d)/standards/p7012$ %{ENV:BASE}/$1/standards/p7012/p7012.ttl [R=302,L]
+RewriteRule ^(\d\.\d)/standards/ieee/7012$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^(\d\.\d)/standards/p7012$ %{ENV:BASE}/$1/standards/p7012/p7012.n3 [R=302,L]
+RewriteRule ^(\d\.\d)/standards/ieee/7012$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(\d\.\d)/standards/p7012$ %{ENV:BASE}/$1/standards/p7012/p7012.jsonld [R=302,L]
+RewriteRule ^(\d\.\d)/standards/ieee/7012$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012.jsonld [R=302,L]
 
-RewriteRule ^(\d\.\d)/standards/p7012$ %{ENV:BASE}/$1/standards/p7012 [R=302,L]
+RewriteRule ^(\d\.\d)/standards/ieee/7012$ %{ENV:BASE}/$1/standards/ieee/7012 [R=302,L]
 
-## STANDARDS - P7012 vx.y-dev ##
+## STANDARDS - IEEE 7012 vx.y-dev ##
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^\d\.\d-dev/standards/p7012$ %{ENV:DEV}/standards/p7012/p7012.rdf [R=302,L]
+RewriteRule ^\d\.\d-dev/standards/ieee/7012$ %{ENV:DEV}/standards/ieee/7012/ieee-7012.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^\d\.\d-dev/standards/p7012$ %{ENV:DEV}/standards/p7012/p7012.ttl [R=302,L]
+RewriteRule ^\d\.\d-dev/standards/ieee/7012$ %{ENV:DEV}/standards/ieee/7012/ieee-7012.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^\d\.\d-dev/standards/p7012$ %{ENV:DEV}/standards/p7012/p7012.n3 [R=302,L]
+RewriteRule ^\d\.\d-dev/standards/ieee/7012$ %{ENV:DEV}/standards/ieee/7012/ieee-7012.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^\d\.\d-dev/standards/p7012$ %{ENV:DEV}/standards/p7012/p7012.jsonld [R=302,L]
+RewriteRule ^\d\.\d-dev/standards/ieee/7012$ %{ENV:DEV}/standards/ieee/7012/ieee-7012.jsonld [R=302,L]
 
-RewriteRule ^\d\.\d-dev/standards/p7012$ %{ENV:DEV}/standards/p7012 [R=302,L]
+RewriteRule ^\d\.\d-dev/standards/ieee/7012$ %{ENV:DEV}/standards/ieee/7012 [R=302,L]
 
-## STANDARDS - P7012 OWL
-
-### STANDARDS - P7012 OWL latest version
+## STANDARDS - IEEE 7012 v2.2
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^standards/p7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012-owl.rdf [R=302,L]
+RewriteRule ^2.2/standards/p7012$ %{ENV:BASE}/2.2/standards/p7012/p7012.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^standards/p7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012-owl.ttl [R=302,L]
+RewriteRule ^2.2/standards/p7012$ %{ENV:BASE}/2.2/standards/p7012/p7012.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^standards/p7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012-owl.n3 [R=302,L]
+RewriteRule ^2.2/standards/p7012$ %{ENV:BASE}/2.2/standards/p7012/p7012.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^standards/p7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012-owl.jsonld [R=302,L]
+RewriteRule ^2.2/standards/p7012$ %{ENV:BASE}/2.2/standards/p7012/p7012.jsonld [R=302,L]
 
-RewriteRule ^standards/p7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/p7012/p7012-owl.html [R=302,L]
+RewriteRule ^2.2/standards/p7012$ %{ENV:BASE}/2.2/standards/p7012 [R=302,L]
 
-### STANDARDS - P7012 OWL vx.y
+## STANDARDS - IEEE 7012 v2.1
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(\d\.\d)/standards/p7012/owl$ %{ENV:BASE}/$1/standards/p7012/p7012-owl.rdf [R=302,L]
+RewriteRule ^2.1/standards/p7012$ %{ENV:BASE}/2.1/standards/p7012/p7012.rdf [R=302,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(\d\.\d)/standards/p7012/owl$ %{ENV:BASE}/$1/standards/p7012/p7012-owl.ttl [R=302,L]
+RewriteRule ^2.1/standards/p7012$ %{ENV:BASE}/2.1/standards/p7012/p7012.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
-RewriteRule ^(\d\.\d)/standards/p7012/owl$ %{ENV:BASE}/$1/standards/p7012/p7012-owl.n3 [R=302,L]
+RewriteRule ^2.1/standards/p7012$ %{ENV:BASE}/2.1/standards/p7012/p7012.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(\d\.\d)/standards/p7012/owl$ %{ENV:BASE}/$1/standards/p7012/p7012-owl.jsonld [R=302,L]
+RewriteRule ^2.1/standards/p7012$ %{ENV:BASE}/2.1/standards/p7012/p7012.jsonld [R=302,L]
 
-RewriteRule ^(\d\.\d)/standards/p7012/owl$ %{ENV:BASE}/$1/standards/p7012/p7012-owl.html [R=302,L]
+RewriteRule ^2.1/standards/p7012$ %{ENV:BASE}/2.1/standards/p7012 [R=302,L]
+
+## STANDARDS - IEEE 7012 OWL
+
+### STANDARDS - IEEE 7012 OWL latest version
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^standards/ieee/7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^standards/ieee/7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^standards/ieee/7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^standards/ieee/7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012-owl.jsonld [R=302,L]
+
+RewriteRule ^standards/ieee/7012/owl$ %{ENV:BASE}/%{ENV:LATEST}/standards/ieee/7012/ieee-7012-owl.html [R=302,L]
+
+### STANDARDS - IEEE 7012 OWL vx.y
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(\d\.\d)/standards/ieee/7012/owl$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012-owl.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(\d\.\d)/standards/ieee/7012/owl$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012-owl.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^(\d\.\d)/standards/ieee/7012/owl$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012-owl.n3 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(\d\.\d)/standards/ieee/7012/owl$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012-owl.jsonld [R=302,L]
+
+RewriteRule ^(\d\.\d)/standards/ieee/7012/owl$ %{ENV:BASE}/$1/standards/ieee/7012/ieee-7012-owl.html [R=302,L]
 
 ##### SECTOR #####
 
@@ -1068,7 +1156,7 @@ RewriteRule ^examples/([\w-]+)$ %{ENV:BASE}/examples/$1.ttl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/n\-triples
 RewriteRule ^examples/([\w-]+)$ %{ENV:BASE}/examples/$1.n3 [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^examples([\w-]+)$ %{ENV:BASE}/examples/$1.jsonld [R=302,L]
+RewriteRule ^examples/([\w-]+)$ %{ENV:BASE}/examples/$1.jsonld [R=302,L]
 
 RewriteRule ^examples#([\w-]+)$ %{ENV:BASE}/%{ENV:LATEST}/examples/#$1 [NE,R=302,L]
 
@@ -1083,6 +1171,12 @@ RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^(\d\.\d)/examples([\w-]+)$ %{ENV:BASE}/examples/$2.jsonld [R=302,L]
 
 RewriteRule ^(\d\.\d)/examples#([\w-]+)$ %{ENV:BASE}/$1/examples/#$2 [NE,R=302,L]
+
+### Search latest version
+RewriteRule ^search$ %{ENV:BASE}/%{ENV:LATEST}/search [R=302,L]
+
+### Search vx.y
+RewriteRule ^(\d\.\d)/search$ %{ENV:BASE}/$1/search [R=302,L]
 
 ########## DEPRECATED URLS ARE REDIRECTED
 

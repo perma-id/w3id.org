@@ -1,0 +1,28 @@
+# w3id.org/prism — Permanent redirect configuration
+# Submit as /prism/.htaccess in a PR to https://github.com/perma-id/w3id.org
+#
+# Maintainers: Paola Arce <paola.arce@bigspark.dev>
+
+Options -Indexes
+Header set Access-Control-Allow-Origin *
+RewriteEngine on
+
+# Versioned ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^0\.1\.0$ https://itsbigspark.github.io/prism-ontology/ontology/prism-0.1.0.ttl [R=303,L]
+RewriteRule ^0\.1\.0$ https://itsbigspark.github.io/prism-ontology/0.1.0/ [R=303,L]
+
+# SHACL shapes
+RewriteRule ^shacl/(.*)$ https://itsbigspark.github.io/prism-ontology/shacl/$1 [R=303,L]
+
+# Default — Turtle for semantic web clients
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://itsbigspark.github.io/prism-ontology/ontology/prism.ttl [R=303,L]
+
+# Default — HTML for browsers
+RewriteRule ^$ https://itsbigspark.github.io/prism-ontology/ [R=303,L]
+RewriteRule ^(.*)$ https://itsbigspark.github.io/prism-ontology/$1 [R=303,L]

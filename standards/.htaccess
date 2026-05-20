@@ -1,10 +1,36 @@
 # # /standards/
 #
-# Redirections for standards-related resources such as ontologies, data sets, etc.
+# Redirections for standards-related resources such as ontologies starting with the Information Model for Smart Content (https://smartsdu.bitbucket.io/docs/im/browse/index.html)
 #
-# https://w3id.org/standards/ redirects to (WIP)
 #
 # Contacts: see README.md
 
 RewriteEngine on
-RewriteRule ^$ https://www.iso.org/smart [R=302,L]  # Will be edited after first commit demonstrates the process is effective
+
+# ----------------------------------------------------------------------
+# 1. Core Ontology Terms
+# ----------------------------------------------------------------------
+# Incoming: /standards/smart/ontologies/core/<term>
+# Pattern: ^smart/ontologies/core/([^/]+)$ captures the <term> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/smart<term>.html
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^smart/ontologies/core/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/smart$1.html [R=303,L]
+
+# ----------------------------------------------------------------------
+# 2. Taxonomy Terms
+# ----------------------------------------------------------------------
+# Incoming: /standards/smart/taxonomies/<type>/<term>
+# Pattern: ^smart/taxonomies/([^/]+)/([^/]+)$ captures <type> into $1 and <term> into $2
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/<type><term>.html
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^smart/taxonomies/([^/]+)/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/$1$2.html [R=303,L]
+
+# ----------------------------------------------------------------------
+# 3. Fallback
+# ----------------------------------------------------------------------
+# Incoming: Any other path under /standards/smart/ that didn't match above
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/index.html
+
+RewriteRule ^smart/.*$ https://smartsdu.bitbucket.io/docs/im/browse/index.html [R=303,L]
