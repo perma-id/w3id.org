@@ -8,8 +8,11 @@ RewriteEngine On
 # RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 # RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/HE-BatCAT/lbco/main/documentation/index-en.html [R=303,NE,L]
 
+# Rewrite rule for https://w3id.org/batcat{/}
+RewriteRule ^/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/batcat.ttl [R=303,NE,L]
+
 # Rewrite rule for https://w3id.org/batcat/{MODULE}
-RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1/$2.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1.ttl [R=303,NE,L]
 
 # Rewrite rule for https://w3id.org/batcat/{PATH}/{MODULE}
 RewriteRule ^([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1/$2.ttl [R=303,NE,L]
