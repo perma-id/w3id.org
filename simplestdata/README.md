@@ -22,6 +22,6 @@ redirects to:
 
 ## Maintainer
 
-`https://github.com/simplestdata` [Simplest Data](https://github.com/simplestdata)
-Gregory Kulp  
+Organization: `https://github.com/simplestdata` [Simplest Data](https://github.com/simplestdata)
+Maintainer: `https://github.com/Hello-GregKulp` [Gregory Kulp](https://github.com/Hello-GregKulp) 
 Email: <greg@simplestdata.com>
