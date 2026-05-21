@@ -13,22 +13,29 @@ RewriteRule ^$ https://github.com/ILIAD-ocean-twin/APKG [R=303,L]
 
 ### METADATA LAYER #####
 # JSON-LD context
-RewriteRule ^/main-context.jsonld$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/apkg-profile-context.jsonld [R=303,L]
+RewriteRule ^main-context.jsonld$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/apkg-profile-context.jsonld [R=303,L]
 
 
 ### TERMS #####
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/turtle
-RewriteRule ^/terms$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl [R=303,L]
+## We may need to filter based on the accept header:
+# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+# RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^terms$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl [R=303,L]
 
 
 ### MAP #####
-RewriteRule ^/map$ https://github.com/ILIAD-ocean-twin/APKG/tree/main [R=303,L]
+RewriteRule ^map$ https://github.com/ILIAD-ocean-twin/APKG/tree/main [R=303,L]
 
 
 ### EXAMPLES #####
-RewriteRule ^/examples$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples [R=303,L]
+RewriteRule ^examples$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples [R=303,L]
 
 
 ### SHACL #####
-RewriteRule ^/SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=303,L]
+## We may need to filter based on the accept header:
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^SHACL$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/SHACL/APKG-shacl.ttl [R=303,L]
+
+
+RewriteRule ^SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=303,L]
