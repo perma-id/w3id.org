@@ -110,6 +110,7 @@ RewriteRule ^([^/]+)/(.+)\.nt$              https://raw.githubusercontent.com/lm
 RewriteRule ^([^/]+)/prefixmap/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}prefixmap/$2.yaml [R=303,NE,L]
 
 # Protobuf, SHACL, ShEx, SQL DDL. (.shexc is alias for .shex)
+RewriteRule ^([^/]+)/(.+)\.wire\.proto$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}protobuf/$2.wire.proto [R=303,NE,L]
 RewriteRule ^([^/]+)/(.+)\.proto$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}protobuf/$2.proto [R=303,NE,L]
 RewriteRule ^([^/]+)/(.+)\.shacl\.ttl$      https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shacl/$2.shacl.ttl [R=303,NE,L]
 RewriteRule ^([^/]+)/(.+)\.shex$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shex/$2.shex [R=303,NE,L]
@@ -205,6 +206,16 @@ RewriteCond %{HTTP_ACCEPT} application/x-yaml [NC]
 RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # HTML - browser default. Returns 303 See Other to docs site. Accept:*/* excluded.
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+
+# LinkML gen-doc class/slot/enum pages are published under /elements/.
+# Match a single trailing term segment that is NOT a reserved docs path.
+RewriteCond %{REQUEST_URI} !^/lmodel/[^/]+/(about|index|elements|schema|prefixmap)(/|$)
+RewriteRule ^([^/]+)/([^/]+)/?$ https://lmodel.github.io/$1/elements/$2/ [R=303,NE,L]
+
+# Fallback: repo root, multi-segment paths already under /elements/, etc.
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
