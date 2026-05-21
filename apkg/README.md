@@ -43,8 +43,8 @@ Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/mai
 
 
 Contacts
-* Mariana Curado Malta <mariana.c.malta@inesctec.pt> (GitHub: marianamalta)
-* Mafalda Castro <mafalda.r.castro@inesctec.pt> (Github: mafaldarc)
-* Miguel Correia <miguel.r.correia@inesctec.pt> (Github: miguelcorreira19)
-* João Campos <joao.campos@inesctec.pt> (Github: pastilhas)
-* Marco Amaro Oliveira <marco.a.oliveira@inesctec.pt> (Github: marcoamarooliveira)
+* Mariana Curado Malta : <mariana.c.malta@inesctec.pt> (GitHub: [@marianamalta](https://github.com/marianamalta))
+* Mafalda Castro : <mafalda.r.castro@inesctec.pt> (Github: [@mafaldarc](https://github.com/mafaldarc))
+* Miguel Correia : <miguel.r.correia@inesctec.pt> (Github: [@miguelcorreira19](https://github.com/miguelcorreira19))
+* João Campos : <joao.campos@inesctec.pt> (Github: [@pastilhas](https://github.com/pastilhas))
+* Marco Amaro Oliveira : <marco.a.oliveira@inesctec.pt> (Github: [@MarcoOliveira](https://github.com/marcoamarooliveira))
