@@ -3,12 +3,26 @@ Options +FollowSymLinks
 # Rewrite engine setup
 RewriteEngine On
 
-RewriteEngine on
-
 # Rewrite rule for https://w3id.org/batcat
 # RewriteCond %{HTTP_ACCEPT} text/html [OR]
 # RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 # RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/HE-BatCAT/lbco/main/documentation/index-en.html [R=303,NE,L]
 
+# /batcat/{VERSION}/{PATH}/{MODULE} -> .../{VERSION}/{PATH}/{MODULE}.ttl
+RewriteRule ^([0-9]+(?:\.[0-9]+)+)/([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1/$2/$3.ttl [R=303,L]
+
+# /batcat/{VERSION}/{MODULE} -> .../{VERSION}/{MODULE}.ttl
+RewriteRule ^([0-9]+(?:\.[0-9]+)+)/([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1/$2.ttl [R=303,L]
+
+# /batcat/{VERSION} -> .../{VERSION}.ttl
+RewriteRule ^([0-9]+(?:\.[0-9]+)+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1.ttl [R=303,L]
+
 # Rewrite rule for https://w3id.org/batcat/{PATH}/{MODULE}
 RewriteRule ^([^/]+)/([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1/$2.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/batcat/{MODULE}
+RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/$1.ttl [R=303,NE,L]
+
+# Rewrite rule for https://w3id.org/batcat{/}
+RewriteRule ^/?$ https://raw.githubusercontent.com/HE-BatCAT/lbco/main/batcat.ttl [R=303,NE,L]
+
