@@ -8,9 +8,9 @@ This namespace is used to provide stable references for DEC resources and to red
 
 Current redirects:
 
-- `https://w3id.org/conjectures/dec` -> `http://204.216.209.229:3000/`
-- `https://w3id.org/conjectures/dec/viewer` -> `http://204.216.209.229:3000/`
-
+- `https://w3id.org/conjectures/dec` -> `https://dec.fabiovitali.it/`
+- `https://w3id.org/conjectures/dec/viewer` -> `https://dec.fabiovitali.it/`
+  
 ## Contact
 
 This space is administered by:
