@@ -6,6 +6,7 @@ Repository:
 https://github.com/lpanfilb/practicaDOI
 
 Maintainer:
+
 Lucas Panfil (@lpanfilb)
 
 Abdelkrim Hadidi (@AbdelkrimHadidi)
