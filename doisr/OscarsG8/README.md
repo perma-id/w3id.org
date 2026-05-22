@@ -5,7 +5,7 @@ Persistent URI namespace for the practicaDOI ontology.
 Repository:
 https://github.com/lpanfilb/practicaDOI
 
-Maintainer:
+Maintainers:
 
 Lucas Panfil (@lpanfilb)
 
