@@ -1,3 +1,5 @@
+# Turn on the rewrite engine
+Options +FollowSymLinks
 RewriteEngine on
 
 # Directive to ensure *.rdf files served as appropriate content type,
@@ -6,25 +8,34 @@ AddType application/ld+json .jsonld
 
 
 # Documentation
-RewriteRule ^$ https://github.com/ILIAD-ocean-twin/APKG [R=302,L]
+RewriteRule ^$ https://github.com/ILIAD-ocean-twin/APKG [R=303,L]
 
 
 ### METADATA LAYER #####
 # JSON-LD context
-RewriteRule ^apkg/main-context.jsonld$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/apkg-profile-context.jsonld [R=302,L]
+RewriteRule ^main-context.jsonld$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/apkg-profile-context.jsonld [R=303,L]
 
 
 ### TERMS #####
-RewriteRule ^/apkg/terms$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl [R=302,L]
+## We may need to filter based on the accept header:
+# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+# RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^terms$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl [R=303,L]
 
 
 ### MAP #####
-RewriteRule ^/apkg/map$ https://github.com/ILIAD-ocean-twin/APKG/tree/main [R=302,L]
+RewriteRule ^map$ https://github.com/ILIAD-ocean-twin/APKG/tree/main [R=303,L]
 
 
 ### EXAMPLES #####
-RewriteRule ^/apkg/examples$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples [R=302,L]
+RewriteRule ^examples$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples [R=303,L]
 
 
 ### SHACL #####
-RewriteRule ^/apkg/SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=302,L]
+## We may need to filter based on the accept header:
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^SHACL$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/SHACL/APKG-shacl.ttl [R=303,L]
+
+
+RewriteRule ^SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=303,L]
