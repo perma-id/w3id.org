@@ -47,4 +47,4 @@ Contacts
 * Mafalda Castro : <mafalda.r.castro@inesctec.pt> (Github: [@mafaldarc](https://github.com/mafaldarc))
 * Miguel Correia : <miguel.r.correia@inesctec.pt> (Github: [@miguelcorreira19](https://github.com/miguelcorreira19))
 * João Campos : <joao.campos@inesctec.pt> (Github: [@pastilhas](https://github.com/pastilhas))
-* Marco Amaro Oliveira : <marco.a.oliveira@inesctec.pt> (Github: [@MarcoOliveira](https://github.com/marcoamarooliveira))
+* Marco Amaro Oliveira : <marco.a.oliveira@inesctec.pt> (Github: [@marcoamarooliveira](https://github.com/marcoamarooliveira))
