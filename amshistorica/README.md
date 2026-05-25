@@ -4,4 +4,4 @@ This directory contains the W3ID permanent identifier for the AMSHistorica Thesa
 
 ## Contact
 
-Anna Pasetto (anna.pasetto2@studio.unibo.it)
+Anna Pasetto anna.pasetto2@studio.unibo.it - https://github.com/annapasetto0 
