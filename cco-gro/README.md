@@ -2,6 +2,8 @@
 
 Maintainer: Umair Arshad
 
+GitHub user: https://github.com/UmairMarry
+
 Contact: u.arshad1@rgu.ac.uk
 
 GitHub: https://github.com/RGU-Computing/Synthesising-Regulatory-Ontologies
