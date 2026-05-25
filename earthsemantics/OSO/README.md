@@ -34,13 +34,57 @@ https://github.com/spiel-ifremer
 - N3
 - TriG
 
-## Examples
+## Recommended OSO URLs
+
+Main persistent ontology IRI:
 
 - https://w3id.org/earthsemantics/OSO
+
+Human-readable documentation:
+
+- https://w3id.org/earthsemantics/OSO/
+
+Explicit RDF serializations:
+
+- https://w3id.org/earthsemantics/OSO/OSO.ttl
+- https://w3id.org/earthsemantics/OSO/OSO.owl
+- https://w3id.org/earthsemantics/OSO/OSO.jsonld
+- https://w3id.org/earthsemantics/OSO/OSO.nt
+- https://w3id.org/earthsemantics/OSO/OSO.n3
+- https://w3id.org/earthsemantics/OSO/OSO.trig
+
+Metadata artifacts:
+
+- https://w3id.org/earthsemantics/OSO/void
+- https://w3id.org/earthsemantics/OSO/dcat
+
+SPARQL endpoint:
+
+- https://w3id.org/earthsemantics/OSO/sparql
+
+Virtuoso interface:
+
+- https://w3id.org/earthsemantics/OSO/ui
+
+## Version examples
+
 - https://w3id.org/earthsemantics/OSO/1.0.5
-- https://w3id.org/earthsemantics/OSO.jsonld
-- https://w3id.org/earthsemantics/OSO.nt
-- https://virtuoso.ifremer.fr/oso/sparql
+- https://w3id.org/earthsemantics/OSO/1.0.5.ttl
+- https://w3id.org/earthsemantics/OSO/1.0.5.owl
+- https://w3id.org/earthsemantics/OSO/1.0.5.jsonld
+
+## Important note
+
+The maintained OSO namespace is:
+
+- https://w3id.org/earthsemantics/OSO/
+
+Top-level file-style URLs such as:
+
+- https://w3id.org/earthsemantics/OSO.owl
+- https://w3id.org/earthsemantics/OSO.ttl
+
+are not part of the maintained OSO namespace.
 
 ## Target project
 
