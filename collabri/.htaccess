@@ -1,0 +1,19 @@
+# /collabri/ — Permanent identifiers for Collabri schemas
+# https://w3id.org/collabri/
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine On
+
+# -----------------------------------------------------------------------------
+# Root: schema browser landing page
+# -----------------------------------------------------------------------------
+RewriteRule ^$ https://collabri-io.github.io/ [R=302,L]
+
+# -----------------------------------------------------------------------------
+# Statement of Work (SOW) schema
+#   /collabri/sow            -> schema home
+#   /collabri/sow/{Term}     -> per-term documentation page
+# -----------------------------------------------------------------------------
+RewriteRule ^sow/?$ https://collabri-io.github.io/sow/ [R=303,L]
+RewriteRule ^sow/(.+)$ https://collabri-io.github.io/sow/$1.html [R=303,L]
