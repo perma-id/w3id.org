@@ -1,10 +1,10 @@
-# LTO: Library Transaction Ontology 
+# LTO: Library Transaction Ontology
 
 
 
 # Persistent URI
 
-https://w3id.org/lto redirects to https://isibang.ac.in/ns/lto/index.html
+https://w3id.org/lto redirects to https://www.isibang.ac.in/ns/lto/index.html
 
 
 
