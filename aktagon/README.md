@@ -19,4 +19,4 @@ the stable identifier.
 
 ## Contact
 
-Christian Hellsten — christian@aktagon.com
+Christian Hellsten (GitHub: @christianhellsten) — christian@aktagon.com
