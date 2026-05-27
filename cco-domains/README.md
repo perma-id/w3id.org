@@ -20,5 +20,4 @@ These redirects point to the raw content hosted at:
 https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/
 
 ## Maintainer
-James Schoening 
-GitHub: https://github.com/cco-domains
+James Schoening https://github.com/jimschoening1
