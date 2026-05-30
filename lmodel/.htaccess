@@ -1,3 +1,4 @@
+# See https://github.com/lmodel/w3id_smoke_test
 Options +FollowSymLinks
 Options -MultiViews
 RewriteEngine on
@@ -12,7 +13,8 @@ AddType application/yaml         .yaml
 
 # Minor caveats & accepted design trade-offs (all items are minor or trivial)
 # 1. [minor]   No `;q=` weight parsing; first rule wins (rare: most clients send single type).
-# 2. [trivial] Bare `*.yaml` -> canonical schema (single-file LinkML design).
+# 2. [trivial] Bare `<repo>/<x>.yaml` -> canonical schema (single-file LinkML design).
+#              Multi-file repos use `<repo>/schema/<name>.yaml` (e.g. common-domain-model).
 # 3. [trivial] HTML conneg=303; docs=302 (same dest, different semantics).
 # 4. [trivial] `{jsonld,jsonschema}/foo.json` mis-routes; harmless 404 upstream.
 # 5. [trivial] AddType sparse; GitHub sets Content-Type. Local-serve only.
@@ -30,10 +32,6 @@ RewriteRule ^$ https://github.com/lmodel [R=302,L]
 # Path canonicalization & aliases (internal rewrite; [N,DPI] preserves suffixes)
 RewriteRule ^uco/([a-z0-9]+)((?:/.*)?)$ uco-$1$2 [N,DPI]
 RewriteRule ^ucs/([a-z0-9]+)((?:/.*)?)$ ucs-$1$2 [N,DPI]
-
-# nist-ai-600-1 (official NIST designation) -> nist-ai-rmf (publish slug).
-# Full alias: docs, conneg, artifacts, schema all served from nist-ai-rmf.
-RewriteRule ^nist-ai-600-1((?:/.*)?)$ nist-ai-rmf$1 [N,DPI]
 
 # Filename-stem normalization & branch/layout overrides
 #
@@ -54,11 +52,16 @@ RewriteRule ^uco-([a-z0-9]+)(?:/|$) - [E=STEM:uco_$1]
 RewriteRule ^ucs-([a-z0-9]+)(?:/|$) - [E=STEM:ucs_$1]
 
 # Multi-hyphen repos (hyphen->underscore STEM). Excluded: sssom-files, linkml-project-copier (no LinkML schema).
+# Kept explicit by design: a generic [N]-loop (one hyphen per pass, guarded by ENV:STEM) is
+# possible but trades a loud failure mode (missing entry -> obvious 404) for a silent one
+# (any future per-repo rule that sets E=STEM mid-loop breaks only that repo).
 RewriteRule ^nist-sp-800-53(?:/|$)        - [E=STEM:nist_sp_800_53]
 RewriteRule ^nist-sp-800-218(?:/|$)       - [E=STEM:nist_sp_800_218]
 RewriteRule ^nist-sp-800-171(?:/|$)       - [E=STEM:nist_sp_800_171]
 RewriteRule ^nist-csf-v2(?:/|$)           - [E=STEM:nist_csf_v2]
 RewriteRule ^nist-ai-rmf(?:/|$)           - [E=STEM:nist_ai_rmf]
+RewriteRule ^nist-ai-100-1(?:/|$)         - [E=STEM:nist_ai_100_1]
+RewriteRule ^nist-ai-600-1(?:/|$)         - [E=STEM:nist_ai_600_1]
 RewriteRule ^nist-nvd(?:/|$)              - [E=STEM:nist_nvd]
 RewriteRule ^vulnerability-core(?:/|$)    - [E=STEM:vulnerability_core]
 RewriteRule ^kev-catalog(?:/|$)           - [E=STEM:kev_catalog]
@@ -73,10 +76,10 @@ RewriteRule ^common-domain-model(?:/|$)   - [E=STEM:common_domain_model,E=BRANCH
 # Variant A: artifacts on `artifacts` branch, standard layout. E=STEM:...,E=BRANCH:artifacts
 # Variant B: artifacts at branch root. E=STEM:...,E=BRANCH:artifacts,E=PROJECT:
 # Variant C: artifacts on `gh-pages` (requires custom deploy). E=STEM:...,E=BRANCH:gh-pages
-# See TEST_REPORT.md for worked examples.
 
-# Schemas - routes to canonical src/<stem>/schema/<stem>.yaml (303 See Other)
-RewriteRule ^([^/]+)/schema/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
+# Schemas - explicit filename honors $2 (supports multi-file schemas, e.g. common-domain-model's
+# cdm_legaldocumentation_csa.yaml); bare /schema or /schema/<no-extension> canonicalizes to root schema.
+RewriteRule ^([^/]+)/schema/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
 RewriteRule ^([^/]+)/schema(?:/[^.]*)?$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # Bare <repo>/<anything>.yaml fallback (excludes prefixmap, golr, yaml, .linkml.yaml)
