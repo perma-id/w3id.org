@@ -74,14 +74,14 @@ SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framewo
 # continue to resolve to metadataBuildingBlocks (see further down).
 #
 # Mapping:
-#   core/1.0            → profile-core
-#   discovery/1.0       → profile-discovery
-#   data_description/1.0 → profile-datadescription
-#   data_structure/1.0  → profile-datastructure
-#   manifest/1.0        → profile-manifest
-#   provenance/1.0      → profile-provenance
-#   conceptscheme/1.0   → profile-conceptscheme
-#   codelist/1.0        → profile-codelist
+#   core/1.1            → profile-core
+#   discovery/1.1       → profile-discovery
+#   data_description/1.1 → profile-datadescription
+#   data_structure/1.1  → profile-datastructure
+#   manifest/1.1        → profile-manifest
+#   provenance/1.1      → profile-provenance
+#   conceptscheme/1.1   → profile-conceptscheme
+#   codelist/1.1        → profile-codelist
 #   xasDiscovery/1.0    → mBB profiles/cdifCompositeProfile/XASdata
 #   xasCore/1.0         → mBB xasProperties/xasCore
 # ============================================================
@@ -90,53 +90,53 @@ SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framewo
 # These MUST come before the bare conformance URI rules so that
 # {component}/{version}/{resource} is matched before {component}/{version}
 
-# --- core/1.0 sub-paths → profile-core ---
-RewriteRule ^core/1\.0/schema/?$       %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
-RewriteRule ^core/1\.0/resolved/?$     %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
-RewriteRule ^core/1\.0/shacl/?$        %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
-RewriteRule ^core/1\.0/guide/?$        %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
+# --- core/1.1 sub-paths → profile-core ---
+RewriteRule ^core/1\.1/schema/?$       %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/1\.1/resolved/?$     %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/1\.1/shacl/?$        %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/1\.1/guide/?$        %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
 
-# --- discovery/1.0 sub-paths → profile-discovery ---
-RewriteRule ^discovery/1\.0/schema/?$  %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
-RewriteRule ^discovery/1\.0/resolved/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
-RewriteRule ^discovery/1\.0/shacl/?$   %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
-RewriteRule ^discovery/1\.0/guide/?$   %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
+# --- discovery/1.1 sub-paths → profile-discovery ---
+RewriteRule ^discovery/1\.1/schema/?$  %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/1\.1/resolved/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/1\.1/shacl/?$   %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/1\.1/guide/?$   %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
 
-# --- data_description/1.0 sub-paths → profile-datadescription ---
-RewriteRule ^data_description/1\.0/schema/?$   %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
-RewriteRule ^data_description/1\.0/resolved/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
-RewriteRule ^data_description/1\.0/shacl/?$    %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
-RewriteRule ^data_description/1\.0/guide/?$    %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+# --- data_description/1.1 sub-paths → profile-datadescription ---
+RewriteRule ^data_description/1\.1/schema/?$   %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/1\.1/resolved/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/1\.1/shacl/?$    %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/1\.1/guide/?$    %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
 
-# --- data_structure/1.0 sub-paths → profile-datastructure ---
-RewriteRule ^data_structure/1\.0/schema/?$   %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
-RewriteRule ^data_structure/1\.0/resolved/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
-RewriteRule ^data_structure/1\.0/shacl/?$    %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
-RewriteRule ^data_structure/1\.0/guide/?$    %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
+# --- data_structure/1.1 sub-paths → profile-datastructure ---
+RewriteRule ^data_structure/1\.1/schema/?$   %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/1\.1/resolved/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/1\.1/shacl/?$    %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/1\.1/guide/?$    %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
 
-# --- manifest/1.0 sub-paths → profile-manifest ---
-RewriteRule ^manifest/1\.0/schema/?$   %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
-RewriteRule ^manifest/1\.0/resolved/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
-RewriteRule ^manifest/1\.0/shacl/?$    %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
-RewriteRule ^manifest/1\.0/guide/?$    %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
+# --- manifest/1.1 sub-paths → profile-manifest ---
+RewriteRule ^manifest/1\.1/schema/?$   %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/1\.1/resolved/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/1\.1/shacl/?$    %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/1\.1/guide/?$    %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
 
-# --- provenance/1.0 sub-paths → profile-provenance ---
-RewriteRule ^provenance/1\.0/schema/?$   %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
-RewriteRule ^provenance/1\.0/resolved/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
-RewriteRule ^provenance/1\.0/shacl/?$    %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
-RewriteRule ^provenance/1\.0/guide/?$    %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
+# --- provenance/1.1 sub-paths → profile-provenance ---
+RewriteRule ^provenance/1\.1/schema/?$   %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteRule ^provenance/1\.1/resolved/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteRule ^provenance/1\.1/shacl/?$    %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
+RewriteRule ^provenance/1\.1/guide/?$    %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
 
-# --- conceptscheme/1.0 sub-paths → profile-conceptscheme ---
-RewriteRule ^conceptscheme/1\.0/schema/?$   %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
-RewriteRule ^conceptscheme/1\.0/resolved/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
-RewriteRule ^conceptscheme/1\.0/shacl/?$    %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
-RewriteRule ^conceptscheme/1\.0/guide/?$    %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
+# --- conceptscheme/1.1 sub-paths → profile-conceptscheme ---
+RewriteRule ^conceptscheme/1\.1/schema/?$   %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/1\.1/resolved/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/1\.1/shacl/?$    %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/1\.1/guide/?$    %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
 
-# --- codelist/1.0 sub-paths → profile-codelist ---
-RewriteRule ^codelist/1\.0/schema/?$   %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
-RewriteRule ^codelist/1\.0/resolved/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
-RewriteRule ^codelist/1\.0/shacl/?$    %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
-RewriteRule ^codelist/1\.0/guide/?$    %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
+# --- codelist/1.1 sub-paths → profile-codelist ---
+RewriteRule ^codelist/1\.1/schema/?$   %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/1\.1/resolved/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/1\.1/shacl/?$    %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/1\.1/guide/?$    %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
 # --- xasDiscovery/1.0 sub-paths → mBB XASdata (unchanged) ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
@@ -160,69 +160,69 @@ RewriteRule ^xasCore/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata
 # Each rule serves: application/schema+json / application/json → StructuredSchema;
 # text/turtle → Rules.shacl; default (text/html, browser, anything else) → IG.html
 
-# --- core/1.0 → profile-core ---
+# --- core/1.1 → profile-core ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^core/1\.0/?$ %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^core/1\.0/?$ %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
-RewriteRule ^core/1\.0/?$ %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
 
-# --- discovery/1.0 → profile-discovery ---
+# --- discovery/1.1 → profile-discovery ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^discovery/1\.0/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^discovery/1\.0/?$ %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
-RewriteRule ^discovery/1\.0/?$ %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
 
-# --- data_description/1.0 → profile-datadescription ---
+# --- data_description/1.1 → profile-datadescription ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^data_description/1\.0/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^data_description/1\.0/?$ %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
-RewriteRule ^data_description/1\.0/?$ %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
 
-# --- data_structure/1.0 → profile-datastructure ---
+# --- data_structure/1.1 → profile-datastructure ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^data_structure/1\.0/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^data_structure/1\.0/?$ %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
-RewriteRule ^data_structure/1\.0/?$ %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
 
-# --- manifest/1.0 → profile-manifest ---
+# --- manifest/1.1 → profile-manifest ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^manifest/1\.0/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^manifest/1\.0/?$ %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
-RewriteRule ^manifest/1\.0/?$ %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
 
-# --- provenance/1.0 → profile-provenance ---
+# --- provenance/1.1 → profile-provenance ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^provenance/1\.0/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^provenance/1\.0/?$ %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
-RewriteRule ^provenance/1\.0/?$ %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
 
-# --- conceptscheme/1.0 → profile-conceptscheme ---
+# --- conceptscheme/1.1 → profile-conceptscheme ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^conceptscheme/1\.0/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^conceptscheme/1\.0/?$ %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
-RewriteRule ^conceptscheme/1\.0/?$ %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
 
-# --- codelist/1.0 → profile-codelist ---
+# --- codelist/1.1 → profile-codelist ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^codelist/1\.0/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^codelist/1\.0/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
-RewriteRule ^codelist/1\.0/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
 # --- xasDiscovery/1.0 → mBB XASdata (unchanged) ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json
