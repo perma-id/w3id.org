@@ -3,7 +3,7 @@
 #
 # Ilia Bagov
 # ilia.bagov@datin.io
-# GitHub username: ibagov
+# GitHub username: ilia-bagov
 RewriteEngine On
 
 
@@ -38,3 +38,30 @@ RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
 RewriteRule ^ikft/vocab/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
 RewriteRule ^ikft/(.+)/?$ https://gitlab.com/datin-publications/ikft/-/blob/main/$1.ttl [R=303,L]
+
+
+
+# ==========================================
+# TRIBOLOGY DATA SURVEY (EXACT MATCHES)
+# ==========================================
+
+# TRIBOLOGY DATA SURVEY — RDF (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_results.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/onto/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_owl_onto.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/vocab/?$ https://raw.githubusercontent.com/nick-garabedian/tribology-data-survey/main/tribology_data_survey_skos_vocab.ttl [R=303,L]
+
+# TRIBOLOGY DATA SURVEY — HTML/other (fallback)
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_results.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/onto/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_owl_onto.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^tribology_data_survey/vocab/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_skos_vocab.ttl [R=303,L]
+
