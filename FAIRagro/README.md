@@ -12,4 +12,4 @@ FAIRagro
 
 ## Contact
 
-fairagro@fairagro.net
+carmen.scheuner@senckenberg.de
