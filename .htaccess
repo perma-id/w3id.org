@@ -1,9 +1,15 @@
-# w3id.org global rewrites
+Options -MultiViews
+Require all granted
 
-Options +FollowSymLinks
+Header set Access-Control-Allow-Origin *
+Header set Cache-Control "max-age=3600"
+
+# Redirect ontology URI to raw GitHub file
 RewriteEngine on
 
-# special directory redirects due to case insensitive file systems issues
-RewriteRule ^AIRO(.*)$ /airo$1
-RewriteRule ^ceir(.*)$ /CEIR$1
-RewriteRule ^UN(.*)$ /un$1
+# If request accepts text/html, redirect to GitHub page
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ontology$ https://github.com/[ton-username]/OntoSF/blob/main/ontosf.ttl [R=303,L]
+
+# Otherwise redirect to raw TTL file
+RewriteRule ^ontology$ https://raw.githubusercontent.com/[ton-username]/OntoSF/main/ontosf.ttl [R=303,L]
