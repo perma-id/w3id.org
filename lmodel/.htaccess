@@ -83,11 +83,12 @@ RewriteRule ^common-domain-model(?:/|$)   - [E=STEM:common_domain_model,E=BRANCH
 #   src/dpvs/schema/modules/mymodule.yaml).
 #
 # Bare /schema canonicalizes to root schema (+ .yaml extension).
-# And /schema/<nested/path> (multi-segment) resolves to sub-directory schema (+ .yaml extension).
+# And /schema/<path> (single- or multi-segment) resolves to the named schema,
+# honoring the filename (+ .yaml extension); nested sub-directory paths supported.
 RewriteRule ^([^/]+)/schema/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
 RewriteCond %{REQUEST_URI} !\.[^/]+$
-RewriteRule ^([^/]+)/schema/(.*/.+?)/?$   https://github.com/lmodel/$1/blob/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
-RewriteRule ^([^/]+)/schema(?:/[^.]*)?$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/schema/(.+?)/?$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/schema/?$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # Bare <repo>/<anything>.yaml fallback (excludes prefixmap, golr, yaml, .linkml.yaml)
 RewriteCond %{REQUEST_URI} !/(schema|prefixmap|golr|yaml)/
