@@ -1,4 +1,4 @@
-# vcf-rdfizer
+# VoRD
 
 Contact:
 - Elias Crum <elias.crum@ugent.be> (GitHub: ecrum19)
