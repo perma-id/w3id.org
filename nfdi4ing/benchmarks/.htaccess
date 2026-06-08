@@ -2,21 +2,30 @@ Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
 
-# Specific content-type -> Access respective ontology
+# General documentation
 
 # HTML:
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
 
+
+# Specific content-type -> Access respective format of a benchmark
+
+# HTML - Documentation:
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/$1.md [R=303,L,NE]
 
-# JSON-LD
+# JSON-LD - Semantic representation:
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^$ https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/docs/$1.md [R=303,L,NE]
+RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/provenance/benchmark.json [R=303,L,NE]
+
+# Zip - RO-Crate
+RewriteCond %{HTTP_ACCEPT} application/zip
+RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/benchmark/$1.zip [R=303,L,NE]
 
 
-# No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
+
+# No content-negotiation at all (or HTML): Fallback to HTML for both general and specific documentation
 RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
 RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/$1.md [R=303,L,NE]

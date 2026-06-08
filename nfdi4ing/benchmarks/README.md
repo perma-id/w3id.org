@@ -15,10 +15,10 @@ Redirections:
 * JSON-LD: Access semantic representation of a specific benchmark
   * via content negotiation
     * `https://w3id.org/nfdi4ing/benchmarks/<bid>` with HTTP-Header `Accept: application/ld+json` for JSON-LD (`.jsonld`)
-    * --> `https://raw.githubusercontent.com/Simulation-Benchmarks/<bid>/refs/heads/main/docs/<bid>.md 
+    * --> `https://raw.githubusercontent.com/Simulation-Benchmarks/<bid>/refs/heads/main/provenance/benchmark.json
   * or via direct redirect of the filename
     * `https://w3id.org/nfdi4ing/benchmarks/<bid>.jsonld`
-    * --> `https://raw.githubusercontent.com/Simulation-Benchmarks/linear-elastic-plate-with-hole/refs/heads/main/docs/plate-with-hole.md`
+    * --> `https://raw.githubusercontent.com/Simulation-Benchmarks/<bid>/refs/heads/main/provenance/benchmark.json`
 
 Support:
 Archetype Betty (NFDI4Ing)
