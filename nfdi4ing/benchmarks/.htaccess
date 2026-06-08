@@ -24,7 +24,9 @@ RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Bench
 RewriteCond %{HTTP_ACCEPT} application/zip
 RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/benchmark/$1.zip [R=303,L,NE]
 
-
+# ipynb - Jupyter Notebook for results
+RewriteCond %{HTTP_ACCEPT} application/x-ipynb+json
+RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/notebooks/$1.ipynb
 
 # No content-negotiation at all (or HTML): Fallback to HTML for both general and specific documentation
 RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
