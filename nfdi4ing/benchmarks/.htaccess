@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Specific content-type -> Access respective ontology
+
+# HTML:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/$1.md [R=303,L,NE]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/docs/$1.md [R=303,L,NE]
+
+
+# No content-negotiation at all (or HTML): Fallback to HTML for both versioned and non-versioned
+RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
+RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/$1.md [R=303,L,NE]
