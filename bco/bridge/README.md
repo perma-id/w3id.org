@@ -5,6 +5,8 @@
 **Description:** OWL 2 DL ontology for automated regulatory compliance checking of bridge infrastructure BIM models.
 
 **Maintainer:** Dongwook Kim
+**GitHub:** @Dongwook1982
+**Affiliation:** DL E&C Co., Ltd., Seoul, Republic of Korea
 **ORCID:** 0000-0002-0721-5114
 **Email:** clearup7@nate.com
 
