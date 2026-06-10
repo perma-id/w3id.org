@@ -8,3 +8,8 @@ del proyecto CDT+KG en la Universidad del Cauca, Colombia.
 
 **BioPortal:** https://bioportal.bioontology.org/ontologies/BFPO  
 **Institución:** Universidad del Cauca.
+
+## Maintainer
+
+**Name:** Karen Viviana Muñoz
+**GitHub:** @karenVmp
