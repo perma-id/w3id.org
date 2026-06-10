@@ -7,4 +7,4 @@ bioproceso de fermentación en biorreactor. Desarrollada como parte
 del proyecto CDT+KG en la Universidad del Cauca, Colombia.
 
 **BioPortal:** https://bioportal.bioontology.org/ontologies/BFPO  
-**Institución:** Universidad del Cauca 
+**Institución:** Universidad del Cauca.
