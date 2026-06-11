@@ -1,7 +1,8 @@
 # /collabri/
 
 This [W3ID](https://w3id.org) namespace provides persistent URIs for schemas
-published by Collabri ([github.com/collabri-io](https://github.com/collabri-io)).
+published by the Collabri open-source community
+([github.com/collabri-community](https://github.com/collabri-community)).
 
 ## Uses
 
@@ -12,15 +13,20 @@ referenced by their canonical IRIs and are not minted under `/collabri/`.
 
 Current schemas:
 
-- **Statement of Work (SOW)** &mdash; `https://w3id.org/collabri/sow/`
-  LinkML schema for contract-scoped Statements of Work: TaskTeam (root) →
-  Task → recursive Subtasks → typed Deliverables, with PROV/PAV versioning
-  and a ChangeProposal / Approval layer (&ldquo;GitHub for contracts&rdquo;).
-  Aligned with FIBO Contracts, ODRL, FRAPO, PROV-O, PAV, and others.
+- **Core** &mdash; `https://w3id.org/collabri/core/`
+  Foundational LinkML schema for contract-scoped Statements of Work:
+  TaskTeam → Task → recursive Subtask → typed Deliverable subclasses
+  (Activity, Data, Method, NarrativeDocument, Software, Standard);
+  structured Objective / Metric / AcceptanceCriterion evaluation;
+  datestamped BudgetEntry snapshots covering proposed / awarded / working /
+  actual / encumbrance views; Milestone-gated Payment obligations; and a
+  ChangeProposal / Approval layer ("GitHub for contracts"). Aligned with
+  FIBO Contracts, ODRL, FRAPO, PROV-O, PAV, and others.
+  Source: [collabri-community/core](https://github.com/collabri-community/core)
 
 Term URIs resolve to per-term documentation pages in the LinkML-generated
 schema browser hosted at
-[collabri-io.github.io](https://collabri-io.github.io/).
+[collabri-community.github.io](https://collabri-community.github.io/).
 
 ## Contact
 
