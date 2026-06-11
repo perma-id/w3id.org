@@ -16,8 +16,11 @@
 # =============================================================================
 
 # --- CORS ---------------------------------------------------------------------
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Headers "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept"
+# "always" so the headers are also attached to the 303/301 redirect responses
+# themselves (the onsuccess table only covers 2xx) — browsers fetching a
+# context cross-origin need CORS on every hop of the redirect chain.
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept"
 Options +FollowSymLinks
 
 # --- Media types --------------------------------------------------------------
@@ -49,7 +52,7 @@ RewriteRule ^ns/(.*)$ https://w3id.org/ixo/$1 [R=301,L]
 # Human landing page for the namespace. (Accept-based content negotiation to an
 # HTML docs site returns once docs/ is published on the content host —
 # redirecting to it before it exists would send every browser to a 404.)
-RewriteRule ^/?$ https://github.com/ixofoundation/ns#readme [R=303,L]
+RewriteRule ^/?$ https://github.com/ixofoundation/ns [R=303,L]
 
 # --- 2. Umbrella context ------------------------------------------------------
 #   context | context/v1 | context/v1/   ->   context/v1/index.jsonld
