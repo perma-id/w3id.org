@@ -22,13 +22,20 @@ There is **one** canonical form, with no `ns/` prefix. For example:
 | --- | --- |
 | Umbrella context | `https://w3id.org/ixo/context/v1` |
 | Core vocabulary | `https://w3id.org/ixo/vocab/v1` |
-| A SKOS scheme | `https://w3id.org/ixo/vocab/entity-types/v1` |
-| A concept in it | `https://w3id.org/ixo/vocab/entity-types/v1#project` |
-| A JSON Schema | `https://w3id.org/ixo/schemas/v1/domainCard` |
-| A SHACL shape | `https://w3id.org/ixo/shapes/v1/DomainCardShape` |
+| A concept scheme | `https://w3id.org/ixo/protocol/methods/v1` |
+| A concept in it | `https://w3id.org/ixo/protocol/methods/v1#CosmosAccountAddress` |
+| The `did:ixo` method context | `https://w3id.org/ixo/ns/interchain-identifiers/v1` |
+| A JSON Schema | `https://w3id.org/ixo/schema/v1/domainCard` |
+| A SHACL shape | `https://w3id.org/ixo/schema/shapes/v1/DomainCardShape` |
 
 The legacy `https://w3id.org/ixo/ns/<path>` variant is collapsed to the
 canonical bare form with a single **301**. Do not use it in new code.
+
+**One registered exception**: the `did:ixo` method context keeps the `ns/`
+segment in its canonical IRI —
+`https://w3id.org/ixo/ns/interchain-identifiers/v1` — because that form is
+published in DID documents and registered externally. An explicit 303 rule
+resolves it ahead of the `ns/` collapse.
 
 ## Redirect-code policy
 
@@ -57,28 +64,14 @@ as `application/ld+json` — verified against `ixofoundation.github.io/ns` — s
 content negotiation is satisfied for contexts, vocabularies, SKOS schemes and
 shapes.
 
-JSON Schema documents (`schemas/v1/*.json`) are served as `application/json`.
+JSON Schema documents (`schema/v1/*.json`) are served as `application/json`.
 Emitting the more specific `application/schema+json` is an optional refinement
-that can only be configured on the content host (a redirect cannot set it); the
-test script accepts `application/json` and enforces a specific type only under
-`STRICT=1`.
+that can only be configured on the content host (a redirect cannot set it).
 
-## Testing
-
-[`tests/validate-redirects.sh`](./tests/validate-redirects.sh) exercises every
-rule class — first-hop status (303 / 301) and Location for all of them, plus a
-full follow-through (200, body size, `Content-Type`) for paths whose content
-already exists.
-
-```sh
-tests/validate-redirects.sh                       # test against w3id.org/ixo
-tests/validate-redirects.sh https://staging.host  # test rules before go-live
-STRICT=1 tests/validate-redirects.sh              # fail on wrong Content-Type
-```
-
-Run it in CI once these rules are deployed. SKOS-scheme and schema/shape paths
-are checked structurally now and become full content checks as their documents
-land (Phases 3 and 5 in `ixofoundation/ns`).
+Some rules target documents that land in later content phases of
+`ixofoundation/ns` (SKOS concept schemes, JSON Schemas, SHACL shapes,
+templates); those paths 404 at the content host until their documents are
+published.
 
 ## Contacts
 
