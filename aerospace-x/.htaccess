@@ -21,28 +21,20 @@ RewriteEngine on
 RewriteRule ^ovc(/.*)?$ https://gitlab.com/gaia-x/lab/policy-reasoning/odrl-vc-profile/-/raw/main/ovc-1.ttl [R=303,L]
 
 # ============================================
-# 2. Ontology - Direct file access
+# 3. Ontology - Content Negotiation (Gaia-X pattern)
+#    Same URI, different representation based on Accept header
 # ============================================
 
-RewriteRule ^ontology/ontology\.ttl$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
-RewriteRule ^ontology/shapes\.ttl$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
+# Redirect to SHACL shapes (text/turtle → shapes)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology(/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
 
-# ============================================
-# 3. Ontology - Content Negotiation
-#    Matches: ontology/ontology, ontology/, ontology/{version}
-# ============================================
+# Redirect to OWL ontology (application/rdf+xml → OWL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology(/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
 
-# SHACL shapes (separate URI)
-RewriteRule ^ontology/shapes(/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.shacl.ttl [R=303,L]
-
-# OWL ontology (any RDF Accept)
-RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^ontology(/ontology|/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
-
-# OWL ontology (default/browser)
-RewriteRule ^ontology(/ontology|/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ontology.owl.ttl [R=303,L]
+# Default: redirect to HTML documentation
+RewriteRule ^ontology(/development|/[0-9.]+)?/?$ https://a-x.pages.fraunhofer.de/ontology/ [R=303,L]
 
 # ============================================
 # 4. Data Product Models - Content Negotiation

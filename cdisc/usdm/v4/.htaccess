@@ -1,13 +1,17 @@
 # /cdisc/usdm/v4/
 #
-# https://w3id.org/cdisc/usdm/v4 redirects to a Turtle (RDF/OWL) rendering
+# https://w3id.org/cdisc/usdm/v4/ redirects to a Turtle (RDF/OWL) rendering
 # of CDISC USDM v4, generated mechanically from the CDISC DDF-RA YAML
-# source. Hash semantics: every minted IRI (e.g. .../v4#Activity) is a
-# fragment of the same Turtle document.
+# source. Slash semantics (since v0.3): each minted IRI dereferences
+# individually — class IRIs to per-class HTML anchors, property IRIs
+# to property anchors on the rendered page; the canonical Turtle
+# (version-pinned at the v0.3.1 tag) is served for tools requesting
+# RDF. Version IRIs (bare-numeric paths, e.g. /0.3.1) dereference to
+# their own tag-pinned Turtle via one generic rule.
 #
 # Status: draft, not a normative CDISC artifact. Offered for transfer to
 # CDISC governance; transfer is a single PR against this .htaccess to
-# change the redirect target. See README.md.
+# change the redirect targets. See README.md.
 #
 # ## Contact
 # Kerstin Forsberg
@@ -15,4 +19,39 @@
 # GitHub username: kerfors
 
 RewriteEngine on
-RewriteRule ^$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.2.0/usdm_v4.ttl [R=303,L]
+RewriteBase /cdisc/usdm/v4
+
+# versionIRI dereference — must precede the Accept-based rules so a
+# version-pinned IRI resolves to its own tag regardless of Accept
+# header. One generic rule covers all releases; no per-release PR
+# needed. owl:versionIRI form: https://w3id.org/cdisc/usdm/v4/X.Y.Z
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v$1/usdm_v4.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.owl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.nt [R=303,L]
+
+# Turtle — canonical, version-pinned at the v0.3.1 tag
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.3.1/usdm_v4.ttl [R=303,L]
+
+# HTML for browsers — namespace root and per-IRI variants
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://kerfors.github.io/usdm-rdf/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://kerfors.github.io/usdm-rdf/index.html#$1 [R=303,NE,L]
+
+# Default fallback (no Accept header, programmatic clients): canonical Turtle
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.3.1/usdm_v4.ttl [R=303,L]
