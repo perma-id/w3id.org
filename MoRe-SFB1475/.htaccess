@@ -2,6 +2,7 @@ RewriteEngine On
 
 # Redirect to website for the root URI
 RewriteRule	  ^$ https://sfb1475.ruhr-uni-bochum.de/ [R=302,L]
+
 # Redirect to "Conceptual Thesaurus" vocabulary overview
 RewriteRule   ^CT/?$	https://metaphors.skosmos.ub.rub.de/ct/en/ [R=303,L,QSA]
 # Resolve conceptScheme URI
@@ -13,6 +14,14 @@ RewriteRule   ^CT/concepts/(.+)$ https://metaphors.skosmos.ub.rub.de/ct/en/page/
 RewriteRule   ^MITS$	https://metaphors.skosmos.ub.rub.de/mits/ [R=303,L,QSA]
 # Redirect to individual MITS concepts
 RewriteRule   ^MITS/(.+)$	https://metaphors.skosmos.ub.rub.de/mits/en/page/$1 [R=303,L,QSA]
+
+# Redirects for the Metaphor Ontology
+# Serve RDF/XML if requested
+RewriteCond	%{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule	^MetOnt/?$	https://pages.ceres.rub.de/metont.rdf [R=303,L,QSA]
+# By default, serve the HTML documentation
+RewriteRule	^MetOnt/?$	https://pages.ceres.rub.de/metont/ [R=303,L,QSA]
+
 
 # Redirect to utility software repo
 RewriteRule   ^waps-annotation-migrator/?$   https://gitlab.ruhr-uni-bochum.de/sfb-1475-inf/waps-annotation-migrator/  [R=303,L]

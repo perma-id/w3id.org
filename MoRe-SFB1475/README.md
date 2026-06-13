@@ -4,14 +4,15 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for a thesauru
 
 ## Uses
 
-The namespace currently only contains the project website, the conceptual thesaurus itself, and a few auxiliary resources:
+The namespace currently contains the following redirects:
 
-* **`/MoRe-SFB1475/`** redirects to the project website
-* **`/MoRe-SFB1475/CT/`** is the entry point to the thesaurus
-* **`/MoRe-SFB1475/CT/concepts/`** is used for the individual concepts
-* **`/MoRe-SFB1475/MITS`** is the entry point to a small controlled vocabulary, the "Metaphor Identification Tagset"
-* **`/MoRe-SFB1475/waps-annotation-migrator`** utility software
-* **`/MoRe-SFB1475/repo/util/`** (image) resources used inside our textual data 
+* **`/MoRe-SFB1475/`** redirects to the project website.
+* **`/MoRe-SFB1475/CT/`** is the entry point to our conceptual thesaurus.
+* **`/MoRe-SFB1475/CT/concepts/`** is used for the individual concepts of the conceptual thesaurus.
+* **`/MoRe-SFB1475/MITS`** is the entry point to a small controlled vocabulary, the "Metaphor Identification Tagset".
+* **`/MoRe-SFB1475/MetOnt`** refers to our Metaphor Ontology and its documentation.
+* **`/MoRe-SFB1475/waps-annotation-migrator`** refers to a repo of utility software.
+* **`/MoRe-SFB1475/repo/util/`** redirects to (image) resources that are referenced inside our textual data.
 
 ## Contact
 

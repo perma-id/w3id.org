@@ -11,4 +11,6 @@ Based on the [Open Energy Ontology](https://openenergyplatform.org/ontology/), t
 
 ## Contact
 
-Space administered by [*Sirko Schindler*](https://github.com/SirkoS/) <w3id-oto@sirko.org> & [*Carsten Hoyer-Klick*](https://github.com/carstenhoyerklick)
+Space administered by
+* [*Sirko Schindler*](https://github.com/SirkoS/) <w3id-oto@sirko.org>
+* [*Carsten Hoyer-Klick*](https://github.com/carstenhoyerklick)

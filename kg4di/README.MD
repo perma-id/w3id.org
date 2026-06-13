@@ -9,3 +9,4 @@ Contacts:
 * Anastasia Dimou <anastasia.dimou@kuleuven.be>
 * Ben de Meester <ben.demeester@ugent.be>
 * Christophe Debruyne <c.debruyne@uliege.be>
+* Ioannis Dasoulas <ioannis.dasoulas@kuleuven.be>

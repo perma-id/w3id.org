@@ -1,0 +1,137 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+# ── ROOT: Redirect to EGDC overview ──────────────────────────────────────────
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://European-Green-Digital-Coalition.github.io/ [R=302,L]
+
+
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║                          EGDC_CaseStudy                                 ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+# ── Content negotiation (machine-readable) ────────────────────────────────
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^casestudy/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/$1.ttl [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^casestudy/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/$1.jsonld [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^casestudy/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/$1.rdf [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^casestudy/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/$1.nt [NE,R=302,L]
+
+# ── HTML: Spec root ───────────────────────────────────────────────────────
+RewriteRule ^casestudy/$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/ [R=302,L]
+
+# ── HTML: Classes ─────────────────────────────────────────────────────────
+RewriteRule ^casestudy/CaseStudy$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy [NE,R=302,L]
+RewriteRule ^casestudy/Benefit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Benefit [NE,R=302,L]
+RewriteRule ^casestudy/EnvironmentalBenefit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#EnvironmentalBenefit [NE,R=302,L]
+RewriteRule ^casestudy/Methodology$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Methodology [NE,R=302,L]
+
+# ── HTML: Properties ──────────────────────────────────────────────────────
+RewriteRule ^casestudy/fundingProgrammeUrl$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.fundingprogrammeurl [NE,R=302,L]
+RewriteRule ^casestudy/fundingType$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.fundingtype [NE,R=302,L]
+RewriteRule ^casestudy/hasBenefit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.hasbenefit [NE,R=302,L]
+RewriteRule ^casestudy/hasDataset$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.hasDdtaset [NE,R=302,L]
+RewriteRule ^casestudy/hasDocument$ https://EuropeahasEnvironmentalBenefitn-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.hasdocument [NE,R=302,L]
+RewriteRule ^casestudy/hasEnvironmentalBenefit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.hasenvironmentalbenefit [NE,R=302,L]
+RewriteRule ^casestudy/hasMethodology$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.hasmethodology [NE,R=302,L]
+RewriteRule ^casestudy/isFundedBy$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.isfundedby [NE,R=302,L]
+RewriteRule ^casestudy/isProvidedBy$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.isprovidedby [NE,R=302,L]
+RewriteRule ^casestudy/isUsedBy$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.isusedby [NE,R=302,L]
+RewriteRule ^casestudy/longDescription$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.longdescription [NE,R=302,L]
+RewriteRule ^casestudy/problemSolved$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.problemsolved [NE,R=302,L]
+RewriteRule ^casestudy/rejectionComment$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.rejectioncomment [NE,R=302,L]
+RewriteRule ^casestudy/technology$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.technology [NE,R=302,L]
+RewriteRule ^casestudy/typeOfCalculation$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#CaseStudy.typeofcalculation [NE,R=302,L]
+RewriteRule ^casestudy/functionalUnit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Benefit.functionalunit [NE,R=302,L]
+RewriteRule ^casestudy/unit$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Benefit.unit [NE,R=302,L]
+RewriteRule ^casestudy/value$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Benefit.value [NE,R=302,L]
+RewriteRule ^casestudy/url$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Document.url [NE,R=302,L]
+RewriteRule ^casestudy/hashedPassword$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#OnlineAccount.hashedpassword [NE,R=302,L]
+RewriteRule ^casestudy/sector$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#Organization.sector [NE,R=302,L]
+
+
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║                            EGDC_Rule                                    ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+# ── Content negotiation (machine-readable) ────────────────────────────────
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^rule/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/$1.ttl [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^rule/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/$1.jsonld [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^rule/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/$1.rdf [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^rule/(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/$1.nt [NE,R=302,L]
+
+# ── HTML: Spec root ───────────────────────────────────────────────────────
+RewriteRule ^rule/$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/ [R=302,L]
+
+# ── HTML: Classes ─────────────────────────────────────────────────────────
+RewriteRule ^rule/Rule$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#Rule [NE,R=302,L]
+RewriteRule ^rule/InputParameter$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#InputParameter [NE,R=302,L]
+RewriteRule ^rule/Output$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#Output [NE,R=302,L]
+RewriteRule ^rule/Range$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#Range [NE,R=302,L]
+
+# ── HTML: Properties ──────────────────────────────────────────────────────
+RewriteRule ^rule/example$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#example [NE,R=302,L]
+RewriteRule ^rule/hasRange$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#hasRange [NE,R=302,L]
+
+
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║                          Code Lists (egdc-cl)                           ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+#
+#  Code lists from EGDC_Rule:   complexity, impacttype
+#  Code lists from EGDC_CaseStudy: funding, status
+#
+#  URI pattern: w3id.org/egdc/codelist/{listname}
+#  URI pattern: w3id.org/egdc/codelist/{listname}/{conceptvalue}
+
+# ── Content negotiation (machine-readable) — EGDC_Rule code lists ─────────
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^codelist/(complexity|impacttype)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/codelist/$1$2.ttl [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^codelist/(complexity|impacttype)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/codelist/$1$2.jsonld [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^codelist/(complexity|impacttype)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/codelist/$1$2.rdf [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^codelist/(complexity|impacttype)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/puri/codelist/$1$2.nt [NE,R=302,L]
+
+# ── Content negotiation (machine-readable) — EGDC_CaseStudy code lists ───
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^codelist/(funding|status)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/codelist/$1$2.ttl [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^codelist/(funding|status)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/codelist/$1$2.jsonld [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^codelist/(funding|status)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/codelist/$1$2.rdf [NE,R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^codelist/(funding|status)(.*)$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/puri/codelist/$1$2.nt [NE,R=302,L]
+
+# ── HTML: Code list roots — EGDC_Rule ────────────────────────────────────
+RewriteRule ^codelist/complexity$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#complexity [NE,R=302,L]
+RewriteRule ^codelist/impacttype$ https://European-Green-Digital-Coalition.github.io/EGDC_Rule/model/#impacttype [NE,R=302,L]
+
+# ── HTML: Code list roots — EGDC_CaseStudy ───────────────────────────────
+RewriteRule ^codelist/funding$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#funding [NE,R=302,L]
+RewriteRule ^codelist/status$ https://European-Green-Digital-Coalition.github.io/EGDC_CaseStudy/model/#status [NE,R=302,L]
+
+# ── HTML: Codelist root ───────────────────────────────────────────────────
+RewriteRule ^codelist/$ https://European-Green-Digital-Coalition.github.io/ [R=302,L]

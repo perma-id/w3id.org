@@ -8,7 +8,7 @@ w3id.org is used to provide permanent URIs for the elements in the metadata mode
 
 General documentation
 
-- https://w3id.org/nfdi4cat/pid4cat-model <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model
+- https://w3id.org/nfdi4cat/pid4cat-model <BR>-(html)-> https://nfdi4cat.github.io/pid4cat-model/latest
 
 Schema documentation
 
@@ -17,6 +17,13 @@ Schema documentation
 LinkML-model as yaml file
 
 - https://w3id.org/nfdi4cat/pid4cat-model/ <BR>-(application/yaml)-> https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml
+
+    ```
+    # Test download with httpie
+    http -o pid4cat_model.yaml --download https://w3id.org/nfdi4cat/pid4cat-model Accept:"application/yaml"
+    # or with curl
+    curl -o pid4cat_model.yaml -L -H "accept:application/yaml" https://w3id.org/nfdi4cat/pid4cat-model
+    ```
 
 Specific schema documentation of individual model elements (classes, slots, enums)
 
@@ -47,13 +54,13 @@ LinkML-model as yaml file
 
 Specific schema documentation of individual model elements (classes, slots, enums)
 
-- https://w3id.org/nfdi4cat/pid4cat-model/class/HandleRecord <BR>-(html)->
+- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0/class/HandleRecord <BR>-(html)->
 https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/classes/HandleRecord
 
-- https://w3id.org/nfdi4cat/pid4cat-model/slot/timestamp <BR>-(html)->
+- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0/slot/timestamp <BR>-(html)->
 https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/slots/timestamp
 
-- https://w3id.org/nfdi4cat/pid4cat-model/enum/Pid4CatStatus <BR>-(html)->
+- https://w3id.org/nfdi4cat/pid4cat-model/v0.4.0/enum/Pid4CatStatus <BR>-(html)->
 https://nfdi4cat.github.io/pid4cat-model/v0.4.0/elements/enums/Pid4CatStatus
 
 ## Contacts

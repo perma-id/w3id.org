@@ -232,7 +232,8 @@ See [`/SocDOnt/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/SocD
 ## README.md
 
 Each ID hosted on W3ID is required to have a file named `README.md` containing
-information about the ID itself and information about the maintainer(s).
+information about the ID itself and information about the maintainer(s),
+**including their GitHub account**.
 This can be more elaborate than the information inside `.htaccess`.
 
 The `.md` file extension at the end of the file name indicates that the file
@@ -243,4 +244,4 @@ GitHub will automatically display the content of a `README.md` to repository
 visitors.
 
 An example of a good README file:
-[`w3id.org/dggs/README.md`](https://github.com/perma-id/w3id.org/blob/master/dggs/README.md)
+[`w3id.org/fdo/Readme.md`](https://github.com/perma-id/w3id.org/blob/master/fdo/Readme.md)
