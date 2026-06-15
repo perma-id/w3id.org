@@ -1,5 +1,5 @@
 # Ontology of Evdoxus
-https://w3id.org/evdoxus -> http://lpis.csd.auth.gr/ontologies/2023/evdoxus.ttl
+https://w3id.org/evdoxus -> http://lod.csd.auth.gr/evdoxus/evdoxus.ttl
 
 
 

@@ -5,12 +5,12 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [MetaD
 ## Contact
 This space is administered by:  
 
-Melissa Black
+Irene Vazano
 
 Infrastructure and Impact Measurement Coordinator @ MetaDocencia
 
-[Email](mblack@metadocencia.org)
+[Email](irene.vazano@metadocencia.org)
 
-[Github](https://github.com/melibleq)
+[Github](https://github.com/4iro)
 
 Project's repository: [https://github.com/MetaDocencia](https://github.com/MetaDocencia)

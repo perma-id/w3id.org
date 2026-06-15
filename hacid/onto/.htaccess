@@ -10,8 +10,9 @@ SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=owl
 SetEnvIf Accept ^.*text/html.* SYNTAX=html
 
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/hacid-project/knowledge-graph/main/ontologies/
-SetEnvIf Request_URI ^.*$ LODVIEW_URL=https://semantics.istc.cnr.it/hacid/lodview/onto/
-SetEnvIf Request_URI ^.*$ LODE_URL=https://semantics.istc.cnr.it/hacid/lode/extract?url=
+SetEnvIf Request_URI ^.*$ LODE_URL=https://semantics.istc.cnr.it/hacid/lode/extract
+SetEnvIf Request_URI ^.*$ ROOT_URI=https://w3id.org/hacid/onto/
+SetEnvIf Request_URI ^.*$ CORE_ROOT_URI=https://w3id.org/hacid/onto/core/
 
 
 # HACID GitHub for owl ontologies
@@ -37,27 +38,17 @@ RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:ROOT_URL}$1/$1.%{ENV:SYNTAX} [R=303,L]
 
 ## top-level and mdx
 RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^(top-level|mdx)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/$1 [R=303,L]
+RewriteRule ^(top-level|mdx)$ %{ENV:LODE_URL}?url=%{ENV:ROOT_URI}$1 [R=303,L]
 
 ## core
 RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^core/([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/core/$1 [R=303,L]
+RewriteRule ^core/([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}?url=%{ENV:CORE_ROOT_URI}$1 [R=303,L]
 
 ## other ontologies
 RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}https://w3id.org/hacid/onto/$1 [R=303,L]
+RewriteRule ^([a-zA-Z-_0-9]+)$ %{ENV:LODE_URL}?url=%{ENV:ROOT_URI}$1 [R=303,L]
 
 
-# LODVIEW for classes and properties
-
-## top-level and mdx
-RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^(top-level|mdx)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
-
-## core
-RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^core/([a-zA-Z-_0-9]+)(/.+)$ %{ENV:LODVIEW_URL}core/$1$2 [R=303,L]
-
-## other ontologies
-RewriteCond %{ENV:SYNTAX} ^html$
-RewriteRule ^(.+)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
+# Rewrite term URIs to ontology URIs
+RewriteRule ^(core/.+)(/.*)$ https://w3id.org/hacid/onto/$1 [R=303,L]
+RewriteRule ^(.+)(/.*)$ https://w3id.org/hacid/onto/$1 [R=303,L]

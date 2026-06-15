@@ -30,7 +30,7 @@ SetEnvIf Request_URI ^.*$ TEST_RESOURCE_URL=https://polifonia.disi.unibo.it/sema
 
 # TEST NEW ENDPOINT
 RewriteRule ^ontology/semanticroman(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:TEST_ONTOLOGY_URL}#$2 [R=303,L]
-RewriteRule ^ontology/semanticroman(/) %{ENV:TEST_ONTOLOGY_OWL_URL} [R=303,L]
+RewriteRule ^ontology/semanticroman(/)? %{ENV:TEST_ONTOLOGY_OWL_URL} [R=303,L]
 RewriteRule ^resource/semanticroman(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:TEST_RESOURCE_URL}/$2$3$4 [R=303,L]
 
 # CHOCO URL
@@ -40,14 +40,14 @@ SetEnvIf Request_URI ^.*$ CHOCO_DATA_URL=https://polifonia.disi.unibo.it/choco/r
 
 # CHOCO REDIRECTS
 RewriteRule ^ontology/choco(/)([a-zA-Z-_0-9]+)(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_ONTOLOGY_URL}#$2 [R=303,L]
-RewriteRule ^ontology/choco(/) %{ENV:JAMS_ONTOLOGY_OWL_URL} [R=303,L]
+RewriteRule ^ontology/choco(/)? %{ENV:JAMS_ONTOLOGY_OWL_URL} [R=303,L]
 RewriteRule ^resource/choco(/)([a-zA-Z-_0-9]+)?(/)?([a-zA-Z-_0-9]+)?(/)?$ %{ENV:CHOCO_DATA_URL}/$2$3$4 [R=303,L]
 
 # Rules for version-aware URIs of ontologies
 # CORE
 RewriteRule ^ontology/core(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CORE_URL} [R=303,L]
 # JAMS
-RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_URL} [R=303,L]
+RewriteRule ^ontology/jams(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:JAMS_ONTOLOGY_OWL_URL} [R=303,L]
 # CHOCO
 # RewriteRule ^resource/choco(/)?([a-zA-Z-_0-9]+)?(/)?([0-9].[0-9])?(/)?$ %{ENV:CHOCO_DATA_URL} [R=303,L]
 # ROMAN

@@ -1,0 +1,51 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule .* - [E=BASE:https://hse-ucd.github.io/hse-ontology]
+RewriteRule .* - [E=LATEST:latest]
+RewriteRule .* - [E=TERMINOLOGY:https://hse-ucd.github.io/hse-terminology]
+RewriteRule .* - [E=DATAPORTAL:https://hse-ucd.github.io/hse-data-portal]
+
+RewriteRule ^$ https://hse-ucd.github.io/ [R=302,L]
+
+# https://w3id.org/hse/ontology
+RewriteRule ^ontology$ %{ENV:BASE}/ [NE,R=302,L]
+RewriteRule ^ontology/$ %{ENV:BASE}/ [NE,R=302,L]
+
+# @prefix phi: <https://w3id.org/hse/ontology/phi#>
+# phi versioned: https://w3id.org/hse/ontology/phi/1.0.2
+RewriteRule ^ontology/phi/(\d+\.\d+\.\d+)$ %{ENV:BASE}/$1/ [NE,R=302,L]
+RewriteRule ^ontology/phi/(\d+\.\d+\.\d+)/$ %{ENV:BASE}/$1/ [NE,R=302,L]
+# phi latest
+RewriteRule ^ontology/phi$ %{ENV:BASE}/%{ENV:LATEST}/ [NE,R=302,L]
+RewriteRule ^ontology/phi/$ %{ENV:BASE}/%{ENV:LATEST}/ [NE,R=302,L]
+
+# @prefix phd: <https://w3id.org/hse/ontology/phd#>
+# phd versioned: https://w3id.org/hse/ontology/phd/1.0.2
+RewriteRule ^ontology/phd/(\d+\.\d+\.\d+)$ %{ENV:BASE}/$1/ [NE,R=302,L]
+RewriteRule ^ontology/phd/(\d+\.\d+\.\d+)/$ %{ENV:BASE}/$1/ [NE,R=302,L]
+# phd latest
+RewriteRule ^ontology/phd$ %{ENV:BASE}/%{ENV:LATEST}/ [NE,R=302,L]
+RewriteRule ^ontology/phd/$ %{ENV:BASE}/%{ENV:LATEST}/ [NE,R=302,L]
+
+# @prefix pht: <https://w3id.org/hse/terminology#>
+# terminology versioned: https://w3id.org/hse/terminology/1.0.2
+RewriteRule ^terminology/(\d+\.\d+\.\d+)$ %{ENV:TERMINOLOGY}/$1/ [NE,R=302,L]
+RewriteRule ^terminology/(\d+\.\d+\.\d+)/$ %{ENV:TERMINOLOGY}/$1/ [NE,R=302,L]
+# terminology latest
+RewriteRule ^terminology$ %{ENV:TERMINOLOGY}/ [NE,R=302,L]
+RewriteRule ^terminology/$ %{ENV:TERMINOLOGY}/ [NE,R=302,L]
+
+# @prefix indicator: <https://w3id.org/hse/indicator/>
+# indicator: https://w3id.org/hse/indicator/hse0000042
+RewriteRule ^indicator/(.+)$ %{ENV:DATAPORTAL}/indicator/$1/ [NE,R=302,L]
+
+# @prefix indicator-group: <https://w3id.org/hse/indicator-group/>
+# indicator-group: https://w3id.org/hse/indicator-group/hse0001001
+RewriteRule ^indicator-group/(.+)$ %{ENV:DATAPORTAL}/indicator-group/$1/ [NE,R=302,L]
+
+# @prefix dataset: <https://w3id.org/hse/dataset/>
+# dataset: https://w3id.org/hse/dataset/AGS01/
+RewriteRule ^dataset/(.+)$ %{ENV:DATAPORTAL}/dataset/$1/ [NE,R=302,L]

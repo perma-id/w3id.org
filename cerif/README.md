@@ -4,8 +4,5 @@ Developed and maintained by euroCRIS (https://eurocris.org/)
 
 Contacts
 
-* Jan Dvořák <jan.dvorak@ff.cuni.cz>
-* Laurent Remy <lremy@is4ri.com>
-* Andrea Bollini <andrea.bollini@4science.it>
+* Jan Dvořák <jan.dvorak@eurocris.org>
 * the euroCRIS Secretariat <eurocris@eurocris.org>
-

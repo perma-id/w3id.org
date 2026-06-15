@@ -1,0 +1,119 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+
+RewriteRule ^release/?$ "/"
+
+##
+# Rewrite rules for any other version.
+##
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^release/(.+)$ https://onto-med.github.io/GFO/release/$1/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$1/gfo.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$1/gfo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$1/gfo.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$1/gfo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([a-z]+)/release/(.+)$ https://onto-med.github.io/GFO/release/$2/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z]+)/release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$2/gfo-$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([a-z]+)/release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$2/gfo-$1.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z]+)/release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$2/gfo-$1.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([a-z]+)/release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$2/gfo-$1.ttl [R=303,L]
+
+RewriteRule ^release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$1/gfo.owl [R=303,L]
+RewriteRule ^release/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.owl [R=303,L]
+RewriteRule ^(.+)/release/(.+)$ https://github.com/Onto-Med/GFO/releases/download/$2/gfo-$1.owl [R=303,L]
+RewriteRule ^(.+)/release/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.owl [R=303,L]
+
+# Rewrite rule to serve classes and properties via RDF browser Rickview
+# Note: Only modules contain classes, that's why "^(.+)$" should not match here!
+RewriteRule ^(.+)/(.+)$ https://top.imise.uni-leipzig.de/ontology/gfo/$1/$2 [R=303,L]
+
+##
+# Rewrite rules for latest version.
+##
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://onto-med.github.io/GFO/release/latest/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([a-z]+)?/?$ https://onto-med.github.io/GFO/release/latest/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([a-z]+)/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([a-z]+)/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z]+)/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([a-z]+)/?$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.ttl [R=303,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^([a-z]+)$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo-$1.owl [R=303,L]
+RewriteRule ^$ https://github.com/Onto-Med/GFO/releases/latest/download/gfo.owl [R=303,L]

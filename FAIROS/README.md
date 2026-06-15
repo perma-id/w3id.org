@@ -6,4 +6,5 @@ González, E., Benítez, A., Garijo, D. (2022). FAIROs: Towards FAIR Assessment 
 [link doi]: https://doi.org/10.1007/978-3-031-16802-4_6
 
 Contacts: 
-* Esteban Gonzalez <egonzalez@fi.upm.es> - Github user: esgg
+* Esteban Gonzalez <egonzalez@fi.upm.es> - Github user: @esgg
+* Daniel Garijo Verdejo - Github user: @dgarijo

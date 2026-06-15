@@ -1,4 +1,3 @@
-Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
@@ -6,13 +5,33 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://besteves4.github.io/duo-odrl-dpv/duodrl.ttl [R=303,L]
+
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://github.com/besteves4/duo-odrl-dpv [R=303,NE,L]
+RewriteRule ^$ https://besteves4.github.io/duo-odrl-dpv/ [R=303,L]
 
+# Rewrite rule to serve TTL content from current version of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^0.1$ https://besteves4.github.io/duo-odrl-dpv/duodrl.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content from current version of the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^0.1$ https://besteves4.github.io/duo-odrl-dpv/ [R=303,L]
+
+# Rewrite rule to serve HTML content from the repo URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -30,3 +49,6 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^app/?$ https://duodrl-demo-app.onrender.com/ [R=302,L]
+
+# Rewrite rule to serve the TTL content from the vocabulary URI by default
+RewriteRule ^$ https://besteves4.github.io/duo-odrl-dpv/duodrl.ttl [R=303,L]

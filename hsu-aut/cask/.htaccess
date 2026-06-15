@@ -1,16 +1,23 @@
 RewriteEngine on
 
-# Redirect ontology version IRI to the given version
+# Redirect ontology version IRI to the given version (until v3.0.0 to .owl)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^(\d\.\d\.\d)/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSk/v$1/cask.owl [R=303,NC,L]
+RewriteRule ^(1\.\d+\.\d+|2\.\d+\.\d+|3\.0\.0)/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSk/v$1/cask.owl [R=303,NC,L]
+
+
+# Redirect ontology version IRI to the given version (from v3.0.1 to .ttl)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d\.\d\.\d)/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSk/v$1/cask.ttl [R=303,NC,L]
 
 # Redirect ontology IRI (withouth version) to the current main branch version
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSk/main/cask.owl [R=303,NC,L]
+RewriteRule ^/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSk/main/cask.ttl [R=303,NC,L]
 
 # Redirect HTML requests to the main repository page
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
