@@ -1,0 +1,29 @@
+# https://w3id.org/seqmake/parts  —  SeqMake Parts (biological parts knowledge base)
+#
+# Permanent, host-independent IRIs for the catalog, namespaced under the SeqMake
+# house brand. This redirect forwards them to the live site (currently GitHub
+# Pages); if hosting or the repo name ever changes, only this file changes and
+# every published/cited IRI keeps resolving.
+#
+# Registered at w3id.org/seqmake/, so the paths below are matched relative to
+# that base (i.e. they begin with `parts/`). Maintained in
+# https://github.com/dbikard/seqmake-parts (w3id/seqmake/) and submitted as a
+# PR to https://github.com/perma-id/w3id.org
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Local vocabulary terms (cat:) and the namespace document -> the RDF graph.
+RewriteRule ^parts/ns https://dbikard.github.io/seqmake-parts/catalog.ttl [R=302,L,NE]
+
+# Part and collection IRIs -> their page on the site.
+RewriteRule ^parts/part/(.+)$ https://dbikard.github.io/seqmake-parts/parts/$1/ [R=302,L,NE]
+RewriteRule ^parts/collection/(.+)$ https://dbikard.github.io/seqmake-parts/collections/$1/ [R=302,L,NE]
+
+# Machine artifacts.
+RewriteRule ^parts/catalog\.(ttl|jsonld|json)$ https://dbikard.github.io/seqmake-parts/catalog.$1 [R=302,L,NE]
+
+# The parts base, the seqmake root, and anything else -> the site.
+RewriteRule ^parts/?$ https://dbikard.github.io/seqmake-parts/ [R=302,L]
+RewriteRule ^parts/(.*)$ https://dbikard.github.io/seqmake-parts/$1 [R=302,L]
+RewriteRule ^$ https://dbikard.github.io/seqmake-parts/ [R=302,L]
