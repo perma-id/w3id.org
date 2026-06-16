@@ -1,24 +1,22 @@
+# SBOM Bridge Ontology for Mapping
+# https://w3id.org/sbom/
+# Maintainer: Arthit Suriyawongkul <suriyawa@tcd.ie>
+# GitHub username: bact
+# Source: https://github.com/openregtech/sbom
+
 Options +FollowSymLinks
 Options -MultiViews
 
 RewriteEngine on
 
-# SBOM Bridge Ontology for Mapping
-# https://w3id.org/sbom/
-# Maintainer: Arthit Suriyawongkul <suriyawa@tcd.ie> (@bact)
-# Source: https://github.com/openregtech/sbom
-
 # Root: https://w3id.org/sbom/
 
 ## RDF clients -> main ontology (Turtle)
 
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://openregtech.github.io/sbom/sbom.ttl [R=303,NE,L]
 
-## Browsers -> GitHub Pages documentation
+## Browsers -> GitHub Pages documentation (index.html)
 
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
@@ -30,7 +28,7 @@ RewriteRule ^$ https://openregtech.github.io/sbom/sbom.ttl [R=303,NE,L]
 
 # Sub-paths: https://w3id.org/sbom/<path>
 
-## RDF clients -> corresponding file on GitHub Pages
+## RDF clients -> GitHub Pages sub-path
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
