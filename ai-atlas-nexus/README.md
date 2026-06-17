@@ -16,4 +16,4 @@ The base PID <https://w3id.org/ai-atlas-nexus> redirects to the **latest** versi
 
 ## Maintainer
 
-- Inge Vejsbjerg ([@ingevejs](https://github.com/ingevejs)) 
+- Inge Vejsbjerg ([@ingevejs](https://github.com/ingelise)) 
