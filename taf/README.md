@@ -17,4 +17,4 @@ The namespace provides persistent identifiers for TAF resources, including ontol
 
 * Darren McCabe
 * GitHub: https://github.com/darren-mccabe
-* Email: [darrenmccabe9@gmail.com](mailto:darrenmccabe9@gmail.com)
+* Email: [mccabed9@tcd.ie](mailto:mccabed9@tcd.ie)
