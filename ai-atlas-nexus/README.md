@@ -13,3 +13,7 @@ The redirection rules point to the ontology documentation and files hosted on Gi
 ### Main Ontology (Latest & Versioned)
 
 The base PID <https://w3id.org/ai-atlas-nexus> redirects to the **latest** version.
+
+## Maintainer
+
+- Inge Vejsbjerg ([@ingevejs](https://github.com/ingevejs)) 
