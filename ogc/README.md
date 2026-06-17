@@ -5,6 +5,8 @@ The following sub-namespaces are defined:
 
 * OGC
   * `/geopose`
+  * `/ladm`
+  * `/stac`
 * Hosted by OGC
   * `/hosted`
 
