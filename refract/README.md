@@ -5,7 +5,7 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the **Refa
 REFrACT provides a controlled vocabulary of refactoring action types, each with associated SHACL shapes graphs for validation, enabling the provenance and configuration metadata of ontology transformation processes to be captured in a machine-readable and reusable form.
 
 Redirect: https://semanticweb.tools/ont/refract \
-Source code, use cases & tutorials: https://github.com/fgilliswebber/refract
+Source code, use cases & tutorials: https://github.com/semanticweb-tools/refract
 
 ## Contact
 
