@@ -1,19 +1,25 @@
 # TAF - Trustworthy AI Forensics
 
-TAF is a Trustworthy AI Forensics framework for supporting the ethical and legally aligned procurement of AI-enabled digital forensic tools.
+**Persistent identifier (PID) home** for the Trustworthy AI Forensics ontology and related resources.
 
-The namespace provides persistent identifiers for TAF resources, including ontology documentation, technical artefacts, and supporting research materials.
+This directory hosts the redirection rules, via `.htaccess`, that resolve the PID
+https://w3id.org/taf/ and its associated ontology, documentation, and supporting resources.
 
-## Documentation
+## Resolvable Resources
 
-* Site: http://trinners.com/
+The redirection rules point to the TAF ontology documentation and resources hosted at:
+
+**http://trinners.com/**
+
+## Main Ontology
+
+The base PID https://w3id.org/taf/ redirects to the main TAF resource.
+
+## Repository
+
 * Repository: https://github.com/darren-mccabe/TAF
 
-## Persistent Identifier
-
-* w3id: https://w3id.org/taf/
-
-## Contact
+## Maintainer
 
 * Darren McCabe
 * GitHub: https://github.com/darren-mccabe
