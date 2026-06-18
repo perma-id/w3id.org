@@ -1,7 +1,7 @@
 # w3id.org/odrl-legal
 
-Permanent identifier for the **ODRL Legal Profile (ODRL-L)**, an OWL ODRL 2.2
-profile that grounds ODRL permissions, prohibitions, and duties in UFO-L legal
+Permanent identifier for the **ODRL Legal Profile (ODRL-L)**, an OWL profile of
+ODRL 2.2 that grounds ODRL permissions, prohibitions, and duties in UFO-L legal
 positions.
 
 - Namespace IRI: https://w3id.org/odrl-legal/
@@ -13,4 +13,4 @@ The `.htaccess` performs content negotiation: RDF clients receive the ontology,
 browsers receive the HTML documentation, and term IRIs (e.g. `/odrl-legal/Power`)
 resolve to their definition anchor in the docs. All redirects use HTTP 303.
 
-Maintainer: Daham M. Mustafa (RWTH Aachen University / Fraunhofer FIT).
+Maintainer: Daham M. Mustafa (@Daham-Mustaf), RWTH Aachen University / Fraunhofer FIT.
