@@ -45,6 +45,13 @@ RewriteEngine On
 # The bare form (no "ns/") also resolves, so both spellings dereference.
 RewriteRule ^(?:ns/)?interchain-identifiers(?:/v1)?/?$ https://ixofoundation.github.io/ns/interchain-identifiers/v1/index.jsonld [R=303,L]
 
+# --- 0b. did:ixo DID-specific context -----------------------------------------
+# The DID-method-specific JSON-LD context for did:ixo (CosmosAccountAddress,
+# blockchainAccountId, linkedResource, linkedClaim, linkedEntity, accordedRight).
+# Registered in the W3C DID Extensions registry. Both the "ns/" form and the
+# canonical bare form resolve to the concrete JSON-LD artifact.
+RewriteRule ^(?:ns/)?did(?:/v1)?/?$ https://ixofoundation.github.io/ns/did/v1/index.jsonld [R=303,L]
+
 # --- 1. Legacy "ns/" prefix  →  canonical bare form (single 301) --------------
 RewriteRule ^ns/(.*)$ https://w3id.org/ixo/$1 [R=301,L]
 
