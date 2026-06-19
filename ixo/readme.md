@@ -24,7 +24,7 @@ There is **one** canonical form, with no `ns/` prefix. For example:
 | Core vocabulary | `https://w3id.org/ixo/vocab/v1` |
 | A concept scheme | `https://w3id.org/ixo/protocol/methods/v1` |
 | A concept in it | `https://w3id.org/ixo/protocol/methods/v1#CosmosAccountAddress` |
-| The `did:ixo` method context | `https://w3id.org/ixo/ns/interchain-identifiers/v1` |
+| The `did:ixo` method context | `https://w3id.org/ixo/ns/did/v1` |
 | A JSON Schema | `https://w3id.org/ixo/schema/v1/domainCard` |
 | A SHACL shape | `https://w3id.org/ixo/schema/shapes/v1/DomainCardShape` |
 
@@ -32,10 +32,11 @@ The legacy `https://w3id.org/ixo/ns/<path>` variant is collapsed to the
 canonical bare form with a single **301**. Do not use it in new code.
 
 **One registered exception**: the `did:ixo` method context keeps the `ns/`
-segment in its canonical IRI —
-`https://w3id.org/ixo/ns/interchain-identifiers/v1` — because that form is
-published in DID documents and registered externally. An explicit 303 rule
-resolves it ahead of the `ns/` collapse.
+segment in its canonical IRI — `https://w3id.org/ixo/ns/did/v1` — because
+that form is published in DID documents and registered externally. An
+explicit 303 rule resolves it ahead of the `ns/` collapse. The earlier
+`…/ns/interchain-identifiers/v1` context remains resolvable for back-compat
+with already-issued DID documents that reference it.
 
 ## Redirect-code policy
 

@@ -34,15 +34,33 @@ AddType application/ld+json .jsonld
 
 RewriteEngine On
 
-# --- 0. did:ixo method context (interchain-identifiers) ------------------------
-# The IID JSON-LD context that defines the did:ixo method-specific terms
-# (linkedResource, linkedClaim, linkedEntity, accordedRight, blockchainAccountID,
-# CosmosAccountAddress). Published WITH the "ns/" segment by request, so this
-# explicit 303 must precede the rule-1 "ns/" collapse below — otherwise the IRI
-# would be 301'd to the bare form before it could resolve to a document.
-# Registered in the DID Specification Registries; appended to the @context array
+# --- 0. did:ixo DID method context --------------------------------------------
+# The canonical JSON-LD context for the did:ixo method, defining the
+# method-specific terms (linkedResource, linkedClaim, linkedEntity,
+# accordedRight, blockchainAccountId, CosmosAccountAddress, …). Published WITH
+# the "ns/" segment as the canonical form, so these explicit 303s must precede
+# the rule-1 "ns/" collapse — otherwise the IRI would be 301'd to the bare
+# form before it could resolve to a document. Appended to the @context array
 # of every resolved did:ixo document (W3C DID Core §6.3.1 JSON-LD production).
 # The bare form (no "ns/") also resolves, so both spellings dereference.
+#
+# Accept-based content negotiation:
+#   * Browsers (Accept: text/html…) → Jekyll-rendered spec page
+#   * Everything else (JSON-LD processors, curl with no Accept, */*) → the
+#     canonical JSON-LD context document
+# The text/html rule MUST come first; a RewriteCond only attaches to the
+# immediately-following RewriteRule.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(?:ns/)?did(?:/v1)?/?$ https://ixofoundation.github.io/ns/did/v1/ [R=303,L]
+RewriteRule ^(?:ns/)?did(?:/v1)?/?$ https://ixofoundation.github.io/ns/did/v1/index.jsonld [R=303,L]
+
+# --- 0b. did:ixo legacy interchain-identifiers context ------------------------
+# The earlier IID umbrella context, kept resolvable for back-compat with
+# already-resolved did:ixo documents that reference it. New documents
+# reference the did/v1 context above instead. Same negotiation pattern as
+# rule 0 — browsers get the spec page, everything else gets the JSON-LD.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(?:ns/)?interchain-identifiers(?:/v1)?/?$ https://ixofoundation.github.io/ns/interchain-identifiers/v1/ [R=303,L]
 RewriteRule ^(?:ns/)?interchain-identifiers(?:/v1)?/?$ https://ixofoundation.github.io/ns/interchain-identifiers/v1/index.jsonld [R=303,L]
 
 # --- 1. Legacy "ns/" prefix  →  canonical bare form (single 301) --------------
