@@ -13,6 +13,7 @@ https://w3id.org/nist-csf2-skos/
 ## Maintainer
 
 Gheorghe Turca
+GitHub: [@georgeturca](https://github.com/georgeturca)  
 University of Twente
 Student number: s3197999
 
