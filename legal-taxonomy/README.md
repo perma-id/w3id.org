@@ -9,4 +9,4 @@ SKOS controlled vocabulary of ~288,000 legal-issue concepts organised under
 - Published site & data: https://arthrod.github.io/legal-taxonomy/
 - Source: https://github.com/arthrod/legal-taxonomy
 
-**Maintainer:** Arthur S. Rodrigues — arthursrodrigues@gmail.com
+**Maintainer:** Arthur S. Rodrigues — arthursrodrigues@gmail.com — GitHub: [@arthrod](https://github.com/arthrod)
