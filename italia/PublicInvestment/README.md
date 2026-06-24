@@ -21,7 +21,8 @@ This work is carried out with the semantic stewardship of ISTAT and in coordinat
 Department for Digital Transformation (DTD), within the National Catalogue of Semantic Assets
 ([schema.gov.it](https://schema.gov.it)).
 
-Contacts:
+Maintainers and contacts:
 
-+ Francesco De Stefanis (DIPE): github (https://github.com/PCM-DIPE) - email (f.destefanis@governo.it)
-+ Leonardo Salvatori (DIPE): github (https://github.com/PCM-DIPE) - email (leo.salvatori@governo.it)
++ **GitHub handle (maintainer):** [@PCM-DIPE](https://github.com/PCM-DIPE) — the DIPE organisation account; please mention `@PCM-DIPE` here for anything regarding these redirects.
++ Francesco De Stefanis (DIPE): email (f.destefanis@governo.it)
++ Leonardo Salvatori (DIPE): email (leo.salvatori@governo.it)
