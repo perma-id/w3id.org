@@ -319,15 +319,27 @@ RewriteRule ^alignment$ https://richzele.github.io/dpp-ontology-site/alignment-d
 ############################################################################
 # ACCESS CONTROL MODULE: /dpp/access-control (version 1.0.0)
 # URI: http://w3id.org/dpp/access-control
+# Deployed base: https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/
 ############################################################################
 
-# JSON-LD for access-control module
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.jsonld [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.jsonld [R=303,NE,L]
+# Convenience routes for co-designed artifacts
+# These must precede the generic ^access-control/(.+)$ rules.
+RewriteRule ^access-control/shapes/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-shapes.ttl [R=303,L]
+RewriteRule ^access-control/gdpr/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-gdpr.ttl [R=303,L]
+RewriteRule ^access-control/espr/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-espr.ttl [R=303,L]
+RewriteRule ^access-control/sparql-rules/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-sparql-rules.ttl [R=303,L]
 
-# HTML documentation for access-control module
+RewriteRule ^access-control/competency-questions/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/competency-questions.html [R=303,L]   
+RewriteRule ^access-control/scenarios/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/scenarios/built-environment-scenario.ttl [R=303,L]  
+
+
+# JSON-LD for core T-Box
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.jsonld [R=303,NE,L]
+
+# HTML documentation for core T-Box
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/index-en.html [R=303,L]
@@ -335,29 +347,74 @@ RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/index-en.html#$1 [R=303,NE,L]
 
-# RDF/XML for access-control module
+# RDF/XML for core T-Box
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.owl [R=303,L]
+RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.owl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.owl [R=303,NE,L]
+RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.owl [R=303,NE,L]
 
-# Turtle for access-control module
+# Turtle for core T-Box
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.ttl [R=303,L]
+RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.ttl [R=303,NE,L]
-
-# N-Triples for access-control module
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.nt [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/core/1.0.0/ontology.nt [R=303,NE,L]
+RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-ac-core.ttl [R=303,NE,L]
 
 # Default for access-control module
 RewriteRule ^access-control/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/index-en.html [R=303,L]
 RewriteRule ^access-control/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/index-en.html#$1 [R=303,NE,L]
+
+############################################################################
+# DATA-CATEGORY MODULE: /dpp/data-categories (version 1.0.0)
+# URI: http://w3id.org/dpp/data-categories
+############################################################################
+
+# Turtle for data-category module
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^data-categories/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-data-categories.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^data-categories/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-data-categories.ttl [R=303,NE,L]
+
+# HTML documentation for data-category module
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^data-categories/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/data-categories-en.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^data-categories/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/data-categories-en.html#$1 [R=303,NE,L]
+
+# Default for data-category module
+RewriteRule ^data-categories/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/data-categories-en.html [R=303,L]
+RewriteRule ^data-categories/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/data-categories-en.html#$1 [R=303,NE,L]
+
+############################################################################
+# STAKEHOLDER-ROLE MODULE: /dpp/roles (version 1.0.0)
+# URI: http://w3id.org/dpp/roles
+############################################################################
+
+# Turtle for stakeholder-role module
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^roles/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-roles.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^roles/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/ontologies/dpp-roles.ttl [R=303,NE,L]
+
+# HTML documentation for stakeholder-role module
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^roles/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/roles-en.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^roles/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/roles-en.html#$1 [R=303,NE,L]
+
+# Default for stakeholder-role module
+RewriteRule ^roles/?$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/roles-en.html [R=303,L]
+RewriteRule ^roles/(.+)$ https://richzele.github.io/dpp-ontology-site/access-control-doc/1.0.0/roles-en.html#$1 [R=303,NE,L]
+
 
 ############################################################################
 # MAIN DPP NAMESPACE: /dpp/ (version 1.0)
