@@ -8,6 +8,12 @@ AddType application/ld+json .jsonld
 
 RewriteEngine on
 
+# Redirect based on Accept headers: If RDF is not accepted, but HTML is
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^$ https://lab.dharc.unibo.it/skosmos/etv/en/ [R=302,L]
+RewriteRule ^(.*)$ https://lab.dharc.unibo.it/skosmos/etv/en/page/$1 [R=302,L] 
+
 # Redirect per JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://raw.githubusercontent.com/dh-atlas/Edition-Types-Vocabulary/refs/heads/main/1.0/ETV.json [R=303,L]

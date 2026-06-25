@@ -1,0 +1,35 @@
+# https://w3id.org/dbc-ontology/ redirects via HTTP 303 using content negotiation:
+# - HTML requests are redirected to:
+#   https://paitools.github.io/DBCOntology/documentation/index-en.html
+# - RDF/OWL requests are redirected to:
+#   https://paitools.github.io/DBCOntology/DBC.owl
+
+# ## Contact
+# This space is administered by:
+#
+# Pavle Ivanovic
+# ivanovip@hsu-hh.de
+# GitHub username: paitools
+
+# Simon Burbach
+# burbachs@hsu-hh.de
+# GitHub username: BurbachS
+
+RewriteEngine On
+
+# --- Human-facing documentation (HTML) ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://paitools.github.io/DBCOntology/documentation/index-en.html [R=303,L]
+
+# --- Machine-facing ontology (RDF/OWL) ---
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://paitools.github.io/DBCOntology/DBC.owl [R=303,L]
+
+# --- Fallback (if no/unknown Accept header) ---
+RewriteRule ^$ https://paitools.github.io/DBCOntology/DBC.owl [R=303,L]
+

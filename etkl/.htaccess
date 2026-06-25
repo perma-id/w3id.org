@@ -1,0 +1,39 @@
+# # /etkl/
+#
+# Persistent namespace for the ET(K)L method (Extract, Transform-with-(K)nowledge,
+# Load) and its modules:
+#
+#   https://w3id.org/etkl         — ET(K)L method + umbrella vocabulary
+#   https://w3id.org/etkl/hol     — hol: holonic decision-context vocabulary
+#   https://w3id.org/etkl/iladub  — iladub: assertion/proposition vocabulary
+#
+# Content is negotiated: RDF clients receive Turtle from the source repository
+# (github.com/iladub/iladub), browsers are sent to the documentation site
+# (https://iladub.dev).
+#
+# ## Contact
+# This space is administered by:
+#
+# François Rosselet
+# GitHub username: Frosselet
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---- https://w3id.org/etkl/hol ------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^hol/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/hol.ttl [R=302,L]
+RewriteRule ^hol/?$ https://iladub.dev/hol/ [R=302,L]
+
+# ---- https://w3id.org/etkl/iladub ---------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^iladub/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/iladub.ttl [R=302,L]
+RewriteRule ^iladub/?$ https://iladub.dev/assertion-proposition/ [R=302,L]
+
+# ---- https://w3id.org/etkl (umbrella) -----------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/etkl.ttl [R=302,L]
+RewriteRule ^$ https://iladub.dev/etkl/ [R=302,L]
+
+# ---- fallback: any other /etkl/* path -> documentation site -------------
+RewriteRule ^(.*)$ https://iladub.dev/ [R=302,L]

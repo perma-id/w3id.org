@@ -6,12 +6,13 @@ A Trust Envelope is a data package that explicitly embeds trust using cryptograp
 
 ## Uses
 
-| w3id                      | Description                              | URL                                                                                    |
-| ------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------- |
-| /                         | Main specification of Trust Envelope     | https://spec.knows.idlab.ugent.be/trustenvelope/latest/                                |
-| /example/age-verification | Age Verification Example Materialization | https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Age-verification.md     |
-| /example/cargo-monitoring | Cargo Monitoring Example Materialization | https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Cargo-monitoring.md     |
-| /ontology                 | Trust Envelope Ontology                  | https://cdn.jsdelivr.net/gh/KNowledgeOnWebScale/TrustEnvelope@master/trustenvelope.ttl |
+| w3id                      | Description                              | URL                                                                                                                           |
+| ------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| /                         | Main specification of Trust Envelope     | https://spec.knows.idlab.ugent.be/trustenvelope/latest/                                                                       |
+| /example/age-verification | Age Verification Example Materialization | https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Age-verification.md                                            |
+| /example/cargo-monitoring | Cargo Monitoring Example Materialization | https://github.com/KNowledgeOnWebScale/TrustEnvelope/blob/main/Cargo-monitoring.md                                            |
+| /ontology                 | Trust Envelope Ontology                  | https://cdn.jsdelivr.net/gh/KNowledgeOnWebScale/TrustEnvelope@master/trustenvelope.ttl                                        |
+| /papers/WOP2025           | Paper introducing Trust Envelopes        | https://raw.githubusercontent.com/woutslabbinck/papers/main/2025/Trust-Envelopes_Contextualization-of-History-and-Destiny.pdf |
 
 ## Contacts
 

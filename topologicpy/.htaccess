@@ -1,2 +1,16 @@
+Options +FollowSymLinks
 RewriteEngine On
-RewriteRule ^(.*)$ http://github.com/wassimj/topologicpy/resources/topologicpy.ttl [R=302,L]
+
+# TopologicPy ontology namespace
+# Maintainer: Wassim Jabi
+# GitHub: https://github.com/wassimj/topologicpy
+
+# Ontology document
+RewriteRule ^$ https://wassimj.github.io/topologicpy/ontology/topologicpy.ttl [R=303,L]
+
+# Versioned ontology documents
+RewriteRule ^versions/0.1.0/?$ https://wassimj.github.io/topologicpy/ontology/versions/0.1.0/topologicpy.ttl [R=303,L]
+
+# Terms in the ontology namespace, e.g. /topologicpy#Vertex
+# Fragment identifiers are handled client-side, so redirect the base document.
+RewriteRule ^.*$ https://wassimjabi.github.io/topologicpy/ontology/topologicpy.ttl [R=303,L]
