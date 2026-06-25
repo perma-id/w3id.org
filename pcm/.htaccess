@@ -1,5 +1,22 @@
+# w3id.org/pcm — Personal Conversational Memory (PCM) ontology
+# Content negotiation: HTML documentation for browsers, RDF for machines.
+
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/refs/heads/pcm/PCM/ontology/pcm.ttl [R=302,L]
 
+# ---- RDF: Turtle ----
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/pcm/PCM/ontology/pcm.ttl [R=302,L]
+
+# ---- RDF: RDF/XML (OWL) ----
+# Match only application/rdf+xml: browsers send application/xml;q=0.9 in Accept,
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/pcm/PCM/ontology/pcm-ontology.owl [R=302,L]
+
+# ---- HTML documentation (browsers and default) ----
+# htmlpreview renders the GitHub-hosted WIDOCO doc as text/html (raw GitHub serves text/plain).
+# Preferred once GitHub Pages is enabled (serves real text/html with styling):
+#   RewriteRule ^$ https://ibm-granite.github.io/granite.debug-tools/PCM/ontology/pcm-docs/index-en.html [R=302,L]
+RewriteRule ^$ https://htmlpreview.github.io/?https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/pcm/PCM/ontology/pcm-docs/index-en.html [R=302,L]
