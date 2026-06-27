@@ -1,0 +1,582 @@
+@prefix cdmo:    <https://w3id.org/cdmo#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+#################################################################
+#  Ontology metadata
+#################################################################
+
+cdmo: a owl:Ontology ;
+    dcterms:title "Critical Decision-Making Ontology (CDMO)"@en ;
+    dcterms:description """A domain-independent (upper/mid-level) ontology that models the
+generic structure of decision-making in complex and safety-critical environments. It is
+designed as a schema (TBox) to ground a large language model: the LLM reasons within the
+CDMO vocabulary and emits an instance graph (ABox) that can be validated, retrieved over,
+and audited. CDMO is deliberately empty of domain facts — populate it per domain
+(military operations, disaster management, search-and-rescue, clinical triage, etc.)."""@en ;
+    dcterms:creator "Generated for LLM-KG decision-support grounding"@en ;
+    owl:versionInfo "1.0.0" ;
+    rdfs:comment "Reuses PROV-O for provenance and the OWL-Time ontology for temporal entities."@en .
+
+#################################################################
+#  MODULE 1 — Situation & Context
+#################################################################
+
+cdmo:Situation a owl:Class ;
+    rdfs:label "Situation"@en ;
+    skos:definition "A bounded state of affairs under consideration that gives rise to one or more decision problems."@en ;
+    rdfs:comment "The top-level frame a decision is made about. Aggregates entities, states and events observed in an environment."@en .
+
+cdmo:Environment a owl:Class ;
+    rdfs:label "Environment"@en ;
+    skos:definition "The operating context in which a situation unfolds, characterised by complexity, volatility, and criticality."@en .
+
+cdmo:Entity a owl:Class ;
+    rdfs:label "Entity"@en ;
+    skos:definition "Any thing of interest within a situation (an actor, asset, object, or phenomenon)."@en .
+
+cdmo:State a owl:Class ;
+    rdfs:label "State"@en ;
+    skos:definition "The condition of an entity or situation, holding over a time interval."@en .
+
+cdmo:Event a owl:Class ;
+    rdfs:label "Event"@en ;
+    skos:definition "Something that happens at or over a time, potentially changing a state."@en .
+
+cdmo:Observation a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Observation"@en ;
+    skos:definition "A recorded perception of an entity, state, or event, attributable to a source."@en ;
+    rdfs:comment "First level of situation awareness (Endsley): perception of elements."@en .
+
+cdmo:SituationAssessment a owl:Class ;
+    rdfs:label "Situation assessment"@en ;
+    skos:definition "An interpretation of a situation produced from observations."@en .
+
+cdmo:Perception a owl:Class ;
+    rdfs:subClassOf cdmo:SituationAssessment ;
+    rdfs:label "Perception"@en ;
+    skos:definition "SA level 1: recognition of the elements present in the environment."@en .
+
+cdmo:Comprehension a owl:Class ;
+    rdfs:subClassOf cdmo:SituationAssessment ;
+    rdfs:label "Comprehension"@en ;
+    skos:definition "SA level 2: understanding of what the perceived elements mean together."@en .
+
+cdmo:Projection a owl:Class ;
+    rdfs:subClassOf cdmo:SituationAssessment ;
+    rdfs:label "Projection"@en ;
+    skos:definition "SA level 3: anticipation of how the situation will evolve."@en .
+
+#################################################################
+#  MODULE 2 — Agents & Roles
+#################################################################
+
+cdmo:Agent a owl:Class ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:label "Agent"@en ;
+    skos:definition "An entity capable of observing, reasoning, recommending, or deciding."@en .
+
+cdmo:HumanAgent a owl:Class ;
+    rdfs:subClassOf cdmo:Agent ;
+    rdfs:label "Human agent"@en ;
+    skos:definition "A human participant (e.g. operator, commander, analyst, clinician)."@en .
+
+cdmo:AIAgent a owl:Class ;
+    rdfs:subClassOf cdmo:Agent ;
+    rdfs:label "AI agent"@en ;
+    skos:definition "An automated reasoner such as the LLM producing or evaluating the graph."@en .
+
+cdmo:OrganizationalAgent a owl:Class ;
+    rdfs:subClassOf cdmo:Agent ;
+    rdfs:label "Organizational agent"@en ;
+    skos:definition "A unit, team, or institution acting as a collective agent."@en .
+
+cdmo:Role a owl:Class ;
+    rdfs:label "Role"@en ;
+    skos:definition "A function an agent fulfils within a decision process."@en .
+
+cdmo:DecisionAuthority a owl:Class ;
+    rdfs:subClassOf cdmo:Role ;
+    rdfs:label "Decision authority"@en ;
+    skos:definition "The role empowered to commit to a course of action and bear accountability."@en .
+
+cdmo:Capability a owl:Class ;
+    rdfs:label "Capability"@en ;
+    skos:definition "A capacity an agent or asset can bring to bear on a course of action."@en .
+
+cdmo:Stakeholder a owl:Class ;
+    rdfs:subClassOf cdmo:Role ;
+    rdfs:label "Stakeholder"@en ;
+    skos:definition "A party affected by, or with an interest in, the decision and its outcome."@en .
+
+#################################################################
+#  MODULE 3 — Goals, Constraints & Values
+#################################################################
+
+cdmo:Objective a owl:Class ;
+    rdfs:label "Objective"@en ;
+    skos:definition "A desired end-state the decision aims to achieve."@en .
+
+cdmo:Goal a owl:Class ;
+    rdfs:subClassOf cdmo:Objective ;
+    rdfs:label "Goal"@en ;
+    skos:definition "A concrete, measurable objective."@en .
+
+cdmo:Constraint a owl:Class ;
+    rdfs:label "Constraint"@en ;
+    skos:definition "A condition that limits admissible courses of action."@en .
+
+cdmo:HardConstraint a owl:Class ;
+    rdfs:subClassOf cdmo:Constraint ;
+    rdfs:label "Hard constraint"@en ;
+    skos:definition "A constraint that must not be violated (legal, physical, ethical, doctrinal)."@en .
+
+cdmo:SoftConstraint a owl:Class ;
+    rdfs:subClassOf cdmo:Constraint ;
+    rdfs:label "Soft constraint"@en ;
+    skos:definition "A preference whose violation is costly but admissible."@en .
+
+cdmo:Value a owl:Class ;
+    rdfs:label "Value"@en ;
+    skos:definition "A principle (e.g. safety, proportionality, legality) that informs preference among options."@en .
+
+cdmo:SuccessCriterion a owl:Class ;
+    rdfs:subClassOf cdmo:Criterion ;
+    rdfs:label "Success criterion"@en ;
+    skos:definition "A criterion stating when an objective is considered met."@en .
+
+#################################################################
+#  MODULE 4 — Decision Core
+#################################################################
+
+cdmo:DecisionProblem a owl:Class ;
+    rdfs:label "Decision problem"@en ;
+    skos:definition "A question posed by a situation that requires selecting among alternatives."@en .
+
+cdmo:DecisionPoint a owl:Class ;
+    rdfs:label "Decision point"@en ;
+    skos:definition "A moment at which a decision must be made, often time-critical."@en .
+
+cdmo:CourseOfAction a owl:Class ;
+    rdfs:label "Course of action"@en ;
+    skos:altLabel "Option"@en, "Alternative"@en ;
+    skos:definition "A candidate plan of action that could resolve the decision problem."@en .
+
+cdmo:Action a owl:Class ;
+    rdfs:label "Action"@en ;
+    skos:definition "An atomic step that an agent performs as part of a course of action."@en .
+
+cdmo:Plan a owl:Class ;
+    rdfs:label "Plan"@en ;
+    skos:definition "An ordered or partially-ordered set of actions realising a course of action."@en .
+
+cdmo:Decision a owl:Class ;
+    rdfs:label "Decision"@en ;
+    skos:definition "A commitment by a decision authority to a selected course of action, with rationale."@en .
+
+#################################################################
+#  MODULE 5 — Reasoning, Evidence & Argument (Toulmin-aligned)
+#################################################################
+
+cdmo:Claim a owl:Class ;
+    rdfs:label "Claim"@en ;
+    skos:definition "An assertion put forward as true within the reasoning, possibly contestable."@en .
+
+cdmo:Evidence a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Evidence"@en ;
+    skos:definition "Grounded data supporting or undermining a claim, traceable to a source."@en .
+
+cdmo:Rationale a owl:Class ;
+    rdfs:label "Rationale"@en ;
+    skos:definition "The structured account that justifies a decision by appealing to one or more arguments."@en .
+
+cdmo:Argument a owl:Class ;
+    rdfs:label "Argument"@en ;
+    skos:definition "A structured line of reasoning leading from grounds, via a warrant, to a claim (Toulmin)."@en .
+
+cdmo:Warrant a owl:Class ;
+    rdfs:label "Warrant"@en ;
+    skos:definition "A principle or inference rule that licenses moving from evidence to a claim."@en .
+
+cdmo:Backing a owl:Class ;
+    rdfs:label "Backing"@en ;
+    skos:definition "Support that establishes the authority or applicability of a warrant."@en .
+
+cdmo:Rebuttal a owl:Class ;
+    rdfs:label "Rebuttal"@en ;
+    skos:definition "A condition or counter-consideration under which the argument's claim would not hold."@en .
+
+cdmo:Qualifier a owl:Class ;
+    rdfs:label "Qualifier"@en ;
+    skos:definition "A modal hedge on the strength of a claim (e.g. 'probably', 'presumably')."@en .
+
+cdmo:Assumption a owl:Class ;
+    rdfs:label "Assumption"@en ;
+    skos:definition "A proposition taken as true without direct evidence for the purpose of the reasoning."@en .
+
+#################################################################
+#  MODULE 6 — Uncertainty & Risk
+#################################################################
+
+cdmo:Uncertainty a owl:Class ;
+    rdfs:label "Uncertainty"@en ;
+    skos:definition "A representation of incomplete or imperfect knowledge attached to an observation, claim, projection, or evaluation."@en .
+
+cdmo:Confidence a owl:Class ;
+    rdfs:label "Confidence"@en ;
+    skos:definition "A graded degree of belief in a claim or assessment, typically expressed in the interval [0,1]."@en .
+
+cdmo:Risk a owl:Class ;
+    rdfs:label "Risk"@en ;
+    skos:definition "The combination of the likelihood and severity of an adverse consequence."@en .
+
+cdmo:Threat a owl:Class ;
+    rdfs:label "Threat"@en ;
+    skos:definition "A source of potential harm that could materialise in the situation."@en .
+
+cdmo:Hazard a owl:Class ;
+    rdfs:label "Hazard"@en ;
+    skos:definition "A latent condition with the potential to cause harm."@en .
+
+cdmo:Vulnerability a owl:Class ;
+    rdfs:label "Vulnerability"@en ;
+    skos:definition "A weakness that a threat can exploit to realise harm."@en .
+
+cdmo:Consequence a owl:Class ;
+    rdfs:label "Consequence"@en ;
+    skos:altLabel "Impact"@en ;
+    skos:definition "An outcome, beneficial or adverse, that may follow from a course of action."@en .
+
+#################################################################
+#  MODULE 7 — Evaluation & Outcome
+#################################################################
+
+cdmo:Criterion a owl:Class ;
+    rdfs:label "Criterion"@en ;
+    skos:definition "A dimension against which courses of action are compared."@en .
+
+cdmo:Tradeoff a owl:Class ;
+    rdfs:label "Tradeoff"@en ;
+    skos:definition "A relationship in which improving one criterion worsens another."@en .
+
+cdmo:Evaluation a owl:Class ;
+    rdfs:label "Evaluation"@en ;
+    skos:definition "The scoring of a course of action against a criterion."@en .
+
+cdmo:Outcome a owl:Class ;
+    rdfs:subClassOf cdmo:Consequence ;
+    rdfs:label "Outcome"@en ;
+    skos:definition "The realised result of an enacted decision."@en .
+
+cdmo:Feedback a owl:Class ;
+    rdfs:label "Feedback"@en ;
+    skos:definition "Information about an outcome fed back to refine future assessments or the graph itself."@en ;
+    rdfs:comment "Supports closed-loop refinement of the knowledge graph (e.g. via validation results)."@en .
+
+#################################################################
+#  MODULE 8 — Causality & Time
+#################################################################
+
+cdmo:CausalRelation a owl:Class ;
+    rdfs:label "Causal relation"@en ;
+    skos:definition "A reified relation stating that one element causally influences another."@en .
+
+cdmo:Precondition a owl:Class ;
+    rdfs:subClassOf cdmo:State ;
+    rdfs:label "Precondition"@en ;
+    skos:definition "A state that must hold for an action or course of action to be feasible."@en .
+
+cdmo:Effect a owl:Class ;
+    rdfs:subClassOf cdmo:State ;
+    rdfs:label "Effect"@en ;
+    skos:definition "A state expected to hold after an action is performed."@en .
+
+#################################################################
+#  MODULE 9 — Provenance & Trust
+#################################################################
+
+cdmo:Source a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Source"@en ;
+    skos:definition "An origin of observations or evidence (sensor, report, document, person, model)."@en .
+
+cdmo:Reliability a owl:Class ;
+    rdfs:label "Reliability"@en ;
+    skos:definition "A graded assessment of how dependable a source is."@en .
+
+cdmo:Trustworthiness a owl:Class ;
+    rdfs:label "Trustworthiness"@en ;
+    skos:definition "A composite judgement of a source from reliability, timeliness and corroboration."@en .
+
+#################################################################
+#  OBJECT PROPERTIES
+#################################################################
+
+cdmo:inEnvironment a owl:ObjectProperty ;
+    rdfs:label "in environment"@en ;
+    rdfs:domain cdmo:Situation ; rdfs:range cdmo:Environment ;
+    skos:definition "Relates a situation to the environment in which it unfolds."@en .
+
+cdmo:involvesEntity a owl:ObjectProperty ;
+    rdfs:label "involves entity"@en ;
+    rdfs:domain cdmo:Situation ; rdfs:range cdmo:Entity .
+
+cdmo:hasState a owl:ObjectProperty ;
+    rdfs:label "has state"@en ;
+    rdfs:domain cdmo:Entity ; rdfs:range cdmo:State .
+
+cdmo:observes a owl:ObjectProperty ;
+    rdfs:label "observes"@en ;
+    rdfs:domain cdmo:Agent ; rdfs:range cdmo:Observation .
+
+cdmo:hasObservation a owl:ObjectProperty ;
+    rdfs:label "has observation"@en ;
+    rdfs:domain cdmo:Situation ; rdfs:range cdmo:Observation .
+
+cdmo:assessedBy a owl:ObjectProperty ;
+    rdfs:label "assessed by"@en ;
+    rdfs:domain cdmo:Situation ; rdfs:range cdmo:SituationAssessment .
+
+cdmo:basedOnObservation a owl:ObjectProperty ;
+    rdfs:label "based on observation"@en ;
+    rdfs:domain cdmo:SituationAssessment ; rdfs:range cdmo:Observation .
+
+cdmo:raisesDecisionProblem a owl:ObjectProperty ;
+    rdfs:label "raises decision problem"@en ;
+    rdfs:domain cdmo:Situation ; rdfs:range cdmo:DecisionProblem .
+
+cdmo:atDecisionPoint a owl:ObjectProperty ;
+    rdfs:label "at decision point"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:DecisionPoint .
+
+cdmo:pursuesObjective a owl:ObjectProperty ;
+    rdfs:label "pursues objective"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:Objective .
+
+cdmo:constrainedBy a owl:ObjectProperty ;
+    rdfs:label "constrained by"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:Constraint .
+
+cdmo:hasAlternative a owl:ObjectProperty ;
+    rdfs:label "has alternative"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:CourseOfAction .
+
+cdmo:proposedBy a owl:ObjectProperty ;
+    rdfs:label "proposed by"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Agent .
+
+cdmo:recommends a owl:ObjectProperty ;
+    rdfs:label "recommends"@en ;
+    rdfs:domain cdmo:Agent ; rdfs:range cdmo:CourseOfAction ;
+    skos:definition "An agent (often the AI agent) puts a course of action forward as preferred."@en .
+
+cdmo:comprisesAction a owl:ObjectProperty ;
+    rdfs:label "comprises action"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Action .
+
+cdmo:hasPrecondition a owl:ObjectProperty ;
+    rdfs:label "has precondition"@en ;
+    rdfs:domain cdmo:Action ; rdfs:range cdmo:Precondition .
+
+cdmo:hasEffect a owl:ObjectProperty ;
+    rdfs:label "has effect"@en ;
+    rdfs:domain cdmo:Action ; rdfs:range cdmo:Effect .
+
+cdmo:selectsCourseOfAction a owl:ObjectProperty ;
+    rdfs:label "selects course of action"@en ;
+    rdfs:domain cdmo:Decision ; rdfs:range cdmo:CourseOfAction ;
+    skos:definition "The single course of action a decision commits to."@en .
+
+cdmo:resolvesDecisionProblem a owl:ObjectProperty ;
+    rdfs:label "resolves decision problem"@en ;
+    rdfs:domain cdmo:Decision ; rdfs:range cdmo:DecisionProblem .
+
+cdmo:madeBy a owl:ObjectProperty ;
+    rdfs:label "made by"@en ;
+    rdfs:domain cdmo:Decision ; rdfs:range cdmo:DecisionAuthority .
+
+cdmo:justifiedBy a owl:ObjectProperty ;
+    rdfs:label "justified by"@en ;
+    rdfs:domain cdmo:Decision ; rdfs:range cdmo:Rationale ;
+    skos:definition "Connects a decision to the rationale that accounts for it."@en .
+
+cdmo:appealsToArgument a owl:ObjectProperty ;
+    rdfs:label "appeals to argument"@en ;
+    rdfs:domain cdmo:Rationale ; rdfs:range cdmo:Argument .
+
+cdmo:concludes a owl:ObjectProperty ;
+    rdfs:label "concludes"@en ;
+    rdfs:domain cdmo:Argument ; rdfs:range cdmo:Claim .
+
+cdmo:supportedBy a owl:ObjectProperty ;
+    rdfs:label "supported by"@en ;
+    rdfs:domain cdmo:Claim ; rdfs:range cdmo:Evidence ;
+    skos:definition "Links a claim to the evidence that grounds it."@en .
+
+cdmo:basedOnAssumption a owl:ObjectProperty ;
+    rdfs:label "based on assumption"@en ;
+    rdfs:domain cdmo:Argument ; rdfs:range cdmo:Assumption .
+
+cdmo:hasWarrant a owl:ObjectProperty ;
+    rdfs:label "has warrant"@en ;
+    rdfs:domain cdmo:Argument ; rdfs:range cdmo:Warrant .
+
+cdmo:hasBacking a owl:ObjectProperty ;
+    rdfs:label "has backing"@en ;
+    rdfs:domain cdmo:Warrant ; rdfs:range cdmo:Backing .
+
+cdmo:hasRebuttal a owl:ObjectProperty ;
+    rdfs:label "has rebuttal"@en ;
+    rdfs:domain cdmo:Argument ; rdfs:range cdmo:Rebuttal .
+
+cdmo:hasQualifier a owl:ObjectProperty ;
+    rdfs:label "has qualifier"@en ;
+    rdfs:domain cdmo:Claim ; rdfs:range cdmo:Qualifier .
+
+cdmo:carriesUncertainty a owl:ObjectProperty ;
+    rdfs:label "carries uncertainty"@en ;
+    rdfs:range cdmo:Uncertainty ;
+    skos:definition "Attaches uncertainty to an observation, claim, projection or evaluation."@en .
+
+cdmo:hasConfidence a owl:ObjectProperty ;
+    rdfs:label "has confidence"@en ;
+    rdfs:range cdmo:Confidence .
+
+cdmo:hasRisk a owl:ObjectProperty ;
+    rdfs:label "has risk"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Risk .
+
+cdmo:posedByThreat a owl:ObjectProperty ;
+    rdfs:label "posed by threat"@en ;
+    rdfs:domain cdmo:Risk ; rdfs:range cdmo:Threat .
+
+cdmo:exploitsVulnerability a owl:ObjectProperty ;
+    rdfs:label "exploits vulnerability"@en ;
+    rdfs:domain cdmo:Threat ; rdfs:range cdmo:Vulnerability .
+
+cdmo:leadsToConsequence a owl:ObjectProperty ;
+    rdfs:label "leads to consequence"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Consequence .
+
+cdmo:evaluatedAgainst a owl:ObjectProperty ;
+    rdfs:label "evaluated against"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Criterion .
+
+cdmo:hasEvaluation a owl:ObjectProperty ;
+    rdfs:label "has evaluation"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range cdmo:Evaluation .
+
+cdmo:onCriterion a owl:ObjectProperty ;
+    rdfs:label "on criterion"@en ;
+    rdfs:domain cdmo:Evaluation ; rdfs:range cdmo:Criterion .
+
+cdmo:involvesTradeoff a owl:ObjectProperty ;
+    rdfs:label "involves tradeoff"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:Tradeoff .
+
+cdmo:hasOutcome a owl:ObjectProperty ;
+    rdfs:label "has outcome"@en ;
+    rdfs:domain cdmo:Decision ; rdfs:range cdmo:Outcome .
+
+cdmo:generatesFeedback a owl:ObjectProperty ;
+    rdfs:label "generates feedback"@en ;
+    rdfs:domain cdmo:Outcome ; rdfs:range cdmo:Feedback .
+
+cdmo:causes a owl:ObjectProperty ;
+    rdfs:label "causes"@en ;
+    skos:definition "A direct causal influence from one element to another."@en .
+
+cdmo:dependsOn a owl:ObjectProperty ;
+    rdfs:label "depends on"@en ;
+    skos:definition "A dependency of one element on another."@en .
+
+cdmo:derivedFrom a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasDerivedFrom ;
+    rdfs:label "derived from"@en ;
+    rdfs:range cdmo:Source ;
+    skos:definition "Traces an observation or piece of evidence to its source."@en .
+
+# --- Agents / roles / temporal-provenance bridges
+# (reconstructed to round out the schema; see note delivered with the file)
+
+cdmo:performsRole a owl:ObjectProperty ;
+    rdfs:label "performs role"@en ;
+    rdfs:domain cdmo:Agent ; rdfs:range cdmo:Role ;
+    skos:definition "An agent takes on a role within the decision process."@en .
+
+cdmo:hasCapability a owl:ObjectProperty ;
+    rdfs:label "has capability"@en ;
+    rdfs:domain cdmo:Agent ; rdfs:range cdmo:Capability .
+
+cdmo:hasStakeholder a owl:ObjectProperty ;
+    rdfs:label "has stakeholder"@en ;
+    rdfs:domain cdmo:DecisionProblem ; rdfs:range cdmo:Stakeholder .
+
+cdmo:hasReliability a owl:ObjectProperty ;
+    rdfs:label "has reliability"@en ;
+    rdfs:domain cdmo:Source ; rdfs:range cdmo:Reliability .
+
+cdmo:atTime a owl:ObjectProperty ;
+    rdfs:subPropertyOf time:hasTime ;
+    rdfs:label "at time"@en ;
+    rdfs:range time:TemporalEntity ;
+    skos:definition "Temporally anchors an event, observation, decision or state."@en .
+
+#################################################################
+#  DATATYPE PROPERTIES
+#  (reconstructed to be consistent with the SHACL guardrails;
+#   see note delivered with the file)
+#################################################################
+
+cdmo:level a owl:DatatypeProperty ;
+    rdfs:label "level"@en ;
+    rdfs:domain cdmo:Confidence ; rdfs:range xsd:decimal ;
+    skos:definition "Confidence level in the interval [0,1]."@en .
+
+cdmo:probability a owl:DatatypeProperty ;
+    rdfs:label "probability"@en ;
+    rdfs:domain cdmo:Risk ; rdfs:range xsd:decimal ;
+    skos:definition "Likelihood of a risk materialising, in the interval [0,1]."@en .
+
+cdmo:severity a owl:DatatypeProperty ;
+    rdfs:label "severity"@en ;
+    rdfs:domain cdmo:Risk ; rdfs:range xsd:decimal ;
+    skos:definition "Magnitude of harm associated with a risk or consequence."@en .
+
+cdmo:reversible a owl:DatatypeProperty ;
+    rdfs:label "reversible"@en ;
+    rdfs:domain cdmo:CourseOfAction ; rdfs:range xsd:boolean ;
+    skos:definition "Whether a course of action can be undone once enacted."@en .
+
+cdmo:assumed a owl:DatatypeProperty ;
+    rdfs:label "assumed"@en ;
+    rdfs:domain cdmo:Claim ; rdfs:range xsd:boolean ;
+    skos:definition "Flags a claim as an assumption taken without direct evidence."@en .
+
+cdmo:weight a owl:DatatypeProperty ;
+    rdfs:label "weight"@en ;
+    rdfs:domain cdmo:Criterion ; rdfs:range xsd:decimal ;
+    skos:definition "Relative importance of a criterion in the evaluation."@en .
+
+cdmo:score a owl:DatatypeProperty ;
+    rdfs:label "score"@en ;
+    rdfs:domain cdmo:Evaluation ; rdfs:range xsd:decimal ;
+    skos:definition "Score assigned to a course of action on a criterion."@en .
+
+cdmo:priority a owl:DatatypeProperty ;
+    rdfs:label "priority"@en ;
+    rdfs:domain cdmo:Objective ; rdfs:range xsd:integer ;
+    skos:definition "Ordinal priority of an objective."@en .
+
+cdmo:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp"@en ;
+    rdfs:range xsd:dateTime ;
+    skos:definition "Wall-clock time attached to an observation, event or decision."@en .
