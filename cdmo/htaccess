@@ -1,0 +1,29 @@
+# Critical Decision-Making Ontology (CDMO) — https://w3id.org/cdmo
+# Permanent identifier redirect for the CDMO ontology.
+# Administered by: Dimitrios Doumanas, Intelligent Systems Lab (i-Lab), University of the Aegean
+# Contact: [YOUR-EMAIL]   GitHub: https://github.com/[YOUR-USERNAME]/cdmo
+#
+# >>> Before submitting, replace [YOUR-USERNAME] (and the e-mail above) everywhere below. <<<
+
+Options +FollowSymLinks
+RewriteEngine On
+AddType text/turtle .ttl
+
+# ---- Content negotiation for the ontology IRI  https://w3id.org/cdmo ----
+
+# Turtle / N3 clients  ->  the .ttl file
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://[YOUR-USERNAME].github.io/cdmo/cdmo.ttl [R=302,L]
+
+# RDF/XML or JSON-LD clients  ->  the .ttl file (single serialization)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://[YOUR-USERNAME].github.io/cdmo/cdmo.ttl [R=302,L]
+
+# Everything else (browsers, default)  ->  the human-readable HTML documentation
+RewriteRule ^$ https://[YOUR-USERNAME].github.io/cdmo/index.html [R=302,L]
+
+# CDMO uses a hash namespace (…/cdmo#Term), so term fragments (#Decision, #Risk, …)
+# are resolved client-side by the documentation page — no extra rules are needed.
