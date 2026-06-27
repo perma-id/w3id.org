@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="resources/primer.css" media="screen"/>
+<link rel="stylesheet" href="resources/rec.css" media="screen"/>
+<link rel="stylesheet" href="resources/extra.css" media="screen"/>
+<link rel="stylesheet" href="resources/owl.css" media="screen"/>
+<link rel="stylesheet" href="resources/dark.css" media="(prefers-color-scheme: dark)"/>
+<link rel="stylesheet" href="resources/light.css" media="(prefers-color-scheme: light)"/>
+<link rel="stylesheet" href="resources/slider.css" media="screen"/>
+<meta name="color-scheme" content="dark light">
+<script type="module" src="resources/dark-mode-toggle.mjs"></script><div class="darkmode">
+	<dark-mode-toggle class="slider"></dark-mode-toggle>
+</div>
+ <title>Critical Decision-Making Ontology (CDMO)</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/cdmo#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/cdmo#","name":"Critical Decision-Making Ontology (CDMO)", "headline":"Document describing the ontology https://w3id.org/cdmo#", "dateReleased":"Sat Jun 27 18:57:11 EEST 2026", "version":"1.0.0", "author":[{"@type":"Person","name":"D. Dimitrios, i-Lab, University of the Aegean K.Kotis,  i-Lab, University of the Aegean"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
+<h1>Critical Decision-Making Ontology (CDMO)</h1>
+
+
+<dl>
+<dt>Latest version:</dt>
+<dd><a href="https://w3id.org/cdmo#">https://w3id.org/cdmo#</a></dd>
+<dt>Revision:</dt>
+<dd>1.0.0</dd>
+<dt>Authors:</dt>
+<dd>D. Dimitrios, i-Lab, University of the Aegean K.Kotis,  i-Lab, University of the Aegean</dd>
+
+<dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="http://insertlicenseURIhere.example.org" target="_blank"><img src="https://img.shields.io/badge/License-license%20name%20goes%20here-blue.svg" alt="http://insertlicenseURIhere.example.org" /></a>
+</dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
+<!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
+<dd>Doumanas, D.; Kotis, K. et al. Knowledge-Graph-Empowered Generative AI for Decision Support in Safety-Critical Domains. IEEE Transactions on Knowledge and Data Engineering (under review), 2026. Special Issue on Data-and-Knowledge-Empowered GenAI.</dd>
+</dl>
+
+<a href="provenance/provenance-en.html" target="_blank">Provenance of this page</a><hr/>
+</div>
+<div class="status">
+<div>
+<span>Ontology Specification Draft</span>
+</div>
+</div>     <div id="abstract">CDMO is a domain-independent (upper/mid-level) ontology that models the generic structure of decision-making in complex, safety-critical environments. It is designed as a schema (TBox) to ground a large language model, so that the model emits an instance graph (ABox) that is SHACL-validated, queryable, and auditable. CDMO is deliberately empty of domain facts and is specialised per domain. It reuses the PROV-O and OWL-Time ontologies.</div>
+<div id="toc"></div> 
+
+<!--INTRODUCTION SECTION-->
+    <div id="introduction">CDMO organises the anatomy of a decision episode into nine interlinked conceptual modules:
+
+Situation & Context — the situation, its environment, entities, states, events, observations, and the perception / comprehension / projection levels of situation assessment.
+Agents & Roles — human, AI and organizational agents; roles, decision authority, capabilities and stakeholders.
+Goals, Constraints & Values — objectives, goals, hard/soft constraints, values and success criteria.
+Decision Core — decision problems and points, courses of action, actions, plans and decisions.
+Reasoning, Evidence & Argument — Toulmin-aligned claims, evidence, arguments, warrants, backing, rebuttals, qualifiers, assumptions and rationale.
+Uncertainty & Risk — uncertainty, confidence, risk, threats, hazards, vulnerabilities and consequences.
+Evaluation & Outcome — criteria, trade-offs, evaluations, outcomes and feedback.
+Causality & Time — causal relations, preconditions and effects, anchored on OWL-Time.
+Provenance & Trust — sources, reliability and trustworthiness, grounded on PROV-O.
+The schema was exercised across three safety-critical domains — emergency medicine, border security and disaster management — to evaluate whether knowledge-graph grounding improves the auditability and consistency of an LLM's decision support.</div>
+  
+
+<!--DESCRIPTION SECTION-->
+    <div id="description">The ontology was developed following the HCOME human-centered, collaborative ontology engineering methodology, with conceptualisation carried out in a personal space (e.g. Protégé) and consolidated in a shared space through argumentation and consensus. The methodology was extended along the human-to-LLM-centered direction (SimX-HCOME+), in which large language models act as co-engineering agents that play knowledge-worker personas (domain expert, engineer, critic), while human experts retain ratification authority. The involved team combined ontology engineers with domain experts from three safety-critical domains — emergency medicine, border security and disaster management — who supplied operational scenarios, validated the conceptualisation, and served as the human expert baseline against which LLM-generated graphs were scored. Following the HCOME principle of reuse before reinvention, CDMO reuses PROV-O for the provenance & trust module and the OWL-Time ontology for the causality & time module, and uses SKOS, Dublin Core Terms and VANN for term annotation and metadata. A full requirements specification (ORSD) and competency questions accompany the ontology in METHODOLOGY.md.</div>
+   
+
+<!--CROSSREF SECTION-->
+   <div id="crossref"><h2 id="crossreference" class="list">Cross-reference for Critical Decision-Making Ontology (CDMO) classes, object properties and data properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+This section provides details for each class and property defined by Critical Decision-Making Ontology (CDMO).
+<div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+ <h3 id="classes-headline" class="list">Classes</h3>
+ <ul class="hlist">
+  <li><a href="#Action" title="https://w3id.org/cdmo#Action">Action</a></li>
+  <li><a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a></li>
+  <li><a href="#AIAgent" title="https://w3id.org/cdmo#AIAgent">AI agent</a></li>
+  <li><a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a></li>
+  <li><a href="#Assumption" title="https://w3id.org/cdmo#Assumption">Assumption</a></li>
+  <li><a href="#Backing" title="https://w3id.org/cdmo#Backing">Backing</a></li>
+  <li><a href="#Capability" title="https://w3id.org/cdmo#Capability">Capability</a></li>
+  <li><a href="#CausalRelation" title="https://w3id.org/cdmo#CausalRelation">Causal relation</a></li>
+  <li><a href="#Claim" title="https://w3id.org/cdmo#Claim">Claim</a></li>
+  <li><a href="#Comprehension" title="https://w3id.org/cdmo#Comprehension">Comprehension</a></li>
+  <li><a href="#Confidence" title="https://w3id.org/cdmo#Confidence">Confidence</a></li>
+  <li><a href="#Consequence" title="https://w3id.org/cdmo#Consequence">Consequence</a></li>
+  <li><a href="#Constraint" title="https://w3id.org/cdmo#Constraint">Constraint</a></li>
+  <li><a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a></li>
+  <li><a href="#Criterion" title="https://w3id.org/cdmo#Criterion">Criterion</a></li>
+  <li><a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a></li>
+  <li><a href="#DecisionAuthority" title="https://w3id.org/cdmo#DecisionAuthority">Decision authority</a></li>
+  <li><a href="#DecisionPoint" title="https://w3id.org/cdmo#DecisionPoint">Decision point</a></li>
+  <li><a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a></li>
+  <li><a href="#Effect" title="https://w3id.org/cdmo#Effect">Effect</a></li>
+  <li><a href="#Entity" title="https://w3id.org/cdmo#Entity">Entity</a></li>
+  <li><a href="#Environment" title="https://w3id.org/cdmo#Environment">Environment</a></li>
+  <li><a href="#Evaluation" title="https://w3id.org/cdmo#Evaluation">Evaluation</a></li>
+  <li><a href="#Event" title="https://w3id.org/cdmo#Event">Event</a></li>
+  <li><a href="#Evidence" title="https://w3id.org/cdmo#Evidence">Evidence</a></li>
+  <li><a href="#Feedback" title="https://w3id.org/cdmo#Feedback">Feedback</a></li>
+  <li><a href="#Goal" title="https://w3id.org/cdmo#Goal">Goal</a></li>
+  <li><a href="#HardConstraint" title="https://w3id.org/cdmo#HardConstraint">Hard constraint</a></li>
+  <li><a href="#Hazard" title="https://w3id.org/cdmo#Hazard">Hazard</a></li>
+  <li><a href="#HumanAgent" title="https://w3id.org/cdmo#HumanAgent">Human agent</a></li>
+  <li><a href="#Objective" title="https://w3id.org/cdmo#Objective">Objective</a></li>
+  <li><a href="#Observation" title="https://w3id.org/cdmo#Observation">Observation</a></li>
+  <li><a href="#OrganizationalAgent" title="https://w3id.org/cdmo#OrganizationalAgent">Organizational agent</a></li>
+  <li><a href="#Outcome" title="https://w3id.org/cdmo#Outcome">Outcome</a></li>
+  <li><a href="#Perception" title="https://w3id.org/cdmo#Perception">Perception</a></li>
+  <li><a href="#Plan" title="https://w3id.org/cdmo#Plan">Plan</a></li>
+  <li><a href="#Precondition" title="https://w3id.org/cdmo#Precondition">Precondition</a></li>
+  <li><a href="#Projection" title="https://w3id.org/cdmo#Projection">Projection</a></li>
+  <li><a href="#Qualifier" title="https://w3id.org/cdmo#Qualifier">Qualifier</a></li>
+  <li><a href="#Rationale" title="https://w3id.org/cdmo#Rationale">Rationale</a></li>
+  <li><a href="#Rebuttal" title="https://w3id.org/cdmo#Rebuttal">Rebuttal</a></li>
+  <li><a href="#Reliability" title="https://w3id.org/cdmo#Reliability">Reliability</a></li>
+  <li><a href="#Risk" title="https://w3id.org/cdmo#Risk">Risk</a></li>
+  <li><a href="#Role" title="https://w3id.org/cdmo#Role">Role</a></li>
+  <li><a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a></li>
+  <li><a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a></li>
+  <li><a href="#SoftConstraint" title="https://w3id.org/cdmo#SoftConstraint">Soft constraint</a></li>
+  <li><a href="#Source" title="https://w3id.org/cdmo#Source">Source</a></li>
+  <li><a href="#Stakeholder" title="https://w3id.org/cdmo#Stakeholder">Stakeholder</a></li>
+  <li><a href="#State" title="https://w3id.org/cdmo#State">State</a></li>
+  <li><a href="#SuccessCriterion" title="https://w3id.org/cdmo#SuccessCriterion">Success criterion</a></li>
+  <li><a href="#Threat" title="https://w3id.org/cdmo#Threat">Threat</a></li>
+  <li><a href="#Tradeoff" title="https://w3id.org/cdmo#Tradeoff">Tradeoff</a></li>
+  <li><a href="#Trustworthiness" title="https://w3id.org/cdmo#Trustworthiness">Trustworthiness</a></li>
+  <li><a href="#Uncertainty" title="https://w3id.org/cdmo#Uncertainty">Uncertainty</a></li>
+  <li><a href="#Value" title="https://w3id.org/cdmo#Value">Value</a></li>
+  <li><a href="#Vulnerability" title="https://w3id.org/cdmo#Vulnerability">Vulnerability</a></li>
+  <li><a href="#Warrant" title="https://w3id.org/cdmo#Warrant">Warrant</a></li>
+ </ul>
+ <div class="entity" id="Action">
+  <h3>Action<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Action</p>
+  <div class="comment">
+   <span class="markdown">An atomic step that an agent performs as part of a course of action.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasEffect" title="https://w3id.org/cdmo#hasEffect">has effect</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasPrecondition" title="https://w3id.org/cdmo#hasPrecondition">has precondition</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#comprisesAction" title="https://w3id.org/cdmo#comprisesAction">comprises action</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Agent">
+  <h3>Agent<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Agent</p>
+  <div class="comment">
+   <span class="markdown">An entity capable of observing, reasoning, recommending, or deciding.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Agent" target="_blank" title="http://www.w3.org/ns/prov#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#AIAgent" title="https://w3id.org/cdmo#AIAgent">AI agent</a> <sup class="type-c" title="class">c</sup>, <a href="#HumanAgent" title="https://w3id.org/cdmo#HumanAgent">Human agent</a> <sup class="type-c" title="class">c</sup>, <a href="#OrganizationalAgent" title="https://w3id.org/cdmo#OrganizationalAgent">Organizational agent</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasCapability" title="https://w3id.org/cdmo#hasCapability">has capability</a> <sup class="type-op" title="object property">op</sup>, <a href="#observes" title="https://w3id.org/cdmo#observes">observes</a> <sup class="type-op" title="object property">op</sup>, <a href="#performsRole" title="https://w3id.org/cdmo#performsRole">performs role</a> <sup class="type-op" title="object property">op</sup>, <a href="#recommends" title="https://w3id.org/cdmo#recommends">recommends</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#proposedBy" title="https://w3id.org/cdmo#proposedBy">proposed by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="AIAgent">
+  <h3>AI agent<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#AIAgent</p>
+  <div class="comment">
+   <span class="markdown">An automated reasoner such as the LLM producing or evaluating the graph.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Argument">
+  <h3>Argument<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Argument</p>
+  <div class="comment">
+   <span class="markdown">A structured line of reasoning leading from grounds, via a warrant, to a claim (Toulmin).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#basedOnAssumption" title="https://w3id.org/cdmo#basedOnAssumption">based on assumption</a> <sup class="type-op" title="object property">op</sup>, <a href="#concludes" title="https://w3id.org/cdmo#concludes">concludes</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasRebuttal" title="https://w3id.org/cdmo#hasRebuttal">has rebuttal</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasWarrant" title="https://w3id.org/cdmo#hasWarrant">has warrant</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#appealsToArgument" title="https://w3id.org/cdmo#appealsToArgument">appeals to argument</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Assumption">
+  <h3>Assumption<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Assumption</p>
+  <div class="comment">
+   <span class="markdown">A proposition taken as true without direct evidence for the purpose of the reasoning.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#basedOnAssumption" title="https://w3id.org/cdmo#basedOnAssumption">based on assumption</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Backing">
+  <h3>Backing<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Backing</p>
+  <div class="comment">
+   <span class="markdown">Support that establishes the authority or applicability of a warrant.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasBacking" title="https://w3id.org/cdmo#hasBacking">has backing</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Capability">
+  <h3>Capability<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Capability</p>
+  <div class="comment">
+   <span class="markdown">A capacity an agent or asset can bring to bear on a course of action.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasCapability" title="https://w3id.org/cdmo#hasCapability">has capability</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CausalRelation">
+  <h3>Causal relation<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#CausalRelation</p>
+  <div class="comment">
+   <span class="markdown">A reified relation stating that one element causally influences another.</span>
+  </div>
+ </div>
+ <div class="entity" id="Claim">
+  <h3>Claim<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Claim</p>
+  <div class="comment">
+   <span class="markdown">An assertion put forward as true within the reasoning, possibly contestable.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#assumed" title="https://w3id.org/cdmo#assumed">assumed</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#hasQualifier" title="https://w3id.org/cdmo#hasQualifier">has qualifier</a> <sup class="type-op" title="object property">op</sup>, <a href="#supportedBy" title="https://w3id.org/cdmo#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#concludes" title="https://w3id.org/cdmo#concludes">concludes</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Comprehension">
+  <h3>Comprehension<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Comprehension</p>
+  <div class="comment">
+   <span class="markdown">SA level 2: understanding of what the perceived elements mean together.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Confidence">
+  <h3>Confidence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Confidence</p>
+  <div class="comment">
+   <span class="markdown">A graded degree of belief in a claim or assessment, typically expressed in the interval [0,1].</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#level" title="https://w3id.org/cdmo#level">level</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasConfidence" title="https://w3id.org/cdmo#hasConfidence">has confidence</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Consequence">
+  <h3>Consequence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Consequence</p>
+  <div class="comment">
+   <span class="markdown">An outcome, beneficial or adverse, that may follow from a course of action.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Outcome" title="https://w3id.org/cdmo#Outcome">Outcome</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#leadsToConsequence" title="https://w3id.org/cdmo#leadsToConsequence">leads to consequence</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Constraint">
+  <h3>Constraint<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Constraint</p>
+  <div class="comment">
+   <span class="markdown">A condition that limits admissible courses of action.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#HardConstraint" title="https://w3id.org/cdmo#HardConstraint">Hard constraint</a> <sup class="type-c" title="class">c</sup>, <a href="#SoftConstraint" title="https://w3id.org/cdmo#SoftConstraint">Soft constraint</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#constrainedBy" title="https://w3id.org/cdmo#constrainedBy">constrained by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="CourseOfAction">
+  <h3>Course of action<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#CourseOfAction</p>
+  <div class="comment">
+   <span class="markdown">A candidate plan of action that could resolve the decision problem.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#comprisesAction" title="https://w3id.org/cdmo#comprisesAction">comprises action</a> <sup class="type-op" title="object property">op</sup>, <a href="#evaluatedAgainst" title="https://w3id.org/cdmo#evaluatedAgainst">evaluated against</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasEvaluation" title="https://w3id.org/cdmo#hasEvaluation">has evaluation</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasRisk" title="https://w3id.org/cdmo#hasRisk">has risk</a> <sup class="type-op" title="object property">op</sup>, <a href="#leadsToConsequence" title="https://w3id.org/cdmo#leadsToConsequence">leads to consequence</a> <sup class="type-op" title="object property">op</sup>, <a href="#proposedBy" title="https://w3id.org/cdmo#proposedBy">proposed by</a> <sup class="type-op" title="object property">op</sup>, <a href="#reversible" title="https://w3id.org/cdmo#reversible">reversible</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasAlternative" title="https://w3id.org/cdmo#hasAlternative">has alternative</a> <sup class="type-op" title="object property">op</sup>, <a href="#recommends" title="https://w3id.org/cdmo#recommends">recommends</a> <sup class="type-op" title="object property">op</sup>, <a href="#selectsCourseOfAction" title="https://w3id.org/cdmo#selectsCourseOfAction">selects course of action</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Criterion">
+  <h3>Criterion<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Criterion</p>
+  <div class="comment">
+   <span class="markdown">A dimension against which courses of action are compared.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#SuccessCriterion" title="https://w3id.org/cdmo#SuccessCriterion">Success criterion</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#weight" title="https://w3id.org/cdmo#weight">weight</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#evaluatedAgainst" title="https://w3id.org/cdmo#evaluatedAgainst">evaluated against</a> <sup class="type-op" title="object property">op</sup>, <a href="#onCriterion" title="https://w3id.org/cdmo#onCriterion">on criterion</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Decision">
+  <h3>Decision<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Decision</p>
+  <div class="comment">
+   <span class="markdown">A commitment by a decision authority to a selected course of action, with rationale.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasOutcome" title="https://w3id.org/cdmo#hasOutcome">has outcome</a> <sup class="type-op" title="object property">op</sup>, <a href="#justifiedBy" title="https://w3id.org/cdmo#justifiedBy">justified by</a> <sup class="type-op" title="object property">op</sup>, <a href="#madeBy" title="https://w3id.org/cdmo#madeBy">made by</a> <sup class="type-op" title="object property">op</sup>, <a href="#resolvesDecisionProblem" title="https://w3id.org/cdmo#resolvesDecisionProblem">resolves decision problem</a> <sup class="type-op" title="object property">op</sup>, <a href="#selectsCourseOfAction" title="https://w3id.org/cdmo#selectsCourseOfAction">selects course of action</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="DecisionAuthority">
+  <h3>Decision authority<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#DecisionAuthority</p>
+  <div class="comment">
+   <span class="markdown">The role empowered to commit to a course of action and bear accountability.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Role" title="https://w3id.org/cdmo#Role">Role</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#madeBy" title="https://w3id.org/cdmo#madeBy">made by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="DecisionPoint">
+  <h3>Decision point<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#DecisionPoint</p>
+  <div class="comment">
+   <span class="markdown">A moment at which a decision must be made, often time-critical.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#atDecisionPoint" title="https://w3id.org/cdmo#atDecisionPoint">at decision point</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="DecisionProblem">
+  <h3>Decision problem<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#DecisionProblem</p>
+  <div class="comment">
+   <span class="markdown">A question posed by a situation that requires selecting among alternatives.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#atDecisionPoint" title="https://w3id.org/cdmo#atDecisionPoint">at decision point</a> <sup class="type-op" title="object property">op</sup>, <a href="#constrainedBy" title="https://w3id.org/cdmo#constrainedBy">constrained by</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasAlternative" title="https://w3id.org/cdmo#hasAlternative">has alternative</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasStakeholder" title="https://w3id.org/cdmo#hasStakeholder">has stakeholder</a> <sup class="type-op" title="object property">op</sup>, <a href="#involvesTradeoff" title="https://w3id.org/cdmo#involvesTradeoff">involves tradeoff</a> <sup class="type-op" title="object property">op</sup>, <a href="#pursuesObjective" title="https://w3id.org/cdmo#pursuesObjective">pursues objective</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#raisesDecisionProblem" title="https://w3id.org/cdmo#raisesDecisionProblem">raises decision problem</a> <sup class="type-op" title="object property">op</sup>, <a href="#resolvesDecisionProblem" title="https://w3id.org/cdmo#resolvesDecisionProblem">resolves decision problem</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Effect">
+  <h3>Effect<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Effect</p>
+  <div class="comment">
+   <span class="markdown">A state expected to hold after an action is performed.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#State" title="https://w3id.org/cdmo#State">State</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasEffect" title="https://w3id.org/cdmo#hasEffect">has effect</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Entity">
+  <h3>Entity<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Entity</p>
+  <div class="comment">
+   <span class="markdown">Any thing of interest within a situation (an actor, asset, object, or phenomenon).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasState" title="https://w3id.org/cdmo#hasState">has state</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#involvesEntity" title="https://w3id.org/cdmo#involvesEntity">involves entity</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Environment">
+  <h3>Environment<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Environment</p>
+  <div class="comment">
+   <span class="markdown">The operating context in which a situation unfolds, characterised by complexity, volatility, and criticality.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#inEnvironment" title="https://w3id.org/cdmo#inEnvironment">in environment</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Evaluation">
+  <h3>Evaluation<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Evaluation</p>
+  <div class="comment">
+   <span class="markdown">The scoring of a course of action against a criterion.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#onCriterion" title="https://w3id.org/cdmo#onCriterion">on criterion</a> <sup class="type-op" title="object property">op</sup>, <a href="#score" title="https://w3id.org/cdmo#score">score</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasEvaluation" title="https://w3id.org/cdmo#hasEvaluation">has evaluation</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Event">
+  <h3>Event<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Event</p>
+  <div class="comment">
+   <span class="markdown">Something that happens at or over a time, potentially changing a state.</span>
+  </div>
+ </div>
+ <div class="entity" id="Evidence">
+  <h3>Evidence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Evidence</p>
+  <div class="comment">
+   <span class="markdown">Grounded data supporting or undermining a claim, traceable to a source.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Entity" target="_blank" title="http://www.w3.org/ns/prov#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#supportedBy" title="https://w3id.org/cdmo#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Feedback">
+  <h3>Feedback<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Feedback</p>
+  <div class="comment">
+   <span class="markdown">Supports closed-loop refinement of the knowledge graph (e.g. via validation results).</span>
+  </div>
+  <div class="comment">
+   <span class="markdown">Information about an outcome fed back to refine future assessments or the graph itself.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#generatesFeedback" title="https://w3id.org/cdmo#generatesFeedback">generates feedback</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Goal">
+  <h3>Goal<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Goal</p>
+  <div class="comment">
+   <span class="markdown">A concrete, measurable objective.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Objective" title="https://w3id.org/cdmo#Objective">Objective</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="HardConstraint">
+  <h3>Hard constraint<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#HardConstraint</p>
+  <div class="comment">
+   <span class="markdown">A constraint that must not be violated (legal, physical, ethical, doctrinal).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Constraint" title="https://w3id.org/cdmo#Constraint">Constraint</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Hazard">
+  <h3>Hazard<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Hazard</p>
+  <div class="comment">
+   <span class="markdown">A latent condition with the potential to cause harm.</span>
+  </div>
+ </div>
+ <div class="entity" id="HumanAgent">
+  <h3>Human agent<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#HumanAgent</p>
+  <div class="comment">
+   <span class="markdown">A human participant (e.g. operator, commander, analyst, clinician).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Objective">
+  <h3>Objective<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Objective</p>
+  <div class="comment">
+   <span class="markdown">A desired end-state the decision aims to achieve.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Goal" title="https://w3id.org/cdmo#Goal">Goal</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#priority" title="https://w3id.org/cdmo#priority">priority</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#pursuesObjective" title="https://w3id.org/cdmo#pursuesObjective">pursues objective</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Observation">
+  <h3>Observation<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Observation</p>
+  <div class="comment">
+   <span class="markdown">First level of situation awareness (Endsley): perception of elements.</span>
+  </div>
+  <div class="comment">
+   <span class="markdown">A recorded perception of an entity, state, or event, attributable to a source.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Entity" target="_blank" title="http://www.w3.org/ns/prov#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#basedOnObservation" title="https://w3id.org/cdmo#basedOnObservation">based on observation</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasObservation" title="https://w3id.org/cdmo#hasObservation">has observation</a> <sup class="type-op" title="object property">op</sup>, <a href="#observes" title="https://w3id.org/cdmo#observes">observes</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="OrganizationalAgent">
+  <h3>Organizational agent<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#OrganizationalAgent</p>
+  <div class="comment">
+   <span class="markdown">A unit, team, or institution acting as a collective agent.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Outcome">
+  <h3>Outcome<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Outcome</p>
+  <div class="comment">
+   <span class="markdown">The realised result of an enacted decision.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Consequence" title="https://w3id.org/cdmo#Consequence">Consequence</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#generatesFeedback" title="https://w3id.org/cdmo#generatesFeedback">generates feedback</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasOutcome" title="https://w3id.org/cdmo#hasOutcome">has outcome</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Perception">
+  <h3>Perception<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Perception</p>
+  <div class="comment">
+   <span class="markdown">SA level 1: recognition of the elements present in the environment.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Plan">
+  <h3>Plan<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Plan</p>
+  <div class="comment">
+   <span class="markdown">An ordered or partially-ordered set of actions realising a course of action.</span>
+  </div>
+ </div>
+ <div class="entity" id="Precondition">
+  <h3>Precondition<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Precondition</p>
+  <div class="comment">
+   <span class="markdown">A state that must hold for an action or course of action to be feasible.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#State" title="https://w3id.org/cdmo#State">State</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasPrecondition" title="https://w3id.org/cdmo#hasPrecondition">has precondition</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Projection">
+  <h3>Projection<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Projection</p>
+  <div class="comment">
+   <span class="markdown">SA level 3: anticipation of how the situation will evolve.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Qualifier">
+  <h3>Qualifier<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Qualifier</p>
+  <div class="comment">
+   <span class="markdown">A modal hedge on the strength of a claim (e.g. 'probably', 'presumably').</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasQualifier" title="https://w3id.org/cdmo#hasQualifier">has qualifier</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Rationale">
+  <h3>Rationale<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Rationale</p>
+  <div class="comment">
+   <span class="markdown">The structured account that justifies a decision by appealing to one or more arguments.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#appealsToArgument" title="https://w3id.org/cdmo#appealsToArgument">appeals to argument</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#justifiedBy" title="https://w3id.org/cdmo#justifiedBy">justified by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Rebuttal">
+  <h3>Rebuttal<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Rebuttal</p>
+  <div class="comment">
+   <span class="markdown">A condition or counter-consideration under which the argument's claim would not hold.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasRebuttal" title="https://w3id.org/cdmo#hasRebuttal">has rebuttal</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Reliability">
+  <h3>Reliability<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Reliability</p>
+  <div class="comment">
+   <span class="markdown">A graded assessment of how dependable a source is.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasReliability" title="https://w3id.org/cdmo#hasReliability">has reliability</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Risk">
+  <h3>Risk<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Risk</p>
+  <div class="comment">
+   <span class="markdown">The combination of the likelihood and severity of an adverse consequence.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#posedByThreat" title="https://w3id.org/cdmo#posedByThreat">posed by threat</a> <sup class="type-op" title="object property">op</sup>, <a href="#probability" title="https://w3id.org/cdmo#probability">probability</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#severity" title="https://w3id.org/cdmo#severity">severity</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasRisk" title="https://w3id.org/cdmo#hasRisk">has risk</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Role">
+  <h3>Role<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Role</p>
+  <div class="comment">
+   <span class="markdown">A function an agent fulfils within a decision process.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#DecisionAuthority" title="https://w3id.org/cdmo#DecisionAuthority">Decision authority</a> <sup class="type-c" title="class">c</sup>, <a href="#Stakeholder" title="https://w3id.org/cdmo#Stakeholder">Stakeholder</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#performsRole" title="https://w3id.org/cdmo#performsRole">performs role</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Situation">
+  <h3>Situation<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Situation</p>
+  <div class="comment">
+   <span class="markdown">The top-level frame a decision is made about. Aggregates entities, states and events observed in an environment.</span>
+  </div>
+  <div class="comment">
+   <span class="markdown">A bounded state of affairs under consideration that gives rise to one or more decision problems.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#assessedBy" title="https://w3id.org/cdmo#assessedBy">assessed by</a> <sup class="type-op" title="object property">op</sup>, <a href="#hasObservation" title="https://w3id.org/cdmo#hasObservation">has observation</a> <sup class="type-op" title="object property">op</sup>, <a href="#inEnvironment" title="https://w3id.org/cdmo#inEnvironment">in environment</a> <sup class="type-op" title="object property">op</sup>, <a href="#involvesEntity" title="https://w3id.org/cdmo#involvesEntity">involves entity</a> <sup class="type-op" title="object property">op</sup>, <a href="#raisesDecisionProblem" title="https://w3id.org/cdmo#raisesDecisionProblem">raises decision problem</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SituationAssessment">
+  <h3>Situation assessment<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#SituationAssessment</p>
+  <div class="comment">
+   <span class="markdown">An interpretation of a situation produced from observations.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Comprehension" title="https://w3id.org/cdmo#Comprehension">Comprehension</a> <sup class="type-c" title="class">c</sup>, <a href="#Perception" title="https://w3id.org/cdmo#Perception">Perception</a> <sup class="type-c" title="class">c</sup>, <a href="#Projection" title="https://w3id.org/cdmo#Projection">Projection</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#basedOnObservation" title="https://w3id.org/cdmo#basedOnObservation">based on observation</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#assessedBy" title="https://w3id.org/cdmo#assessedBy">assessed by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SoftConstraint">
+  <h3>Soft constraint<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#SoftConstraint</p>
+  <div class="comment">
+   <span class="markdown">A preference whose violation is costly but admissible.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Constraint" title="https://w3id.org/cdmo#Constraint">Constraint</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Source">
+  <h3>Source<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Source</p>
+  <div class="comment">
+   <span class="markdown">An origin of observations or evidence (sensor, report, document, person, model).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/ns/prov#Entity" target="_blank" title="http://www.w3.org/ns/prov#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasReliability" title="https://w3id.org/cdmo#hasReliability">has reliability</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#derivedFrom" title="https://w3id.org/cdmo#derivedFrom">derived from</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Stakeholder">
+  <h3>Stakeholder<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Stakeholder</p>
+  <div class="comment">
+   <span class="markdown">A party affected by, or with an interest in, the decision and its outcome.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Role" title="https://w3id.org/cdmo#Role">Role</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasStakeholder" title="https://w3id.org/cdmo#hasStakeholder">has stakeholder</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="State">
+  <h3>State<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#State</p>
+  <div class="comment">
+   <span class="markdown">The condition of an entity or situation, holding over a time interval.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Effect" title="https://w3id.org/cdmo#Effect">Effect</a> <sup class="type-c" title="class">c</sup>, <a href="#Precondition" title="https://w3id.org/cdmo#Precondition">Precondition</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasState" title="https://w3id.org/cdmo#hasState">has state</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="SuccessCriterion">
+  <h3>Success criterion<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#SuccessCriterion</p>
+  <div class="comment">
+   <span class="markdown">A criterion stating when an objective is considered met.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Criterion" title="https://w3id.org/cdmo#Criterion">Criterion</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Threat">
+  <h3>Threat<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Threat</p>
+  <div class="comment">
+   <span class="markdown">A source of potential harm that could materialise in the situation.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#exploitsVulnerability" title="https://w3id.org/cdmo#exploitsVulnerability">exploits vulnerability</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#posedByThreat" title="https://w3id.org/cdmo#posedByThreat">posed by threat</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Tradeoff">
+  <h3>Tradeoff<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Tradeoff</p>
+  <div class="comment">
+   <span class="markdown">A relationship in which improving one criterion worsens another.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#involvesTradeoff" title="https://w3id.org/cdmo#involvesTradeoff">involves tradeoff</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Trustworthiness">
+  <h3>Trustworthiness<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Trustworthiness</p>
+  <div class="comment">
+   <span class="markdown">A composite judgement of a source from reliability, timeliness and corroboration.</span>
+  </div>
+ </div>
+ <div class="entity" id="Uncertainty">
+  <h3>Uncertainty<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Uncertainty</p>
+  <div class="comment">
+   <span class="markdown">A representation of incomplete or imperfect knowledge attached to an observation, claim, projection, or evaluation.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#carriesUncertainty" title="https://w3id.org/cdmo#carriesUncertainty">carries uncertainty</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Value">
+  <h3>Value<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Value</p>
+  <div class="comment">
+   <span class="markdown">A principle (e.g. safety, proportionality, legality) that informs preference among options.</span>
+  </div>
+ </div>
+ <div class="entity" id="Vulnerability">
+  <h3>Vulnerability<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Vulnerability</p>
+  <div class="comment">
+   <span class="markdown">A weakness that a threat can exploit to realise harm.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#exploitsVulnerability" title="https://w3id.org/cdmo#exploitsVulnerability">exploits vulnerability</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Warrant">
+  <h3>Warrant<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#Warrant</p>
+  <div class="comment">
+   <span class="markdown">A principle or inference rule that licenses moving from evidence to a claim.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#hasBacking" title="https://w3id.org/cdmo#hasBacking">has backing</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#hasWarrant" title="https://w3id.org/cdmo#hasWarrant">has warrant</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+ <h3 id="properties" class="list">Object Properties</h3>
+ <ul class="hlist">
+  <li><a href="#appealsToArgument" title="https://w3id.org/cdmo#appealsToArgument">appeals to argument</a></li>
+  <li><a href="#assessedBy" title="https://w3id.org/cdmo#assessedBy">assessed by</a></li>
+  <li><a href="#atDecisionPoint" title="https://w3id.org/cdmo#atDecisionPoint">at decision point</a></li>
+  <li><a href="#atTime" title="https://w3id.org/cdmo#atTime">at time</a></li>
+  <li><a href="#basedOnAssumption" title="https://w3id.org/cdmo#basedOnAssumption">based on assumption</a></li>
+  <li><a href="#basedOnObservation" title="https://w3id.org/cdmo#basedOnObservation">based on observation</a></li>
+  <li><a href="#carriesUncertainty" title="https://w3id.org/cdmo#carriesUncertainty">carries uncertainty</a></li>
+  <li><a href="#causes" title="https://w3id.org/cdmo#causes">causes</a></li>
+  <li><a href="#comprisesAction" title="https://w3id.org/cdmo#comprisesAction">comprises action</a></li>
+  <li><a href="#concludes" title="https://w3id.org/cdmo#concludes">concludes</a></li>
+  <li><a href="#constrainedBy" title="https://w3id.org/cdmo#constrainedBy">constrained by</a></li>
+  <li><a href="#dependsOn" title="https://w3id.org/cdmo#dependsOn">depends on</a></li>
+  <li><a href="#derivedFrom" title="https://w3id.org/cdmo#derivedFrom">derived from</a></li>
+  <li><a href="#evaluatedAgainst" title="https://w3id.org/cdmo#evaluatedAgainst">evaluated against</a></li>
+  <li><a href="#exploitsVulnerability" title="https://w3id.org/cdmo#exploitsVulnerability">exploits vulnerability</a></li>
+  <li><a href="#generatesFeedback" title="https://w3id.org/cdmo#generatesFeedback">generates feedback</a></li>
+  <li><a href="#hasAlternative" title="https://w3id.org/cdmo#hasAlternative">has alternative</a></li>
+  <li><a href="#hasBacking" title="https://w3id.org/cdmo#hasBacking">has backing</a></li>
+  <li><a href="#hasCapability" title="https://w3id.org/cdmo#hasCapability">has capability</a></li>
+  <li><a href="#hasConfidence" title="https://w3id.org/cdmo#hasConfidence">has confidence</a></li>
+  <li><a href="#hasEffect" title="https://w3id.org/cdmo#hasEffect">has effect</a></li>
+  <li><a href="#hasEvaluation" title="https://w3id.org/cdmo#hasEvaluation">has evaluation</a></li>
+  <li><a href="#hasObservation" title="https://w3id.org/cdmo#hasObservation">has observation</a></li>
+  <li><a href="#hasOutcome" title="https://w3id.org/cdmo#hasOutcome">has outcome</a></li>
+  <li><a href="#hasPrecondition" title="https://w3id.org/cdmo#hasPrecondition">has precondition</a></li>
+  <li><a href="#hasQualifier" title="https://w3id.org/cdmo#hasQualifier">has qualifier</a></li>
+  <li><a href="#hasRebuttal" title="https://w3id.org/cdmo#hasRebuttal">has rebuttal</a></li>
+  <li><a href="#hasReliability" title="https://w3id.org/cdmo#hasReliability">has reliability</a></li>
+  <li><a href="#hasRisk" title="https://w3id.org/cdmo#hasRisk">has risk</a></li>
+  <li><a href="#hasStakeholder" title="https://w3id.org/cdmo#hasStakeholder">has stakeholder</a></li>
+  <li><a href="#hasState" title="https://w3id.org/cdmo#hasState">has state</a></li>
+  <li><a href="#hasWarrant" title="https://w3id.org/cdmo#hasWarrant">has warrant</a></li>
+  <li><a href="#inEnvironment" title="https://w3id.org/cdmo#inEnvironment">in environment</a></li>
+  <li><a href="#involvesEntity" title="https://w3id.org/cdmo#involvesEntity">involves entity</a></li>
+  <li><a href="#involvesTradeoff" title="https://w3id.org/cdmo#involvesTradeoff">involves tradeoff</a></li>
+  <li><a href="#justifiedBy" title="https://w3id.org/cdmo#justifiedBy">justified by</a></li>
+  <li><a href="#leadsToConsequence" title="https://w3id.org/cdmo#leadsToConsequence">leads to consequence</a></li>
+  <li><a href="#madeBy" title="https://w3id.org/cdmo#madeBy">made by</a></li>
+  <li><a href="#observes" title="https://w3id.org/cdmo#observes">observes</a></li>
+  <li><a href="#onCriterion" title="https://w3id.org/cdmo#onCriterion">on criterion</a></li>
+  <li><a href="#performsRole" title="https://w3id.org/cdmo#performsRole">performs role</a></li>
+  <li><a href="#posedByThreat" title="https://w3id.org/cdmo#posedByThreat">posed by threat</a></li>
+  <li><a href="#proposedBy" title="https://w3id.org/cdmo#proposedBy">proposed by</a></li>
+  <li><a href="#pursuesObjective" title="https://w3id.org/cdmo#pursuesObjective">pursues objective</a></li>
+  <li><a href="#raisesDecisionProblem" title="https://w3id.org/cdmo#raisesDecisionProblem">raises decision problem</a></li>
+  <li><a href="#recommends" title="https://w3id.org/cdmo#recommends">recommends</a></li>
+  <li><a href="#resolvesDecisionProblem" title="https://w3id.org/cdmo#resolvesDecisionProblem">resolves decision problem</a></li>
+  <li><a href="#selectsCourseOfAction" title="https://w3id.org/cdmo#selectsCourseOfAction">selects course of action</a></li>
+  <li><a href="#supportedBy" title="https://w3id.org/cdmo#supportedBy">supported by</a></li>
+ </ul>
+ <div class="entity" id="appealsToArgument">
+  <h3>appeals to argument<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#appealsToArgument</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Rationale" title="https://w3id.org/cdmo#Rationale">Rationale</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="assessedBy">
+  <h3>assessed by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#assessedBy</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="atDecisionPoint">
+  <h3>at decision point<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#atDecisionPoint</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DecisionPoint" title="https://w3id.org/cdmo#DecisionPoint">Decision point</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="atTime">
+  <h3>at time<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#atTime</p>
+  <div class="comment">
+   <span class="markdown">Temporally anchors an event, observation, decision or state.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has super-properties
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2006/time#hasTime" target="_blank" title="http://www.w3.org/2006/time#hasTime">has Time</a> <sup class="type-op" title="object property">op</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2006/time#TemporalEntity" target="_blank" title="http://www.w3.org/2006/time#TemporalEntity">Temporal Entity</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="basedOnAssumption">
+  <h3>based on assumption<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#basedOnAssumption</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/cdmo#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="basedOnObservation">
+  <h3>based on observation<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#basedOnObservation</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#SituationAssessment" title="https://w3id.org/cdmo#SituationAssessment">Situation assessment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Observation" title="https://w3id.org/cdmo#Observation">Observation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="carriesUncertainty">
+  <h3>carries uncertainty<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#carriesUncertainty</p>
+  <div class="comment">
+   <span class="markdown">Attaches uncertainty to an observation, claim, projection or evaluation.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Uncertainty" title="https://w3id.org/cdmo#Uncertainty">Uncertainty</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="causes">
+  <h3>causes<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#causes</p>
+  <div class="comment">
+   <span class="markdown">A direct causal influence from one element to another.</span>
+  </div>
+ </div>
+ <div class="entity" id="comprisesAction">
+  <h3>comprises action<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#comprisesAction</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Action" title="https://w3id.org/cdmo#Action">Action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="concludes">
+  <h3>concludes<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#concludes</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Claim" title="https://w3id.org/cdmo#Claim">Claim</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="constrainedBy">
+  <h3>constrained by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#constrainedBy</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Constraint" title="https://w3id.org/cdmo#Constraint">Constraint</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="dependsOn">
+  <h3>depends on<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#dependsOn</p>
+  <div class="comment">
+   <span class="markdown">A dependency of one element on another.</span>
+  </div>
+ </div>
+ <div class="entity" id="derivedFrom">
+  <h3>derived from<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#derivedFrom</p>
+  <div class="comment">
+   <span class="markdown">Traces an observation or piece of evidence to its source.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has super-properties
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/ns/prov#wasDerivedFrom" target="_blank" title="http://www.w3.org/ns/prov#wasDerivedFrom">was Derived From</a> <sup class="type-op" title="object property">op</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Source" title="https://w3id.org/cdmo#Source">Source</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="evaluatedAgainst">
+  <h3>evaluated against<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#evaluatedAgainst</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Criterion" title="https://w3id.org/cdmo#Criterion">Criterion</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="exploitsVulnerability">
+  <h3>exploits vulnerability<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#exploitsVulnerability</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Threat" title="https://w3id.org/cdmo#Threat">Threat</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Vulnerability" title="https://w3id.org/cdmo#Vulnerability">Vulnerability</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="generatesFeedback">
+  <h3>generates feedback<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#generatesFeedback</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Outcome" title="https://w3id.org/cdmo#Outcome">Outcome</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Feedback" title="https://w3id.org/cdmo#Feedback">Feedback</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasAlternative">
+  <h3>has alternative<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasAlternative</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasBacking">
+  <h3>has backing<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasBacking</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Warrant" title="https://w3id.org/cdmo#Warrant">Warrant</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Backing" title="https://w3id.org/cdmo#Backing">Backing</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasCapability">
+  <h3>has capability<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasCapability</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Capability" title="https://w3id.org/cdmo#Capability">Capability</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasConfidence">
+  <h3>has confidence<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasConfidence</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Confidence" title="https://w3id.org/cdmo#Confidence">Confidence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasEffect">
+  <h3>has effect<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasEffect</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Action" title="https://w3id.org/cdmo#Action">Action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Effect" title="https://w3id.org/cdmo#Effect">Effect</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasEvaluation">
+  <h3>has evaluation<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasEvaluation</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Evaluation" title="https://w3id.org/cdmo#Evaluation">Evaluation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasObservation">
+  <h3>has observation<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasObservation</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Observation" title="https://w3id.org/cdmo#Observation">Observation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasOutcome">
+  <h3>has outcome<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasOutcome</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Outcome" title="https://w3id.org/cdmo#Outcome">Outcome</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasPrecondition">
+  <h3>has precondition<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasPrecondition</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Action" title="https://w3id.org/cdmo#Action">Action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Precondition" title="https://w3id.org/cdmo#Precondition">Precondition</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasQualifier">
+  <h3>has qualifier<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasQualifier</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Claim" title="https://w3id.org/cdmo#Claim">Claim</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Qualifier" title="https://w3id.org/cdmo#Qualifier">Qualifier</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasRebuttal">
+  <h3>has rebuttal<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasRebuttal</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Rebuttal" title="https://w3id.org/cdmo#Rebuttal">Rebuttal</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasReliability">
+  <h3>has reliability<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasReliability</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Source" title="https://w3id.org/cdmo#Source">Source</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Reliability" title="https://w3id.org/cdmo#Reliability">Reliability</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasRisk">
+  <h3>has risk<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasRisk</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Risk" title="https://w3id.org/cdmo#Risk">Risk</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasStakeholder">
+  <h3>has stakeholder<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasStakeholder</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Stakeholder" title="https://w3id.org/cdmo#Stakeholder">Stakeholder</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasState">
+  <h3>has state<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasState</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Entity" title="https://w3id.org/cdmo#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#State" title="https://w3id.org/cdmo#State">State</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="hasWarrant">
+  <h3>has warrant<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#hasWarrant</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/cdmo#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Warrant" title="https://w3id.org/cdmo#Warrant">Warrant</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="inEnvironment">
+  <h3>in environment<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#inEnvironment</p>
+  <div class="comment">
+   <span class="markdown">Relates a situation to the environment in which it unfolds.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Environment" title="https://w3id.org/cdmo#Environment">Environment</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="involvesEntity">
+  <h3>involves entity<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#involvesEntity</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Entity" title="https://w3id.org/cdmo#Entity">Entity</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="involvesTradeoff">
+  <h3>involves tradeoff<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#involvesTradeoff</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Tradeoff" title="https://w3id.org/cdmo#Tradeoff">Tradeoff</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="justifiedBy">
+  <h3>justified by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#justifiedBy</p>
+  <div class="comment">
+   <span class="markdown">Connects a decision to the rationale that accounts for it.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Rationale" title="https://w3id.org/cdmo#Rationale">Rationale</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="leadsToConsequence">
+  <h3>leads to consequence<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#leadsToConsequence</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Consequence" title="https://w3id.org/cdmo#Consequence">Consequence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="madeBy">
+  <h3>made by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#madeBy</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DecisionAuthority" title="https://w3id.org/cdmo#DecisionAuthority">Decision authority</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="observes">
+  <h3>observes<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#observes</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Observation" title="https://w3id.org/cdmo#Observation">Observation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="onCriterion">
+  <h3>on criterion<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#onCriterion</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Evaluation" title="https://w3id.org/cdmo#Evaluation">Evaluation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Criterion" title="https://w3id.org/cdmo#Criterion">Criterion</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="performsRole">
+  <h3>performs role<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#performsRole</p>
+  <div class="comment">
+   <span class="markdown">An agent takes on a role within the decision process.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Role" title="https://w3id.org/cdmo#Role">Role</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="posedByThreat">
+  <h3>posed by threat<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#posedByThreat</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Risk" title="https://w3id.org/cdmo#Risk">Risk</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Threat" title="https://w3id.org/cdmo#Threat">Threat</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="proposedBy">
+  <h3>proposed by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#proposedBy</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="pursuesObjective">
+  <h3>pursues objective<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#pursuesObjective</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Objective" title="https://w3id.org/cdmo#Objective">Objective</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="raisesDecisionProblem">
+  <h3>raises decision problem<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#raisesDecisionProblem</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Situation" title="https://w3id.org/cdmo#Situation">Situation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="recommends">
+  <h3>recommends<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#recommends</p>
+  <div class="comment">
+   <span class="markdown">An agent (often the AI agent) puts a course of action forward as preferred.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Agent" title="https://w3id.org/cdmo#Agent">Agent</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="resolvesDecisionProblem">
+  <h3>resolves decision problem<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#resolvesDecisionProblem</p>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#DecisionProblem" title="https://w3id.org/cdmo#DecisionProblem">Decision problem</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="selectsCourseOfAction">
+  <h3>selects course of action<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#selectsCourseOfAction</p>
+  <div class="comment">
+   <span class="markdown">The single course of action a decision commits to.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Decision" title="https://w3id.org/cdmo#Decision">Decision</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="supportedBy">
+  <h3>supported by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#supportedBy</p>
+  <div class="comment">
+   <span class="markdown">Links a claim to the evidence that grounds it.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Claim" title="https://w3id.org/cdmo#Claim">Claim</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Evidence" title="https://w3id.org/cdmo#Evidence">Evidence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+ <h3 id="dataproperties-headline" class="list">Data Properties</h3>
+ <ul class="hlist">
+  <li><a href="#assumed" title="https://w3id.org/cdmo#assumed">assumed</a></li>
+  <li><a href="#level" title="https://w3id.org/cdmo#level">level</a></li>
+  <li><a href="#priority" title="https://w3id.org/cdmo#priority">priority</a></li>
+  <li><a href="#probability" title="https://w3id.org/cdmo#probability">probability</a></li>
+  <li><a href="#reversible" title="https://w3id.org/cdmo#reversible">reversible</a></li>
+  <li><a href="#score" title="https://w3id.org/cdmo#score">score</a></li>
+  <li><a href="#severity" title="https://w3id.org/cdmo#severity">severity</a></li>
+  <li><a href="#timestamp" title="https://w3id.org/cdmo#timestamp">timestamp</a></li>
+  <li><a href="#weight" title="https://w3id.org/cdmo#weight">weight</a></li>
+ </ul>
+ <div class="entity" id="assumed">
+  <h3>assumed<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#assumed</p>
+  <div class="comment">
+   <span class="markdown">Flags a claim as an assumption taken without direct evidence.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Claim" title="https://w3id.org/cdmo#Claim">Claim</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="level">
+  <h3>level<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#level</p>
+  <div class="comment">
+   <span class="markdown">Confidence level in the interval [0,1].</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Confidence" title="https://w3id.org/cdmo#Confidence">Confidence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#decimal" target="_blank" title="http://www.w3.org/2001/XMLSchema#decimal">decimal</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="priority">
+  <h3>priority<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#priority</p>
+  <div class="comment">
+   <span class="markdown">Ordinal priority of an objective.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Objective" title="https://w3id.org/cdmo#Objective">Objective</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank" title="http://www.w3.org/2001/XMLSchema#integer">integer</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="probability">
+  <h3>probability<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#probability</p>
+  <div class="comment">
+   <span class="markdown">Likelihood of a risk materialising, in the interval [0,1].</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Risk" title="https://w3id.org/cdmo#Risk">Risk</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#decimal" target="_blank" title="http://www.w3.org/2001/XMLSchema#decimal">decimal</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="reversible">
+  <h3>reversible<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#reversible</p>
+  <div class="comment">
+   <span class="markdown">Whether a course of action can be undone once enacted.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#CourseOfAction" title="https://w3id.org/cdmo#CourseOfAction">Course of action</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="score">
+  <h3>score<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#score</p>
+  <div class="comment">
+   <span class="markdown">Score assigned to a course of action on a criterion.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Evaluation" title="https://w3id.org/cdmo#Evaluation">Evaluation</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#decimal" target="_blank" title="http://www.w3.org/2001/XMLSchema#decimal">decimal</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="severity">
+  <h3>severity<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#severity</p>
+  <div class="comment">
+   <span class="markdown">Magnitude of harm associated with a risk or consequence.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Risk" title="https://w3id.org/cdmo#Risk">Risk</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#decimal" target="_blank" title="http://www.w3.org/2001/XMLSchema#decimal">decimal</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="timestamp">
+  <h3>timestamp<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#timestamp</p>
+  <div class="comment">
+   <span class="markdown">Wall-clock time attached to an observation, event or decision.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#dateTime" target="_blank" title="http://www.w3.org/2001/XMLSchema#dateTime">date Time</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="weight">
+  <h3>weight<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/cdmo#weight</p>
+  <div class="comment">
+   <span class="markdown">Relative importance of a criterion in the evaluation.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Criterion" title="https://w3id.org/cdmo#Criterion">Criterion</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#decimal" target="_blank" title="http://www.w3.org/2001/XMLSchema#decimal">decimal</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="annotationproperties">
+ <h3 id="annotationproperties" class="list">Annotation Properties</h3>
+ <ul class="hlist">
+  <li><a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel"> <span>alt Label</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/creator" title="http://purl.org/dc/terms/creator"> <span>creator</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition"> <span>definition</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/description" title="http://purl.org/dc/terms/description"> <span>description</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/title" title="http://purl.org/dc/terms/title"> <span>title</span> </a></li>
+ </ul>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#altLabel">
+  <h3>alt Label<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#altLabel</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/creator">
+  <h3>creator<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/creator</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#definition">
+  <h3>definition<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#definition</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/description">
+  <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/description</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/title">
+  <h3>title<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/title</p>
+ </div>
+</div><div id="legend">
+<h2>Legend <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Classes">c</sup>: Classes <br/>
+<sup class="type-op" title="Object Properties">op</sup>: Object Properties <br/>
+<sup class="type-dp" title="Data Properties">dp</sup>: Data Properties <br/>
+</div>
+</div>
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>
+The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+
+
+</div>
+</body>
+</html>
