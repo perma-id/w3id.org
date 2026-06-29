@@ -1,17 +1,9 @@
-# HCMO — MAPP Ontology
+# hcmo — lowercase alias for HCMO (Home Cage Monitoring Ontology)
 #
-# This permanent W3ID provides stable, content-negotiated resolution for the
-# HCMO ontology, developed at https://github.com/dhuzard/HCMO
-#
-# Ontology IRI:    https://w3id.org/hcmo/ontology/hcm
-# Base namespace:  https://w3id.org/hcmo/ontology/hcm#
-# Modules:         https://w3id.org/hcmo/ontology/hcm/bio#
-#                  https://w3id.org/hcmo/ontology/hcm/env#
-#                  https://w3id.org/hcmo/ontology/hcm/obs#
-# Version IRI:     https://w3id.org/hcmo/ontology/hcm/0.0.1
-#
-# The merged distributions in the repository's dist/ directory contain all
-# modules, so every module/version IRI resolves to the same merged graph.
+# The HCMO ontology (https://github.com/dhuzard/HCMO) declares lowercase IRIs
+# such as https://w3id.org/hcmo/ontology/hcm . W3ID paths are case-sensitive,
+# so this alias redirects every lowercase request to the canonical /HCMO/
+# directory, which performs the content negotiation.
 #
 # ## Contact
 # This space is administered by:
@@ -20,46 +12,5 @@
 # damien@metadatapp.net
 # GitHub username: dhuzard
 
-Options -MultiViews
-
 RewriteEngine on
-
-# ---------------------------------------------------------------------------
-# Ontology IRI resolution (ontology root, modules bio/env/obs, version IRIs)
-#
-# Content negotiation:
-#   * browsers (HTML)            -> WIDOCO documentation on GitHub Pages
-#   * application/rdf+xml (OWL)  -> dist/hcmo.owl
-#   * text/turtle                -> dist/hcmo.ttl
-#   * application/ld+json        -> dist/hcmo.json
-# ---------------------------------------------------------------------------
-
-# Turtle
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^ontology/hcm(/.*)?$ https://raw.githubusercontent.com/dhuzard/HCMO/main/dist/hcmo.ttl [R=303,L]
-
-# RDF/XML (OWL)
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/xml
-RewriteRule ^ontology/hcm(/.*)?$ https://raw.githubusercontent.com/dhuzard/HCMO/main/dist/hcmo.owl [R=303,L]
-
-# JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^ontology/hcm(/.*)?$ https://raw.githubusercontent.com/dhuzard/HCMO/main/dist/hcmo.json [R=303,L]
-
-# HTML documentation (browsers and Mozilla-like user agents)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ontology/hcm(/.*)?$ https://dhuzard.github.io/HCMO/ [R=303,L]
-
-# Default response for the ontology IRI: serve the canonical Turtle graph
-RewriteRule ^ontology/hcm(/.*)?$ https://raw.githubusercontent.com/dhuzard/HCMO/main/dist/hcmo.ttl [R=303,L]
-
-# ---------------------------------------------------------------------------
-# Landing: https://w3id.org/hcmo/ (and any unmatched path) -> source repository
-# ---------------------------------------------------------------------------
-RewriteRule ^ https://github.com/dhuzard/HCMO [R=302,L]
+RewriteRule ^(.*)$ https://w3id.org/HCMO/$1 [R=302,L,NE]
