@@ -7,5 +7,5 @@ Homepage:
 * https://w3id.org/jp-textbook/
 
 Contact:
-* Yuka Egusa <yuka@nier.go.jp>
-* Masao Takaku <masao@slis.tsukuba.ac.jp>
+* Yuka Egusa <yuka@nier.go.jp> (@yegusa)
+* Masao Takaku <masao@slis.tsukuba.ac.jp> (@masao)

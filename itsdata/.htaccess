@@ -23,25 +23,89 @@ RewriteRule ^ - [E=FORMAT:rdf]
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^ - [E=FORMAT:html]
 
-# Default to RDF (OWL) if no Accept header (common for some tools; safer than HTML default for ontologies)
+# Default to RDF (TTL) if no Accept header (common for some tools; safer than HTML default for ontologies)
 RewriteCond %{ENV:FORMAT} ^$
 RewriteRule ^ - [E=FORMAT:rdf]
 
 
-# /regulation/v2 -> regulation-v2 (or regulation-v2/regulation.owl if RDF)
+# -----------------------------------------------------------------------------
+# URL patterns for ITS ontology topic areas
+#
+# Conventions:
+# - topic area is the first path segment (e.g., "regulation")
+# - major version is "vN" (e.g., "v2")
+#
+# Concepts:
+# - Upper-case concept name (typically a class): /{topic}/vN/Tro
+# - Lower-case concept name (typically a property): /{topic}/vN/hasName
+#
+# Releases:
+# - Explicit revision: r{int}.{int}[optional-text] (e.g., r3.0, r3.0-alpha)
+# - "latest": latest revision pointer
+# - Mike timestamp: YYYY-MM-DD_hh-mm-ss
+#
+# Notes:
+# - Rules are ordered from most-specific to least-specific.
+# - For RDF-ish Accept headers, we redirect to a `.ttl` resource in the target.
+# -----------------------------------------------------------------------------
+
+# (1) /regulation/v2
+#     Topic area + major version.
+#     Redirects to the topic's "latest" content (or `.ttl` for RDF).
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$1.owl [R=303,L]  
+RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/its-$1.ttl [R=303,L]  
 RewriteRule ^([^/]+)/v(\d+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/ [R=303,L]
 
-# /regulation/v2/Tro -> regulation-v2/latest/Tro (.owl for RDF)
+# (5) /regulation/v2/latest
+#     Topic area + major version + "latest" revision pointer.
+#     Redirects to the topic's "latest" revision location.
+#     (The target host is responsible for mapping "latest" to a concrete release.)
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3.owl [R=303,L] 
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/$3 [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/latest/?$ https://isotc204.org/ontology-its-$1-v$2/latest/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/latest/?$ https://isotc204.org/ontology-its-$1-v$2/latest/ [R=303,L]
 
-# Specific release: /regulation/v2/Tro/r3.0 -> regulation-v2/r3.0/Tro (.owl for RDF)
+# (4) /regulation/v2/r3.0 (optionally with suffix like "-alpha")
+#     Topic area + major version + explicit revision.
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
-RewriteRule ^([^/]+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/$4/$3 [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/(r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)/?$ https://isotc204.org/ontology-its-$1-v$2/$3/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/(r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)/?$ https://isotc204.org/ontology-its-$1-v$2/$3/ [R=303,L]
+
+# (6) /regulation/v2/2026-04-23_20-48-17
+#     Topic area + major version + mike timestamp release.
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/(20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})/?$ https://isotc204.org/ontology-its-$1-v$2/$3/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/(20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})/?$ https://isotc204.org/ontology-its-$1-v$2/$3/ [R=303,L]
+
+# (7) /regulation/v2/Tro/r3.0
+#     Topic area + major version + class + explicit revision.
+#     *.ttl reverts to parent ontology
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([A-Z][^/]+)/((?:r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)|(?:20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}))/?$ https://isotc204.org/ontology-its-$1-v$2/$4/classes/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([A-Z][^/]+)/((?:r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)|(?:20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}))/?$ https://isotc204.org/ontology-its-$1-v$2/$4/classes/$3 [R=303,L]
+
+# (8) /regulation/v2/hasName/r3.0
+#     Topic area + major version + property + explicit revision.
+#     Redirects into the properties area under classes.
+#     *.ttl reverts to parent ontology
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([a-z][^/]+)/((?:r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)|(?:20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}))/?$ https://isotc204.org/ontology-its-$1-v$2/$4/classes/properties/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([a-z][^/]+)/((?:r[0-9]+\.[0-9]+(?:[-._A-Za-z0-9]+)?)|(?:20[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}))/?$ https://isotc204.org/ontology-its-$1-v$2/$4/classes/properties/$3 [R=303,L]
+
+# (2) /regulation/v2/Tro
+#     Topic area + major version + class (Upper-case concept).
+#     Redirects to the class directory under latest.
+#     *.ttl reverts to parent ontology
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/classes/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/classes/$3 [R=303,L]
+
+# (3) /regulation/v2/hasName
+#     Topic area + major version + property (lower-case concept).
+#     Redirects to the property directory under latest.
+#     *.ttl reverts to parent ontology
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^([^/]+)/v(\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/classes/properties/its-$1.ttl [R=303,L]
+RewriteRule ^([^/]+)/v(\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-its-$1-v$2/latest/classes/properties/$3 [R=303,L]
 
 # Fallback: Redirect to main page if no specific match
 RewriteRule ^ https://isotc204.org/ritso/ [R=303,L]

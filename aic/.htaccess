@@ -1,12 +1,154 @@
+Options -MultiViews
 RewriteEngine On
 
-# Root redirect to GitHub Pages site
-RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ [R=302,L]
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType application/ld+json .jsonld
+AddType application/n-triples .nt
 
-# Ontology serializations
-RewriteRule ^ontology.ttl$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.ttl [R=302,L]
-RewriteRule ^ontology.owl$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.owl [R=302,L]
-RewriteRule ^ontology.jsonld$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.jsonld [R=302,L]
 
-# Redirect resource folder (e.g., images, CSS, JS)
-RewriteRule ^resources/(.*)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/resources/$1 [R=302,L]
+#################################################################
+# Latest ontology document
+#################################################################
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.rdf [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ntriples
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.nt [R=303,L]
+
+# HTML docs
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/index.html [R=303,L]
+
+
+#################################################################
+# Latest explicit ontology file redirects
+#################################################################
+
+RewriteRule ^ontology\.ttl$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.ttl    [R=303,L]
+RewriteRule ^ontology\.rdf$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.rdf    [R=303,L]
+RewriteRule ^ontology\.owl$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.owl    [R=303,L]
+RewriteRule ^ontology\.jsonld$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.jsonld [R=303,L]
+RewriteRule ^ontology\.nt$     https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.nt     [R=303,L]
+
+RewriteRule ^index\.html$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/index.html [R=303,L]
+RewriteRule ^index-([A-Za-z]{2,3}(-[A-Za-z0-9]+)*)\.html$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/index-$1.html [R=303,L]
+
+
+#################################################################
+# Versioned ontology documents
+#################################################################
+
+# Versioned Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.ttl [R=303,L]
+
+# Versioned JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.jsonld [R=303,L]
+
+# Versioned RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.rdf [R=303,L]
+
+# Versioned N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ntriples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.nt [R=303,L]
+
+# Versioned HTML docs
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/index.html [R=303,L]
+
+
+#################################################################
+# Versioned explicit ontology file redirects
+#################################################################
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology\.ttl$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.ttl    [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology\.rdf$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.rdf    [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology\.owl$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.owl    [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology\.jsonld$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.jsonld [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology\.nt$     https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.nt     [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/index\.html$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/index.html [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/index-([A-Za-z]{2,3}(-[A-Za-z0-9]+)*)\.html$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/index-$2.html [R=303,L]
+
+
+
+#################################################################
+# Clean alignment IRIs with content negotiation
+#################################################################
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.rdf [R=303,L]
+
+# Default fallback for generic clients
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.ttl [R=303,L]
+
+
+#################################################################
+# Explicit alignment representation URLs
+#################################################################
+
+RewriteRule ^alignments/([A-Za-z0-9_-]+)\.ttl$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.ttl    [R=303,L]
+RewriteRule ^alignments/([A-Za-z0-9_-]+)\.rdf$    https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.rdf    [R=303,L]
+RewriteRule ^alignments/([A-Za-z0-9_-]+)\.jsonld$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.jsonld [R=303,L]
+
+
+#################################################################
+# Narrow 406 rules
+#################################################################
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ - [R=406,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ - [R=406,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ - [R=406,L]
+
+
+#################################################################
+# Defaults for requests without useful Accept headers
+#################################################################
+
+RewriteRule ^$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/ontology.ttl [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/versions/$1/ontology.ttl [R=303,L]
+
+RewriteRule ^alignments/([A-Za-z0-9_-]+)$ https://digiconstructlab-tu-delft.github.io/AiC-Ontology/alignments/$1-alignment.ttl [R=303,L]

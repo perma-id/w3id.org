@@ -7,7 +7,7 @@ Homepage:
 ## Subfolders
 
 - `envited-x/` - ENVITED-X Simulation Asset Ontologies
-- `simpulse-id/` - SimpulseID Credentials (planned)
+- `simpulse-id/` - SimpulseID Credentials
 
 ## GitHub Repository
 

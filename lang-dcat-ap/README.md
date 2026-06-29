@@ -1,4 +1,4 @@
-# meta-share Ontology
+# Language DCAT-AP Ontology
 
 URI: https://w3id.org/lang-dcat-ap/ (@prefix `ldsdcat`)
 
