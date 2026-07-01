@@ -1,0 +1,92 @@
+# hcmo — Home Cage Monitoring Ontology (HCMO)
+#
+# Permanent W3ID directory providing stable, content-negotiated resolution for
+# the HCMO ontology, developed at https://github.com/dhuzard/HCMO
+#
+# Ontology IRI:    https://w3id.org/hcmo/ontology/hcm
+# Base namespace:  https://w3id.org/hcmo/ontology/hcm#
+# Modules:         https://w3id.org/hcmo/ontology/hcm/bio#
+#                  https://w3id.org/hcmo/ontology/hcm/env#
+#                  https://w3id.org/hcmo/ontology/hcm/obs#
+# Version IRI:     https://w3id.org/hcmo/ontology/hcm/<version>  (e.g. /0.9)
+#
+# RDF distributions are served from GitHub Release assets. The merged
+# distributions contain all modules, so module IRIs resolve to the same graph.
+#
+# ## Contact
+# This space is administered by:
+#
+# Damien Huzard
+# damien@metadatapp.net
+# GitHub username: dhuzard
+
+Options -MultiViews
+
+RewriteEngine on
+
+# ===========================================================================
+# Version-aware resolution: https://w3id.org/hcmo/ontology/hcm/<version>
+# <version> is any segment beginning with a digit (e.g. 0.9). It is mapped to
+# the matching GitHub release tag (v<version>), so /hcm/0.9 -> release v0.9.
+# (Module names such as bio/env/obs begin with a letter and fall through to
+#  the "latest" block below.)
+# ===========================================================================
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/hcm/([0-9][^/]*)$ https://github.com/dhuzard/HCMO/releases/download/v$1/hcmo.ttl [R=303,L]
+
+# RDF/XML (OWL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^ontology/hcm/([0-9][^/]*)$ https://github.com/dhuzard/HCMO/releases/download/v$1/hcmo.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ontology/hcm/([0-9][^/]*)$ https://github.com/dhuzard/HCMO/releases/download/v$1/hcmo.json [R=303,L]
+
+# HTML documentation (browsers) -> the GitHub release page for that version
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/hcm/([0-9][^/]*)$ https://github.com/dhuzard/HCMO/releases/tag/v$1 [R=303,L]
+
+# Default for a version IRI: serve the canonical Turtle graph
+RewriteRule ^ontology/hcm/([0-9][^/]*)$ https://github.com/dhuzard/HCMO/releases/download/v$1/hcmo.ttl [R=303,L]
+
+# ===========================================================================
+# Latest resolution: https://w3id.org/hcmo/ontology/hcm (+ bio/env/obs modules)
+# ===========================================================================
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/hcm(/(bio|env|obs))?$ https://github.com/dhuzard/HCMO/releases/latest/download/hcmo.ttl [R=303,L]
+
+# RDF/XML (OWL)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^ontology/hcm(/(bio|env|obs))?$ https://github.com/dhuzard/HCMO/releases/latest/download/hcmo.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ontology/hcm(/(bio|env|obs))?$ https://github.com/dhuzard/HCMO/releases/latest/download/hcmo.json [R=303,L]
+
+# HTML documentation (browsers) -> WIDOCO documentation on GitHub Pages
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/hcm(/(bio|env|obs))?$ https://dhuzard.github.io/HCMO/ [R=303,L]
+
+# Default response for the ontology IRI: serve the canonical Turtle graph
+RewriteRule ^ontology/hcm(/(bio|env|obs))?$ https://github.com/dhuzard/HCMO/releases/latest/download/hcmo.ttl [R=303,L]
+
+# ===========================================================================
+# Landing: https://w3id.org/hcmo/ (and any unmatched path) -> source repo
+# ===========================================================================
+RewriteRule ^ https://github.com/dhuzard/HCMO [R=302,L]

@@ -11,9 +11,8 @@ RewriteCond %{HTTP_ACCEPT} application/x-turtle
 RewriteRule ^$ https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/pcm/PCM/ontology/pcm.ttl [R=302,L]
 
 # ---- RDF: RDF/XML (OWL) ----
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/xml
+# Match only application/rdf+xml: browsers send application/xml;q=0.9 in Accept,
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^$ https://raw.githubusercontent.com/ibm-granite/granite.debug-tools/pcm/PCM/ontology/pcm-ontology.owl [R=302,L]
 
 # ---- HTML documentation (browsers and default) ----

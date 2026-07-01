@@ -4,6 +4,9 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Open 
 The following sub-namespaces are defined:
 
 * OGC
+  * `/bblocks` — OGC Building Blocks resources
+    * `/bblocks/meta-register.json` — OGC Building Blocks meta-registry index ([source](https://github.com/ogcincubator/bblocks-meta-register-data))
+    * `/bblocks/meta-register-orgs.json` — OGC Building Blocks meta-registry organisation metadata
   * `/geopose`
   * `/ladm`
   * `/stac`
