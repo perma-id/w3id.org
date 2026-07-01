@@ -1,7 +1,5 @@
-## Redirect for FAIR Testing Services
+## Redirect for FAIR Testing Service Endpoints
 
-see more at:  http://fairmetrics.org
-
-The FAIR Tests are hosted on a server operated by FAIR Data Systems S.L., Madrid.
+Endpoints for FAIRness tests written and maintained by the FAIR Champion team
 
 Contact: info@fairdata.systems  or mark.moby.wilkinson@gmail.com  
