@@ -1,0 +1,118 @@
+name: Review PR permissions for italia/ directory
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'italia/**'
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check for directory maintainership in README files
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const ROOT_DIR = "italia";
+            const pull_number = context.issue.number;
+            const { owner, repo } = context.repo;
+            const author = context.payload.pull_request.user.login.toLowerCase();
+            const authorUrlPattern = new RegExp(`https://github\\.com/${author}(?![\\w-])`, 'i');
+
+            async function getReadmeContent(directory, readmeFilename) {
+              try {
+                const { data } = await github.rest.repos.getContent({
+                  owner,
+                  repo,
+                  path: `${directory}/${readmeFilename}`,
+                });
+
+                return Buffer.from(data.content, 'base64').toString();
+              } catch (error) {
+                if (error.status === 404) {
+                  // README not found, return null to check parent directory
+                  return null;
+                }
+
+                throw error;
+              }
+            }
+
+            function extractUsernames(readmeContent) {
+              const urlPattern = /https:\/\/github\.com\/([a-zA-Z0-9-]+)/g;
+              const matches = readmeContent.matchAll(urlPattern);
+
+              return Array.from(matches, m => m[1]);
+            }
+
+            async function checkReadme(directory) {
+              const pathParts = directory.split('/').filter(part => part !== '');
+
+              let currentDir = "";
+              let usernames = null;
+              for (const part of pathParts) {
+                currentDir += `/${part}`;
+                const readmeFilenames = ['README.md', 'readme.md'];
+
+                for (const filename of readmeFilenames) {
+                  const content = await getReadmeContent(currentDir, filename);
+                  if (content !== null) {
+                    const isAuthorListed = authorUrlPattern.test(content);
+                    usernames = extractUsernames(content);
+
+                    // Deduplicate users, in case there are multiple mentions of
+                    // the same user in the README
+                    usernames = Array.from(new Set(extractUsernames(content)));
+
+                    if (isAuthorListed) {
+                      return { author_found: true, directory: currentDir, usernames };
+                    }
+                  }
+                }
+              }
+
+              return { author_found: false, directory, usernames };
+            }
+
+            async function run() {
+              const { data: files } = await github.rest.pulls.listFiles({
+                owner,
+                repo,
+                pull_number
+              });
+
+              let body = "This PR changes the following paths:\n\n"
+
+              const directories =  new Set();
+              for (const file of files) {
+                directories.add(file.filename.substring(0, file.filename.lastIndexOf('/')));
+              }
+
+              for (const directory of Array.from(directories)) {
+                const { author_found: isAuthorFound, directory: dir, usernames } = await checkReadme(directory);
+
+                const icon = isAuthorFound ? "✅" : "⚠️";
+
+                body += `\n* ${icon} \`${directory}/\`\n`
+                body += isAuthorFound
+                  ? `Author @${author} is listed as maintainer of \`${directory}\` (via [\`${dir}/README.md\`](../blob/master/${dir}/README.md))`
+                  : [
+                    `Author @${author} is not listed in any README.md within the \`italia/\` directory`,
+                    usernames ? `@${usernames.join(' @')} please review this PR` : "",
+                  ].join('\n');
+              }
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pull_number,
+                body,
+              });
+            }
+
+            run();
