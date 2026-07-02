@@ -12,6 +12,7 @@ We develop terminologies and ontologies as base for FAIR data management in cata
 
 * [voc4cat](https://github.com/nfdi4cat/voc4cat) - A SKOS vocabulary for catalysis maintained by NFDI4Cat & friends.
 * [pid4cat-model](https://github.com/nfdi4cat/pid4cat-model) - A LinkML data model for meta data of pid4cat persistent indentifiers that are based on the handle system.
+* [vp4cat](https://github.com/nfdi4cat/voc4cat-tool/blob/main/src/voc4cat/profile/vp4cat.ttl) - A SHACL profile for voc4cat-tool based vocabularies.
 
 ### Contacts
 

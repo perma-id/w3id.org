@@ -24,3 +24,4 @@ It brings together scientific communities to develop standards, services, and in
   ChemDCAT & DCAT-AP+:
   * Philip Stroemert (GitHub: [StroemPhi](https://github.com/StroemPhi),email: <Philip.Stroemert@tib.eu>, only for NFDI4Chem)
   * Hendrik Borgelt (GitHub: [HendrikBorgelt](https://github.com/HendrikBorgelt),email: <hendrik.borgelt@tu-dortmund.de>, only for NFDI4Cat)
+  * David Linke (GitHub: [dalito](https://github.com/dalito), email: <david.linke@catalysis.de>)

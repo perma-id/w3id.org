@@ -1,29 +1,145 @@
-Header set Access-Control-Allow-Origin \*
-Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+# =============================================================================
+# w3id.org/ixo  —  redirect configuration for the IXO namespace
+#
+# Canonical content host : https://ixofoundation.github.io/ns/
+# Canonical IRI form     : https://w3id.org/ixo/<path>      (NO "ns/" prefix)
+#
+# Policy:
+#   * Namespace IRIs use 303 See Other — they identify abstract resources
+#     (contexts, classes, properties, SKOS concepts), which 303-redirect to the
+#     documents that describe them.
+#   * The legacy "ns/"-prefixed variant (w3id.org/ixo/ns/<path>) is collapsed to
+#     the canonical bare form with a single 301.
+#   * Every rule targets a concrete file (…/index.jsonld or …/<name>.json),
+#     never a bare directory (which would land on a GitHub Pages listing / 404).
+#   * Trailing slashes are tolerated on every namespace path.
+# =============================================================================
+
+# --- CORS ---------------------------------------------------------------------
+# "always" so the headers are also attached to the 303/301 redirect responses
+# themselves (the onsuccess table only covers 2xx) — browsers fetching a
+# context cross-origin need CORS on every hop of the redirect chain.
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept"
 Options +FollowSymLinks
-RewriteEngine on
 
-# ixo ns(namespace) mappings, folders for json files and file mappings for jsonld
-#file mappings:
-RewriteRule ^vocab/v1(.*)$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld$1 [R=302,L]
-RewriteRule ^ns/vocab/v1(.*)$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld$1 [R=302,L]
-RewriteRule ^attribute/schema(.*)$ https://ixofoundation.github.io/ns/attribute/schema.jsonld$1 [R=302,L]
-RewriteRule ^ns/attribute/schema(.*)$ https://ixofoundation.github.io/ns/attribute/schema.jsonld$1 [R=302,L]
-# context without version mapping included
-RewriteRule ^context/v1(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
-RewriteRule ^ns/context/v1(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
-RewriteRule ^context(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
-RewriteRule ^ns/context(.*)$ https://ixofoundation.github.io/ns/context/v1/index.jsonld$1 [R=302,L]
+# --- Media types --------------------------------------------------------------
+# NB: w3id.org only *redirects*; the authoritative Content-Type is set by the
+# content host, which already serves .jsonld as application/ld+json (verified
+# against ixofoundation.github.io/ns). The directive below is therefore
+# documentary — it only takes effect if a variant of this config serves files
+# directly. JSON Schema (.json) is served as application/json; the more specific
+# application/schema+json is an optional content-host refinement. See readme.md.
+AddType application/ld+json .jsonld
 
-# folder mappings:
-RewriteRule ^activity(.*)$ https://ixofoundation.github.io/ns/activity$1 [R=302,L]
-RewriteRule ^attribute(.*)$ https://ixofoundation.github.io/ns/attribute$1 [R=302,L]
-RewriteRule ^capability(.*)$ https://ixofoundation.github.io/ns/capability$1 [R=302,L]
-RewriteRule ^credential-schemas(.*)$ https://ixofoundation.github.io/ns/credential-schemas$1 [R=302,L]
-RewriteRule ^entity(.*)$ https://ixofoundation.github.io/ns/entity$1 [R=302,L]
-RewriteRule ^measure(.*)$ https://ixofoundation.github.io/ns/measure$1 [R=302,L]
-RewriteRule ^protocol(.*)$ https://ixofoundation.github.io/ns/protocol$1 [R=302,L]
-RewriteRule ^schema(.*)$ https://ixofoundation.github.io/ns/schema$1 [R=302,L]
+RewriteEngine On
 
-# https://w3id.org/ixo -> https://ixofoundation.github.io/
-RewriteRule ^(.*)$ https://ixofoundation.github.io/$1 [R=302,L]
+# --- 0. did:ixo DID method context --------------------------------------------
+# The canonical JSON-LD context for the did:ixo method, defining the
+# method-specific terms (linkedResource, linkedClaim, linkedEntity,
+# accordedRight, blockchainAccountId, CosmosAccountAddress, …). Published WITH
+# the "ns/" segment as the canonical form, so these explicit 303s must precede
+# the rule-1 "ns/" collapse — otherwise the IRI would be 301'd to the bare
+# form before it could resolve to a document. Appended to the @context array
+# of every resolved did:ixo document (W3C DID Core §6.3.1 JSON-LD production).
+# The bare form (no "ns/") also resolves, so both spellings dereference.
+#
+# Accept-based content negotiation:
+#   * Browsers (Accept: text/html…) → Jekyll-rendered spec page
+#   * Everything else (JSON-LD processors, curl with no Accept, */*) → the
+#     canonical JSON-LD context document
+# The text/html rule MUST come first; a RewriteCond only attaches to the
+# immediately-following RewriteRule.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(?:ns/)?did(?:/v1)?/?$ https://ixofoundation.github.io/ns/did/v1/ [R=303,L]
+RewriteRule ^(?:ns/)?did(?:/v1)?/?$ https://ixofoundation.github.io/ns/did/v1/index.jsonld [R=303,L]
+
+# --- 0b. did:ixo legacy interchain-identifiers context ------------------------
+# The earlier IID umbrella context, kept resolvable for back-compat with
+# already-resolved did:ixo documents that reference it. New documents
+# reference the did/v1 context above instead. Same negotiation pattern as
+# rule 0 — browsers get the spec page, everything else gets the JSON-LD.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(?:ns/)?interchain-identifiers(?:/v1)?/?$ https://ixofoundation.github.io/ns/interchain-identifiers/v1/ [R=303,L]
+RewriteRule ^(?:ns/)?interchain-identifiers(?:/v1)?/?$ https://ixofoundation.github.io/ns/interchain-identifiers/v1/index.jsonld [R=303,L]
+
+# --- 1. Legacy "ns/" prefix  →  canonical bare form (single 301) --------------
+RewriteRule ^ns/(.*)$ https://w3id.org/ixo/$1 [R=301,L]
+
+# --- 1b. Namespace root → repo README -----------------------------------------
+# Human landing page for the namespace. (Accept-based content negotiation to an
+# HTML docs site returns once docs/ is published on the content host —
+# redirecting to it before it exists would send every browser to a 404.)
+RewriteRule ^/?$ https://github.com/ixofoundation/ns [R=303,L]
+
+# --- 2. Umbrella context ------------------------------------------------------
+#   context | context/v1 | context/v1/   ->   context/v1/index.jsonld
+RewriteRule ^context(?:/v1)?/?$ https://ixofoundation.github.io/ns/context/v1/index.jsonld [R=303,L]
+
+# --- 2b. Claim context --------------------------------------------------------
+#   claimcontext | claimcontext/v1 | claimcontext/v1/  ->  claimcontext/v1/index.jsonld
+#   The minimal @protected context bundled into claims (id/type/claim/vocab/
+#   emerging/ecs/schema/attribute/protocol/supamoto/review/minisass/…). Needs an
+#   explicit rule so claims that reference it by URL dereference to a document.
+RewriteRule ^claimcontext(?:/v1)?/?$ https://ixofoundation.github.io/ns/claimcontext/v1/index.jsonld [R=303,L]
+
+# --- 3. Core vocabulary + country codes ---------------------------------------
+#   vocab/v1 -> vocab/v1/index.jsonld ;  vocab/v1/countries -> vocab/v1/countries.jsonld
+#   (JSON-LD docs use .jsonld so GitHub Pages serves them as application/ld+json.
+#   countries.jsonld lands in a later ns content phase — 404 until published.)
+RewriteRule ^vocab/v1/?$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld [R=303,L]
+RewriteRule ^vocab/v1/countries/?$ https://ixofoundation.github.io/ns/vocab/v1/countries.jsonld [R=303,L]
+# back-compat: legacy explicit .json links -> .jsonld
+RewriteRule ^vocab/v1/index\.json$ https://ixofoundation.github.io/ns/vocab/v1/index.jsonld [R=301,L]
+RewriteRule ^vocab/v1/countries\.json$ https://ixofoundation.github.io/ns/vocab/v1/countries.jsonld [R=301,L]
+
+# --- 3b. Attribute dictionary -------------------------------------------------
+#   attributes | attributes/v1 | attributes/v1/<term>  ->  the attribute
+#   dictionary (protocol/attributes/v1/index.json — the only dictionary document
+#   currently published). The `attribute:` prefix is path-based, so individual
+#   term IRIs (…/attributes/v1/<term>) dereference to the dictionary that
+#   describes them.
+RewriteRule ^attributes(/.*)?$ https://ixofoundation.github.io/ns/protocol/attributes/v1/index.json [R=303,L]
+
+# --- 4a. Attribute namespace --------------------------------------------------
+# protocol/attributes/v1 holds the attribute dictionary (index.json); the
+# schema.org JSON-LD context lives one level up at protocol/attributes/
+# schema.jsonld. Both precede the generic protocol rule below. The last rule
+# keeps the original singular `attribute/schema` IRI resolving.
+RewriteRule ^protocol/attributes/v1/?$ https://ixofoundation.github.io/ns/protocol/attributes/v1/index.json [R=303,L]
+RewriteRule ^protocol/attributes/schema(?:\.jsonld)?/?$ https://ixofoundation.github.io/ns/protocol/attributes/schema.jsonld [R=303,L]
+RewriteRule ^attribute/schema(?:\.jsonld)?/?$ https://ixofoundation.github.io/ns/protocol/attributes/schema.jsonld [R=303,L]
+
+# --- 4. Protocol schemes ------------------------------------------------------
+# Every published protocol document is currently <scheme>/v1/index.json, so the
+# generic rule targets index.json. When a scheme is converted to a JSON-LD SKOS
+# concept scheme (index.jsonld), add a specific rule for it ABOVE this one.
+RewriteRule ^protocol/(.+)/v1/?$ https://ixofoundation.github.io/ns/protocol/$1/v1/index.json [R=303,L]
+
+# --- 4b. Capability concept schemes (zcap, …) ---------------------------------
+#   capability/<thing>/v1  ->  capability/<thing>/v1/index.json
+RewriteRule ^capability/(.+)/v1/?$ https://ixofoundation.github.io/ns/capability/$1/v1/index.json [R=303,L]
+
+# --- 4c. Activity & measure schemes -------------------------------------------
+#   activity/v1 | measure/v1  ->  <name>/v1/index.json
+RewriteRule ^(activity|measure)/v1/?$ https://ixofoundation.github.io/ns/$1/v1/index.json [R=303,L]
+
+# --- 5. JSON Schemas  (schema/v1/<name>) --------------------------------------
+#   schema/v1/<name> | schema/v1/<name>.json   ->   schema/v1/<name>.json
+#   schema/profile  ->  schema/profile/index.json (existing document)
+RewriteRule ^schema/profile/?$ https://ixofoundation.github.io/ns/schema/profile/index.json [R=303,L]
+RewriteRule ^schema/v1/([^/]+?)(?:\.json)?/?$ https://ixofoundation.github.io/ns/schema/v1/$1.json [R=303,L]
+
+# --- 6. SHACL shapes  (schema/shapes/v1/<name>) -------------------------------
+#   schema/shapes/v1/<name> | …<name>.jsonld   ->   schema/shapes/v1/<name>.jsonld
+RewriteRule ^schema/shapes/v1/([^/]+?)(?:\.jsonld)?/?$ https://ixofoundation.github.io/ns/schema/shapes/v1/$1.jsonld [R=303,L]
+
+# --- 7. Templates  (templates/v1/<name>)  — content lands in Phase 6 ----------
+#   templates/v1/<name> | templates/v1/<name>.jsonld -> templates/v1/<name>.jsonld
+RewriteRule ^templates/v1/([^/]+?)(?:\.jsonld)?/?$ https://ixofoundation.github.io/ns/templates/v1/$1.jsonld [R=303,L]
+
+# --- 8. Catch-all  →  GitHub Pages /ns/ tree ----------------------------------
+# Preserves the path under /ns/ (the prior config dropped the /ns/ prefix and
+# landed on the wrong host root). Direct file paths (…/index.jsonld) and repo
+# assets (LICENSE, README.md) resolve through here.
+RewriteRule ^(.*)$ https://ixofoundation.github.io/ns/$1 [R=303,L]

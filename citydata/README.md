@@ -8,7 +8,7 @@ The City Data Model is an effort to standardize definitions of data used within 
 * Part 2: City level concepts
 * Part 3: Service level concepts for transport
 
-For now, the files are maintained under the [TC 204 website](https://github.com/ISO-TC204/ontology-cdm-p#) (where # indicates the part number). It is expected that this site will migrate to a new site once the project migrates from ISO/IEC JTC1 WG 11 to the new ISO/IEC JTC4 and a new GitHub account is created.
+For now, the files are maintained under the [TC 204 website](https://isotc204.org/ontology-cdm-p#-v#/latest) (where the # symbols indicate the part and version numbers). It is expected that this site will migrate to a new site once the project migrates from ISO/IEC JTC1 WG 11 to the new ISO/IEC JTC4 and a new GitHub account is created.
 
 ## Contact
 

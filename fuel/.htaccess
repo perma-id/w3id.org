@@ -1,33 +1,130 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# Rewrite rules for the FUsion Energy Lexicon (FUEL), including content negotiation
+# ------------------------------------------------------------
+# FUEL content negotiation (303 redirects) to GitHub Pages URLs
+#
+# Concrete resources:
+#   latest:   https://ukaea.github.io/fuel/fuel.(ttl|owl|jsonld|nt|trig|n3)
+#   dev:      https://ukaea.github.io/fuel/dev/fuel.(...)
+#   releases: https://ukaea.github.io/fuel/releases/<ver>/fuel.(...)
+#
+# HTML docs (Using Widoco as default, but other docs are available):
+#   latest:   https://ukaea.github.io/fuel/docs/widoco/
+#   dev:      https://ukaea.github.io/fuel/dev/docs/widoco/
+#   releases: https://ukaea.github.io/fuel/releases/<ver>/docs/widoco/
+# ------------------------------------------------------------
 
-# Default to Turtle if no Accept header is provided
-RewriteCond %{HTTP_ACCEPT} !(rdf\+xml|json-ld|n-triples|turtle|trig|n3|html) [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.ttl [R=303,L]
+# =========================
+# 1) Latest/current version
+# =========================
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/xml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} text/xml [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.owl [R=303,L]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.owl [R=303,L]
 
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.jsonld [R=303,L]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.jsonld [R=303,L]
 
 # N-Triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.nt [R=303,L]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.nt [R=303,L]
+
+# TriG
+RewriteCond %{HTTP_ACCEPT} application/trig [NC]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.trig [R=303,L]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.n3 [R=303,L]
 
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/ukaea/fuel/main/fuel.ttl [R=303,L]
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.ttl [R=303,L]
 
-# HTML (documentation on GitHub Pages)
+# HTML (Widoco docs)
 RewriteCond %{HTTP_ACCEPT} text/html [NC]
-RewriteRule ^$ https://ukaea.github.io/fuel/ [R=303,L]
+RewriteRule ^$ https://ukaea.github.io/fuel/docs/widoco/ [R=303,L]
 
-# Fallback: default to HTML
-RewriteRule ^$ https://ukaea.github.io/fuel/ [R=303,L]
+# Default: Turtle
+RewriteRule ^$ https://ukaea.github.io/fuel/fuel.ttl [R=303,L]
+
+
+# =========================
+# 2) Development version
+# =========================
+
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.nt [R=303,L]
+
+# TriG
+RewriteCond %{HTTP_ACCEPT} application/trig [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.trig [R=303,L]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.n3 [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.ttl [R=303,L]
+
+# HTML (Widoco docs, dev)
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/docs/widoco/ [R=303,L]
+
+# Default: Turtle
+RewriteRule ^dev/?$ https://ukaea.github.io/fuel/dev/fuel.ttl [R=303,L]
+
+
+# =========================
+# 3) Releases (versioned)
+# =========================
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.nt [R=303,L]
+
+# TriG
+RewriteCond %{HTTP_ACCEPT} application/trig [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.trig [R=303,L]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} text/n3 [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.n3 [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.ttl [R=303,L]
+
+# HTML (Widoco docs, versioned)
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/docs/widoco/ [R=303,L]
+
+# Default: Turtle
+RewriteRule ^releases/([0-9]+(?:\.[0-9]+)*)/?$ https://ukaea.github.io/fuel/releases/$1/fuel.ttl [R=303,L]

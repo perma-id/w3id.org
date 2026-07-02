@@ -1,0 +1,33 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /fair-metrics/
+
+# 1. Remove trailing slash (non-root only, to keep clean URLs)
+RewriteCond %{REQUEST_URI} !^/fair-metrics/?$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# 2. Root: /fair-metrics/ or /fair-metrics → main documentation
+RewriteRule ^$ https://fairmetrics.github.io/Metrics/ [R=303,L]
+
+# --------------------------------------------------------------------
+# Content negotiation for all paths under /fair-metrics/
+# Captures everything after /fair-metrics/ (including subdirs like esrf/xxx)
+# Redirects to landingpages/ with .html or .ttl extension
+# --------------------------------------------------------------------
+
+# Prefer HTML if client accepts text/html or application/xhtml+xml
+RewriteCond %{HTTP:Accept} text/html [OR]
+RewriteCond %{HTTP:Accept} application/xhtml\+xml
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R=303,L,NE]
+
+# Turtle if text/turtle is acceptable (only if HTML conditions didn't match)
+RewriteCond %{HTTP:Accept} text/turtle
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metric/$1.ttl [R=303,L,NE]
+
+# JSON if application/json or application/ld+json is acceptable 
+RewriteCond %{HTTP:Accept} application/json  [OR]
+RewriteCond %{HTTP:Accept} application/ld+json
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metric/$1.jsonld [R=303,L,NE]
+
+# Default fallback: HTML (for browsers, no Accept header, or unknown types)
+RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R=303,L,NE]

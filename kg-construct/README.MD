@@ -4,8 +4,9 @@ KG-Construct W3C CG
 Workshop:
 * https://w3id.org/kg-construct/workshop
 
-R2RML Implementation Report:
-* https://w3id.org/kg-construct/r2rml-implementation-report
+Implementation Report:
+* RML: https://w3id.org/kg-construct/rml-implementation-report
+* R2RML: https://w3id.org/kg-construct/r2rml-implementation-report
 
 TPAC Website:
 * https://w3id.org/kg-construct/tpac

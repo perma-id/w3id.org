@@ -1,9 +1,534 @@
 #
+# CDIF (Cross-Domain Interoperability Framework) persistent identifiers
+#
 # ## Contact
-# This space is administered by:  
+# This space is administered by:
 #
 # Stephen Richard
 # GitHub username: smrgeoinfo
+# simon@codata.org
+#
+# Building block identifiers follow the pattern:
+#   https://w3id.org/cdif/bbr/metadata/{category}/{name}
+# which maps to the OGC Building Blocks identifier:
+#   cdif.bbr.metadata.{category}.{name}
+#
+# Profile identifiers add a third path segment:
+#   https://w3id.org/cdif/bbr/metadata/profiles/{family}/{name}
+# which maps to:
+#   cdif.bbr.metadata.profiles.{family}.{name}
+#
+# Content negotiation on the BB URI (Accept header):
+#   text/html                                                      → landing page (HTML viewer)
+#   application/schema+json                                        → JSON Schema (JSON)
+#   application/yaml; profile="https://json-schema.org/draft/2020-12/schema"
+#                                                                  → JSON Schema (YAML)
+#   application/yaml                                               → JSON Schema (YAML, fallback)
+#   text/turtle; profile="http://www.w3.org/ns/shacl#"            → SHACL validation rules
+#   text/turtle                                                    → SHACL validation rules (fallback)
+#   application/ld+json; profile="http://www.w3.org/ns/json-ld#context"
+#                                                                  → JSON-LD context
+#   application/ld+json                                            → JSON-LD context (fallback)
+#
+# Explicit sub-path resources (no content negotiation needed):
+#   .../schema            JSON Schema (YAML default; JSON via Accept: application/json)
+#   .../resolved          resolved schema with all $ref inlined (JSON)
+#   .../shacl             SHACL validation rules (Turtle)
+#   .../context           JSON-LD context
 
+Header set Access-Control-Allow-Origin *
+Options -MultiViews +FollowSymLinks
 RewriteEngine on
-RewriteRule ^ https://cdif.codata.org/ [R=302,L]
+
+# Base targets for GitHub Pages (per-repo)
+SetEnvIf Request_URI ^.*$ BB_BASE=https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks
+SetEnvIf Request_URI ^.*$ ADA_BASE=https://usgin.github.io/geochemBuildingBlocks
+SetEnvIf Request_URI ^.*$ DDE_BASE=https://usgin.github.io/ddeBuildingBlocks
+SetEnvIf Request_URI ^.*$ ECRR_BASE=https://usgin.github.io/ecrrBuildingBlocks
+
+# Release-repo bases (each release repo is its own GitHub Pages site,
+# serving from the reviewRevision202606 branch as of 2026-05-30)
+SetEnvIf Request_URI ^.*$ PROFILE_CORE=https://cross-domain-interoperability-framework.github.io/profile-core
+SetEnvIf Request_URI ^.*$ PROFILE_DISCOVERY=https://cross-domain-interoperability-framework.github.io/profile-discovery
+SetEnvIf Request_URI ^.*$ PROFILE_DATADESC=https://cross-domain-interoperability-framework.github.io/profile-datadescription
+SetEnvIf Request_URI ^.*$ PROFILE_DATASTRUCT=https://cross-domain-interoperability-framework.github.io/profile-datastructure
+SetEnvIf Request_URI ^.*$ PROFILE_MANIFEST=https://cross-domain-interoperability-framework.github.io/profile-manifest
+SetEnvIf Request_URI ^.*$ PROFILE_PROV=https://cross-domain-interoperability-framework.github.io/profile-provenance
+SetEnvIf Request_URI ^.*$ PROFILE_CS=https://cross-domain-interoperability-framework.github.io/profile-conceptscheme
+SetEnvIf Request_URI ^.*$ PROFILE_CL=https://cross-domain-interoperability-framework.github.io/profile-codelist
+SetEnvIf Request_URI ^.*$ DOC_CD=https://cross-domain-interoperability-framework.github.io/doc-corediscovery
+SetEnvIf Request_URI ^.*$ DOC_DDD=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescription
+SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescriptionstructure
+
+# ============================================================
+# Conformance URIs: /cdif/{component}/{version}/
+#
+# As of 2026-05-30, CDIF profile-module conformance URIs resolve to
+# their per-profile release repo (profile-* / doc-*) on GitHub Pages,
+# not to the metadataBuildingBlocks register. Each release repo serves:
+#   - <Name>StructuredSchema.json   (resolved JSON Schema)
+#   - <name>Rules.shacl              (merged SHACL shapes)
+#   - CDIF<Name>ImplementationGuide  (rendered to .html via Jekyll)
+#
+# CDIF dataTypes (cdifDataType/* BBs) and other (xas*) conformance URIs
+# continue to resolve to metadataBuildingBlocks (see further down).
+#
+# Mapping:
+#   core/1.1            → profile-core
+#   discovery/1.1       → profile-discovery
+#   data_description/1.1 → profile-datadescription
+#   data_structure/1.1  → profile-datastructure
+#   manifest/1.1        → profile-manifest
+#   provenance/1.1      → profile-provenance
+#   conceptscheme/1.1   → profile-conceptscheme
+#   codelist/1.1        → profile-codelist
+#   xasDiscovery/1.0    → mBB profiles/cdifCompositeProfile/XASdata
+#   xasCore/1.0         → mBB xasProperties/xasCore
+# ============================================================
+
+# ---- Conformance URI sub-paths ----
+# These MUST come before the bare conformance URI rules so that
+# {component}/{version}/{resource} is matched before {component}/{version}
+
+# --- core/1.1 sub-paths → profile-core ---
+RewriteRule ^core/1\.1/schema/?$       %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/1\.1/resolved/?$     %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/1\.1/shacl/?$        %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/1\.1/guide/?$        %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
+
+# --- discovery/1.1 sub-paths → profile-discovery ---
+RewriteRule ^discovery/1\.1/schema/?$  %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/1\.1/resolved/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/1\.1/shacl/?$   %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/1\.1/guide/?$   %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
+
+# --- data_description/1.1 sub-paths → profile-datadescription ---
+RewriteRule ^data_description/1\.1/schema/?$   %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/1\.1/resolved/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/1\.1/shacl/?$    %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/1\.1/guide/?$    %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+
+# --- data_structure/1.1 sub-paths → profile-datastructure ---
+RewriteRule ^data_structure/1\.1/schema/?$   %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/1\.1/resolved/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/1\.1/shacl/?$    %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/1\.1/guide/?$    %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
+
+# --- manifest/1.1 sub-paths → profile-manifest ---
+RewriteRule ^manifest/1\.1/schema/?$   %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/1\.1/resolved/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/1\.1/shacl/?$    %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/1\.1/guide/?$    %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
+
+# --- provenance/1.1 sub-paths → profile-provenance ---
+RewriteRule ^provenance/1\.1/schema/?$   %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteRule ^provenance/1\.1/resolved/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteRule ^provenance/1\.1/shacl/?$    %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
+RewriteRule ^provenance/1\.1/guide/?$    %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
+
+# --- conceptscheme/1.1 sub-paths → profile-conceptscheme ---
+RewriteRule ^conceptscheme/1\.1/schema/?$   %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/1\.1/resolved/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/1\.1/shacl/?$    %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/1\.1/guide/?$    %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
+
+# --- codelist/1.1 sub-paths → profile-codelist ---
+RewriteRule ^codelist/1\.1/schema/?$   %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/1\.1/resolved/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/1\.1/shacl/?$    %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/1\.1/guide/?$    %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
+
+# --- xasDiscovery/1.0 sub-paths → mBB XASdata (unchanged) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.json [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.yaml [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/resolvedSchema.json [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/rules.shacl [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/context.jsonld [R=303,L]
+
+# --- xasCore/1.0 sub-paths → mBB xasCore (unchanged) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/context.jsonld [R=303,L]
+
+# ---- Conformance URI bare paths (content negotiation) ----
+# Each rule serves: application/schema+json / application/json → StructuredSchema;
+# text/turtle → Rules.shacl; default (text/html, browser, anything else) → IG.html
+
+# --- core/1.1 → profile-core ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/1\.1/?$ %{ENV:PROFILE_CORE}/CDIFCoreImplementationGuide.html [R=303,L]
+
+# --- discovery/1.1 → profile-discovery ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/1\.1/?$ %{ENV:PROFILE_DISCOVERY}/CDIFDiscoveryImplementationGuide.html [R=303,L]
+
+# --- data_description/1.1 → profile-datadescription ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/1\.1/?$ %{ENV:PROFILE_DATADESC}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+
+# --- data_structure/1.1 → profile-datastructure ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/1\.1/?$ %{ENV:PROFILE_DATASTRUCT}/CDIFDataStructureImplementationGuide.html [R=303,L]
+
+# --- manifest/1.1 → profile-manifest ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/1\.1/?$ %{ENV:PROFILE_MANIFEST}/CDIFManifestImplementationGuide.html [R=303,L]
+
+# --- provenance/1.1 → profile-provenance ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
+RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
+
+# --- conceptscheme/1.1 → profile-conceptscheme ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/1\.1/?$ %{ENV:PROFILE_CS}/CDIFConceptSchemeImplementationGuide.html [R=303,L]
+
+# --- codelist/1.1 → profile-codelist ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
+
+# --- xasDiscovery/1.0 → mBB XASdata (unchanged) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/profiles/cdifCompositeProfile/XASdata/index.json [R=303,L]
+RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.cdifCompositeProfile.XASdata [R=303,L]
+
+# --- xasCore/1.0 → mBB xasCore (unchanged) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/xasProperties/xasCore/index.json [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.xasProperties.xasCore [R=303,L]
+
+# ============================================================
+# Domain-specific building blocks (separate repos)
+# These MUST come before the generic two-segment rules.
+# geochemProperties/adaProfiles → geochemBuildingBlocks (formerly adaProperties)
+# DDEproperties/DDEProfiles → ddeBuildingBlocks
+# ecrrProperties/ecrrProfiles → ecrrBuildingBlocks
+# ============================================================
+
+# --- ADA (geochemistry) profiles ---
+RewriteRule ^bbr/metadata/profiles/adaProfiles/([^/]+)/schema/?$ %{ENV:ADA_BASE}/build/annotated/profiles/adaProfiles/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/profiles/adaProfiles/([^/]+)/resolved/?$ %{ENV:ADA_BASE}/_sources/profiles/adaProfiles/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/adaProfiles/([^/]+)/shacl/?$ %{ENV:ADA_BASE}/_sources/profiles/adaProfiles/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/adaProfiles/([^/]+)/context/?$ %{ENV:ADA_BASE}/build/annotated/profiles/adaProfiles/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/profiles/adaProfiles/([^/]+)/?$ %{ENV:ADA_BASE}/bblock/ogch.profiles.adaProfiles.$1 [R=303,L]
+
+# --- DDE profiles ---
+RewriteRule ^bbr/metadata/profiles/DDEProfiles/([^/]+)/schema/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/profiles/DDEProfiles/([^/]+)/resolved/?$ %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/DDEProfiles/([^/]+)/shacl/?$ %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/DDEProfiles/([^/]+)/context/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/profiles/DDEProfiles/([^/]+)/?$ %{ENV:DDE_BASE}/bblock/dde.bbr.metadata.profiles.DDEProfiles.$1 [R=303,L]
+
+# --- ECRR profiles ---
+RewriteRule ^bbr/metadata/profiles/ecrrProfiles/([^/]+)/schema/?$ %{ENV:ECRR_BASE}/build/annotated/bbr/metadata/profiles/ecrrProfiles/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/profiles/ecrrProfiles/([^/]+)/resolved/?$ %{ENV:ECRR_BASE}/_sources/profiles/ecrrProfiles/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/ecrrProfiles/([^/]+)/shacl/?$ %{ENV:ECRR_BASE}/_sources/profiles/ecrrProfiles/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/ecrrProfiles/([^/]+)/context/?$ %{ENV:ECRR_BASE}/build/annotated/bbr/metadata/profiles/ecrrProfiles/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/profiles/ecrrProfiles/([^/]+)/?$ %{ENV:ECRR_BASE}/bblock/ecrr.bbr.metadata.profiles.ecrrProfiles.$1 [R=303,L]
+
+# --- Geochem properties (renamed from adaProperties) ---
+RewriteRule ^bbr/metadata/geochemProperties/([^/]+)/schema/?$ %{ENV:ADA_BASE}/build/annotated/geochemProperties/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/geochemProperties/([^/]+)/resolved/?$ %{ENV:ADA_BASE}/_sources/geochemProperties/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/geochemProperties/([^/]+)/shacl/?$ %{ENV:ADA_BASE}/_sources/geochemProperties/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/geochemProperties/([^/]+)/context/?$ %{ENV:ADA_BASE}/build/annotated/geochemProperties/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/geochemProperties/([^/]+)/?$ %{ENV:ADA_BASE}/bblock/ogch.geochemProperties.$1 [R=303,L]
+
+# --- ADA properties (legacy alias → geochemProperties) ---
+RewriteRule ^bbr/metadata/adaProperties/([^/]+)/schema/?$ %{ENV:ADA_BASE}/build/annotated/geochemProperties/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/adaProperties/([^/]+)/resolved/?$ %{ENV:ADA_BASE}/_sources/geochemProperties/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/adaProperties/([^/]+)/shacl/?$ %{ENV:ADA_BASE}/_sources/geochemProperties/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/adaProperties/([^/]+)/context/?$ %{ENV:ADA_BASE}/build/annotated/geochemProperties/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/adaProperties/([^/]+)/?$ %{ENV:ADA_BASE}/bblock/ogch.geochemProperties.$1 [R=303,L]
+
+# --- DDE legacy aliases for renamed BBs ---
+RewriteRule ^bbr/metadata/DDEproperties/ddeMandatory(/.*)?$ /cdif/bbr/metadata/DDEproperties/ddeCore$1 [R=303,L]
+RewriteRule ^bbr/metadata/DDEproperties/ddeSubject(/.*)?$ /cdif/bbr/metadata/DDEproperties/ddeCatalogRecord$1 [R=303,L]
+
+# --- DDE properties ---
+RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/schema/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/DDEproperties/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/resolved/?$ %{ENV:DDE_BASE}/_sources/DDEproperties/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/shacl/?$ %{ENV:DDE_BASE}/_sources/DDEproperties/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/context/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/DDEproperties/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/?$ %{ENV:DDE_BASE}/bblock/dde.bbr.metadata.DDEproperties.$1 [R=303,L]
+
+# --- ECRR legacy alias for renamed BB ---
+RewriteRule ^bbr/metadata/ecrrProperties/ecrrBase(/.*)?$ /cdif/bbr/metadata/ecrrProperties/ecrrCore$1 [R=303,L]
+
+# --- ECRR properties ---
+RewriteRule ^bbr/metadata/ecrrProperties/([^/]+)/schema/?$ %{ENV:ECRR_BASE}/build/annotated/bbr/metadata/ecrrProperties/$1/schema.yaml [R=303,L]
+RewriteRule ^bbr/metadata/ecrrProperties/([^/]+)/resolved/?$ %{ENV:ECRR_BASE}/_sources/ecrrProperties/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/ecrrProperties/([^/]+)/shacl/?$ %{ENV:ECRR_BASE}/_sources/ecrrProperties/$1/rules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/ecrrProperties/([^/]+)/context/?$ %{ENV:ECRR_BASE}/build/annotated/bbr/metadata/ecrrProperties/$1/context.jsonld [R=303,L]
+RewriteRule ^bbr/metadata/ecrrProperties/([^/]+)/?$ %{ENV:ECRR_BASE}/bblock/ecrr.bbr.metadata.ecrrProperties.$1 [R=303,L]
+
+# ============================================================
+# CDIF composite document specs → doc-* release repos
+# These rules MUST come before the generic profile rules below
+# so that the specific composite identifiers are matched first.
+#
+#   bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery → doc-corediscovery
+#   bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription → doc-discoverydatadescription
+#   bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure → doc-discoverydatadescriptionstructure
+#
+# Each release repo serves StructuredSchema.json, Rules.shacl, and the
+# IG (.html via Jekyll). Sub-paths /schema, /resolved, /shacl, /guide
+# resolve directly to those files.
+# ============================================================
+
+# --- CoreDiscovery sub-paths ---
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/schema/?$   %{ENV:DOC_CD}/CDIFDiscoveryDocStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/resolved/?$ %{ENV:DOC_CD}/CDIFDiscoveryDocStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/shacl/?$    %{ENV:DOC_CD}/discoveryDocRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/guide/?$    %{ENV:DOC_CD}/CDIFDiscoveryDocImplementationGuide.html [R=303,L]
+
+# --- CoreDiscovery bare URI with content negotiation ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/?$ %{ENV:DOC_CD}/CDIFDiscoveryDocStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/?$ %{ENV:DOC_CD}/discoveryDocRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/CoreDiscovery/?$ %{ENV:DOC_CD}/CDIFDiscoveryDocImplementationGuide.html [R=303,L]
+
+# --- DiscoveryDataDescription sub-paths ---
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/schema/?$   %{ENV:DOC_DDD}/CDIFDataDescriptionProfileStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/resolved/?$ %{ENV:DOC_DDD}/CDIFDataDescriptionProfileStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/shacl/?$    %{ENV:DOC_DDD}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/guide/?$    %{ENV:DOC_DDD}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+
+# --- DiscoveryDataDescription bare URI with content negotiation ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/?$ %{ENV:DOC_DDD}/CDIFDataDescriptionProfileStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/?$ %{ENV:DOC_DDD}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescription/?$ %{ENV:DOC_DDD}/CDIFDataDescriptionImplementationGuide.html [R=303,L]
+
+# --- DiscoveryDataDescriptionStructure sub-paths ---
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/schema/?$   %{ENV:DOC_DDDS}/CDIFDiscoveryDataDescriptionStructureProfileStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/resolved/?$ %{ENV:DOC_DDDS}/CDIFDiscoveryDataDescriptionStructureProfileStructuredSchema.json [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/shacl/?$    %{ENV:DOC_DDDS}/discoveryDataDescriptionStructureRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/guide/?$    %{ENV:DOC_DDDS}/CDIFDiscoveryDataDescriptionStructureImplementationGuide.html [R=303,L]
+
+# --- DiscoveryDataDescriptionStructure bare URI with content negotiation ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/?$ %{ENV:DOC_DDDS}/CDIFDiscoveryDataDescriptionStructureProfileStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/?$ %{ENV:DOC_DDDS}/discoveryDataDescriptionStructureRules.shacl [R=303,L]
+RewriteRule ^bbr/metadata/profiles/cdifCompositeProfile/DiscoveryDataDescriptionStructure/?$ %{ENV:DOC_DDDS}/CDIFDiscoveryDataDescriptionStructureImplementationGuide.html [R=303,L]
+
+# ============================================================
+# Profile resources (three-segment): /cdif/bbr/metadata/profiles/{family}/{name}/{resource}
+# These MUST come before the two-segment rules so that
+# bbr/metadata/profiles/{family}/{name} is not consumed as
+# bbr/metadata/{profiles}/{family}
+# ============================================================
+
+# --- /schema with content negotiation ---
+
+# Accept: application/schema+json or application/json → annotated JSON schema
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# Accept: application/yaml (with or without profile param) → annotated YAML schema
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# Default for /schema → YAML (the source format)
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- /resolved → resolvedSchema.json (all $ref inlined) ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/resolved/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/resolvedSchema.json [R=303,L]
+
+# --- /shacl → SHACL validation rules ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/shacl/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- /context → JSON-LD context ---
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# ============================================================
+# Profile landing page with content negotiation:
+#   /cdif/bbr/metadata/profiles/{family}/{name}
+# ============================================================
+
+# --- text/html → bblocks-viewer landing page ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# --- application/schema+json → JSON Schema (JSON) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.json [R=303,L]
+
+# --- application/yaml → JSON Schema (YAML) ---
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/schema.yaml [R=303,L]
+
+# --- text/turtle → SHACL validation rules ---
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/_sources/profiles/$1/$2/rules.shacl [R=303,L]
+
+# --- application/ld+json → JSON-LD context ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/$1/$2/context.jsonld [R=303,L]
+
+# --- application/json (generic) → full JSON documentation ---
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/profiles/$1/$2/index.json [R=303,L]
+
+# --- Default (browser user-agent or unknown Accept) → viewer page ---
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# Fallback → viewer page
+RewriteRule ^bbr/metadata/profiles/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.$1.$2 [R=303,L]
+
+# ============================================================
+# Legacy aliases for renamed CDIF core BBs
+# These MUST come before the generic two-segment rules
+# ============================================================
+RewriteRule ^bbr/metadata/cdifProperties/cdifMandatory(/.*)?$ /cdif/bbr/metadata/profiles/cdifProfile/cdifCore$1 [R=303,L]
+RewriteRule ^bbr/metadata/xasProperties/xasRequired(/.*)?$ /cdif/bbr/metadata/xasProperties/xasCore$1 [R=303,L]
+RewriteRule ^bbr/metadata/xasProperties/xasSubject(/.*)?$ /cdif/bbr/metadata/cdifDataType/cdifCatalogRecord$1 [R=303,L]
+
+# ============================================================
+# Building Block resources (two-segment): /cdif/bbr/metadata/{category}/{name}/{resource}
+# Explicit sub-paths — these always resolve to the named resource
+# ============================================================
+
+# --- /schema with content negotiation ---
+
+# Accept: application/schema+json or application/json → annotated JSON schema
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.json [R=303,L]
+
+# Accept: application/yaml (with or without profile param) → annotated YAML schema
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# Default for /schema → YAML (the source format)
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# --- /resolved → resolvedSchema.json (all $ref inlined) ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/resolved/?$ %{ENV:BB_BASE}/_sources/$1/$2/resolvedSchema.json [R=303,L]
+
+# --- /shacl → SHACL validation rules ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/shacl/?$ %{ENV:BB_BASE}/_sources/$1/$2/rules.shacl [R=303,L]
+
+# --- /context → JSON-LD context ---
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/context.jsonld [R=303,L]
+
+# ============================================================
+# Building Block landing page with content negotiation:
+#   /cdif/bbr/metadata/{category}/{name}
+# The same URI serves different representations via Accept header
+# ============================================================
+
+# --- text/html → bblocks-viewer landing page ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# --- application/schema+json → JSON Schema (JSON) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.json [R=303,L]
+
+# --- application/yaml with JSON Schema profile → JSON Schema (YAML) ---
+# Matches both the profile-qualified and bare application/yaml
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/schema.yaml [R=303,L]
+
+# --- text/turtle with SHACL profile → SHACL validation rules ---
+# Matches both profile-qualified and bare text/turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/_sources/$1/$2/rules.shacl [R=303,L]
+
+# --- application/ld+json with context profile → JSON-LD context ---
+# The W3C JSON-LD spec defines profile="http://www.w3.org/ns/json-ld#context"
+# Matches both profile-qualified and bare application/ld+json
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/$1/$2/context.jsonld [R=303,L]
+
+# --- application/json (generic) → full JSON documentation ---
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/$1/$2/index.json [R=303,L]
+
+# --- Default (browser user-agent or unknown Accept) → viewer page ---
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# Fallback → viewer page
+RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.$1.$2 [R=303,L]
+
+# ============================================================
+# Building Block register: /cdif/bbr/metadata
+# ============================================================
+
+# Register index → bblocks-viewer home
+RewriteRule ^bbr/metadata/?$ %{ENV:BB_BASE}/ [R=303,L]
+
+# ============================================================
+# Base CDIF redirect: /cdif
+# ============================================================
+RewriteRule ^$ https://cdif.codata.org/ [R=302,L]

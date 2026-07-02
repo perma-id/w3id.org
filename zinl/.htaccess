@@ -1,3 +1,29 @@
+# Directive to ensure *.ttl files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+
 RewriteEngine on
-RewriteRule ^fdp/?(.*)$ https://fdp-zin.dci.thehyve.nl/$1 [R=307,L]
-RewriteRule ^package-statements/(.*)$ https://graph-zin.dci.thehyve.nl/repositories/$1/statements [R=307,L]
+RewriteRule ^fdp/?(.*)$ https://fdp-zin.dci.thehyve.nl/$1 [R=307,NE,L]
+RewriteRule ^package-statements/(.*)$ https://graph-zin.dci.thehyve.nl/repositories/$1/statements [R=307,NE,L]
+
+
+# Rewrite rules for fpr-o Ontology
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} (Mozilla|Chrome|Safari|Edge|Opera|Trident) [NC]
+RewriteRule ^fpr-o$ https://thehyve.github.io/fair-package-registry/ontology.html [R=307,NE,L]
+
+# Default response: turtle
+RewriteRule ^fpr-o$ https://raw.githubusercontent.com/thehyve/fair-package-registry/refs/heads/main/fpr-o.ttl [R=307,NE,L]
+
+
+# Rewrite rules for fpr-tax Taxonomy
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} (Mozilla|Chrome|Safari|Edge|Opera|Trident) [NC]
+RewriteRule ^fpr-tax$ https://thehyve.github.io/fair-package-registry/taxonomy-complete.html [R=307,NE,L]
+
+# Default response: turtle
+RewriteRule ^fpr-tax$ https://raw.githubusercontent.com/thehyve/fair-package-registry/refs/heads/main/fpr-tax.ttl [R=307,NE,L]
