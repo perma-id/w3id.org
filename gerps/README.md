@@ -11,6 +11,7 @@ Redirects:
 - https://w3id.org/gerps/ontology/datafield -> https://fusion-jena.github.io/GerPS-Datafield/ (with content negotiation, versioning, and fragment rewrites)
 - https://w3id.org/gerps/ontology/software -> https://fusion-jena.github.io/GerPS-Software/ (with content negotiation, versioning, and fragment rewrites)
 - https://w3id.org/gerps/ontology/law -> https://fusion-jena.github.io/GerPS-Law/ (with content negotiation, versioning, and fragment rewrites)
+- https://w3id.org/gerps/ontology/codelist -> https://fusion-jena.github.io/GerPS-Codelist/ (with content negotiation, versioning, and fragment rewrites)
 
 ### Content Negotiation & Versioning
 
