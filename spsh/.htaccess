@@ -1,17 +1,41 @@
 Options +FollowSymLinks
 RewriteEngine on
 
+# ---------------------------------------------------------------------------
+# /spsh/def  — term namespace (all spsh: terms live at w3id.org/spsh/def#...)
+# NOTE: URL fragments (e.g. #STR) are never sent to the server; the browser
+#       automatically re-appends the original fragment after the 303 redirect.
+# ---------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://miltiadisgkatzios.github.io/spsh/data/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^def(.*)$ https://miltiadisgkatzios.github.io/spsh/data/ontology.ttl [R=303,L]
 
+RewriteRule ^def(.*)$ https://miltiadisgkatzios.github.io/spsh/def [R=303,L]
+
+# ---------------------------------------------------------------------------
+# /spsh/example  — examples dataset
+# (must come before the wildcard catch-all below)
+# ---------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^example/?$ https://miltiadisgkatzios.github.io/spsh/data/examples.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^example(.*)$ https://miltiadisgkatzios.github.io/spsh/data/examples.ttl [R=303,L]
 
-# All other requests (browsers) → ReSpec HTML page
-RewriteRule ^$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
-RewriteRule ^example/?$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
+RewriteRule ^example(.*)$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
 
-# Sub-paths: function, operator, symbol fragments → HTML page
-RewriteRule ^(function|operator|symbol)/?(.*)$ https://miltiadisgkatzios.github.io/spsh/#$1-$2 [R=303,L,NE]
+# ---------------------------------------------------------------------------
+# /spsh/  — ontology root (wildcard catches both empty path and trailing slash)
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^(.*)$ https://miltiadisgkatzios.github.io/spsh/data/ontology.ttl [R=303,L]
+
+RewriteRule ^(.*)$ https://miltiadisgkatzios.github.io/spsh/ [R=303,L]
