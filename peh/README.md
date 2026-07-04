@@ -11,4 +11,10 @@ The resources are core components for the next iteration of the HBM4EU project (
 *Data Architect* at [VITO](https://vito.be)  
 <dirk.devriendt.ext@vito.be>
 GitHub: [dirkdevriendt](https://github.com/dirkdevriendt)
-ORCID: [0000-0002-6514-0173](https://orcid.org/0000-0002-6514-0173)  
+ORCID: [0000-0002-6514-0173](https://orcid.org/0000-0002-6514-0173)
+
+**Gertjan Bisschop**  
+*Data Architect* at [VITO](https://vito.be)  
+<gertjan.bisschop@vito.be>
+GitHub: [GertjanBisschop](https://github.com/GertjanBisschop)
+ORCID: [0000-0001-8327-0142](https://orcid.org/0000-0001-8327-0142)
