@@ -24,5 +24,5 @@ The redirects currently point to:
 
 ## Maintainer
 
-Alper Aşınmaz  
+Alper Asinmaz  
 Email: alperasinmaz@gmail.com
