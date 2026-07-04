@@ -20,7 +20,7 @@ Current SHACL shapes: `https://w3id.org/aasp/aasp_shapes.ttl`
 
 The redirects currently point to:
 
-`https://alperasinmaz.github.io/aasp/`
+`https://archaeodigit.github.io/aasp/`
 
 ## Maintainer
 
