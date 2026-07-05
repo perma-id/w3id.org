@@ -25,5 +25,7 @@ The redirects currently point to:
 ## Maintainer
 
 Alper Asinmaz  
+
 GitHub ID: @archaeodigit
+
 Email: alperasinmaz@gmail.com
