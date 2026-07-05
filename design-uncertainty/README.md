@@ -23,6 +23,7 @@ This namespace resolves to the public documentation and RDF serializations of th
 
 - Name: Uncertainty in AECO Research Group
 - Contact: uncertaintyinaeco@gmail.com
+- github: https://github.com/UncertaintyInAECO
 - Repository: https://github.com/UncertaintyInAECO/DesignUncertainty_taxonomy
 
 ## Notes
