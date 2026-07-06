@@ -5,9 +5,11 @@
 # source. Slash semantics (since v0.3): each minted IRI dereferences
 # individually — class IRIs to per-class HTML anchors, property IRIs
 # to property anchors on the rendered page; the canonical Turtle
-# (version-pinned at the v0.4.0 tag) is served for tools requesting
+# (version-pinned at the v0.6.0 tag) is served for tools requesting
 # RDF. Version IRIs (bare-numeric paths, e.g. /0.3.1) dereference to
-# their own tag-pinned Turtle via one generic rule.
+# their own tag-pinned Turtle via one generic rule. Fixed paths serve
+# the JSON-LD instance context (/context.jsonld) and the two SHACL
+# shapes graphs (/shapes, /shapes-ct).
 #
 # Status: draft, not a normative CDISC artifact. Offered for transfer to
 # CDISC governance; transfer is a single PR against this .htaccess to
@@ -28,6 +30,20 @@ RewriteBase /cdisc/usdm/v4
 # (decision D3, docs/iri-and-governance.md).
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v$1/usdm_v4.ttl [R=303,L]
 
+# JSON-LD 1.1 instance context — fixed path, version-pinned like the
+# canonical Turtle. Must precede the Accept-based rules so the path
+# resolves regardless of Accept header (JSON-LD processors typically
+# send application/ld+json; browsers must not fall through to the
+# HTML anchor rule).
+RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.6.0/usdm_v4.context.jsonld [R=303,L]
+
+# SHACL shapes graphs — fixed paths matching the graph IRIs
+# <.../v4/shapes> (structural) and <.../v4/shapes-ct> (terminology),
+# version-pinned like the canonical Turtle (decision D6,
+# docs/iri-and-governance.md). Must precede the Accept-based rules.
+RewriteRule ^shapes$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.6.0/usdm_v4.shapes.ttl [R=303,L]
+RewriteRule ^shapes-ct$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.6.0/usdm_v4.shapes-ct.ttl [R=303,L]
+
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.jsonld [R=303,L]
@@ -40,9 +56,9 @@ RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.owl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^(.*)$ https://kerfors.github.io/usdm-rdf/ontology.nt [R=303,L]
 
-# Turtle — canonical, version-pinned at the v0.4.0 tag
+# Turtle — canonical, version-pinned at the v0.6.0 tag
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.4.0/usdm_v4.ttl [R=303,L]
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.6.0/usdm_v4.ttl [R=303,L]
 
 # HTML for browsers — namespace root and per-IRI variants
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -55,4 +71,4 @@ RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^(.+)$ https://kerfors.github.io/usdm-rdf/index.html#$1 [R=303,NE,L]
 
 # Default fallback (no Accept header, programmatic clients): canonical Turtle
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.4.0/usdm_v4.ttl [R=303,L]
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/kerfors/usdm-rdf/refs/tags/v0.6.0/usdm_v4.ttl [R=303,L]

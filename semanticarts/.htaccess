@@ -1,25 +1,76 @@
 RewriteEngine on
 
-# https://w3id.org/semanticarts/ns/ontology/gist
-# This is the gist namespace, we are redirecting it to a web page
-RewriteRule ^ns/ontology/gist$ https://ontologies.semanticarts.com/ontology/Namespace.html [R=302,L]
-RewriteRule ^ns/ontology/gist/$ https://ontologies.semanticarts.com/ontology/Namespace.html [R=302,L]
+# ---------------------------------------------------------------------------
+# Redirect Rules for http://w3id.org/semanticarts
+# ---------------------------------------------------------------------------
+# - send ontology file RDF requests to our webserver
+# - send ontology file HTML requests to a page on github.io (pages) server
+# - send ontology term requests to a github.io (pages) server
 
-# everything else to be redirected to a similar URL on our server
-# Ex: https://w3id.org/semanticarts/gistCore
-# Ex: https://w3id.org/semanticarts/gistCore.ttl
-# Ex: https://w3id.org/semanticarts/ns/ontology/gist/Person
-RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1 [R=302,L]
-
-## gist ontology terms to be redirected to similar URL on our server
-## Ex: https://w3id.org/semanticarts/ns/ontology/gist/Person
-#RewriteRule ^ns/(.+)$ https://ontologies.semanticarts.com/ns/$1 [R=302,L]
+# GitHub Pages base URL for static gist ontology term files.
+# URL: https://semanticarts.github.io/gist-doc
 #
-## gist ontology files and bundles to be redirected to current download URL on our server
-## Ex: w3id.org/semanticarts/gistCore
-## Ex: w3id.org/semanticarts/gistCore.ttl
-## Ex: w3id.org/semanticarts/gistCoreX.x.x.ttl
-## Ex: w3id.org/semanticarts/gistMediaTypes11.1.0.ttl
-## Ex: w3id.org/semanticarts/gist11.0.0_webDownload.zip
-#RewriteRule ^gist(.*)$ https://ontologies.semanticarts.com/gist$1 [R=302,L]
+# Expected directory layout on GitHub Pages:
+#   {GHPAGES}/terms/{Term}.{ttl,rdf,jsonld}
+#   {GHPAGES}/latest/widoco-documentation/index-en.html           (WIDOCO full-ontology HTML)
 
+# ---------------------------------------------------------------------------
+# /ns/ontology/gist/  — namespace URI → Namespace.html landing page
+# ---------------------------------------------------------------------------
+RewriteRule ^ns/ontology/gist/?$ https://ontologies.semanticarts.com/ontology/Namespace.html [R=302,L]
+
+# ---------------------------------------------------------------------------
+# /ns/ontology/gist/{Term}  — per-term SCBD files with content negotiation
+# 303 See Other is correct for conneg redirects (RFC 7231 §6.4.4)
+# Rules are tested in server-preference order; client q-values are not parsed.
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/terms/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/terms/$1.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json [NC]
+RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/terms/$1.jsonld [R=303,L]
+
+# HTML (browsers): redirect to term anchor in WIDOCO full-ontology docs.
+# Replace with terms/$1.html once per-term HTML pages are generated.
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/latest/widoco-documentation/index-en.html#$1 [R=303,NE,L]
+
+# Default (Accept: */*, curl, wget, unknown clients) → Turtle
+RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/terms/$1.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# /ontology/{name}  — whole-ontology document IRIs with content negotiation
+# Handles both unversioned (gistCore) and versioned (gistCore14.1.0) IRIs.
+# owl:versionIRI and rdfs:isDefinedBy in the ontology files use these IRIs.
+# ---------------------------------------------------------------------------
+
+# Explicit format extension already present — pass through unchanged.
+# Must come before the extensionless conneg rules.
+# Pattern matches gistCore14.1.0.ttl: (.+) captures "gistCore14.1.0", (ttl|…) captures "ttl".
+RewriteRule ^ontology/(.+)\.(ttl|rdf|jsonld)$ https://ontologies.semanticarts.com/$1.$2 [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json [NC]
+RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.jsonld [R=303,L]
+
+# HTML → WIDOCO documentation
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^ontology/([^/]+)$ https://semanticarts.github.io/gist-doc/latest/widoco-documentation/index-en.html [R=303,L]
+
+# Default → Turtle (this is a change from the past when we returned rdf+xml)
+RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Everything else — backward-compatible pass-through to existing server.
+# All other w3id.org URLs
+# ---------------------------------------------------------------------------
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1 [R=302,L]

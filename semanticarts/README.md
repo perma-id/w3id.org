@@ -21,10 +21,10 @@ See also: https://www.semanticarts.com/gist/
 ## Contacts:
 
 Semantic Arts Inc
-1 (970) 490-2224
+1 970 490-2224
 
 Technical Contacts:
 * Jamie Gulden (github @Jamie-SA)
+* Boris Pelakh (github @sa-bpelakh)
 * Rebecca Younes (github @rjyounes)
-* Michael Uschold (github @uscholdm)
 * Dave McComb
