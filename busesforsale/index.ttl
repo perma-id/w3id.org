@@ -1,0 +1,240 @@
+@prefix bfs: <https://w3id.org/busesforsale/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bfs: a owl:Ontology ;
+  dcterms:title "BusesForSale vocabulary"@en ;
+  dcterms:description "A vocabulary of denormalized first-level properties used to describe BusesForSale schema:BusOrCoach entities for retrieval, chunkset embeddings, and bot consumption while preserving canonical schema.org modeling."@en ;
+  dcterms:creator "WordLift" ;
+  dcterms:publisher <https://wordlift.io/> ;
+  dcterms:issued "2026-07-06"^^xsd:date ;
+  dcterms:modified "2026-07-06"^^xsd:date ;
+  owl:versionInfo "0.1.1" .
+
+bfs:brandName a owl:DatatypeProperty ;
+  rdfs:label "Brand name"@en ;
+  rdfs:comment "The display name of the brand associated with a bus listing."@en ;
+  skos:definition "Denormalized from schema:brand/schema:name on a schema:BusOrCoach entity. Expected value: text, for example \"Blue Bird\"."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:manufacturerName a owl:DatatypeProperty ;
+  rdfs:label "Manufacturer name"@en ;
+  rdfs:comment "The display name of the manufacturer associated with a bus listing."@en ;
+  skos:definition "Denormalized from schema:manufacturer/schema:name on a schema:BusOrCoach entity. Expected value: text, for example \"Thomas Built Buses\"."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:price a owl:DatatypeProperty ;
+  rdfs:label "Price"@en ;
+  rdfs:comment "The advertised offer price for the bus listing."@en ;
+  skos:definition "Denormalized from schema:offers/schema:price. Expected value: numeric amount in the currency identified by bfs:priceCurrency."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:lowPrice a owl:DatatypeProperty ;
+  rdfs:label "Low price"@en ;
+  rdfs:comment "The lowest advertised price when the listing is represented by an aggregate offer."@en ;
+  skos:definition "Denormalized from schema:offers/schema:lowPrice. Expected value: numeric amount in the currency identified by bfs:priceCurrency."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:offerCount a owl:DatatypeProperty ;
+  rdfs:label "Offer count"@en ;
+  rdfs:comment "The number of offers represented for the bus listing."@en ;
+  skos:definition "Denormalized from schema:offers/schema:offerCount. Expected value: integer count."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Integer ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:priceCurrency a owl:DatatypeProperty ;
+  rdfs:label "Price currency"@en ;
+  rdfs:comment "The ISO 4217 currency code used for price values on the bus listing."@en ;
+  skos:definition "Denormalized from schema:offers/schema:priceCurrency. Expected value: text such as \"USD\"."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:availability a owl:DatatypeProperty ;
+  rdfs:label "Availability"@en ;
+  rdfs:comment "The current availability value for the bus offer."@en ;
+  skos:definition "Denormalized from schema:offers/schema:availability. Expected value: text or URI string such as http://schema.org/InStock."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:itemCondition a owl:DatatypeProperty ;
+  rdfs:label "Item condition"@en ;
+  rdfs:comment "The condition of the bus being offered."@en ;
+  skos:definition "Denormalized from schema:offers/schema:itemCondition. Expected value: text or URI string such as http://schema.org/UsedCondition."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:mileageMiles a owl:DatatypeProperty ;
+  rdfs:label "Mileage in miles"@en ;
+  rdfs:comment "The odometer mileage of the bus expressed in miles."@en ;
+  skos:definition "Denormalized from schema:mileageFromOdometer/schema:value where the source quantitative value uses miles. Expected value: number of miles."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:passengerCapacity a owl:DatatypeProperty ;
+  rdfs:label "Passenger capacity"@en ;
+  rdfs:comment "The number of passengers the bus is configured to carry."@en ;
+  skos:definition "Denormalized from schema:vehicleSeatingCapacity/schema:value, with schema:seatingCapacity as fallback. Expected value: integer or numeric passenger count."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Integer ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:engineType a owl:DatatypeProperty ;
+  rdfs:label "Engine type"@en ;
+  rdfs:comment "A normalized or source-derived text label for the bus engine."@en ;
+  skos:definition "Denormalized from schema:vehicleEngine/schema:engineType. Expected value: text such as \"cummins\"."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:engineDisplacementLiters a owl:DatatypeProperty ;
+  rdfs:label "Engine displacement in liters"@en ;
+  rdfs:comment "The engine displacement of the bus expressed in liters."@en ;
+  skos:definition "Denormalized from schema:vehicleEngine/schema:engineDisplacement/schema:value where the source unit is liters. Expected value: numeric liters."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:gvwrLbs a owl:DatatypeProperty ;
+  rdfs:label "Gross vehicle weight rating in pounds"@en ;
+  rdfs:comment "The gross vehicle weight rating of the bus expressed in pounds."@en ;
+  skos:definition "Denormalized from schema:weightTotal/schema:value where the source unit is pounds. Expected value: numeric pounds."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:exteriorHeightFeet a owl:DatatypeProperty ;
+  rdfs:label "Exterior height in feet"@en ;
+  rdfs:comment "The exterior height of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from schema:height/schema:value where the source quantitative value describes exterior height. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:exteriorWidthFeet a owl:DatatypeProperty ;
+  rdfs:label "Exterior width in feet"@en ;
+  rdfs:comment "The exterior width of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from schema:width/schema:value where the source quantitative value describes exterior width. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:exteriorLengthFeet a owl:DatatypeProperty ;
+  rdfs:label "Exterior length in feet"@en ;
+  rdfs:comment "The exterior length of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from schema:depth/schema:value where the source quantitative value describes exterior length. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:interiorHeightFeet a owl:DatatypeProperty ;
+  rdfs:label "Interior height in feet"@en ;
+  rdfs:comment "The interior height of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.height_ft.interior. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:interiorWidthFeet a owl:DatatypeProperty ;
+  rdfs:label "Interior width in feet"@en ;
+  rdfs:comment "The interior width of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.width_ft.interior. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:interiorLengthFeet a owl:DatatypeProperty ;
+  rdfs:label "Interior length in feet"@en ;
+  rdfs:comment "The interior length of the bus expressed in feet."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.length_ft.interior. Expected value: numeric feet."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:adaAccessible a owl:DatatypeProperty ;
+  rdfs:label "ADA accessible"@en ;
+  rdfs:comment "Indicates whether the bus listing is marked as ADA accessible."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is accessibility.ada. Expected value: boolean true or false."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Boolean ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:wheelchairLift a owl:DatatypeProperty ;
+  rdfs:label "Wheelchair lift"@en ;
+  rdfs:comment "Indicates whether the bus has a wheelchair lift."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is accessibility.wheelchair_lift. Expected value: boolean true or false."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Boolean ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:wheelchairPositions a owl:DatatypeProperty ;
+  rdfs:label "Wheelchair positions"@en ;
+  rdfs:comment "The number of wheelchair positions configured in the bus."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is capacity.wheelchair_positions. Expected value: numeric count."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:hasRestroom a owl:DatatypeProperty ;
+  rdfs:label "Has restroom"@en ;
+  rdfs:comment "Indicates whether the bus has a restroom, toilet, or bathroom feature."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is interior.restroom. Expected value: boolean true or false."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Boolean ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:hasUsbPower a owl:DatatypeProperty ;
+  rdfs:label "Has USB power"@en ;
+  rdfs:comment "Indicates whether the bus has USB power or USB charging features."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is infotainment.power.usb. Expected value: boolean true or false."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Boolean ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:hasLedLighting a owl:DatatypeProperty ;
+  rdfs:label "Has LED lighting"@en ;
+  rdfs:comment "Indicates whether the bus has LED lighting features."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is lighting.led. Expected value: boolean true or false."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Boolean ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:airConditioningBtu a owl:DatatypeProperty ;
+  rdfs:label "Air conditioning capacity in BTU"@en ;
+  rdfs:comment "The air-conditioning capacity of the bus expressed in BTU."@en ;
+  skos:definition "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is climate.ac.btu. Expected value: numeric BTU."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Number ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:idealUse a owl:DatatypeProperty ;
+  rdfs:label "Ideal use"@en ;
+  rdfs:comment "A repeated text value describing an inferred or source-derived use case for the bus."@en ;
+  skos:definition "Denormalized from schema:additionalProperty PropertyValue nodes whose propertyID starts with ideal_use. Multiple values may be present. Expected value: text such as \"School Transportation\"."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .
+
+bfs:feature a owl:DatatypeProperty ;
+  rdfs:label "Feature"@en ;
+  rdfs:comment "A repeated text value preserving a source feature not represented by a more specific BusesForSale property."@en ;
+  skos:definition "Denormalized from schema:additionalProperty PropertyValue nodes whose propertyID is feature. Multiple values may be present. Expected value: source feature text."@en ;
+  schema:domainIncludes schema:BusOrCoach ;
+  schema:rangeIncludes schema:Text ;
+  rdfs:isDefinedBy bfs: .

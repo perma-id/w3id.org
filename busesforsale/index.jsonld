@@ -1,0 +1,577 @@
+{
+  "@context": {
+    "bfs": "https://w3id.org/busesforsale/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "http://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "label": "rdfs:label",
+    "comment": "rdfs:comment",
+    "definition": "skos:definition",
+    "domainIncludes": {
+      "@id": "schema:domainIncludes",
+      "@type": "@id"
+    },
+    "rangeIncludes": {
+      "@id": "schema:rangeIncludes",
+      "@type": "@id"
+    },
+    "isDefinedBy": {
+      "@id": "rdfs:isDefinedBy",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://w3id.org/busesforsale/",
+      "@type": "owl:Ontology",
+      "dcterms:title": {
+        "@value": "BusesForSale vocabulary",
+        "@language": "en"
+      },
+      "dcterms:description": {
+        "@value": "A vocabulary of denormalized first-level properties used to describe BusesForSale schema:BusOrCoach entities for retrieval, chunkset embeddings, and bot consumption while preserving canonical schema.org modeling.",
+        "@language": "en"
+      },
+      "dcterms:creator": "WordLift",
+      "dcterms:publisher": {
+        "@id": "https://wordlift.io/"
+      },
+      "owl:versionInfo": "0.1.1"
+    },
+    {
+      "@id": "bfs:brandName",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Brand name",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The display name of the brand associated with a bus listing.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:brand/schema:name on a schema:BusOrCoach entity. Expected value: text, for example \"Blue Bird\".",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:manufacturerName",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Manufacturer name",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The display name of the manufacturer associated with a bus listing.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:manufacturer/schema:name on a schema:BusOrCoach entity. Expected value: text, for example \"Thomas Built Buses\".",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:price",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Price",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The advertised offer price for the bus listing.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:price. Expected value: numeric amount in the currency identified by bfs:priceCurrency.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:lowPrice",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Low price",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The lowest advertised price when the listing is represented by an aggregate offer.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:lowPrice. Expected value: numeric amount in the currency identified by bfs:priceCurrency.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:offerCount",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Offer count",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The number of offers represented for the bus listing.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:offerCount. Expected value: integer count.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Integer",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:priceCurrency",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Price currency",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The ISO 4217 currency code used for price values on the bus listing.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:priceCurrency. Expected value: text such as \"USD\".",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:availability",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Availability",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The current availability value for the bus offer.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:availability. Expected value: text or URI string such as http://schema.org/InStock.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:itemCondition",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Item condition",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The condition of the bus being offered.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:offers/schema:itemCondition. Expected value: text or URI string such as http://schema.org/UsedCondition.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:mileageMiles",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Mileage in miles",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The odometer mileage of the bus expressed in miles.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:mileageFromOdometer/schema:value where the source quantitative value uses miles. Expected value: number of miles.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:passengerCapacity",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Passenger capacity",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The number of passengers the bus is configured to carry.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:vehicleSeatingCapacity/schema:value, with schema:seatingCapacity as fallback. Expected value: integer or numeric passenger count.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Integer",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:engineType",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Engine type",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "A normalized or source-derived text label for the bus engine.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:vehicleEngine/schema:engineType. Expected value: text such as \"cummins\".",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:engineDisplacementLiters",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Engine displacement in liters",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The engine displacement of the bus expressed in liters.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:vehicleEngine/schema:engineDisplacement/schema:value where the source unit is liters. Expected value: numeric liters.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:gvwrLbs",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Gross vehicle weight rating in pounds",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The gross vehicle weight rating of the bus expressed in pounds.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:weightTotal/schema:value where the source unit is pounds. Expected value: numeric pounds.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:exteriorHeightFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Exterior height in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The exterior height of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:height/schema:value where the source quantitative value describes exterior height. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:exteriorWidthFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Exterior width in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The exterior width of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:width/schema:value where the source quantitative value describes exterior width. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:exteriorLengthFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Exterior length in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The exterior length of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:depth/schema:value where the source quantitative value describes exterior length. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:interiorHeightFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Interior height in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The interior height of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.height_ft.interior. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:interiorWidthFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Interior width in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The interior width of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.width_ft.interior. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:interiorLengthFeet",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Interior length in feet",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The interior length of the bus expressed in feet.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is dimensions.length_ft.interior. Expected value: numeric feet.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:adaAccessible",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "ADA accessible",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "Indicates whether the bus listing is marked as ADA accessible.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is accessibility.ada. Expected value: boolean true or false.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Boolean",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:wheelchairLift",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Wheelchair lift",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "Indicates whether the bus has a wheelchair lift.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is accessibility.wheelchair_lift. Expected value: boolean true or false.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Boolean",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:wheelchairPositions",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Wheelchair positions",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The number of wheelchair positions configured in the bus.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is capacity.wheelchair_positions. Expected value: numeric count.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:hasRestroom",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Has restroom",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "Indicates whether the bus has a restroom, toilet, or bathroom feature.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is interior.restroom. Expected value: boolean true or false.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Boolean",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:hasUsbPower",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Has USB power",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "Indicates whether the bus has USB power or USB charging features.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is infotainment.power.usb. Expected value: boolean true or false.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Boolean",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:hasLedLighting",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Has LED lighting",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "Indicates whether the bus has LED lighting features.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is lighting.led. Expected value: boolean true or false.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Boolean",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:airConditioningBtu",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Air conditioning capacity in BTU",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "The air-conditioning capacity of the bus expressed in BTU.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from a schema:additionalProperty PropertyValue whose propertyID is climate.ac.btu. Expected value: numeric BTU.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Number",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:idealUse",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Ideal use",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "A repeated text value describing an inferred or source-derived use case for the bus.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:additionalProperty PropertyValue nodes whose propertyID starts with ideal_use. Multiple values may be present. Expected value: text such as \"School Transportation\".",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    },
+    {
+      "@id": "bfs:feature",
+      "@type": "owl:DatatypeProperty",
+      "label": {
+        "@value": "Feature",
+        "@language": "en"
+      },
+      "comment": {
+        "@value": "A repeated text value preserving a source feature not represented by a more specific BusesForSale property.",
+        "@language": "en"
+      },
+      "definition": {
+        "@value": "Denormalized from schema:additionalProperty PropertyValue nodes whose propertyID is feature. Multiple values may be present. Expected value: source feature text.",
+        "@language": "en"
+      },
+      "domainIncludes": "schema:BusOrCoach",
+      "rangeIncludes": "schema:Text",
+      "isDefinedBy": "https://w3id.org/busesforsale/"
+    }
+  ]
+}

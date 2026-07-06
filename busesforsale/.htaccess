@@ -8,7 +8,45 @@
 Options +FollowSymLinks
 Options -MultiViews
 
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
 RewriteEngine on
 
-# Temporary namespace target until vocabulary artifacts are published.
-RewriteRule ^$ https://www.busesforsale.com/ [R=303,L]
+# Namespace content negotiation.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://w3id.org/busesforsale/index.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://w3id.org/busesforsale/index.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://w3id.org/busesforsale/index.html [R=303,L]
+
+# Term IRIs resolve to the vocabulary document in the requested format.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([^./]+)$ https://w3id.org/busesforsale/index.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([^./]+)$ https://w3id.org/busesforsale/index.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([^./]+)$ https://w3id.org/busesforsale/index.html#$1 [R=303,NE,L]
+
+# Default to human-readable documentation.
+RewriteRule ^$ https://w3id.org/busesforsale/index.html [R=303,L]
+RewriteRule ^([^./]+)$ https://w3id.org/busesforsale/index.html#$1 [R=303,NE,L]
