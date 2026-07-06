@@ -1,13 +1,20 @@
-# SMARTLHS
+## SMARTLHSONTO
 
-Persistent identifier namespace for the SMART Learning Health System project.
+Persistent namespace for the SMART Learning Health System (SMARTLHS) ontology.
 
-Maintainers:
+Maintainer
+
 Meg Ma
 University of Wollongong
 
-Project homepage:
+Ontology Repository
+
 https://bioportal.bioontology.org/ontologies/SMARTLHSONTOV1
 
-Contact:
-meg.ma1@health.nsw.gov.au
+Description
+
+SMARTLHSONTO is an OWL ontology representing Learning Health System concepts, organisational capabilities and semantic relationships for research, interoperability and AI-enabled knowledge retrieval.
+
+License
+
+CC BY-NC-SA 4.0
