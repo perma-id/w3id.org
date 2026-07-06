@@ -18,6 +18,14 @@ Header set Access-Control-Allow-Origin *
 RewriteEngine On
 
 # -------------------------------------------------------------------------
+# Versioned immutable snapshots. These routes back owl:versionIRI values such
+# as /sstim/0.1.0 and direct frozen-file URLs such as
+# /sstim/0.1.0/sstim-core.ttl.
+# -------------------------------------------------------------------------
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/([A-Za-z0-9._-]+\.ttl)$ https://labiosyncare.github.io/ontology/$1/$2 [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
+
+# -------------------------------------------------------------------------
 # /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
 # -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
@@ -40,6 +48,14 @@ RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
 RewriteRule ^alignments$ https://labiosyncare.github.io/ [R=303,L]
 
 RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/patch-studio — Patch Studio authoring-model vocabulary
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-studio.ttl [R=303,L]
 
 # -------------------------------------------------------------------------
 # /sstim — core ontology (OWL classes and properties). Fragment IRIs such
