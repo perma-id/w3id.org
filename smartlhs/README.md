@@ -6,6 +6,7 @@ Maintainer
 
 Meg Ma
 University of Wollongong
+GitHub: megmaqi-netizen
 
 Ontology Repository
 
