@@ -10,13 +10,17 @@ AddType text/turtle .ttl
 
 RewriteEngine on
 
-#Rewrite rules for the SeisFront ontology
+#Rewrite rules for SeisFront ontology
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^SeisFront$ https://joacostar.github.io/Ontologies/OnToology/SeisFront.ttl/documentation/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^SeisFront$ https://joacostar.github.io/Ontologies/OnToology/SeisFront.ttl/documentation/ontology.owl [R=303,NE,L]
 RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^SeisFront$ https://joacostar.github.io/Ontologies/SeisFront.ttl [R=303,NE,L]
-
+RewriteRule ^SeisFront$ https://joacostar.github.io/Ontologies/OnToology/SeisFront.ttl/documentation/ontology.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^SeisFront$ https://joacostar.github.io/Ontologies/OnToology/SeisFront.ttl/documentation/ontology.owl [R=303,NE,L]
