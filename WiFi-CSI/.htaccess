@@ -1,0 +1,23 @@
+﻿Options +FollowSymLinks
+RewriteEngine on
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ http://34.51.146.173:8090/ontology/wifi_activity.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ http://34.51.146.173:8090/ontology/wifi_activity.ttl [R=303,L]
+
+# HTML en espanol
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT_LANGUAGE} ^es [NC]
+RewriteRule ^$ http://34.51.146.173:8090/ontology/docs/index-es.html [R=303,L]
+
+# default HTML
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ http://34.51.146.173:8090/ontology/docs/index-en.html [R=303,L]
+
+# Fallback
+RewriteRule ^$ http://34.51.146.173:8090/ontology/docs/index-en.html [R=303,L]
