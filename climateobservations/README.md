@@ -14,7 +14,9 @@ Redirects to the EOBS-Agent natural-language querying interface.
 
 ## Maintainer
 
+Auriol Degbelo 
+GitHub: @aurioldegbelo
+Website: https://sites.google.com/site/aurioldegbelo/
+
 Ammar Yousaf  
-University of Dresden  
-Email: mrammar450@gmail.com  
 GitHub: @ammar450
