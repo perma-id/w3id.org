@@ -5,7 +5,7 @@ For the Leiden Longevity Study, long-lived siblings of European descent were rec
 ## Contact
 
 This w3id is administered by:
-Julian Dekker
-J.J.Dekker1@lumc.nl
-GitHub username: JulianDekker
 
+- Julian Dekker
+  - J.J.Dekker1@lumc.nl
+  - GitHub username: JulianDekker
