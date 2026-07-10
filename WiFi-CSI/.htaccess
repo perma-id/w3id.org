@@ -1,0 +1,23 @@
+﻿Options +FollowSymLinks
+RewriteEngine on
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://mikelontxu.github.io/EHUNAM-WiFi-CSI-FAIR-data/ontology.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://mikelontxu.github.io/EHUNAM-WiFi-CSI-FAIR-data/ontology.owl [R=303,L]
+
+# HTML en español
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT_LANGUAGE} ^es [NC]
+RewriteRule ^$ https://mikelontxu.github.io/EHUNAM-WiFi-CSI-FAIR-data/index-es.html [R=303,L]
+
+# default HTML
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://mikelontxu.github.io/EHUNAM-WiFi-CSI-FAIR-data/index-en.html [R=303,L]
+
+# Fallback
+RewriteRule ^$ https://mikelontxu.github.io/EHUNAM-WiFi-CSI-FAIR-data/index-en.html [R=303,L]
