@@ -51,6 +51,7 @@ https://skg-if.cessda.eu/products/<w3id-uri>
 ## Maintainers
 
 For inquiries about this w3id namespace, please contact:
-- **Alen Vodopijevec** (CESSDA Main Office) - alen.vodopijevec@cessda.eu
-- **Matthew Morris** (CESSDA Main Office) - matthew.morris@cessda.eu
-- **Markus Tuominen** (Finnish Social Science Data Archive / Tampere University) - markus.tuominen@tuni.fi
+
+- **Alen Vodopijevec** (CESSDA Main Office) - @alen-vodopijevec-cessda - alen.vodopijevec@cessda.eu
+- **Matthew Morris** (CESSDA Main Office) - @matthew-morris-cessda - matthew.morris@cessda.eu
+- **Markus Tuominen** (Finnish Social Science Data Archive / Tampere University) - @markusjt - markus.tuominen@tuni.fi
