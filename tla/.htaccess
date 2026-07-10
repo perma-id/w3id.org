@@ -1,6 +1,11 @@
 RewriteEngine on
 Options +FollowSymLinks
 
+# Pass through to tla/185/ (Landscape Archive Foundation TLA-185 scheme).
+# Distinct from Total Learning Architecture / TLA Toolbox below.
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^185(/|$) - [L]
+
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^(.*)$ https://tlatoolbox.com/$1.ttl [R=303,L]
