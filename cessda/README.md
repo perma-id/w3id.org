@@ -14,12 +14,12 @@ CESSDA offers extensive, integrated, and sustainable data services to the social
 
 Research data products are identified using the pattern:
 ```
-https://w3id.org/cessda/cessda_product_research_data_<hash>
+https://w3id.org/cessda/cessda_product_research_data_<id>
 ```
 
 These identifiers redirect to the corresponding study in the CESSDA Data Catalogue:
 ```
-https://datacatalogue.cessda.eu/detail/<hash>
+https://datacatalogue.cessda.eu/detail/<id>
 ```
 
 **Example:**
