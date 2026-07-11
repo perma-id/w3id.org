@@ -1,4 +1,4 @@
-﻿# WiFi-CSI
+# WiFi-CSI
 
 Permanent identifier for the EHUNAM WiFi CSI Activity Ontology.
 
