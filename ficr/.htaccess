@@ -1,0 +1,41 @@
+# FiCR ontology w3id redirect
+# Namespace: https://w3id.org/ficr#
+# Ontology IRI: https://w3id.org/ficr
+
+# Maintainer:
+# GitHub: RainGo111
+# Project: FiCR Ontology
+
+Options +FollowSymLinks
+Options -MultiViews
+RewriteEngine On
+
+# -----------------------------
+# Version paths: /ficr/{version}, e.g. /ficr/1.1.0 or /ficr/v1.1.0-beta
+# Version snapshots retain Turtle only.
+# -----------------------------
+RewriteRule ^([A-Za-z0-9][A-Za-z0-9._-]*)/?$ https://raingo111.github.io/FiCR-ontology/$1/ontology.ttl [R=303,L]
+
+# -----------------------------
+# Latest path: /ficr
+# -----------------------------
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/index-en.html [R=303,L]
+
+RewriteRule ^$ https://raingo111.github.io/FiCR-ontology/ontology.ttl [R=303,L]

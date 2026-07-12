@@ -1,10 +1,28 @@
 RewriteEngine On
 
+########################################
+# FAIRagro ODRL
+########################################
+
 # /fairagro/odrl -> FAIRagro GitHub Repository for ODRL Policies
 RewriteRule ^odrl/?$ https://github.com/fairagro/odrl_policies [R=302,L]
 
 # Individual ODRL files
 RewriteRule ^odrl/(.*)$ https://raw.githubusercontent.com/fairagro/odrl_policies/main/policies/$1 [R=302,L]
+
+########################################
+# FAIRagro DQ
+########################################
+
+# Turtle file
+RewriteRule ^dq/fairagrodq\.ttl$ https://zenodo.org/records/20845615/files/fairagrodq.ttl [R=302,L]
+
+# /dq -> DOI Landing Page (Standard)
+RewriteRule ^dq/?$ https://doi.org/10.5281/zenodo.20836241 [R=302,L]
+
+########################################
+# Root
+########################################
 
 # /fairagro -> FAIRagro GitHub Repository
 RewriteRule ^$ https://github.com/fairagro [R=302,L]
