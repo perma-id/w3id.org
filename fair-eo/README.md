@@ -7,4 +7,5 @@ https://w3id.org/fair-eo/ redirects to http://eodata.bvlabs.ai/ai4eo/
 ## Contact:
 
 * Alice Baudhuin (alice@bvlabs.ai)
+  Github identifier: alicebaudhuin
 * Bias Variance Labs (info@bvlabs.ai)
