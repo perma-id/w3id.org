@@ -36,6 +36,7 @@ RewriteCond %{HTTP:Accept-Language} ^de [NC]
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^[^/]+/(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1index-de.html#$2" [R=303,L,NE]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1index-de.html#$2" [R=303,L,NE]
 
 # =============================================================================
@@ -49,6 +50,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^[^/]+/(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1index-en.html#$2" [R=303,L,NE]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1index-en.html#$2" [R=303,L,NE]
 
 # =============================================================================
@@ -57,17 +59,20 @@ RewriteRule ^[^/]+/?(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GER
 # JSON-LD: application/ld+json -> ontology.jsonld
 RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^[^/]+/(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.jsonld [R=303,L]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.jsonld [R=303,L]
 
 # RDF/XML: */* or application/rdf+xml -> ontology.owl
 RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^[^/]+/(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.owl [R=303,L]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.owl [R=303,L]
 
 # N-Triples: application/n-triples -> ontology.nt
 RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^[^/]+/(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.nt [R=303,L]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.nt [R=303,L]
 
 # Turtle: text/turtle, text/*, or */turtle -> ontology.ttl
@@ -75,6 +80,7 @@ RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^[^/]+/(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.ttl [R=303,L]
 RewriteRule ^[^/]+/?(\d+\.\d+\/)?.*$ https://fusion-jena.github.io/%{ENV:GERPS_REPO}/$1ontology.ttl [R=303,L]
 
 # =============================================================================
