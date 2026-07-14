@@ -50,27 +50,30 @@ RewriteRule ^ns/ontology/gist/([^/]+)$ https://semanticarts.github.io/gist-doc/t
 
 # Explicit format extension already present — pass through unchanged.
 # Must come before the extensionless conneg rules.
-# Pattern matches gistCore14.1.0.ttl: (.+) captures "gistCore14.1.0", (ttl|…) captures "ttl".
-RewriteRule ^ontology/(.+)\.(ttl|rdf|jsonld)$ https://ontologies.semanticarts.com/$1.$2 [R=303,L]
+# Request: ontology/gistCore14.1.0.ttl: (.+) captures "ontology/gistCore14.1.0", (ttl|…) captures "ttl".
+# Request: ontology/gistCore14.1.0: (.+) captures "ontology/gistCore14.1.0".
+# Rewrite: https://w3id.org/semanticarts/ontology/gistCore -> https://ontologies.semanticarts.com/ontology/gistCore.ttl
+# Rewrite: https://w3id.org/semanticarts/ontology/gistCore.rdf -> https://ontologies.semanticarts.com/ontology/gistCore.rdf
+RewriteRule ^(.+)\.(ttl|rdf|jsonld)$ https://ontologies.semanticarts.com/$1.$2 [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.rdf [R=303,L]
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1.rdf [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json [NC]
-RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.jsonld [R=303,L]
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1.jsonld [R=303,L]
 
 # HTML → WIDOCO documentation
 RewriteCond %{HTTP_ACCEPT} text/html [NC]
 RewriteRule ^ontology/([^/]+)$ https://semanticarts.github.io/gist-doc/latest/widoco-documentation/index-en.html [R=303,L]
 
 # Default → Turtle (this is a change from the past when we returned rdf+xml)
-RewriteRule ^ontology/([^/]+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
+RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1.ttl [R=303,L]
 
 # ---------------------------------------------------------------------------
 # Everything else — backward-compatible pass-through to existing server.
 # All other w3id.org URLs
 # ---------------------------------------------------------------------------
-RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1 [R=302,L]
+# RewriteRule ^(.+)$ https://ontologies.semanticarts.com/$1 [R=302,L]
