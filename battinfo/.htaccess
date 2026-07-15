@@ -53,8 +53,12 @@ RewriteRule ^([0-9][^/]*)/inferred/?$ https://big-map.github.io/BattINFO/battinf
 RewriteRule ^([0-9][^/]*)/turtle/?$ https://big-map.github.io/BattINFO/battinfo/versions/$1/battinfo.ttl [R=303,NE,L]
 
 ##########################################################################
-##  Generic BattINFO object id redirects to Battery Genome registry
+##  Everything else: BattINFO record identifiers, vocabulary terms, and
+##  semantic artifacts -> the BattINFO registry resolver. Content
+##  negotiation (JSON-LD / Turtle / HTML landing pages), tombstones, and
+##  legacy namespace aliases are all handled by the resolver, so this
+##  file should not need to change again as the record layer grows.
 ##########################################################################
 
-RewriteRule ^([a-z-]+)/([^/]+)/?$ https://www.battery-genome.org/registry/$1/$2 [R=303,NE,L]
+RewriteRule ^(.+)$ https://battinfo-registry.onrender.com/w3id/$1 [R=303,NE,L]
 

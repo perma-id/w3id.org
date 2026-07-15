@@ -1,0 +1,15 @@
+# w3id.org/whs -- UNESCO World Heritage knowledge graph
+Options +FollowSymLinks
+RewriteEngine on
+
+# RDF requested: 303 to the Turtle dump
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/marianamalta/whs-kg/main/out/whs.ttl [R=303,L]
+
+# namespace root: project documentation
+RewriteRule ^$ https://github.com/marianamalta/whs-kg [R=302,L]
+
+# entity URIs (site/755, danger/338-1, ...): human-readable landing
+RewriteRule ^(.*)$ https://marianamalta.github.io/whs-kg/$1 [R=302,L]
