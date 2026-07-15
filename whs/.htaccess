@@ -1,15 +1,21 @@
 # w3id.org/whs -- UNESCO World Heritage knowledge graph
+# Maintainer: Mariana Curado Malta <mariana.c.malta@inesctec.pt>
+# Target: GitHub Pages of https://github.com/marianamalta/whs-kg
+#         (static hosting, no server required)
 Options +FollowSymLinks
 RewriteEngine on
 
-# RDF requested: 303 to the Turtle dump
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(.*)$ https://raw.githubusercontent.com/marianamalta/whs-kg/main/out/whs.ttl [R=303,L]
+# --- Machine clients that ask for RDF -> the Turtle dump on GitHub Pages ---
+# 303 See Other: a World Heritage site is a real-world thing, not the
+# document that describes it.
+RewriteCond %{HTTP_ACCEPT} text/turtle          [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml  [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://marianamalta.github.io/whs-kg/whs.ttl [R=303,L]
 
-# namespace root: project documentation
-RewriteRule ^$ https://github.com/marianamalta/whs-kg [R=302,L]
+# --- N-Triples requested explicitly by extension --------------------------
+RewriteRule ^(.*)\.nt$ https://marianamalta.github.io/whs-kg/whs.nt [R=303,L]
 
-# entity URIs (site/755, danger/338-1, ...): human-readable landing
-RewriteRule ^(.*)$ https://marianamalta.github.io/whs-kg/$1 [R=302,L]
+# --- Browsers / everything else -> the documentation landing page ---------
+RewriteRule ^(.*)$ https://marianamalta.github.io/whs-kg/ [R=302,L]
