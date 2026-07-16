@@ -1,39 +1,29 @@
-# w3id.org/dataerai/… → Dataerai DID resolve API
-#
-# Submit this directory to https://github.com/perma-id/w3id.org (fork → add a
-# root-level `dataerai/` dir → PR). Once merged, w3id.org serves these
-# redirects from the permanent `https://w3id.org/dataerai/...` namespace.
+# w3id.org/dataerai — persistent identifiers for Dataerai DIDs
 #
 # DID shape: did:dataerai:[<env>:]<kind>:<subject>
-#   prod → https://w3id.org/dataerai/<kind>/<subj>
-#   dev  → https://w3id.org/dataerai/dev/<kind>/<subj>
-#   beta → https://w3id.org/dataerai/beta/<kind>/<subj>
-# Each redirects to that environment's app host, where the console serves the
-# public, host-agnostic resolve API GET /api/identity/resolve/<did>/ (AllowAny,
-# no resolver host required). The rule reconstructs the full DID from the path.
-# Confirm the app hosts below match the real per-environment domains.
+#   <env>     dev | beta (absent in production)
+#   <kind>    asset | dataset | person | project
+#   <subject> 32 lowercase base32 chars [a-z2-7]
+#
+# w3id.org/dataerai/[<env>/]<kind>/<subject> 303-redirects to the public DID
+# resolve API on that environment's host, reconstructing the full DID from the
+# path. NE keeps the literal ':' in the substitution.
 
 Options +FollowSymLinks
 RewriteEngine On
 
-# Clients are 303'd to the machine-readable resolve document (application/json).
-# A human landing page is a follow-up (add a content-negotiated 303→HTML rule
-# here once one exists). NE keeps the literal ':' in the reconstructed DID;
-# Django's <str:did> path converter matches it verbatim.
+# ── Non-production: /dataerai/<env>/<kind>/<subj> ─────────────────────────────
+RewriteRule ^(dev|beta)/(asset|dataset|person|project)/([a-z2-7]{32})/?$ https://$1.dataerai.com/api/identity/resolve/did:dataerai:$1:$2:$3/ [R=303,L,NE]
 
-# ── Non-production: /dataerai/<env>/<kind>/<subj> → env app-host resolve API ──
-RewriteRule ^(dev|beta)/(asset|dataset|person)/([a-z2-7]{32})/?$ https://$1.dataerai.com/api/identity/resolve/did:dataerai:$1:$2:$3/ [R=303,L,NE]
+# ── Production: /dataerai/<kind>/<subj> ───────────────────────────────────────
+RewriteRule ^(asset|dataset|person|project)/([a-z2-7]{32})/?$ https://app.dataerai.com/api/identity/resolve/did:dataerai:$1:$2/ [R=303,L,NE]
 
-# ── Production: /dataerai/<kind>/<subj> → prod app-host resolve API ───────────
-RewriteRule ^(asset|dataset|person)/([a-z2-7]{32})/?$ https://app.dataerai.com/api/identity/resolve/did:dataerai:$1:$2/ [R=303,L,NE]
-
-# ── FUTURE (standards-conformant did:web) ────────────────────────────────────
-# When each id.<env>.dataerai.com serves the console did:web routes over public
-# HTTPS (IDENTITY_RESOLVER_HOST set per env; Route53 + ACM + ALB :443 +
-# Host-preserving nginx), swap the two rules above for these so w3id resolves to
-# a W3C did:web document instead of the resolve API:
-#   RewriteRule ^(dev|beta)/(asset|dataset|person)/([a-z2-7]{32})/?$ https://id.$1.dataerai.com/$2/$3/did.json [R=303,L,NE]
-#   RewriteRule ^(asset|dataset|person)/([a-z2-7]{32})/?$ https://id.dataerai.com/$1/$2/did.json [R=303,L,NE]
+# ── Future (standards-conformant did:web) ─────────────────────────────────────
+# Once the id.<env>.dataerai.com resolver hosts serve did:web over public HTTPS,
+# swap the two rules above for these so w3id resolves to the W3C did:web
+# document instead of the resolve API:
+#   RewriteRule ^(dev|beta)/(asset|dataset|person|project)/([a-z2-7]{32})/?$ https://id.$1.dataerai.com/$2/$3/did.json [R=303,L,NE]
+#   RewriteRule ^(asset|dataset|person|project)/([a-z2-7]{32})/?$ https://id.dataerai.com/$1/$2/did.json [R=303,L,NE]
 
 # Bare namespace → documentation
 RewriteRule ^/?$ https://docs.dataerai.com/identity/overview [R=302,L]
