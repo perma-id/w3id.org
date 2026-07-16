@@ -16,7 +16,8 @@ suite (DoCO, DEO, FaBiO, PO) and W3C standards (Web Annotation, PROV-O, SKOS).
 - **Source repository**: <https://github.com/ND-DAC-DOME/paper-anatomy>
 - **Published site**: <https://nd-dac-dome.github.io/paper-anatomy/>
 
-## Contact
+## Contact / maintainer
 
+- Maintainer (GitHub): [@psaboia](https://github.com/psaboia)
 - Priscila Saboia Moreira — <pmoreira@nd.edu> — <https://orcid.org/0009-0001-6047-385X>
 - DAC DOME (Data, Operations, Modeling, and Engineering), University of Notre Dame
