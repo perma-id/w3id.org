@@ -70,22 +70,21 @@ RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-reco
 RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-record/activity/resonance-player-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
 # END audited synthetic ecosystem fixture routes
 
-# BEGIN audited real ecosystem routes
+# -------------------------------------------------------------------------
+# Live ecosystem identifier namespaces. Dataset membership belongs to the
+# mutable RDF projection, not this registry configuration: new, corrected, or
+# retracted records therefore do not require a w3id.org rule change.
+# -------------------------------------------------------------------------
+# BEGIN audited live ecosystem namespace routes
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(specialist/renato-fabbri|organization/biosyncare|organization/junto-innovation-hub|organization/aeterni-anima|ecosystem-record/role/head-of-applied-science|ecosystem-record/role/chief-executive-officer|ecosystem-record/role/chief-technology-officer)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(specialist/renato-fabbri|organization/biosyncare|organization/junto-innovation-hub|organization/aeterni-anima|ecosystem-record/role/head-of-applied-science|ecosystem-record/role/chief-executive-officer|ecosystem-record/role/chief-technology-officer)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/relationship/renato-develops-bsclab|ecosystem-record/relationship/renato-develops-biosyncare|ecosystem-record/relationship/renato-develops-patch-studio|ecosystem-record/relationship/renato-created-sstim|ecosystem-record/relationship/renato-created-bsc-framework|ecosystem-record/relationship/renato-member-of-junto|ecosystem-record/relationship/renato-created-aeterni-anima|ecosystem-record/relationship/renato-leads-aeterni-anima|ecosystem-record/relationship/biosyncare-offers-sensory-stimulation-tools|ecosystem-record/relationship/junto-supports-biosyncare|ecosystem-record/relationship/aeterni-provides-sensory-stimulation-tools)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(ecosystem-record/relationship/renato-develops-bsclab|ecosystem-record/relationship/renato-develops-biosyncare|ecosystem-record/relationship/renato-develops-patch-studio|ecosystem-record/relationship/renato-created-sstim|ecosystem-record/relationship/renato-created-bsc-framework|ecosystem-record/relationship/renato-member-of-junto|ecosystem-record/relationship/renato-created-aeterni-anima|ecosystem-record/relationship/renato-leads-aeterni-anima|ecosystem-record/relationship/biosyncare-offers-sensory-stimulation-tools|ecosystem-record/relationship/junto-supports-biosyncare|ecosystem-record/relationship/aeterni-provides-sensory-stimulation-tools)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^(specialist|organization)/[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/activity/renato-bsclab-self-publication|ecosystem-record/activity/renato-biosyncare-self-publication|ecosystem-record/activity/renato-patch-studio-self-publication|ecosystem-record/activity/renato-sstim-self-publication|ecosystem-record/activity/renato-bsc-framework-self-publication|ecosystem-record/activity/renato-junto-self-publication|ecosystem-record/activity/renato-aeterni-creator-self-publication|ecosystem-record/activity/renato-aeterni-leadership-self-publication|ecosystem-record/activity/biosyncare-tools-publication|ecosystem-record/activity/junto-biosyncare-publication|ecosystem-record/activity/aeterni-tools-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
 
-RewriteRule ^(ecosystem-record/activity/renato-bsclab-self-publication|ecosystem-record/activity/renato-biosyncare-self-publication|ecosystem-record/activity/renato-patch-studio-self-publication|ecosystem-record/activity/renato-sstim-self-publication|ecosystem-record/activity/renato-bsc-framework-self-publication|ecosystem-record/activity/renato-junto-self-publication|ecosystem-record/activity/renato-aeterni-creator-self-publication|ecosystem-record/activity/renato-aeterni-leadership-self-publication|ecosystem-record/activity/biosyncare-tools-publication|ecosystem-record/activity/junto-biosyncare-publication|ecosystem-record/activity/aeterni-tools-publication)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
-# END audited real ecosystem routes
+RewriteRule ^(specialist|organization)/[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+# END audited live ecosystem namespace routes
 
 # -------------------------------------------------------------------------
 # /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
