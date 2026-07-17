@@ -8,45 +8,42 @@
 #   https://github.com/Peirce-Team/PublishingPeircePlatform
 #
 # Persistent archive (Zenodo):
-#   https://doi.org/10.5281/zenodo.20056038
+#   https://doi.org/10.5281/zenodo.20056037
 
 Options +FollowSymLinks
 RewriteEngine On
 
 # -----------------------------------------------------------------------------
-# 1. Schema (LMM3 ontology)
+# 1. Schema (LMM3 ontology) — content negotiation
 # -----------------------------------------------------------------------------
-# https://w3id.org/pip/lmm3 -> ontology TTL on GitHub (main branch)
-RewriteRule ^lmm3$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/lmm3_v07.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^lmm3/?$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/lmm3_v07.ttl [R=302,L]
-RewriteRule ^lmm3#.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/lmm3_v07.ttl [R=302,L]
+
+RewriteRule ^lmm3/?$ https://peirce-team.github.io/PublishingPeircePlatform/index-en.html [R=302,L]
+RewriteRule ^lmm3#.*$ https://peirce-team.github.io/PublishingPeircePlatform/index-en.html [R=302,L]
 
 # -----------------------------------------------------------------------------
 # 2. Named graphs (kg)
 # -----------------------------------------------------------------------------
-# https://w3id.org/pip/kg/<name> -> corresponding TTL file on GitHub
-RewriteRule ^kg/schema$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/lmm3_v07.ttl [R=302,L]
-RewriteRule ^kg/archive$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/archive_houghton.ttl [R=302,L]
-RewriteRule ^kg/semiotic$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/semiotic_pilot.ttl [R=302,L]
-RewriteRule ^kg/commens$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
-RewriteRule ^kg/cp-bridge$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/cp_bridge.ttl [R=302,L]
+RewriteRule ^kg/schema$     https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/lmm3_v07.ttl [R=302,L]
+RewriteRule ^kg/archive$    https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/archive_houghton.ttl [R=302,L]
+RewriteRule ^kg/semiotic$   https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/semiotic_pilot.ttl [R=302,L]
+RewriteRule ^kg/commens$    https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
+RewriteRule ^kg/cp-bridge$  https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/cp_bridge.ttl [R=302,L]
 RewriteRule ^kg/provenance$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/provenance.ttl [R=302,L]
 
 # -----------------------------------------------------------------------------
 # 3. Data namespaces (instance IRIs)
 # -----------------------------------------------------------------------------
-# https://w3id.org/pip/houghton/...     -> archive TTL
-# https://w3id.org/pip/concept/...      -> commens TTL
-# https://w3id.org/pip/commens/...      -> commens TTL
-# https://w3id.org/pip/cp/...           -> cp_bridge TTL
 RewriteRule ^houghton/.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/archive_houghton.ttl [R=302,L]
-RewriteRule ^concept/.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
-RewriteRule ^commens/.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
-RewriteRule ^cp/.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/cp_bridge.ttl [R=302,L]
+RewriteRule ^concept/.*$  https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
+RewriteRule ^commens/.*$  https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/commens.ttl [R=302,L]
+RewriteRule ^cp/.*$       https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/cp_bridge.ttl [R=302,L]
+RewriteRule ^semiotic/.*$ https://raw.githubusercontent.com/Peirce-Team/PublishingPeircePlatform/main/ontology/semiotic_pilot.ttl [R=302,L]
 
 # -----------------------------------------------------------------------------
 # 4. Default landing
 # -----------------------------------------------------------------------------
-# https://w3id.org/pip -> GitHub repository (human-readable landing page)
 RewriteRule ^$ https://github.com/Peirce-Team/PublishingPeircePlatform [R=302,L]
-RewriteRule ^/?$ https://github.com/Peirce-Team/PublishingPeircePlatform [R=302,L]

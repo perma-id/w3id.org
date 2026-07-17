@@ -1,0 +1,15 @@
+# Provetrail: an open standard for verifiable execution provenance.
+# Project: https://github.com/ionalpha/provetrail
+# Maintainer: Ion Alpha (GitHub: @ion-alpha-dev) <contact@ionalpha.io>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Versioned predicate-type definitions resolve to the predicate document in the spec.
+RewriteRule "^predicates/run-provenance/v0\.1/?$" "https://github.com/ionalpha/provetrail/blob/main/predicates/run-provenance.md" [R=302,L]
+
+# The namespace root and any other path resolve to the standard's repository.
+# This is a temporary target until provetrail.org serves the canonical documents;
+# the redirect can be repointed later without changing any identifier.
+RewriteRule "^(.*)$" "https://github.com/ionalpha/provetrail" [R=302,L]

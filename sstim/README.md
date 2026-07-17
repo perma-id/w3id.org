@@ -1,66 +1,65 @@
 # sstim — Sensory Stimulation Ontology
 
-Persistent identifier (PID) home for the **SSTIM** (Sensory Stimulation)
-ontology, developed and maintained as part of the open-source
-[**BSC Lab**](https://github.com/laBioSynCare/laBioSynCare.github.io)
-project.
+Persistent identifiers for **SSTIM**, an OWL ontology with a companion
+SKOS vocabulary and SHACL validation shapes describing sensory
+stimulation protocols (auditory, visual, haptic), their parameters, and
+evidence chains. Developed in the open-source
+[BSC Lab](https://github.com/laBioSynCare/laBioSynCare.github.io) project.
 
 - **Base PID:** <https://w3id.org/sstim>
-- **Target (GitHub Pages):** <https://labiosyncare.github.io/ontology/>
-- **Maintainer:** Renato Fabbri — GitHub [@ttm](https://github.com/ttm) —
-  `renato@junto.space` —
-  ORCID [0000-0002-9699-629X](https://orcid.org/0000-0002-9699-629X)
+- **Target:** <https://labiosyncare.github.io/ontology/>
 
-SSTIM is an OWL ontology with a companion SKOS vocabulary and SHACL
-validation shapes, describing stimulation protocols (auditory,
-visual, haptic), their parameters (frequency bands, voice types,
-breathing models), evidence chains, and session instances. It is
-designed to be reusable by any sensory-stimulation research or
-application project — not specific to BSC Lab or BioSynCare.
+## Maintainer
 
-## Resolvable resources
+**Renato Fabbri** — GitHub [@ttm](https://github.com/ttm) —
+renato.fabbri@gmail.com —
+ORCID [0000-0002-9699-629X](https://orcid.org/0000-0002-9699-629X)
 
-| PID                                   | Content                                           | Format |
-|---------------------------------------|---------------------------------------------------|--------|
-| `https://w3id.org/sstim`              | Core ontology — OWL classes and properties        | Turtle |
-| `https://w3id.org/sstim/vocab`        | SKOS vocabulary — frequency bands, groups, tiers  | Turtle |
-| `https://w3id.org/sstim/shapes`       | SHACL validation shapes                           | Turtle |
-| `https://w3id.org/sstim/alignments`   | External alignments (BFO, OBI, IAO, Wikidata, …)  | Turtle |
+Future PRs touching `sstim/` will be authored or approved by
+[@ttm](https://github.com/ttm).
 
-Fragment IRIs such as `https://w3id.org/sstim#Preset` or
-`https://w3id.org/sstim/vocab#alpha` resolve to the same base
-document; the fragment is resolved client-side by the RDF tool.
+## Routes
 
-## Content negotiation
+| PID                        | Content                                          |
+|----------------------------|--------------------------------------------------|
+| `/sstim`                   | Core OWL ontology                                |
+| `/sstim/vocab`             | SKOS vocabulary                                  |
+| `/sstim/shapes`            | SHACL validation shapes                          |
+| `/sstim/alignments`        | External alignments (BFO, OBI, IAO, Wikidata, …) |
+| `/sstim/patch-studio`      | Patch Studio authoring-model vocabulary          |
+| `/sstim/exposure`          | Exposure, delivery, and modality vocabulary      |
+| `/sstim/ecosystem`         | Ecosystem relationships and consent lifecycle    |
+| `/sstim/framework/bsc`     | BSC framework catalog record                     |
+| `/sstim/implementation/bsclab` | BSC Lab implementation catalog record        |
+| `/sstim/implementation/biosyncare` | BioSynCare application catalog record    |
+| `/sstim/implementation/bsclab/component/patch-studio` | Patch Studio software-component catalog record |
+| `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
+| `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
+| `/sstim/void`              | VoID + DCAT dataset description (Turtle only)    |
+| `/sstim/{major.minor.patch}` | Versioned immutable snapshots (Turtle only)    |
 
-The `.htaccess` dispatches on the `Accept` header:
+The base and ontology-module routes negotiate Turtle (default), JSON-LD
+(`application/ld+json`), and RDF/XML (`application/rdf+xml`); HTML requests
+redirect to the project landing page. VoID, versioned snapshots, and the
+instance routes below are Turtle resources. Fragment IRIs such as
+`/sstim#Preset` resolve to the base document.
 
-| `Accept` header                      | Response                                           |
-|--------------------------------------|----------------------------------------------------|
-| `text/turtle` (and unspecified)      | The corresponding `.ttl` file                      |
-| `text/html`, `application/xhtml+xml` | BSC Lab landing page (<https://labiosyncare.github.io/>) |
+Audited static catalog routes send RDF clients to the owning Turtle instance
+file. General live ecosystem namespace rules send RDF clients to the mutable,
+live-only `current.ttl` projection. Current synthetic contract subjects reserve
+a `synthetic-*` slug rejected by those rules and are available only through the
+direct fixture artifact; there are no fixture-specific routes. The frozen
+SSTIM 0.7.0 snapshot remains unchanged. HTML requests reach the project landing
+page for static catalog and live ecosystem identifiers.
 
-**Planned (Phase 1):** HTML requests will redirect to WIDOCO-generated
-ontology documentation, which will allow anchor navigation to
-individual terms.
+Dataset membership belongs to the live RDF projection, not the registry
+configuration. Adding, correcting, or retracting a record therefore does not
+require a person-specific w3id.org rule change. A syntactically valid but
+unknown path may reach the aggregate, but it describes no resource unless the
+requested IRI occurs as a subject in the current projection. Retraction removes
+that subject and its approved public statements; it cannot erase third-party
+caches or previously downloaded copies. The mutable projection is not part of
+a Zenodo ontology snapshot and carries no archival-consent implication.
 
-## Project
-
-- **Source repository:** <https://github.com/laBioSynCare/laBioSynCare.github.io>
-  (open-source — ontology and documentation under CC BY 4.0; application
-  code under a permissive OSI-approved license, both being finalized in Phase 1)
-- **Scope:** BSC Lab is the open scientific infrastructure for sensory
-  stimulation: ontology, evidence framework, and a planned multi-engine
-  audiovisual stimulation application (Web Audio, AudioWorklets, PixiJS).
-  The SSTIM ontology is designed to be reusable beyond BSC Lab by any
-  project in this domain.
-- **Related commercial project:** BioSynCare (React Native app, separate
-  closed-source repository) will consume BSC Lab's exported preset catalog
-  as JSON; it does not use or import the ontology namespace directly.
-
-## Contact
-
-- PID redirection issues → open an issue at
-  <https://github.com/laBioSynCare/laBioSynCare.github.io/issues>
-- Upstream `w3id.org` configuration issues →
-  <https://github.com/perma-id/w3id.org/issues>
+Redirect issues: open an issue at
+<https://github.com/laBioSynCare/laBioSynCare.github.io/issues>.

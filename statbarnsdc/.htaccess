@@ -11,21 +11,33 @@ Options -MultiViews
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType application/ld+json .jsonld
 
 RewriteEngine on
 
-#Rewrite rules for statbarnsdc vocabulary extension 
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://ai-sdc.github.io/statbarnsdc/  [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^$ https://github.com/AI-SDC/statbarnsdc/blob/main/statbarnsdc.rdf [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ https://github.com/AI-SDC/statbarnsdc/blob/main/statbarnsdc.ttl [R=303,NE,L]
-#default response: owl
-RewriteRule ^$ https://github.com/AI-SDC/statbarnsdc/blob/main/statbarnsdc.rdf [R=303,NE,L]
+# Latest Version
 
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.rdf [R=303,NE,L]
+			
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.jsonld [R=303,NE,L]
+
+RewriteRule ^$ https://ai-sdc.github.io/statbarnsdc  [R=303,NE,L]
+
+
+#Version 1.0
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^1\.0$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.rdf [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^1\.0$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^1\.0$ https://raw.githubusercontent.com/AI-SDC/statbarnsdc/main/statbarnsdc.jsonld [R=303,NE,L]
+
+RewriteRule ^1\.0$ https://ai-sdc.github.io/statbarnsdc  [R=303,NE,L]

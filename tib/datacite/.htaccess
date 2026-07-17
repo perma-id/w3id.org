@@ -1,0 +1,22 @@
+RewriteEngine on
+
+# Namespace landing page
+RewriteRule ^$ https://tibhannover.github.io/datacite/ [R=302,L]
+
+# RDF classes and properties
+RewriteRule ^class/([^/.]+)$ https://tibhannover.github.io/datacite/class/$1.jsonld [R=303,L]
+RewriteRule ^property/([^/.]+)$ https://tibhannover.github.io/datacite/property/$1.jsonld [R=303,L]
+
+# SKOS ConceptScheme IRIs:
+# /vocab/resourceTypeGeneral -> /vocab/resourceTypeGeneral/resourceTypeGeneral.jsonld
+RewriteRule ^vocab/([^/.]+)$ https://tibhannover.github.io/datacite/vocab/$1/$1.jsonld [R=303,L]
+
+# SKOS Concept IRIs:
+# /vocab/resourceTypeGeneral/Dataset -> /vocab/resourceTypeGeneral/Dataset.jsonld
+RewriteRule ^vocab/([^/]+)/([^/.]+)$ https://tibhannover.github.io/datacite/vocab/$1/$2.jsonld [R=303,L]
+
+# Concrete JSON-LD files under class/property/vocab, if requested directly
+RewriteRule ^(class|property|vocab)/(.*\.jsonld)$ https://tibhannover.github.io/datacite/$1/$2 [R=302,L]
+
+# Concrete supporting documents
+RewriteRule ^(context|manifest|dist)/(.*)$ https://tibhannover.github.io/datacite/$1/$2 [R=302,L]

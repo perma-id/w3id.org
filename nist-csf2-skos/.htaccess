@@ -1,0 +1,21 @@
+# Code by Gheorghe Turca
+# Persistent redirects for the NIST CSF 2.0 SKOS taxonomy.
+# Project: Creating a Machine-Readable SKOS Taxonomy of the NIST Cybersecurity Framework 2.0
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Main namespace page
+RewriteRule ^$ https://github.com/georgeturca/nistcsf2.0-skos-taxonomy [R=302,L]
+
+# Full generated Turtle taxonomy
+RewriteRule ^taxonomy$ https://raw.githubusercontent.com/georgeturca/nistcsf2.0-skos-taxonomy/main/output/nist_csf2_taxonomy.ttl [R=302,L]
+
+# Concept scheme URIs
+RewriteRule ^scheme/(.*)$ https://raw.githubusercontent.com/georgeturca/nistcsf2.0-skos-taxonomy/main/output/nist_csf2_taxonomy.ttl [R=303,L]
+
+# NIST CSF Function, Category, and Subcategory URIs
+RewriteRule ^concept/(.*)$ https://raw.githubusercontent.com/georgeturca/nistcsf2.0-skos-taxonomy/main/output/nist_csf2_taxonomy.ttl [R=303,L]
+
+# Local Informative Reference URIs
+RewriteRule ^reference/(.*)$ https://raw.githubusercontent.com/georgeturca/nistcsf2.0-skos-taxonomy/main/output/nist_csf2_taxonomy.ttl [R=303,L]

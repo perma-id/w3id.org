@@ -1,0 +1,22 @@
+# https://w3id.org/auditsocials
+#
+# AuditSocials — controlled vocabulary (SKOS) of platform-policy,
+# advertising-compliance and enforcement terminology.
+#
+# Maintainer: Emine Gürcü (Product Lead, AuditSocials) <main@reactll.com>
+# GitHub:  https://github.com/eminegurcu  (@eminegurcu)
+# ORCID:   https://orcid.org/0009-0005-6738-682X
+# Dataset: https://doi.org/10.5281/zenodo.20458599  (CC BY 4.0)
+
+RewriteEngine on
+
+# --- Machine-readable RDF (Turtle / RDF-XML / JSON-LD / N-Triples) ---
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples) [NC]
+RewriteRule ^glossary(/.*)?$ https://www.auditsocials.com/glossary/skos.ttl [R=302,L]
+
+# --- Human-readable glossary ---
+RewriteRule ^glossary/?$ https://www.auditsocials.com/knowledge/glossary [R=302,L]
+RewriteRule ^glossary/(.+)$ https://www.auditsocials.com/knowledge/glossary#$1 [R=302,L]
+
+# Bare /auditsocials -> site
+RewriteRule ^$ https://www.auditsocials.com/ [R=302,L]

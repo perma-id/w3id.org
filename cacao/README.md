@@ -4,6 +4,9 @@
 ## Uses
 This [W3ID](https://w3id.org) provides a persistent URI namespace for the Cultural Artifacts Contextual Ontology (CACAO) resources.
 
+The CACAO-RS ODRL profile is available at
+<https://w3id.org/cacao/profile/rights>.
+
 ## Contact
 This space is administered by:
 

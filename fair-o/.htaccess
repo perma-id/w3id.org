@@ -1,18 +1,46 @@
 Options +FollowSymLinks
-RewriteEngine on
+RewriteEngine On
 
-# FAIR-O persistent identifier
-# Namespace: https://w3id.org/fair-o#
+# Version 1.0.0
 
-# HTML documentation for browsers
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ [R=303,L]
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^1\.0\.0/?$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/1.0.0/ontology.jsonld [R=303,L]
 
-# Turtle serialization
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://raw.githubusercontent.com/GabrieleT0/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/main/FAIR-O.ttl [R=303,L]
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^1\.0\.0/?$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/1.0.0/ontology.owl [R=303,L]
 
-# Default fallback: HTML documentation
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^1\.0\.0/?$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/1.0.0/ontology.nt [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^1\.0\.0/?$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/1.0.0/ontology.ttl [R=303,L]
+
+# HTML
+RewriteRule ^1\.0\.0/?$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/1.0.0/ [R=303,L]
+
+# Latest version
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ontology.owl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ontology.nt [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ontology.ttl [R=303,L]
+
+# HTML 
 RewriteRule ^$ https://GabrieleT0.github.io/FAIR-O-An-Ontology-for-FAIR-Assessment-and-Scoring/ [R=303,L]

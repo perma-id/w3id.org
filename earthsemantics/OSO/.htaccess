@@ -1,23 +1,27 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# ====================================================================
-# Versioned ontology IRIs
-# ====================================================================
-#
-# Examples:
-# /1.0.5
-# /1.0.5.ttl
-# /1.0.5.owl
-# /1.0.5.jsonld
-# /1.0.5.nt
-# /1.0.5.n3
-# /1.0.5.trig
-# /1.0.5.rdfjson
-#
-# ====================================================================
+# Versioned ontology IRI content negotiation
 
-# Default version access -> Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
+
+# Default fallback -> Turtle
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
 
 # Explicit versioned serializations

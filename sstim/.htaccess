@@ -18,10 +18,54 @@ Header set Access-Control-Allow-Origin *
 RewriteEngine On
 
 # -------------------------------------------------------------------------
+# Versioned immutable snapshots. These routes back owl:versionIRI values such
+# as /sstim/0.1.0 and direct frozen-file URLs such as
+# /sstim/0.1.0/sstim-core.ttl. (Turtle only — snapshots are not multi-format.)
+# -------------------------------------------------------------------------
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/([A-Za-z0-9._-]+\.ttl)$ https://labiosyncare.github.io/ontology/$1/$2 [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
+
+# -------------------------------------------------------------------------
+# Stable BSC catalog identities. Framework, application, and component IRIs
+# resolve to their owning static RDF documents; the Patch Studio component is
+# intentionally distinct from the /sstim/patch-studio ontology module.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC catalog routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(framework/bsc|implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
+# END audited BSC catalog routes
+
+# -------------------------------------------------------------------------
+# Live ecosystem identifier namespaces. Dataset membership belongs to the
+# mutable RDF projection, not this registry configuration: new, corrected, or
+# retracted records therefore do not require a w3id.org rule change. The
+# reserved synthetic-* fixture prefix is deliberately outside these routes.
+# -------------------------------------------------------------------------
+# BEGIN audited live ecosystem namespace routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+# END audited live ecosystem namespace routes
+
+# -------------------------------------------------------------------------
 # /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
 # -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
 RewriteRule ^vocab$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.rdf [R=303,L]
 
 RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=303,L]
 
@@ -31,6 +75,12 @@ RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=3
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
 RewriteRule ^shapes$ https://labiosyncare.github.io/ [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.rdf [R=303,L]
+
 RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.ttl [R=303,L]
 
 # -------------------------------------------------------------------------
@@ -39,7 +89,63 @@ RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.ttl [R
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
 RewriteRule ^alignments$ https://labiosyncare.github.io/ [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.rdf [R=303,L]
+
 RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/patch-studio — Patch Studio authoring-model vocabulary
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-studio.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-studio.rdf [R=303,L]
+
+RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-studio.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/exposure — exposure, delivery, modality, and experiment vocabulary
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^exposure$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.rdf [R=303,L]
+
+RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/ecosystem — ecosystem relationships and consent lifecycle
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.rdf [R=303,L]
+
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/void — VoID + DCAT dataset description (Turtle only; not exported)
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^void$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^void$ https://labiosyncare.github.io/ontology/void.ttl [R=303,L]
 
 # -------------------------------------------------------------------------
 # /sstim — core ontology (OWL classes and properties). Fragment IRIs such
@@ -49,6 +155,12 @@ RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignment
 # target in Phase 1 once they are generated).
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
 RewriteRule ^$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-core.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-core.rdf [R=303,L]
 
 # Turtle or unspecified → core ontology file
 RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-core.ttl [R=303,L]
