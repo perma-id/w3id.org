@@ -33,13 +33,8 @@ Future PRs touching `sstim/` will be authored or approved by
 | `/sstim/implementation/bsclab` | BSC Lab implementation catalog record        |
 | `/sstim/implementation/biosyncare` | BioSynCare application catalog record    |
 | `/sstim/implementation/bsclab/component/patch-studio` | Patch Studio software-component catalog record |
-| `/sstim/specialist/synthetic-alex-rivera` | Synthetic ecosystem person fixture |
-| `/sstim/organization/synthetic-aurora-lab` | Synthetic ecosystem organization fixture |
-| `/sstim/organization/synthetic-resonance-coop` | Synthetic ecosystem organization fixture |
-| Six exact `/sstim/ecosystem-record/relationship/{id}` routes | Synthetic qualified relationships |
-| Fourteen exact `/sstim/ecosystem-record/activity/{id}` routes | Synthetic engagement activities |
-| `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces | Mutable live-only ecosystem projection |
-| `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces | Mutable live-only ecosystem projection |
+| `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
+| `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
 | `/sstim/void`              | VoID + DCAT dataset description (Turtle only)    |
 | `/sstim/{major.minor.patch}` | Versioned immutable snapshots (Turtle only)    |
 
@@ -50,10 +45,12 @@ instance routes below are Turtle resources. Fragment IRIs such as
 `/sstim#Preset` resolve to the base document.
 
 Audited static catalog routes send RDF clients to the owning Turtle instance
-file. Synthetic ecosystem routes remain isolated in the fixture graph. General
-live ecosystem namespace rules instead send RDF clients to the mutable,
-live-only `current.ttl` projection; they never reuse the synthetic graph. HTML
-requests reach the project landing page in all three cases.
+file. General live ecosystem namespace rules send RDF clients to the mutable,
+live-only `current.ttl` projection. Current synthetic contract subjects reserve
+a `synthetic-*` slug rejected by those rules and are available only through the
+direct fixture artifact; there are no fixture-specific routes. The frozen
+SSTIM 0.7.0 snapshot remains unchanged. HTML requests reach the project landing
+page for static catalog and live ecosystem identifiers.
 
 Dataset membership belongs to the live RDF projection, not the registry
 configuration. Adding, correcting, or retracting a record therefore does not
