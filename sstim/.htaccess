@@ -39,51 +39,20 @@ RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsc
 # END audited BSC catalog routes
 
 # -------------------------------------------------------------------------
-# Synthetic ecosystem instance identifiers. Keep these exact rules before the
-# general live namespaces so fixture subjects never resolve accidentally to the
-# mutable real-agent projection.
-# -------------------------------------------------------------------------
-# BEGIN audited synthetic ecosystem fixture routes
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(specialist/synthetic-alex-rivera|organization/synthetic-aurora-lab|organization/synthetic-resonance-coop)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(specialist/synthetic-alex-rivera|organization/synthetic-aurora-lab|organization/synthetic-resonance-coop)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/relationship/alex-membership-aurora|ecosystem-record/relationship/alex-membership-resonance|ecosystem-record/relationship/alex-attribution-player|ecosystem-record/relationship/alex-outreach-resonance|ecosystem-record/relationship/aurora-develops-player|ecosystem-record/relationship/resonance-provides-player)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(ecosystem-record/relationship/alex-membership-aurora|ecosystem-record/relationship/alex-membership-resonance|ecosystem-record/relationship/alex-attribution-player|ecosystem-record/relationship/alex-outreach-resonance|ecosystem-record/relationship/aurora-develops-player|ecosystem-record/relationship/resonance-provides-player)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/activity/aurora-membership-consent|ecosystem-record/activity/aurora-membership-publication|ecosystem-record/activity/resonance-membership-consent|ecosystem-record/activity/resonance-membership-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(ecosystem-record/activity/aurora-membership-consent|ecosystem-record/activity/aurora-membership-publication|ecosystem-record/activity/resonance-membership-consent|ecosystem-record/activity/resonance-membership-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/activity/player-attribution-notification|ecosystem-record/activity/player-attribution-response|ecosystem-record/activity/player-attribution-consent|ecosystem-record/activity/player-attribution-publication|ecosystem-record/activity/resonance-outreach-notification|ecosystem-record/activity/resonance-outreach-response|ecosystem-record/activity/resonance-outreach-consent|ecosystem-record/activity/resonance-outreach-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(ecosystem-record/activity/player-attribution-notification|ecosystem-record/activity/player-attribution-response|ecosystem-record/activity/player-attribution-consent|ecosystem-record/activity/player-attribution-publication|ecosystem-record/activity/resonance-outreach-notification|ecosystem-record/activity/resonance-outreach-response|ecosystem-record/activity/resonance-outreach-consent|ecosystem-record/activity/resonance-outreach-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-record/activity/resonance-player-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
-
-RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-record/activity/resonance-player-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
-# END audited synthetic ecosystem fixture routes
-
-# -------------------------------------------------------------------------
 # Live ecosystem identifier namespaces. Dataset membership belongs to the
 # mutable RDF projection, not this registry configuration: new, corrected, or
-# retracted records therefore do not require a w3id.org rule change.
+# retracted records therefore do not require a w3id.org rule change. The
+# reserved synthetic-* fixture prefix is deliberately outside these routes.
 # -------------------------------------------------------------------------
 # BEGIN audited live ecosystem namespace routes
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(specialist|organization)/[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^ecosystem-record/(relationship|activity|role)/[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
 
-RewriteRule ^(specialist|organization)/[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
-RewriteRule ^ecosystem-record/(relationship|activity|role)/[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
 # END audited live ecosystem namespace routes
 
 # -------------------------------------------------------------------------
