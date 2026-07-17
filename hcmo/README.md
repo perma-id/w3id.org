@@ -1,6 +1,6 @@
 # /hcmo/
 
-Permanent identifier namespace for the **HCMO — Home Cage Monitoring Ontology**.
+Permanent identifier namespace for the **HCMO — Home-Cage Monitoring Ontology**.
 
 The ontology is developed and maintained at
 <https://github.com/dhuzard/HCMO>.
@@ -15,7 +15,8 @@ The ontology is developed and maintained at
 | `https://w3id.org/hcmo/ontology/hcm/bio#` | Biological module |
 | `https://w3id.org/hcmo/ontology/hcm/env#` | Environmental module |
 | `https://w3id.org/hcmo/ontology/hcm/obs#` | Observational module |
-| `https://w3id.org/hcmo/ontology/hcm/<version>` | Version IRI (e.g. `/0.9`) |
+| `https://w3id.org/hcmo/ontology/hcm/tech#` | Technology module |
+| `https://w3id.org/hcmo/ontology/hcm/<version>` | Version IRI (e.g. `/0.2.0`) |
 
 ## Content negotiation
 
@@ -29,17 +30,17 @@ Requests to the ontology IRI are redirected (HTTP `303`) according to the
 | `text/turtle` (default) | `releases/latest/download/hcmo.ttl` | `releases/download/v<version>/hcmo.ttl` |
 | `application/ld+json` | `releases/latest/download/hcmo.json` | `releases/download/v<version>/hcmo.json` |
 
-The merged distributions contain all modules, so the `bio`/`env`/`obs` module
-IRIs resolve to the same merged graph. A version segment is any path segment
-beginning with a digit (e.g. `…/hcm/0.9`) and is mapped to the GitHub release
-tag `v<version>`.
+The merged distributions contain all modules, so the `bio`/`env`/`obs`/`tech`
+module IRIs resolve to the same merged graph. A version segment is any path
+segment beginning with a digit (e.g. `…/hcm/0.2.0`) and is mapped to the GitHub
+release tag `v<version>`.
 
-> **Note — version tag vs. manifest:** the ontology manifest (`hcmo.yaml`)
-> currently declares `version: 0.0.1`, but the latest published release is
-> `v0.9`. Consequently `…/hcm/0.9` resolves, while the declared version IRI
-> `…/hcm/0.0.1` will 303 to a `v0.0.1` release that does not exist. Reconcile
-> by bumping the manifest to the release tag scheme, or by cutting a matching
-> release.
+## Current release
+
+HCMO `0.2.0` is published as GitHub release `v0.2.0`. The version IRI
+`https://w3id.org/hcmo/ontology/hcm/0.2.0` resolves to the matching release
+artifacts, while the unversioned ontology and module IRIs resolve to the latest
+release.
 
 ## Contact
 
