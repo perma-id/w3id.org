@@ -26,6 +26,68 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/([A-Za-z0-9._-]+\.ttl)$ https://labiosynca
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
 
 # -------------------------------------------------------------------------
+# Stable BSC catalog identities. Framework, application, and component IRIs
+# resolve to their owning static RDF documents; the Patch Studio component is
+# intentionally distinct from the /sstim/patch-studio ontology module.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC catalog routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(framework/bsc|implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
+# END audited BSC catalog routes
+
+# -------------------------------------------------------------------------
+# Synthetic ecosystem instance identifiers. Keep these rules exact: real
+# people and organizations get their own reviewed route when F4 data lands,
+# and must never resolve accidentally to the synthetic contract fixture.
+# -------------------------------------------------------------------------
+# BEGIN audited synthetic ecosystem fixture routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(specialist/synthetic-alex-rivera|organization/synthetic-aurora-lab|organization/synthetic-resonance-coop)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(specialist/synthetic-alex-rivera|organization/synthetic-aurora-lab|organization/synthetic-resonance-coop)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/relationship/alex-membership-aurora|ecosystem-record/relationship/alex-membership-resonance|ecosystem-record/relationship/alex-attribution-player|ecosystem-record/relationship/alex-outreach-resonance|ecosystem-record/relationship/aurora-develops-player|ecosystem-record/relationship/resonance-provides-player)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/relationship/alex-membership-aurora|ecosystem-record/relationship/alex-membership-resonance|ecosystem-record/relationship/alex-attribution-player|ecosystem-record/relationship/alex-outreach-resonance|ecosystem-record/relationship/aurora-develops-player|ecosystem-record/relationship/resonance-provides-player)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/activity/aurora-membership-consent|ecosystem-record/activity/aurora-membership-publication|ecosystem-record/activity/resonance-membership-consent|ecosystem-record/activity/resonance-membership-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/activity/aurora-membership-consent|ecosystem-record/activity/aurora-membership-publication|ecosystem-record/activity/resonance-membership-consent|ecosystem-record/activity/resonance-membership-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/activity/player-attribution-notification|ecosystem-record/activity/player-attribution-response|ecosystem-record/activity/player-attribution-consent|ecosystem-record/activity/player-attribution-publication|ecosystem-record/activity/resonance-outreach-notification|ecosystem-record/activity/resonance-outreach-response|ecosystem-record/activity/resonance-outreach-consent|ecosystem-record/activity/resonance-outreach-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/activity/player-attribution-notification|ecosystem-record/activity/player-attribution-response|ecosystem-record/activity/player-attribution-consent|ecosystem-record/activity/player-attribution-publication|ecosystem-record/activity/resonance-outreach-notification|ecosystem-record/activity/resonance-outreach-response|ecosystem-record/activity/resonance-outreach-consent|ecosystem-record/activity/resonance-outreach-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-record/activity/resonance-player-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/activity/aurora-player-publication|ecosystem-record/activity/resonance-player-publication)/?$ https://labiosyncare.github.io/ontology/instances/ecosystem/fixtures/synthetic-ecosystem.ttl [R=303,L]
+# END audited synthetic ecosystem fixture routes
+
+# BEGIN audited real ecosystem routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(specialist/renato-fabbri|organization/biosyncare|organization/junto-innovation-hub|organization/aeterni-anima|ecosystem-record/role/head-of-applied-science|ecosystem-record/role/chief-executive-officer|ecosystem-record/role/chief-technology-officer)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(specialist/renato-fabbri|organization/biosyncare|organization/junto-innovation-hub|organization/aeterni-anima|ecosystem-record/role/head-of-applied-science|ecosystem-record/role/chief-executive-officer|ecosystem-record/role/chief-technology-officer)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/relationship/renato-develops-bsclab|ecosystem-record/relationship/renato-develops-biosyncare|ecosystem-record/relationship/renato-develops-patch-studio|ecosystem-record/relationship/renato-created-sstim|ecosystem-record/relationship/renato-created-bsc-framework|ecosystem-record/relationship/renato-member-of-junto|ecosystem-record/relationship/renato-created-aeterni-anima|ecosystem-record/relationship/renato-leads-aeterni-anima|ecosystem-record/relationship/biosyncare-offers-sensory-stimulation-tools|ecosystem-record/relationship/junto-supports-biosyncare|ecosystem-record/relationship/aeterni-provides-sensory-stimulation-tools)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/relationship/renato-develops-bsclab|ecosystem-record/relationship/renato-develops-biosyncare|ecosystem-record/relationship/renato-develops-patch-studio|ecosystem-record/relationship/renato-created-sstim|ecosystem-record/relationship/renato-created-bsc-framework|ecosystem-record/relationship/renato-member-of-junto|ecosystem-record/relationship/renato-created-aeterni-anima|ecosystem-record/relationship/renato-leads-aeterni-anima|ecosystem-record/relationship/biosyncare-offers-sensory-stimulation-tools|ecosystem-record/relationship/junto-supports-biosyncare|ecosystem-record/relationship/aeterni-provides-sensory-stimulation-tools)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(ecosystem-record/activity/renato-bsclab-self-publication|ecosystem-record/activity/renato-biosyncare-self-publication|ecosystem-record/activity/renato-patch-studio-self-publication|ecosystem-record/activity/renato-sstim-self-publication|ecosystem-record/activity/renato-bsc-framework-self-publication|ecosystem-record/activity/renato-junto-self-publication|ecosystem-record/activity/renato-aeterni-creator-self-publication|ecosystem-record/activity/renato-aeterni-leadership-self-publication|ecosystem-record/activity/biosyncare-tools-publication|ecosystem-record/activity/junto-biosyncare-publication|ecosystem-record/activity/aeterni-tools-publication)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(ecosystem-record/activity/renato-bsclab-self-publication|ecosystem-record/activity/renato-biosyncare-self-publication|ecosystem-record/activity/renato-patch-studio-self-publication|ecosystem-record/activity/renato-sstim-self-publication|ecosystem-record/activity/renato-bsc-framework-self-publication|ecosystem-record/activity/renato-junto-self-publication|ecosystem-record/activity/renato-aeterni-creator-self-publication|ecosystem-record/activity/renato-aeterni-leadership-self-publication|ecosystem-record/activity/biosyncare-tools-publication|ecosystem-record/activity/junto-biosyncare-publication|ecosystem-record/activity/aeterni-tools-publication)/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+# END audited real ecosystem routes
+
+# -------------------------------------------------------------------------
 # /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
 # -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
@@ -94,6 +156,20 @@ RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.rdf [R=303,L]
 
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/ecosystem — ecosystem relationships and consent lifecycle
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.rdf [R=303,L]
+
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.ttl [R=303,L]
 
 # -------------------------------------------------------------------------
 # /sstim/void — VoID + DCAT dataset description (Turtle only; not exported)
