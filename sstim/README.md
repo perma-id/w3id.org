@@ -38,7 +38,8 @@ Future PRs touching `sstim/` will be authored or approved by
 | `/sstim/organization/synthetic-resonance-coop` | Synthetic ecosystem organization fixture |
 | Six exact `/sstim/ecosystem-record/relationship/{id}` routes | Synthetic qualified relationships |
 | Fourteen exact `/sstim/ecosystem-record/activity/{id}` routes | Synthetic engagement activities |
-| Exact reviewed `/sstim/specialist`, `/organization`, and `/ecosystem-record/{relationship,activity,role}` routes | Mutable live-only ecosystem projection |
+| `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces | Mutable live-only ecosystem projection |
+| `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces | Mutable live-only ecosystem projection |
 | `/sstim/void`              | VoID + DCAT dataset description (Turtle only)    |
 | `/sstim/{major.minor.patch}` | Versioned immutable snapshots (Turtle only)    |
 
@@ -49,16 +50,19 @@ instance routes below are Turtle resources. Fragment IRIs such as
 `/sstim#Preset` resolve to the base document.
 
 Audited static catalog routes send RDF clients to the owning Turtle instance
-file. Synthetic ecosystem routes remain isolated in the fixture graph. Exact
-reviewed real-subject routes instead send RDF clients to the mutable,
+file. Synthetic ecosystem routes remain isolated in the fixture graph. General
+live ecosystem namespace rules instead send RDF clients to the mutable,
 live-only `current.ttl` projection; they never reuse the synthetic graph. HTML
 requests reach the project landing page in all three cases.
 
-Real-subject paths are identifying configuration metadata recorded in Git and
-registry review history. Removing a live record therefore requires removing
-its active rules, but cannot erase historical path traces, third-party caches,
-or previously downloaded copies. The mutable projection is not part of a
-Zenodo ontology snapshot and carries no archival-consent implication.
+Dataset membership belongs to the live RDF projection, not the registry
+configuration. Adding, correcting, or retracting a record therefore does not
+require a person-specific w3id.org rule change. A syntactically valid but
+unknown path may reach the aggregate, but it describes no resource unless the
+requested IRI occurs as a subject in the current projection. Retraction removes
+that subject and its approved public statements; it cannot erase third-party
+caches or previously downloaded copies. The mutable projection is not part of
+a Zenodo ontology snapshot and carries no archival-consent implication.
 
 Redirect issues: open an issue at
 <https://github.com/laBioSynCare/laBioSynCare.github.io/issues>.
