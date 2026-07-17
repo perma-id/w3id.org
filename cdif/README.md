@@ -10,13 +10,16 @@ CDIF specification components have persistent conformance URIs that metadata rec
 
 | URI | Specification Component |
 |-----|------------------------|
-| `https://w3id.org/cdif/core/1.0/` | CDIF Core (mandatory properties) |
-| `https://w3id.org/cdif/discovery/1.0/` | CDIF Discovery (optional properties) |
-| `https://w3id.org/cdif/data_description/1.0/` | CDIF Data Description |
-| `https://w3id.org/cdif/manifest/1.0/` | CDIF Manifest (archive distribution) |
-| `https://w3id.org/cdif/provenance/1.0/` | CDIF Provenance |
-| `https://w3id.org/cdif/xasDiscovery/1.0/` | CDIF XAS Discovery |
-| `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core |
+| `https://w3id.org/cdif/core/1.1/` | CDIF Core (mandatory properties) |
+| `https://w3id.org/cdif/discovery/1.1/` | CDIF Discovery (optional properties) |
+| `https://w3id.org/cdif/data_description/1.1/` | CDIF Data Description |
+| `https://w3id.org/cdif/data_structure/1.1/` | CDIF Data Structure |
+| `https://w3id.org/cdif/manifest/1.1/` | CDIF Manifest (archive distribution) |
+| `https://w3id.org/cdif/provenance/1.1/` | CDIF Provenance |
+| `https://w3id.org/cdif/conceptscheme/1.1/` | CDIF Concept Scheme |
+| `https://w3id.org/cdif/codelist/1.1/` | CDIF Codelist |
+| `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core (mandatory tier) |
+| `https://w3id.org/cdif/xasOptional/1.0/` | CDIF XAS Optional (optional tier) |
 
 Each conformance URI supports the same content negotiation as building block identifiers (see below). The default (browser) redirect goes to the corresponding building block landing page.
 
