@@ -26,6 +26,36 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/([A-Za-z0-9._-]+\.ttl)$ https://labiosynca
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
 
 # -------------------------------------------------------------------------
+# Stable BSC catalog identities. Framework, application, and component IRIs
+# resolve to their owning static RDF documents; the Patch Studio component is
+# intentionally distinct from the /sstim/patch-studio ontology module.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC catalog routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(framework/bsc|implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
+# END audited BSC catalog routes
+
+# -------------------------------------------------------------------------
+# Live ecosystem identifier namespaces. Dataset membership belongs to the
+# mutable RDF projection, not this registry configuration: new, corrected, or
+# retracted records therefore do not require a w3id.org rule change. The
+# reserved synthetic-* fixture prefix is deliberately outside these routes.
+# -------------------------------------------------------------------------
+# BEGIN audited live ecosystem namespace routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
+# END audited live ecosystem namespace routes
+
+# -------------------------------------------------------------------------
 # /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
 # -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
@@ -94,6 +124,20 @@ RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.rdf [R=303,L]
 
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.ttl [R=303,L]
+
+# -------------------------------------------------------------------------
+# /sstim/ecosystem — ecosystem relationships and consent lifecycle
+# -------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.rdf [R=303,L]
+
+RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.ttl [R=303,L]
 
 # -------------------------------------------------------------------------
 # /sstim/void — VoID + DCAT dataset description (Turtle only; not exported)
