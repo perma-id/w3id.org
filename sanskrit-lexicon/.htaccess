@@ -1,0 +1,50 @@
+# # /sanskrit-lexicon/
+#
+# Permanent identifier namespace for Linked Open Data derived from the
+# Cologne Digital Sanskrit Dictionaries (https://www.sanskrit-lexicon.uni-koeln.de/).
+#
+# https://w3id.org/sanskrit-lexicon/          -> namespace index
+# https://w3id.org/sanskrit-lexicon/pwg-ru/*  -> PWG->RU LOD graph
+#                                                (Petersburg Dictionary with
+#                                                 Russian sense definitions;
+#                                                 OntoLex-Lemon + PROV-O)
+#
+# Instances use slash IRIs and are resolved with 303 See Other under content
+# negotiation: an RDF media type is served Turtle, anything else HTML.
+# The hash form (vocab#term) is reserved for the project vocabulary document.
+#
+# The redirect target is GitHub Pages so that the identifiers stay independent
+# of any project domain or hosting arrangement.
+#
+# ## Contact
+# This space is administered by:
+#
+# Marcis Gasuns
+# rusamskrtam@gmail.com
+# ORCID: 0000-0003-4513-884X
+# GitHub username: gasyoun
+
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/n-triples .nt
+
+RewriteEngine on
+
+# Namespace index.
+RewriteRule ^$ https://gasyoun.github.io/pwg-ru-lod/ [R=302,L]
+
+# ---- /pwg-ru/ --------------------------------------------------------------
+
+# Sub-namespace root.
+RewriteRule ^pwg-ru/?$ https://gasyoun.github.io/pwg-ru-lod/ [R=302,L]
+
+# An RDF media type was requested -> serve Turtle.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^pwg-ru/(.+)$ https://gasyoun.github.io/pwg-ru-lod/$1.ttl [R=303,L]
+
+# Anything else -> serve HTML.
+RewriteRule ^pwg-ru/(.+)$ https://gasyoun.github.io/pwg-ru-lod/$1.html [R=303,L]
