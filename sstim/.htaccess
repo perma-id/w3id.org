@@ -39,6 +39,24 @@ RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsc
 # END audited BSC catalog routes
 
 # -------------------------------------------------------------------------
+# BSC framework technique identities. Every rule is exact — no prefix wildcard
+# — so a retired slug can never fall through to the framework document and
+# appear current. The three techniques BSC originated resolve to the framework
+# file that defines them; the four retired in ADR 0033 resolve to the SKOS
+# vocabulary that now carries their vendor-neutral replacements
+# (techBinauralBeats, techPhoticDriving, techAudiovisualEntrainment,
+# techVibrotactileEntrainment). Before this block every path under
+# framework/bsc/technique/ returned 404.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC technique routes
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment|framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://labiosyncare.github.io/ [R=303,L]
+
+RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=303,L]
+# END audited BSC technique routes
+
+# -------------------------------------------------------------------------
 # Live ecosystem identifier namespaces. Dataset membership belongs to the
 # mutable RDF projection, not this registry configuration: new, corrected, or
 # retracted records therefore do not require a w3id.org rule change. The
