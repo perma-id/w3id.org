@@ -31,8 +31,23 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://labiosyncare.github.io/ontology
 # intentionally distinct from the /sstim/patch-studio ontology module.
 # -------------------------------------------------------------------------
 # BEGIN audited BSC catalog routes
+# Browser targets are precise per-entity deep links into the knowledge-graph
+# browser's node-selection hash, not the bare marketing homepage: `prefix:`
+# with an empty local name addresses a namespace's own root resource (see
+# hashForIri()/resolveHashToNodeId() in src/ui/graph/OntologyGraph.svelte).
+# NE is required on every target below because mod_rewrite otherwise percent-
+# encodes the `#`, turning the fragment into a literal path segment.
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(framework/bsc|implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^framework/bsc/?$ https://labiosyncare.github.io/graph/#bsc-fw: [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^implementation/bsclab/?$ https://labiosyncare.github.io/graph/#bsclab: [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^implementation/biosyncare/?$ https://labiosyncare.github.io/graph/#biosyncare: [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^implementation/bsclab/component/patch-studio/?$ https://labiosyncare.github.io/graph/#bsclab:component/patch-studio [R=303,L,NE]
 
 RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
 RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
@@ -49,8 +64,32 @@ RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsc
 # framework/bsc/technique/ returned 404.
 # -------------------------------------------------------------------------
 # BEGIN audited BSC technique routes
+# Browser targets: the three techniques BSC originated deep-link to their
+# bsc-fw-tech: node (framework instance data); the four retired ones deep-link
+# to the SKOS concept that replaced them (ADR 0033), addressed by bare local
+# name per the sstim/vocab# hash convention (see hashForIri() in
+# src/ui/graph/OntologyGraph.svelte). NE preserves the `#` as a fragment
+# instead of letting mod_rewrite percent-encode it.
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment|framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^framework/bsc/technique/martigli-breathing-oscillation/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:martigli-breathing-oscillation [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/martigli-binaural-hybrid/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:martigli-binaural-hybrid [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/symmetry-permutation-entrainment/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:symmetry-permutation-entrainment [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/binaural-beat-stimulation/?$ https://labiosyncare.github.io/graph/#techBinauralBeats [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/photic-rhythm-stimulation/?$ https://labiosyncare.github.io/graph/#techPhoticDriving [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/audiovisual-rhythm-coordination/?$ https://labiosyncare.github.io/graph/#techAudiovisualEntrainment [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^framework/bsc/technique/vibrotactile-rhythm-stimulation/?$ https://labiosyncare.github.io/graph/#techVibrotactileEntrainment [R=303,L,NE]
 
 RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
 RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=303,L]
@@ -63,22 +102,37 @@ RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/te
 # reserved synthetic-* fixture prefix is deliberately outside these routes.
 # -------------------------------------------------------------------------
 # BEGIN audited live ecosystem namespace routes
+# Browser targets deep-link into the knowledge-graph browser's node-selection
+# hash (`sstim-organization:`, `sstim-specialist:`, `sstim-ecosystem-record:` —
+# curies registered in src/rdf/namespaces.js), landing the visitor on the
+# actual record instead of the bare marketing homepage. NE preserves the `#`
+# as a fragment instead of letting mod_rewrite percent-encode it.
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^(specialist|organization)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://labiosyncare.github.io/graph/#sstim-$1:$2 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://labiosyncare.github.io/graph/#sstim-ecosystem-record:$1/$2 [R=303,L,NE]
 
 RewriteRule ^(specialist|organization)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
 RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z0-9._~-]+/?$ https://biosyncare-lab.web.app/current.ttl [R=303,L]
 # END audited live ecosystem namespace routes
 
 # -------------------------------------------------------------------------
-# /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
+# Browser landing page for every module root below, including the bare
+# /sstim root at the bottom of this file: the graph browser, not the
+# marketing homepage. All seven resolve to the identical target, so one
+# rule replaces what would otherwise be seven near-duplicate pairs. A
+# fragment IRI under any of them (e.g. /sstim/vocab#alpha, /sstim#Preset) is
+# never sent to this server, but the browser re-appends it to a Location
+# with no fragment of its own, so this lands the visitor on that exact term,
+# selected, in the graph browser.
 # -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^vocab$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^(vocab|shapes|alignments|patch-studio|exposure|ecosystem)?$ https://labiosyncare.github.io/graph/ [R=303,L]
 
+# -------------------------------------------------------------------------
+# /sstim/vocab — SKOS vocabulary (frequency bands, groups, sub-bands, …)
+# -------------------------------------------------------------------------
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.jsonld [R=303,L]
 
@@ -90,9 +144,6 @@ RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=3
 # -------------------------------------------------------------------------
 # /sstim/shapes — SHACL validation shapes
 # -------------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^shapes$ https://labiosyncare.github.io/ [R=303,L]
-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.jsonld [R=303,L]
 
@@ -104,9 +155,6 @@ RewriteRule ^shapes$ https://labiosyncare.github.io/ontology/sstim-shapes.ttl [R
 # -------------------------------------------------------------------------
 # /sstim/alignments — external ontology alignments (BFO, OBI, Wikidata, …)
 # -------------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^alignments$ https://labiosyncare.github.io/ [R=303,L]
-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignments.jsonld [R=303,L]
 
@@ -118,9 +166,6 @@ RewriteRule ^alignments$ https://labiosyncare.github.io/ontology/sstim-alignment
 # -------------------------------------------------------------------------
 # /sstim/patch-studio — Patch Studio authoring-model vocabulary
 # -------------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^patch-studio$ https://labiosyncare.github.io/ [R=303,L]
-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-studio.jsonld [R=303,L]
 
@@ -132,9 +177,6 @@ RewriteRule ^patch-studio$ https://labiosyncare.github.io/ontology/sstim-patch-s
 # -------------------------------------------------------------------------
 # /sstim/exposure — exposure, delivery, modality, and experiment vocabulary
 # -------------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^exposure$ https://labiosyncare.github.io/ [R=303,L]
-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.jsonld [R=303,L]
 
@@ -146,9 +188,6 @@ RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.tt
 # -------------------------------------------------------------------------
 # /sstim/ecosystem — ecosystem relationships and consent lifecycle
 # -------------------------------------------------------------------------
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^ecosystem$ https://labiosyncare.github.io/ [R=303,L]
-
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^ecosystem$ https://labiosyncare.github.io/ontology/sstim-ecosystem.jsonld [R=303,L]
 
@@ -169,11 +208,11 @@ RewriteRule ^void$ https://labiosyncare.github.io/ontology/void.ttl [R=303,L]
 # /sstim — core ontology (OWL classes and properties). Fragment IRIs such
 # as /sstim#Preset resolve here; the fragment is handled client-side.
 # -------------------------------------------------------------------------
-# Browser → human-readable landing page (WIDOCO docs will replace this
-# target in Phase 1 once they are generated).
-RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
-RewriteRule ^$ https://labiosyncare.github.io/ [R=303,L]
-
+# Browser → human-readable landing page: covered by the module-root rule
+# above (bare /sstim is its empty-match case). WIDOCO docs may replace that
+# target in Phase 1 once generated — see docsUrlForIri() in
+# src/ui/graph/OntologyGraph.svelte for where the graph browser already
+# links out to them per term.
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-core.jsonld [R=303,L]
 
