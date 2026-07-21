@@ -1,0 +1,16 @@
+# OCD Ontology (Obsessive-Compulsive Disorder) — Cardiff University
+# Maintainer: Alia I. Abdelmoty (GitHub: Aliaia)
+# Redirects https://w3id.org/ocd with content negotiation.
+
+RewriteEngine on
+
+# Tools requesting Turtle -> raw TTL file
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/Aliaia/ocd-ontology/main/ocd.ttl [R=303,L]
+
+# Tools requesting RDF/XML -> raw OWL file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/Aliaia/ocd-ontology/main/ocd.owl [R=303,L]
+
+# Browsers and everything else -> GitHub repository page
+RewriteRule ^$ https://github.com/Aliaia/ocd-ontology [R=303,L]
