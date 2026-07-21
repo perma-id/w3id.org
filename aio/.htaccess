@@ -1,14 +1,37 @@
+# Artificial Intelligence Ontology (AIO)
+# Namespace:  https://w3id.org/aio/
+# Project:    https://github.com/berkeleybop/artificial-intelligence-ontology
+# Maintainer: Mark A. Miller <MAM@lbl.gov>
+#
+# Resolves the AIO ontology document, its release products (base/full in
+# owl/obo/json), versioned release IRIs, and individual term IRIs. Term IRIs
+# content-negotiate: RDF/OWL clients receive the ontology document that defines
+# the term; browsers are sent to a human-readable term page.
+
 Options +FollowSymLinks
 RewriteEngine on
 
+# Namespace root -> project repository
 RewriteRule ^$ https://github.com/berkeleybop/artificial-intelligence-ontology [R=302,L]
 
-RewriteRule ^aio.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl [R=302,L]
+# Release products: default (aio), base, and full, as owl/obo/json.
+# Current release tracks the main branch. Covers the ontology IRI
+# https://w3id.org/aio/aio.owl and the registered products aio-full.owl / aio-base.owl.
+RewriteRule ^aio(-base|-full)?\.(owl|obo|json)$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio$1.$2 [R=302,L]
 
-RewriteRule ^aio-src.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
+# Versioned release IRIs (owl:versionIRI): releases/YYYY-MM-DD/aio*.* -> the vYYYY-MM-DD git tag.
+RewriteRule ^releases/([0-9]{4}-[0-9]{2}-[0-9]{2})/(aio(-base|-full)?\.(owl|obo|json))$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/v$1/$2 [R=302,L]
 
-RewriteRule ^bridge/aio-bridge-to-upper.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/aio-bridge-to-upper.owl [R=302,L]
-
+# Source ROBOT template, upper-ontology bridge, and mappings directory.
+RewriteRule ^aio-src\.csv$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/refs/heads/main/src/ontology/aio-src.csv [R=302,L]
+RewriteRule ^bridge/aio-bridge-to-upper\.owl$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/src/ontology/bridge/aio-bridge-to-upper.owl [R=302,L]
 RewriteRule ^mappings$ https://github.com/berkeleybop/artificial-intelligence-ontology/tree/main/src/mappings [R=302,L]
 
+# Term IRIs, e.g. https://w3id.org/aio/LargeLanguageModel
+# RDF/OWL clients: dereference the term to the ontology document that defines it.
+RewriteCond %{HTTP_ACCEPT} (application/rdf\+xml|application/owl\+xml|text/turtle|application/ld\+json|application/n-triples) [NC]
+RewriteRule ^(.+)$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/main/aio.owl [R=303,L]
+
+# Browsers and other clients: human-readable term page.
+# BioPortal for now; switch to OLS (https://www.ebi.ac.uk/ols4) once AIO is loaded there.
 RewriteRule ^(.*)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
