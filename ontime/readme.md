@@ -1,10 +1,16 @@
-## The Ontime Ontology
+# The OnTime Ontology
 
-This permanent ID describes URLs for ontology for the Ontime Ontology.
+This permanent identifier defines the namespace for the OnTime Ontology.
 
-https://w3id.org/ontime redirects to https://jyrkioraskari.github.io/Ontime/
+Namespace:
 
+https://w3id.org/ontime
 
-Maintainer: Jyrki Oraskari (@jyrkioraskari) 
+Current target:
 
+https://individualized-production.github.io/ontime-ontology/
 
+Maintainer:
+
+- Individualized Production, RWTH Aachen University  
+  GitHub: @individualized-production

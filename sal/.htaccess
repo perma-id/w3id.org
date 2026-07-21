@@ -11,6 +11,10 @@ RewriteRule ^([^/]*)$ https://cgs-earth.github.io/ontology$1 [R=303,L]
 # Alternative Rewrite rule
 # /sal/cgs-earth/sal-overview/#sal-pub -> https://cgs-earth.github.io/sal-overview/#sal-pub
 
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([^/]+)[/#](.*)$ https://$1.github.io/$2 [R=303,L]
+
 # Rewrite rule to serve Turtle content
 RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
 RewriteCond %{HTTP_ACCEPT} text/ttl

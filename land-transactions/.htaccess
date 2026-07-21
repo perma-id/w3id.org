@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# SKOS / JSON exports
+RewriteRule ^glossary/glossary\.(ttl|json|md)$ https://AntArch.github.io/land-transactions-glossary/glossary.$1 [R=302,L]
+
+# Per-term URIs -> per-term redirect stubs on the site
+RewriteRule ^glossary/([a-z0-9-]+)$ https://AntArch.github.io/land-transactions-glossary/$1.html [R=302,L]
+
+# Namespace root -> glossary index
+RewriteRule ^glossary/?$ https://AntArch.github.io/land-transactions-glossary/ [R=302,L]

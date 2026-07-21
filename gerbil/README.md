@@ -18,7 +18,9 @@ This project is maintained by the DICE research group (https://dice-research.org
 
 ## Links
 
-* [Project page](http://gerbil.aksw.org/)
+* [GERBIL](https://dice-research.org/GerbilKE)
+* [GERBIL QA](https://dice-research.org/GerbilQA)
+* [GERBIL KBC](https://dice-research.org/GerbilKBC)
 * [Source code](https://github.com/dice-group/gerbil)
 
 ## Citation

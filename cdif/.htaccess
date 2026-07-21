@@ -60,6 +60,12 @@ SetEnvIf Request_URI ^.*$ DOC_CD=https://cross-domain-interoperability-framework
 SetEnvIf Request_URI ^.*$ DOC_DDD=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescription
 SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescriptionstructure
 
+# Live source files on the metadataBuildingBlocks main branch:
+#   MBB_RAW  = raw file content (raw.githubusercontent.com)
+#   MBB_TREE = human-browsable directory page (github.com)
+SetEnvIf Request_URI ^.*$ MBB_RAW=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/main/_sources
+SetEnvIf Request_URI ^.*$ MBB_TREE=https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/main/_sources
+
 # ============================================================
 # Conformance URIs: /cdif/{component}/{version}/
 #
@@ -70,8 +76,9 @@ SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framewo
 #   - <name>Rules.shacl              (merged SHACL shapes)
 #   - CDIF<Name>ImplementationGuide  (rendered to .html via Jekyll)
 #
-# CDIF dataTypes (cdifDataType/* BBs) and other (xas*) conformance URIs
-# continue to resolve to metadataBuildingBlocks (see further down).
+# CDIF dataTypes (cdifDataType/* BBs) and the XAS tier conformance URIs
+# (xasCore/1.0, xasOptional/1.0) resolve to the LIVE main-branch _sources on
+# GitHub (raw.githubusercontent.com / github.com tree), not to a build output.
 #
 # Mapping:
 #   core/1.1            → profile-core
@@ -82,8 +89,12 @@ SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framewo
 #   provenance/1.1      → profile-provenance
 #   conceptscheme/1.1   → profile-conceptscheme
 #   codelist/1.1        → profile-codelist
-#   xasDiscovery/1.0    → mBB profiles/cdifCompositeProfile/XASdata
-#   xasCore/1.0         → mBB xasProperties/xasCore
+#   xasCore/1.0         → mBB xasProperties/xasCore     (XAS mandatory tier)
+#   xasOptional/1.0     → mBB xasProperties/xasOptional (XAS optional tier)
+#
+# The XASdata composite profile has no dedicated conformance URI; XAS conformance
+# is declared via the two tier URIs above. The composite remains reachable in the
+# register at bbr/metadata/profiles/cdifCompositeProfile/XASdata.
 # ============================================================
 
 # ---- Conformance URI sub-paths ----
@@ -138,23 +149,23 @@ RewriteRule ^codelist/1\.1/resolved/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStru
 RewriteRule ^codelist/1\.1/shacl/?$    %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
 RewriteRule ^codelist/1\.1/guide/?$    %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
-# --- xasDiscovery/1.0 sub-paths → mBB XASdata (unchanged) ---
+# --- xasCore/1.0 sub-paths → live main/_sources/xasProperties/xasCore ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.json [R=303,L]
-RewriteRule ^xasDiscovery/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.yaml [R=303,L]
-RewriteRule ^xasDiscovery/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/resolvedSchema.json [R=303,L]
-RewriteRule ^xasDiscovery/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/rules.shacl [R=303,L]
-RewriteRule ^xasDiscovery/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/context.jsonld [R=303,L]
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/xasCoreSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.0/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.0/context/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
 
-# --- xasCore/1.0 sub-paths → mBB xasCore (unchanged) ---
+# --- xasOptional/1.0 sub-paths → live main/_sources/xasProperties/xasOptional ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.json [R=303,L]
-RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.yaml [R=303,L]
-RewriteRule ^xasCore/1\.0/resolved/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/resolvedSchema.json [R=303,L]
-RewriteRule ^xasCore/1\.0/shacl/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/rules.shacl [R=303,L]
-RewriteRule ^xasCore/1\.0/context/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteRule ^xasOptional/1\.0/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/xasOptionalSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteRule ^xasOptional/1\.0/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteRule ^xasOptional/1\.0/context/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
 
 # ---- Conformance URI bare paths (content negotiation) ----
 # Each rule serves: application/schema+json / application/json → StructuredSchema;
@@ -224,31 +235,31 @@ RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
-# --- xasDiscovery/1.0 → mBB XASdata (unchanged) ---
+# --- xasCore/1.0 → live main/_sources/xasProperties/xasCore ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/yaml
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/_sources/profiles/cdifCompositeProfile/XASdata/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/profiles/cdifCompositeProfile/XASdata/context.jsonld [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/profiles/cdifCompositeProfile/XASdata/index.json [R=303,L]
-RewriteRule ^xasDiscovery/1\.0/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.profiles.cdifCompositeProfile.XASdata [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_TREE}/xasProperties/xasCore [R=303,L]
 
-# --- xasCore/1.0 → mBB xasCore (unchanged) ---
+# --- xasOptional/1.0 → live main/_sources/xasProperties/xasOptional ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/yaml
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/_sources/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/annotated/bbr/metadata/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/build/generateddocs/json-full/bbr/metadata/xasProperties/xasCore/index.json [R=303,L]
-RewriteRule ^xasCore/1\.0/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.metadata.xasProperties.xasCore [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_TREE}/xasProperties/xasOptional [R=303,L]
 
 # ============================================================
 # Domain-specific building blocks (separate repos)

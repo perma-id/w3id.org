@@ -1,0 +1,27 @@
+# === Directory: /xwkont/ =====================================================
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# === Rewrite Rules ===========================================================
+
+# Project entry point: public documentation site.
+# e.g. https://w3id.org/xwkont => https://xwkont.github.io/xwkont/
+RewriteRule ^$ https://xwkont.github.io/xwkont/ [R=302,L]
+
+# Current core namespace document: Turtle representation.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^core$ https://raw.githubusercontent.com/xwkont/xwkont/main/data/ontology/core.ttl [R=302,L]
+
+# Current core namespace document: human-readable representation (GitHub Pages).
+RewriteRule ^core$ https://xwkont.github.io/xwkont/ontology/core-ontology/ [R=302,L]
+
+# === Contact ==================================================================
+#
+# This space is administered by:
+#
+# Rene Yap
+# GitHub username: reneyap
+
+# === END ======================================================================

@@ -1,33 +1,38 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# ====================================================================
-# Versioned ontology IRIs
-# ====================================================================
-#
-# Examples:
-# /1.0.5
-# /1.0.5.ttl
-# /1.0.5.owl
-# /1.0.5.jsonld
-# /1.0.5.nt
-# /1.0.5.n3
-# /1.0.5.trig
-# /1.0.5.rdfjson
-#
-# ====================================================================
+# Versioned ontology IRI content negotiation
 
-# Default version access -> Turtle
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
+
+# Default fallback -> Turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
 
 # Explicit versioned serializations
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.ttl [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.owl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.owl [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.rdf/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.owl [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.jsonld/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.jsonld [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.nt/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.nt [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.n3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.n3 [R=303,L]
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.trig/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.trig [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.ttl/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.owl/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.owl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.rdf/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.owl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.jsonld [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.nt/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.nt [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.n3/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.n3 [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.trig/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.trig [R=303,L]
+# NOTE: .rdfjson not served by Virtuoso DAV (/oso-versions/), kept on GitHub raw
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/versions/$1/OSO.rdfjson [R=303,L]
 
 # ====================================================================
@@ -50,39 +55,39 @@ RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # Generic XML fallback
 RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.jsonld [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
-# RDF/JSON
+# RDF/JSON (not confirmed supported by Virtuoso conneg, kept on GitHub raw)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+json
 RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
 
 # N-Triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.nt [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # N3
 RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.n3 [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # TriG
 RewriteCond %{HTTP_ACCEPT} application/trig
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.trig [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # Plain text fallback -> Turtle
 RewriteCond %{HTTP_ACCEPT} text/plain
-RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
 
 # Default fallback -> documentation
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
@@ -90,22 +95,23 @@ RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 # ====================================================================
 # Explicit serialization URLs
 # ====================================================================
-RewriteRule ^OSO\.ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
-RewriteRule ^OSO\.owl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
-RewriteRule ^OSO\.rdf/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
-RewriteRule ^OSO\.jsonld/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.ttl [R=303,L]
+RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
+RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
+RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.jsonld [R=303,L]
+# NOTE: rdfjson not confirmed supported by Virtuoso, kept on GitHub raw
 RewriteRule ^OSO\.rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
-RewriteRule ^OSO\.nt/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.nt [R=303,L]
-RewriteRule ^OSO\.n3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.n3 [R=303,L]
-RewriteRule ^OSO\.trig/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.trig [R=303,L]
-RewriteRule ^ttl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.ttl [R=303,L]
-RewriteRule ^owl/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
-RewriteRule ^rdf/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.owl [R=303,L]
-RewriteRule ^jsonld/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.nt [R=303,L]
+RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.n3 [R=303,L]
+RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.trig [R=303,L]
+RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.ttl [R=303,L]
+RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
+RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
+RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.jsonld [R=303,L]
 RewriteRule ^rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
-RewriteRule ^nt/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.nt [R=303,L]
-RewriteRule ^n3/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.n3 [R=303,L]
-RewriteRule ^trig/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.trig [R=303,L]
+RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.nt [R=303,L]
+RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.n3 [R=303,L]
+RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.trig [R=303,L]
 
 # ====================================================================
 # Metadata artifacts

@@ -1,6 +1,6 @@
 # BattINFO
 
-This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Battery Interface Ontology (BattINFO)](https://github.com/BIG-MAP/BattINFO), and for BattINFO-governed persistent object identifiers that resolve to the [Battery Genome](https://www.battery-genome.org) registry.
+This [W3ID](https://w3id.org) provides a persistent URI namespace for the [Battery Interface Ontology (BattINFO)](https://github.com/BIG-MAP/BattINFO), and for BattINFO-governed persistent object identifiers, which resolve through the [BattINFO registry](https://github.com/battery-genome/battinfo-registry) resolver to machine-readable Linked Data and human landing pages on the [Battery Genome](https://www.battery-genome.org).
 
 ## Redirection Rules
 
@@ -24,27 +24,20 @@ This section contains a general summary of the logic behind the redirection rule
    - Special case for inferred ontology:
      `https://w3id.org/battinfo/{VERSION}/inferred --> https://big-map.github.io/BattINFO/battinfo/versions/{VERSION}/battinfo-inferred.ttl`
 
-4. `https://w3id.org/battinfo/{TYPE}/{ID} --> https://www.battery-genome.org/registry/{TYPE}/{ID}`
-   - BattINFO object IRIs use a generic two-segment pattern.
-   - The `TYPE` segment is preserved when redirecting into Battery Genome.
-   - This keeps BattINFO persistent identifiers aligned with Battery Genome registry URLs.
-   - Examples:
-     - `https://w3id.org/battinfo/cell-type/pge5-wer6-2q82-v9k0`
-       `--> https://www.battery-genome.org/registry/cell-type/pge5-wer6-2q82-v9k0`
-     - `https://w3id.org/battinfo/material/abc123`
-       `--> https://www.battery-genome.org/registry/material/abc123`
+4. `https://w3id.org/battinfo/{PATH} --> https://battinfo-registry.onrender.com/w3id/{PATH}`
+   - Everything not matched by the ontology rules above forwards, path preserved, to the BattINFO registry resolver, which handles all further resolution: object identifiers `{TYPE}/{ID}` (303 by content negotiation — JSON-LD / Turtle for machines, Battery Genome landing pages for browsers; legacy segments stay aliased; withdrawn records get `owl:deprecated` tombstones, never 404), the records JSON-LD context (`context/records/v1.json`), record-layer vocabulary terms, and reserved sub-paths (e.g. `twin/`).
+   - Example: `https://w3id.org/battinfo/spec/7d9k-2m4p-8t3x-6nq5 --> 303 --> .../w3id/spec/7d9k-2m4p-8t3x-6nq5 --> 303 --> JSON-LD, Turtle, or landing page by Accept header`
 
 ## Meaning of placeholders
 
 - `{VERSION}`: Version number. Must start with a digit to distinguish it from domain or path names.
-- `{TYPE}`: BattINFO object type slug, for example `cell`, `cell-type`, `material`, `protocol`, `dataset`, or `model`.
-- `{ID}`: Persistent local identifier for the referenced object.
+- `{PATH}`: Any path not claimed by the ontology rules — object identifiers (`{TYPE}/{ID}`, e.g. `spec`, `cell`, `test`, `dataset`, `material`, `equipment`, `channel` + an opaque 16-character ID), the records context, vocabulary terms, and reserved sub-paths.
+
 
 ## Notes
 
-- Special BattINFO routes such as `/raw`, `/latest`, `/source`, `/turtle`, `/inferred`, and versioned paths are handled before the generic `{TYPE}/{ID}` redirect.
-- The generic object redirect assumes that Battery Genome supports the route pattern:
-  `https://www.battery-genome.org/registry/{TYPE}/{ID}`
+- Special BattINFO routes such as `/raw`, `/latest`, `/source`, `/turtle`, `/inferred`, and versioned paths are handled before the generic `{PATH}` wildcard.
+- All object-identifier resolution intelligence (content negotiation, aliases, tombstones) lives in the deployed resolver, not in this file by design, this file should rarely need to change.
 
 ## Contacts
 
