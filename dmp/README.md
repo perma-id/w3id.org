@@ -24,4 +24,4 @@ page.
 Example: `https://w3id.org/dmp/evaluation/test/T-DCSC-001` redirects to
 [Test 1: Check for reused dataset declaration](https://docs.ostrails.eu/en/latest/commons/dmp/dmp-catalogue-of-tests.html#dmp-test-1).
 
-Maintainer: OSTrails Project ([@OSTrails](https://github.com/OSTrails), andres.romero@tuwien.ac.at)
+Maintainer: OSTrails Project ([@OSTrails](https://github.com/OSTrails), andres.romero@tuwien.ac.at), [@andretabima](https://github.com/andretabima)
