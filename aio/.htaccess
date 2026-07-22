@@ -20,4 +20,7 @@ RewriteRule ^bridge/aio-bridge-to-upper.owl$ https://raw.githubusercontent.com/b
 
 RewriteRule ^mappings$ https://github.com/berkeleybop/artificial-intelligence-ontology/tree/main/src/mappings [R=302,L]
 
+# Versioned release IRIs resolve to the immutable bytes at the matching git tag (vYYYY-MM-DD)
+RewriteRule ^releases/([0-9]{4}-[0-9]{2}-[0-9]{2})/(aio(-base|-full)?\.(owl|obo|json))$ https://raw.githubusercontent.com/berkeleybop/artificial-intelligence-ontology/v$1/$2 [R=302,L]
+
 RewriteRule ^(.*)$ https://bioportal.bioontology.org/ontologies/AIO/?p=classes&conceptid=https://w3id.org/aio/$1 [R=302,L,NE]
