@@ -1,34 +1,48 @@
- Options +FollowSymLinks                                                                          
-  RewriteEngine on                                                                               
+# contact info: Collin Schwantes
+# github user: collinschwantes
 
-  # -------------------------------------------------------                                        
-  # Vocabulary root: https://w3id.org/wdds/
-  # -------------------------------------------------------                                        
-                                                                                                 
-  # Serve JSON schema to clients requesting JSON                                                   
-  RewriteCond %{HTTP_ACCEPT} application/(json|ld\+json)                                         
-  RewriteRule ^$                                                                                   
-  https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/wdds_schema.json [R=303,L]
-   
-  # Serve HTML to browsers (default)                                                               
-  RewriteRule ^$ https://viralemergence.github.io/wdds/ [R=303,L]                                
+
+Options +FollowSymLinks                                                                          
+  RewriteEngine on                                                                               
                                                                                                    
+  # -------------------------------------------------------
+  # Vocabulary root: https://w3id.org/wdds/                                                        
   # -------------------------------------------------------                                      
-  # Term URIs: https://w3id.org/wdds/terms/{termName}
+
+  RewriteCond %{HTTP_ACCEPT} application/(json|ld\+json)                                           
+  RewriteRule ^$
+  https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/wdds_schema.json [R=303,L]
+                                                                                                 
+  RewriteRule ^$ https://viralemergence.github.io/wdds/ [R=303,L]                                  
+                                                                                                 
+  # -------------------------------------------------------                                        
+  # Disease data term URIs:                                                                      
+  # https://w3id.org/wdds/terms/disease-data/{termName}
   # -------------------------------------------------------                                        
    
-  # Serve JSON schema to clients requesting JSON                                                   
-  RewriteCond %{HTTP_ACCEPT} application/(json|ld\+json)                                         
-  RewriteRule ^terms/(.*)$                                                                         
+  RewriteCond %{HTTP_ACCEPT} application/(json|ld\+json)                                           
+  RewriteRule ^terms/disease-data/(.*)$                                                          
   https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/disease_data.json 
   [R=303,L]
                                                                                                    
-  # Serve HTML — anchor fragment jumps to the term on the page                                     
-  RewriteRule ^terms/(.*)$ https://viralemergence.github.io/wdds/terms/#$1 [R=303,L]
+  RewriteRule ^terms/disease-data/(.*)$ https://viralemergence.github.io/wdds/terms/#$1 [R=303,L]  
+   
+  # -------------------------------------------------------                                        
+  # Project metadata term URIs:                                                                  
+  # https://w3id.org/wdds/terms/project-metadata/{termName}
+  # -------------------------------------------------------                                        
+   
+  RewriteCond %{HTTP_ACCEPT} application/(json|ld\+json)                                           
+  RewriteRule ^terms/project-metadata/(.*)$ https://raw.githubusercontent.com/viralemergence/wdds/m
+  ain/wdds_schema/schemas/project_metadata.json [R=303,L]                                          
+   
+  RewriteRule ^terms/project-metadata/(.*)$ https://viralemergence.github.io/wdds/terms/#$1        
+  [R=303,L]                                                                                      
                                                                                                    
-  # -------------------------------------------------------                                        
+  # -------------------------------------------------------                                      
   # Schema URIs: https://w3id.org/wdds/schemas/{schema}
-  # -------------------------------------------------------                                        
-                                                                                                 
-  RewriteRule ^schemas/(.*)$                                                                       
-  https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/$1 [R=303,L]
+  # -------------------------------------------------------
+                                                                                                   
+  RewriteRule ^schemas/(.*)$
+  https://raw.githubusercontent.com/viralemergence/wdds/main/wdds_schema/schemas/$1 [R=303,L]      
+                   
