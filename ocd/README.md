@@ -22,7 +22,7 @@ Muhajab, A., Abdelmoty, A. I., and Hassoulas, A. (2026). Development, Evaluation
 
 ## Contact
 
-- Alia I. Abdelmoty — AbdelmotyAI@cardiff.ac.uk
+- Alia I. Abdelmoty (GitHub: @Aliaia) — AbdelmotyAI@cardiff.ac.uk
 - Areej Muhajab — MuhajabA@cardiff.ac.uk
 - School of Computer Science & Informatics, Cardiff University, Wales, UK
 
