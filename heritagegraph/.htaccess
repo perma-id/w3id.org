@@ -1,0 +1,30 @@
+# HeritageGraph Ontology — https://w3id.org/heritagegraph/
+# Redirects to the versioned artifacts published from
+# https://github.com/CAIRNepal/heritagegraphontology (GitHub Pages).
+# Maintainers: see README.md in this directory.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- content negotiation (applies to the namespace root, /ontology,
+#     versioned IRIs such as /ontology/0.1.0-alpha.5, the legacy
+#     /schema.owl.ttl identifier, and every term IRI in the namespace;
+#     all resolve to the current ontology document per LOD practice) ---
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^.*$ https://cairnepal.github.io/heritagegraphontology/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^.*$ https://cairnepal.github.io/heritagegraphontology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^.*$ https://cairnepal.github.io/heritagegraphontology/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^.*$ https://cairnepal.github.io/heritagegraphontology/ontology.jsonld [R=303,L]
+
+# --- default: human-readable documentation ---
+RewriteRule ^.*$ https://cairnepal.github.io/heritagegraphontology/ [R=303,L]
