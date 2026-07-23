@@ -115,7 +115,8 @@ Please help out the maintainers of the service with the following in your
 Pull Requests:
 
 * **Contact info** in a `README.md` or `.htaccess` comment.
-* **Test your changes** with a local checkout of the site.
+* **Test your changes** with a local checkout of the site. (Please see the
+[Testing Your Changes](#testing-your-changes) chapter.)
 * **_Squash_ multiple commits** into one commit before a pull request
   if appropriate.
   * Here is information on _squashing_ commits:
@@ -129,6 +130,54 @@ You can also send a request to add a redirect to the
 mailing list. Make sure to include the URL that you want on w3id.org, the
 URL that you want to redirect to, and the HTTP code that you want to use
 when redirecting. An administrator will then create the redirect for you.
+
+#### Testing Your Changes
+
+A [`docker-compose.yml`](./docker-compose.yml) file has been made available at the root
+of this project, so you can run a server on your local machine to test and make sure
+your changes are valid and work correctly.
+
+A working `docker-compose` install is necessary; please refer
+to the [official Docker documentation](https://docs.docker.com/compose/install/)
+about this prerequisite.
+
+Once you are ready, you can run the following command to bring up your
+local testing server.
+
+```bash
+docker-compose up -d
+```
+
+This will start an Apache `httpd` server with [`httpd.docker.conf`](./httpd.docker.conf)
+as a configuration file.
+
+You can now test your identifier by replacing `https://w3id.org/` with
+`http://localhost:8080/` in your query; for example:
+
+```
+https://w3id.org/identifier/resource
+```
+
+— will become —
+
+```
+http://localhost:8080/identifier/resource
+```
+
+Check the container's logs with the following
+command. The Apache `httpd` configuration has been tweaked to deliver a high
+level of debugging information for the `rewrite_module`.
+
+```bash
+docker-compose logs -f
+```
+
+When your testing is finished, all you need to do is to shut down your
+server by running this command:
+
+```bash
+docker-compose down
+```
 
 ### Naming Policy
 
