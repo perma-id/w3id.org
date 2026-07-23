@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# CESSDA permanent w3id redirects for SKG-IF
+
+# Research data redirects - map w3id identifiers to CESSDA Data Catalogue
+# Pattern: https://w3id.org/cessda/cessda_product_research_data_<hash>
+# Redirects to: https://datacatalogue.cessda.eu/detail/<hash>
+RewriteRule ^cessda_product_research_data_([A-Fa-f0-9]+)/?$ https://datacatalogue.cessda.eu/detail/$1 [R=303,L]
+
+# Literature/Publication redirects - map w3id identifiers back to SKG-IF
+# Pattern: https://w3id.org/cessda/cessda_product_literature_<id>
+# Redirects to: https://skg-if.cessda.eu/products/<full-w3id-uri>
+RewriteRule ^cessda_product_literature_([A-Fa-f0-9]+)/?$ https://skg-if.cessda.eu/products/https://w3id.org/cessda/cessda_product_literature_$1 [R=303,L]
+
+# Main namespace redirect (fallback)
+RewriteRule ^/?$ https://www.cessda.eu/ [R=303,L]
