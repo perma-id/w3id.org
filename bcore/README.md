@@ -1,9 +1,15 @@
 # Bridge Core Ontology
 
-The Bridge Core Ontology (BCore) enables the represetation of a bridge structure, its components and material, as well as the infrastructure and media files connected to it and the environment and location of the bridge. 
+<img align="right" src="https://raw.githubusercontent.com/TUD-IMB/BCore/refs/heads/conversion-to-bcore-suite/BCore.svg" height="200">
 
-Recommended namespace for BCore: https://w3id.org/bcore#
+The **Bridge Core Ontology (BCore)** provides the semantic foundation for representing bridges in a modular and extensible way. It defines the essential concepts needed to describe a bridge, its identity, and its top‑level structure. All other BCore modules build on this core and extend it with domain‑specific detail.
 
-**Contact**
-- Tim Noack <tim.noack@tu-dresden.de> (GitHub: NoackTim)
-- Morris Florek <morris_benedikt.florek@tu-dresden.de> (GitHub: morrisfl)
+Recommended namespace for BCore: **`bcore`** and its modules: **`bcore<module>`**.
+
+More information about the BCore Ontology can be found on our GitHub repository: [**TUD-IMB/BCore**](https://github.com/TUD-IMB/BCore)
+
+## Contact
+- **Tim Noack** • [`tim.noack@tu-dresden.de`](tim.noack@tu-dresden.de) • GitHub: [**NoackTim**](https://github.com/NoackTim)
+- **Johannes Reimer** • [`johannes.reimer@tu-dresden.de`](johannes.reimer@tu-dresden.de) • GitHub: [**JohannesReimer**](https://github.com/JohannesReimer)
+- **Xiaoli Song** • [`xiaoli.song@tu-dresden.de`](xiaoli.song@tu-dresden.de) • GitHub: [**XiaoliSong1126**](https://github.com/XiaoliSong1126)
+- **Morris Florek** • [`morris_benedikt.florek@tu-dresden.de`](morris_benedikt.florek@tu-dresden.de) • GitHub: [**morrisfl**](https://github.com/morrisfl)
