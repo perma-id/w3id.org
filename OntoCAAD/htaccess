@@ -1,0 +1,69 @@
+# W3ID Content Negotiation for OntoCAAD
+# OntoCAAD: an empirically grounded Ontology for Collaborative Agentic Architectural Design
+# GitHub: https://github.com/arlav/OntoCAAD
+# Maintainers: Elien Vissers-Similon, Theodoros Dounas
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# --- Versioned URIs (e.g., https://w3id.org/ontocaad/1.0.0) ---
+
+# HTML documentation for versioned URI
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/docs/$1/index.html [R=303,L]
+
+# Turtle for versioned URI
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/releases/$1/ontocaad.ttl [R=303,L]
+
+# RDF/XML for versioned URI
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/releases/$1/ontocaad.rdf [R=303,L]
+
+# JSON-LD for versioned URI
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/releases/$1/ontocaad.jsonld [R=303,L]
+
+# N-Triples for versioned URI
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/releases/$1/ontocaad.nt [R=303,L]
+
+# Default for versioned URI (Turtle)
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://arlav.github.io/OntoCAAD/releases/$1/ontocaad.ttl [R=303,L]
+
+
+# --- Latest (unversioned) URIs (e.g., https://w3id.org/ontocaad) ---
+
+# HTML documentation (browser)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ontology/ontocaad.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ontology/ontocaad.rdf [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ontology/ontocaad.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ontology/ontocaad.nt [R=303,L]
+
+# Default (Turtle)
+RewriteRule ^$ https://arlav.github.io/OntoCAAD/ontology/ontocaad.ttl [R=303,L]
