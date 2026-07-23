@@ -43,6 +43,13 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-version
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.nt [R=302,L]
 
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.n3 [R=302,L]
+
+# application/json -> OSO.json (twin of OSO.jsonld served as application/json)
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.json [R=302,L]
+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
@@ -98,6 +105,10 @@ RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.owl [R=302,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.jsonld [R=302,L]
 
+# JSON (twin of JSON-LD served as application/json for EarthPortal checker)
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.json [R=302,L]
+
 # N-Triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.nt [R=302,L]
@@ -124,6 +135,7 @@ RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.ttl 
 RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.owl [R=303,L]
 RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.owl [R=303,L]
 RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.json/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.json [R=303,L]
 RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.nt [R=303,L]
 RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.n3 [R=303,L]
 RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.trig [R=303,L]
@@ -131,6 +143,7 @@ RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.ttl [R=30
 RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.owl [R=303,L]
 RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.owl [R=303,L]
 RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.jsonld [R=303,L]
+RewriteRule ^json/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.json [R=303,L]
 RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.nt [R=303,L]
 RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.n3 [R=303,L]
 RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso-versions/1.1.0/OSO.trig [R=303,L]
