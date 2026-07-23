@@ -9,10 +9,11 @@ evaluation metrics and tests, part of the [OSTrails project](https://ostrails.eu
 `https://w3id.org/dmp/evaluation/metric/<metric-id>` redirects to the
 corresponding metric section on the
 [DMP Evaluation Metrics](https://docs.ostrails.eu/en/latest/commons/dmp/dmp-evaluation-metrics.html)
-page.
+page. The redirect target anchor is derived directly from `<metric-id>`
+(dots replaced with hyphens), so no per-metric mapping is maintained here.
 
 Example: `https://w3id.org/dmp/evaluation/metric/data.reused.co.1` redirects to
-[Metric 1: Reused Dataset Declared in the DMP](https://docs.ostrails.eu/en/latest/commons/dmp/dmp-evaluation-metrics.html#dmp-metric-1).
+[Metric 1: Reused Dataset Declared in the DMP](https://docs.ostrails.eu/en/latest/commons/dmp/dmp-evaluation-metrics.html#data-reused-co-1).
 
 ### Tests
 
