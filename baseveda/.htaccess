@@ -1,0 +1,35 @@
+# /baseveda/
+#
+# BaseVeda -- a Type / Function / Value ontology.
+#
+# This is the permanent, location-independent namespace for BaseVeda
+# vocabulary terms. It deliberately contains no hostname, so that every
+# independent deployment that speaks this vocabulary emits the identical
+# IRI for the same term.
+#
+# Terms are hash URIs, one document per ontology module:
+#
+#   https://w3id.org/baseveda/vocab#Person           -> core vocabulary document
+#   https://w3id.org/baseveda/planguage-core#File    -> a per-module document
+#
+# The fragment (#Person) is resolved by the client and never reaches the
+# server, so no per-term routes are required here. The rules below forward
+# the DOCUMENT path only; the client re-applies the fragment to the
+# retrieved document. New modules resolve without changing this file.
+#
+# ## Contact
+# This space is administered by:
+#
+# Kai Gilb
+# kaigilb@mac.com
+# GitHub username: KaiGilb
+
+RewriteEngine on
+
+# Bare namespace -> the core vocabulary document.
+RewriteRule ^$ https://veda.gilb.com/base/vocab [R=302,L]
+
+# Module documents -- path preserved, so additional modules need no change here.
+# 302 (temporary) is deliberate: the serve surface is expected to move to a
+# versioned release host, and a cached permanent redirect would outlive it.
+RewriteRule ^(.+)$ https://veda.gilb.com/base/$1 [R=302,L]
