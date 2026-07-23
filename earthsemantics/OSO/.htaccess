@@ -55,19 +55,19 @@ RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fturtle [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
 
 # Generic XML fallback
 RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
 
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fld%2Bjson [R=303,L]
 
 # RDF/JSON (not confirmed supported by Virtuoso conneg, kept on GitHub raw)
 RewriteCond %{HTTP_ACCEPT} application/rdf\+json
@@ -75,19 +75,19 @@ RewriteRule ^$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO
 
 # N-Triples
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fn-triples [R=303,L]
 
 # N3
 RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fn3 [R=303,L]
 
 # TriG
 RewriteCond %{HTTP_ACCEPT} application/trig
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fx-trig [R=303,L]
 
 # Plain text fallback -> Turtle
 RewriteCond %{HTTP_ACCEPT} text/plain
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso/rdf/OSO [R=303,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fturtle [R=303,L]
 
 # Default fallback -> documentation
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
@@ -95,23 +95,23 @@ RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=303,L]
 # ====================================================================
 # Explicit serialization URLs
 # ====================================================================
-RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.ttl [R=303,L]
-RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
-RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
-RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fturtle [R=303,L]
+RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
+RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
+RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fld%2Bjson [R=303,L]
 # NOTE: rdfjson not confirmed supported by Virtuoso, kept on GitHub raw
 RewriteRule ^OSO\.rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
-RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.nt [R=303,L]
-RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.n3 [R=303,L]
-RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.trig [R=303,L]
-RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.ttl [R=303,L]
-RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
-RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.owl [R=303,L]
-RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fn-triples [R=303,L]
+RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fn3 [R=303,L]
+RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fx-trig [R=303,L]
+RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fturtle [R=303,L]
+RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
+RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Frdf%2Bxml [R=303,L]
+RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fld%2Bjson [R=303,L]
 RewriteRule ^rdfjson/?$ https://raw.githubusercontent.com/emso-eric/oso-ontology/main/OSO.rdfjson [R=303,L]
-RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.nt [R=303,L]
-RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.n3 [R=303,L]
-RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso/rdf/OSO.trig [R=303,L]
+RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fn-triples [R=303,L]
+RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=text%2Fn3 [R=303,L]
+RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso/sparql?query=CONSTRUCT%20%7B%3Fs%20%3Fp%20%3Fo%7D%20WHERE%20%7B%3Fs%20%3Fp%20%3Fo%7D&format=application%2Fx-trig [R=303,L]
 
 # ====================================================================
 # Metadata artifacts
