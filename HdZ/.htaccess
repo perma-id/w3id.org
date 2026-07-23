@@ -1,0 +1,37 @@
+# Handwerk der Zukunft (HdZ) Mission Ontology
+# https://w3id.org/HdZ
+#
+# Maintainer: Essam Fadel
+# GitHub: https://github.com/EssamFadel
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Version 2.0.0 content negotiation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^2\.0\.0/?$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@v2.0.0/HdZ.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^2\.0\.0/?$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@v2.0.0/HdZ.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^2\.0\.0/?$ https://github.com/EssamFadel/HdZ-Ontology/tree/v2.0.0 [R=303,L]
+
+RewriteRule ^2\.0\.0/?$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@v2.0.0/HdZ.rdf [R=303,L]
+
+# Explicit serialization paths for the current release
+RewriteRule ^HdZ\.rdf$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@main/HdZ.rdf [R=303,L]
+RewriteRule ^HdZ\.ttl$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@main/HdZ.ttl [R=303,L]
+
+# Current ontology content negotiation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@main/HdZ.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@main/HdZ.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://github.com/EssamFadel/HdZ-Ontology [R=303,L]
+
+# Serve RDF/XML to clients that do not request a specific representation
+RewriteRule ^$ https://cdn.jsdelivr.net/gh/EssamFadel/HdZ-Ontology@main/HdZ.rdf [R=303,L]
