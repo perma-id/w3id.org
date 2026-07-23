@@ -1,0 +1,79 @@
+name: redirect_tests
+on: 
+  workflow_dispatch:
+    inputs:
+      search_path:
+        description: "Subpath(s) to test, e.g. '/osw;/emmo;/pmd' ('/*' = all subpaths)" 
+        default: '/*'
+  pull_request:
+
+jobs:
+  dispatch_test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+        - name: Checkout Project
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Check if at least one test exists
+          id: precheck
+          continue-on-error: true # if 'false' the whole workflow will fail if no test was defined
+          run: find $(IFS=';' read -ra paths <<< "${{ github.event.inputs.search_path }}"; for path in "${paths[@]}"; do echo ".$path "; done) -type f -name ".htaccess" -print0 | xargs -0 grep "##TEST"
+
+        - name: Run apache docker
+          if: steps.precheck.outcome == 'success'
+          run: docker run -dit --name apache -e SEARCH_PATH="${{ github.event.inputs.search_path }}" -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
+
+        - name: Install curl
+          if: steps.precheck.outcome == 'success'
+          run: docker exec -i apache sh -c "apt-get update && apt-get install curl"
+
+        - name: Run tests
+          if: steps.precheck.outcome == 'success'
+          run: docker exec -i apache bash < .test/test.sh
+
+  pull_request_test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+        - name: Checkout Project
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Get changed dirs
+          id: changed-dirs
+          uses: tj-actions/changed-files@v40
+          with:
+            dir_names: true
+            dir_names_max_depth: '1'
+            dir_names_exclude_current_dir: false
+        
+        - name: List all changed dirs
+          run: |
+            paths=""
+            for dir in ${{ steps.changed-dirs.outputs.all_changed_files }}; do
+              echo "$dir was changed"
+              paths="$paths/$dir;"
+            done
+            echo "SEARCH_PATH=$paths" >> $GITHUB_ENV
+            echo "set SEARCH_PATH to $SEARCH_PATH"
+            
+        - name: Check if at least one test exists
+          id: precheck
+          continue-on-error: true # if 'false' the whole workflow will fail if no test was defined
+          run: find $(IFS=';' read -ra paths <<< "$SEARCH_PATH"; for path in "${paths[@]}"; do echo ".$path "; done) -type f -name ".htaccess" -print0 | xargs -0 grep "##TEST"
+
+        - name: Run apache docker
+          if: steps.precheck.outcome == 'success'
+          run: docker run -dit --name apache -e SEARCH_PATH="$SEARCH_PATH" -v "$PWD":/usr/local/apache2/htdocs/ -v "$PWD"/.test/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf httpd:2.4
+
+        - name: Install curl
+          if: steps.precheck.outcome == 'success'
+          run: docker exec -i apache sh -c "apt-get update && apt-get install curl"
+
+        - name: Run tests
+          if: steps.precheck.outcome == 'success'
+          run: docker exec -i apache bash < .test/test.sh
