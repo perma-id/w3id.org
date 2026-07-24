@@ -66,6 +66,11 @@ SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framewo
 SetEnvIf Request_URI ^.*$ MBB_RAW=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/main/_sources
 SetEnvIf Request_URI ^.*$ MBB_TREE=https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/main/_sources
 
+# XAS SKOS glossary hosted on the XAS-CDIF GitHub Pages site.
+#   XAS_PAGES/           = single-page glossary index (HTML)
+#   XAS_PAGES/concepts/  = per-concept JSON-LD files ({localname}.jsonld)
+SetEnvIf Request_URI ^.*$ XAS_PAGES=https://smrgeoinfo.github.io/XAS-CDIF
+
 # ============================================================
 # Conformance URIs: /cdif/{component}/{version}/
 #
@@ -166,6 +171,50 @@ RewriteRule ^xasOptional/1\.0/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional
 RewriteRule ^xasOptional/1\.0/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
 RewriteRule ^xasOptional/1\.0/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
 RewriteRule ^xasOptional/1\.0/context/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+
+# ============================================================
+# XAS glossary concept URIs (SKOS)
+# ------------------------------------------------------------
+# Pattern: https://w3id.org/cdif/xas/{localname}
+# where {localname} follows the v2 naming convention (lowercase,
+# no underscores or spaces — [a-z][a-z0-9-]*).
+#
+# Resolution:
+#   Explicit suffix /jsonld
+#      → per-concept SKOS JSON-LD ({localname}.jsonld) on XAS-CDIF Pages
+#   Bare URI, Accept: application/ld+json | application/json
+#      → per-concept SKOS JSON-LD (content negotiation)
+#   Bare URI, default (browser, text/html, no Accept)
+#      → single-page HTML glossary, fragment anchor #{localname}
+#
+# ConceptScheme root: https://w3id.org/cdif/xas/
+#   Accept: application/ld+json | application/json
+#      → master SKOS JSON-LD document
+#   default
+#      → single-page HTML glossary index
+#
+# The /jsonld suffix rule MUST come before the bare-concept rule so the
+# suffixed form matches first.
+# ============================================================
+
+# --- xas/{concept}/jsonld → per-concept SKOS file (explicit suffix) ---
+RewriteRule ^xas/([a-z][a-z0-9-]*)/jsonld/?$ %{ENV:XAS_PAGES}/concepts/$1.jsonld [R=303,L]
+
+# --- xas/{concept} → per-concept SKOS file (Accept: JSON-LD) ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xas/([a-z][a-z0-9-]*)/?$ %{ENV:XAS_PAGES}/concepts/$1.jsonld [R=303,L]
+
+# --- xas/{concept} → single-page HTML fragment (default) ---
+RewriteRule ^xas/([a-z][a-z0-9-]*)/?$ %{ENV:XAS_PAGES}/#$1 [R=303,L]
+
+# --- xas/ → master SKOS document (Accept: JSON-LD) ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/XAS_Glossary_SKOS_v2.json [R=303,L]
+
+# --- xas/ → glossary HTML index (default) ---
+RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/ [R=303,L]
 
 # ---- Conformance URI bare paths (content negotiation) ----
 # Each rule serves: application/schema+json / application/json → StructuredSchema;
