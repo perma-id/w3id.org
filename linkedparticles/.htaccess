@@ -1,0 +1,26 @@
+# LinkedParticles — permanent identifiers for the LinkedParticles epistemic
+# knowledge standard (https://github.com/LinkedParticles).
+#
+# The standard's normative artifacts (JSON Schema, JSON-LD @context, five SHACL
+# shapes) declare their $id / vocabulary IRIs under https://w3id.org/linkedparticles/.
+# The IRIs are the stable identity; the hosting below is expected to move, which
+# is the whole reason this indirection exists (ADR 0157).
+#
+# Maintainer: LinkedParticles (https://github.com/LinkedParticles)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# PARKED PHASE (current). The standard repository is not public yet, so every
+# path under the namespace 302s to the organization landing page rather than
+# 404-ing. 302 (not 301) is deliberate: the target changes the moment the
+# standard repo publishes, and a cached 301 would be very hard to undo.
+RewriteRule ^(.*)$ https://github.com/LinkedParticles [R=302,L]
+
+# SERVING PHASE (follow-up PR, once the standard repo's GitHub Pages site is
+# live). Replace the rule above with the path-preserving rule below so that
+# https://w3id.org/linkedparticles/schemas/particle.schema.json resolves to the
+# published artifact, and content negotiation serves RDF to Linked Data clients.
+#
+# RewriteRule ^$ https://linkedparticles.github.io/particles-standard/ [R=302,L]
+# RewriteRule ^(.*)$ https://linkedparticles.github.io/particles-standard/$1 [R=302,L]
