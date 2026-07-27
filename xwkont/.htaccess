@@ -5,9 +5,17 @@ RewriteEngine on
 
 # === Rewrite Rules ===========================================================
 
-# Temporary (302) redirect while the project is pre-release.
-# e.g. https://w3id.org/xwkont => https://github.com/xwkont
-RewriteRule ^$ https://github.com/xwkont [R=302,L]
+# Project entry point: public documentation site.
+# e.g. https://w3id.org/xwkont => https://xwkont.github.io/xwkont/
+RewriteRule ^$ https://xwkont.github.io/xwkont/ [R=302,L]
+
+# Current core namespace document: Turtle representation.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^core$ https://raw.githubusercontent.com/xwkont/xwkont/main/data/ontology/core.ttl [R=302,L]
+
+# Current core namespace document: human-readable representation (GitHub Pages).
+RewriteRule ^core$ https://xwkont.github.io/xwkont/ontology/core-ontology/ [R=302,L]
 
 # === Contact ==================================================================
 #
