@@ -206,7 +206,10 @@ RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^xas/([a-z][a-z0-9-]*)/?$ %{ENV:XAS_PAGES}/concepts/$1.jsonld [R=303,L]
 
 # --- xas/{concept} → single-page HTML fragment (default) ---
-RewriteRule ^xas/([a-z][a-z0-9-]*)/?$ %{ENV:XAS_PAGES}/#$1 [R=303,L]
+# NE (noescape) prevents Apache from percent-encoding the fragment '#',
+# so the browser receives a real fragment identifier and scrolls to the
+# right section instead of requesting /XAS-CDIF/%23{concept}.
+RewriteRule ^xas/([a-z][a-z0-9-]*)/?$ %{ENV:XAS_PAGES}/#$1 [R=303,L,NE]
 
 # --- xas/ → master SKOS document (Accept: JSON-LD) ---
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
