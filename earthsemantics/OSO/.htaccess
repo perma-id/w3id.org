@@ -1,4 +1,4 @@
-Options +FollowSymLinks
+Options +FollowSymLinks -Indexes
 RewriteEngine On
 DirectorySlash Off
 
@@ -18,11 +18,23 @@ SetEnvIf Accept "application/json" CT_JSON
 SetEnvIf Accept "application/xml" CT_XML
 SetEnvIf Accept "text/plain" CT_PLAIN
 SetEnvIf Accept "application/rdf\+xml" CT_RDFXML
+SetEnvIf Accept "text/turtle" CT_TURTLE
+SetEnvIf Accept "text/n3" CT_N3
 
 Header always set Content-Type "application/json" env=CT_JSON
 Header always set Content-Type "application/xml" env=CT_XML
 Header always set Content-Type "text/plain" env=CT_PLAIN
 Header always set Content-Type "application/rdf+xml" env=CT_RDFXML
+Header always set Content-Type "text/turtle" env=CT_TURTLE
+Header always set Content-Type "text/n3" env=CT_N3
+
+# ====================================================================
+# Redirect directory root without trailing slash to trailing slash
+# ====================================================================
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^.*$ %{REQUEST_URI}/ [R=302,L]
 
 # ====================================================================
 # Versioned ontology IRI content negotiation
