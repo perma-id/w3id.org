@@ -6,3 +6,4 @@ This project is currently under active development. The ontology, documentation,
 
 ## Contact
 * Jos Zuijderwijk <`a.j.h.zuijderwijk [at] uu [dot] nl`>
+* GitHub @joszuijderwijk
