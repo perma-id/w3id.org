@@ -1,6 +1,6 @@
 # Bridge Element Design Rule Ontology
 
-The **Bridge Element Design Rule Ontology (BEDRO)** allows the representation of bridges, their boundary conditions and components as well as German design rules defining the material and geometry of these components.
+The **Bridge Element Design Rule Ontology (BEDRO)** allows the representation of bridges, their boundary conditions and components as well as German design rules defining the typology, material and geometry of these components.
 
 Recommended namespace for BEDRO: **`bedro`**.
 
