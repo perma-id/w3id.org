@@ -30,7 +30,7 @@ Suggestions for changes are welcome and can be posted at https://github.com/trai
   - `[L]` — If the previous conditions pass, this rule is executed, and no more evaluation is done. 
   - `[NE]` — (noescape) Prevents conversion of special characters to their hexcode equivalent; needed for links including a `#`.
 - the following matches are used
-  - `RewriteRule ^traits/trait_(.+)$ https://...` - the `(.+)` captures the 1 or more characters after `trait_` in the URL
+  - `RewriteRule ^traits/([^/]+)/?$ https://...` - the `([^/]+)` captures the whole slug after `traits/`, whatever form it takes. It deliberately does **not** match only `trait_*`: allowable categorical trait values are published under `traits/` as well and do not carry that prefix (e.g. `traits/plant_growth_form_tree`), so a `trait_`-only rule left 819 of the 1,449 `traits/` identifiers falling through to the catch-all and landing at the top of the page with no fragment. `[^/]+` rather than a character class, because slugs contain `+` as well as letters, digits, `_` and `-` (e.g. `traits/seed_germination_treatment_heat+smoke`). It requires at least one character, so `traits/` itself does not match and falls through to the next rule.
   - `RewriteRule ^ https://...` - captures any URL that hasn't been matched by the previous rules. Same behaviour as `RewriteRule ^(.*)$ https://...`. Note behaves differently to `RewriteRule ^$ https://...` which would only match the root URL. 
 
 ## Usage
