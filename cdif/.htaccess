@@ -69,6 +69,8 @@ SetEnvIf Request_URI ^.*$ MBB_TREE=https://github.com/Cross-Domain-Interoperabil
 # XAS SKOS glossary hosted on the XAS-CDIF GitHub Pages site.
 #   XAS_PAGES/           = single-page glossary index (HTML)
 #   XAS_PAGES/concepts/  = per-concept JSON-LD files ({localname}.jsonld)
+#   XAS_PAGES/XAS_{edges,emissionlines,detectionmodes}_SKOS.json
+#                        = the three value-list vocabularies, whole-file
 SetEnvIf Request_URI ^.*$ XAS_PAGES=https://smrgeoinfo.github.io/XAS-CDIF
 
 # ============================================================
@@ -196,6 +198,55 @@ RewriteRule ^xasOptional/1\.0/context/?$ %{ENV:MBB_RAW}/xasProperties/xasOptiona
 # The /jsonld suffix rule MUST come before the bare-concept rule so the
 # suffixed form matches first.
 # ============================================================
+
+# ============================================================
+# XAS value-list concept URIs (SKOS)
+# ------------------------------------------------------------
+# Three vocabularies of enumerated values live under their own path
+# segment, so their local names cannot collide with the glossary's:
+#
+#   https://w3id.org/cdif/xas/edge/{localname}           39 concepts
+#   https://w3id.org/cdif/xas/emissionline/{localname}  432 concepts
+#   https://w3id.org/cdif/xas/detectionmode/{localname}   7 concepts
+#
+# Unlike the glossary these have no per-concept files, so a concept URI
+# resolves to a fragment of its whole-vocabulary document. That is a
+# weaker form of resolution -- a client gets the entire scheme and must
+# find the concept in it -- and can be replaced with per-concept files
+# later without changing any URI.
+#
+# The local-name pattern allows underscores: prime marks in emission
+# line names become underscores (Kb2' -> kb2_, Kb2'' -> kb2__), which
+# is what keeps those nine lines from sharing a URI.
+#
+# These rules MUST precede the bare xas/{concept} rules below, which
+# would otherwise capture 'xas/edge' and send it to a per-concept file
+# that does not exist.
+# ============================================================
+
+# --- xas/{list}/ → the whole value-list document ---
+RewriteRule ^xas/edge/?$          %{ENV:XAS_PAGES}/XAS_edges_SKOS.json [R=303,L]
+RewriteRule ^xas/emissionline/?$  %{ENV:XAS_PAGES}/XAS_emissionlines_SKOS.json [R=303,L]
+RewriteRule ^xas/detectionmode/?$ %{ENV:XAS_PAGES}/XAS_detectionmodes_SKOS.json [R=303,L]
+
+# --- xas/{list}/{concept} → that concept's fragment of the document ---
+# NE (noescape) keeps '#' a real fragment instead of being percent-encoded.
+RewriteRule ^xas/edge/([a-z0-9][a-z0-9._-]*)/?$ %{ENV:XAS_PAGES}/XAS_edges_SKOS.json#$1 [R=303,L,NE]
+RewriteRule ^xas/emissionline/([a-z0-9][a-z0-9._-]*)/?$ %{ENV:XAS_PAGES}/XAS_emissionlines_SKOS.json#$1 [R=303,L,NE]
+RewriteRule ^xas/detectionmode/([a-z0-9][a-z0-9._-]*)/?$ %{ENV:XAS_PAGES}/XAS_detectionmodes_SKOS.json#$1 [R=303,L,NE]
+
+# ============================================================
+# ConceptScheme URIs
+# ------------------------------------------------------------
+# Each vocabulary's own @id, which every concept in it asserts through
+# skos:inScheme. These carry uppercase and underscores, so the
+# lowercase-only concept patterns below never match them.
+# ============================================================
+
+RewriteRule ^xas/CDIF4XAS_Reference_Concepts/?$ %{ENV:XAS_PAGES}/XAS_Glossary_SKOS_v2.json [R=303,L]
+RewriteRule ^xas/XAS_AbsorptionEdges/?$ %{ENV:XAS_PAGES}/XAS_edges_SKOS.json [R=303,L]
+RewriteRule ^xas/XAS_EmissionLines/?$ %{ENV:XAS_PAGES}/XAS_emissionlines_SKOS.json [R=303,L]
+RewriteRule ^xas/XAS_DetectionModes/?$ %{ENV:XAS_PAGES}/XAS_detectionmodes_SKOS.json [R=303,L]
 
 # --- xas/{concept}/jsonld → per-concept SKOS file (explicit suffix) ---
 RewriteRule ^xas/([a-z][a-z0-9-]*)/jsonld/?$ %{ENV:XAS_PAGES}/concepts/$1.jsonld [R=303,L]
