@@ -13,7 +13,7 @@ generation system over the proceedings of the Italian Chamber of Deputies
 
 This space is administered by:
 
-Mirko Tritella
-University of Milano-Bicocca
-GitHub username: Emeierkeio
+Mirko Tritella<br>
+University of Milano-Bicocca<br>
+GitHub username: Emeierkeio<br>
 Email: mirkotritella1999@gmail.com
