@@ -18,4 +18,6 @@ https://github.com/XiaoliSong1126/cweo
 
 ## Contact
 
-- Xiaoli Song: <xiaoli.song@tu-dresden.de>
+- **Name:** Xiaoli Song
+- **GitHub:** [@XiaoliSong1126](https://github.com/XiaoliSong1126)
+- **Email:** <xiaoli.song@tu-dresden.de>
