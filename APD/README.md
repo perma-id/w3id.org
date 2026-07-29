@@ -25,6 +25,7 @@ Suggestions for changes are welcome and can be posted at https://github.com/trai
 
 - the `.htaccess` code is written to process calls to variants of the machine-readable representations before any queries to `html`, i.e., `*.ttl`, `*.nq`, `*.nt`, and `*.json`, before `*.html`. This reduces the number of `RewriteCond` statements needed in the `html` section. 
 - tested with https://htaccess.madewithlove.com (using `https://w3id.org/` as the base URL; `https://w3id.org/APD/` won't work, as code is written as though you're already in that subfolder)
+- the HTML targets end in `/`, **not** `/index.html` — `https://traitecoevo.github.io/APD/#<slug>` rather than `.../APD/index.html#<slug>`. Both paths serve the same 6 MB document, so naming both gave one page two URLs: two browser cache entries, two downloads, and two things for search engines to index. `/APD/` is the form the site declares as its own (`site-url`) and the form its internal links resolve to, so it is the one to redirect into. Don't put `index.html` back.
 - the following flags are used
   - `[R=303]` — A redirect. When a server responds with a `303` status code, it provides a `Location` pointing to a different URI. The client, upon receiving a `303` response, automatically makes a `GET` request to the URI specified in the `Location` header.  
   - `[L]` — If the previous conditions pass, this rule is executed, and no more evaluation is done. 
