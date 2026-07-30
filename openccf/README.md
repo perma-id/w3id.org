@@ -6,7 +6,7 @@ systems.
 
 - `https://w3id.org/openccf` redirects to the generated schema reference site.
 - `https://w3id.org/openccf/<Term>` redirects to the documentation page for
-  that class or slot (e.g. `https://w3id.org/openccf/EmissionsReport`),
+  that class or slot (e.g., `https://w3id.org/openccf/EmissionsReport`),
   matching the `definition_uri` values used throughout the schema.
 
 ## Links
