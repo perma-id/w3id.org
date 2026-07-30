@@ -11,16 +11,22 @@ Entity IRIs are minted under `https://w3id.org/bsdo#`.
 
 | Identifier | Resolves to |
 |---|---|
-| `https://w3id.org/bsdo` | terminology (TBox) |
-| `https://w3id.org/bsdo/abox` | population (ABox) |
+| `https://w3id.org/bsdo` | terminology (TBox), current release |
+| `https://w3id.org/bsdo/abox` | population (ABox), current release |
+| `https://w3id.org/bsdo/0.2.0` | that release, frozen |
 
-Both identifiers negotiate on content type: HTML for browsers, RDF/XML when requested, Turtle
+All identifiers negotiate on content type: HTML for browsers, RDF/XML when requested, Turtle
 otherwise. All targets are served from GitHub Pages with the correct media types (`text/turtle` and
 `application/rdf+xml`).
 
-Two rules are required rather than one: the population document declares
+Two rules are needed for the current release rather than one: the population document declares
 `owl:imports <https://w3id.org/bsdo>`, so the terminology identifier must resolve for the import to
 be satisfied.
+
+The version rule is written as a pattern over `MAJOR.MINOR.PATCH` and points into a frozen
+per-release directory, so that an ontology which declared an import of a given version still
+resolves to what it was written against after later releases change the files at the root. A new
+release therefore needs no change here.
 
 ## Where the files live
 
