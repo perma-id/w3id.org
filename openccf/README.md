@@ -16,5 +16,5 @@ systems.
 
 ## Contact
 
-Patrick Stirling ([@patstirling](https://github.com/patstirling))
+Patrick Stirling ([@patstirling](https://github.com/patstirling))<br>
 Issues: <https://github.com/openccf/openccf-data-model/issues>
