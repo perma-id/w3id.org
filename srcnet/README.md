@@ -40,8 +40,8 @@ Ontology source and project documentation:
 ## Maintainers
 
 - Edgar Ribeiro João ([@Edgar25-coder](https://github.com/Edgar25-coder))
-- Manuel Parra-Royón
-- Julián Garrido
+- Manuel Parra-Royón ([@manuparra](https://github.com/manuparra))
+- Julián Garrido ([@julian-garrido](https://github.com/julian-garrido))
 
 ## License
 
