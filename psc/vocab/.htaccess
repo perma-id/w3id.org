@@ -1,0 +1,18 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+# Canonical scheme and concept IRIs have HTML and RDF representations.
+Header merge Vary "Accept"
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(?:scheme/[A-Za-z0-9._-]+/?|concept/PSC-CV-[0-9]{6}/?)?$ https://psc-salmon-vocabularies-694ed8.gitlab.io/psc-vocabularies.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(?:scheme/[A-Za-z0-9._-]+/?|concept/PSC-CV-[0-9]{6}/?)?$ https://psc-salmon-vocabularies-694ed8.gitlab.io/psc-vocabularies.jsonld [R=303,L]
+
+# Human-facing namespace and identifier pages.
+RewriteRule ^$ https://psc-salmon-vocabularies-694ed8.gitlab.io/ [R=303,L]
+RewriteRule ^(scheme/[A-Za-z0-9._-]+|concept/PSC-CV-[0-9]{6}|release/[A-Za-z0-9._-]+)/?$ https://psc-salmon-vocabularies-694ed8.gitlab.io/$1/ [R=303,L]
+
+# Preserve release artifact and future subordinate paths.
+RewriteRule ^(.*)$ https://psc-salmon-vocabularies-694ed8.gitlab.io/$1 [R=303,L]
