@@ -1,3 +1,11 @@
 # Maintainer: Otávio de Paula Albuquerque (GitHub: oalbuquerque)
 # Ontology: FMLO (Fairness in Machine Learning Ontology)
-Redirect 302 /FMLO/ https://oalbuquerque.github.io/FMLO/
+
+RewriteEngine On
+RewriteBase /FMLO/
+
+RewriteCond %{REQUEST_URI} ^/FMLO/?$
+RewriteRule ^(.*)$ https://oalbuquerque.github.io/FMLO/ [R=302,L]
+
+RewriteCond %{REQUEST_URI} !^/FMLO/?$
+RewriteRule ^(.*)$ https://oalbuquerque.github.io/FMLO/$1 [R=302,L]
