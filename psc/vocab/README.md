@@ -8,7 +8,7 @@ The current alpha is provisional and is not an adopted PSC standard.
 ## Public authority
 
 - Repository: <https://gitlab.com/pacific-salmon-commission/psc-data-systems/psc-salmon-vocabularies>
-- Documentation: <https://psc-salmon-vocabularies-694ed8.gitlab.io/>
+- Documentation: <https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/>
 - Releases: `https://w3id.org/psc/vocab/release/{version}`
 - Schemes: `https://w3id.org/psc/vocab/scheme/{scheme_id}`
 - Concepts: `https://w3id.org/psc/vocab/concept/{concept_id}`
