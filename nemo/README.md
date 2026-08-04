@@ -24,6 +24,15 @@ gUFOevents is at <https://github.com/nemo-ufes/gufoevents>.
 ## Website
 [https://nemo.inf.ufes.br](https://nemo.inf.ufes.br)
 
+## Identifiers
+
+| Identifier | Redirects to | Description |
+| --- | --- | --- |
+| <https://w3id.org/nemo/gufoshapes> | <https://nemo-ufes.github.io/gufoshapes/gufoshapes.ttl> | gUFO SHACL shapes. |
+| <https://w3id.org/nemo/gufoevents> | <https://nemo-ufes.github.io/gufoevents/gufoevents.ttl> | The gUFOevents ontology, an extension of gUFO for events. Version IRIs under this path (e.g. `/nemo/gufoevents/1.0.0`) resolve to the same file. |
+| <https://w3id.org/nemo/doc/gufoevents> | <https://nemo-ufes.github.io/gufoevents/> | Documentation of gUFOevents. |
+| everything else under `/nemo/` | <https://nemo.inf.ufes.br/> | The group website. |
+
 ## Contacts
 * **João Paulo A. Almeida** <jpalmeida@ieee.org> (GitHub: [jpalmeida](https://github.com/jpalmeida))
 
