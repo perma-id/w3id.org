@@ -1,0 +1,63 @@
+# # /semprini/
+#
+# The namespace of the Semprini metamodel ontology.
+#
+# Semprini is an openly licensed compiler that turns the business models and
+# taxonomies an organization already maintains into a governed RDF knowledge
+# graph. Every deployment binds to this one shared metamodel, so the namespace
+# must resolve independently of any single organization's domain.
+#
+# Metamodel terms are hash IRIs under https://w3id.org/semprini/ontology#
+# (for example https://w3id.org/semprini/ontology#Entity), so requests arrive
+# for the ontology document itself:
+#
+#   /semprini/                  -> project home
+#   /semprini/ontology          -> the current ontology: Turtle for RDF clients,
+#                                  documentation for browsers
+#   /semprini/ontology/X.Y.Z    -> that released version of the ontology
+#   /semprini/ontology/sem.ttl  -> the Turtle document, bypassing negotiation
+#
+# The redirect target is the project's own GitHub Pages site. Only Turtle is
+# published, so every RDF media type resolves to the same document.
+#
+# Source repository: https://github.com/JuhaKor/semprini
+#
+# ## Contact
+# This space is administered by:
+#
+# Juha Korpela
+# juha.korpela@datakor.fi
+# GitHub username: JuhaKor
+#
+# On behalf of Datakor Consulting Oy, Finland.
+
+RewriteEngine on
+
+# Explicit document URLs, unversioned and versioned. Listed first so that a
+# request naming the file is served regardless of the Accept header.
+RewriteRule ^ontology/sem\.ttl$ https://juhakor.github.io/semprini/ontology/sem.ttl [R=302,L]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/sem\.ttl$ https://juhakor.github.io/semprini/ontology/$1/sem.ttl [R=302,L]
+
+# Content negotiation for /ontology and /ontology/X.Y.Z. The optional group is
+# empty when no version is given, so one rule serves both; an unmatched
+# back-reference substitutes as the empty string.
+
+# RDF clients get the Turtle document.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^ontology(/[0-9]+\.[0-9]+\.[0-9]+)?/?$ https://juhakor.github.io/semprini/ontology$1/sem.ttl [R=302,L]
+
+# Everything else -- browsers, and clients expressing no preference -- gets the
+# human-readable documentation, which links to the Turtle.
+RewriteRule ^ontology(/[0-9]+\.[0-9]+\.[0-9]+)?/?$ https://juhakor.github.io/semprini/ontology$1/ [R=302,L]
+
+# Project home.
+RewriteRule ^$ https://juhakor.github.io/semprini/ [R=302,L]
+
+# Anything else under /semprini/ resolves to the same site, so that later
+# additions need no change here.
+RewriteRule ^(.*)$ https://juhakor.github.io/semprini/$1 [R=302,L]
