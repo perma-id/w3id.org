@@ -4,6 +4,9 @@ This namespace is for the resources related to  cineCRAFT, a ontology of filmmak
 Website: [cinecraft.org
 ](https://github.com/cineminds)
 
-Contact: <admin@cinecraft.org>
+Contact: Manuel Flurin HENDRY <admin@cinecraft.org>
 
-GitHub: [https://github.com/cineminds](https://github.com/cineminds)
+GitHub User: [hendryman](http://github.com/hendryman)
+
+
+GitHub Org: [https://github.com/cineminds](https://github.com/cineminds)
