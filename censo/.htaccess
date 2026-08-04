@@ -1,0 +1,87 @@
+# CENSO: an ontology for censored environmental observations
+#
+# https://w3id.org/censo/ redirects to https://recepcanaltinbag.github.io/censo/
+#
+# CENSO extends SOSA/SSN so that a non-detection can be represented as the
+# interval it establishes rather than as a zero, and so that "cannot be
+# determined" is an explicit compliance outcome.
+#
+# ## Contact
+# This space is administered by:
+#
+# Recep Can Altinbag <recep.altinbag@bogazici.edu.tr>
+# GitHub username: recepcanaltinbag
+# Bogazici University, Institute of Environmental Sciences, Istanbul, Turkiye
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure files are served as the appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# Named modules. These are DIFFERENT documents, not other serialisations of the
+# core vocabulary, so they are matched before the content negotiation below.
+# ---------------------------------------------------------------------------
+RewriteRule ^reg/tr-ysky-2016/?$     https://recepcanaltinbag.github.io/censo/reg/tr-ysky-2016.ttl [R=303,L]
+RewriteRule ^reg/eu-2008-105-2026/?$ https://recepcanaltinbag.github.io/censo/reg/eu-2008-105-2026.ttl [R=303,L]
+RewriteRule ^reg/?$                  https://recepcanaltinbag.github.io/censo/censo-regulation.ttl [R=303,L]
+RewriteRule ^shapes/?$               https://recepcanaltinbag.github.io/censo/censo-shapes.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Latest version.
+#
+# The first condition is negative and is AND-ed with the rest: it excludes
+# clients that ask for RDF/XML ahead of HTML, which a plain ordering cannot
+# distinguish because RewriteCond matches substrings and cannot read q-values.
+# The User-Agent test catches browsers that send an unhelpful Accept header.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://recepcanaltinbag.github.io/censo/index.html [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://recepcanaltinbag.github.io/censo/censo-full.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://recepcanaltinbag.github.io/censo/censo-full.owl [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://recepcanaltinbag.github.io/censo/censo-full.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Version-aware URIs.
+#
+# The ontology's own owl:versionIRI is https://w3id.org/censo/1.0.0, so this is
+# not a convenience: the IRI is inside the published file and has to resolve,
+# or the artefact points at a 404 of its own making.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://recepcanaltinbag.github.io/censo/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://recepcanaltinbag.github.io/censo/releases/$1/censo-full.owl [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://recepcanaltinbag.github.io/censo/releases/$1/censo-full.ttl [R=303,L]
+
+# ---- everything else passes through ---------------------------------------
+RewriteRule ^(.*)$ https://recepcanaltinbag.github.io/censo/$1 [R=303,L]
