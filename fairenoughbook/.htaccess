@@ -1,0 +1,33 @@
+# # /fairenoughbook/
+#
+# Namespace for the WildObs running example of the book
+# "FAIR Enough: A practical guide to make data FAIR(er)".
+#
+# https://w3id.org/fairenoughbook/ redirects to
+# https://luizbonino.github.io/FAIREnough-companion/ns/
+#
+# Clients that ask for RDF receive the WildObs graph in Turtle. Browsers
+# receive the namespace documentation.
+#
+# ## Contact
+# This space is administered by:
+#
+# Luiz Olavo Bonino da Silva Santos
+# l.o.boninodasilvasantos@utwente.nl
+# GitHub username: luizbonino
+
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# RDF representations of the WildObs example data
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^wildobs(/.*)?$ https://luizbonino.github.io/FAIREnough-companion/ns/wildobs.ttl [R=303,L]
+
+# Human-readable documentation of the namespace
+RewriteRule ^wildobs(/.*)?$ https://luizbonino.github.io/FAIREnough-companion/ns/ [R=302,L]
+RewriteRule ^$ https://luizbonino.github.io/FAIREnough-companion/ns/ [R=302,L]
+RewriteRule ^(.*)$ https://luizbonino.github.io/FAIREnough-companion/ns/$1 [R=302,L]
