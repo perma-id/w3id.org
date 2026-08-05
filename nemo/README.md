@@ -4,25 +4,24 @@ The Ontology & Conceptual Modeling Research Group (NEMO) at the Federal Universi
 
 The w3id.org URLs are used to create permanent URLs to the projects, open-source code and resources of this research group.
 
-## Identifiers
-
-Anything not listed below redirects to the group's website.
-
-| Identifier | Resolves to |
-| --- | --- |
-| `/nemo/gufoshapes` | the gUFO SHACL shapes |
-| `/nemo/gufoevents` | the gUFOevents ontology, or its documentation for a web browser |
-| `/nemo/gufoevents/1.0.0` | version 1.0.0 of the ontology, from the `v1.0.0` tag |
-| `/nemo/doc/gufoevents` | the gUFOevents documentation |
-| `/nemo/doc/gufoevents/explorer` | the interactive companion to the examples |
-| `/nemo/gufoevents/shapes/core` | the core SHACL shapes |
-| `/nemo/gufoevents/shapes/event-sourcing` | the event-sourcing SHACL shapes |
-| `/nemo/gufoevents/examples/{order, person, bicycle, museum, employment, corporate, clinical, account}` | the eight worked examples |
-
-gUFOevents is at <https://github.com/nemo-ufes/gufoevents>.
-
 ## Website
 [https://nemo.inf.ufes.br](https://nemo.inf.ufes.br)
+
+## Identifiers
+
+| Identifier | Redirects to | Description |
+| --- | --- | --- |
+| <https://w3id.org/nemo/gufo> | <https://nemo-ufes.github.io/gufo/gufo.ttl> | The gUFO ontology. |
+| <https://w3id.org/nemo/doc/gufo> | <https://nemo-ufes.github.io/gufo/> | Documentation of gUFO. |
+| <https://w3id.org/nemo/gufoshapes> | <https://nemo-ufes.github.io/gufoshapes/gufoshapes.ttl> | gUFO SHACL shapes. |
+| <https://w3id.org/nemo/gufoevents> | <https://nemo-ufes.github.io/gufoevents/gufoevents.ttl> | The gUFOevents ontology, an extension of gUFO for events. |
+| <https://w3id.org/nemo/gufoevents/1.0.0> | The immutable [`d0296aa`](https://github.com/nemo-ufes/gufoevents/commit/d0296aaef08b3ebb38438774b8a6df7e0bfe980c) version of `gufoevents.ttl` | The gUFOevents 1.0.0 ontology. |
+| <https://w3id.org/nemo/doc/gufoevents> | <https://nemo-ufes.github.io/gufoevents/> | Documentation of gUFOevents. |
+| <https://w3id.org/nemo/doc/gufoevents/explorer> | <https://nemo-ufes.github.io/gufoevents/explorer.html> | Interactive gUFOevents example explorer. |
+| <https://w3id.org/nemo/gufoevents/shapes/core> | `event-sourcing/shapes-core.ttl` at the immutable [`d0296aa`](https://github.com/nemo-ufes/gufoevents/commit/d0296aaef08b3ebb38438774b8a6df7e0bfe980c) version | Core gUFOevents SHACL shapes. |
+| <https://w3id.org/nemo/gufoevents/shapes/event-sourcing> | `event-sourcing/shapes-event-sourcing.ttl` at the immutable [`d0296aa`](https://github.com/nemo-ufes/gufoevents/commit/d0296aaef08b3ebb38438774b8a6df7e0bfe980c) version | Event-sourcing gUFOevents SHACL shapes. |
+| <https://w3id.org/nemo/gufoevents/examples/> | <https://github.com/nemo-ufes/gufoevents/tree/main/examples> | Index of the worked examples. Individual example identifiers redirect to their Turtle files. |
+| everything else under `/nemo/` | <https://nemo.inf.ufes.br/> | The group website. |
 
 ## Contacts
 * **João Paulo A. Almeida** <jpalmeida@ieee.org> (GitHub: [jpalmeida](https://github.com/jpalmeida))
