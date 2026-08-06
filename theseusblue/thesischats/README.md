@@ -8,6 +8,7 @@ The writing of the thesis document involved acknowledged help from AI LLM chatbo
 ## Author
 
 [Neel Singh](https://neelnealneil.github.io/)
+Github Id: neelnealneil
 
 ## Advisor
 
