@@ -18,5 +18,14 @@ RewriteBase /
 # Rewrite rule to resolve policy context
 RewriteRule ^policy/v1.0.0(.*)$ https://eclipse-tractusx.github.io/tractusx-profiles/cx/context/policy.context.json [R=302,L]
 
+# Rewrite rule to resolve the legacy Tractus-X namespace context
+RewriteRule ^v0\.0\.1/ns/?$ https://eclipse-tractusx.github.io/tractusx-edc/context/tx-v1.jsonld [R=302,L]
+
+# Rewrite rule to resolve the Tractus-X auth namespace context
+RewriteRule ^auth/?$ https://eclipse-tractusx.github.io/tractusx-edc/context/tx-auth-v1.jsonld [R=302,L]
+
+# Rewrite rule to resolve the Tractus-X auth JSON-LD context
+RewriteRule ^auth/v1\.0\.0$ https://eclipse-tractusx.github.io/tractusx-edc/context/tx-auth-v1.jsonld [R=302,L]
+
 # Rewrite rule to default to the tx webpage
 RewriteRule ^(.*)$ https://eclipse-tractusx.github.io/ [R=303,L]
