@@ -1,0 +1,21 @@
+# https://w3id.org/act  —  an Action-Centric Ontology and Taxonomy for Historical Knowledge Graphs 
+# Maintainer: Shiho Nakamura (github.com/shiho1000)
+# Canonical files: https://github.com/shiho1000/act-ontology
+#
+# This .htaccess redirects the ACT persistent URIs to the raw TTL files
+# hosted in the act-ontology GitHub repository (branch: master).
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---- Ontology (structure) ----
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/shiho1000/act-ontology/master/act_ontology.ttl [R=302,L]
+
+# ---- Taxonomy (SKOS action-type vocabulary) ----
+RewriteRule ^taxonomy/?$ https://raw.githubusercontent.com/shiho1000/act-ontology/master/act_taxonomy.ttl [R=302,L]
+
+# ---- Multilabel (expressions mapping to multiple action types) ----
+RewriteRule ^multilabel/?$ https://raw.githubusercontent.com/shiho1000/act-ontology/master/act_multilabel.ttl [R=302,L]
+
+# ---- Bare /act -> repository landing page (human-readable) ----
+RewriteRule ^$ https://github.com/shiho1000/act-ontology [R=302,L]

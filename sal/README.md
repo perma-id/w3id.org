@@ -31,3 +31,5 @@ preserved after the redirect.
 - Maintainer: Center for Geospatial Solutions
 - Contact: [webb-ben](https://github.com/webb-ben)
 - Contact: [C-Loftus](https://github.com/C-Loftus)
+- Contact: [adplincinst](https://github.com/adplincinst)
+- Contact: [shirlysteph](https://github.com/shirlysteph)

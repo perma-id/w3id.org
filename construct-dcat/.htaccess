@@ -1,0 +1,27 @@
+# Construct-DCAT persistent identifier
+#
+# Namespace: https://w3id.org/construct-dcat#
+# Project: https://github.com/jundahuang9123/ConstructDCAT
+#
+# Maintainer:
+# Junda Huang
+# Email: huang@uni-wuppertal.de
+# GitHub: jundahuang9123
+
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+# Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://jundahuang9123.github.io/ConstructDCAT/construct-dcat.ttl [R=303,L]
+
+# JSON-LD representation
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://jundahuang9123.github.io/ConstructDCAT/construct-dcat.jsonld [R=303,L]
+
+# Human-readable documentation and fallback
+RewriteRule ^$ https://jundahuang9123.github.io/ConstructDCAT/ [R=303,L]
