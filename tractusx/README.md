@@ -6,5 +6,4 @@ This namespace serves as redirection platform for multiple resources from the [E
 Contact: 
 
 - Stephan Bauer <stephan.bauer@catena-x.net> (https://github.com/HFocken)
-- James Marino <jim.marino@gmail.com> (https://github.com/jimmarino)
 - Arno Weiß <arno.weiss@sap.com> (https://github.com/arnoweiss)

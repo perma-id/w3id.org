@@ -8,46 +8,189 @@
 # GitHub username: k-vaughn
 
 RewriteEngine On
+Options -MultiViews
 
-# Set FORMAT based on Accept header for RDF formats
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
-RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^ - [E=FORMAT:rdf]
-
+# Prefer HTML only when explicitly requested; otherwise default to RDF
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^ - [E=FORMAT:html]
 
-# Default to RDF (OWL) if no Accept header (common for some tools; safer than HTML default for ontologies)
 RewriteCond %{ENV:FORMAT} ^$
 RewriteRule ^ - [E=FORMAT:rdf]
 
 
-# /21972/v1 -> i72-v1 (or i72-v1/i72.owl if RDF)
-# For RDF: Redirect to main ontology file
+# -----------------------------------------------------------------------------
+# URL patterns for City Data Model ontology
+#
+# Path shape (always):
+#   {topic}/{version}/{item}/{release}
+#   e.g. part1/v1/Agent/latest
+#
+# - topic:   One of "21972", "imported", or "partN" (where N is the part number)
+# - version:
+#   If topic is "21972", then version is "vN" (e.g., "v1")
+#   If topic is "imported", then version is the name of the imported ontology (e.g., "time")
+#   If topic is "partN", then version is "vN" (e.g., "v1")
+# - item:    3rd segment (optional) — class, property, module, or *.ttl
+# - release: 4th segment (optional; only when item is present)
+#            Any string is accepted and copied through.
+#            When omitted, "latest" is assumed.
+#
+# For the leading part of the conversion:
+#   If topic is "21972", then → https://isotc204.org/ontology-i72-{version}/...
+#   If topic is "imported", then → https://isotc204.org/ontology-import-{version}/...
+#   If topic is "partN", then → https://isotc204.org/ontology-cdm-pN-{version}/..., where N is the part number
+#
+# For the trailing part of the conversion, use content negotiation (Accept → FORMAT=rdf|html):
+# - no {item}:
+#     RDF  → .../latest/its-{topic}.ttl
+#     HTML → .../latest/
+# - {item} = *.ttl:
+#     any → .../{release}/{filename.ttl}
+# - {item} = *SHACL or *Alignment:
+#     → .../{release}/{Item}.ttl  (no HTML docs page)
+# - {item} = *Pattern:
+#     HTML → .../{release}/classes/{Item}/
+#     RDF  → .../{release}/{Item}.ttl
+# - {item} = other Upper-case names (classes):
+#     HTML → .../{release}/classes/{Item}/
+#     RDF  → .../{release}/its-{topic}.ttl
+# - {item} = lower-case names (properties):
+#     HTML → .../{release}/properties/{item}/
+#     RDF  → .../{release}/its-{topic}.ttl
+#
+# Notes:
+# - Rules are ordered from most-specific to least-specific.
+# - Item names are copied through as given (no CamelCase→kebab conversion).
+# -----------------------------------------------------------------------------
+
+# =============================================================================
+# 1) Explicit .ttl: {topic}/{version}/{file.ttl}/{release}
+# =============================================================================
+RewriteRule ^21972/(v\d+)/([^/]+\.ttl)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/$2 [R=303,L]
+RewriteRule ^imported/([^/]+)/([^/]+\.ttl)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/$2 [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([^/]+\.ttl)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/$3 [R=303,L]
+
+# =============================================================================
+# 2) Explicit .ttl: {topic}/{version}/{file.ttl}  (no release → latest)
+# =============================================================================
+RewriteRule ^21972/(v\d+)/([^/]+\.ttl)/?$ https://isotc204.org/ontology-i72-$1/latest/$2 [R=303,L]
+RewriteRule ^imported/([^/]+)/([^/]+\.ttl)/?$ https://isotc204.org/ontology-import-$1/latest/$2 [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([^/]+\.ttl)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/$3 [R=303,L]
+
+# =============================================================================
+# 3) Item + release: {topic}/{version}/{item}/{release}
+# =============================================================================
+
+# *SHACL / *Alignment (any Accept) → {Item}.ttl
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^21972/(v\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^imported/([^/]+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^part(\d+)/(v\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/$3.ttl [R=303,L]
+
+# *Pattern RDF → {Item}.ttl
+RewriteCond %{REQUEST_URI} Pattern
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/i72.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
-RewriteRule ^21972/v(\d+)/?$ https://isotc204.org/ontology-i72-v$1/latest/ [R=303,L]
-
-# /imported/time -> import-time
-RewriteRule ^imported/(.*)/?$ https://isotc204.org/ontology-import-$1 [R=303,L]
-
-# /part1/v2 -> p1-v2 (or p1-v2/5087-1.owl if RDF)
+RewriteRule ^21972/(v\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} Pattern
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/5087-$1.owl [R=303,L]  # RDF (adjust if 5087 isn't part-specific)
-RewriteRule ^part(\d+)/v(\d+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/ [R=303,L]
-
-# /part1/v2/Agent -> p1-v2/latest/Agent (.owl for RDF)
+RewriteRule ^imported/([^/]+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} Pattern
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3.owl [R=303,L]  # $1=part#, $2=submodule
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/latest/$3 [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/$3.ttl [R=303,L]
 
-# Specific release: /part1/v2/Agent/r3.0 -> p1-v2/r3.0/Agent)
+# Class RDF → its-{topic}.ttl ; Class/Pattern HTML → classes/{Item}/
 RewriteCond %{ENV:FORMAT} rdf
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3.owl [R=303,L]  # $1=part#, $2=submodule, $3=version
-RewriteRule ^part(\d+)/v(\d+)/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-v$2/$4/$3 [R=303,L]
+RewriteRule ^21972/(v\d+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/i72.ttl [R=303,L]
+RewriteRule ^21972/(v\d+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/classes/$2/ [R=303,L]
 
-# Fallback: Redirect to main page if no specific match
-RewriteRule ^ https://isotc204.org/ontology-cdm-p1-v1/latest/ [R=303,L]
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/$1.ttl [R=303,L]
+RewriteRule ^imported/([^/]+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/classes/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/5087-$1.ttl [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([A-Z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/classes/$3/ [R=303,L]
+
+# Property RDF / HTML
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/(v\d+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/i72.ttl [R=303,L]
+RewriteRule ^21972/(v\d+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/$3/properties/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/$1.ttl [R=303,L]
+RewriteRule ^imported/([^/]+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/$3/properties/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/5087-$1.ttl [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([a-z][^/]+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/$4/properties/$3/ [R=303,L]
+
+# =============================================================================
+# 4) Item only (no release → latest): {topic}/{version}/{item}
+# =============================================================================
+
+# *SHACL / *Alignment (any Accept) → {Item}.ttl
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^21972/(v\d+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^imported/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} SHACL|Alignment
+RewriteRule ^part(\d+)/(v\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/$3.ttl [R=303,L]
+
+# *Pattern RDF → {Item}.ttl
+RewriteCond %{REQUEST_URI} Pattern
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/(v\d+)/([^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} Pattern
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/([^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/$2.ttl [R=303,L]
+RewriteCond %{REQUEST_URI} Pattern
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/([^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/$3.ttl [R=303,L]
+
+# Class RDF → its-{topic}.ttl ; Class/Pattern HTML → classes/{Item}/
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/(v\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/i72.ttl [R=303,L]
+RewriteRule ^21972/(v\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/classes/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/$1.ttl [R=303,L]
+RewriteRule ^imported/([^/]+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/classes/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/5087-$1.ttl [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([A-Z][^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/classes/$3/ [R=303,L]
+
+# Property RDF / HTML
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/(v\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/i72.ttl [R=303,L]
+RewriteRule ^21972/(v\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-i72-$1/latest/properties/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/$1.ttl [R=303,L]
+RewriteRule ^imported/([^/]+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/properties/$2/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/5087-$1.ttl [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/([a-z][^/]+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/properties/$3/ [R=303,L]
+
+# =============================================================================
+# 5) Topic + version only (no item → latest)
+# =============================================================================
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^21972/(v\d+)/?$ https://isotc204.org/ontology-i72-$1/latest/i72.ttl [R=303,L]
+RewriteRule ^21972/(v\d+)/?$ https://isotc204.org/ontology-i72-$1/latest/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^imported/([^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/$1.ttl [R=303,L]
+RewriteRule ^imported/([^/]+)/?$ https://isotc204.org/ontology-import-$1/latest/ [R=303,L]
+
+RewriteCond %{ENV:FORMAT} rdf
+RewriteRule ^part(\d+)/(v\d+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/5087-$1.ttl [R=303,L]
+RewriteRule ^part(\d+)/(v\d+)/?$ https://isotc204.org/ontology-cdm-p$1-$2/latest/ [R=303,L]
+
+# =============================================================================
+# 6) Fallback
+# =============================================================================
+RewriteRule ^ https://isotc204.org/ritso/ [R=303,L]
