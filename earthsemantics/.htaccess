@@ -1,5 +1,9 @@
 Options +FollowSymLinks
 
 RewriteEngine on
+DirectorySlash Off
+
 # Redirect the base ontology URI to its EarthPortal page and each of its class/concept to its view
-RewriteRule ^(.+)$ https://earthportal.eu/ontologies/$1 [R=302,L] 
+# Exclude OSO subdirectory which has its own .htaccess for content negotiation
+RewriteCond %{REQUEST_URI} !^/earthsemantics/OSO [NC]
+RewriteRule ^(.+)$ https://earthportal.eu/ontologies/$1 [R=302,L]

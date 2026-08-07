@@ -1,0 +1,52 @@
+# Name of the project: RockWorx Acquisition Ontology + SysML v2 Link
+# Description: An open, BFO/CCO-conformant ontology of the U.S. DoD acquisition lifecycle
+#   (DoDI 5000.85) and its 2025 Warfighting Acquisition System / JFRP reform, with a
+#   working SysML v2 integration and a legislative-horizon layer. Repository:
+#   github.com/RockWorx/acquisition-ontology
+# Contacts:
+# - RockWorx Aerospace <mike@rockworx.io> (GitHub: @RockWorx)
+
+Options -MultiViews
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ DOCS=https://rockworx.github.io/acquisition-ontology
+SetEnvIf Request_URI ^.*$ RAW=https://raw.githubusercontent.com/RockWorx/acquisition-ontology/main
+
+# Normalise: drop any trailing slash
+RewriteRule ^(.+)/$ /rockworx/$1 [R=302,L]
+
+##### Base module:  https://w3id.org/rockworx/acq #####
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^acq$ %{ENV:RAW}/rwx-acq-base.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^acq$ %{ENV:RAW}/rwx-acq-base.owl [R=302,L]
+RewriteRule ^acq$ %{ENV:DOCS}/ [R=302,L]
+
+##### Transform module:  https://w3id.org/rockworx/acq/transform #####
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^acq/transform$ %{ENV:RAW}/rwx-acq-transform.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^acq/transform$ %{ENV:RAW}/rwx-acq-transform.owl [R=302,L]
+RewriteRule ^acq/transform$ %{ENV:DOCS}/ [R=302,L]
+
+##### SysML v2 link bridge:  https://w3id.org/rockworx/acq/sysml #####
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^acq/sysml$ %{ENV:RAW}/sysml_link/bridge.ttl [R=302,L]
+RewriteRule ^acq/sysml$ %{ENV:DOCS}/ [R=302,L]
+
+##### Legislative-horizon module:  https://w3id.org/rockworx/acq/horizon #####
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^acq/horizon$ %{ENV:RAW}/rwx-acq-horizon.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^acq/horizon$ %{ENV:RAW}/rwx-acq-horizon.owl [R=302,L]
+RewriteRule ^acq/horizon$ %{ENV:DOCS}/ [R=302,L]
+
+# Anything else under /rockworx/ (e.g. version IRIs) -> the documentation
+RewriteRule ^acq(/.*)?$ %{ENV:DOCS}/ [R=302,L]
+RewriteRule ^$ %{ENV:DOCS}/ [R=302,L]
