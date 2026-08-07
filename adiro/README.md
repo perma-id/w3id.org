@@ -26,8 +26,8 @@ to the ADIRO GitHub Pages site:
 
 Buro Happold — Machine Learning R&D:
 
-- Alessio Lombardi &lt;alessio.lombardi@burohappold.com&gt;
-- Ahmed Elnagar &lt;ahmed.elnagar@burohappold.com&gt;
-- Sepehr Najjarpour &lt;sepehr.najjarpour@burohappold.com&gt;
-- Tianyang Huang &lt;tianyang.huang@burohappold.com&gt;
-- Ahmed Zalouk &lt;ahmed.zalouk@burohappold.com&gt;
+- Alessio Lombardi — [@alelom](https://github.com/alelom) &lt;alessio.lombardi@burohappold.com&gt;
+- Ahmed Elnagar — [@AhmedElnagar1](https://github.com/AhmedElnagar1) &lt;ahmed.elnagar@burohappold.com&gt;
+- Sepehr Najjarpour — [@sn-bh](https://github.com/sn-bh) &lt;sepehr.najjarpour@burohappold.com&gt;
+- Tianyang Huang — [@BH-Tianyang](https://github.com/BH-Tianyang) &lt;tianyang.huang@burohappold.com&gt;
+- Ahmed Zalouk — [@Zaalouk122576](https://github.com/Zaalouk122576) &lt;ahmed.zalouk@burohappold.com&gt;
