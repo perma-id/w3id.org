@@ -144,9 +144,12 @@ RewriteRule ^$ - [R=406,L]
 # END audited SSTIM manifest routes
 
 # -------------------------------------------------------------------------
-# Stable BSC catalog identities. Framework, application, and component IRIs
-# resolve to their owning static RDF documents; the Patch Studio component is
-# intentionally distinct from the /sstim/patch-studio ontology module.
+# Stable BSC catalog identities. Programme, framework, application, and
+# component IRIs resolve to their owning static RDF documents; the Patch Studio
+# component is intentionally distinct from the /sstim/patch-studio ontology
+# module, and /sstim/ecosystem/{id} (programme instances, slash) is intentionally
+# distinct from /sstim/ecosystem (the OWL module, matched exactly above) and from
+# /sstim/ecosystem-record/{kind}/{id} (live relationship records).
 # -------------------------------------------------------------------------
 # BEGIN audited BSC catalog routes
 # Browser targets are per-entity deep links into the knowledge browser's
@@ -164,6 +167,9 @@ RewriteRule ^$ - [R=406,L]
 # and invisible. The negotiation test now pins every one of them
 # (scripts/w3id-negotiation.test.mjs).
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^ecosystem/biosyncare/?$ https://labiosyncare.github.io/graph/#sstim-ecosystem:biosyncare [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^framework/bsc/?$ https://labiosyncare.github.io/graph/#bsc-fw: [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -175,6 +181,10 @@ RewriteRule ^implementation/biosyncare/?$ https://labiosyncare.github.io/graph/#
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^implementation/bsclab/component/patch-studio/?$ https://labiosyncare.github.io/graph/#bsclab:component/patch-studio [R=303,L,NE]
 
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(ecosystem/biosyncare)/?$ https://labiosyncare.github.io/ontology/instances/programmes/biosyncare-ecosystem.ttl [R=303,L]
+RewriteRule ^(ecosystem/biosyncare)/?$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
