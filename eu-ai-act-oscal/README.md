@@ -15,4 +15,5 @@ snapshot return HTTP 200. Format: NIST OSCAL 1.1.2 JSON, validated with
 `compliance-trestle` 5.0.0. Licence: Apache-2.0 with DCO.
 
 - Maintainer: Miltos Makridis <standards@olon.media>
+- GitHub: [@miltos-thestargazer](https://github.com/miltos-thestargazer)
 - Project: <https://github.com/olon-standards/eu-ai-act-oscal>
