@@ -1,0 +1,21 @@
+# https://w3id.org/sgrlab/ -- Garrett-Roe Lab (University of Pittsburgh)
+#
+# ## Contact
+# This space is administered by:
+#
+# Sean Garrett-Roe
+# sgarrettroe@gmail.com
+# GitHub username: sgarrettroe
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://github.com/pitt-SGRLab [R=302,L]
+
+# notes -- the lab's kb-notes system (https://github.com/pitt-SGRLab/kb-notes).
+# Bare /notes goes to the tool itself; /notes/<initials> goes to that lab
+# member's own private notes-data repo, kb-notes-<initials> -- e.g.
+# /notes/sgr -> kb-notes-sgr, /notes/mrl -> kb-notes-mrl. Assumes every lab
+# member's data repo follows the kb-notes-<initials> naming convention.
+RewriteRule ^notes/?$ https://github.com/pitt-SGRLab/kb-notes [R=302,L]
+RewriteRule ^notes/([A-Za-z0-9-]+)/?$ https://github.com/pitt-SGRLab/kb-notes-$1 [R=302,L,NC]
