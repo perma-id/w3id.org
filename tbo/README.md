@@ -8,4 +8,4 @@ Permanent identifiers for The Business Ontology (TBO).
 | `https://w3id.org/tbo/example/...` | `https://tbont.org/example/...` |
 | `https://w3id.org/tbo/...` | `https://thebusinessontology.com/...` |
 
-Contact: contact@thebusinessontology.com
+Maintainer: [@arogersonline](https://github.com/arogersonline) · Contact: contact@thebusinessontology.com
