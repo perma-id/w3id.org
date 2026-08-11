@@ -1,7 +1,43 @@
+# CCO-Domains — https://w3id.org/cco-domains/
+#
+# Maintainer: James Schoening  https://github.com/jimschoening1
+# Canonical repository: https://github.com/cco-domains/cco-domains
+#
+# Layout served here:
+#   /cco/<Module>.ttl        faithful mirror of CCO 2.1 (NCOR/CUBRC), re-IRI'd
+#   /domains/<Module>.ttl    CCO-Domains ontologies (Person, Address, Staging)
+#   /cco/<termId>            single-term documents, generated from the above
+#
+# Rules are ordered specific-to-general: the per-term patterns must come before
+# the catch-alls, or `/cco/ent00000001` is swallowed by the `^cco/(.*)$` rule and
+# sent to a module path where no such file exists.
+
 RewriteEngine On
 
-# Redirect for /domains/*
+# ---------------------------------------------------------------------------
+# Single-term IRIs, e.g. https://w3id.org/cco-domains/cco/ent00000001
+#
+# Content negotiation happens here rather than at the origin: the static host
+# behind these redirects cannot read an Accept header, but this layer can, so
+# the same IRI resolves to JSON-LD or Turtle depending on what the client asks
+# for. Both representations are pre-generated and byte-identical in meaning.
+# ---------------------------------------------------------------------------
+
+# Explicit extension always wins over negotiation.
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})\.(ttl|jsonld)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.$2 [R=302,L]
+
+# Turtle only when explicitly requested by an RDF client.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.ttl [R=302,L]
+
+# JSON-LD — default for everything else (browsers, VC processors, bare requests).
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.jsonld [R=302,L]
+
+# ---------------------------------------------------------------------------
+# Module-level IRIs (unchanged behaviour)
+# ---------------------------------------------------------------------------
+
 RewriteRule ^domains/(.*)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/domains/$1 [R=302,L]
 
-# Redirect for /cco/*
 RewriteRule ^cco/(.*)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/cco/$1 [R=302,L]
