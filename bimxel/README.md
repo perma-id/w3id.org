@@ -33,6 +33,7 @@ consumption.
 
 Héctor Posada — hector.posada@upc.edu
 Universitat Politècnica de Catalunya (UPC) — GreenBIMxels project
+GitHub: @hposadac
 
 ## License
 
