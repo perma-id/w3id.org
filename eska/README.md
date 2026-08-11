@@ -1,6 +1,6 @@
 # ESKA permanent identifier configuration
 
-This directory is the prepared upstream contribution payload for:
+Permanent identifier namespace for **Executable Semantic Knowledge Architecture (ESKA)**:
 
 ```text
 https://w3id.org/eska
@@ -8,51 +8,43 @@ https://w3id.org/eska
 
 Project:
 
-- **Executable Semantic Knowledge Architecture (ESKA)**
 - Repository: `GerhardBalz/executable-semantic-knowledge-architecture`
 - Point of contact: **Gerhard Balz** — GitHub `@GerhardBalz`
 
 ## Status
 
-**Prepared, not active.**
-
-The authoritative ESKA ontology source still uses the provisional term namespace:
-
-```text
-urn:eska:core:
-```
-
-The adopted permanent target namespace is:
+**Active.** The ESKA namespace was activated by perma-id/w3id.org#6530 and externally verified before the ontology source migrated to the permanent term namespace:
 
 ```text
 https://w3id.org/eska#
 ```
 
-The `.htaccess` file in this directory must be submitted to the upstream `perma-id/w3id.org` repository under `eska/.htaccess` and merged before ESKA source ontology IRIs are migrated.
+The former `urn:eska:core:` identifiers are retained only as historical predecessors in the ESKA namespace-migration record; they are not asserted `owl:sameAs`.
 
-## Initial redirects
+## Current routes
 
-The prepared routing package provides:
+The unversioned routes represent the current governed ESKA publication and follow the repository `main` branch:
 
 - vocabulary base / hash-namespace document;
 - human-readable namespace/publication documentation;
 - combined Turtle distribution;
-- stable unversioned module routes for `core`, `capability`, `service`, `agent`, and `deployment`;
+- stable module routes for `core`, `capability`, `service`, `agent`, and `deployment`;
 - content negotiation for `text/turtle` on the vocabulary base and module routes.
 
-Versioned module routes are intentionally **not** configured yet. They will be added only when immutable governed release targets exist.
+## Immutable version routes
 
-## Activation order
+Versioned ontology and distribution routes resolve only to immutable governed ESKA release tags. The first governed repository release is:
 
 ```text
-1. Merge ESKA backend publication targets
-2. Verify public GitHub HTML/RDF backend URLs
-3. Fork perma-id/w3id.org
-4. Copy this directory to w3id.org/eska/
-5. Submit W3ID PR
-6. Wait for upstream merge
-7. Verify https://w3id.org/eska externally
-8. Only then migrate ESKA terms/ontology IRIs atomically
+eska-v0.1.0
 ```
 
-This ordering prevents the repository from claiming persistent semantic identifiers before the redirect infrastructure actually exists.
+It publishes these module versions:
+
+- core `0.1.0`
+- capability `0.2.0`
+- service `0.4.0`
+- agent `0.3.0`
+- deployment `0.1.0`
+
+Repository release versions and ontology-module semantic versions are intentionally independent.
