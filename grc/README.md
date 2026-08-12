@@ -11,18 +11,14 @@ The ontology and its reproducibility package are hosted on GitHub at https://git
 | `/grc/ontology` | GRC ontology (Turtle via content negotiation, documentation otherwise) |
 | `/grc/nfcrm` | NFCRM-1:2025 clause graph (Turtle) |
 
-# Contacts
+## Contacts
 
-**Mohammed Ismail Alamawy**
+### Mohammed Ismail Alamawy
+- GitHub: [@MOo207](https://github.com/MOo207)
+- Faculty of Computer and Information Systems, Islamic University of Madinah, Saudi Arabia
+- email: [461020996@stu.iu.edu.sa](mailto:461020996@stu.iu.edu.sa)
+- ORCID: [0009-0008-4917-1165](https://orcid.org/0009-0008-4917-1165)
 
-Faculty of Computer and Information Systems, Islamic University of Madinah, Saudi Arabia
-
-email: [461020996@stu.iu.edu.sa](mailto:461020996@stu.iu.edu.sa)
-
-ORCID: [0009-0008-4917-1165](https://orcid.org/0009-0008-4917-1165)
-
-**Fayçal Hamdi**
-
-Faculty of Computer and Information Systems, Islamic University of Madinah, Saudi Arabia
-
-ORCID: [0000-0002-5314-1419](https://orcid.org/0000-0002-5314-1419)
+### Fayçal Hamdi
+- Faculty of Computer and Information Systems, Islamic University of Madinah, Saudi Arabia
+- ORCID: [0000-0002-5314-1419](https://orcid.org/0000-0002-5314-1419)
