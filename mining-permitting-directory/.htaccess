@@ -1,0 +1,73 @@
+# https://w3id.org/mining-permitting-directory/
+#
+# Mining Permitting Directory — permanent identifier redirect.
+# Versioned at mpd/config/w3id/.htaccess in the project repository, so the redirect rule has the
+# same history as the namespace it serves (ADR-018 Decision 6). This file is a COPY destination:
+# it is edited here and copied into a fork of https://github.com/perma-id/w3id.org as
+# mining-permitting-directory/.htaccess. It is never edited only there.
+#
+# The path string is ratified and permanent (ADR-018 Decision 1).
+# The redirect target below is changeable and expected to change (ADR-018 Decision 2).
+# That asymmetry is the entire reason this project uses w3id.org rather than a domain it owns.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ------------------------------------------------------------------------------------------------
+# Content negotiation — DISABLED, deliberately, and not because it was forgotten.
+# ------------------------------------------------------------------------------------------------
+#
+# ADR-018 Decision 7. The instruction for this file was "content negotiation for text/turtle and
+# application/rdf+xml IF THE TARGET CAN SERVE THEM, HTML otherwise." Today it cannot, and the
+# reason is a control working rather than a control missing:
+#
+#   mpd.rdf.publication refuses to mark any export `publishable` while registration_state is not
+#   REGISTERED. So there is no published ontology.ttl to redirect a Turtle request to, and there
+#   cannot be one before this pull request merges.
+#
+# A negotiation rule pointing at a file that does not exist is worse than no negotiation rule: a
+# client sending `Accept: text/turtle` would receive a 303 to a 404, instead of the HTML page it
+# would otherwise have been given. That is a promise the target cannot keep, which is the one
+# thing this project does not ship.
+#
+# The ordering is therefore two-step and is written down in README.md §4:
+#   1. this PR merges           -> registration_state becomes REGISTERED
+#   2. the export is published  -> uncomment the two blocks below, and open a second, one-line PR
+#
+# Uncomment ONLY when both URLs written into the blocks below actually resolve. The target origin is
+# now set, which changes nothing here: a live origin serving a landing page is not an origin serving
+# an ontology, and `publishable` is still False.
+# `test_adr018_the_htaccess_negotiation_block_and_the_readme_agree` fails if this block is
+# uncommented while README.md still describes it as pending, so the two cannot drift apart.
+#
+# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+# RewriteCond %{HTTP_ACCEPT} application/x-turtle
+# RewriteRule ^(.*)$ https://scperm727.github.io/mining-permitting-directory/ontology.ttl [R=303,L]
+#
+# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+# RewriteRule ^(.*)$ https://scperm727.github.io/mining-permitting-directory/ontology.rdf [R=303,L]
+
+# ------------------------------------------------------------------------------------------------
+# Default: 303 See Other to the HTML documentation, preserving the path suffix.
+# ------------------------------------------------------------------------------------------------
+#
+# 303 and not 302: the IRI names a jurisdiction, a criterion or an authorization — a thing in the
+# world, not a document. 303 is the httpRange-14 answer that says "the thing is not the page; here
+# is a page about it." A 302 would assert that the page IS the criterion.
+#
+# $1 is preserved so that every minted IRI redirects to its own page rather than all of them
+# landing on the index: .../criterion/CRIT-013 -> <target>/criterion/CRIT-013.
+#
+# THE HOST BELOW IS SET AND VERIFIED. Marco, 2026-08-12, closing F58. It replaced a deliberate
+# reserved-name sentinel — see README.md §1 and ADR-018 Decision 8 for what that sentinel was doing
+# and why the absence of a target was enforced by a validator rather than by a note.
+#
+# The origin is a STANDALONE GitHub Pages repository carrying a landing page and nothing else. It is
+# NOT this project repository, which stays private and unpushed: the redirect needs a documentation
+# endpoint, and publishing the corpus to obtain one would be a far larger decision taken for a far
+# smaller reason (ADR-018 Decision 2). Observed 200 before it was written here.
+#
+# It is changeable by design and expected to change. What consumers store is the w3id.org request
+# IRI; this Location is transport, followed once and discarded. Moving it is a one-line pull request
+# that breaks nothing.
+RewriteRule ^(.*)$ https://scperm727.github.io/mining-permitting-directory/$1 [R=303,L]
