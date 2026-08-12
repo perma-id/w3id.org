@@ -1,0 +1,23 @@
+# SMO — Semantic Modeling Ontology
+# Point of contact: Gerhard Balz — GitHub @GerhardBalz
+# Canonical project: https://github.com/GerhardBalz/semantic-modeling-ontology
+#
+# Initial activation payload for https://w3id.org/smo
+# Only current routes are activated at this stage. Immutable version routes are
+# added only after the governed smo-v0.1.0 release tag exists.
+
+Options +FollowSymLinks -Indexes
+RewriteEngine On
+
+# Vocabulary base / hash namespace document.
+# RDF clients receive authoritative Turtle; browsers receive project documentation.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/GerhardBalz/semantic-modeling-ontology/main/model/smo.ttl [R=303,NE,L]
+
+RewriteRule ^$ https://github.com/GerhardBalz/semantic-modeling-ontology [R=303,NE,L]
+
+# Human-readable namespace/publication documentation.
+RewriteRule ^docs/?$ https://github.com/GerhardBalz/semantic-modeling-ontology/blob/main/docs/namespace-publication-versioning.md [R=303,NE,L]
+
+# Current explicit Turtle distribution route.
+RewriteRule ^dist/smo\.ttl$ https://raw.githubusercontent.com/GerhardBalz/semantic-modeling-ontology/main/model/smo.ttl [R=303,NE,L]
