@@ -107,6 +107,18 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/turtle/?$ https://e
 RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/dependencies/?$ https://emmo-repo.github.io/domain-$2/versions/$3/$2-dependencies.ttl [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/dependencies/?$ https://emmo-repo.github.io/application-$2/versions/$3/$2-dependencies.ttl [R=303,NE,L]
 
+# Rule 1e:  https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/context
+# Rule 1e': https://w3id.org/emmo/application/{DOMAIN}/{VERSION}/context
+# Default context
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/context/?$ https://emmo-repo.github.io/domain-$2/versions/$3/context/context.json [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/context/?$ https://emmo-repo.github.io/application-$2/versions/$3/context/context.json [R=303,NE,L]
+
+# Rule 1f:  https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/context/{CONTEXTNAME}
+# Rule 1f': https://w3id.org/emmo/application/{DOMAIN}/{VERSION}/context/{CONTEXTNAME}
+# Named context
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/context/([^/]+)/?$ https://emmo-repo.github.io/domain-$2/versions/$3/context/$4.json [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/context/([^/]+)/?$ https://emmo-repo.github.io/application-$2/versions/$3/context/$4.json [R=303,NE,L]
+
 
 # Rule 2:  https://w3id.org/emmo/domain/{DOMAIN}/{VERSION}/source
 # Rule 2': https://w3id.org/emmo/application/{DOMAIN}/{VERSION}/source
@@ -237,6 +249,16 @@ RewriteRule ^([0-9][^/]*)/hume/reference/?$ https://emmo-repo.github.io/versions
 RewriteRule ^([0-9][^/]*)/hume/disciplines/?$ https://emmo-repo.github.io/versions/$1/hume/disciplines/disciplines.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/hume/disciplines/units/?$ https://emmo-repo.github.io/versions/$1/hume/disciplines/units/units.ttl [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/hume/(.*[^/])/?$ https://emmo-repo.github.io/versions/$1/hume/$2.ttl [R=303,NE,L]
+#
+# Rule 7e:  https://w3id.org/emmo/{VERSION}/context
+#           https://w3id.org/emmo/{VERSION}/context/{CONTEXTNAME}
+#           https://w3id.org/emmo/{VERSION}/hume/context
+#           https://w3id.org/emmo/{VERSION}/hume/context/{CONTEXTNAME}
+# Specific version of context
+RewriteRule ^([0-9][^/]*)/context/?$ https://emmo-repo.github.io/versions/$1/context/context.json [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/context/([^/]+)/?$ https://emmo-repo.github.io/versions/$1/context/$2.json [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/context/?$ https://emmo-repo.github.io/versions/$1/hume/context/context.json [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/hume/context/([^/]+)/?$ https://emmo-repo.github.io/versions/$1/hume/context/$2.json [R=303,NE,L]
 
 # Rule 8: https://w3id.org/emmo/{VERSION}/emmo
 #         https://w3id.org/emmo/{VERSION}/source (deprecated)
@@ -318,6 +340,17 @@ RewriteRule ^hume/reference/?$ https://emmo-repo.github.io/hume/reference/refere
 RewriteRule ^hume/disciplines/?$ https://emmo-repo.github.io/hume/disciplines/disciplines.ttl [R=303,NE,L]
 RewriteRule ^hume/disciplines/units/?$ https://emmo-repo.github.io/hume/disciplines/units/units.ttl [R=303,NE,L]
 RewriteRule ^hume/([^0-9].*[^/])/?$ https://emmo-repo.github.io/hume/$1.ttl [R=303,NE,L]
+
+# Rule 10e:  https://w3id.org/emmo/context
+#            https://w3id.org/emmo/context/{CONTEXTNAME}
+#            https://w3id.org/emmo/hume/context
+#            https://w3id.org/emmo/hume/context/{CONTEXTNAME}
+# Context
+RewriteRule ^context/?$ https://emmo-repo.github.io/context/context.json [R=303,NE,L]
+RewriteRule ^context/([^/]+)/?$ https://emmo-repo.github.io/context/$1.json [R=303,NE,L]
+RewriteRule ^hume/context/?$ https://emmo-repo.github.io/hume/context/context.json [R=303,NE,L]
+RewriteRule ^hume/context/([^/]+)/?$ https://emmo-repo.github.io/hume/context/$1.json [R=303,NE,L]
+
 
 # Rule 11: https://w3id.org/emmo/emmo
 #          https://w3id.org/emmo/source (deprecated)
