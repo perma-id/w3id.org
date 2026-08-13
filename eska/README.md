@@ -33,18 +33,29 @@ The unversioned routes represent the current governed ESKA publication and follo
 
 ## Immutable version routes
 
-Versioned ontology and distribution routes resolve only to immutable governed ESKA release tags. The first governed repository release is:
+Versioned ontology and distribution routes resolve only to immutable governed ESKA release tags.
+
+The first governed repository release is `eska-v0.1.0`. It remains the immutable backend for:
+
+- core `0.1.0`;
+- capability `0.2.0`;
+- service `0.4.0`;
+- agent `0.3.0`;
+- deployment `0.1.0`.
+
+The second governed repository release is:
 
 ```text
-eska-v0.1.0
+eska-v0.2.0
 ```
 
-It publishes these module versions:
+It adds the immutable backend for core `0.2.0`:
 
-- core `0.1.0`
-- capability `0.2.0`
-- service `0.4.0`
-- agent `0.3.0`
-- deployment `0.1.0`
+```text
+https://w3id.org/eska/model/core/0.2.0
+https://w3id.org/eska/dist/0.2.0/eska-core.ttl
+```
+
+Both core `0.2.0` routes target only `eska-v0.2.0`; they do not target mutable `main`.
 
 Repository release versions and ontology-module semantic versions are intentionally independent.
