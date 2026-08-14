@@ -1,0 +1,74 @@
+# NS4KGE permanent identifiers
+#
+# This W3ID namespace provides persistent identifiers for the NS4KGE ontology
+# and knowledge graph.
+#
+# Maintainer:
+# Ilyes Tebourski
+# GitHub username: IlyesTebourski
+# Email: ilyes.tebourski@lisn.fr
+#
+# Identifier examples:
+# https://w3id.org/ns4kge/ontology
+# https://w3id.org/ns4kge/ontology#Article
+# https://w3id.org/ns4kge/ontology#hasConfiguration
+# https://w3id.org/ns4kge/ontology/1.0.0
+# https://w3id.org/ns4kge/kg
+# https://w3id.org/ns4kge/kg/1.0.0
+# https://w3id.org/ns4kge/id/article/eans
+Options -MultiViews
+AddType text/turtle .ttl
+Header set Access-Control-Allow-Origin *
+RewriteEngine On
+# Project landing page
+RewriteRule ^$ https://github.com/IlyesTebourski/ns4kge-ontology [R=303,L]
+# Ontology, latest version, human-readable
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ https://github.com/IlyesTebourski/ns4kge-ontology [R=303,L]
+# Ontology, latest version, Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/IlyesTebourski/ns4kge-ontology/v1.0.0/ontology/NSArticles_ontology.ttl [R=303,L]
+# Ontology, version 1.0.0, human-readable
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/1\.0\.0/?$ https://github.com/IlyesTebourski/ns4kge-ontology/tree/v1.0.0 [R=303,L]
+# Ontology, version 1.0.0, Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^ontology/1\.0\.0/?$ https://raw.githubusercontent.com/IlyesTebourski/ns4kge-ontology/v1.0.0/ontology/NSArticles_ontology.ttl [R=303,L]
+# Knowledge graph dataset, latest version, human-readable
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^kg/?$ https://github.com/IlyesTebourski/ns4kge-kg [R=303,L]
+# Knowledge graph dataset, latest version, Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^kg/?$ https://raw.githubusercontent.com/IlyesTebourski/ns4kge-kg/v1.0.0-paper/kg/NSArticles_populated.ttl [R=303,L]
+# Knowledge graph dataset, version 1.0.0, human-readable
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^kg/1\.0\.0/?$ https://github.com/IlyesTebourski/ns4kge-kg/tree/v1.0.0-paper [R=303,L]
+# Knowledge graph dataset, version 1.0.0, Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^kg/1\.0\.0/?$ https://raw.githubusercontent.com/IlyesTebourski/ns4kge-kg/v1.0.0-paper/kg/NSArticles_populated.ttl [R=303,L]
+# KG instance identifiers, human-readable
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^id/(.*)$ https://github.com/IlyesTebourski/ns4kge-kg [R=303,L]
+# KG instance identifiers, RDF graph
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^id/(.*)$ https://raw.githubusercontent.com/IlyesTebourski/ns4kge-kg/v1.0.0-paper/kg/NSArticles_populated.ttl [R=303,L]

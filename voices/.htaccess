@@ -1,0 +1,26 @@
+# w3id.org/voices — VOICES ontology namespace (persistent redirect)
+#
+# Maintainer: Mohamed Laib (GitHub: @mlaib), Luxembourg Institute of Science and
+#             Technology (LIST). Contact: mohamed.laib@list.lu
+#
+# Submit this directory as `voices/` via a PR to https://github.com/perma-id/w3id.org
+# Once merged, https://w3id.org/voices/ontology resolves (content-negotiated).
+# Re-point the targets below if the canonical hosting moves (e.g. to voices.list.lu).
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Ontology: content negotiation -------------------------------------------
+# Turtle / RDF clients -> the .ttl ; browsers -> human-readable page.
+RewriteRule ^ontology\.ttl$ https://raw.githubusercontent.com/mlaib/voices-kg/main/schema/voices_ontology_v2.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology$ https://raw.githubusercontent.com/mlaib/voices-kg/main/schema/voices_ontology_v2.ttl [R=302,L]
+
+RewriteRule ^ontology$ https://github.com/mlaib/voices-kg/blob/main/schema/voices_ontology_v2.ttl [R=302,L]
+
+# --- Version IRI -------------------------------------------------------------
+RewriteRule ^ontology/2\.1$ https://raw.githubusercontent.com/mlaib/voices-kg/main/schema/voices_ontology_v2.ttl [R=302,L]

@@ -1,0 +1,49 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# ============================================================================
+# OpenEvo ConceptBase (OECB) — https://www.w3id.org/openevo/
+# Source of truth: https://github.com/openevo-ccs/conceptbase
+#   docs/oecb_specifications.md §4 (Namespace and Identifier Architecture)
+# Contact: see readme.md in this directory.
+#
+# MVP scope note: this resolves every §4.2 sub-path to something real, but
+# only as flat JSON / raw YAML — no content negotiation, JSON-LD, RDF, or
+# SPARQL yet (that's Phase 4; see the spec). Rules below are written against
+# stable, predictable URL patterns (not one rule per identifier), so this
+# file should not need to change again as new concepts/vocabularies/LPMs are
+# added — only as new *sub-path types* are introduced.
+# ============================================================================
+
+# Namespace root — human landing page.
+RewriteRule ^$ https://github.com/openevo-ccs/conceptbase [R=302,L]
+
+# Ontology. Note: oe:ClassName expands to .../ontology#ClassName, and URL
+# fragments are never sent to the server — every class/property in the
+# ontology therefore resolves via this single rule.
+RewriteRule ^ontology$ https://raw.githubusercontent.com/openevo-ccs/conceptbase/main/ontologies/core_v1.yaml [R=302,L]
+RewriteRule ^ontology/$ https://raw.githubusercontent.com/openevo-ccs/conceptbase/main/ontologies/core_v1.yaml [R=302,L]
+
+# JSON Schemas (schemas/{name}.schema.yaml, authoring format).
+RewriteRule ^schemas/([A-Za-z]+)\.schema\.json$ https://raw.githubusercontent.com/openevo-ccs/conceptbase/main/schemas/$1.schema.yaml [R=302,L]
+
+# Controlled vocabularies — {name} includes the version suffix, e.g.
+# BIO-CORE-v1.0.0, matching the vocabRef pattern used throughout OECB.
+RewriteRule ^vocab/([A-Za-z0-9.\-]+)$ https://raw.githubusercontent.com/openevo-ccs/conceptbase/main/vocabularies/$1.yaml [R=302,L]
+
+# Concepts and cross-vocabulary alignment records — resolved against
+# conceptbase's generated flat-JSON registry (scripts/build_registry.py),
+# published via GitHub Pages alongside the ConceptBase Explorer app.
+RewriteRule ^concept/([A-Za-z0-9\-]+)$ https://openevo-ccs.github.io/conceptbase/registry/concept/$1.json [R=302,L]
+RewriteRule ^competency/([A-Za-z0-9\-]+)$ https://openevo-ccs.github.io/conceptbase/registry/competency/$1.json [R=302,L]
+RewriteRule ^alignment/([A-Za-z0-9\-]+)$ https://openevo-ccs.github.io/conceptbase/registry/alignment/$1.json [R=302,L]
+
+# LPMs and Strands live in independently governed dependent repositories,
+# not in conceptbase itself (see README, "What's In Scope (and What Isn't)").
+# Resolved via a small static lookup page that redirects on to the owning
+# repository — the identifier itself never reaches conceptbase's server
+# again after this single rule, so it never needs to change as new LPMs
+# are minted.
+RewriteRule ^lpm/([A-Za-z0-9\-]+)$ https://openevo-ccs.github.io/conceptbase/registry/resolve.html#lpm/$1 [R=302,L]
+RewriteRule ^strand/([A-Za-z0-9\-]+)$ https://openevo-ccs.github.io/conceptbase/registry/resolve.html#strand/$1 [R=302,L]

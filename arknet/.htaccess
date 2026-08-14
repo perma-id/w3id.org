@@ -1,0 +1,71 @@
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure RDF files served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+
+### Ontology modules: core, ddd, provenance, project, requirements, process (arknet-actor.ttl)
+# Not (yet) published, no live consumer / known-bad module cut:
+#   - tech (arktech:)         -- module not shipped yet
+#   - architecture (arkarch:) -- zero references in code, no BC
+#   - privacy (arkpriv:)      -- zero references in code, no BC
+# ddd (arkddd:) is live for BoundedContext/Domain/Subdomain only (arknet-ddd.ttl); Context
+# Mapping and the tactical-DDD block stay parked (parked/arknet-ddd_parked.ttl, not routed
+# here) even though they share the same namespace.
+# process (arkproc:) is live: only the Actor taxonomy is used (by ubiquitous-language,
+# use-cases); it now ships as its own file arknet-actor.ttl, while the namespace stays
+# process# unchanged (already live in production data). File name != URL segment here,
+# so it needs its own rule below instead of the generic $1 alternation.
+
+# Serve Turtle content for ontology modules
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^process$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+
+# Serve HTML content for ontology modules (GitHub blob view until a generated doc site exists)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://github.com/kogn-io/arknet/blob/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^process$ https://github.com/kogn-io/arknet/blob/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+
+# Serve RDF/XML content for ontology modules
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^process$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+
+
+### SHACL shapes: out of scope for this fix, see arknet project notes
+# (flat "shapes#" fragment namespace spans 7 files -- needs its own decision, not touched here)
+
+
+### Root: redirect to repository
+# Serve Turtle for root namespace
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-core.ttl [R=303,L]
+
+# Default: redirect to repository
+RewriteRule ^$ https://github.com/kogn-io/arknet [R=303,L]

@@ -1,4 +1,12 @@
-# EDAAnOWL
+> [!IMPORTANT]
+> The ontology name and its directory have been updated. Previously **EDAAnOWL**, now **AgoraOWL**.
+> The ontology name and its directory have been updated. Previously **EDAAnOWL**, it is now **AgoraOWL**.
+
+> [!NOTE] 
+> The **EDAAnOWL** PermaID remains the same and now references **AgoraOWL**.
+
+
+# AgoraOWL
 
 **Persistent identifier (PID) home** for the EDAAnOWL ontology and related resources.
 
@@ -8,7 +16,7 @@ This directory hosts the redirection rules (via `.htaccess`) that resolve the PI
 ## 🔗 Resolvable Resources
 
 The redirection rules point to the ontology documentation and files hosted on GitHub Pages:
-**`https://khaosresearch.github.io/EDAAnOWL/`**
+**`https://khaosresearch.github.io/AgoraOWL/`**
 
 ### Main Ontology (Latest & Versioned)
 
@@ -20,10 +28,10 @@ The base PID <https://w3id.org/EDAAnOWL> redirects to the **latest** version. Sp
   - `https://w3id.org/EDAAnOWL/0.0.1/` (Redirects to versioned docs)
 
 - **RDF Serializations (for tools, using `Accept` header):**
-  - **Turtle (.ttl):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.ttl`
-  - **RDF/XML (.owl):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.owl`
-  - **N-Triples (.nt):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.nt`
-  - **JSON-LD (.jsonld):** `https://khaosresearch.github.io/EDAAnOWL/latest/ontology.jsonld`
+  - **Turtle (.ttl):** `https://khaosresearch.github.io/AgoraOWL/latest/ontology.ttl`
+  - **RDF/XML (.owl):** `https://khaosresearch.github.io/AgoraOWL/latest/ontology.owl`
+  - **N-Triples (.nt):** `https://khaosresearch.github.io/AgoraOWL/latest/ontology.nt`
+  - **JSON-LD (.jsonld):** `https://khaosresearch.github.io/AgoraOWL/latest/ontology.jsonld`
 
 ### Modular Vocabularies
 
@@ -32,8 +40,8 @@ Vocabulary PIDs are resolvable _per version_. For example:
 
 This PID will redirect to the raw `.ttl` file:
 
-- `https://khaosresearch.github.io/EDAAnOWL/latest/vocabularies/sector-scheme.ttl`
-- `https://khaosresearch.github.io/EDAAnOWL/0.0.1/vocabularies/agro-vocab.ttl`
+- `https://khaosresearch.github.io/AgoraOWL/latest/vocabularies/sector-scheme.ttl`
+- `https://khaosresearch.github.io/AgoraOWL/0.0.1/vocabularies/agro-vocab.ttl`
 
 ## 📦 Content Negotiation
 
@@ -48,7 +56,7 @@ The `.htaccess` provides content negotiation based on the `Accept` header:
 
 ## 🧭 Scope
 
-**EDAAnOWL** is an ontology aligned with **IDSA** and connected to **BIGOWL** (Data, Algorithms, Problems, Workflows).
+**AgoraOWL** is an ontology aligned with **IDSA** and connected to **BIGOWL** (Data, Algorithms, Problems, Workflows).
 It models data assets, data apps, profiles, and workflows, using modular SKOS vocabularies for domains, data types, and observed properties.
 
 ## 👥 Maintainers

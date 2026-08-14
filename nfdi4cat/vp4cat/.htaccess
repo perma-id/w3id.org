@@ -1,0 +1,19 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Notes on used flags:
+# NC - sets case-insensitive matching
+# NE - noescape, prevents that special characters, such as & and ?, will be converted to their hexcode equivalent for rules that result in external redirects.
+# L - last, tells mod_rewrite to stop processing further rules sets.
+# R=303 - status code for "See Other". It indicates that the redirects don't link to the requested resource itself, but to another page.
+
+# Order of rules: More specific rules must come before more general rules.
+
+# === No content-negotiation at all (or HTML) ===
+
+# versioned profiles ===
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}).*$" https://raw.githubusercontent.com/nfdi4cat/voc4cat-tool/refs/heads/main/src/voc4cat/profile/vp4cat-$1.ttl [R=303,L,NE,NC]
+
+# latest version
+RewriteRule "^$" https://raw.githubusercontent.com/nfdi4cat/voc4cat-tool/refs/heads/main/src/voc4cat/profile/vp4cat.ttl [R=303,L,NE]

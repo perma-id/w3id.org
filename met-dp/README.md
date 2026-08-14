@@ -6,5 +6,6 @@ https://w3id.org/met-dp/B89-code --> https://github.com/eslamHegazy/mod-met-dp-m
 
 https://w3id.org/met-dp/article1-code --> https://github.com/eslamHegazy/met-dp-analysis
 
+https://w3id.org/met-dp/icpr26-95 --> https://github.com/eslamHegazy/thresholding-correlation
 
 * Maintainer: Eslam Hegazy (eslam.sabry@guc.edu.eg;eslam.221@gmail.com)

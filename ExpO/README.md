@@ -13,6 +13,6 @@ The ExpO system consists of:
 
 The project is maintained by researches from the KRDB Research Centre on Knowledge and Data (Free University of Bozen-Bolzano, Italy) and Semantics, Cybersecurity \& Services, (University of Twente, the Netherlands), in particular by:
 
-- MSc. Elena Romanenko [[GitHub]](https://github.com/mozzherina) [[LinkedIn]](https://www.linkedin.com/in/mozzherina/)
+- Dr. Elena Romanenko [[GitHub]](https://github.com/mozzherina) [[LinkedIn]](https://www.linkedin.com/in/mozzherina/)
 - Prof. Diego Calvanese [[WebPage]](http://www.inf.unibz.it/~calvanese/)
 - Prof. Giancarlo Guizzardi [[WebPage]](https://people.utwente.nl/g.guizzardi)

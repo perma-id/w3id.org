@@ -1,0 +1,36 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# General documentation
+
+# HTML:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
+
+
+# Specific content-type -> Access respective format of a benchmark
+
+# HTML - Documentation:
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/benchmark-documentation.md [R=303,L,NE]
+
+# JSON-LD - Semantic representation:
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/provenance/benchmark.json [R=303,L,NE]
+
+# Zip - RO-Crate
+#RewriteCond %{HTTP_ACCEPT} application/zip
+#RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/benchmark/$1.zip [R=303,L,NE]
+
+# ipynb - Jupyter Notebook for results
+RewriteCond %{HTTP_ACCEPT} application/x-ipynb\+json
+RewriteRule ^([a-zA-Z0-9-_]*) https://raw.githubusercontent.com/Simulation-Benchmarks/$1/refs/heads/main/notebooks/benchmark-results.ipynb [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} application/zip
+RewriteRule ^linear-elastic-plate-with-hole$ https://www.rohub.org/68b027dd-666b-4b32-a416-952960022c2c [R=303,L,NE]
+
+# No content-negotiation at all (or HTML): Fallback to HTML for both general and specific documentation
+RewriteRule ^$ https://github.com/Simulation-Benchmarks [R=303,L,NE]
+RewriteRule ^([a-zA-Z0-9-_]*) https://github.com/Simulation-Benchmarks/$1/blob/main/docs/benchmark-documentation.md [R=303,L,NE]

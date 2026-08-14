@@ -1,0 +1,38 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# MIME types
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/index.html [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/ontology.owl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/ontology.nt [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/ontology.ttl [R=303,L]
+
+# Default fallback
+RewriteRule ^$ https://individualized-production.github.io/ontime-ontology/index.html [R=303,L]

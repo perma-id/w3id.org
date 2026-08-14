@@ -1,12 +1,14 @@
-### DPP (Digital Product Passport Ontology)
+# DPP ontology and alignment
 
-The Digital Product Passport (DPP) ontology provides a framework for product data integration and management. It is designed to help track and manage product information throughout its lifecycle.
 
-**Modules:**
-- DPP ontology modules are available at: [DPP Ontology Modules](https://github.com/RichZele/Integration_of_Product_Data_JTH/tree/main/Part-1/DPP_Modules)
+Redirection for project repository: https://w3id.org/dpp -> https://richzele.github.io/dpp-ontology-site/
 
-**Publication:**
-- A paper detailing the DPP ontology is published and available at: [DOI Link](https://doi.org/10.1016/j.spc.2024.05.007)
+### Routes
 
-**Contact:**
-- For further inquiries, please contact: Rahel Kebede at [rahel.kebede@ju.se](mailto:rahel.kebede@ju.se)
+- `https://w3id.org/dpp/` and the module paths below it resolve to the ontology documentation, with content negotiation for Turtle, RDF/XML, JSON-LD and N-Triples.
+- `https://w3id.org/dpp/alignment/<name>/` resolves to the documentation for one alignment module. Currently `dpp-dppo`, `dppo-ceon`, `dpp-ceon` and `standards-gs1`.
+- `https://w3id.org/dpp/repo` and any path below it resolve to the source repository holding the mapping registries, use cases, SHACL shapes and generation scripts: https://github.com/RichZele/DPP-DPPO-CEON-Ontology-Alignment
+
+### Maintainer
+- [Rahel Kebede](https://ju.se/en/personinfo?id=3691), [@RichZele](https://github.com/RichZele), rahel.kebede@ju.se
+- [Huanyu Li](http://huanyuli.se), [@huanyu-li](https://github.com/huanyu-li), huanyu.li@liu.se

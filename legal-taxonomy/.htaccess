@@ -1,0 +1,50 @@
+# https://w3id.org/legal-taxonomy
+# Open Legal Issue Taxonomy (OLIT) — a SKOS taxonomy of ~288,000 legal-issue concepts.
+#
+# ## Contact
+# This space is administered by:
+#
+# Arthur S. Rodrigues
+# arthursrodrigues@gmail.com
+# GitHub username: arthrod
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# --- Whole-vocabulary URI: https://w3id.org/legal-taxonomy/ ---
+# HTML for browsers / human agents
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://arthrod.github.io/legal-taxonomy/ [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://arthrod.github.io/legal-taxonomy/legal-taxonomy.jsonld [R=303,NE,L]
+
+# Turtle (also the */* and text/* default for machine clients)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^$ https://arthrod.github.io/legal-taxonomy/legal-taxonomy.ttl [R=303,NE,L]
+
+# --- Per-concept dereferencing: /concept/000123 ---
+# Enable once per-concept files (or a Fuseki/Skosmos endpoint) are served.
+# RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+# RewriteRule ^concept/([0-9]+)$ https://arthrod.github.io/legal-taxonomy/concept/$1.ttl [R=303,NE,L]
+# RewriteRule ^concept/([0-9]+)$ https://arthrod.github.io/legal-taxonomy/concept/$1.html [R=303,NE,L]
+
+# --- Everything else (scheme.ttl, dumps/, downloads) ---
+RewriteRule ^(.*)$ https://arthrod.github.io/legal-taxonomy/$1 [R=302,L]
+
+# Default
+RewriteRule ^$ https://arthrod.github.io/legal-taxonomy/ [R=303,NE,L]

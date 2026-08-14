@@ -3,3 +3,16 @@ RewriteEngine On
 RewriteRule ^$ https://www.epsilon-italia.it [R=302,L]
 RewriteRule ^go-peg/go-depth/metadata$ https://data.europa.eu/api/hub/repo/datasets/ispra_rm-ge_3dmod_pobasin_dt.rdf?useNormalizedId=true&locale=en [R=302,L,QSA]
 RewriteRule ^go-peg/go-depth$ https://data.europa.eu/data/datasets/ispra_rm-ge_3dmod_pobasin_dt?locale=en [R=302,L,QSA]
+
+# 1. geoIACS Ontology
+# 1.1 Rule for codelist value (2 parameters)
+# Example: /geoIACS/AATypeValue/arableLand
+RewriteRule ^geoIACS/([^/]+)/([^/]+)/?$ https://showvoc.semantic.epsilon-italia.it/showvoc/#/datasets/geoIACS/data?resId=https://w3id.org/epsilonitalia/geoIACS/$1/$2 [R=302,L,NE]
+
+# 1.2 Rule for codelist (1 parameter)
+# Example: geoIACS/AATypeValue
+RewriteRule ^geoIACS/([^/]+)/?$ https://showvoc.semantic.epsilon-italia.it/showvoc/#/datasets/geoIACS/data?resId=https://w3id.org/epsilonitalia/geoIACS/$1 [R=302,L,NE]
+
+# 1.3 Rule for base ontology URL
+# Example: geoIACS/
+RewriteRule ^geoIACS/?$ https://showvoc.semantic.epsilon-italia.it/showvoc/#/datasets/geoIACS/data [R=302,L,NE]

@@ -1,0 +1,45 @@
+# W3ID Redirections pour Verisav DPP Vocabulary
+# Digital Product Passport (DPP) Vocabulary
+
+# Redirection du namespace principal vers la documentation HTML
+RewriteEngine On
+RewriteBase /verisav/dpp/
+
+# Redirection du namespace avec fragment (#) vers la page de documentation
+RewriteRule ^#$ https://ns.verisav.fr/dpp/ [R=303,L]
+
+# Redirection du namespace sans slash vers la page de documentation
+RewriteRule ^$ https://ns.verisav.fr/dpp/ [R=303,L]
+
+# Redirection du fichier Turtle (.ttl)
+RewriteRule ^dpp\.ttl$ https://ns.verisav.fr/dpp/dpp.ttl [R=303,L]
+RewriteRule ^\.ttl$ https://ns.verisav.fr/dpp/dpp.ttl [R=303,L]
+
+# Redirection du fichier JSON-LD (.jsonld)
+RewriteRule ^dpp\.jsonld$ https://ns.verisav.fr/dpp/dpp.jsonld [R=303,L]
+RewriteRule ^\.jsonld$ https://ns.verisav.fr/dpp/dpp.jsonld [R=303,L]
+
+# Redirection du fichier RDF/XML (.xml)
+RewriteRule ^dpp\.xml$ https://ns.verisav.fr/dpp/dpp.xml [R=303,L]
+RewriteRule ^\.xml$ https://ns.verisav.fr/dpp/dpp.xml [R=303,L]
+
+# Redirection du fichier RDF/XML (.owl) vers le fichier XML
+RewriteRule ^dpp\.owl$ https://ns.verisav.fr/dpp/dpp.xml [R=303,L]
+RewriteRule ^\.owl$ https://ns.verisav.fr/dpp/dpp.xml [R=303,L]
+
+# Content Negotiation : Redirection basée sur l'Accept header
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+  RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+  RewriteRule ^$ https://ns.verisav.fr/dpp/dpp.ttl [R=303,L]
+  
+  RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+  RewriteRule ^$ https://ns.verisav.fr/dpp/dpp.jsonld [R=303,L]
+  
+  RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+  RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+  RewriteRule ^$ https://ns.verisav.fr/dpp/dpp.xml [R=303,L]
+</IfModule>
+
+# Par défaut, rediriger vers la documentation HTML
+RewriteRule ^(.*)$ https://ns.verisav.fr/dpp/$1 [R=303,L]
