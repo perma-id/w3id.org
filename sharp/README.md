@@ -4,7 +4,7 @@ Permanent identifiers for the SHARP ontology and SKOS concept scheme.
 
 ## Maintainers
 
-- Markus Gödker
+### Markus Gödker
 - m.goedker@lmu.de / publications@markusgoedker.de
 - GitHub: psymarkus
 
