@@ -1,6 +1,6 @@
 # # /standards/
 #
-# Redirections for standards-related resources such as ontologies starting with the Information Model for Smart Content (https://smartsdu.bitbucket.io/docs/im/browse/index.html)
+# Redirections for standards-related resources such as ontologies starting with the Information Model for Smart Content (https://smartsdu.bitbucket.io/docs/im/browse)
 #
 #
 # Contacts: see README.md
@@ -28,7 +28,41 @@ RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^smart/taxonomies/([^/]+)/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/$1$2.html [R=303,L]
 
 # ----------------------------------------------------------------------
-# 3. Fallback
+# 3. JSON-LD contexts
+# ----------------------------------------------------------------------
+# Incoming: /standards/smart/jsonldcontext/<context>
+# Pattern: ^smart/jsonldcontext/([^/]+)$ captures the <context> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/<context>.json
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^smart/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^smart/api/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/api/$1.json [R=303,L]
+
+# ----------------------------------------------------------------------
+# 4. SHACL schemas
+# ----------------------------------------------------------------------
+# Incoming: /standards/smart/schema/data/<schema_name>
+# Pattern: ^smart/schema/data/([^/]+)$ captures the <schema_name> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/data_shapes/<schema_name>.json
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^smart/schema/data/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/data_shapes/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^smart/schema/common/([^/]+)/shapes/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^smart/schema/common/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
+
+# ----------------------------------------------------------------------
+# 5. Fallback
 # ----------------------------------------------------------------------
 # Incoming: Any other path under /standards/smart/ that didn't match above
 # Target: https://smartsdu.bitbucket.io/docs/im/browse/index.html
