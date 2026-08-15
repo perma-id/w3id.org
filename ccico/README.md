@@ -13,10 +13,10 @@ CCICO（Chinese Clinical Informed Consent Ontology）是面向中文临床知情
 
 ## 维护团队与联系
 
-- 维护团队：宋士杰 副教授（Shijie Song，ORCID 0000-0002-4544-2027）
-- 邮箱：ssong@hhu.edu.cn
-- 机构：河海大学商学院；武汉大学信息管理学院；南京大学健康信息研究所
-- 研究团队学生：胡鑫（huxinccc@outlook.com）
+- 宋士杰 副教授（Shijie Song, Associate Professor）— ssong@hhu.edu.cn — ORCID 0000-0002-4544-2027
+- 胡鑫（Hu Xin，研究团队学生）— huxinccc@outlook.com — GitHub：@waibihuccc
+- 机构：河海大学商学院（Hohai University Business School）；武汉大学信息管理学院（Wuhan University School of Information Management）；南京大学健康信息研究所（Nanjing University Institute of Health Informatics）
+- 维护 GitHub 账号：@waibihuccc
 
 ## 许可
 
