@@ -19,3 +19,9 @@ https://w3id.org/sharp/ontology
 
 Concept Scheme:
 https://w3id.org/sharp/scheme/SHARP
+
+Concept Index:
+https://w3id.org/sharp/
+
+Concept Pages:
+https://w3id.org/sharp/concept/...
