@@ -1,4 +1,4 @@
-# FAIRagro
+# fairagro
 
 Persistent identifier namespace for FAIRagro resources (https://fairagro.net/).
 
