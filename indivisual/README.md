@@ -8,4 +8,5 @@ Because our previous repository (OSF) has transitioned to a permanent read-only 
 ## Maintainer
 * **Name:** Benjamin de Haas
 * **Email:** benjamindehaas@gmail.com
-* **Lab:** Indivisual Lab
+* **GitHub:** Sfz01
+* **Lab:** Indivisual www.individual-perception.com
