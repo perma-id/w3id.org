@@ -15,6 +15,4 @@ This vocabulary was developped during the **EOSC EDEN Project** (grant agreement
 
 Maintainer: Robert Huber (rhuber@uni-bremen.de https://github.com/huberrob)
 
-Namespace URI:
-
-> <i class="icon-file"></i>`https://w3id.org/cppv/`
+Namespace URI: https://w3id.org/ptv/
