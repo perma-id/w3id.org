@@ -43,9 +43,3 @@ crm-sdm/
 ├── data/         # Operational property graph inputs and generation parameters
 ├── validation/   # Companion SHACL shape suite for structural validation
 └── README.md     # Repository documentation
-
-```markdown
-## 📄 Authors & Citation
-
-**Authors:** Francesco Giancaterini, Tiziano Bacaloni, Alessio Abeltino, Andrea Bernardini 
-*Fondazione Ugo Bordoni (FUB), Rome, Italy* `{fgiancaterini, tbacaloni, aabeltino, abernardini}@fub.it`
