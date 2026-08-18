@@ -15,5 +15,11 @@ RewriteRule ^ontology$ https://stocastico96.github.io/Deliberation-Knowledge-Gra
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^ontology$ https://stocastico96.github.io/Deliberation-Knowledge-Graph/ontologies/deliberation.owl [R=303,L]
 
+# Default for ontology requests without a recognized Accept header
+RewriteRule ^ontology$ https://stocastico96.github.io/Deliberation-Knowledge-Graph/ontologies/deliberation.owl [R=303,L]
+
+# Mappings module (imported by the ontology via owl:imports)
+RewriteRule ^mappings$ https://stocastico96.github.io/Deliberation-Knowledge-Graph/ontologies/mappings.owl [R=303,L]
+
 # Resources
 RewriteRule ^(.*)$ https://stocastico96.github.io/Deliberation-Knowledge-Graph/ontologies/$1 [R=302,L]

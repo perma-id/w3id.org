@@ -2,8 +2,9 @@
 
 Persistent identifiers for Dataerai decentralized identifiers (DIDs) of the
 form `did:dataerai:[<env>:]<kind>:<subject>`, where `<env>` is `dev` or `beta`
-(absent in production), `<kind>` is one of `asset`, `dataset`, `person`, or
-`project`, and `<subject>` is 32 lowercase base32 characters (`[a-z2-7]`).
+(absent in production), `<kind>` is one of `asset`, `dataset`, `person`,
+`project`, or `collection`, and `<subject>` is 32 lowercase base32 characters
+(`[a-z2-7]`).
 
 `https://w3id.org/dataerai/[<env>/]<kind>/<subject>` 303-redirects to the
 public DID resolve API on the matching Dataerai environment:

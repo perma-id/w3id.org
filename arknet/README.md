@@ -6,7 +6,7 @@ validatable (SHACL), queryable (SPARQL), and AI-ready (MCP).
 
 ### Resources
 
-* Repository: https://git.changinggraph.org/kogn-io/arknet
+* Repository: https://github.com/kogn-io/arknet
 * Part of: https://kogn.io
 
 ### Contact
