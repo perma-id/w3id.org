@@ -1,0 +1,52 @@
+# w3id.org/certvas — permanent identifier redirects for the Certvas Ontology.
+#
+# TO REGISTER: open a PR against https://github.com/perma-id/w3id.org adding this file as
+# `certvas/.htaccess`. w3id is a community service run by the W3C Permanent Identifier Community
+# Group; PRs are reviewed by hand and usually merged within a few days. Nothing here can be
+# deployed by Certvas — that is the point of a permanent identifier: it survives us moving hosts.
+#
+# WHY A PERMANENT IDENTIFIER AT ALL. The schema's `id:` is https://w3id.org/certvas/ontology, and
+# that IRI is baked into every generated JSON-LD context and every published record. If it pointed
+# at certvas.com directly, then a domain lapse, a rebrand or a host migration would break every
+# document anyone ever produced against the schema. The indirection is the durable part.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------------------------------------
+# CONTENT NEGOTIATION. A browser wants the docs; a tool wants the machine-readable schema. Serving
+# HTML to a JSON-LD processor is the usual way a "resolvable" ontology IRI turns out to be useless
+# in practice, so the machine formats are matched FIRST and the human page is the fallback.
+#
+# Order matters: mod_rewrite takes the first matching rule, so the most specific Accept headers
+# must come before the catch-all.
+# ---------------------------------------------------------------------------------------------
+
+# JSON-LD context — what a linked-data client asks for.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/certvas.context.jsonld [R=302,L]
+
+# The LinkML source — the single source of truth, for anyone regenerating artifacts.
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/certvas-ontology.yaml [R=302,L]
+
+# Explicit extensions, so a link can bypass negotiation entirely. Content negotiation is fragile
+# through proxies and impossible to paste into a chat message; a plain URL always works.
+RewriteRule ^ontology\.yaml$   https://certvas-ontology.pages.dev/certvas-ontology.yaml [R=302,L]
+RewriteRule ^ontology\.jsonld$ https://certvas-ontology.pages.dev/certvas.context.jsonld [R=302,L]
+RewriteRule ^ontology\.json$   https://certvas-ontology.pages.dev/certvas.schema.json [R=302,L]
+RewriteRule ^ontology\.sql$    https://certvas-ontology.pages.dev/certvas.sql [R=302,L]
+
+# Per-term IRIs: https://w3id.org/certvas/ontology/Fundamentals -> its documentation page.
+# Every slot and class in the JSON-LD context resolves under this prefix, so a reader who follows
+# a term from a document lands on the definition of that term rather than on a homepage.
+RewriteRule ^ontology/([A-Za-z_][A-Za-z0-9_]*)$ https://certvas-ontology.pages.dev/$1 [R=302,L]
+
+# 302 NOT 301, deliberately. A permanent redirect is cached by browsers and intermediaries
+# indefinitely, which makes a hosting change take years to propagate — the opposite of what a
+# permanent identifier is for. The IRI is permanent; where it points today is not.
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/ [R=302,L]
+RewriteRule ^/?$        https://certvas.com/ontology [R=302,L]
