@@ -19,40 +19,28 @@ Header always set Vary "Accept"
 RewriteEngine On
 
 # -------------------------------------------------------------------------
-# Versioned immutable snapshots. This generated region is fail-closed: only
-# files that actually exist in a frozen repository snapshot acquire routes.
-# Future modular snapshots add exact /manifest and /manifest.schema.json routes
-# only after those immutable sibling files exist. Regenerate with
-# `node scripts/sstim-w3id-snapshot-routes.mjs --write` after cutting a release.
+# Versioned immutable snapshots, routed by pattern rather than by enumeration.
+# Four patterns cover every release, including ones not yet cut, so a new SSTIM
+# version needs no change here and no pull request against this repository.
+# Requested by the w3id maintainer on perma-id/w3id.org#6548; the reasoning and
+# what it trades away is ADR 0053 in the SSTIM repository.
+#
+# A version-shaped path that was never released now redirects to a GitHub Pages
+# URL that answers 404, where the enumerated rules answered 404 here instead.
+# The SSTIM repository proves that every artifact it has ever frozen resolves
+# correctly, by executing these rules against every frozen file in its own CI.
 # -------------------------------------------------------------------------
-# BEGIN generated exact SSTIM snapshot routes
-RewriteRule ^0\.1\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.1.0/$1 [R=302,L]
-RewriteRule ^0\.1\.0/?$ https://labiosyncare.github.io/ontology/0.1.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.2\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.2.0/$1 [R=302,L]
-RewriteRule ^0\.2\.0/?$ https://labiosyncare.github.io/ontology/0.2.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.3\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.3.0/$1 [R=302,L]
-RewriteRule ^0\.3\.0/?$ https://labiosyncare.github.io/ontology/0.3.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.5\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.5.0/$1 [R=302,L]
-RewriteRule ^0\.5\.0/?$ https://labiosyncare.github.io/ontology/0.5.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.6\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.6.0/$1 [R=302,L]
-RewriteRule ^0\.6\.0/?$ https://labiosyncare.github.io/ontology/0.6.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.7\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.7.0/$1 [R=302,L]
-RewriteRule ^0\.7\.0/?$ https://labiosyncare.github.io/ontology/0.7.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.8\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.8.0/$1 [R=302,L]
-RewriteRule ^0\.8\.0/?$ https://labiosyncare.github.io/ontology/0.8.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.9\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.9.0/$1 [R=302,L]
-RewriteRule ^0\.9\.0/?$ https://labiosyncare.github.io/ontology/0.9.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.10\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.10.0/$1 [R=302,L]
-RewriteRule ^0\.10\.0/?$ https://labiosyncare.github.io/ontology/0.10.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.11\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.11.0/$1 [R=302,L]
-RewriteRule ^0\.11\.0/?$ https://labiosyncare.github.io/ontology/0.11.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.12\.0/(sstim-alignments\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-exposure\.ttl|sstim-patch-studio\.ttl|sstim-shapes\.ttl|sstim-stimulus\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.12.0/$1 [R=302,L]
-RewriteRule ^0\.12\.0/?$ https://labiosyncare.github.io/ontology/0.12.0/sstim-core.ttl [R=302,L]
-RewriteRule ^0\.13\.0/(sstim-alignments\.ttl|sstim-common\.ttl|sstim-configuration\.ttl|sstim-core-plus-profile\.ttl|sstim-core-profile\.ttl|sstim-core-shapes\.ttl|sstim-core\.ttl|sstim-ecosystem\.ttl|sstim-evidence-exposure\.ttl|sstim-evidence\.ttl|sstim-exposure-namespace\.ttl|sstim-exposure\.ttl|sstim-full-profile\.ttl|sstim-kernel-profile\.ttl|sstim-namespace\.ttl|sstim-neuromodulation-evidence\.ttl|sstim-neuromodulation\.ttl|sstim-patch-studio\.ttl|sstim-session\.ttl|sstim-shapes\.ttl|sstim-stimulus\.ttl|sstim-technique-exposure\.ttl|sstim-technique\.ttl|sstim-vocab\.ttl)$ https://labiosyncare.github.io/ontology/0.13.0/$1 [R=302,L]
-RewriteRule ^0\.13\.0/manifest$ https://labiosyncare.github.io/ontology/0.13.0/manifest.json [R=302,L]
-RewriteRule ^0\.13\.0/manifest\.schema\.json$ https://labiosyncare.github.io/ontology/0.13.0/manifest.schema.json [R=302,L]
-RewriteRule ^0\.13\.0/?$ https://labiosyncare.github.io/ontology/0.13.0/sstim-namespace.ttl [R=302,L]
-# END generated exact SSTIM snapshot routes
+# BEGIN generated SSTIM snapshot routes
+# Pre-modular snapshots, a closed set: their version IRI resolves to the
+# Kernel file, which was the whole ontology before ADR 0043 split it.
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
+# Every snapshot, including releases not yet cut. Four patterns rather than
+# four rules per release (ADR 0053).
+RewriteRule ^(\d+\.\d+\.\d+)/(sstim-[a-z0-9-]+\.ttl)$ https://labiosyncare.github.io/ontology/$1/$2 [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/manifest$ https://labiosyncare.github.io/ontology/$1/manifest.json [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/manifest\.schema\.json$ https://labiosyncare.github.io/ontology/$1/manifest.schema.json [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-namespace.ttl [R=302,L]
+# END generated SSTIM snapshot routes
 
 # -------------------------------------------------------------------------
 # Machine-readable bill of materials, public modules, and profile entrypoints.
@@ -194,6 +182,32 @@ RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\
 RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
 RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ - [R=406,L]
 # END audited BSC catalog routes
+
+# -------------------------------------------------------------------------
+# Public BSC Lab preset and reference identities. These are committed static
+# records, so routes are an exact audited inventory rather than a namespace
+# wildcard: adding or retiring a public record requires an intentional registry
+# update. Browsers deep-link to the requested graph node; RDF clients receive
+# the Turtle file that owns that subject. NE preserves the literal hash in each
+# browser target.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC preset and reference routes
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://labiosyncare.github.io/graph/#bsclab-preset:$1 [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://labiosyncare.github.io/graph/#sstim-ref:$1 [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://labiosyncare.github.io/ontology/instances/presets/$1.ttl [R=303,L]
+RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ - [R=406,L]
+
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://labiosyncare.github.io/ontology/instances/references/references.ttl [R=303,L]
+RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ - [R=406,L]
+# END audited BSC preset and reference routes
 
 # -------------------------------------------------------------------------
 # BSC framework technique identities. Every rule is exact — no prefix wildcard
