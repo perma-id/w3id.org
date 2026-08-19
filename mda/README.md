@@ -18,7 +18,7 @@ Redirects for these resources are defined in the `.htaccess` file in this direct
 ## Maintainers
 
 - [Ruben Zoodsma (@RubenZoodsma)](https://github.com/RubenZoodsma)
-- [Margherita Martorana (@mmartora)](https://github.com/ritamargherita)
+- [Margherita Martorana (@ritamargherita)](https://github.com/ritamargherita)
 
 ## Contact
 
