@@ -9,7 +9,7 @@ machine-readable JSON-LD/RDF ontology of Estonian and EU law.
 - **Ontology / version IRI:** `https://w3id.org/estleg`, `https://w3id.org/estleg/<version>`
 - **Project / source:** <https://github.com/henrikaavik/estonian-legal-ontology>
 - **Current release:** <https://github.com/henrikaavik/estonian-legal-ontology/releases/tag/v1.0.0>
-- **Maintainer / contact:** Henrik Aavik — <https://github.com/henrikaavik>
+- **Maintainer / contact:** Henrik Aavik — <https://github.com/henrikaavik> — henrik.aavik@gmail.com
 
 A content-negotiating 303 resolver (RDF vs HTML per `Accept`) is planned.
 Until that resolver is stood up, term IRIs redirect to the project
