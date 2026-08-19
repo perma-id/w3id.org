@@ -7,7 +7,7 @@ Preferred prefix: `herbkg:`
 Source repository: https://github.com/shellezhu/tcm-mm-ontology
 Archived release: https://doi.org/10.5281/zenodo.19358396
 Maintainer: Institute of Literature Research, Nanjing University of Chinese Medicine
-Contact: Chao Chen Chao.Chen@nottingham.ac.uk
+Contact: Xian Zhu zhuxian@njucm.edu.cn
 Licence: CC BY 4.0
 Resolution
 URI	Resolves to
