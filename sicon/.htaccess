@@ -1,0 +1,30 @@
+# https://w3id.org/sicon
+# SICON — A Spatial Iconography Ontology Design Pattern
+#
+# Maintainer: Philipp Schneider (ORCID 0000-0002-6743-8600)
+# Humboldt-Universität zu Berlin
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- versioned access: https://w3id.org/sicon/0.1.0 -----------------------
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/$1/index-en.html [R=303,NE,L]
+
+# --- content negotiation on the base IRI ----------------------------------
+RewriteCond %{HTTP:Accept} text/turtle [OR]
+RewriteCond %{HTTP:Accept} application/x-turtle
+RewriteRule ^$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/latest/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/rdf\+xml
+RewriteRule ^$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/latest/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/ld\+json [OR]
+RewriteCond %{HTTP:Accept} application/json
+RewriteRule ^$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/latest/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/n-triples [OR]
+RewriteCond %{HTTP:Accept} text/plain
+RewriteRule ^$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/latest/ontology.nt [R=303,L]
+
+# --- default: human-readable documentation --------------------------------
+RewriteRule ^$ https://digital-history.pages.cms.hu-berlin.de/digital-history-forschung/digital-heraldry/spatial-iconography-odp/latest/index-en.html [R=303,NE,L]
