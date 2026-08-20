@@ -1,0 +1,18 @@
+# .htaccess per perma-id/w3id.org — cartella  castello-anima-vocab/
+# NON va in questo repo: va nel fork di perma-id/w3id.org, in una PR.
+# URI dereferenziabili con content negotiation:
+#   - una macchina che chiede Turtle  -> il vocabolario .ttl completo
+#   - un browser (o qualsiasi altro)   -> la pagina leggibile del concetto
+Options +FollowSymLinks
+RewriteEngine On
+
+# 1) Richiesta esplicita di Turtle -> il .ttl completo (dati per le macchine)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^(.*)$ https://luciano-longo77.github.io/castello-anima-TEI-IA/vocab/castello-anima-vocab.ttl [R=303,L]
+
+# 2) Un singolo concetto (o asse) -> la sua pagina umana
+RewriteRule ^([^/]+)/?$ https://luciano-longo77.github.io/castello-anima-TEI-IA/vocab/site/?c=$1 [R=303,L]
+
+# 3) La base del vocabolario -> l'indice
+RewriteRule ^$ https://luciano-longo77.github.io/castello-anima-TEI-IA/vocab/site/ [R=303,L]
