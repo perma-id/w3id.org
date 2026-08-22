@@ -1,0 +1,41 @@
+# =============================================================================
+# w3id.org permanent identifier config for the UCCF ontology
+# Namespace base: https://w3id.org/uccf/
+# =============================================================================
+# This file performs HTTP content negotiation so that:
+#   - Semantic Web tools (Accept: text/turtle / rdf+xml) get the .ttl file
+#   - Web browsers get the human-readable HTML documentation
+#
+# >>> BEFORE SUBMITTING: replace the two placeholders below <<<
+#   YOUR-GH-USERNAME  -> your GitHub username (or org)
+#   REPO              -> the repo/path where the files are published via Pages
+# Example target: https://parag-khuman.github.io/uccf/
+# =============================================================================
+
+Options -MultiViews
+RewriteEngine On
+
+# --- Main ontology IRI:  https://w3id.org/uccf/ontology ----------------------
+# 1) Turtle / RDF content -> raw ontology file
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/?$ https://pkpakau.github.io/uccf/uccf_complete.ttl [R=302,L]
+
+# 2) Anything else (browser) -> HTML documentation
+RewriteRule ^ontology/?$ https://pkpakau.github.io/uccf/index.html [R=302,L]
+
+# --- Version-specific IRI:  https://w3id.org/uccf/ontology/1.1.0 -------------
+RewriteRule ^ontology/1\.1\.0/?$ https://pkpakau.github.io/uccf/uccf_complete.ttl [R=302,L]
+
+# --- Sub-vocabularies (iso27001, aws, azure, terraform) ---------------------
+# These share the same document; resolve them to the ontology file.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(iso27001|aws|azure|terraform)/?$ https://pkpakau.github.io/uccf/uccf_complete.ttl [R=302,L]
+RewriteRule ^(iso27001|aws|azure|terraform)/?$ https://pkpakau.github.io/uccf/index.html [R=302,L]
+
+# --- Bare base:  https://w3id.org/uccf/ -> documentation ---------------------
+RewriteRule ^$ https://pkpakau.github.io/uccf/index.html [R=302,L]
