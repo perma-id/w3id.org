@@ -1,13 +1,14 @@
-# w3id.org — redirect permanente per https://w3id.org/castello-edizione-vocab/
-# Vocabolario SKOS dei 17 stati-mistici del repo castello-dell-anima-edizione.
+# w3id.org permanent identifier for https://w3id.org/castello-edizione-vocab/
+# SKOS vocabulary of the 17 mystical states (twin repo: castello-dell-anima-edizione).
+# maintainer: @luciano-longo77
 Options +FollowSymLinks
 RewriteEngine on
 
-# Content negotiation: richiesta RDF esplicita (Turtle / RDF-XML) -> file .ttl
+# Content negotiation: explicit RDF request (Turtle / RDF-XML) -> .ttl file
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
 RewriteRule ^(.*)$ https://luciano-longo77.github.io/castello-dell-anima-edizione/vocab/castello-edizione-vocab.ttl [R=302,L]
 
-# Default (browser e ogni altra richiesta) -> stesso .ttl
+# Default (browser and any other request) -> same .ttl
 RewriteRule ^(.*)$ https://luciano-longo77.github.io/castello-dell-anima-edizione/vocab/castello-edizione-vocab.ttl [R=302,L]
