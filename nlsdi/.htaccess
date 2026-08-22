@@ -1,0 +1,139 @@
+# w3id.org/nlsdi/ — NL-SDI Energy-District Knowledge Graph Ontology
+# This file lives at perma-id/w3id.org/nlsdi/.htaccess in the w3id.org repo.
+# 303-redirect content negotiation (W3C "Best Practice Recipes", slash namespace).
+#
+# TARGET host: GitHub Pages of the public artifact repo — LIVE since 2026-08-19.
+#   https://amin-jalilzadeh-tu.github.io/nlsdi
+#   repo: https://github.com/amin-jalilzadeh-tu/nlsdi
+#
+# Every redirect target below was verified to return 200 before this file was submitted, because
+# a w3id registration that 303s to a 404 is worse than none: it converts an honest "not
+# published" into a broken promise. 14 targets checked, including the media types GitHub Pages
+# serves them with (text/turtle, application/rdf+xml, application/ld+json).
+# Files that MUST exist at the target (see PUBLISH_STEPS.md):
+#   ontology.ttl   ontology.owl (RDF/XML)   ontology.jsonld   shapes.ttl   index-en.html
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------- SHACL shapes: w3id.org/nlsdi/shapes ----------
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^shapes/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/index-en.html#shapes [R=303,L]
+RewriteRule ^shapes/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/shapes.ttl [R=303,L]
+
+# ---------- mappings landing (rdfs:seeAlso target in the ontology header) ----------
+RewriteRule ^mappings/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/mappings/ [R=303,L]
+
+# ---------- ontology root: w3id.org/nlsdi/ ----------
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.jsonld [R=303,L]
+
+# Default (browsers / anything else) -> WIDOCO HTML documentation
+RewriteRule ^$ https://amin-jalilzadeh-tu.github.io/nlsdi/index-en.html [R=303,L]
+
+# ================================================================================================
+# v3 — THE RELEASE NAMESPACE.  w3id.org/nlsdi/v3/
+# ================================================================================================
+# Everything the current builder emits lives under /v3/. Until now this file had no /v3/ rule at
+# all, so `https://w3id.org/nlsdi/v3/Building` fell through to the generic term rule at the bottom
+# and redirected to `index-en.html#v3/Building` — an anchor that cannot exist, for a document that
+# describes the OLD namespace. Silent misrouting, not a 404, which is the harder kind to notice.
+#
+# These rules MUST stay above the generic `^(.+)$` term rules: mod_rewrite takes the first match
+# with [L], so a generic rule placed earlier would swallow every /v3/ request.
+#
+# The v3 sub-namespaces are NOT interchangeable, and are routed by what actually declares them
+# (re-measured against Decide/graph_v3/ontology/nlsdi_v3.ttl on 2026-08-17, ontology v3.1.0):
+#     /v3/<Term>          29 classes + 39 object + 16 datatype properties -> in the ontology
+#     /v3/quantity/<q>    336 quantity individuals            -> declared in the ontology
+#     /v3/id/<x>          instance IRIs                       -> 0 occurrences in the ontology
+#     /v3/cbs/<code>      CBS code individuals                -> carried in the instance graph
+#
+# NOTE on /v3/cbs/: these are code INDIVIDUALS this project mints for CBS area codes. They are
+# NOT an alignment to a CBS vocabulary — the prefix `cbs:` bound to
+# http://betalinkeddata.cbs.nl/def/cbs# was retired on 2026-08-17 because that namespace no
+# longer responds (D-NS-004). The routing below is therefore correct as an instance rule and
+# must never be re-pointed at a CBS ontology, because there is none to point at.
+#
+# ---------- SHACL shapes: w3id.org/nlsdi/v3/shapes ----------
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^v3/shapes/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/index-en.html#shapes [R=303,L]
+RewriteRule ^v3/shapes/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/shapes.ttl [R=303,L]
+
+# ---------- instance IRIs: w3id.org/nlsdi/v3/id/... and /v3/cbs/... ----------
+# 404 IS THE HONEST ANSWER HERE, AND IT IS DELIBERATE. These identify buildings, observations and
+# code individuals in the instance graph. The ontology does not define them — measured: 0 of the
+# 2,461 ontology triples mention /v3/id/ — so 303-ing them to the ontology would return a document
+# that says nothing about the resource requested, which is worse than no answer.
+#
+# The instance graph is not published at Tier A (mixed licences; see publish/GATES.md and
+# WITHHELD.csv). When Tier B publishes per-source named graphs, THIS is the rule that changes:
+# it becomes a 303 to the dataset landing page for the graph that carries the subject.
+RewriteRule ^v3/(id|cbs)/ - [R=404,L]
+
+# ---------- ontology root: w3id.org/nlsdi/v3/ ----------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^v3/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^v3/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^v3/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.jsonld [R=303,L]
+
+RewriteRule ^v3/?$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/index-en.html [R=303,L]
+
+# ---------- v3 term and quantity IRIs ----------
+# `quantity/foo` keeps its slash in the HTML anchor: the anchor is the full path after /v3/
+# rather than only the last segment. The documentation is generated by
+# 02_semantics/publish/w3id/build_pages_site.py, which derives each anchor from the SAME local
+# name this rule substitutes, and asserts at build time that every declared term has one — so a
+# term URL cannot 303 to a page with no matching anchor. (Not WIDOCO: its anchoring convention
+# is not part of any contract, and this one is.)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^v3/(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^v3/(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^v3/(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/ontology.jsonld [R=303,L]
+
+RewriteRule ^v3/(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/v3/index-en.html#$1 [R=303,NE,L]
+
+# ---------- term IRIs: w3id.org/nlsdi/<Term> (slash namespace) ----------
+# LEGACY /nlsdi/ NAMESPACE — the v2 model in 02_semantics/, which is marked non-release. Kept so
+# already-minted v2 IRIs keep resolving; the builder emits nothing here.
+# RDF requests get the full ontology serialization; HTML requests get the docs anchored at the
+# term (the anchor is the local name, generated from it — see the v3 note above).
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/ontology.jsonld [R=303,L]
+
+RewriteRule ^(.+)$ https://amin-jalilzadeh-tu.github.io/nlsdi/index-en.html#$1 [R=303,NE,L]
