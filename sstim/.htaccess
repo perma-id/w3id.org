@@ -112,10 +112,23 @@ RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\
 RewriteRule ^module/exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.ttl [R=303,L]
 RewriteRule ^module/exposure$ - [R=406,L]
 
-# The SKOS vocabulary has its own pyLODE page; every other module is
-# described by the WIDOCO reference index.
+# vocab and ecosystem are hash namespaces whose terms are defined across more
+# than one module, so a fragment can arrive here just as it can at /sstim and
+# /sstim/exposure, and for the same reason it goes to the application: a server
+# never sees the fragment, and neither generated page can anchor it. Measured
+# 2026-08-23: WIDOCO anchors by full IRI, pyLODE by label (id="Alpha" for
+# sstim-v:alpha, which is also the wrong case), so both left the reader at the
+# top of an index with nothing selected.
+#
+# The pyLODE vocabulary page keeps its address at /ontology/docs/vocab/ and its
+# link from every vocabulary term in the knowledge browser.
+#
+# shapes and core-shapes are deliberately NOT here. SHACL shapes are not
+# drawable nodes in the knowledge browser, so sending a shape IRI there would
+# select nothing; the reference index remains the better answer until shapes are
+# either drawable or anchored by local name.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^vocab$ https://labiosyncare.github.io/ontology/docs/vocab/ [R=303,L]
+RewriteRule ^(vocab|ecosystem)$ https://labiosyncare.github.io/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://labiosyncare.github.io/ontology/sstim-$1.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
