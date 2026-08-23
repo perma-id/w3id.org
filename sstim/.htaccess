@@ -79,12 +79,22 @@ RewriteRule ^kernel$ - [R=406,L]
 
 # exposure#StimulusChannel is stimulus-owned after ADR 0044, so the namespace
 # document is the generated Stimulus + Exposure union rather than one module.
+#
+# HTML goes to the application, matching the bare /sstim namespace below and for
+# the same reason. A server never sees a fragment, so this rule cannot tell
+# /sstim/exposure from /sstim/exposure#StimulusChannelRole and one destination
+# must serve both. The generated reference index cannot serve the second:
+# measured 2026-08-23, WIDOCO anchors by full IRI
+# (id="https://w3id.org/sstim/exposure#StimulusChannelRole") while the browser
+# carries the bare local name, so the reader landed at the top of an index with
+# nothing selected. The knowledge browser reads the fragment client-side,
+# selects the term, and links onward to its reference entry.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/docs/ [R=303,L]
+RewriteRule ^exposure$ https://labiosyncare.github.io/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.ttl [R=303,L]
