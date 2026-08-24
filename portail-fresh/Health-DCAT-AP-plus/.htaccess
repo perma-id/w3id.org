@@ -1,0 +1,53 @@
+# W3ID .htaccess for Health-DCAT-AP-plus
+# A LinkML schema combining HealthDCAT-AP's health-dataset metadata tiers
+# with DCAT-AP+'s PROV-O provenance extensions (DataGeneratingActivity,
+# Entity, AgenticEntity, Plan).
+# GitHub: https://github.com/portail-fresh/Health-DCAT-AP-plus
+#
+# ## Contact
+# This space is administered by:
+#
+# Remy Ben Messaoud
+# remy.benmessaoud@gmail.com
+# GitHub username: rbm1996
+
+Header set Access-Control-Allow-Origin "*"
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ====================================
+# General HTML/YAML redirect to GitHub Pages documentation
+# ====================================
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://portail-fresh.github.io/Health-DCAT-AP-plus/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^$ https://portail-fresh.github.io/Health-DCAT-AP-plus/schema/health_dcat_ap_plus.yaml [R=302,L]
+
+# ====================================
+# Main schema
+# ====================================
+
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^latest/schema/health_dcat_ap_plus\.yaml$ https://portail-fresh.github.io/Health-DCAT-AP-plus/schema/health_dcat_ap_plus.yaml [R=302,L]
+
+# ====================================
+# Non-public-tier HealthDCAT-AP schema (imported by health_dcat_ap_plus.yaml
+# itself -- published alongside it so that import resolves too)
+# ====================================
+
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^latest/schema/healthdcat_ap_non_public\.yaml$ https://portail-fresh.github.io/Health-DCAT-AP-plus/schema/healthdcat_ap_non_public.yaml [R=302,L]
+
+# ====================================
+# Fallback -- anything else goes to the documentation homepage
+# ====================================
+
+RewriteRule ^.*$ https://portail-fresh.github.io/Health-DCAT-AP-plus/ [R=302,L]
