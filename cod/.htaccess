@@ -1,0 +1,25 @@
+# w3id.org/cod
+# COD - Canadian Open Government Data knowledge graph vocabulary
+# Maintainer: Akhil Chaudhary (https://github.com/akhil41)
+
+RewriteEngine on
+
+# Vocabulary document - content negotiation
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^vocab$ https://akhil41.github.io/cod/cod_ontology.ttl [R=303,L]
+RewriteRule ^vocab$ https://akhil41.github.io/cod/ [R=303,L]
+
+# Direct file requests
+RewriteRule ^vocab\.ttl$   https://akhil41.github.io/cod/cod_ontology.ttl [R=302,L]
+RewriteRule ^domains\.ttl$ https://akhil41.github.io/cod/cod_domains.ttl [R=302,L]
+
+# Instance and named-graph URIs are stable identifiers rather than
+# per-resource documents; send them to the documentation landing page.
+RewriteRule ^id/(.*)$    https://akhil41.github.io/cod/ [R=303,L]
+RewriteRule ^graph/(.*)$ https://akhil41.github.io/cod/ [R=303,L]
+
+# Default
+RewriteRule ^(.*)$ https://akhil41.github.io/cod/ [R=302,L]
