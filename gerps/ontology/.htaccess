@@ -32,6 +32,7 @@ RewriteRule ^codelist(/.*)?$   - [E=GERPS_REPO:GerPS-Codelist]
 # With fragment (e.g., 1.0/SomeTerm): redirects to 1.0/index-de.html#SomeTerm
 RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} !(text/turtle|application/x-turtle|text/n3|application/n-triples|application/ld\+json|application/rdf\+xml)
 RewriteCond %{HTTP:Accept-Language} ^de [NC]
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -46,6 +47,7 @@ RewriteRule ^[^/]+/?(\d+\.\d+\/)?(.*)?$ "https://fusion-jena.github.io/%{ENV:GER
 # With fragment (e.g., 1.0/SomeTerm): redirects to 1.0/index-en.html#SomeTerm
 RewriteCond %{ENV:GERPS_REPO} .+
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} !(text/turtle|application/x-turtle|text/n3|application/n-triples|application/ld\+json|application/rdf\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
