@@ -8,5 +8,5 @@ patient-derived organoid cohort, aligned to the Semanticscience Integrated Ontol
 - **Archived at (concept DOI, always latest):** https://doi.org/10.5281/zenodo.22107499
 - **This version (DOI):** https://doi.org/10.5281/zenodo.22107500
 - **Source:** https://github.com/bio-ontology-research-group/CRC_KG
-- **Maintainer / contact:** maria.castillo@kaust.edu.sa
+- **Maintainer / contact:** Maria Castillo — [@mariacastillo982](https://github.com/mariacastillo982) — maria.castillo@kaust.edu.sa
   
