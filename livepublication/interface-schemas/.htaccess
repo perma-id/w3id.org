@@ -1,0 +1,120 @@
+# w3id Persistent Identifiers for LivePublication Interface Schemas
+#
+# Maintainer: Augustus Ellerm <aell854@UoA.auckland.ac.nz>
+# Repository: https://github.com/GusEllerm/livepub-interface-schemas
+# Production: https://livepublication.org/interface-schemas/
+#
+# These rules provide persistent identifiers for all interface schemas,
+# including current modules (dpc, dsc, lp-dscdpc) and future additions.
+# Uses patterns to reduce the need for per-module w3id updates.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ==============================================================================
+# 1. NESTED PROFILE CONTEXTS (Immutable)
+# ==============================================================================
+# Pattern (relative to this dir):
+#   contexts/{profile}/v{N}.jsonld
+#
+# Example:
+#   /livepublication/interface-schemas/contexts/lp-dscdpc/v1.jsonld
+# → https://livepublication.org/interface-schemas/contexts/lp-dscdpc/v1.jsonld
+#
+# These are merged/profile contexts (like lp-dscdpc) that don't correspond
+# to a single module. This rule must go BEFORE module rules so it wins.
+
+RewriteRule ^contexts/([A-Za-z0-9_-]+)/(v[0-9.]+\.jsonld)$ \
+  https://livepublication.org/interface-schemas/contexts/$1/$2 [R=302,L]
+
+# ==============================================================================
+# 2. MODULE VERSIONED CONTEXTS (Immutable)
+# ==============================================================================
+# Pattern (relative to this dir):
+#   {module}/contexts/v{N}.jsonld
+#
+# Example:
+#   /livepublication/interface-schemas/dpc/contexts/v1.jsonld
+# → https://livepublication.org/interface-schemas/dpc/contexts/v1.jsonld
+#
+# Each versioned context is immutable once published.
+
+RewriteRule ^([A-Za-z0-9_-]+)/contexts/(v[0-9.]+\.jsonld)$ \
+  https://livepublication.org/interface-schemas/$1/contexts/$2 [R=302,L]
+
+# ==============================================================================
+# 3. MODULE BASE WITH CONTENT NEGOTIATION
+# ==============================================================================
+# Pattern (relative to this dir):
+#   {module}
+#
+# Behavior:
+# - If client requests Turtle (Accept: text/turtle), send them the vocabulary
+#   in Turtle form: terms.ttl
+# - Otherwise send them the human-readable landing page index.html
+#
+# Example:
+#   GET /livepublication/interface-schemas/dpc
+#   Accept: text/turtle
+# → https://livepublication.org/interface-schemas/dpc/terms.ttl
+#
+#   GET /livepublication/interface-schemas/dpc
+#   (no special Accept)
+# → https://livepublication.org/interface-schemas/dpc/index.html
+
+# Turtle request → terms.ttl
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([A-Za-z0-9_-]+)/?$ \
+  https://livepublication.org/interface-schemas/$1/terms.ttl [R=302,L,NE]
+
+# Default → index.html
+RewriteRule ^([A-Za-z0-9_-]+)/?$ \
+  https://livepublication.org/interface-schemas/$1/index.html [R=302,L,NE]
+
+# ==============================================================================
+# 4. SPECIFIC ARTIFACTS
+# ==============================================================================
+# Direct lookups of specific published resources.
+#
+#   {module}/terms.ttl      → vocabulary (RDF/Turtle)
+#   {module}/shapes.ttl     → SHACL shapes in Turtle
+#   {module}/index.html     → human landing page
+#
+# All of these are public, static, and version-controlled in
+# https://github.com/GusEllerm/livepub-interface-schemas
+
+RewriteRule ^([A-Za-z0-9_-]+)/terms\.ttl$ \
+  https://livepublication.org/interface-schemas/$1/terms.ttl [R=302,L,NE]
+
+RewriteRule ^([A-Za-z0-9_-]+)/shapes\.ttl$ \
+  https://livepublication.org/interface-schemas/$1/shapes.ttl [R=302,L,NE]
+
+RewriteRule ^([A-Za-z0-9_-]+)/index\.html$ \
+  https://livepublication.org/interface-schemas/$1/index.html [R=302,L,NE]
+
+# ==============================================================================
+# 5. CATALOG ROOT
+# ==============================================================================
+# Pattern (relative to this dir):
+#   ""  (i.e. /livepublication/interface-schemas/ exactly)
+#
+# That should redirect to the catalog page that lists all modules and contexts.
+
+RewriteRule ^$ \
+  https://livepublication.org/interface-schemas/index.html [R=302,L,NE]
+
+# ==============================================================================
+# 6. FALLBACK
+# ==============================================================================
+# Anything else under this prefix that didn't match above rules goes to the
+# catalog. This handles:
+# - unknown modules (/foo)
+# - requests like /dpc/contexts/latest.jsonld (non-versioned)
+# - typos
+#
+# Example:
+#   /livepublication/interface-schemas/dpc/contexts/latest.jsonld
+# → https://livepublication.org/interface-schemas/index.html
+
+RewriteRule ^.*$ \
+  https://livepublication.org/interface-schemas/index.html [R=302,L,NE]

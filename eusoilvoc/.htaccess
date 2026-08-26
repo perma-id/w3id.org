@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Default content negotiation for the EUSO soil vocabulary
+# HTML -> GitHub Pages documentation
+# RDF/Turtle -> Turtle serialization
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|\*/turtle|text/\*) [NC]
+RewriteRule ^$ https://soilwise-he.github.io/soil-vocabs/SoilVoc.ttl [R=302,L]
+
+RewriteRule ^$ https://soilwise-he.github.io/soil-vocabs/ [R=302,L]

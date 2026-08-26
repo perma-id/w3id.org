@@ -1,0 +1,90 @@
+# nemo
+#
+# https://w3id.org/nemo/ redirects to https://nemo.inf.ufes.br/
+#
+# gUFO <https://github.com/nemo-ufes/gufo>:
+#
+# https://w3id.org/nemo/gufo     the ontology (Turtle)
+# https://w3id.org/nemo/doc/gufo the documentation
+#
+# gUFO Shapes <https://github.com/nemo-ufes/gufoshapes>:
+#
+# https://w3id.org/nemo/gufoshapes the SHACL shapes (Turtle)
+#
+# gUFOevents <https://github.com/nemo-ufes/gufoevents>:
+#
+# https://w3id.org/nemo/gufoevents            the ontology (Turtle)
+# https://w3id.org/nemo/gufoevents/1.0.0      the version 1.0.0 ontology
+# https://w3id.org/nemo/doc/gufoevents        the documentation
+# https://w3id.org/nemo/doc/gufoevents/explorer the example explorer
+# https://w3id.org/nemo/gufoevents/shapes/*   the SHACL shapes
+# https://w3id.org/nemo/gufoevents/examples/* the worked examples
+#
+# Contact:
+#
+# This space is administered by:
+#
+# João Paulo A. Almeida
+# GitHub username: jpalmeida
+
+Options +FollowSymLinks -MultiViews
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# gUFO
+# ---------------------------------------------------------------------------
+
+# Documentation.
+RewriteRule "^doc/gufo/?$" "https://nemo-ufes.github.io/gufo/" [R=302,L]
+
+# The ontology IRI, and with it the http://w3id.org/nemo/gufo# namespace.
+RewriteRule "^gufo/?$"     "https://nemo-ufes.github.io/gufo/gufo.ttl" [R=302,L]
+
+# ---------------------------------------------------------------------------
+# gUFO Shapes
+# ---------------------------------------------------------------------------
+
+# The SHACL shapes.
+RewriteRule "^gufoshapes/?$" "https://nemo-ufes.github.io/gufoshapes/gufoshapes.ttl" [R=302,L]
+
+# ---------------------------------------------------------------------------
+# gUFOevents
+# ---------------------------------------------------------------------------
+
+# Documentation.
+RewriteRule "^doc/gufoevents/?$"          "https://nemo-ufes.github.io/gufoevents/" [R=302,L]
+RewriteRule "^doc/gufoevents/explorer/?$" "https://nemo-ufes.github.io/gufoevents/explorer.html" [R=302,L]
+
+# The version IRI resolves to a tag and not to the default branch: a version
+# IRI that followed the branch would stop denoting version 1.0.0 on the next
+# commit.
+RewriteRule "^gufoevents/1\.0\.0/?$" "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/gufoevents.ttl" [R=302,L]
+
+# The ontology IRI, and with it the http://w3id.org/nemo/gufoevents# namespace.
+# It always resolves to the Turtle serialization.
+RewriteRule "^gufoevents/?$" "https://nemo-ufes.github.io/gufoevents/gufoevents.ttl" [R=302,L]
+
+# The SHACL shapes.
+RewriteRule "^gufoevents/shapes/core/?$"           "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/event-sourcing/shapes-core.ttl" [R=302,L]
+RewriteRule "^gufoevents/shapes/event-sourcing/?$" "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/event-sourcing/shapes-event-sourcing.ttl" [R=302,L]
+
+# The eight worked examples. Each slug is the namespace the example declares;
+# the file names carry a reading order that the namespaces do not.
+RewriteRule "^gufoevents/examples/order/?$"      "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/01-order-fulfilment.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/person/?$"     "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/02-person-life-phases.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/bicycle/?$"    "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/03-bicycle-maintenance.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/museum/?$"     "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/04-museum-conservation.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/employment/?$" "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/05-employment-relators.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/corporate/?$"  "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/06-corporate-restructuring.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/clinical/?$"   "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/07-clinical-episode.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/account/?$"    "https://raw.githubusercontent.com/nemo-ufes/gufoevents/d0296aaef08b3ebb38438774b8a6df7e0bfe980c/examples/08-event-sourced-account.ttl" [R=302,L]
+RewriteRule "^gufoevents/examples/?$"            "https://github.com/nemo-ufes/gufoevents/tree/main/examples" [R=302,L]
+
+# Anything else below the ontology, so that a path this file has not caught up
+# with lands on the repository rather than on the group's website.
+RewriteRule "^gufoevents/(.+)$" "https://github.com/nemo-ufes/gufoevents/blob/main/$1" [R=302,L]
+
+# ---------------------------------------------------------------------------
+
+# The NEMO group website.
+RewriteRule "^(.*)$" "https://nemo.inf.ufes.br/$1" [R=302,L]

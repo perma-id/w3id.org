@@ -8,7 +8,8 @@
 
 RewriteEngine on
 
-#redirect terms to https://ecoportal.lifewatch.eu/ontologies
-#test using https://w3id.org/CMECS/CMECS_00000389 (Geologic Substrate)
+# 1. Redirect the root (/CMECS/ or /CMECS) to the summary page
+RewriteRule ^$ https://ecoportal.lifewatch.eu/ontologies/CMECS?p=summary [R=301,L]
 
+# 2. Redirect individual terms (e.g., /CMECS/CMECS_00000389)
 RewriteRule ^([^/#]+)/?$ http://ecoportal.lifewatch.eu/ontologies/CMECS/$1 [R=301,L]

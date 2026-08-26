@@ -1,6 +1,15 @@
 # SalemWitchTrials Identifier
 
-This directory manages permanent identifier redirects for the SalemWitchTrials project, providing stable URLs for our data resources.
+- **Description**: Persistent identifiers for the SalemWitchTrials project and its knowledge graph.
+- **Project URL**: https://hexwitches.github.io/salemWitchTrials/
+- **Maintainers**:
+  - [hexWitches](https://github.com/hexWitches)
+- **Status**: Active
 
-Maintainer
-- GitHub: sararoggi https://github.com/sararoggi
+This directory provides redirection for:
+- The main website: https://w3id.org/salemWitchTrials/
+- The Knowledge Graph: https://w3id.org/salemWitchTrials/graph
+
+## Contact
+For issues or updates regarding these identifiers, please contact
+[mir-pin](https://github.com/mir-pin) or [sararoggi](https://github.com/sararoggi) via GitHub.

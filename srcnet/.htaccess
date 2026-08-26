@@ -1,0 +1,49 @@
+# SRCNet Semantic Model (SRC)
+#
+# https://w3id.org/src identifies the latest SRC semantic model.
+#
+# Maintainers:
+# Edgar Ribeiro João (GitHub: Edgar25-coder)
+# Manuel Parra-Royón
+# Julián Garrido
+
+Options -MultiViews
+
+# Allow the ontology representations to be consumed from web applications.
+Header always set Access-Control-Allow-Origin "*"
+
+# Inform caches that the selected representation depends on the Accept header.
+Header always set Vary "Accept"
+
+AddType application/ld+json .jsonld
+AddType text/turtle .ttl
+
+RewriteEngine On
+
+# -----------------------------------------------------------------------------
+# Explicit representation identifiers
+# -----------------------------------------------------------------------------
+
+RewriteRule ^SRCnode_model\.jsonld$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.jsonld [R=303,L]
+RewriteRule ^SRCnode_model\.ttl$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.ttl [R=303,L]
+
+# Short aliases based on the ontology name.
+RewriteRule ^src\.jsonld$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.jsonld [R=303,L]
+RewriteRule ^src\.ttl$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.ttl [R=303,L]
+
+# -----------------------------------------------------------------------------
+# Content negotiation for https://w3id.org/src
+# -----------------------------------------------------------------------------
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.jsonld [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/Edgar25-coder/SRCNet-SemanticModel/refs/heads/main/Model/SRCnode_model.ttl [R=303,L]
+
+# Browser requests and unsupported media types: project documentation/source.
+RewriteRule ^$ https://github.com/Edgar25-coder/SRCNet-SemanticModel/tree/main/Model [R=303,L]

@@ -1,0 +1,22 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Fairscape namespace — persistent identifiers for the Fairscape RO-Crate
+# Profile and related artifacts. Content is served from GitHub Pages at
+# https://fairscape.github.io/profile/ ; this file is just the redirect layer.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Profile identifier URIs, e.g. /fairscape/profile/0.1
+# RDF clients get the W3C PROF manifest (Turtle)...
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples) [NC]
+RewriteRule ^profile/([^/]+)/?$ https://fairscape.github.io/profile/$1/profile.ttl [R=303,L]
+
+# ...everyone else (browsers, etc.) gets the rendered HTML specification.
+RewriteRule ^profile/([^/]+)/?$ https://fairscape.github.io/profile/$1/ [R=303,L]
+
+# All other artifacts pass straight through to the published files, e.g.
+#   /fairscape/profile/0.1/evi-vocabulary.ttl
+#   /fairscape/profile/0.1/schemas/Dataset.json
+#   /fairscape/profile/0.1/examples/release/ro-crate-metadata.json
+RewriteRule ^(.*)$ https://fairscape.github.io/$1 [R=302,L]

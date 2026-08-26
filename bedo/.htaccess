@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://xiaolisong1126.github.io/bedo/ontology.xml [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://xiaolisong1126.github.io/bedo/ontology.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://xiaolisong1126.github.io/bedo/ontology.jsonld [R=303,L]
+
+# HTML for browsers
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://xiaolisong1126.github.io/bedo/ [R=303,L]
+
+# Fallback
+RewriteRule ^$ https://xiaolisong1126.github.io/bedo/ontology.ttl [R=303,L]

@@ -1,0 +1,51 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# ============================================================
+# CEDS Ontology IRI Redirects for https://w3id.org/CEDStandards
+# ============================================================
+# Ontology namespace: https://w3id.org/CEDStandards/terms#
+#
+# IRI patterns:
+#   P######  - Properties (rdf:Property)
+#   C######  - Classes (rdfs:Class / owl:Class), also serve as ConceptSchemes
+#   NI###### - Named Individuals (skos:Concept); first 6 digits identify
+#              the parent Class/ConceptScheme (NI000361... -> C000361 -> P000361)
+#
+# Redirect target:
+#   https://ceds.ed.gov/desHome.aspx#/all/elements/A/<identifier>
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Redirect Properties (P######)
+#    e.g. https://w3id.org/CEDStandards/terms/P600131
+#         -> https://ceds.ed.gov/desHome.aspx#/all/elements/A/P600131
+# ------------------------------------------------------------
+RewriteRule ^terms/(P[0-9]+)/?$ https://ceds.ed.gov/desHome.aspx#/all/elements/A/$1 [R=302,L,NE]
+
+# ------------------------------------------------------------
+# 2. Redirect Classes (C######) to the corresponding Property page
+#    Classes serve as ConceptSchemes for Named Individuals, and each
+#    C number has a matching P number (e.g. C000361 -> P000361).
+#    e.g. https://w3id.org/CEDStandards/terms/C000361
+#         -> https://ceds.ed.gov/desHome.aspx#/all/elements/A/P000361
+# ------------------------------------------------------------
+RewriteRule ^terms/C([0-9]+)/?$ https://ceds.ed.gov/desHome.aspx#/all/elements/A/P$1 [R=302,L,NE]
+
+# ------------------------------------------------------------
+# 3. Redirect Named Individuals (NI######)
+#    The first 6 digits after "NI" encode the parent Class/Property number.
+#    e.g. https://w3id.org/CEDStandards/terms/NI000361113285
+#         -> https://ceds.ed.gov/desHome.aspx#/all/elements/A/P000361
+# ------------------------------------------------------------
+RewriteRule ^terms/NI([0-9]{6})[0-9]+/?$ https://ceds.ed.gov/desHome.aspx#/all/elements/A/P$1 [R=302,L,NE]
+
+# ------------------------------------------------------------
+# Catch-all: any unmatched /terms/ path goes to CEDS home
+# ------------------------------------------------------------
+RewriteRule ^terms/.*$ https://ceds.ed.gov/desHome.aspx [R=302,L]
+
+# ------------------------------------------------------------
+# Namespace root redirect
+# ------------------------------------------------------------
+RewriteRule ^/?$ https://ceds.ed.gov/ [R=302,L]

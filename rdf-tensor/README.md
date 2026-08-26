@@ -32,5 +32,6 @@ Piotr Sowiński \
 GitHub: https://github.com/Ostrzyciel \
 ORCID: https://orcid.org/0000-0002-2543-9461
 
-Piotr Marciniak \
-GitHub: https://github.com/cinekele
+Nikita Kozlov \
+GitHub: https://github.com/nk2ishere \
+ORCID: https://orcid.org/0009-0003-1634-9194

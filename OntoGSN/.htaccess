@@ -1,17 +1,39 @@
 # OntoGSN
-# Ontology: https://w3id.org/ontogsn/ontology/ redirects to https://fortiss.github.io/OntoGSN/ontology
-# Homepage: https://w3id.org/ontogsn redirects to https://fortiss.github.io/OntoGSN/
+# Ontology: https://w3id.org/OntoGSN/ontology/ redirects to content negotiated (ttl/jsonld/rdf+xml/html)
+# Homepage: https://w3id.org/OntoGSN redirects to https://fortiss.github.io/OntoGSN/
 
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 
 # MIME type for OWL
-AddType application/rdf+xml .owl
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
 
 RewriteEngine on
 
-# Redirect ontology path (relative to /ontogsn/)
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl [R=303,L]
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{REQUEST_URI} \.ttl$
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl [R=303,L]
+
+# JSON-LD
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{REQUEST_URI} \.jsonld$
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{REQUEST_URI} \.rdf$
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf [R=303,L]
+
+# Fallback for other Accept headers: send humans to the Turtle serialization
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl [R=303,L]
+
+# Redirect /playground
+RewriteRule ^playground(/)?$ https://fortiss.github.io/OntoGSN/playground/ [R=303,L]
 
 # Redirect base /ontogsn to GitHub Pages
 RewriteRule ^$ https://fortiss.github.io/OntoGSN [R=302,L]
+RewriteRule ^(.+)$ https://fortiss.github.io/OntoGSN/ [R=302,L]

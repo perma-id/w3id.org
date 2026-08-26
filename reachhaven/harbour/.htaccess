@@ -1,0 +1,68 @@
+Header set Access-Control-Allow-Origin *
+
+# MIME types for RDF serializations
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/ld+json .jsonld
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# =============================================================================
+# Harbour Credentials Ontology - Static GitHub Pages resolution
+# Pattern: /reachhaven/harbour/{domain}/v{version}[/][shapes|context]
+# Target:  reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/...
+# =============================================================================
+
+# --- Turtle / RDF-XML ---
+
+# Ontology (versioned, domain-scoped)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/?$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/ontology.ttl [R=303,L]
+
+# SHACL shapes (versioned)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/shapes/?$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/shapes.ttl [R=303,L]
+
+# --- JSON-LD ---
+
+# JSON-LD context (versioned)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/?$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/context.jsonld [R=303,L]
+
+# JSON-LD shapes (versioned) — no JSON-LD shapes published, serve Turtle
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/shapes/?$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/shapes.ttl [R=303,L]
+
+# --- Context sub-path (direct URL for JSON-LD @context references) ---
+# JSON-LD processors fetch @context URLs with a plain GET (no Accept header),
+# so these rules have no content-negotiation guard.
+
+# Versioned context
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/context/?$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/context.jsonld [R=303,L]
+
+# --- Bare class IRIs: /harbour/{domain}/v1/ClassName ---
+# Individual class IRIs resolve to the ontology (OWL/SHACL validators
+# dereference the namespace, not individual classes)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/.+$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/.+$ https://reachhaven.github.io/harbour-credentials/w3id/reachhaven/harbour/$1/$2/context.jsonld [R=303,L]
+
+# --- HTML fallback — redirect browsers to documentation ---
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/?$ https://reachhaven.github.io/harbour-credentials/reference/schemas/ [R=303,L]
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/shapes/?$ https://reachhaven.github.io/harbour-credentials/reference/schemas/ [R=303,L]
+RewriteRule ^(core|gx|delegate)/(v[0-9]+)/.+$ https://reachhaven.github.io/harbour-credentials/reference/schemas/ [R=303,L]
+
+# --- Root redirect to documentation ---
+RewriteRule ^$ https://reachhaven.github.io/harbour-credentials/ [R=303,L]

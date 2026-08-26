@@ -1,0 +1,35 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Set content types
+AddType application/ld+json .jsonld
+AddType application/json .json
+AddType text/html .html
+
+# Rewrite engine setup
+RewriteEngine On
+RewriteBase /hvdnet
+
+# Handle URIs ending with / (vocabularies)
+# Serve JSON-LD if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.jsonld [R=303,L]
+
+# Serve JSON if requested
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.json [R=303,L]
+
+# Default: serve HTML for browsers
+RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.html [R=303,L]
+
+# Handle URIs without trailing slash (resources)
+# Serve JSON-LD if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.jsonld [R=303,L]
+
+# Serve JSON if requested
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.json [R=303,L]
+
+# Default: serve HTML for browsers
+RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.html [R=303,L]

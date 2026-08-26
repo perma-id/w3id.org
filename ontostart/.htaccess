@@ -79,13 +79,22 @@ RewriteRule ^([A-Z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/doc
 
 
 # Content-type redirections to the latest version for branch-based path
-# Accept: text/turtle https://w3id.org/ontostart/testo/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/ontostart.ttl
+# Accept: text/turtle https://w3id.org/ontostart/testo/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/testo.ttl
 RewriteCond %{ENV:EXT} .
-RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+RewriteCond %{REQUEST_URI} /([^/]+)/?$
+RewriteCond %1 !^(github|docs|versions|main)$
+RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/$1.%{ENV:EXT} [R=303,L]
 
-# Content-type redirections to provided path
-# Accept: text/turtle https://w3id.org/ontostart/versions/latest/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.ttl
-# Accept: text/turtle https://w3id.org/ontostart/versions/1.0.0/ -> https://micheldumontier.github.io/ontostart/main/versions/1.0.0/ontostart.ttl
+# Content-type redirections for branch versioned paths
+# Accept: text/turtle https://w3id.org/ontostart/testo/versions/latest/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/testo.ttl
+# Accept: text/turtle https://w3id.org/ontostart/testo/versions/0.0.1/ -> https://micheldumontier.github.io/ontostart/testo/versions/0.0.1/testo.ttl
+RewriteCond %{ENV:EXT} .
+RewriteCond %{REQUEST_URI} /([^/]+)/
+RewriteCond %1 !^(github|docs|versions|main)$
+RewriteRule ^([^/]+)/(.+?)/?$ %{ENV:GH_PAGE}/$1/$2/$1.%{ENV:EXT} [R=303,L]
+
+# Content-type redirections to provided path (main branch: versions/latest/, versions/x.y.z/)
+# Accept: text/turtle https://w3id.org/ontostart/versions/latest/ -> https://micheldumontier.github.io/ontostart/versions/latest/ontostart.ttl
 RewriteCond %{ENV:EXT} .
 RewriteRule ^(.+?)/?$ %{ENV:GH_PAGE}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
 

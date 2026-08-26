@@ -3,7 +3,17 @@ Options -MultiViews
 
 # Basic redirect to the project pages
 RewriteEngine On
-RewriteRule ^$ https://github.com/oeg-upm/rsfc [R=301,L]
+RewriteRule ^$ https://rsfc.linkeddata.es/ [R=301,L]
 
 RewriteRule ^catalogue$ https://oeg-upm.github.io/rsfc/doc/catalog.html [R=302,L]
 RewriteRule ^catalog$ https://oeg-upm.github.io/rsfc/doc/catalog.html [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^api/?$ https://api.rsfc.linkeddata.es/openapi.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^api/?$ https://api.rsfc.linkeddata.es/docs [R=302,L,NE]
+
+
+RewriteRule ^api/(.+)$ https://api.rsfc.linkeddata.es/$1 [R=302,L,NE]

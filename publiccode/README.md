@@ -1,9 +1,12 @@
-Public Code
-===========
+publiccode.yml
+==============
+The publiccode.yml specification is a community driven effort to standardize how FLOSS for Public Administrations is described, to make discovery, indexing, and reuse easier.
 
-The Public code specification is an effort to standardize and describe Open Source software for Public Administrations, so that indexing and reuse becomes simpler. The specification is hosted by the Foundation for Public Code and has been devloped in close cooperation with the Digital Transformation Team of the Italian Government.
+Originally developed in close cooperation with the Digital Transformation Team of the Italian Government and the Foundation for Public Codet.
 
-With this identifier we want to create a stable reference to use inside every document in order to uniquely reference the various versions of the standard.
+This identifier provides a stable reference for the specification.
 
-Contacts: 
-* Riccardo Iaconelli <riccardo@teamdigitale.governo.it>
+Contacts:
+
+* Fabio Bonelli (https://github.com/bfabio)
+* Riccardo Iaconelli (https://github.com/ruphy)

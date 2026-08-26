@@ -10,6 +10,7 @@ ARK Ontologies:
 - Platform <https://w3id.org/ARK/Platform>
 - Risk Terminology <https://w3id.org/ARK/RiskTerminology>
 - Health Terminology <https://w3id.org/ARK/HealthTerminology>
+- Platform Terminology <https://w3id.org/ARK/PlatformTerminology>
 - Hospital Adverse Incidents Categories And Subcategories Terminology <https://w3id.org/ARK/HAdvIncCats>
 - Controls Ontology: <https://w3id.org/ARK/ControlsOntology>
 - Cybersecurity Terminology: <https://w3id.org/ARK/CybersecurityTerminology>
@@ -18,4 +19,4 @@ ARK Ontologies:
 Contacts:
 
 - Rob Brennan <rob.brennan@ucd.ie>
-- Junli Liang <junli.liang@adaptcentre.ie>
+- Junli Liang <junli.liang@adaptcentre.ie> (GitHub: [@junli-liang-johnny](https://github.com/junli-liang-johnny))

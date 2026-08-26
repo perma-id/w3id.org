@@ -1,0 +1,30 @@
+# W3ID .htaccess for dcat-ap-plus 
+# DCAT-AP Plus Links to ...........................................
+# Maintained by: NFDI4Chem & NFDI4Cat
+# GitHub: https://github.com/nfdi-de/dcat-ap-plus 
+# Contact: Koepler, Oliver <Oliver.Koepler@tib.eu>
+
+Header set Access-Control-Allow-Origin "*"
+
+# Enable rewrite engine
+Options +FollowSymLinks
+RewriteEngine on
+
+# ====================================
+# General HTML redirect to GitHub pages Documentation
+# ====================================
+
+# Default redirect to documentation (HTML)
+# Matches: https://w3id.org/nfdi-de/dcat-ap-plus or https://w3id.org/nfdi-de/dcat-ap-plus
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/?.*$" https://nfdi-de.github.io/dcat-ap-plus/latest/schema/dcat_ap_linkml.yaml [R=302,L]
+
+
+# Catch-all: anything not matched above goes to the documentation home
+RewriteRule ^(.*)$ https://nfdi-de.github.io/dcat-ap-plus/ [R=302,L]

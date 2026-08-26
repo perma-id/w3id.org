@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .ttl
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# SHAPES
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ https://imx-extension.lab.gaia-x.eu/development/rdf/shapes [R=303,L]
+
+# ONTOLOGY
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ https://imx-extension.lab.gaia-x.eu/development/rdf/ontology [R=303,L]
+
+# docs
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ https://imx-extension.lab.gaia-x.eu/development/docs [R=303,L]
+
+# default
+RewriteRule ^ https://imx-extension.lab.gaia-x.eu/development/docs [R=303,L]

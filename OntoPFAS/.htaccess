@@ -1,0 +1,12 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect all requests to your ontology documentation
+RewriteRule ^$ https://davide1797.github.io/OntoPFAS/ [R=303,L]
+
+# Optionally, handle content negotiation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://davide1797.github.io/OntoPFAS/ontopfas.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://davide1797.github.io/OntoPFAS/ontopfas.ttl [R=303,L]

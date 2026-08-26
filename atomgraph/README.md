@@ -6,6 +6,7 @@ Homepage:
 
 Projects:
 * [LinkedDataHub](https://atomgraph.github.io/LinkedDataHub/)
+* [RDFa-Editor](https://atomgraph.github.io/RDFa-Editor/)
 * [Processor](https://github.com/AtomGraph/Processor)
 * [Web-Client](https://github.com/AtomGraph/Web-Client)
 * [Core](https://github.com/AtomGraph/Core)

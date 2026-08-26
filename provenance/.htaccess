@@ -1,0 +1,26 @@
+# Provenance Database — Persistent URIs
+# Maintainer: David Witassek <david@witassek.ch>
+# GitHub: https://github.com/dwitassek
+# Description: Persistent identifiers for a CIDOC-CRM based
+#              provenance database (artworks, artists, provenance
+#              features, modification processes)
+
+Options -MultiViews
+RewriteEngine on
+
+# ── Machine requests (JSON / JSON-LD) → REST API ──────────────────────────
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(werk|kuenstler|provenienzmerkmal|modifikationsprozess)/(.+)$  https://graphapi.witassek.ch/entities/$1/$2 [R=303,L]
+
+# ── Human requests → TYPO3 Frontend ──────────────────────────────────────
+RewriteRule ^werk/(.+)$                  https://t3provenance.witassek.ch/ [R=303,L]
+RewriteRule ^kuenstler/(.+)$             https://t3provenance.witassek.ch/ [R=303,L]
+RewriteRule ^provenienzmerkmal/(.+)$     https://t3provenance.witassek.ch/ [R=303,L]
+RewriteRule ^modifikationsprozess/(.+)$  https://t3provenance.witassek.ch/ [R=303,L]
+
+# ── Ontologie ─────────────────────────────────────────────────────────────
+RewriteRule ^ontology$  https://t3provenance.witassek.ch/ [R=303,L]
+
+# ── Fallback ──────────────────────────────────────────────────────────────
+RewriteRule ^$  https://t3provenance.witassek.ch/ [R=303,L]
