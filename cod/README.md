@@ -14,8 +14,8 @@ The vocabulary reuses DCAT, RDF Data Cube (`qb:`), SKOS, PROV-O, GeoSPARQL,
 SPDX, and schema.org, and defines a small number of COD-specific terms for
 snapshot provenance and column-level source mapping.
 
-Instance and named-graph URIs identify observations, datasets, snapshots, and
-jurisdictions within the corpus. They are stable identifiers rather than
-per-resource documents, so they redirect to the documentation landing page.
+COD URIs are stable identifiers rather than retrieval addresses. The vocabulary
+and corpus are archived on Zenodo, and all paths redirect to the deposit
+landing page: <https://doi.org/10.5281/zenodo.20514898>
 
 **Maintainer:** Akhil Chaudhary — https://github.com/akhil41
