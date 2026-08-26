@@ -1,0 +1,17 @@
+# # /quadpod/
+#
+# Namespace for quadpod, a Solid personal data server. Terms live in the hash
+# namespace of one document, so adding a term needs no change here.
+#
+# Maintainer details are in README.md.
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle          [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ns/?$ https://tophcodes.github.io/quadpod/ns/quadpod.ttl [R=302,L]
+
+RewriteRule ^ns/?$ https://tophcodes.github.io/quadpod/ns/ [R=302,L]
