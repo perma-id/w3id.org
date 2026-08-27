@@ -1,6 +1,6 @@
 # SSTIM — Sensory Stimulation Ontology
 # Persistent identifier base: https://w3id.org/sstim
-# Target:                     https://labiosyncare.github.io/ontology/
+# Target:                     https://w3c-cg.github.io/sstim/ontology/
 # Maintainer:                 Renato Fabbri <renato.fabbri@gmail.com>
 # Source repository:          https://github.com/laBioSynCare/laBioSynCare.github.io
 
@@ -33,13 +33,18 @@ RewriteEngine On
 # BEGIN generated SSTIM snapshot routes
 # Pre-modular snapshots, a closed set: their version IRI resolves to the
 # Kernel file, which was the whole ontology before ADR 0043 split it.
-RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://labiosyncare.github.io/ontology/$1/sstim-core.ttl [R=302,L]
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-core.ttl [R=302,L]
+# These frozen manifests state root-absolute paths, so they only resolve
+# their own references from an origin-root deployment. They are immutable;
+# the route carries the exception rather than the file. Derived from the
+# snapshots, so a future release that regressed would be pinned too.
+RewriteRule ^(0\.13\.0|0\.14\.0|0\.15\.0|0\.16\.0)/manifest$ https://labiosyncare.github.io/ontology/$1/manifest.json [R=302,L]
 # Every snapshot, including releases not yet cut. Four patterns rather than
 # four rules per release (ADR 0053).
-RewriteRule ^(\d+\.\d+\.\d+)/(sstim-[a-z0-9-]+\.ttl)$ https://labiosyncare.github.io/ontology/$1/$2 [R=302,L]
-RewriteRule ^(\d+\.\d+\.\d+)/manifest$ https://labiosyncare.github.io/ontology/$1/manifest.json [R=302,L]
-RewriteRule ^(\d+\.\d+\.\d+)/manifest\.schema\.json$ https://labiosyncare.github.io/ontology/$1/manifest.schema.json [R=302,L]
-RewriteRule ^(\d+\.\d+\.\d+)/?$ https://labiosyncare.github.io/ontology/$1/sstim-namespace.ttl [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/(sstim-[a-z0-9-]+\.ttl)$ https://w3c-cg.github.io/sstim/ontology/$1/$2 [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/manifest$ https://w3c-cg.github.io/sstim/ontology/$1/manifest.json [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/manifest\.schema\.json$ https://w3c-cg.github.io/sstim/ontology/$1/manifest.schema.json [R=302,L]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-namespace.ttl [R=302,L]
 # END generated SSTIM snapshot routes
 
 # -------------------------------------------------------------------------
@@ -50,31 +55,31 @@ RewriteRule ^(\d+\.\d+\.\d+)/?$ https://labiosyncare.github.io/ontology/$1/sstim
 # Turtle or */*. Media ranges with q=0 are excluded and matching is nocase.
 # -------------------------------------------------------------------------
 # BEGIN audited SSTIM manifest routes
-RewriteRule ^manifest$ https://labiosyncare.github.io/ontology/manifest.json [R=303,L]
-RewriteRule ^manifest-schema/1$ https://labiosyncare.github.io/ontology/manifest.schema.json [R=303,L]
+RewriteRule ^manifest$ https://w3c-cg.github.io/sstim/ontology/manifest.json [R=303,L]
+RewriteRule ^manifest-schema/1$ https://w3c-cg.github.io/sstim/ontology/manifest.schema.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://labiosyncare.github.io/ontology/sstim-$1-profile.jsonld [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://labiosyncare.github.io/ontology/sstim-$1-profile.rdf [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://labiosyncare.github.io/ontology/docs/ [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://labiosyncare.github.io/ontology/sstim-$1-profile.ttl [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.ttl [R=303,L]
 RewriteRule ^profile/(kernel|core|core-plus|full)$ - [R=406,L]
 
 # The logical Kernel ontology IRI remains /sstim for compatibility. /kernel is
 # its exact small retrieval endpoint; /sstim itself is the namespace catalog.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://labiosyncare.github.io/ontology/sstim-core.jsonld [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://labiosyncare.github.io/ontology/sstim-core.rdf [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://labiosyncare.github.io/ontology/docs/ [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://labiosyncare.github.io/ontology/sstim-core.ttl [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.ttl [R=303,L]
 RewriteRule ^kernel$ - [R=406,L]
 
 # exposure#StimulusChannel is stimulus-owned after ADR 0044, so the namespace
@@ -90,26 +95,26 @@ RewriteRule ^kernel$ - [R=406,L]
 # nothing selected. The knowledge browser reads the fragment client-side,
 # selects the term, and links onward to its reference entry.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.jsonld [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.rdf [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://labiosyncare.github.io/ontology/sstim-exposure-namespace.ttl [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.ttl [R=303,L]
 RewriteRule ^exposure$ - [R=406,L]
 
 # Exact Exposure module retrieval, separate from its hash-namespace catalog.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.jsonld [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.rdf [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://labiosyncare.github.io/ontology/docs/ [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://labiosyncare.github.io/ontology/sstim-exposure.ttl [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.ttl [R=303,L]
 RewriteRule ^module/exposure$ - [R=406,L]
 
 # vocab and ecosystem are hash namespaces whose terms are defined across more
@@ -128,29 +133,29 @@ RewriteRule ^module/exposure$ - [R=406,L]
 # select nothing; the reference index remains the better answer until shapes are
 # either drawable or anchored by local name.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(vocab|ecosystem)$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^(vocab|ecosystem)$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://labiosyncare.github.io/ontology/sstim-$1.jsonld [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://labiosyncare.github.io/ontology/sstim-$1.rdf [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://labiosyncare.github.io/ontology/docs/ [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://labiosyncare.github.io/ontology/sstim-$1.ttl [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.ttl [R=303,L]
 RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ - [R=406,L]
 
 # /sstim is the generated Full namespace catalog. Fragment IRIs such as
 # /sstim#Preset resolve here even when a concern module owns their statements.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-namespace.jsonld [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-namespace.rdf [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://labiosyncare.github.io/ontology/sstim-namespace.ttl [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.ttl [R=303,L]
 RewriteRule ^$ - [R=406,L]
 # END audited SSTIM manifest routes
 
@@ -178,31 +183,31 @@ RewriteRule ^$ - [R=406,L]
 # and invisible. The negotiation test now pins every one of them
 # (scripts/w3id-negotiation.test.mjs).
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ecosystem/biosyncare/?$ https://labiosyncare.github.io/graph/#sstim-ecosystem:biosyncare [R=303,L,NE]
+RewriteRule ^ecosystem/biosyncare/?$ https://w3c-cg.github.io/sstim/graph/#sstim-ecosystem:biosyncare [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/?$ https://labiosyncare.github.io/graph/#bsc-fw: [R=303,L,NE]
+RewriteRule ^framework/bsc/?$ https://w3c-cg.github.io/sstim/graph/#bsc-fw: [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/?$ https://labiosyncare.github.io/graph/#bsclab: [R=303,L,NE]
+RewriteRule ^implementation/bsclab/?$ https://w3c-cg.github.io/sstim/graph/#bsclab: [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/biosyncare/?$ https://labiosyncare.github.io/graph/#biosyncare: [R=303,L,NE]
+RewriteRule ^implementation/biosyncare/?$ https://w3c-cg.github.io/sstim/graph/#biosyncare: [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/component/patch-studio/?$ https://labiosyncare.github.io/graph/#bsclab:component/patch-studio [R=303,L,NE]
+RewriteRule ^implementation/bsclab/component/patch-studio/?$ https://w3c-cg.github.io/sstim/graph/#bsclab:component/patch-studio [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(ecosystem/biosyncare)/?$ https://labiosyncare.github.io/ontology/instances/programmes/biosyncare-ecosystem.ttl [R=303,L]
+RewriteRule ^(ecosystem/biosyncare)/?$ https://w3c-cg.github.io/sstim/ontology/instances/programmes/biosyncare-ecosystem.ttl [R=303,L]
 RewriteRule ^(ecosystem/biosyncare)/?$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(framework/bsc)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(framework/bsc)/?$ https://w3c-cg.github.io/sstim/ontology/instances/frameworks/bsc.ttl [R=303,L]
 RewriteRule ^(framework/bsc)/?$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://labiosyncare.github.io/ontology/instances/implementations/implementations.ttl [R=303,L]
+RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ https://w3c-cg.github.io/sstim/ontology/instances/implementations/implementations.ttl [R=303,L]
 RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsclab/component/patch-studio)/?$ - [R=406,L]
 # END audited BSC catalog routes
 
@@ -216,19 +221,19 @@ RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsc
 # -------------------------------------------------------------------------
 # BEGIN audited BSC preset and reference routes
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://labiosyncare.github.io/graph/#bsclab-preset:$1 [R=303,L,NE]
+RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://w3c-cg.github.io/sstim/graph/#bsclab-preset:$1 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://labiosyncare.github.io/graph/#sstim-ref:$1 [R=303,L,NE]
+RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://w3c-cg.github.io/sstim/graph/#sstim-ref:$1 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://labiosyncare.github.io/ontology/instances/presets/$1.ttl [R=303,L]
+RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ https://w3c-cg.github.io/sstim/ontology/instances/presets/$1.ttl [R=303,L]
 RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed)/?$ - [R=406,L]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://labiosyncare.github.io/ontology/instances/references/references.ttl [R=303,L]
+RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://w3c-cg.github.io/sstim/ontology/instances/references/references.ttl [R=303,L]
 RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ - [R=406,L]
 # END audited BSC preset and reference routes
 
@@ -251,33 +256,33 @@ RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATT
 # reader on its replacement concept rather than on a page that would let them
 # assume the retired technique is current.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/martigli-breathing-oscillation/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:martigli-breathing-oscillation [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/martigli-breathing-oscillation/?$ https://w3c-cg.github.io/sstim/graph/#bsc-fw-tech:martigli-breathing-oscillation [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/martigli-binaural-hybrid/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:martigli-binaural-hybrid [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/martigli-binaural-hybrid/?$ https://w3c-cg.github.io/sstim/graph/#bsc-fw-tech:martigli-binaural-hybrid [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/symmetry-permutation-entrainment/?$ https://labiosyncare.github.io/graph/#bsc-fw-tech:symmetry-permutation-entrainment [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/symmetry-permutation-entrainment/?$ https://w3c-cg.github.io/sstim/graph/#bsc-fw-tech:symmetry-permutation-entrainment [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/binaural-beat-stimulation/?$ https://labiosyncare.github.io/graph/#techBinauralBeats [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/binaural-beat-stimulation/?$ https://w3c-cg.github.io/sstim/graph/#techBinauralBeats [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/photic-rhythm-stimulation/?$ https://labiosyncare.github.io/graph/#techPhoticDriving [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/photic-rhythm-stimulation/?$ https://w3c-cg.github.io/sstim/graph/#techPhoticDriving [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/audiovisual-rhythm-coordination/?$ https://labiosyncare.github.io/graph/#techAudiovisualEntrainment [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/audiovisual-rhythm-coordination/?$ https://w3c-cg.github.io/sstim/graph/#techAudiovisualEntrainment [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^framework/bsc/technique/vibrotactile-rhythm-stimulation/?$ https://labiosyncare.github.io/graph/#techVibrotactileEntrainment [R=303,L,NE]
+RewriteRule ^framework/bsc/technique/vibrotactile-rhythm-stimulation/?$ https://w3c-cg.github.io/sstim/graph/#techVibrotactileEntrainment [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ https://labiosyncare.github.io/ontology/instances/frameworks/bsc.ttl [R=303,L]
+RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ https://w3c-cg.github.io/sstim/ontology/instances/frameworks/bsc.ttl [R=303,L]
 RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://labiosyncare.github.io/ontology/sstim-vocab.ttl [R=303,L]
+RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://w3c-cg.github.io/sstim/ontology/sstim-vocab.ttl [R=303,L]
 RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ - [R=406,L]
 # END audited BSC technique routes
 
@@ -294,10 +299,10 @@ RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/te
 # carried through as $2 — the record set is mutable data, not configuration, so
 # no rule changes when a record is added.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(specialist|organization)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://labiosyncare.github.io/graph/#sstim-$1:$2 [R=303,L,NE]
+RewriteRule ^(specialist|organization)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://w3c-cg.github.io/sstim/graph/#sstim-$1:$2 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ecosystem-record/(relationship|activity|role)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://labiosyncare.github.io/graph/#sstim-ecosystem-record:$1/$2 [R=303,L,NE]
+RewriteRule ^ecosystem-record/(relationship|activity|role)/((?!synthetic-)[A-Za-z0-9._~-]+)/?$ https://w3c-cg.github.io/sstim/graph/#sstim-ecosystem-record:$1/$2 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -314,9 +319,9 @@ RewriteRule ^ecosystem-record/(relationship|activity|role)/(?!synthetic-)[A-Za-z
 # -------------------------------------------------------------------------
 # BEGIN audited SSTIM void routes
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^void$ https://labiosyncare.github.io/ [R=303,L]
+RewriteRule ^void$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^void$ https://labiosyncare.github.io/ontology/void.ttl [R=303,L]
+RewriteRule ^void$ https://w3c-cg.github.io/sstim/ontology/void.ttl [R=303,L]
 RewriteRule ^void$ - [R=406,L]
 # END audited SSTIM void routes

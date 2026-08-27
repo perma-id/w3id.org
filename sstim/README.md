@@ -3,11 +3,18 @@
 Persistent identifiers for **SSTIM**, an OWL ontology with a companion
 SKOS vocabulary and SHACL validation shapes describing sensory
 stimulation protocols (auditory, visual, haptic), their parameters, and
-evidence chains. Developed in the open-source
-[BSC Lab](https://github.com/laBioSynCare/laBioSynCare.github.io) project.
+evidence chains. Developed through the
+[W3C Sensory Stimulation Vocabulary Community Group](https://www.w3.org/groups/cg/sstim/)
+in the open-source [SSTIM](https://github.com/w3c-cg/sstim) repository, and
+previously published from the BSC Lab project.
 
 - **Base PID:** <https://w3id.org/sstim>
-- **Target:** <https://labiosyncare.github.io/ontology/>
+- **Target:** <https://w3c-cg.github.io/sstim/ontology/>
+- **Exception:** the frozen release manifests for 0.13.0 through 0.16.0 keep a
+  target at <https://labiosyncare.github.io/ontology/>. Those four files state
+  root-absolute paths and are immutable, so under a path-mounted deployment
+  their own references would escape the mount and 404. Both origins serve the
+  same tree and both remain published.
 
 ## Maintainer
 
