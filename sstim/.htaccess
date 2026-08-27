@@ -1,7 +1,7 @@
 # SSTIM — Sensory Stimulation Ontology
 # Persistent identifier base: https://w3id.org/sstim
 # Target:                     https://w3c-cg.github.io/sstim/ontology/
-# Maintainer:                 Renato Fabbri <renato.fabbri@gmail.com>
+# Maintainer:                 Renato Fabbri <renato.fabbri@gmail.com>, GitHub @ttm
 # Source repository:          https://github.com/laBioSynCare/laBioSynCare.github.io
 
 Options +FollowSymLinks
@@ -158,6 +158,17 @@ RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\
 RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.ttl [R=303,L]
 RewriteRule ^$ - [R=406,L]
 # END audited SSTIM manifest routes
+
+# -------------------------------------------------------------------------
+# SSTIM's own JSON Schema contracts. Single-format JSON documents, so they get
+# a plain route rather than a negotiated one, matching manifest-schema/1 above.
+# These carry the schemas' `$id`, which is an identity with no concrete
+# counterpart field: unlike a dcat:downloadURL, which pairs with an accessURL
+# PURL one line above it, a `$id` is the only URI the schema has. A persistent
+# one is therefore the right kind, and it is why these routes exist.
+# -------------------------------------------------------------------------
+RewriteRule ^schemas/preset\.schema\.json$ https://w3c-cg.github.io/sstim/schemas/preset.schema.json [R=303,L]
+RewriteRule ^schemas/session\.schema\.json$ https://w3c-cg.github.io/sstim/schemas/session.schema.json [R=303,L]
 
 # -------------------------------------------------------------------------
 # Stable BSC catalog identities. Programme, framework, application, and
