@@ -147,15 +147,31 @@ RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|eviden
 
 # /sstim is the generated Full namespace catalog. Fragment IRIs such as
 # /sstim#Preset resolve here even when a concern module owns their statements.
+#
+# RDF answers from `latest/`, the newest frozen release, not from the working
+# tree (ADR 0055). Until 2026-08-29 this served the deployment's top-level
+# build, so the ontology IRI returned a graph declaring owl:versionInfo
+# "0.17.0-dev", mod:status "under development" and no owl:versionIRI at all:
+# unpinnable, uncitable, and what LOV and Archivo would have harvested as SSTIM.
+# `latest/` is a stable path written from the newest snapshot on every deploy, so
+# cutting a release still needs no pull request here (ADR 0053).
+#
+# HTML answers the namespace page rather than the application entrance, for the
+# reason the exposure and vocab rules below already give: a server never sees a
+# fragment, so one destination has to serve both /sstim and /sstim#Preset. The
+# namespace page states what this IRI is and which IRIs belong to it, and hands
+# any fragment on to the knowledge browser, which is the only surface that can
+# select the term (measured 2026-08-23: WIDOCO anchors by full IRI, pyLODE by
+# label, so neither could).
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.jsonld [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.rdf [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-namespace.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://w3c-cg.github.io/sstim/ [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/namespace/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/sstim-namespace.ttl [R=303,L]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-namespace.ttl [R=303,L]
 RewriteRule ^$ - [R=406,L]
 # END audited SSTIM manifest routes
 
