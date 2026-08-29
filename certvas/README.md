@@ -38,4 +38,9 @@ host migration breaks every document anyone ever produced against the schema.
 
 ## Contact
 
-R.T. Mandase — mandase@certvas.com — <https://certvas.com>
+R.T. Mandase — GitHub [@KingMandase](https://github.com/KingMandase) — mandase@certvas.com
+— <https://certvas.com>
+
+The GitHub handle is here because w3id review asks for it: a permanent identifier outlives
+any one email address, so the maintainer needs to be reachable through the same forge the
+registration lives in.
