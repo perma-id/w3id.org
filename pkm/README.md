@@ -1,24 +1,36 @@
 # pkm
 
-This is a persistent URI namespace at https://w3id.org/pkm with Linked Data resources 
-on Personal Knowledge Management (PKM) for the Knowledge System Architecture (KSA) project, 
-which integrates Obsidian, Neo4j, Claude, diabetes data, Python, and Swift.
+A persistent URI namespace at https://w3id.org/pkm with Linked Data resources on
+Personal Knowledge Management (PKM) for the Knowledge System Architecture (KSA)
+project, which integrates Obsidian, Neo4j, Claude, diabetes data, Python, and Swift.
 
-It documents the following, with PKM extensions based on SKOS, RDF, OWL, schema.org, and LinkML:
-- vocabulary — SKOS terms and definitions (glossary)
-- taxonomy — SKOS concepts and relationships
-- ontology — RDF/OWL classes, instances, properties, and relationships
-- knowledge graph — Neo4j (Cypher) nodes, relationships, and properties
-- tools — Python and Swift apps, services, scripts, intents, Siri
-- resources — related documentation and examples
+Redirects to GitHub Pages at https://dpw67.github.io/pkm/, with content
+negotiation: `Accept: text/turtle` gets RDF, anything else gets HTML.
 
-Schema and examples are provided in Python, Swift, Cypher, SQL, TypeDB, JSON Schema, and JSON.
+## What resolves today
+
+| URI | Contents |
+| --- | --- |
+| `/vocab` | SKOS concept scheme — 223 concepts, 18 collections |
+| `/vocab/{Term}` | An individual concept or collection, 303 to its Turtle file |
+| `/agents#{Name}` | People and software credited in the vocabulary |
+| `/resources#{Name}` | Documents the vocabulary cites |
+| `/ontology`, `/taxonomy` | Declared and resolving; no terms minted yet |
+
+Planned, described but not yet populated: `/shapes` (SHACL, JSON Schema),
+`/examples`, `/graph` (Neo4j, Cypher), `/tools`.
+
+Vocabulary version 0.1.1. Terms are an early draft and may change before 1.0.0.
+Nothing is deleted outright — a retired URI keeps resolving, marked
+`owl:deprecated` and pointed at its replacement with `dcterms:isReplacedBy`.
 
 ## Contact
-This space is administered by Doug Warren.
-Email: doug78645@gmail.com (GitHub: @dpw67)
 
-Additional information is available at https://blog.warrenweb.net.
+This space is administered by Doug Warren.
+Email: doug@warrenweb.net (GitHub: @dpw67)
+
+Source: https://github.com/dpw67/pkm
+Additional information: https://blog.warrenweb.net
 
 ## Maintainers
 - @dpw67
