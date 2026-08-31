@@ -7,11 +7,13 @@ This directory defines permanent identifiers for the [Virtual Acoustic Object
 https://w3id.org/modavis/vao/
 ```
 
-Version `0.4.0` identifiers resolve to files or documentation pinned to the
-immutable `v0.4.0` release tag. The namespace covers normative schemas,
-JSON-LD context, RDF vocabulary, SHACL shapes, profiles, the MODAVIS mapping,
-and the versioned specification. The unversioned namespace root is a project
-discovery link; no moving `latest` identifier is defined for normative use.
+Version `0.4.0` and `0.5.0` identifiers resolve to files or documentation
+pinned to their matching immutable release tags. The namespace covers
+normative schemas, JSON-LD context, RDF vocabulary, SHACL shapes, profiles,
+the MODAVIS mapping, and the versioned specification. The unversioned
+vocabulary routes resolve to the current compatible vocabulary release. The
+namespace root is a project discovery link; no moving `latest` identifier is
+defined for normative use.
 
 ## Maintainer
 
