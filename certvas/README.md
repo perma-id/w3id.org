@@ -1,46 +1,36 @@
-# w3id.org/certvas
+# /certvas/
 
 Permanent identifiers for the **Certvas Ontology** — a CC0 LinkML schema describing company,
 fundamentals, procurement and macro data for African and emerging markets.
+
+`https://w3id.org/certvas/ontology` is the schema's `id:`, and is already baked into the published
+JSON-LD context, the PyPI package and the Zenodo deposit. Pointing it at our own domain would mean
+a lapse, a rebrand or a change of host breaks every document produced against the schema.
 
 ## Identifiers
 
 | IRI | resolves to |
 |---|---|
-| `https://w3id.org/certvas/ontology` | the human documentation (or the machine format, by content negotiation) |
-| `https://w3id.org/certvas/ontology.yaml` | the LinkML source — the single source of truth |
+| `https://w3id.org/certvas/ontology` | the documentation, or a machine format by content negotiation |
+| `https://w3id.org/certvas/ontology.yaml` | the LinkML source |
 | `https://w3id.org/certvas/ontology.jsonld` | the JSON-LD context |
 | `https://w3id.org/certvas/ontology.json` | JSON Schema |
 | `https://w3id.org/certvas/ontology.sql` | SQL DDL |
 | `https://w3id.org/certvas/ontology/{Term}` | that class or slot's documentation page |
 
-Content negotiation on `/ontology`: `application/ld+json` returns the JSON-LD context, `text/yaml`
-returns the LinkML source, anything else returns the docs. Explicit extensions bypass negotiation,
-because negotiation is fragile through proxies and impossible to paste into a chat message.
-
-Redirects are **302, not 301**. A permanent redirect is cached by intermediaries indefinitely,
-which would make a future hosting change take years to propagate — the opposite of what a permanent
-identifier is for. The IRI is permanent; where it points today is not.
-
-## Why the indirection
-
-The IRI is the schema's `id:` and is baked into every generated JSON-LD context, the published
-package and the Zenodo deposit. Pointing it at our own domain would mean a lapse, a rebrand or a
-host migration breaks every document anyone ever produced against the schema.
+Redirects are 302, not 301: the IRI is permanent, but where it points today is not.
 
 ## Project
 
-- **Docs** — <https://certvas-ontology.pages.dev>
-- **DOI** — <https://doi.org/10.5281/zenodo.21986492>
-- **Package** — <https://pypi.org/project/certvas-ontology/>
-- **Licence** — CC0-1.0. (The datasets the schema describes carry their own per-source terms; the
-  schema being public domain is deliberate and separate.)
+- Docs — <https://certvas-ontology.pages.dev>
+- DOI — <https://doi.org/10.5281/zenodo.21986492>
+- Package — <https://pypi.org/project/certvas-ontology/>
+- Licence — CC0-1.0
 
 ## Contact
 
-R.T. Mandase — GitHub [@KingMandase](https://github.com/KingMandase) — mandase@certvas.com
-— <https://certvas.com>
+This space is administered by:
 
-The GitHub handle is here because w3id review asks for it: a permanent identifier outlives
-any one email address, so the maintainer needs to be reachable through the same forge the
-registration lives in.
+Rebaone Theo Mandase
+GitHub username: KingMandase
+mandase@certvas.com
