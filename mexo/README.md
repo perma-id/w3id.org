@@ -43,6 +43,20 @@ A future version of the redirection rules may implement HTTP content negotiation
 
 ## Maintainer
 
+### Primary maintainer
+
+**Julio-Noe**
+
+GitHub username:
+
+`@Julio-Noe`
+
+GitHub profile:
+
+https://github.com/Julio-Noe
+
+The GitHub username above identifies the maintainer authorized to request and submit future updates to the MEXO W3ID configuration.
+
 **SYNAPSE Research Group**
 
 GitHub organization:
