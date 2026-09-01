@@ -7,7 +7,7 @@ Github repository:
 - /PaN/NeXus/ → https://github.com/nexusformat/NeXusOntology
 
 NeXus Ontology:
-- /PaN/NeXus/nexusformat/definitions → https://raw.githubusercontent.com/nexusformat/NeXusOntology/refs/heads/main/ontology/NeXusOntology.owl
+- /PaN/NeXus/definitions → https://raw.githubusercontent.com/nexusformat/NeXusOntology/refs/heads/main/ontology/NeXusOntology.owl
 
 ## Contact
 
