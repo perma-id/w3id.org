@@ -10,6 +10,16 @@ RewriteEngine On
 # Network landing page.
 RewriteRule ^$ https://modavis-project.github.io/modavis-ontology-network/index.html [R=303,L]
 
+# MODAVIS persistent entity, name, location, alias, and dataset identifiers.
+# The MODAVIS identity resolver performs content negotiation and redirects to
+# the public Navigator or immutable linked-data representations.
+RewriteRule ^entity/(.+)$ https://id.modavis.org/resolve/entity/$1 [R=302,L,NE]
+RewriteRule ^name/(.+)$ https://id.modavis.org/resolve/name/$1 [R=302,L,NE]
+RewriteRule ^location/(.+)$ https://id.modavis.org/resolve/location/$1 [R=302,L,NE]
+RewriteRule ^alias/([^/]+)/(.+)$ https://id.modavis.org/resolve/alias/$1/$2 [R=302,L,NE]
+RewriteRule ^dataset/pod$ https://id.modavis.org/resolve/dataset/pod [R=302,L,NE]
+RewriteRule ^dataset/pod/version/(.+)$ https://id.modavis.org/resolve/dataset/pod/version/$1 [R=302,L,NE]
+
 # Stable ontology identifiers follow the current compatible release. Only these
 # moving aliases need to change when a later release becomes current.
 RewriteRule ^ontology/?$ https://w3id.org/modavis/ontology/0.1.0 [R=302,L]
