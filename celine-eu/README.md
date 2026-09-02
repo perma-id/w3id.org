@@ -2,23 +2,54 @@
 
 Persistent URI namespace for the **CELINE Core Ontology** — a lightweight
 orchestration profile for Renewable Energy Communities (RECs) and Digital
-Twin workflows connecting PECO, SAREF, SOSA/SSN and BIGG.
+Twin workflows connecting PECO, SAREF, SOSA/SSN and CIM.
 
 CELINE is a Horizon Europe project (Grant Agreement No. 101160667).
 
+## What this namespace identifies
+
+**The ontology, and nothing else.** Terms live in a hash namespace,
+`https://w3id.org/celine-eu#Term`, so dereferencing a term fetches the whole
+ontology; the HTML target is the WIDOCO document, whose per-term anchors let the
+fragment land on the term. Instances — communities, meters, observations — are
+*not* identified here and get their own namespace.
+
 ## Redirects
 
-Serializations are served from the WIDOCO-generated `releases/current/` directory.
+Everything is served from GitHub Pages, which returns the correct `Content-Type`
+for each serialization.
+
+### `https://w3id.org/celine-eu`
 
 | Accept | Target |
 |---|---|
-| `text/html` | https://celine-eu.github.io/ontologies/ |
-| `text/turtle` | https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.ttl |
-| `application/rdf+xml` | https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.owl |
-| `application/ld+json` | https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.jsonld |
-| `application/n-triples` | https://raw.githubusercontent.com/celine-eu/ontologies/main/releases/current/ontology.nt |
+| `text/turtle`, `application/x-turtle`, `text/n3` | `…/ontologies/ontology.ttl` |
+| `application/rdf+xml` | `…/ontologies/ontology.owl` |
+| `application/ld+json` | `…/ontologies/ontology.jsonld` |
+| `application/n-triples` | `…/ontologies/ontology.nt` |
+| anything else, including browsers | `…/ontologies/index-en.html` |
 
-Versioned IRIs (`/celine-eu/vX.Y`) resolve to the corresponding `releases/$version/` files.
+`…` is `https://celine-eu.github.io`.
+
+Because `mod_rewrite` cannot compare q-values, each block matches the requested
+type first as the *first-listed* type and then as *present anywhere*, so a client
+that accepts both RDF and HTML gets RDF while a browser still gets HTML.
+
+### `https://w3id.org/celine-eu/vX.Y`
+
+The same negotiation against that version's directory, so a versioned IRI
+resolves to that version rather than to the current one.
+
+### `https://w3id.org/celine-eu/vX.Y/<file>`
+
+Addressed by name, no negotiation — the extension already says what it is.
+
+| IRI | Is |
+|---|---|
+| `…/vX.Y/celine.jsonld` | the JSON-LD context |
+| `…/vX.Y/celine.schema.json` | the JSON Schema (`$id`) |
+| `…/vX.Y/celine.shacl.ttl` | the SHACL shapes |
+| `…/vX.Y/ontology.{ttl,owl,jsonld,nt}` | the serializations |
 
 ## References
 
