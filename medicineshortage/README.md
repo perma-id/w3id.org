@@ -15,4 +15,5 @@ https://medicineshortage.shinyapps.io/dashboard/
 ## Maintainer
 
 Jan Panhuysen
+GitHub: @janpanhuysen
 Email: j.panhuysen@phd.hertie-school.org
