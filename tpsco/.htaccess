@@ -1,0 +1,12 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# 1. Redirection vers le fichier brut (OWL) si c'est une machine ou Protégé qui interroge l'URI
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://raw.githubusercontent.com/naderabdelmalek/tpsco/main/tpsco.owl [R=303,L]
+
+# 2. Redirection par défaut (HTML) si c'est un humain via un navigateur web
+RewriteRule ^$ https://naderabdelmalek.github.io/tpsco/ [R=303,L]

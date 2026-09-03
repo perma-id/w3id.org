@@ -18,3 +18,11 @@ This space is administered by:
 
 Email: [wilbye@qubiten.com](mailto:wilbye@qubiten.com)
 GitHub: [Qubiten](https://github.com/Qubiten)
+## Maintainer
+
+This namespace is maintained by **[@wilbyembabu](https://github.com/wilbyembabu)** (Wilbye, Qubiten),
+acting as the registration authority (`https://w3id.org/qubiten/mr/ra/qubiten`).
+
+* Maintainer: [@wilbyembabu](https://github.com/wilbyembabu)
+* Email: [wilbye@qubiten.com](mailto:wilbye@qubiten.com)
+* Organization: [Qubiten](https://github.com/Qubiten)

@@ -25,12 +25,13 @@ Suggestions for changes are welcome and can be posted at https://github.com/trai
 
 - the `.htaccess` code is written to process calls to variants of the machine-readable representations before any queries to `html`, i.e., `*.ttl`, `*.nq`, `*.nt`, and `*.json`, before `*.html`. This reduces the number of `RewriteCond` statements needed in the `html` section. 
 - tested with https://htaccess.madewithlove.com (using `https://w3id.org/` as the base URL; `https://w3id.org/APD/` won't work, as code is written as though you're already in that subfolder)
+- the HTML targets end in `/`, **not** `/index.html` — `https://traitecoevo.github.io/APD/#<slug>` rather than `.../APD/index.html#<slug>`. Both paths serve the same 6 MB document, so naming both gave one page two URLs: two browser cache entries, two downloads, and two things for search engines to index. `/APD/` is the form the site declares as its own (`site-url`) and the form its internal links resolve to, so it is the one to redirect into. Don't put `index.html` back.
 - the following flags are used
   - `[R=303]` — A redirect. When a server responds with a `303` status code, it provides a `Location` pointing to a different URI. The client, upon receiving a `303` response, automatically makes a `GET` request to the URI specified in the `Location` header.  
   - `[L]` — If the previous conditions pass, this rule is executed, and no more evaluation is done. 
   - `[NE]` — (noescape) Prevents conversion of special characters to their hexcode equivalent; needed for links including a `#`.
 - the following matches are used
-  - `RewriteRule ^traits/trait_(.+)$ https://...` - the `(.+)` captures the 1 or more characters after `trait_` in the URL
+  - `RewriteRule ^traits/([^/]+)/?$ https://...` - the `([^/]+)` captures the whole slug after `traits/`, whatever form it takes. It deliberately does **not** match only `trait_*`: allowable categorical trait values are published under `traits/` as well and do not carry that prefix (e.g. `traits/plant_growth_form_tree`), so a `trait_`-only rule left 819 of the 1,449 `traits/` identifiers falling through to the catch-all and landing at the top of the page with no fragment. `[^/]+` rather than a character class, because slugs contain `+` as well as letters, digits, `_` and `-` (e.g. `traits/seed_germination_treatment_heat+smoke`). It requires at least one character, so `traits/` itself does not match and falls through to the next rule.
   - `RewriteRule ^ https://...` - captures any URL that hasn't been matched by the previous rules. Same behaviour as `RewriteRule ^(.*)$ https://...`. Note behaves differently to `RewriteRule ^$ https://...` which would only match the root URL. 
 
 ## Usage

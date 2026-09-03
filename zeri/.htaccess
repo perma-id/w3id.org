@@ -3,7 +3,10 @@
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine on
- 
+
+######################################################
+# Redirects for ZAMO ontology
+######################################################
  
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} html
@@ -20,9 +23,47 @@ RewriteRule ^ontology/zamo/sources.*$ https://fondazionefedericozeri.github.io/z
  
 RewriteCond %{HTTP_ACCEPT} html
 RewriteRule ^ontology/zamo/alignment.*$ https://fondazionefedericozeri.github.io/zamo/current/zamo-alignment/zamo_alignment.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^ontology/zamo/extended.*$ https://fondazionefedericozeri.github.io/zamo/current/extended/extended.html [R=303,L]
  
 RewriteRule ^ontology/zamo$ https://fondazionefedericozeri.github.io/zamo/current/zamo.owl [R=303,L]
 RewriteRule ^ontology/zamo/agents.*$ https://fondazionefedericozeri.github.io/zamo/current/agents/agents.owl [R=303,L]
 RewriteRule ^ontology/zamo/events.*$ https://fondazionefedericozeri.github.io/zamo/current/events/events.owl [R=303,L]
 RewriteRule ^ontology/zamo/sources.*$ https://fondazionefedericozeri.github.io/zamo/current/sources/sources.owl [R=303,L]
 RewriteRule ^ontology/zamo/alignment.*$ https://fondazionefedericozeri.github.io/zamo/current/zamo-alignment/zamo_alignment.owl [R=303,L]
+RewriteRule ^ontology/zamo/extended.*$ https://fondazionefedericozeri.github.io/zamo/current/extended/extended.owl [R=303,L]
+
+######################################################
+# Redirects for ZAMO-KG (data entities)
+######################################################
+
+# Serve JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.jsonld [R=303,NE,L]
+
+# Serve RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.xml [R=303,NE,L]
+
+# Serve N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.nt [R=303,NE,L]
+
+# Serve Turtle
+RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.ttl [R=303,NE,L]
+
+# Serve HTML if requested by a browser
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.html [R=303,NE,L]
+
+# Fallback: unrecognized Accept -> default to HTML
+RewriteRule ^data/(.+)$ https://fondazionefedericozeri.github.io/zamo_kg_spuk/zeri/data/$1.html [R=303,NE,L]

@@ -7,21 +7,6 @@
 RewriteEngine On
 
 
-# CORE — RDF (Accept: Turtle)
-RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/raw/main/data.ttl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/raw/main/vocab/concept_scheme.ttl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/raw/main/$1.ttl [R=303,L]
-
-# CORE — HTML/other (fallback)
-RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/?$ https://gitlab.com/datin-publications/core/-/blob/main/data.ttl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/vocab/?$ https://gitlab.com/datin-publications/core/-/blob/main/vocab/concept_scheme.ttl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
-RewriteRule ^core/(.+)/?$ https://gitlab.com/datin-publications/core/-/blob/main/$1.ttl [R=303,L]
 
 # IKFT — RDF (Accept: Turtle)
 RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
@@ -64,4 +49,78 @@ RewriteRule ^tribology_data_survey/onto/?$ https://github.com/nick-garabedian/tr
 
 RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
 RewriteRule ^tribology_data_survey/vocab/?$ https://github.com/nick-garabedian/tribology-data-survey/blob/main/tribology_data_survey_skos_vocab.ttl [R=303,L]
+
+
+# ==========================================
+# IMKT
+# ==========================================
+
+# --- IMKT VOCAB: Default (concept_scheme.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/vocab/?$ https://raw.githubusercontent.com/RCrespoMartins/imkt-fair/main/vocab/concept_scheme.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/vocab/?$ https://github.com/RCrespoMartins/imkt-fair/blob/main/vocab/concept_scheme.ttl [R=303,L]
+
+# --- IMKT VOCAB: Specific files (e.g., test_concept.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/vocab/(.+)/?$ https://raw.githubusercontent.com/RCrespoMartins/imkt-fair/main/vocab/$1.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/vocab/(.+)/?$ https://github.com/RCrespoMartins/imkt-fair/blob/main/vocab/$1.ttl [R=303,L]
+
+# --- IMKT DATA: Default (data.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/data/?$ https://raw.githubusercontent.com/RCrespoMartins/imkt-fair/main/data/data.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/data/?$ https://github.com/RCrespoMartins/imkt-fair/blob/main/data/data.ttl [R=303,L]
+
+# --- IMKT DATA: Specific files (e.g., action_test.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/data/(.+)/?$ https://raw.githubusercontent.com/RCrespoMartins/imkt-fair/main/data/$1.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^imkt/data/(.+)/?$ https://github.com/RCrespoMartins/imkt-fair/blob/main/data/$1.ttl [R=303,L]
+
+
+# ==========================================
+# DATIN-RDF NAMESPACES (Repo: datin-GmbH/datin-rdf)
+# ==========================================
+
+# --- CORE: Default (core.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://raw.githubusercontent.com/datin-GmbH/datin-rdf/main/core/core.ttl [R=303,L]
+# Human  
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/?$ https://github.com/datin-GmbH/datin-rdf/blob/main/core/core.ttl [R=303,L]
+
+# --- CORE: Specific files ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/(.+)/?$ https://raw.githubusercontent.com/datin-GmbH/datin-rdf/main/core/$1.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^core/(.+)/?$ https://github.com/datin-GmbH/datin-rdf/blob/main/core/$1.ttl [R=303,L]
+
+# --- PRELOADED: Default (preloaded.ttl) ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^preloaded/?$ https://raw.githubusercontent.com/datin-GmbH/datin-rdf/main/preloaded/preloaded.ttl [R=303,L]
+# Human  
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^preloaded/?$ https://github.com/datin-GmbH/datin-rdf/blob/main/preloaded/preloaded.ttl [R=303,L]
+
+# --- PRELOADED: Specific files ---
+# Machine (Accept: Turtle)
+RewriteCond %{HTTP_ACCEPT} (?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^preloaded/(.+)/?$ https://raw.githubusercontent.com/datin-GmbH/datin-rdf/main/preloaded/$1.ttl [R=303,L]
+# Human 
+RewriteCond %{HTTP_ACCEPT} !(?:application/x-turtle|text/turtle) [NC]
+RewriteRule ^preloaded/(.+)/?$ https://github.com/datin-GmbH/datin-rdf/blob/main/preloaded/$1.ttl [R=303,L]
 
