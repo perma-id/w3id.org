@@ -22,6 +22,6 @@ Documentation and serialisations: https://digibatatimperial.github.io/digibat-on
 
 Maintainers:
 - Jingyu Feng ([Jingyu2020](https://github.com/Jingyu2020))
+- DIGIBAT account ([digibatatimperial](https://github.com/digibatatimperial))
 
-Contact: <group email>
-- digibat@imperial.ac.uk
+Contact: digibat@imperial.ac.uk
