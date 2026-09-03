@@ -40,6 +40,22 @@ that accepts both RDF and HTML gets RDF while a browser still gets HTML.
 The same negotiation against that version's directory, so a versioned IRI
 resolves to that version rather than to the current one.
 
+### `https://w3id.org/celine-eu/<file>`
+
+The unversioned artifacts, which follow `current` — the same promise the release
+model already makes, where `specs/current` and `releases/current` are byte copies
+of the newest version.
+
+| IRI | Is |
+|---|---|
+| `…/celine.jsonld` | the latest JSON-LD context |
+| `…/celine.shacl.ttl` | the latest SHACL shapes |
+| `…/celine.schema.json` | the latest JSON Schema |
+| `…/ontology.{ttl,owl,jsonld,nt}` | the latest serializations |
+
+Use the versioned form below for a stable pin. That is the whole difference
+between the two.
+
 ### `https://w3id.org/celine-eu/vX.Y/<file>`
 
 Addressed by name, no negotiation — the extension already says what it is.
