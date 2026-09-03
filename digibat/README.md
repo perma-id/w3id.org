@@ -5,8 +5,8 @@ platform ontology (Imperial College London, Department of Chemical Engineering):
 application ontology for automated battery and electrocatalysis research workflows,
 built on EMMO and BattINFO.
 
-Source repository: https://github.com/<ORG>/digibat-ontology
-Documentation and serialisations: https://<ORG>.github.io/digibat-ontology/
+Source repository: https://github.com/digibatatimperial/digibat-ontology
+Documentation and serialisations: https://digibatatimperial.github.io/digibat-ontology/
 
 ## Redirection rules
 
