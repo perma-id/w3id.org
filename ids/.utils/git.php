@@ -12,17 +12,17 @@ if($tfile == FALSE)
 else if(flock($tfile, LOCK_EX | LOCK_NB))
 {
    $token = trim(fgets($tfile));
-   
+
    // check to make sure that the token value is correct
    if(array_key_exists('token', $_GET) and $token === $_GET['token'])
    {
       // perform a git pull
-      chdir('..');
+      chdir('../..');
       $gitdir = getcwd() . "/.git";
       system("git --git-dir $gitdir pull");
-      
+
       echo 'git update successful';
-      
+
       // Sleep for 5 seconds to throttle the update rate to 12 per minute
       sleep(5);
    }
@@ -31,11 +31,11 @@ else if(flock($tfile, LOCK_EX | LOCK_NB))
       echo 'ERROR: Invalid secret token provided. ' .
          'See the README for more information.';
    }
-   
+
    // Release the lock file
    flock($tfile, LOCK_UN); // release the lock
 }
-else 
+else
 {
    echo 'ERROR: An update is currently being performed, ' .
       'this request has been rejected.';
