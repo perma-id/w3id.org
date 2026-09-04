@@ -2,12 +2,62 @@
 # Namespace: metadata registry (ISO/IEC 11179) of Qubiten
 # Maintainer: @wilbyembabu (Wilbye, Qubiten) <wilbye@qubiten.com>
 # Source of record: https://github.com/Qubiten/metadata-registry
+#
+# Resolution is scoped to the estate, deliberately. The repository is
+# private and stays private: the registry serves internal applications on
+# the estate's own networks and clusters, so an IRI must resolve for an
+# estate principal, not for the anonymous public. That is a bounded
+# assessment instrument, not a weaker one — FAIR F1 `[de facto]` asks an
+# identifier to be globally unique and persistent, which the namespace
+# root is, and no consumption contract of docs/10 §1 dereferences an IRI
+# at run time: a consuming service binds the pinned terms artefact
+# (docs/25 §5, obligation 3), so nothing breaks when resolution is
+# reachable only from inside.
+#
+# 303 See Other, per the W3C Best Practice Recipes for Publishing RDF
+# Vocabularies `[de facto]`: an administered item and a registration
+# authority are not information resources, so the redirect names a
+# representation of them rather than claiming to be one.
+#
+# Targets are `github.com/.../blob/...`, which resolve for an
+# authenticated member of the organization. `raw.githubusercontent.com`
+# is NOT used: it answers 404 for a private repository even to a member
+# (it takes a token in the URL, not a session), so a machine-readable
+# target there would refuse every request. Machine retrieval by content
+# negotiation is therefore DEFERRED to the authoritative deployment
+# instance's internal ingress, which serves the resource port; until that
+# instance exists the honest state is that these IRIs resolve for a
+# person and not for a program, and the program's binding is the artefact.
 # Interim target: repository documentation (superseded when the LDP
 # containers provide dereferenceable resources).
 
 Options +FollowSymLinks
 RewriteEngine on
 
+# Registration authority identifier -> the register (the citable record)
+RewriteRule ^mr/ra/qubiten$ https://github.com/Qubiten/metadata-registry/blob/main/docs/01-designation-register.md [R=303,L]
+
+# The terms distribution -> the published artefact (latest release asset;
+# a consumer that pins does so by digest, docs/10 §1)
+RewriteRule ^mr/terms$ https://github.com/Qubiten/metadata-registry/releases/latest/download/mr-terms.jsonld [R=303,L]
+
+# The vocabulary (TBox; fragment identifiers under mr/def#) and the
+# ontology IRI — content negotiation on Accept:
+#   application/n-triples, text/turtle -> the TBox (N-Triples is a Turtle subset)
+#   application/ld+json                -> the JSON-LD 1.1 context
+#   otherwise                          -> the TBox README
+RewriteRule ^mr/(def|ontology)/?$ https://github.com/Qubiten/metadata-registry/blob/main/schemas/tbox/README.md [R=303,L]
+
+# Namespace root -> documentation index
+RewriteRule ^mr/?$ https://github.com/Qubiten/metadata-registry/blob/main/docs/README.md [R=303,L]
+
+# Items and designations -> the seed record (the class-invariant corpus)
+# until an authoritative deployed instance exists; superseded then by a
+# rule to that instance's MR_BASE_URL.
+RewriteRule ^mr/(items|designations)/.*$ https://github.com/Qubiten/metadata-registry/blob/main/schemas/seed/README.md [R=303,L]
+
+# All other IRIs under the namespace -> the repository
+RewriteRule ^mr/(.*)$ https://github.com/Qubiten/metadata-registry [R=303,L]
 # Registration authority identifier
 RewriteRule ^mr/ra/qubiten$ https://github.com/Qubiten/metadata-registry/blob/main/docs/01-designation-register.md [R=302,L]
 

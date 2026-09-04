@@ -10,6 +10,14 @@ Permanent identifiers for the Qubiten metadata registry (ISO/IEC 11179).
   repository, <https://github.com/Qubiten/metadata-registry>, until the registry's HTTP
   containers are publicly deployed.
 
+## Contact
+
+This space is administered by:
+
+**Wilbye (Qubiten)**
+
+Email: [wilbye@qubiten.com](mailto:wilbye@qubiten.com)
+GitHub: [Qubiten](https://github.com/Qubiten)
 ## Maintainer
 
 This namespace is maintained by **[@wilbyembabu](https://github.com/wilbyembabu)** (Wilbye, Qubiten),
