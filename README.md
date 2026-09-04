@@ -3,8 +3,6 @@ Permanent Identifiers for the Web
 
 This repository holds the website source code for <https://w3id.org/>.
 
-[![Build Status](https://travis-ci.org/perma-id/w3id.org.svg)](https://travis-ci.org/perma-id/w3id.org)
-
 #### Content
 
 * [Purpose](#purpose)
