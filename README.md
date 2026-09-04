@@ -85,8 +85,8 @@ following steps:
 1. _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org)
    on GitHub.
 2. Add or update a new redirect entry and commit your changes.
-   1. If it does not yet exist, create a new directory with an intended permanent
-      identifer name under the `ids/` directory
+   1. If it does not yet exist, create a new directory under the `ids/`
+      directory with an intended permanent identifier name
       (see [Naming Policy](#naming-policy) below).
    2. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
       * `.htaccess` contains redirection rules, for computer to read and perform.
