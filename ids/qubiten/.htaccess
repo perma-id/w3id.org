@@ -1,0 +1,18 @@
+# Permanent-identifier redirects for https://w3id.org/qubiten/
+# Namespace: metadata registry (ISO/IEC 11179) of Qubiten
+# Maintainer: @wilbyembabu (Wilbye, Qubiten) <wilbye@qubiten.com>
+# Source of record: https://github.com/Qubiten/metadata-registry
+# Interim target: repository documentation (superseded when the LDP
+# containers provide dereferenceable resources).
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Registration authority identifier
+RewriteRule ^mr/ra/qubiten$ https://github.com/Qubiten/metadata-registry/blob/main/docs/01-designation-register.md [R=302,L]
+
+# Namespace root -> documentation index
+RewriteRule ^mr/?$ https://github.com/Qubiten/metadata-registry/blob/main/docs/README.md [R=302,L]
+
+# All other IRIs under the namespace -> repository (interim)
+RewriteRule ^mr/(.*)$ https://github.com/Qubiten/metadata-registry [R=302,L]

@@ -1,0 +1,26 @@
+# https://w3id.org/digest-law
+# American Legal Digest — open, source-grounded digests of legal issues,
+# organised by jurisdiction. First jurisdiction: United States (/us/...).
+#
+# ## Contact
+# This space is administered by:
+#
+# Arthur S. Rodrigues
+# arthursrodrigues@gmail.com
+# GitHub username: arthrod
+
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# --- United States corpus: https://w3id.org/digest-law/us/... ---
+# Bundle URIs: /us/{area}/{topic}/  (plus .../sources/{slug}/ and .../audit/)
+RewriteRule ^us/?$ https://arthrod.github.io/digest-law-us/ [R=303,NE,L]
+RewriteRule ^us/(.*)$ https://arthrod.github.io/digest-law-us/$1 [R=302,NE,L]
+
+# --- Namespace root ---
+RewriteRule ^$ https://arthrod.github.io/digest-law-us/ [R=303,NE,L]
+
+# --- Everything else ---
+RewriteRule ^(.*)$ https://arthrod.github.io/digest-law-us/$1 [R=302,NE,L]

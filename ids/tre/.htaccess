@@ -1,0 +1,36 @@
+# Trusted Research Environment (TRE) vocabuary
+# including Five Safes Licence
+#
+# Contact
+#
+# This space is administered by:
+# Freek Dijkstra <freek.dijkstra@surf.nl>, Github @freekdijkstra
+# Slawa Loev <slawa.loev@surf.nl>, Github @slawa-loev
+#
+# Secondary administrators:
+# All members of https://github.com/orgs/odissei-data/people
+
+RewriteEngine On
+
+# Namespace root redirects to project repository home
+RewriteRule ^$ https://github.com/odissei-data/ODISSEI-Five-Safes-license/ [R=302,L]
+
+# Passthrough if explicit extension is given
+RewriteRule ^(.*)\.md$ https://github.com/odissei-data/ODISSEI-Five-Safes-license/blob/main/$1.md [R=302,L]
+RewriteRule ^(.*)\.html$ https://github.com/odissei-data/ODISSEI-Five-Safes-license/blob/main/$1.md [R=302,L]
+RewriteRule ^(.*)\.ttl$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.ttl [R=302,L]
+RewriteRule ^(.*)\.jsonld$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.jsonld [R=302,L]
+RewriteRule ^(.*)\.rdf$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.rdf [R=302,L]
+
+# Without extension, use HTTP Accept header to determine extension.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(.*?)/?$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(.*?)/?$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.jsonld [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(.*?)/?$ https://raw.githubusercontent.com/odissei-data/ODISSEI-Five-Safes-license/refs/heads/main/$1.rdf [R=302,L]
+
+# default (text/html and everything else)
+RewriteRule ^(.*?)/?$ https://github.com/odissei-data/ODISSEI-Five-Safes-license/blob/main/$1.md [R=302,L]

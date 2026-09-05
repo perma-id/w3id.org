@@ -1,0 +1,23 @@
+##########################################################################
+# .htaccess file for https://w3id.org/digibat
+# Test at https://htaccess.madewithlove.com/ (strip the leading "digibat/").
+##########################################################################
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Rule 3: items and runs
+# Source: https://w3id.org/digibat/item/{ID}
+RewriteRule ^item/([A-Za-z0-9._-]+)/?$  https://digibatatimperial.github.io/digibat-ontology/item.html#$1 [R=303,NE,L]
+
+# Rule 2: versioned ontology, content-negotiated
+# Source: https://w3id.org/digibat/{VERSION}
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^([0-9][^/]*)/?$  https://digibatatimperial.github.io/digibat-ontology/versions/$1/digibat.html [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/?$  https://digibatatimperial.github.io/digibat-ontology/versions/$1/digibat.ttl  [R=303,NE,L]
+
+# Rule 1: latest ontology, content-negotiated
+# Source: https://w3id.org/digibat
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^/?$  https://digibatatimperial.github.io/digibat-ontology/digibat.html [R=303,NE,L]
+RewriteRule ^/?$  https://digibatatimperial.github.io/digibat-ontology/digibat.ttl  [R=303,NE,L]

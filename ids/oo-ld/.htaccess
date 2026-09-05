@@ -1,0 +1,14 @@
+# OO-LD (Object-Oriented Linked Data) namespace
+# Maintainers (GitHub): @simontaurus, @raederan, @LukasOro
+# Contact: team@oo-ld.org
+#
+# /schemas/* are the OO-LD reference schemas, served from their own site so that a
+# conformance IRI dereferences to the schema JSON itself, e.g.
+#   w3id.org/oo-ld/schemas/quantities/1.0 -> schemas.oo-ld.org/quantities/1.0
+# Everything else is delegated to the main OO-LD site (both GitHub Pages).
+# Accept-based content negotiation can be added here later if a single IRI should serve
+# ttl/jsonld/html by header.
+
+RewriteEngine on
+RewriteRule ^schemas/(.*)$ https://schemas.oo-ld.org/$1 [R=302,L]
+RewriteRule ^(.*)$ https://oo-ld.org/$1 [R=302,L]

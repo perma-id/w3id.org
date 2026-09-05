@@ -1,0 +1,21 @@
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+# ARC RO-Crate landing page
+RewriteRule ^$ https://nfdi4plants.github.io/arc-ro-crate-profile/ [R=302,L]
+
+## administrative RO-Crate profile
+
+### latest version 
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^administrative$ https://nfdi4plants.github.io/arc-ro-crate-profile/profiles/administrative_crate/ro-crate-metadata.jsonld [R=302,L]
+
+RewriteRule ^administrative$ https://nfdi4plants.github.io/arc-ro-crate-profile/profiles/administrative_crate/ [R=302,L]
+
+### versioned
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^administrative/(\d+\.\d+)$ https://nfdi4plants.github.io/arc-ro-crate-profile/profiles/$1/administrative_crate/ro-crate-metadata.jsonld [R=302,L]
+
+RewriteRule ^administrative/(\d+\.\d+)$ https://nfdi4plants.github.io/arc-ro-crate-profile/profiles/$1/administrative_crate/ [R=302,L]

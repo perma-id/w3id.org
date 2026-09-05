@@ -1,0 +1,60 @@
+Header set Access-Control-Allow-Origin *
+RewriteEngine On
+
+## REDIRECTIONS SUPPORTING LATEST RELEASE
+
+# Download artefacts
+RewriteRule ^latest/PaNET.owl$ https://pan-ontologies.github.io/PaNET/latest/ontology.owl [R=307,L]
+RewriteRule ^latest/PaNET_reasoned.owl$ https://pan-ontologies.github.io/PaNET/latest/ontology_reasoned.owl [R=307,L]
+RewriteRule ^latest/PaNET.ttl$ https://pan-ontologies.github.io/PaNET/latest/ontology.ttl [R=307,L]
+RewriteRule ^latest/PaNET.n3$ https://pan-ontologies.github.io/PaNET/latest/ontology.n3 [R=307,L]
+RewriteRule ^latest/PaNET.jsonld$ https://pan-ontologies.github.io/PaNET/latest/ontology.jsonld [R=307,L]
+
+# Describe IRI (RDF/XML)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://pan-ontologies.github.io/PaNET/latest/ontology.owl [R=307,L]
+
+# Describe IRI (Turtle)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://pan-ontologies.github.io/PaNET/latest/ontology.ttl [R=307,L]
+
+# Describe IRI (N3)
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://pan-ontologies.github.io/PaNET/latest/ontology.n3 [R=307,L]
+
+# Describe IRI (JSON-LD)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://pan-ontologies.github.io/PaNET/latest/ontology.jsonld [R=307,L]
+
+# Documentation
+RewriteRule ^$ https://pan-ontologies.github.io/PaNET/index-en.html  [R=307,L]
+
+
+## REDIRECTIONS SUPPORTING SPECIFIC VERSIONS
+
+# Download artefacts
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/PaNET.owl$ https://pan-ontologies.github.io/PaNET/$1/ontology.owl [R=307,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/PaNET_reasoned.owl$ https://pan-ontologies.github.io/PaNET/$1/ontology_reasoned.owl [R=307,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/PaNET.ttl$ https://pan-ontologies.github.io/PaNET/$1/ontology.ttl [R=307,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/PaNET.n3$ https://pan-ontologies.github.io/PaNET/$1/ontology.n3 [R=307,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/PaNET.jsonld$ https://pan-ontologies.github.io/PaNET/$1/ontology.jsonld [R=307,L]
+
+# Describe IRI (RDF/XML)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://pan-ontologies.github.io/PaNET/$1/ontology.owl [R=307,L]
+
+# Describe IRI (Turtle)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://pan-ontologies.github.io/PaNET/$1/ontology.ttl [R=307,L]
+
+# Describe IRI (N3)
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://pan-ontologies.github.io/PaNET/$1/ontology.n3 [R=307,L]
+
+# Describe IRI (JSON-LD)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://pan-ontologies.github.io/PaNET/$1/ontology.jsonld [R=307,L]
+
+# Documentation
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/$ /PaN/PaNET/$1 [R=308]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://pan-ontologies.github.io/PaNET/$1/index-en.html [R=307,L]

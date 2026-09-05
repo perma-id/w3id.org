@@ -1,0 +1,42 @@
+# BSDO — Battery Swap Domain Ontology
+#
+# https://w3id.org/bsdo       -> terminology (TBox), current release
+# https://w3id.org/bsdo/abox  -> population (ABox), current release
+# https://w3id.org/bsdo/0.2.0 -> that release, frozen
+#
+# Content negotiation: HTML for browsers, RDF/XML on request,
+# Turtle otherwise. Files are hosted on GitHub Pages at
+# https://sidodea-ie.github.io/BSDO/
+#
+# Archived at https://doi.org/10.5281/zenodo.21683493
+#
+# ## Contact
+# Sido Dea Auvia
+# ORCID: 0009-0006-9730-6541
+# GitHub username: sidodea-IE
+
+RewriteEngine on
+
+# --- Versioned releases ---
+# A version identifier must keep resolving to the release it names, so these
+# point into a frozen per-release directory rather than at the current files.
+# The pattern is generic, so a new release needs no change here.
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://sidodea-ie.github.io/BSDO/$1/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://sidodea-ie.github.io/BSDO/$1/bsdo.owl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://sidodea-ie.github.io/BSDO/$1/bsdo.ttl [R=303,L]
+
+# --- Population (ABox) ---
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^abox/?$ https://sidodea-ie.github.io/BSDO/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^abox/?$ https://sidodea-ie.github.io/BSDO/bsdo-abox.owl [R=303,L]
+RewriteRule ^abox/?$ https://sidodea-ie.github.io/BSDO/bsdo-abox.ttl [R=303,L]
+
+# --- Terminology (TBox), default target ---
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://sidodea-ie.github.io/BSDO/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://sidodea-ie.github.io/BSDO/bsdo.owl [R=303,L]
+RewriteRule ^$ https://sidodea-ie.github.io/BSDO/bsdo.ttl [R=303,L]

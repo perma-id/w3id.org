@@ -1,0 +1,37 @@
+# Virtual Acoustic Object (VAO) Standard permanent identifiers.
+# Versioned targets follow the matching immutable release tag.
+# Maintainer: Dominik Ukolov (ORCID: 0000-0002-7904-3892)
+# GitHub: @modavis-project
+
+Options -MultiViews
+RewriteEngine On
+
+# Versioned machine artifacts. Availability is determined by the matching
+# immutable release tag rather than enumerated in W3ID.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/schema/([a-z0-9-]+)\.json$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Schemas/vao-$2-$1.schema.json [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/context\.jsonld$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Schemas/vao-context-$1.jsonld [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(vocabulary|modavis-mapping|shapes)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Schemas/vao-$2-$1.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/specification-bundle/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Schemas/vao-release-bundle-$1.json [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/security/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/SECURITY_CONSIDERATIONS.md [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/modavis-project/vao-standard/blob/v$1/Docs/VAO_STANDARD_$1.md [R=303,L]
+
+# Versioned profile identifiers. The profile filenames are part of the
+# published release layout; only the version is variable.
+RewriteRule ^profile/core/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_CORE_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/dynamic-delivery/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_DYNAMIC_DELIVERY_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/scientific/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_SCIENTIFIC_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/multimodal/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_MULTIMODAL_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/physical-instrument/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_PHYSICAL_INSTRUMENT_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/playable/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_PLAYABLE_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/deterministic-runtime/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_DETERMINISTIC_RUNTIME_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/spatial/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_SPATIAL_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/acoustics/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_ACOUSTICS_PROFILE_$1.md [R=303,L]
+RewriteRule ^profile/repository/zenodo/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v$1/Docs/VAO_ZENODO_PROFILE_$1.md [R=303,L]
+
+# Stable vocabulary identifiers follow the current compatible VAO release.
+# Vocabulary membership is validated by VAO tooling, not by W3ID.
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v0.5.0/Schemas/vao-vocabulary-0.5.0.ttl [R=303,L]
+RewriteRule ^vocab(?:/.*)?$ https://raw.githubusercontent.com/modavis-project/vao-standard/v0.5.0/Schemas/vao-vocabulary-0.5.0.ttl [R=303,L]
+
+# Project discovery entry point; normative records use versioned identifiers.
+RewriteRule ^$ https://github.com/modavis-project/vao-standard [R=302,L]

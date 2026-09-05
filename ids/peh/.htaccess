@@ -1,0 +1,26 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# PEH namespace root
+RewriteRule ^$ https://w3id.org/spaces/peh-vocs [R=303,L]
+
+# Ontology
+RewriteRule ^terms/?$ https://eu-parc.github.io/parco-hbm/ [R=303,L]
+RewriteRule ^terms/([^/]+)$ https://eu-parc.github.io/parco-hbm/#$1 [R=303,NE,L]
+
+# Vocabulary nanopublications
+RewriteRule ^(biochementities|matrices|indicators|iadoptvariables)/([A-Za-z0-9_-]+)$ https://w3id.org/np/$2 [R=303,L]
+
+# Vocabulary landing pages
+RewriteRule ^matrices/?$ https://w3id.org/spaces/chemical-exposome-matrix/r/vocabulary [R=303,L]
+RewriteRule ^biochementities/?$ https://w3id.org/spaces/biochementity/r/vocabulary [R=303,L]

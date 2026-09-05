@@ -1,0 +1,15 @@
+# Permanent identifiers for Minerval (https://minerval.ai).
+# w3id.org convention: 302 (not 301) so the w3id form stays the identifier
+# clients keep citing while the target remains free to move.
+Options +FollowSymLinks
+RewriteEngine on
+
+# https://w3id.org/minerval/claim/<claim-id> -> the claim's page
+RewriteRule ^claim/(.+)$ https://minerval.ai/claims/$1 [R=302,L]
+
+# https://w3id.org/minerval/vocab -> the RDF vocabulary documentation
+# (used by the nanopublication export's mv: namespace)
+RewriteRule ^vocab$ https://github.com/minerval-ai/minerval/blob/main/docs/vocab.md [R=302,L]
+
+# Namespace root
+RewriteRule ^$ https://minerval.ai/ [R=302,L]

@@ -1,0 +1,74 @@
+# # /iladub/
+#
+# Persistent namespace root for iladub and its modules:
+#
+#   https://w3id.org/iladub               — iladub core: assertion/proposition epistemics
+#   https://w3id.org/iladub/etkl          — ET(K)L method (knowledge-first transform)
+#   https://w3id.org/iladub/etkl/holons   — the doc-holon fabric (Raw/Clean/Portal/membrane)
+#   https://w3id.org/iladub/dec           — dec: decidability / decision-context vocabulary
+#   https://w3id.org/iladub/risk          — contextual-risk vocabulary
+#   https://w3id.org/iladub/hga-alignment      — iladub/etkl <-> W3C Holon CG (HGA) alignment
+#   https://w3id.org/iladub/dec/hga-alignment  — dec <-> HGA alignment
+#   https://w3id.org/iladub/risk/hga-alignment — risk <-> HGA alignment
+#   https://w3id.org/iladub/governance-shapes  — governance SHACL shapes
+#
+# Content is negotiated: RDF clients receive Turtle from the source repository
+# (github.com/iladub/iladub), browsers are sent to the documentation site
+# (https://iladub.dev). Supersedes the former /etkl entry (now 301 -> /iladub).
+#
+# ## Contact
+# This space is administered by:
+#
+# François Rosselet
+# GitHub username: Frosselet
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---- https://w3id.org/iladub/etkl/holons  (most specific first) ----------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^etkl/holons/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/etkl-holons.ttl [R=302,L]
+RewriteRule ^etkl/holons/?$ https://iladub.dev/holonic-interaction/ [R=302,L]
+
+# ---- https://w3id.org/iladub/dec/hga-alignment --------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^dec/hga-alignment/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/dec-hga-align.ttl [R=302,L]
+RewriteRule ^dec/hga-alignment/?$ https://iladub.dev/holonic-interaction/ [R=302,L]
+
+# ---- https://w3id.org/iladub/risk/hga-alignment -------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^risk/hga-alignment/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/risk-hga-align.ttl [R=302,L]
+RewriteRule ^risk/hga-alignment/?$ https://iladub.dev/holonic-interaction/ [R=302,L]
+
+# ---- https://w3id.org/iladub/hga-alignment ------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^hga-alignment/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/iladub-hga-align.ttl [R=302,L]
+RewriteRule ^hga-alignment/?$ https://iladub.dev/holonic-interaction/ [R=302,L]
+
+# ---- https://w3id.org/iladub/etkl ---------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^etkl/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/etkl.ttl [R=302,L]
+RewriteRule ^etkl/?$ https://iladub.dev/etkl/ [R=302,L]
+
+# ---- https://w3id.org/iladub/dec ----------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^dec/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/dec.ttl [R=302,L]
+RewriteRule ^dec/?$ https://iladub.dev/dec/ [R=302,L]
+
+# ---- https://w3id.org/iladub/risk ---------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^risk/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/risk.ttl [R=302,L]
+RewriteRule ^risk/?$ https://iladub.dev/ [R=302,L]
+
+# ---- https://w3id.org/iladub/governance-shapes --------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^governance-shapes/?$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/shapes/governance-shapes.ttl [R=302,L]
+RewriteRule ^governance-shapes/?$ https://iladub.dev/ [R=302,L]
+
+# ---- https://w3id.org/iladub (core) -------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3) [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/iladub/iladub/main/vocab/ontology/iladub.ttl [R=302,L]
+RewriteRule ^$ https://iladub.dev/assertion-proposition/ [R=302,L]
+
+# ---- fallback: any other /iladub/* path -> documentation site -----------
+RewriteRule ^(.*)$ https://iladub.dev/ [R=302,L]
