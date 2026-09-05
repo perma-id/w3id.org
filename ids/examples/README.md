@@ -2,6 +2,15 @@
 
 This permanent W3ID is meant to be a place to host examples for publishing things on w3id.org.
 
+> **See also: <https://w3id.org/docs/>** — the w3id.org documentation site,
+> which covers [creating an identifier](https://w3id.org/docs/guides/create-an-id),
+> [writing `.htaccess` rules](https://w3id.org/docs/guides/htaccess),
+> [content negotiation](https://w3id.org/docs/guides/content-negotiation), and
+> [common mistakes](https://w3id.org/docs/rules/).
+>
+> The examples below are one contributor's suggestions rather than a required
+> style. A more comprehensive set of examples is planned.
+
 * [.htaccess](#htaccess)
   * [What is .htaccess?](#what-is-htaccess)
   * [Put ID info and maintainer info inside .htaccess](#put-id-info-and-maintainer-info-inside-htaccess)
@@ -27,7 +36,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/.htaccess):
 supported by several web servers, used for configuration of website-access
 issues, such as URL redirection, URL shortening, access control (for different
 web pages and files), and more. The 'dot' (period or full stop) before the
-file name makes it a hidden file in Unix-based environments. 
+file name makes it a hidden file in Unix-based environments.
 
 In the W3ID context, `.htaccess` is used primarily for URL redirection. This
 file is where you can put URL rewriting rules. A set of URL rewriting rules
@@ -98,7 +107,7 @@ See [Apache HTTP Server documentation](https://httpd.apache.org/docs/current/rew
 
 ### Example 1: Minimalist (grouping)
 
-This 3 lines of code from [/mircat/.htaccess](https://github.com/perma-id/w3id.org/blob/master/mircat/.htaccess) redirects `https://w3id.org/mircat/<ANYTHING>` to `https://fairsharing.github.io/mircat/<ANYTHING>`.
+This 3 lines of code from [/mircat/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ids/mircat/.htaccess) redirects `https://w3id.org/mircat/<ANYTHING>` to `https://fairsharing.github.io/mircat/<ANYTHING>`.
 
 The URL rewriting rule for that is:
 ```ApacheConf
@@ -123,7 +132,7 @@ A web server can be configured to return a different media type or file format
 depending on the client's request or capability. We call this mechanism
 "[content negotiation](https://en.wikipedia.org/wiki/Content_negotiation)".
 
-[/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ppop/.htaccess) demonstrates the use of `RewriteCond %{HTTP_ACCEPT}` to check which [media types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types) the client accepts or expects to be returned by the server.
+[/ppop/.htaccess](https://github.com/perma-id/w3id.org/blob/master/ids/ppop/.htaccess) demonstrates the use of `RewriteCond %{HTTP_ACCEPT}` to check which [media types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types) the client accepts or expects to be returned by the server.
 
 A simplified version of the URL rewriting rules in that file will look like this:
 ```ApacheConf
@@ -209,13 +218,13 @@ server not to pass the query string to the final URL after rewrite.
 ### Example 4: Publish vocabularies with W3ID
 
 If you plan to publish a vocabulary/ontology with W3ID,
-see [`/example/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/example/.htaccess)
+see [`/example/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/ids/example/.htaccess)
 and https://w3id.org/example/.
 
 
 ### Example 5: Version-aware URIs of ontologies
 
-See [`/OWLunit/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/OWLunit/.htaccess).
+See [`/OWLunit/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/ids/OWLunit/.htaccess).
 
 
 ### Example 6: Redirection based on a file extension in the URL
@@ -226,7 +235,7 @@ in the requested URL, and rewrite the URL accordingly.
 This technique can complement `RewriteCond %{HTTP_ACCEPT}` rules (explained
 in [Example 2](#example-2-supporting-multiple-media-types-mime-types)).
 
-See [`/SocDOnt/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/SocDOnt/.htaccess).
+See [`/SocDOnt/.htaccess`](https://github.com/perma-id/w3id.org/blob/master/ids/SocDOnt/.htaccess).
 
 
 ## README.md
@@ -244,4 +253,4 @@ GitHub will automatically display the content of a `README.md` to repository
 visitors.
 
 An example of a good README file:
-[`w3id.org/fdo/Readme.md`](https://github.com/perma-id/w3id.org/blob/master/fdo/Readme.md)
+[`w3id.org/fdo/Readme.md`](https://github.com/perma-id/w3id.org/blob/master/ids/fdo/Readme.md)
