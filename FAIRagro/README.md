@@ -1,6 +1,6 @@
 # FAIRagro
 
-Persistent identifier namespace for FAIRagro resources.
+Persistent identifier namespace for FAIRagro resources (https://fairagro.net/).
 
 ## Description
 
@@ -10,6 +10,9 @@ This W3ID namespace provides persistent identifiers (PIDs) for outputs developed
 
 FAIRagro
 
+Primary maintainer:
+- Carmen Scheuner (@cscheuner)
+
 ## Contact
 
-fairagro@fairagro.net
+carmen.scheuner@senckenberg.de
