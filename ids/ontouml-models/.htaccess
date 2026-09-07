@@ -18,9 +18,6 @@ RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github
 RedirectMatch 302 ^/ontouml-models/vocabulary/docs/?$     https://ontouml.github.io/ontouml-models-vocabulary
 
 ## Vocabulary
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle
 RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://ontouml.github.io/ontouml-models-vocabulary/ontouml-catalog-metadata-vocabulary.ttl
 
 # CATALOG REDIRECTIONS -----------------------------------------------------------------------------------------------------------
@@ -33,12 +30,12 @@ RedirectMatch 302 ^/ontouml-models/git(/?)$ https://github.com/OntoUML/ontouml-m
 ### Dashboard
 RedirectMatch 302 ^/ontouml-models/dash(board)?(/?)$ https://ontouml-dashboard-995390128580.herokuapp.com/
 
-### Latest release
-RewriteRule ^release/?$ https://github.com/OntoUML/ontouml-models/releases/latest [R=302,L]
-
 ### Direct release Turtle assets
 RewriteRule ^release/latest\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/latest/download/ontouml-models-latest.ttl [R=302,L]
 RewriteRule ^release/([0-9]{8})\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/download/$1/ontouml-models-$1.ttl [R=302,L]
+
+### Latest release
+RewriteRule ^release/?$ https://github.com/OntoUML/ontouml-models/releases/latest [R=302,L]
 
 ### Specific release (tag)
 RewriteRule ^release/([0-9]{8})/?$ https://github.com/OntoUML/ontouml-models/releases/tag/$1 [R=302,L]
