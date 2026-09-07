@@ -1,11 +1,37 @@
-RewriteEngine On
+# https://w3id.org/vcf-rdfizer/
+#
+# RETIRED namespace of the VCF-RDFizer Vocabulary, versions 1.0.x and 1.1.0.
+# The vocabulary continues as the VCF Core Vocabulary at
+# https://w3id.org/vcf-core/ so that the model is identified independently of
+# any one converter.
+#
+# Maintainer: Elias Crum <elias.crum@ugent.be>
+#             IDLab, Ghent University - imec, Belgium
+# Source:     https://github.com/ecrum19/vcf-core-vocabulary
+#
+# DELIBERATELY NOT A REDIRECT TO THE NEW NAMESPACE. Every IRI under this
+# namespace resolves to a legacy document in which that IRI is still defined,
+# deprecated, and linked to its successor with owl:equivalentClass,
+# owl:equivalentProperty or owl:sameAs. 
 
-# 1) Base namespace -> GitHub Pages homepage
-RewriteRule ^$ https://ecrum19.github.io/VCF-RDFizer-vocabulary/ [R=302,L]
+Options +FollowSymLinks
+RewriteEngine on
 
-# 2) Vocab (human) -> homepage (or a specific docs page)
-RewriteRule ^vocab$ https://ecrum19.github.io/VCF-RDFizer-vocabulary/ [R=302,L]
+# ---------------------------------------------------------------------------
+# Retired vocabulary. Fragment IRIs dereference here.
+# ---------------------------------------------------------------------------
+RewriteRule ^vocab/?$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/legacy/legacy-vcf-rdfizer.ttl [R=302,L]
+RewriteRule ^vocab\.ttl$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/legacy/legacy-vcf-rdfizer.ttl [R=302,L]
+RewriteRule ^vocab/[0-9]+\.[0-9]+\.[0-9]+/?$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/legacy/legacy-vcf-rdfizer.ttl [R=302,L]
 
-# 3) Direct file redirects (machine)
-RewriteRule ^vocab\.ttl$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/ontology/vcf-rdfizer-vocabulary.ttl [R=302,L]
-RewriteRule ^shacl\.ttl$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/shacl/vcf-rdfizer-vocabulary.shacl.ttl [R=302,L]
+# ---------------------------------------------------------------------------
+# Retired instance IRI space. Never published; nothing to serve.
+# ---------------------------------------------------------------------------
+RewriteRule ^vcf/ - [R=410,L]
+
+# ---------------------------------------------------------------------------
+# Everything else under the retired namespace: the deprecation record.
+# A human visiting the bare namespace is sent to the successor's documentation.
+# ---------------------------------------------------------------------------
+RewriteRule ^$ https://w3id.org/vcf-core/ [R=302,L]
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/ecrum19/VCF-RDFizer-vocabulary/main/legacy/legacy-vcf-rdfizer.ttl [R=302,L]
