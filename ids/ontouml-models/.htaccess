@@ -34,10 +34,14 @@ RedirectMatch 302 ^/ontouml-models/git(/?)$ https://github.com/OntoUML/ontouml-m
 RedirectMatch 302 ^/ontouml-models/dash(board)?(/?)$ https://ontouml-dashboard-995390128580.herokuapp.com/
 
 ### Latest release
-RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontouml-models/releases/latest
+RewriteRule ^release/?$ https://github.com/OntoUML/ontouml-models/releases/latest [R=302,L]
+
+### Direct release Turtle assets
+RewriteRule ^release/latest\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/latest/download/ontouml-models-latest.ttl [R=302,L]
+RewriteRule ^release/([0-9]{8})\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/download/$1/ontouml-models-$1.ttl [R=302,L]
 
 ### Specific release (tag)
-RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
+RewriteRule ^release/([0-9]{8})/?$ https://github.com/OntoUML/ontouml-models/releases/tag/$1 [R=302,L]
 
 ### Shape TTL files
 RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/shapes/$1-shape.ttl
