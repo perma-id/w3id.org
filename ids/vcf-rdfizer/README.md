@@ -23,3 +23,4 @@ existing `vcfr:` IRIs continue to resolve to a document that defines them.
 
 Elias Crum — IDLab, Department of Electronics and Information Systems, Ghent University — imec, Belgium.
 <elias.crum@ugent.be>
+Github: ecrum19

@@ -24,3 +24,4 @@ deprecation document rather than redirecting here.
 
 Elias Crum — IDLab, Department of Electronics and Information Systems, Ghent University — imec, Belgium.
 <elias.crum@ugent.be>
+Github: ecrum19
