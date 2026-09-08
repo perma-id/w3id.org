@@ -312,6 +312,19 @@ test('files/htaccess-required accepts a parent that only groups children', () =>
   assert.deepEqual(findingsOf(r), ['ids/orphan:-:warning']);
 });
 
+test('files/readme-required ignores files sitting directly in ids/', () => {
+  // The homepage and the global rewrite rules are not identifiers, so they
+  // have no README and no maintainer of their own. `namespaceOf` works from
+  // the path string alone and hands back the file itself for these, which is
+  // what made them look like namespaces.
+  const r = audit(readmeRequired, {
+    'ids/index.html': '<p>the service homepage</p>\n',
+    'ids/.htaccess': '# global rewrites\nRewriteEngine on\n',
+    'ids/real-identifier/.htaccess': OK_HTACCESS
+  });
+  assert.deepEqual(findingsOf(r), ['ids/real-identifier:-:warning']);
+});
+
 test('files/readme-required accepts a README anywhere in the namespace', () => {
   const r = audit(readmeRequired, {
     'ids/a/.htaccess': OK_HTACCESS,

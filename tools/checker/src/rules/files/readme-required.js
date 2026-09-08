@@ -1,4 +1,5 @@
-import {isReadme, isInfrastructure} from '../../paths.js';
+import {isReadme, isInfrastructure, identifierNamespaces}
+  from '../../paths.js';
 
 export default {
   id: 'files/readme-required',
@@ -15,26 +16,20 @@ export default {
   },
   check(ctx, report) {
     const prefix = ctx.idsDir + '/';
-    const topLevel = new Set();
     const withReadme = new Set();
 
     for(const p of ctx.idPaths) {
       if(isInfrastructure(p, ctx.idsDir)) {
         continue;
       }
-      const ns = ctx.namespaceOf(p);
-      if(ns === null || ns === ctx.idsDir) {
-        continue;
-      }
-      topLevel.add(ns);
       // A README anywhere in the namespace documents it; requiring one in
       // every sub-directory would be noise.
       if(isReadme(p)) {
-        withReadme.add(ns);
+        withReadme.add(ctx.namespaceOf(p));
       }
     }
 
-    for(const dir of [...topLevel].sort()) {
+    for(const dir of [...identifierNamespaces(ctx)].sort()) {
       if(withReadme.has(dir)) {
         continue;
       }

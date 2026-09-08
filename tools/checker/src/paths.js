@@ -89,3 +89,28 @@ export function resolveScope(args, {root, cwd}) {
     !unique.some(other => other !== candidate &&
       candidate.startsWith(other + '/')));
 }
+
+/**
+ * The identifier namespaces present in the tree.
+ *
+ * A namespace is a *directory* under the identifier tree, which in a git tree
+ * means one with something inside it. A file sitting directly in `ids/` -- the
+ * homepage, the global rewrite rules -- is not an identifier and has no README
+ * or maintainer of its own, so it must not be mistaken for one.
+ */
+export function identifierNamespaces(ctx) {
+  const namespaces = new Set();
+  for(const p of ctx.idPaths) {
+    if(isInfrastructure(p, ctx.idsDir)) {
+      continue;
+    }
+    const namespace = ctx.namespaceOf(p);
+    // `namespaceOf` works from the string alone, so for a top-level file it
+    // hands back the file itself. Something has to live *inside* a namespace.
+    if(namespace === null || namespace === ctx.idsDir || namespace === p) {
+      continue;
+    }
+    namespaces.add(namespace);
+  }
+  return namespaces;
+}
