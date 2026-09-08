@@ -8,10 +8,13 @@ AddType text/turtle .ttl
 RedirectMatch 302 ^/ontouml-models/vocabulary/git/?$      https://github.com/OntoUML/ontouml-models-vocabulary/
 
 ## Versioning
-### Specific version
-RedirectMatch 302 ^/ontouml-models/vocabulary/v([^/]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
-### Latest version
-RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$   https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
+
+### Specific release tags
+RedirectMatch 302 ^/ontouml-models/vocabulary/release/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+RedirectMatch 302 ^/ontouml-models/vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$          https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+
+### Latest release
+RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
 
 ## Documentation
 RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github.io/ontouml-models-vocabulary
@@ -47,7 +50,7 @@ RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubuserconte
 RedirectMatch 302 ^/ontouml-models/models/([^/]+)/?$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
 
 ### Canonical model subtree
-RedirectMatch 302 ^/ontouml-models/models/([^/]+)/(.+)$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/$2
+RedirectMatch 302 ^/ontouml-models/models/([^/]+)/(.+?)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/$2
 
 ### Legacy model-artifact aliases
 RedirectMatch 302 ^/ontouml-models/turtle/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
@@ -55,8 +58,8 @@ RedirectMatch 302 ^/ontouml-models/json/([^/]+)/?$ https://raw.githubusercontent
 RedirectMatch 302 ^/ontouml-models/vpp/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.vpp
 
 ### Direct catalog files
-RewriteRule ^catalog/metadata\.yaml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.yaml [R=302,L]
-RewriteRule ^catalog/metadata\.ttl/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.ttl [R=302,L]
+RedirectMatch 302 ^/ontouml-models/catalog/metadata\.yaml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.yaml
+RedirectMatch 302 ^/ontouml-models/catalog/metadata\.ttl/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.ttl
 
 
 ## REDIRECTION TO METADATA STORAGE SERVICE (FAIR Data Point)
