@@ -1,0 +1,31 @@
+# QPM Ontology (Qualitative Place Model) — Cardiff University
+# Maintainer: Alia I. Abdelmoty (GitHub: Aliaia)
+# Redirects https://w3id.org/qpm with content negotiation.
+
+RewriteEngine on
+
+# --- Version 1.0 (https://w3id.org/qpm/1.0), pinned to the v1.0 tag ---
+
+# Tools requesting Turtle -> raw TTL file at the tag
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^1\.0/?$ https://raw.githubusercontent.com/Aliaia/qpm/v1.0/qpm.ttl [R=303,L]
+
+# Tools requesting RDF/XML -> raw OWL file at the tag
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^1\.0/?$ https://raw.githubusercontent.com/Aliaia/qpm/v1.0/qpm.owl [R=303,L]
+
+# Browsers and everything else -> the tagged release
+RewriteRule ^1\.0/?$ https://github.com/Aliaia/qpm/tree/v1.0 [R=303,L]
+
+# --- Current version (https://w3id.org/qpm) ---
+
+# Tools requesting Turtle -> raw TTL file
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/Aliaia/qpm/main/qpm.ttl [R=303,L]
+
+# Tools requesting RDF/XML -> raw OWL file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/Aliaia/qpm/main/qpm.owl [R=303,L]
+
+# Browsers and everything else -> GitHub repository page
+RewriteRule ^$ https://github.com/Aliaia/qpm [R=303,L]
