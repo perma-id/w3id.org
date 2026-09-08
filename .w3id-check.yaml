@@ -51,6 +51,10 @@ rules:
   # detector is deliberately lenient until a structured format is agreed.
   meta/maintainer-github-username: warning
 
+  # A suggestion about readability, not a fault: the markup it argues against
+  # does render correctly.
+  markdown/prefer-list-over-line-breaks: notice
+
 # Rule-specific options.
 options:
   git/minimal-commits:
@@ -61,6 +65,10 @@ options:
   git/branch-not-stale:
     # Commits the branch point may lag master by before suggesting a rebase.
     maxBehind: 500
+  markdown/prefer-list-over-line-breaks:
+    # Manually broken lines in one block before a list is worth suggesting.
+    # Two keeps the rule off a single deliberate break inside a paragraph.
+    minBreaks: 2
 
 # Paths no rule examines at all. Installed dependencies are not repository
 # content; .gitignore should keep them untracked, and this makes sure a lapse

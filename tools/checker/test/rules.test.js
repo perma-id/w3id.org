@@ -9,6 +9,8 @@ import htaccessRequired from '../src/rules/files/htaccess-required.js';
 import readmeRequired from '../src/rules/files/readme-required.js';
 import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
+import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
+import preferListOverLineBreaks from '../src/rules/markdown/prefer-list-over-line-breaks.js';
 import finalNewline from '../src/rules/format/final-newline.js';
 import noCrlf from '../src/rules/format/no-crlf.js';
 import rewriteEngineRequired from '../src/rules/htaccess/rewrite-engine-required.js';
@@ -137,6 +139,123 @@ test('tree/no-case-collision flags directories differing only in case', () => {
   });
   const files = r.findings.map(f => f.file).sort();
   assert.deepEqual(files, ['ids/Widget', 'ids/widget']);
+});
+
+test('format/no-trailing-whitespace reports all of it outside Markdown', () => {
+  // Apache has no line-break idiom, so every one of these is dead weight.
+  const r = audit(noTrailingWhitespace, {
+    'ids/a/.htaccess': 'RewriteEngine on \n' +
+      'RewriteRule ^a$ https://x/ [R=302,L]  \n' +
+      'RewriteRule ^b$ https://x/ [R=302,L]   \n' +
+      '\t\n' +
+      'RewriteRule ^c$ https://x/ [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:1:warning',
+    'ids/a/.htaccess:2:warning',
+    'ids/a/.htaccess:3:warning',
+    'ids/a/.htaccess:4:warning'
+  ]);
+});
+
+test('format/no-trailing-whitespace leaves a Markdown line break alone', () => {
+  const r = audit(noTrailingWhitespace, {
+    // One space is too few to break a line, so it does nothing.
+    'ids/a/README.md': 'Contacts: \n\nsomebody\n',
+    // Two or more is the working idiom; markdown/prefer-list-over-line-breaks
+    // decides whether it should be a list, and this rule must not call it an
+    // error of hygiene.
+    'ids/b/README.md': 'Name  \nEmail: a@b.example\n',
+    'ids/c/README.md': 'Name   \nEmail: a@b.example\n',
+    // A tab never produces a break, and a blank line has nothing to break.
+    'ids/d/README.md': 'Name\t\nEmail: a@b.example\n',
+    'ids/e/README.md': 'Name\n  \nEmail: a@b.example\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/a/README.md:1:warning',
+    'ids/d/README.md:1:warning',
+    'ids/e/README.md:2:warning'
+  ]);
+  assert.match(r.findings.find(f => f.file === 'ids/a/README.md').message,
+    /needs two or more spaces/);
+});
+
+test('format/no-trailing-whitespace explains itself without .editorconfig',
+  () => {
+    const r = audit(noTrailingWhitespace, {
+      'ids/a/.htaccess': 'RewriteEngine on \n',
+      'ids/b/README.md': 'Contacts: \n'
+    });
+    for(const f of r.findings) {
+      assert.doesNotMatch(f.message, /editorconfig/i,
+        'a contributor who has never heard of the tool learns nothing from it');
+      assert.match(f.message, /Delete it/);
+    }
+  });
+
+test('markdown/prefer-list-over-line-breaks finds every marker', () => {
+  const r = audit(preferListOverLineBreaks, {
+    'ids/a/README.md': 'Name  \nEmail: a@b.example  \nGitHub: someone\n',
+    'ids/b/README.md': 'Name \\\nEmail: a@b.example \\\nGitHub: someone\n',
+    'ids/c/README.md': 'Name<br>\nEmail: a@b.example<br>\nGitHub: someone\n',
+    'ids/d/README.md': 'Name<br />\nEmail: a@b.example<br />\nGitHub: x\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/a/README.md:1:notice',
+    'ids/b/README.md:1:notice',
+    'ids/c/README.md:1:notice',
+    'ids/d/README.md:1:notice'
+  ]);
+  assert.match(r.findings.find(f => f.file === 'ids/c/README.md').message,
+    /a trailing <br>/);
+  assert.match(r.findings.find(f => f.file === 'ids/b/README.md').message,
+    /a trailing backslash/);
+});
+
+test('markdown/prefer-list-over-line-breaks needs a stack, not one break',
+  () => {
+    const r = audit(preferListOverLineBreaks, {
+      // A single break inside a paragraph is a typographic choice, and a list
+      // would be the wrong suggestion.
+      'ids/a/README.md':
+        'This sentence runs on  \nand on and on and on and on and on.\n' +
+        '\nAnother paragraph entirely, unbroken.\n',
+      // Two lines where the first breaks is a two-item stack: the last item
+      // needs no trailing marker.
+      'ids/b/README.md': 'GitHub: someone  \nHomepage: example.com\n'
+    });
+    assert.deepEqual(findingsOf(r), ['ids/b/README.md:1:notice']);
+  });
+
+test('markdown/prefer-list-over-line-breaks leaves existing lists alone', () => {
+  const r = audit(preferListOverLineBreaks, {
+    // Already a list, even though the items carry break markers.
+    'ids/a/README.md': '- Name  \n- Email: a@b.example  \n- GitHub: x\n',
+    // A list written with a bullet character rather than Markdown syntax,
+    // with indented continuation lines. Still a list.
+    'ids/b/README.md':
+      '\u25e6 First item, which wraps\n  onto a second line.  \n' +
+      '\u25e6 Second item, which also wraps\n  onto a second line.  \n',
+    // A table cell has no list equivalent.
+    'ids/c/README.md':
+      '| Who | How |\n| --- | --- |\n| Name | a@b.example<br>x@y.example |\n',
+    // Headings separate blocks rather than joining them.
+    'ids/d/README.md': '## Contact  \n\nsomebody\n'
+  });
+  assert.deepEqual(findingsOf(r), []);
+});
+
+test('markdown/prefer-list-over-line-breaks ignores fenced code', () => {
+  const r = audit(preferListOverLineBreaks, {
+    'ids/a/README.md':
+      'Run this:\n\n```sh\n' +
+      'curl https://example.com/a \\\n' +
+      '  --header "Accept: text/turtle" \\\n' +
+      '  --output out.ttl\n' +
+      '```\n'
+  });
+  assert.deepEqual(findingsOf(r), [],
+    'a line continuation in a shell example is code, not markup');
 });
 
 test('format/final-newline ignores an empty file', () => {

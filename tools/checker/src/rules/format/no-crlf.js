@@ -9,8 +9,10 @@ export default {
   messages: {
     crlf:
       'This file uses Windows (CRLF) line endings on {{count}} of {{total}} ' +
-      'lines. The repository\'s .editorconfig sets end_of_line = lf. ' +
-      'Configure your editor, or run: git config core.autocrlf input'
+      'lines. Mixed with the Unix (LF) endings used elsewhere, that makes ' +
+      'every line of the file show as changed in a diff -- including the ' +
+      'ones you did not touch. Convert it to LF endings, or run: ' +
+      'git config core.autocrlf input'
   },
   check(ctx, report) {
     const text = ctx.read(ctx.file);
