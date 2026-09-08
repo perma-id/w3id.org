@@ -67,18 +67,38 @@ test('files/only-allowed-names exempts configured infrastructure paths', () => {
   assert.deepEqual(findingsOf(check({dir: repo.dir, rules: [onlyAllowedNames]})), []);
 });
 
-test('files/readme-canonical-name accepts README.md and flags the rest', () => {
+test('files/readme-canonical-name asks for the convention, not a fix', () => {
   const r = audit(readmeCanonicalName, {
     'ids/a/README.md': OK_README,
     'ids/b/readme.md': OK_README,
-    'ids/c/README.MD': OK_README,
-    'ids/d/README': OK_README
+    'ids/c/README.MD': OK_README
   });
-  assert.deepEqual(findingsOf(r).sort(), [
-    'ids/b/readme.md:1:warning',
-    'ids/c/README.MD:1:warning',
-    'ids/d/README:1:warning'
-  ]);
+  assert.deepEqual(findingsOf(r).sort(),
+    ['ids/b/readme.md:1:warning', 'ids/c/README.MD:1:warning']);
+  // These render perfectly well; the rule must not imply they do not.
+  for(const f of r.findings) {
+    assert.match(f.message, /GitHub recognises other spellings/);
+    assert.doesNotMatch(f.message, /verbatim/);
+  }
+});
+
+test('files/readme-canonical-name spots Markdown without a .md name', () => {
+  const r = audit(readmeCanonicalName, {
+    // Opens with an ATX heading, so the extension does change what a reader
+    // sees.
+    'ids/a/README': '# thing\n\nBy @octocat\n',
+    // A heading after blank lines still counts.
+    'ids/b/readme.txt': '\n\n## Contact\n\nBy @octocat\n',
+    // Genuinely plain text: nothing is lost by the extension.
+    'ids/c/README.txt': 'Contact: someone@example.com\n'
+  });
+  const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
+
+  assert.match(message['ids/a/README'], /appear as literal punctuation/);
+  assert.match(message['ids/b/readme.txt'], /appear as literal punctuation/);
+  assert.match(message['ids/c/README.txt'],
+    /GitHub recognises other spellings/,
+    'plain text loses nothing, so it gets the convention nudge only');
 });
 
 test('files/htaccess-required accepts a parent that only groups children', () => {
