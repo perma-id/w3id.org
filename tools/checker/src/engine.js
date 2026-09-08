@@ -70,6 +70,14 @@ export function run({rules, ctx, config, auditAll = false}) {
 
     ran.push(rule);
     for(const raw of collected) {
+      const file = raw.file ?? null;
+      // A scope narrows which files are discussed. Findings that carry no
+      // file are about the commits themselves -- whether the branch needs a
+      // rebase does not stop being true because the reader asked about one
+      // directory -- so those are not scoped away.
+      if(file !== null && !ctx.inScope(file)) {
+        continue;
+      }
       const provenance = classify(raw, ctx);
       const severity = resolveSeverity({rule, provenance, config, auditAll});
       if(severity === null) {
@@ -135,6 +143,15 @@ function filesFor(rule, ctx) {
 }
 
 function candidatesFor(rule, ctx) {
+  const candidates = unscopedCandidatesFor(rule, ctx);
+  // Narrowing to the scope here is purely a saving: findings outside it are
+  // dropped anyway, and this avoids parsing thousands of files to produce
+  // them.
+  return ctx.scope === null ? candidates :
+    candidates.filter(p => ctx.inScope(p));
+}
+
+function unscopedCandidatesFor(rule, ctx) {
   if(!ctx.hasRange) {
     return ctx.tree;
   }

@@ -27,8 +27,10 @@ export default function stylish(result, {quiet = false} = {}) {
         `${f.line}${f.column === null ? '' : ':' + f.column}`;
       out.push(`  ${pc.dim(location.padStart(7))}  ${MARK[f.severity]()}  ` +
         wrap(f.message, 4));
+      // "already there" rather than "already in this file": a finding may be
+      // reported against a directory or a namespace, not only a file.
       const tag = f.provenance === 'preexisting' ? pc.dim(' (pre-existing)') :
-        f.provenance === 'touched' ? pc.dim(' (already in this file)') : '';
+        f.provenance === 'touched' ? pc.dim(' (already there)') : '';
       out.push(`  ${' '.repeat(7)}  ${pc.dim(f.ruleId)}${tag}`);
       out.push(`  ${' '.repeat(7)}  ${pc.dim(f.docsUrl)}`);
     }
@@ -41,10 +43,8 @@ export default function stylish(result, {quiet = false} = {}) {
 
 /** The "what was checked" line every run prints, clean or not. */
 export function renderSummary(summary, {quiet = false} = {}) {
-  const {counts, rulesRun, namespaces, filesChecked, mode, critical} = summary;
-  const scope = mode === 'range' ?
-    `${filesChecked} changed file${filesChecked === 1 ? '' : 's'}` :
-    `${namespaces} namespaces`;
+  const {counts, rulesRun, critical} = summary;
+  const scope = describeScope(summary);
 
   const parts = [];
   for(const severity of ['error', 'warning', 'notice']) {
@@ -65,10 +65,37 @@ export function renderSummary(summary, {quiet = false} = {}) {
   }
   if(critical > 0) {
     lines.push(pc.dim(
-      `${critical} finding${critical === 1 ? '' : 's'} affect whether an ` +
-      'identifier resolves at all; run with --triage for the full list.'));
+      `${critical} finding${critical === 1 ? '' : 's'} ` +
+      `${critical === 1 ? 'affects' : 'affect'} whether an identifier ` +
+      'resolves at all; run with --triage for the full list.'));
   }
   return lines.join('\n');
+}
+
+/**
+ * What this run looked at, for the opening line of every report.
+ *
+ * A clean run has to be informative rather than merely silent, so this names
+ * the scope, the file count, and how much of it is not committed yet.
+ */
+export function describeScope(summary) {
+  const {mode, filesChecked, namespaces, scope, uncommitted} = summary;
+  const dirty = uncommitted > 0 ? `, ${uncommitted} not yet committed` : '';
+  const plural = filesChecked === 1 ? '' : 's';
+  const kind = mode === 'range' ?
+    `changed file${plural}` : `file${plural}`;
+
+  // Naming the paths first reads correctly whether the scope is one
+  // directory, several, or a single file.
+  if(scope !== null && scope !== undefined) {
+    return `${scope.join(', ')} (${filesChecked} ${kind}${dirty})`;
+  }
+  if(mode === 'range') {
+    return `${filesChecked} ${kind}${dirty}`;
+  }
+  // An unscoped whole-tree run counts namespaces, the more meaningful number
+  // at that size.
+  return `${namespaces} namespaces${dirty}`;
 }
 
 // Keep long messages readable without depending on a wrapping library.

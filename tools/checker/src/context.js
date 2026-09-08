@@ -18,14 +18,37 @@ export class Context {
    * @param {object} opts.config - resolved configuration.
    * @param {string|null} opts.base - base commit, or null for a whole-tree run.
    * @param {string|null} opts.head - head commit.
+   * @param {string[]|null} opts.scope - repository-relative path prefixes to
+   *   report on, or null for the whole repository.
+   * @param {boolean} opts.includeWorkingTree - whether uncommitted edits and
+   *   untracked files count as part of the change. False gives a reproducible
+   *   audit of committed content.
    */
-  constructor({root, config, base = null, head = null}) {
+  constructor({root, config, base = null, head = null, scope = null,
+    includeWorkingTree = true}) {
     this.root = root;
     this.config = config;
     this.base = base;
     this.head = head;
+    this.scope = scope;
+    this.includeWorkingTree = includeWorkingTree;
     this.idsDir = config.idsDir;
     this._cache = new Map();
+  }
+
+  /**
+   * Whether a path is one this run reports on.
+   *
+   * Rules are deliberately not restricted to the scope -- they need the whole
+   * tree to answer questions like "does this name collide with an existing
+   * one" -- so the scope is applied to their findings instead.
+   */
+  inScope(relPath) {
+    if(this.scope === null) {
+      return true;
+    }
+    return this.scope.some(
+      prefix => relPath === prefix || relPath.startsWith(prefix + '/'));
   }
 
   _memo(key, fn) {
@@ -36,16 +59,55 @@ export class Context {
   }
 
   /**
-   * Every tracked path in the repository, less the ignored ones.
+   * Every path in the repository, less the ignored ones.
    *
+   * Tracked files, plus untracked ones and minus deleted ones when the working
+   * tree counts -- so a namespace that exists only on disk is still checked.
    * Filtering here rather than in each rule means a rule cannot forget.
    */
   get tree() {
     return this._memo('tree', () => {
       const ignore = this.config.ignorePaths ?? [];
-      const files = git.listFiles(this.root);
+      let files = git.listFiles(this.root);
+
+      if(this.includeWorkingTree) {
+        const deleted = new Set();
+        const added = [];
+        for(const change of this.workingTreeChanges) {
+          if(change.status === 'D') {
+            deleted.add(change.path);
+          } else {
+            added.push(change.path);
+          }
+        }
+        files = [...new Set([...files, ...added])]
+          .filter(p => !deleted.has(p))
+          .sort();
+      }
+
       return ignore.length === 0 ? files :
         files.filter(p => !matchesAny(p, ignore));
+    });
+  }
+
+  /** Paths differing between HEAD and the working tree. */
+  get workingTreeChanges() {
+    return this._memo('workingTreeChanges', () => this.includeWorkingTree ?
+      git.workingTreeStatus(this.root) : []);
+  }
+
+  /**
+   * Paths carrying uncommitted edits, for the "what was checked" line.
+   *
+   * Deletions are excluded: there is no file left to report against.
+   */
+  get uncommittedPaths() {
+    return this._memo('uncommittedPaths', () => {
+      const ignore = this.config.ignorePaths ?? [];
+      return new Set(this.workingTreeChanges
+        .filter(c => c.status !== 'D')
+        .map(c => c.path)
+        .filter(p => !matchesAny(p, ignore)));
     });
   }
 
@@ -124,10 +186,29 @@ export class Context {
     return this.base !== null && this.head !== null;
   }
 
-  /** Changed file entries for the range, or an empty list without one. */
+  /**
+   * Everything this run considers changed: the commit range, the working tree,
+   * or both.
+   */
   get changes() {
-    return this._memo('changes', () => this.hasRange ?
-      git.changedFiles(this.base, this.head, this.root) : []);
+    return this._memo('changes', () => {
+      const committed = this.hasRange ?
+        git.changedFiles(this.base, this.head, this.root) : [];
+      if(!this.includeWorkingTree) {
+        return committed;
+      }
+      const byPath = new Map(committed.map(c => [c.path, c]));
+      for(const change of this.workingTreeChanges) {
+        const committedEntry = byPath.get(change.path);
+        // A file this change created stays "added" even if it was edited
+        // again afterwards; only a deletion overrides that.
+        if(committedEntry?.status === 'A' && change.status !== 'D') {
+          continue;
+        }
+        byPath.set(change.path, change);
+      }
+      return [...byPath.values()];
+    });
   }
 
   /** Paths present at head that the range added, modified or renamed. */
@@ -155,10 +236,34 @@ export class Context {
     });
   }
 
-  /** Map of path -> Set of line numbers the range added or modified. */
+  /**
+   * Map of path -> Set of line numbers this change added or modified.
+   *
+   * Unions the commit range with the working tree, so a line edited but not
+   * yet committed is one the author is answerable for.
+   */
   get addedLines() {
-    return this._memo('addedLines', () => this.hasRange ?
-      git.addedLines(this.base, this.head, this.root) : new Map());
+    return this._memo('addedLines', () => {
+      const merged = new Map();
+      const absorb = source => {
+        for(const [path, lines] of source) {
+          if(!merged.has(path)) {
+            merged.set(path, new Set());
+          }
+          const target = merged.get(path);
+          for(const line of lines) {
+            target.add(line);
+          }
+        }
+      };
+      if(this.hasRange) {
+        absorb(git.addedLines(this.base, this.head, this.root));
+      }
+      if(this.includeWorkingTree) {
+        absorb(git.workingTreeAddedLines(this.root));
+      }
+      return merged;
+    });
   }
 
   /** Paths the range created outright. */

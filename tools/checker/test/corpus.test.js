@@ -55,7 +55,12 @@ const BOUNDS = {
 
 describe('corpus', {skip: enabled ? false : 'set W3ID_CHECK_CORPUS=1 to run'},
   () => {
-    const result = enabled ? check({dir: root, rules}) : {findings: [], errors: []};
+    // `includeWorkingTree: false` keeps these counts reproducible: they are
+    // bounds on committed content, and a maintainer running this with edits in
+    // progress must not see them move.
+    const result = enabled ?
+      check({dir: root, rules, includeWorkingTree: false}) :
+      {findings: [], errors: []};
     const counts = {};
     for(const f of result.findings) {
       counts[f.ruleId] = (counts[f.ruleId] ?? 0) + 1;

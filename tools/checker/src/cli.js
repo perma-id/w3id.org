@@ -5,6 +5,7 @@ import * as git from './git.js';
 import {loadConfig} from './config.js';
 import {Context} from './context.js';
 import {rules as allRules, ruleIds, ruleTags} from './rules/index.js';
+import {resolveScope, ScopeError} from './paths.js';
 import {selectRules, run} from './engine.js';
 import {buildStats, renderStats, buildTriage, renderTriage} from './report.js';
 import stylish, {renderSummary} from './formatters/stylish.js';
@@ -26,6 +27,7 @@ const OPTIONS = {
   head: {type: 'string'},
   all: {type: 'boolean', default: false},
   triage: {type: 'boolean', default: false},
+  'committed-only': {type: 'boolean', default: false},
   stats: {type: 'boolean', default: false},
   format: {type: 'string', default: 'stylish'},
   output: {type: 'string'},
@@ -41,8 +43,10 @@ const OPTIONS = {
 export async function main(argv, {stdout = process.stdout,
   stderr = process.stderr, cwd = process.cwd()} = {}) {
   let values;
+  let positionals;
   try {
-    ({values} = parseArgs({args: argv, options: OPTIONS, allowPositionals: false}));
+    ({values, positionals} =
+      parseArgs({args: argv, options: OPTIONS, allowPositionals: true}));
   } catch(e) {
     stderr.write(`w3id-check: ${e.message}\n\nTry --help.\n`);
     return EXIT.usage;
@@ -71,17 +75,34 @@ export async function main(argv, {stdout = process.stdout,
     return EXIT.usage;
   }
 
+  let scope;
+  try {
+    scope = resolveScope(positionals, {root, cwd});
+  } catch(e) {
+    if(!(e instanceof ScopeError)) {
+      throw e;
+    }
+    stderr.write(`w3id-check: ${e.message}\n`);
+    return EXIT.usage;
+  }
+
   // `--triage` and `--stats` are whole-tree reports by nature.
   const auditAll = values.all || values.triage;
   let range;
   try {
-    range = resolveRange(values, root, auditAll);
+    range = resolveRange(values, root, auditAll, positionals.length > 0);
   } catch(e) {
     stderr.write(`w3id-check: ${e.message}\n`);
     return EXIT.usage;
   }
 
-  const ctx = new Context({root, config, ...range});
+  const ctx = new Context({
+    root,
+    config,
+    ...range,
+    scope,
+    includeWorkingTree: !values['committed-only']
+  });
   ctx.allRuleIds = ruleIds;
 
   let selected;
@@ -184,6 +205,8 @@ function buildSummary({result, ctx, range, selected}) {
   for(const f of result.findings) {
     counts[f.severity] += 1;
   }
+  const considered = ctx.hasRange ? [...ctx.changedPaths] : ctx.tree;
+  const inScope = considered.filter(p => ctx.inScope(p));
   return {
     mode: range.base === null ? 'all' : 'range',
     base: range.base,
@@ -192,7 +215,9 @@ function buildSummary({result, ctx, range, selected}) {
     critical: result.findings.filter(f => f.critical).length,
     rulesRun: result.ran.length,
     ruleIds: result.ran.map(r => r.id),
-    filesChecked: ctx.hasRange ? ctx.changedPaths.size : ctx.tree.length,
+    scope: ctx.scope,
+    filesChecked: inScope.length,
+    uncommitted: inScope.filter(p => ctx.uncommittedPaths.has(p)).length,
     namespaces: countNamespaces(ctx),
     failedRules: result.errors.map(e => e.ruleId)
   };
@@ -217,12 +242,20 @@ function countNamespaces(ctx) {
  * default branch, which is what a contributor wants locally and what CI wants
  * for a pull request.
  */
-function resolveRange(values, root, auditAll) {
+function resolveRange(values, root, auditAll, hasPaths) {
   if(auditAll) {
     if(values.base !== undefined || values.head !== undefined) {
       throw new Error('--base and --head cannot be combined with --all or ' +
         '--triage.');
     }
+    return {base: null, head: null};
+  }
+
+  // Paths on their own mean "check these as they stand", not "compare them
+  // with master": work in progress usually has nothing committed yet, so a
+  // comparison would have nothing to show. Passing --base asks for the
+  // comparison explicitly, and then the paths only narrow it.
+  if(hasPaths && values.base === undefined && values.head === undefined) {
     return {base: null, head: null};
   }
 
@@ -285,18 +318,25 @@ function usage() {
   return `w3id-check -- check a w3id.org contribution against the repository rules
 
 Usage:
-  w3id-check [options]
+  w3id-check [options] [path...]
 
-By default the tool compares your branch against the upstream default branch
-and reports only what your change is answerable for. Problems that were
-already in the files you touched are shown as information, and the rest of the
-repository's backlog is not shown at all.
+By default the tool compares your branch against the upstream default branch,
+counts anything you have not committed yet as part of that change, and reports
+only what the change is answerable for. Problems that were already in the
+files you touched are shown as information, and the rest of the repository's
+backlog is not shown at all.
+
+Give one or more paths to look at just those. On their own, paths mean "check
+these as they stand on disk", which is what you want for work in progress;
+combined with --base or --all they narrow that run instead.
 
 Scope:
   --base <ref>          Commit to compare against (default: origin/master).
   --head <ref>          Commit to check (default: HEAD).
   --all                 Check the whole tree at each rule's own severity,
                         ignoring the provenance policy. For maintainers.
+  --committed-only      Ignore uncommitted edits and untracked files. Use for
+                        a reproducible audit.
 
 Reports (these never fail the run):
   --stats               Counts by severity, provenance, rule and namespace.
@@ -324,10 +364,13 @@ Exit status:
   3  the checker itself failed
 
 Examples:
-  w3id-check                        check your branch
+  w3id-check                        check your branch, committed or not
+  w3id-check ids/my-project         check one directory as it stands
+  w3id-check ids/foo ids/bar        check several
   w3id-check --quiet                only what blocks the pull request
   w3id-check --all --stats          size of the repository's backlog
   w3id-check --triage               what should be fixed out of band
+  w3id-check --triage ids/my-project  ... in one namespace
   w3id-check --rule htaccess/https-target --all
 `;
 }

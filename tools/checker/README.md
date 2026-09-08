@@ -8,8 +8,22 @@ cd tools/checker && npm ci      # once
 node tools/checker/bin/w3id-check.js
 ```
 
-With no arguments it compares your branch against `origin/master` and reports
-only what your change is answerable for.
+With no arguments it compares your branch against `origin/master`, counts
+anything you have not committed yet as part of that change, and reports only
+what the change is answerable for.
+
+Give it paths to look at just those:
+
+```sh
+node tools/checker/bin/w3id-check.js ids/my-project
+node tools/checker/bin/w3id-check.js ids/foo ids/bar
+```
+
+On their own, paths mean "check these as they stand on disk" rather than
+"compare them with master" — work in progress usually has nothing committed to
+compare against yet. Paths resolve relative to where you are, so
+`cd ids && w3id-check my-project` works. A path that does not exist is an
+error, not an empty run: a typo must never come back as success.
 
 ## Why it works the way it does
 
@@ -29,6 +43,22 @@ already: 3,700 lines with trailing whitespace, 1,600 redirects still on plain
 `http`, 25 identifiers whose redirects do not work at all. Reporting those to
 somebody adding one directory would be useless noise. So every finding is
 classified against the diff, and a policy decides what survives.
+
+## What counts as your change
+
+Uncommitted edits and untracked files count. A contributor halfway through a
+namespace, with nothing committed, is the ordinary case — being told "no
+problems found" because the checks only looked at commits was the single most
+misleading thing this tool did.
+
+So the working tree is included by default: untracked files are part of
+`ctx.tree`, and lines edited on disk are `introduced` the same as committed
+ones. Untracked files come from `git status`, so `.gitignore` still applies and
+`node_modules/` stays out.
+
+`--committed-only` turns that off, for a reproducible audit of committed
+content. `test/corpus.test.js` uses it, so that a maintainer running the ratchet
+with edits in progress does not see the bounds move.
 
 ## Provenance
 
@@ -51,19 +81,28 @@ them. `--triage` is what surfaces those, to maintainers.
 ## Commands
 
 ```sh
-w3id-check                          # your branch, default policy
+w3id-check                          # your branch, committed or not
 w3id-check --quiet                  # only what blocks the pull request
 w3id-check --base origin/main       # compare against a different branch
+w3id-check --committed-only         # ignore what is not committed yet
+
+w3id-check ids/my-project           # one directory, as it stands
+w3id-check ids/foo ids/bar          # several
+w3id-check ids/foo/.htaccess        # a single file
 
 w3id-check --all                    # whole tree, every rule at its own severity
 w3id-check --all --stats            # how big the backlog is
 w3id-check --triage                 # what should be fixed out of band, and by whom
+w3id-check --triage ids/my-project  # ... in one namespace
 
 w3id-check --list-rules
 w3id-check --rule htaccess/https-target --all
 w3id-check --tag security --all
 w3id-check --format markdown --output report.md
 ```
+
+Paths are a filter, not a mode: they narrow whatever the run would otherwise
+do, so they combine with `--all`, `--triage` and `--base`.
 
 `--stats` and `--triage` always exit 0; they are reports, not gates. Otherwise
 exit status is 0 for no errors, 1 for at least one error, 2 for bad usage and 3
@@ -107,10 +146,24 @@ Scope decides what the rule is handed and what it costs:
   cross-file: collisions, missing files, per-namespace metadata.
 - `git` — called once, for rules about the commits rather than the content.
 
+**A path scope does not narrow what a rule sees.** It is applied to findings
+instead, in `engine.run()`. `tree/no-case-collision` has to compare a new
+`ids/Foo` against the whole tree to know it collides with an existing
+`ids/foo`, and that is exactly the run where somebody has scoped to `ids/Foo`.
+For `scope: 'file'` rules the candidate list is narrowed too, but only as a
+saving — the findings would have been dropped anyway. Findings that carry no
+`file` (the `git` rules) are never scoped away: whether the branch needs a
+rebase does not stop being true because the reader asked about one directory.
+
 `ctx` provides `tree`, `idPaths`, `read(path)`, `htaccess(path)` (parsed and
 cached), `namespaceOf(path)`, `changes`, `changedPaths`, `changedNamespaces`,
-`addedLines`, `commits`, `behindUpstream` and `options` (this rule's entry
-under `options:` in the config). Everything is computed at most once per run.
+`addedLines`, `commits`, `behindUpstream`, `uncommittedPaths`, `scope`,
+`inScope(path)` and `options` (this rule's entry under `options:` in the
+config). Everything is computed at most once per run.
+
+A rule does not normally need `scope` or `inScope` — the engine applies them —
+but they are there for a rule that wants to skip work it knows will be
+discarded.
 
 Write messages for somebody who has never seen this repository: say what is
 wrong, what breaks because of it, and the command or edit that fixes it.
