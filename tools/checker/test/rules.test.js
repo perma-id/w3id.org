@@ -11,13 +11,22 @@ import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
 import preferListOverLineBreaks from '../src/rules/markdown/prefer-list-over-line-breaks.js';
+import noFlagWhitespace from '../src/rules/htaccess/no-flag-whitespace.js';
+import noBom from '../src/rules/format/no-bom.js';
+import avoidPermanentRedirect from '../src/rules/htaccess/avoid-permanent-redirect.js';
+import githubRawTarget from '../src/rules/htaccess/github-raw-target.js';
+import noDoubleSlash from '../src/rules/htaccess/no-double-slash.js';
+import noGreedyCapture from '../src/rules/htaccess/no-greedy-capture.js';
+import anchorPatterns from '../src/rules/htaccess/anchor-patterns.js';
+import no406Fallback from '../src/rules/htaccess/no-406-fallback.js';
+import escapeLiteralDots from '../src/rules/htaccess/escape-literal-dots.js';
 import finalNewline from '../src/rules/format/final-newline.js';
 import noCrlf from '../src/rules/format/no-crlf.js';
 import rewriteEngineRequired from '../src/rules/htaccess/rewrite-engine-required.js';
 import validRewriteFlags from '../src/rules/htaccess/valid-rewrite-flags.js';
 import uppercaseRewriteFlags from '../src/rules/htaccess/uppercase-rewrite-flags.js';
 import noInlineComment from '../src/rules/htaccess/no-inline-comment.js';
-import patternNoLeadingSlash from '../src/rules/htaccess/pattern-no-leading-slash.js';
+import patternRelativeToDir from '../src/rules/htaccess/pattern-relative-to-dir.js';
 import httpsTarget from '../src/rules/htaccess/https-target.js';
 import noOpenRedirect from '../src/rules/htaccess/no-open-redirect.js';
 import validCorsHeader from '../src/rules/htaccess/valid-cors-header.js';
@@ -67,6 +76,197 @@ test('files/only-allowed-names exempts configured infrastructure paths', () => {
   repo.write('ids/a/.htaccess', OK_HTACCESS);
   repo.commit('fixture');
   assert.deepEqual(findingsOf(check({dir: repo.dir, rules: [onlyAllowedNames]})), []);
+});
+
+test('htaccess/no-flag-whitespace ignores brackets that are not flag lists', () => {
+  const r = audit(noFlagWhitespace, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      '# Options [+ on] and [- off] are discussed in [Some Paper, 2019]\n' +
+      'RewriteRule ^[a-z ]+$ https://x/ [R=302,L]\n' +
+      'RewriteRule ^b$ https://x/ [R=302,L]\n' +
+      'RewriteRule ^c$ https://x/ [R=302, L]\n' +
+      'RewriteCond %{HTTP_ACCEPT} text/html [NC ,OR]\n' +
+      'RewriteRule ^d$ https://x/ [R=302,L]\n'
+  });
+  // Only the two genuine flag lists, not the prose or the character class.
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:5:error', 'ids/a/.htaccess:6:error'
+  ]);
+  assert.match(r.findings[0].message, /\[R=302,L\]/);
+});
+
+test('format/no-bom finds a byte order mark', () => {
+  const r = audit(noBom, {
+    'ids/a/.htaccess': '﻿RewriteEngine on\n',
+    'ids/b/README.md': '﻿# thing\n',
+    'ids/c/.htaccess': 'RewriteEngine on\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(),
+    ['ids/a/.htaccess:1:error', 'ids/b/README.md:1:error']);
+  assert.match(r.findings.find(f => f.file === 'ids/a/.htaccess').message,
+    /returns 500/);
+});
+
+test('htaccess/avoid-permanent-redirect covers both directive families', () => {
+  const r = audit(avoidPermanentRedirect, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://x/ [R=301,L]\n' +
+      'RewriteRule ^b$ https://x/ [R=308,L]\n' +
+      'RewriteRule ^c$ https://x/ [R=302,L]\n' +
+      'RewriteRule ^d$ https://x/ [R=303,L]\n',
+    'ids/b/.htaccess': 'Redirect 301 /b https://x/\n',
+    'ids/c/.htaccess': 'Redirect permanent /c https://x/\n',
+    'ids/d/.htaccess': 'Redirect 302 /d https://x/\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/a/.htaccess:2:warning',
+    'ids/a/.htaccess:3:warning',
+    'ids/b/.htaccess:1:warning',
+    'ids/c/.htaccess:1:warning'
+  ]);
+});
+
+test('htaccess/github-raw-target separates breakage from redundancy', () => {
+  const r = audit(githubRawTarget, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://github.com/u/r/blob/main/v.ttl [R=302,L]\n' +
+      'RewriteRule ^b$ https://raw.githubusercontent.com/u/r/refs/heads/main/v.ttl [R=302,L]\n' +
+      // A branch target is acceptable when it is what you want; not flagged.
+      'RewriteRule ^c$ https://raw.githubusercontent.com/u/r/main/v.ttl [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r),
+    ['ids/a/.htaccess:2:warning', 'ids/a/.htaccess:3:warning']);
+  const blob = r.findings[0];
+  assert.match(blob.message, /HTML page/);
+  assert.match(blob.message, /raw\.githubusercontent\.com\/u\/r\/main\/v\.ttl/);
+  // Redundant, not broken -- the wording matters.
+  assert.match(r.findings[1].message, /It works, but/);
+});
+
+test('htaccess/no-double-slash ignores the scheme separator', () => {
+  const r = audit(noDoubleSlash, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://example.com/data//v.ttl [R=302,L]\n' +
+      'RewriteRule ^b$ https://example.com/data/v.ttl [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:2:warning']);
+});
+
+test('htaccess/no-greedy-capture reports only the swallowing shape', () => {
+  const r = audit(noGreedyCapture, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^(.+)/?$ https://x/$1/v.ttl [R=303,L]\n' +
+      'RewriteRule ^(.*)/?$ https://x/$1/v.ttl [R=303,L]\n' +
+      // Passing the whole path through is correct and must not be flagged.
+      'RewriteRule ^(.*)$ https://x/$1 [R=302,L]\n' +
+      'RewriteRule ^([^/]+)/?$ https://x/$1/v.ttl [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r),
+    ['ids/a/.htaccess:2:warning', 'ids/a/.htaccess:3:warning']);
+});
+
+test('htaccess/anchor-patterns wants the trailing group optional', () => {
+  const r = audit(anchorPatterns, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^vocab(/.*)$ https://x/vocab$1 [R=303,L]\n' +
+      'RewriteRule ^other(/.*)?$ https://x/other$1 [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:2:warning']);
+  assert.match(r.findings[0].message, /\^vocab\(\/\.\*\)\?\$/);
+});
+
+test('htaccess/no-406-fallback asks rather than accuses', () => {
+  const r = audit(no406Fallback, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^$ https://x/406.html [R=406,L]\n' +
+      'RewriteRule ^b$ https://x/ [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:2:warning']);
+  assert.match(r.findings[0].message, /If that is deliberate, keep it/);
+});
+
+test('htaccess/no-406-fallback singles out the catch-all shape', () => {
+  const r = audit(no406Fallback, {
+    // The copied template: `.+` matches any Accept header a client sends, so
+    // the 406 behind it fires for essentially everything.
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteCond %{HTTP_ACCEPT} text/turtle\n' +
+      'RewriteRule ^$ https://x/v.ttl [R=303,L]\n' +
+      'RewriteCond %{HTTP_ACCEPT} .+\n' +
+      'RewriteRule ^$ - [R=406,L]\n',
+    // A 406 behind a specific condition is a narrower, considered choice.
+    'ids/b/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteCond %{HTTP_ACCEPT} application/pdf\n' +
+      'RewriteRule ^$ - [R=406,L]\n'
+  });
+  const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
+  assert.match(message['ids/a/.htaccess'], /matches any Accept header at all/);
+  assert.match(message['ids/b/.htaccess'], /If that is deliberate, keep it/);
+  // Neither is an error: answering 406 is a choice, not a fault.
+  assert.deepEqual([...new Set(r.findings.map(f => f.severity))], ['warning']);
+});
+
+test('htaccess/escape-literal-dots leaves deliberate wildcards alone', () => {
+  const r = audit(escapeLiteralDots, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^vocab.ttl$ https://x/vocab.ttl [R=303,L]\n' +
+      // Wildcards followed by a quantifier: not literal dots.
+      'RewriteRule ^(.*)$ https://x/$1 [R=302,L]\n' +
+      'RewriteRule ^(.+)$ https://x/$1 [R=302,L]\n' +
+      'RewriteRule ^a.?$ https://x/ [R=302,L]\n' +
+      // Already escaped.
+      'RewriteRule ^other\\.ttl$ https://x/other.ttl [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:2:warning']);
+  assert.match(r.findings[0].message, /\^vocab\\\.ttl\$/);
+});
+
+test('htaccess/pattern-relative-to-dir catches a repeated directory name', () => {
+  const r = audit(patternRelativeToDir, {
+    'ids/my-project/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^my-project/vocab$ https://x/v [R=303,L]\n' +
+      'RewriteRule ^vocab$ https://x/v [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/my-project/.htaccess:2:error']);
+  assert.match(r.findings[0].message, /repeats this directory/);
+});
+
+test('htaccess/pattern-relative-to-dir spares a filename that shares the name',
+  () => {
+    // ids/aio/ holding ^aio\.owl$ is a filename, not a repeated prefix.
+    const r = audit(patternRelativeToDir, {
+      'ids/aio/.htaccess':
+        'RewriteEngine on\nRewriteRule ^aio\\.owl$ https://x/aio.owl [R=303,L]\n'
+    });
+    assert.deepEqual(findingsOf(r), []);
+  });
+
+test('files/only-allowed-names names the misnamed .htaccess case', () => {
+  const r = audit(onlyAllowedNames, {
+    'ids/a/.htaccess': OK_HTACCESS,
+    'ids/b/htaccess.txt': OK_HTACCESS,
+    'ids/c/.htaccess.txt': OK_HTACCESS,
+    'ids/d/my-project.htaccess': OK_HTACCESS,
+    'ids/e/notes.txt': 'notes\n'
+  });
+  const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
+  for(const f of ['ids/b/htaccess.txt', 'ids/c/.htaccess.txt',
+    'ids/d/my-project.htaccess']) {
+    assert.match(message[f], /meant to be \.htaccess/, f);
+    assert.match(message[f], /web editor refuses a filename/, f);
+  }
+  assert.match(message['ids/e/notes.txt'], /is not allowed here/);
 });
 
 test('files/readme-canonical-name asks for the convention, not a fix', () => {
@@ -325,8 +525,8 @@ test('htaccess/no-inline-comment ignores # inside patterns and URLs', () => {
   assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:4:error']);
 });
 
-test('htaccess/pattern-no-leading-slash allows the optional-slash idiom', () => {
-  const r = audit(patternNoLeadingSlash, {
+test('htaccess/pattern-relative-to-dir allows the optional-slash idiom', () => {
+  const r = audit(patternRelativeToDir, {
     'ids/a/.htaccess':
       'RewriteEngine on\n' +
       'RewriteRule ^/?(.*)$ https://x/$1 [R=302,L]\n' +
