@@ -1,0 +1,102 @@
+---
+id: tree/only-own-identifier
+title: Keep a change to one identifier
+severity: warning
+status: enforced
+applies-to: "**"
+---
+
+# `tree/only-own-identifier`
+
+**Severity:** warning · **Status:** enforced · **Applies to:** repository-wide
+
+## What
+
+A change that adds or updates an identifier should touch only that
+identifier's directory under `ids/`.
+
+Three things are reported, none of them fatal:
+
+- editing **shared infrastructure** — `ids/.htaccess`, `ids/index.html`,
+  `ids/.assets/`, `ids/.utils/` — alongside an identifier;
+- touching **more than one identifier** in the same change;
+- touching files **outside `ids/`**, which is only a notice.
+
+## Why
+
+Three failure modes, all of which have happened here.
+
+**Overwriting the repository README.** A contributor uploaded their project's
+README over the repository's own, replacing 170 lines of service documentation
+with their project description. It had to be reverted. This is easy to do by
+accident with GitHub's "Add files via upload" and easy to miss in review.
+
+**Changing someone else's identifier.** Another project's `.htaccess` was
+replaced wholesale with an unrelated redirect. From the diff alone that is
+indistinguishable from a namespace hijack, and the affected maintainer had no
+warning.
+
+**Editing shared infrastructure.** `ids/.htaccess` applies to the entire
+service and `ids/index.html` is the public homepage. A change there affects
+every identifier and belongs in its own pull request, reviewed on its own
+terms.
+
+This rule reports rather than blocks, because all three are sometimes
+deliberate: maintainers edit the rest of the repository as a matter of course,
+and a documentation fix alongside a redirect is reasonable. The case worth
+catching is the unintentional one, and the answer to that is visibility.
+
+## Wrong
+
+```
+ README.md                        | 170 +++-----------------
+ ids/my-project/.htaccess         |   8 ++
+```
+
+```
+ ids/other-project/.htaccess      |  12 +--
+ ids/my-project/.htaccess         |   8 ++
+```
+
+## Right
+
+```
+ ids/my-project/.htaccess         |   8 ++
+ ids/my-project/README.md         |  14 ++
+```
+
+## How to fix
+
+Check what your change actually touches before opening the pull request:
+
+```sh
+git diff --stat origin/master
+```
+
+Everything listed should be under your own directory. If something else
+appears, revert it:
+
+```sh
+git checkout origin/master -- README.md
+```
+
+**If you genuinely need to change a directory you do not maintain**, that is
+allowed — open it as its own pull request, say why, and tag one of the
+maintainers listed in that directory to approve it.
+
+**If you want to change the service documentation**, edit `docs/` and say so.
+That is a separate pull request too.
+
+## Checked by
+
+`tree/only-own-identifier`, in this repository's checker. It needs a range to
+compare, so it runs on the default invocation rather than on a path:
+
+```sh
+node tools/checker/bin/w3id-check.js --base origin/master
+```
+
+## See also
+
+- [`tree/no-case-collision`](./no-case-collision)
+- [`git/minimal-commits`](../git/minimal-commits)

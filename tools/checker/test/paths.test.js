@@ -16,6 +16,7 @@ import rewriteEngineRequired from '../src/rules/htaccess/rewrite-engine-required
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import readmeRequired from '../src/rules/files/readme-required.js';
+import onlyOwnIdentifier from '../src/rules/tree/only-own-identifier.js';
 
 const BROKEN = 'RewriteRule ^$ https://example.com/ [R=302,L]\n';
 const OK = 'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n';
@@ -310,4 +311,73 @@ test('all rules survive a scoped working-tree run', () => {
   const strays = result.findings
     .filter(f => f.file !== null && !f.file.startsWith('ids/wip'));
   assert.deepEqual(strays.map(f => `${f.ruleId} ${f.file}`), []);
+});
+
+// tree/only-own-identifier reports rather than gates, so what matters is which
+// of its three messages fires -- and that ordinary work does not trip it.
+function identifierChange(build) {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/existing/.htaccess', OK);
+  repo.write('ids/.htaccess', '# global rewrites\nRewriteEngine on\n');
+  repo.write('ids/index.html', '<p>home</p>\n');
+  repo.write('README.md', '# repo\n');
+  const base = repo.commit('base');
+  repo.branch('feature');
+  build(repo);
+  const head = repo.commit('change');
+  return check({
+    dir: repo.dir, rules: [onlyOwnIdentifier], base, head, auditAll: false
+  });
+}
+
+test('only-own-identifier is silent on a self-contained contribution', () => {
+  const r = identifierChange(repo => repo.write('ids/mine/.htaccess', OK));
+  assert.deepEqual(r.findings, []);
+});
+
+test('only-own-identifier warns on shared infrastructure', () => {
+  for(const [what, file, contents] of [
+    ['the global rewrites', 'ids/.htaccess', '# global\nRewriteEngine on\nRewriteRule ^a$ /b\n'],
+    ['the homepage', 'ids/index.html', '<p>home</p>\n<p>more</p>\n']
+  ]) {
+    const r = identifierChange(repo => {
+      repo.write('ids/mine/.htaccess', OK);
+      repo.write(file, contents);
+    });
+    assert.equal(r.findings.length, 1, what);
+    assert.equal(r.findings[0].severity, 'warning', what);
+    assert.match(r.findings[0].message, /shared by every identifier/, what);
+    assert.match(r.findings[0].message, new RegExp(file.replace('.', '\\.')));
+  }
+});
+
+test('only-own-identifier flags a second identifier', () => {
+  const r = identifierChange(repo => {
+    repo.write('ids/mine/.htaccess', OK);
+    repo.write('ids/existing/.htaccess', OK + 'RewriteRule ^v1$ https://x/ [R=302,L]\n');
+  });
+  assert.equal(r.findings.length, 1);
+  assert.equal(r.findings[0].severity, 'warning');
+  assert.match(r.findings[0].message, /touches 2 identifiers/);
+});
+
+test('only-own-identifier only notices work outside ids/', () => {
+  const r = identifierChange(repo => {
+    repo.write('ids/mine/.htaccess', OK);
+    repo.write('docs/guides/thing.md', '# thing\n');
+  });
+  assert.equal(r.findings.length, 1);
+  assert.equal(r.findings[0].severity, 'notice',
+    'a docs fix alongside a redirect is often deliberate');
+  assert.match(r.findings[0].message, /docs\/guides\/thing\.md/);
+});
+
+test('only-own-identifier ignores work that touches no identifier', () => {
+  const r = identifierChange(repo => {
+    repo.write('tools/checker/src/thing.js', 'export default {};\n');
+    repo.write('README.md', '# repo\n\nedited\n');
+  });
+  assert.deepEqual(r.findings, [],
+    'tooling and docs work is not what this rule is looking at');
 });

@@ -79,7 +79,15 @@ export function run({rules, ctx, config, auditAll = false}) {
         continue;
       }
       const provenance = classify(raw, ctx);
-      const severity = resolveSeverity({rule, provenance, config, auditAll});
+      // A rule may declare a different severity for one of its messages, when
+      // it reports on more than one kind of thing. Configuration and the
+      // provenance policy still apply on top, so this only sets the starting
+      // point.
+      const declared = raw.severity === undefined ?
+        rule : {...rule, severity: raw.severity};
+      const severity = resolveSeverity({
+        rule: declared, provenance, config, auditAll
+      });
       if(severity === null) {
         continue;
       }
