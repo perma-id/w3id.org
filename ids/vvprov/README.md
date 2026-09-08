@@ -12,4 +12,4 @@ of research software).
 
 Repository: https://github.com/AnatoDu/vvprov
 
-Maintainer: Anatoliy A. Durkin, Pitirim Sorokin Syktyvkar State University — durkinaa@syktsu.ru
+Maintainer: Anatoliy A. Durkin, Pitirim Sorokin Syktyvkar State University — durkinaa@syktsu.ru, GitHub: @AnatoDu
