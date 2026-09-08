@@ -35,6 +35,10 @@ export function makeRepo() {
       mkdirSync(path.dirname(full), {recursive: true});
       writeFileSync(full, content);
     },
+    /** Delete a file from the working tree, leaving it committed. */
+    remove(relPath) {
+      rmSync(path.join(dir, relPath), {force: true});
+    },
     /** Stage everything and commit. */
     commit(message) {
       run_(['add', '-A']);
@@ -62,11 +66,15 @@ export function makeRepo() {
  * @param {string} [opts.head] - head ref.
  * @param {object} [opts.config] - configuration overrides.
  * @param {boolean} [opts.auditAll]
+ * @param {string[]|null} [opts.scope] - paths to report on.
+ * @param {boolean} [opts.includeWorkingTree] - count uncommitted edits.
  */
 export function check({dir, rules, base = null, head = null, config = {},
-  auditAll = base === null}) {
+  auditAll = base === null, scope = null, includeWorkingTree = false}) {
   const resolved = {...loadConfig(dir), ...config};
-  const ctx = new Context({root: dir, config: resolved, base, head});
+  const ctx = new Context({
+    root: dir, config: resolved, base, head, scope, includeWorkingTree
+  });
   ctx.allRuleIds = ruleIds;
   const result = run({rules, ctx, config: resolved, auditAll});
   if(result.errors.length > 0) {

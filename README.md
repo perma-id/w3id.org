@@ -138,8 +138,15 @@ cd tools/checker && npm ci
 cd ../.. && node tools/checker/bin/w3id-check.js
 ```
 
-It reports only what your own change is responsible for. See
-[`tools/checker/README.md`](tools/checker/README.md) for the full set of
+It reports only what your own change is responsible for, and it counts work you
+have not committed yet — so you can run it while you are still editing. To look
+at just one directory, name it:
+
+```sh
+node tools/checker/bin/w3id-check.js ids/my-project
+```
+
+See [`tools/checker/README.md`](tools/checker/README.md) for the full set of
 options and for how to add a new check.
 
 You can also send a request to add a redirect to the

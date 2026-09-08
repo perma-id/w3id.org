@@ -40,13 +40,33 @@ export default {
       }
     }
 
-    for(const [, paths] of byLower) {
-      if(paths.length < 2) {
+    const colliding = new Set();
+    for(const [lower, paths] of byLower) {
+      if(paths.length > 1) {
+        colliding.add(lower);
+      }
+    }
+
+    // Everything inside a colliding directory collides too. Reporting each
+    // one would bury the finding that matters -- the directory -- under one
+    // line per file beneath it.
+    const inheritsCollision = p => {
+      for(let at = p.lastIndexOf('/'); at !== -1;
+        at = p.lastIndexOf('/', at - 1)) {
+        if(colliding.has(p.slice(0, at).toLowerCase())) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    for(const lower of colliding) {
+      const sorted = [...byLower.get(lower)].sort();
+      if(inheritsCollision(sorted[0])) {
         continue;
       }
-      const sorted = [...paths].sort();
-      // Report against each colliding path so that whichever one a change
-      // touches gets flagged.
+      // Report against each colliding path, so whichever one a change touches
+      // is the one that gets flagged.
       for(const p of sorted) {
         report({
           file: p,

@@ -101,8 +101,28 @@ export function changedFiles(base, head, cwd) {
  * Returns a Map of path -> Set of 1-based line numbers.
  */
 export function addedLines(base, head, cwd) {
+  return diffAddedLines([base, head], cwd);
+}
+
+/**
+ * Line numbers added or modified in the working tree relative to HEAD.
+ *
+ * Covers staged and unstaged edits together, which is what somebody looking at
+ * their editor means by "my changes". Untracked files do not appear in a diff
+ * at all and are handled as whole-file additions instead.
+ */
+export function workingTreeAddedLines(cwd) {
+  return diffAddedLines(['HEAD'], cwd);
+}
+
+function diffAddedLines(revs, cwd) {
   const out = git(
-    ['diff', '--unified=0', '--find-renames', '--no-color', base, head], {cwd});
+    ['diff', '--unified=0', '--find-renames', '--no-color', ...revs],
+    {cwd, allowFailure: true});
+  // A repository with no commits has no HEAD to diff against.
+  if(out === null) {
+    return new Map();
+  }
   const byFile = new Map();
   let current = null;
   for(const line of out.split('\n')) {
@@ -176,4 +196,51 @@ export function commits(base, head, cwd) {
     });
   }
   return result;
+}
+
+/**
+ * Paths that differ between HEAD and the working tree.
+ *
+ * Returns the same {status, path, oldPath} shape as `changedFiles`, so callers
+ * can union the two without special-casing.
+ *
+ * `--no-renames` keeps every record to a single `XY path` field, so a rename
+ * arrives as a delete plus an add rather than a two-field record.
+ * `--untracked-files=all` lists new files individually instead of collapsing a
+ * new directory into one entry, and still honours .gitignore -- which is what
+ * keeps `node_modules/` out.
+ */
+export function workingTreeStatus(cwd) {
+  const out = git(
+    ['status', '--porcelain=v1', '-z', '--untracked-files=all', '--no-renames'],
+    {cwd, allowFailure: true});
+  if(out === null) {
+    return [];
+  }
+  const entries = [];
+  for(const record of out.split('\0')) {
+    if(record === '') {
+      continue;
+    }
+    // Porcelain v1: exactly two status characters, a space, then the path.
+    const index = record[0];
+    const worktree = record[1];
+    entries.push({
+      status: statusOf(index, worktree),
+      path: record.slice(3),
+      oldPath: null
+    });
+  }
+  return entries;
+}
+
+function statusOf(index, worktree) {
+  // Untracked and staged-new are both "this file is new in this change".
+  if(index === '?' || index === 'A') {
+    return 'A';
+  }
+  if(index === 'D' || worktree === 'D') {
+    return 'D';
+  }
+  return 'M';
 }

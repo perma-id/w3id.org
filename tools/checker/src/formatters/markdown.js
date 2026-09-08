@@ -1,3 +1,5 @@
+import {describeScope} from './stylish.js';
+
 /**
  * Markdown report, for the Actions job summary and, later, a pull request
  * comment.
@@ -71,11 +73,7 @@ function overview(summary) {
 }
 
 function scopeSentence(summary) {
-  const {mode, filesChecked, namespaces, rulesRun} = summary;
-  return mode === 'range' ?
-    `Checked ${filesChecked} changed file` +
-      `${filesChecked === 1 ? '' : 's'} against ${rulesRun} rules.` :
-    `Checked ${namespaces} identifier namespaces against ${rulesRun} rules.`;
+  return `Checked ${describeScope(summary)} against ${summary.rulesRun} rules.`;
 }
 
 function location(f) {
