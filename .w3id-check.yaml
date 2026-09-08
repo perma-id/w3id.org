@@ -1,0 +1,77 @@
+# Configuration for the w3id.org contribution checker (tools/checker).
+#
+# Run `node tools/checker/bin/w3id-check.js --help` for usage.
+# Rule documentation: https://w3id.org/docs/rules/
+
+# Base URL prepended to a rule id to build its documentation link.
+# The docs site does not exist yet; findings still print the rule id.
+docsBaseUrl: https://w3id.org/docs/rules/
+
+# Directory holding the hosted identifier namespaces.
+idsDir: ids
+
+# How a finding's provenance maps to the severity actually reported.
+#
+#   introduced  - on a line this change added, or in a file it created
+#   touched     - in a file or namespace this change touches, but on a line
+#                 it did not modify
+#   preexisting - anywhere else in the tree
+#
+# `as-declared` uses the rule's own severity. `off` suppresses entirely.
+#
+# The repository carries a large legacy backlog, so `preexisting` is off by
+# default: contributors are only held to what they actually changed. Raise
+# these values to ratchet strictness up over time.
+#
+# Rules marked `critical` (security problems, or redirects that are silently
+# dead in production) ignore this table and are always reported -- as a
+# non-blocking notice when pre-existing. `--triage` lists all of them.
+policy:
+  introduced: as-declared
+  touched: warning
+  preexisting: off
+
+# `--all` audits the whole tree at each rule's declared severity. Nightly and
+# on-demand maintainer runs use it; it is not what pull requests are held to.
+
+# Per-rule severity overrides: error | warning | notice | off
+rules:
+  # Roughly 1500 files predate the repository's own .editorconfig. These stay
+  # on so that newly introduced whitespace problems are caught, while the
+  # backlog remains suppressed by `preexisting: off` above.
+  format/no-trailing-whitespace: warning
+  format/final-newline: warning
+  format/no-crlf: warning
+
+  # 410 namespaces still redirect to plain http://. Advisory for now.
+  htaccess/https-target: warning
+  htaccess/no-self-redirect: warning
+
+  # Maintainer metadata is recorded ad hoc across ~15 different shapes. The
+  # detector is deliberately lenient until a structured format is agreed.
+  meta/maintainer-github-username: warning
+
+# Rule-specific options.
+options:
+  git/minimal-commits:
+    # Commits in the pull request before it is worth suggesting a squash.
+    maxCommits: 5
+    # Commits touching any single file before suggesting a squash.
+    maxCommitsPerFile: 3
+  git/branch-not-stale:
+    # Commits the branch point may lag master by before suggesting a rebase.
+    maxBehind: 500
+
+# Paths no rule examines at all. Installed dependencies are not repository
+# content; .gitignore should keep them untracked, and this makes sure a lapse
+# there does not bury real findings.
+ignorePaths:
+  - '**/node_modules/**'
+
+# Paths exempt from the "only .htaccess and README files" rule. These are
+# service infrastructure, not identifier namespaces.
+allowedPaths:
+  - ids/index.html
+  - ids/.assets/**
+  - ids/.utils/**
+  - ids/w3id/*.html

@@ -8,6 +8,15 @@
 - [ ] The number of commits is minimal. Squash if needed.
 - [ ] Commits only include redirects and basic information. Serving content and full documentation is not supported on this service.
 
+<!--
+Automated checks run on this PR. If any fail, look under "Files changed" for
+comments on the offending lines, and under "Checks" for the full report; each
+one explains what to do. You can run them yourself first:
+
+    cd tools/checker && npm ci
+    cd ../.. && node tools/checker/bin/w3id-check.js
+-->
+
 ## New ID Directory Checklist
 <!-- For new ID PRs. -->
 - [ ] Maintainer details are in `.htaccess` or `README.md`.
