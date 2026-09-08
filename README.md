@@ -123,6 +123,25 @@ Pull Requests:
   name in the commit message. For those using the GitHub interface, please
   modify the default "Create/Update/Delete `.htaccess`" message.
 
+#### Checking your changes
+
+Every Pull Request is checked automatically, and anything that needs fixing
+appears as a comment on the changed lines under the _Files changed_ tab, with a
+full report under _Checks_. Most problems are things a first-time contributor
+could not reasonably have guessed, so the report explains each one and what to
+do about it.
+
+You can run the same checks yourself before opening the Pull Request:
+
+```sh
+cd tools/checker && npm ci
+cd ../.. && node tools/checker/bin/w3id-check.js
+```
+
+It reports only what your own change is responsible for. See
+[`tools/checker/README.md`](tools/checker/README.md) for the full set of
+options and for how to add a new check.
+
 You can also send a request to add a redirect to the
 [public-perma-id@w3.org](https://lists.w3.org/Archives/Public/public-perma-id/)
 mailing list. Make sure to include the URL that you want on w3id.org, the

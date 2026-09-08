@@ -1,0 +1,16 @@
+# zizmor configuration: https://docs.zizmor.sh/configuration/
+#
+# Kept deliberately small. Every entry here is a rule this repository has
+# decided not to follow, so each one needs a reason.
+
+rules:
+  # Actions must be pinned to a full commit SHA, never a tag. Tags are
+  # mutable: in March 2025 an attacker repointed every tag of
+  # tj-actions/changed-files at a commit that dumped runner memory into the
+  # build log (CVE-2025-30066), and every consumer pinned to a tag was
+  # compromised. A comment alongside each pin records the human-readable
+  # version.
+  unpinned-uses:
+    config:
+      policies:
+        '*': hash-pin

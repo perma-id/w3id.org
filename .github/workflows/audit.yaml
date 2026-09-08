@@ -1,0 +1,84 @@
+# Whole-tree audit, for maintainers rather than contributors.
+#
+# Pull requests are judged only on what they change, so the repository's
+# existing backlog stays invisible there by design. This is where it stays
+# visible: a weekly count of every finding in the tree, and the standing list
+# of identifiers that do not resolve or that are a security problem.
+#
+# Nothing here gates anything. It reports.
+name: Audit
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    # Mondays, early UTC.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Whole-tree audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to check out the tree being audited
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools/checker/package-lock.json
+
+      - run: npm ci --ignore-scripts
+        working-directory: tools/checker
+
+      # The ratchet: bounds in tools/checker/test/corpus.test.js may not be
+      # exceeded. A count that has fallen is reported so the bound can be
+      # lowered and the improvement locked in.
+      - name: Check the ratchet
+        env:
+          W3ID_CHECK_CORPUS: '1'
+        run: npm test
+        working-directory: tools/checker
+
+      - name: Backlog size
+        run: |
+          node tools/checker/bin/w3id-check.js --all --stats \
+            | tee -a "${GITHUB_STEP_SUMMARY}"
+
+      - name: Identifiers needing repair
+        run: |
+          {
+            echo
+            echo '## Needs repair'
+            echo
+            echo 'These identifiers do not resolve, or are a security problem.'
+            echo 'They are listed with whatever maintainer usernames could be'
+            echo 'recovered from their .htaccess or README.'
+            echo
+            echo '```'
+            node tools/checker/bin/w3id-check.js --triage
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Save the machine-readable report
+        run: |
+          mkdir -p "${RUNNER_TEMP}/audit"
+          node tools/checker/bin/w3id-check.js --all --stats --triage \
+            --format json --output "${RUNNER_TEMP}/audit/audit.json"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: audit
+          path: ${{ runner.temp }}/audit/
+          retention-days: 90
