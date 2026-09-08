@@ -39,7 +39,9 @@ export default {
         continue;
       }
       const ns = ctx.namespaceOf(p);
-      if(ns === null || ns === ctx.idsDir) {
+      // A file directly in `ids/` is not an identifier, so it has no
+      // maintainer of its own -- see identifierNamespaces().
+      if(ns === null || ns === ctx.idsDir || ns === p) {
         continue;
       }
       if(!byNamespace.has(ns)) {
