@@ -8,10 +8,10 @@ export default {
   files: ['**/.htaccess', '**/*.md', '**/*.txt'],
   messages: {
     missing:
-      'No newline at end of file. The repository\'s .editorconfig sets ' +
-      'insert_final_newline = true. Without it, git shows a "\\ No newline ' +
-      'at end of file" marker and the last line collides with whatever a ' +
-      'later change appends.'
+      'No newline at the end of this file. Git marks it "\\ No newline at ' +
+      'end of file", and the next change that appends a line will show your ' +
+      'last line as modified too, because the newline has to be added to ' +
+      'it first. Add one now.'
   },
   check(ctx, report) {
     const text = ctx.read(ctx.file);

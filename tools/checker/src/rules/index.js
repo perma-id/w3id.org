@@ -33,6 +33,8 @@ import htaccessValidCorsHeader from './htaccess/valid-cors-header.js';
 import htaccessNoSelfRedirect from './htaccess/no-self-redirect.js';
 import htaccessAllowedDirectives from './htaccess/allowed-directives.js';
 
+import markdownPreferListOverLineBreaks from './markdown/prefer-list-over-line-breaks.js';
+
 import metaMaintainerGithubUsername from './meta/maintainer-github-username.js';
 import metaRuleDocsExist from './meta/rule-docs-exist.js';
 
@@ -64,6 +66,8 @@ export const rules = [
   htaccessValidCorsHeader,
   htaccessNoSelfRedirect,
   htaccessAllowedDirectives,
+
+  markdownPreferListOverLineBreaks,
 
   metaMaintainerGithubUsername,
   metaRuleDocsExist

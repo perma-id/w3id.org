@@ -206,3 +206,20 @@ test('severity: a rule turned off in config stays off even for --all', () => {
     resolveSeverity({rule, provenance: 'introduced', config, auditAll: true}),
     null);
 });
+
+test('severity: the policy softens findings but never sharpens them', () => {
+  const config = {rules: {}, policy: {touched: 'warning'}};
+
+  // An error a contributor did not cause is demoted, which is the point.
+  assert.equal(
+    resolveSeverity({
+      rule: {id: 'x/y', severity: 'error'}, provenance: 'touched', config
+    }), 'warning');
+
+  // A rule that declares itself a notice is a suggestion. It must not become
+  // a warning merely because it landed on a line somebody touched.
+  assert.equal(
+    resolveSeverity({
+      rule: {id: 'x/y', severity: 'notice'}, provenance: 'touched', config
+    }), 'notice');
+});

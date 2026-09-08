@@ -119,7 +119,18 @@ export function resolveSeverity({rule, provenance, config, auditAll}) {
   if(policy === 'off') {
     return null;
   }
-  return policy === 'as-declared' ? declared : policy;
+  const effective = policy === 'as-declared' ? declared : policy;
+  // The policy exists to soften findings a contributor did not cause, never
+  // to sharpen them. Without this clamp, `touched: warning` would promote a
+  // rule that declares itself a notice -- a suggestion -- into a warning, on
+  // precisely the lines it is most likely to fire on.
+  return lessSevereOf(effective, declared);
+}
+
+const SEVERITY_RANK = {error: 0, warning: 1, notice: 2};
+
+function lessSevereOf(a, b) {
+  return SEVERITY_RANK[a] >= SEVERITY_RANK[b] ? a : b;
 }
 
 /** Per-rule options from the config file. */

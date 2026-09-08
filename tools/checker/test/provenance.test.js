@@ -16,7 +16,9 @@ function repoWithBacklog() {
   repo.write('.w3id-check.yaml', 'idsDir: ids\n');
   repo.write('ids/legacy/.htaccess',
     'RewriteEngine on   \nRewriteRule ^$ https://example.com/ [R=302,L]   \n');
-  repo.write('ids/legacy/README.md', '# legacy   \n\nBy @octocat\n');
+  // One trailing space: too few to be a Markdown line break, so it is
+  // whitespace that does nothing and is still reported.
+  repo.write('ids/legacy/README.md', '# legacy \n\nBy @octocat\n');
   repo.commit('Add legacy identifier');
   return repo;
 }
