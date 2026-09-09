@@ -1,3 +1,5 @@
+import {TEXT_FILE_PATTERNS} from '../../paths.js';
+
 /**
  * A byte order mark at the start of a file.
  *
@@ -20,7 +22,7 @@ export default {
   critical: true,
   fixable: true,
   scope: 'file',
-  files: ['**/.htaccess', '**/*.md', '**/*.txt'],
+  files: TEXT_FILE_PATTERNS,
   messages: {
     htaccess:
       'This file starts with a byte order mark -- three invisible bytes ' +

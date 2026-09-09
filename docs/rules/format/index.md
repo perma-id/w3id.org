@@ -4,8 +4,15 @@ title: File format rules
 
 # File format rules
 
-Encoding, line endings and whitespace. Everything here applies to any file
-under `ids/`.
+Encoding, line endings and whitespace. Everything here applies to the text
+files an identifier directory may hold: the `.htaccess`, and the README in
+whatever name and format it carries — `README.md`, `README.MD`, a bare
+`README`, or any of the other formats GitHub renders.
+
+That last part is deliberate. If a README name is accepted by
+[`files/only-allowed-names`](../files/only-allowed-names), it is checked
+here too; a file the repository is willing to keep should not escape these
+rules by being spelled unusually.
 
 | Rule | Severity | What |
 | --- | --- | --- |

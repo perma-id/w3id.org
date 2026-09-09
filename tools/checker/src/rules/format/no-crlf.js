@@ -1,3 +1,5 @@
+import {TEXT_FILE_PATTERNS} from '../../paths.js';
+
 export default {
   id: 'format/no-crlf',
   description: 'Files must use Unix (LF) line endings',
@@ -5,7 +7,7 @@ export default {
   severity: 'warning',
   fixable: true,
   scope: 'file',
-  files: ['**/.htaccess', '**/*.md', '**/*.txt'],
+  files: TEXT_FILE_PATTERNS,
   messages: {
     crlf:
       'This file uses Windows (CRLF) line endings on {{count}} of {{total}} ' +
