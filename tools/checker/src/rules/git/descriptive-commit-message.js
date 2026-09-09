@@ -1,7 +1,7 @@
 /**
- * Roughly one commit in five arrives with the message GitHub's web editor
- * filled in by default. With ~16000 commits from ~1750 contributors, "Update
- * .htaccess" is unsearchable and says nothing about which identifier changed.
+ * A large share of commits arrive with the message GitHub's web editor filled
+ * in by default. Across a repository this size, "Update .htaccess" is
+ * unsearchable and says nothing about which identifier changed.
  * The repository README already asks contributors to replace it.
  */
 
