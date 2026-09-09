@@ -192,8 +192,9 @@ Run the checks and resolve the identifier yourself:
 node tools/check/bin/w3id-check.js
 ```
 
-See [Testing your changes](./testing) for the full recipe, including how to run
-the rules against a local Apache.
+See [Testing your changes](./testing) for the full recipe, and
+[Running a local server](./local-server) for how to run the rules against a
+real Apache on your own machine.
 
 ## 7. Open the pull request
 
