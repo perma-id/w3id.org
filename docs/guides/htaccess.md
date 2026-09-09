@@ -228,7 +228,7 @@ them. Each of these has caused a real problem here:
 
 | Directive | Why not |
 | --- | --- |
-| `Options +FollowSymLinks`, `Options -Indexes`, `Options -MultiViews` | Not needed for a remote redirect. `-Indexes` has caused a 403 on a bare identifier URL. [`htaccess/no-options-directive`](/rules/htaccess/no-options-directive) |
+| `Options +FollowSymLinks`, `Options -Indexes`, `Options -MultiViews` | Usually not needed for a remote redirect, and `-Indexes` has caused a 403 on a bare identifier URL. `-MultiViews` is the one with a real open question behind it — read [`htaccess/no-options-directive`](/rules/htaccess/no-options-directive) before removing one from a file you did not write. |
 | A `[R=406,L]` catch-all fallback | Copied from conneg examples, it swallows every request that does not match an earlier rule. [`htaccess/no-406-fallback`](/rules/htaccess/no-406-fallback) |
 | `RewriteCond %{HTTPS} !=on` and friends | The service is HTTPS-only already. |
 | A copied `Access-Control-Allow-Headers` line | The widely-copied version in this repository is truncated and wrong. [`htaccess/valid-cors-header`](/rules/htaccess/valid-cors-header) |

@@ -56,8 +56,10 @@ Do not:
 - **Start a pattern with `/`, or repeat the directory name in it.** The pattern
   matches the path *relative to the directory*. A wrong prefix silently never
   matches. → `docs/rules/htaccess/pattern-relative-to-dir.md`
-- **Add `Options` directives.** They are unnecessary for a redirect, and
-  `-Indexes` causes a 403 on the bare identifier URL.
+- **Add `Options` directives.** They are usually unnecessary for a redirect,
+  and `-Indexes` causes a 403 on the bare identifier URL. Do not strip an
+  existing one from a file you did not write either: whether `-MultiViews` is
+  load-bearing is an open question.
   → `docs/rules/htaccess/no-options-directive.md`
 - **Add a `[R=406]` catch-all.** It matches every real request.
   → `docs/rules/htaccess/no-406-fallback.md`
