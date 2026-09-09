@@ -31,7 +31,7 @@ The reverse matters too. A page claiming `status: enforced` tells a contributor
 a check will catch this before review, and that promise should be true.
 
 This is the rule that keeps the two halves of this repository — the checker in
-`tools/checker/` and the catalogue in `docs/rules/` — from drifting apart. They
+`tools/check/` and the catalogue in `docs/rules/` — from drifting apart. They
 were written separately, which is exactly the situation that produces drift.
 
 ## Wrong
@@ -39,8 +39,8 @@ were written separately, which is exactly the situation that produces drift.
 A rule with no page:
 
 ```
-tools/checker/src/rules/htaccess/<new-rule>.js   ← exists
-docs/rules/htaccess/<new-rule>.md                ← missing
+tools/check/src/rules/htaccess/<new-rule>.js   ← exists
+docs/rules/htaccess/<new-rule>.md              ← missing
 ```
 
 A page whose id disagrees with its path:
@@ -55,7 +55,7 @@ id: target-https        ← does not match the path
 ## Right
 
 ```
-tools/checker/src/rules/htaccess/https-target.js
+tools/check/src/rules/htaccess/https-target.js
 docs/rules/htaccess/https-target.md   with  id: htaccess/https-target
 ```
 
@@ -72,7 +72,7 @@ page means changing the page's `status` to `proposed`.
 documentation:
 
 ```sh
-node tools/checker/bin/w3id-check.js --all --rule meta/rule-docs-exist
+node tools/check/bin/w3id-check.js --all --rule meta/rule-docs-exist
 ```
 
 ## See also

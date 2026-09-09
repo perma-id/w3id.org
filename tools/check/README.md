@@ -4,8 +4,8 @@ Checks a change to this repository against the rules contributions are
 expected to follow, and explains what to do about anything it finds.
 
 ```sh
-cd tools/checker && npm ci      # once
-node tools/checker/bin/w3id-check.js
+cd tools/check && npm ci      # once
+node tools/check/bin/w3id-check.js
 ```
 
 With no arguments it compares your branch against `origin/master`, counts
@@ -15,8 +15,8 @@ what the change is answerable for.
 Give it paths to look at just those:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
-node tools/checker/bin/w3id-check.js ids/foo ids/bar
+node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/foo ids/bar
 ```
 
 On their own, paths mean "check these as they stand on disk" rather than

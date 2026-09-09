@@ -64,7 +64,7 @@ git push --force-with-lease
 `git/descriptive-commit-message`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js --base origin/master
+node tools/check/bin/w3id-check.js --base origin/master
 ```
 
 ## See also

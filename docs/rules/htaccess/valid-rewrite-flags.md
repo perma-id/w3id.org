@@ -61,7 +61,7 @@ status. That is how `[R=406]` works, and why it is not reported here.
 `htaccess/valid-rewrite-flags`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

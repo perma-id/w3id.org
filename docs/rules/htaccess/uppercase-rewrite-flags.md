@@ -44,7 +44,7 @@ Upper-case the flag names. Values keep their own case where they have one.
 `htaccess/uppercase-rewrite-flags`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

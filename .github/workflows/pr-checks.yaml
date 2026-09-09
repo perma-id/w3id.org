@@ -43,12 +43,12 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: tools/checker/package-lock.json
+          cache-dependency-path: tools/check/package-lock.json
 
       - name: Install the checker
         # --ignore-scripts: a dependency's install hook must not run here.
         run: npm ci --ignore-scripts
-        working-directory: tools/checker
+        working-directory: tools/check
 
       - name: Run the checks
         id: checks
@@ -61,7 +61,7 @@ jobs:
         # job's final step decides the outcome.
         continue-on-error: true
         run: |
-          node tools/checker/bin/w3id-check.js \
+          node tools/check/bin/w3id-check.js \
             --base "${BASE_SHA}" \
             --head "${HEAD_SHA}" \
             --format github
@@ -72,7 +72,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          node tools/checker/bin/w3id-check.js \
+          node tools/check/bin/w3id-check.js \
             --base "${BASE_SHA}" \
             --head "${HEAD_SHA}" \
             --format markdown \
@@ -87,7 +87,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           mkdir -p "${RUNNER_TEMP}/report"
-          node tools/checker/bin/w3id-check.js \
+          node tools/check/bin/w3id-check.js \
             --base "${BASE_SHA}" \
             --head "${HEAD_SHA}" \
             --format json \
@@ -116,7 +116,7 @@ jobs:
   selftest:
     name: Checker tests
     runs-on: ubuntu-latest
-    # Runs on every pull request, not only ones that touch tools/checker: the
+    # Runs on every pull request, not only ones that touch tools/check: the
     # suite includes a regression test against the real tree, so a change to
     # ids/ that moves a rule's finding count is caught here too.
     permissions:
@@ -131,11 +131,11 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: tools/checker/package-lock.json
+          cache-dependency-path: tools/check/package-lock.json
 
       - run: npm ci --ignore-scripts
-        working-directory: tools/checker
+        working-directory: tools/check
 
       - name: Run the checker's own tests
         run: npm test
-        working-directory: tools/checker
+        working-directory: tools/check

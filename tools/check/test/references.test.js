@@ -79,7 +79,7 @@ const SCANNED = new Set([
 
 // Tests name rules by import, so a rename breaks them loudly, and they hold
 // deliberately invalid ids as fixtures.
-const TEST_DIR = 'tools/checker/test/';
+const TEST_DIR = 'tools/check/test/';
 
 test('references: every rule id written down still names a rule', () => {
   const pages = new Set();
@@ -128,6 +128,70 @@ test('references: every rule id written down still names a rule', () => {
 
   assert.deepEqual([...stale].sort(), [],
     'these name no rule page; a rule was probably renamed');
+});
+
+/**
+ * Repository paths as they are written down, in the two forms that occur.
+ *
+ * Bare or relative -- `tools/check/bin/w3id-check.js` -- is what a command in
+ * a code block or a link in prose looks like. The lookbehind is the whole
+ * difficulty: without it the same shape matches the tail of any URL, so
+ * `httpd.apache.org/docs/current/mod/mod_rewrite.html` and every redirect
+ * target under `ids/` come back as broken repository paths.
+ *
+ * The second form is this repository's own file links on GitHub, which the
+ * first deliberately skips because a slash precedes them. Anchoring on the
+ * repository slug keeps third-party `blob/` URLs -- of which the identifier
+ * tree has many -- out of it.
+ */
+const REPO_DIRS = 'tools|docs';
+const SEGMENT = '[A-Za-z0-9._-]+';
+const PATH_PATTERNS = [
+  new RegExp(
+    String.raw`(?<![/\w.-])(?:${REPO_DIRS})/${SEGMENT}(?:/${SEGMENT})*`, 'g'),
+  new RegExp(
+    String.raw`perma-id/w3id\.org/blob/[^/\s)]+/` +
+    String.raw`((?:${REPO_DIRS})/${SEGMENT}(?:/${SEGMENT})*)`, 'g')
+];
+
+test('references: every repository path written down still exists', () => {
+  // A rename moves the directory and the references separately, and nothing
+  // else notices when the second half is missed. Three times this week a
+  // reference went stale in a file nobody renders, so nobody reread it.
+  const missing = new Set();
+  let found = 0;
+
+  for(const relative of listFiles(root)) {
+    // Identifier content is the data, not a description of it, and its
+    // redirect targets are full of URLs whose tails look like paths.
+    if(relative.startsWith('ids/') || relative.startsWith(TEST_DIR)) {
+      continue;
+    }
+    if(!SCANNED.has(path.extname(relative)) &&
+      !SCANNED.has(path.basename(relative))) {
+      continue;
+    }
+    const text = read(path.join(root, relative));
+    if(text === null) {
+      continue;
+    }
+    for(const re of PATH_PATTERNS) {
+      for(const match of text.matchAll(re)) {
+        // A path ending a sentence picks up the full stop; a trailing dot is
+        // never part of a filename here.
+        const referenced = (match[1] ?? match[0]).replace(/\.+$/, '');
+        ++found;
+        if(!statSync(path.join(root, referenced), {throwIfNoEntry: false})) {
+          missing.add(`${relative}: ${referenced}`);
+        }
+      }
+    }
+  }
+
+  // A detector that quietly stops matching would otherwise pass forever.
+  assert.ok(found > 20, `expected to find repository paths, saw ${found}`);
+  assert.deepEqual([...missing].sort(), [],
+    'these paths are written down but do not exist; something was renamed');
 });
 
 /**

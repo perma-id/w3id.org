@@ -87,7 +87,7 @@ real hostname you can move later without touching this repository.
 `htaccess/github-raw-target`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

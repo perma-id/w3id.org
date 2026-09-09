@@ -93,7 +93,7 @@ That is a separate pull request too.
 compare, so it runs on the default invocation rather than on a path:
 
 ```sh
-node tools/checker/bin/w3id-check.js --base origin/master
+node tools/check/bin/w3id-check.js --base origin/master
 ```
 
 ## See also

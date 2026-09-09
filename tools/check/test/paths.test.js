@@ -377,7 +377,7 @@ test('only-own-identifier only notices work outside ids/', () => {
 
 test('only-own-identifier ignores work that touches no identifier', () => {
   const r = identifierChange(repo => {
-    repo.write('tools/checker/src/thing.js', 'export default {};\n');
+    repo.write('tools/check/src/thing.js', 'export default {};\n');
     repo.write('README.md', '# repo\n\nedited\n');
   });
   assert.deepEqual(r.findings, [],
