@@ -28,6 +28,6 @@ EXPOSE 80
 # NOT FOR PRODUCTION. This image serves plain HTTP, has no TLS, and expects
 # the identifier tree to be bind-mounted rather than baked in. A real
 # deployment image would also need the tree copied in at build time so it is
-# immutable, and would want AllowOverride reconsidered -- with 2861 .htaccess
-# files, Apache stats a per-directory config in every parent directory of
-# every request, which is the dominant per-request cost.
+# immutable, and would want AllowOverride reconsidered -- with more than two
+# thousand .htaccess files, Apache stats a per-directory config in every parent
+# directory of every request, which is the dominant per-request cost.

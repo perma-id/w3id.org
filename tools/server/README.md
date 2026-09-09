@@ -58,9 +58,9 @@ needing them directly, because production's document root sets `Indexes` and
 and the local server would quietly disagree with the real one.
 
 **`AllowOverride All` is required, not lazy.** Per-directory `.htaccess` files
-are the service. A handful of them additionally use `<IfModule>`, `<If>` and
-`<Files>`, which no narrower override class permits, so narrowing it would turn
-those directories into 500s.
+are the service. A small number of them additionally use `<IfModule>`, `<If>`
+and `<Files>`, which no narrower override class permits, so narrowing it would
+turn those directories into 500s.
 
 ## Files
 
@@ -110,8 +110,9 @@ an `.htaccess` that works under it can still fail in production. Prefer
 The `Dockerfile` serves plain HTTP and expects `ids/` to be bind-mounted rather
 than baked in. A real deployment image would copy the tree in at build time so
 it is immutable, and would want `AllowOverride` reconsidered: with a
-per-directory config file in most of the tree, Apache stats one in every parent
-directory of every request, which is the dominant per-request cost.
+per-directory config file in nearly every directory of the tree, Apache stats
+one in every parent directory of every request, which is the dominant
+per-request cost.
 
 ## Tests
 
