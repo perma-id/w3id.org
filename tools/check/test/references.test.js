@@ -161,6 +161,12 @@ test('references: every repository path written down still exists', () => {
   const missing = new Set();
   let found = 0;
 
+  // Tracked files, so this first fires on the commit that adds a file rather
+  // than while it is being written -- which makes "something was renamed" the
+  // wrong first guess when it goes off. The other cause is a path that is
+  // generated at runtime: write those relative to a working directory the
+  // reader has been told to `cd` into, so no `tools/...` token names a file
+  // that only exists after somebody runs a command.
   for(const relative of listFiles(root)) {
     // Identifier content is the data, not a description of it, and its
     // redirect targets are full of URLs whose tails look like paths.
@@ -191,7 +197,9 @@ test('references: every repository path written down still exists', () => {
   // A detector that quietly stops matching would otherwise pass forever.
   assert.ok(found > 20, `expected to find repository paths, saw ${found}`);
   assert.deepEqual([...missing].sort(), [],
-    'these paths are written down but do not exist; something was renamed');
+    'these paths are written down but do not exist. Either something was ' +
+    'renamed, or a new file cites a path that is generated, gitignored or ' +
+    'not written yet');
 });
 
 /**
@@ -248,13 +256,19 @@ test('references: documentation does not name a real identifier', () => {
     'these name a live identifier; use ids/my-project instead');
 });
 
-test('references: every rule page is reachable from the site sidebar', () => {
-  // The sidebar in the documentation site enumerates every rule page by hand.
-  // A page missing from it is still reachable by URL and still listed in the
-  // catalogue, but a reader browsing the site never sees it -- and the site
-  // build cannot say so. It fails on a sidebar entry pointing at a missing
-  // page, and not on a page that no entry points at, which is the direction
-  // that actually happens: pages are added here, the sidebar lives there.
+// The site home, which VitePress serves from `docs/index.md`. Nothing links
+// to it from the sidebar because the site title in the header already does.
+const IMPLICIT_ROUTES = new Set(['/']);
+
+test('references: every documentation page is reachable from the site nav',
+  () => {
+  // The sidebar enumerates every page by hand. A page missing from it is
+  // still reachable by URL and may still be linked from a catalogue, but a
+  // reader browsing the site never sees it -- and the site build cannot say
+  // so. It fails on a sidebar entry pointing at a missing page, and not on a
+  // page that no entry points at, which is the direction that actually
+  // happens: pages are added by whoever writes them, the sidebar lives with
+  // the site.
   //
   // Silent when the site is absent, the way meta/rule-docs-exist is silent
   // without docs/rules/. The two halves of this repository were written
@@ -269,22 +283,32 @@ test('references: every rule page is reachable from the site sidebar', () => {
     return;
   }
 
+  // Single quotes only, which is how every entry is written. A rules link in
+  // double quotes would be invisible here, and the page it names would stop
+  // being checked -- the exact failure this exists to catch.
   const linked = new Set(
     [...config.matchAll(/link:\s*'([^']+)'/g)].map(([, link]) => link));
   assert.ok([...linked].some(link => link.startsWith('/rules/')),
     'expected the sidebar to link to rule pages at all');
 
+  const docsDir = path.join(root, 'docs');
   const unreachable = [];
-  for(const file of walk(rulesDir)) {
+  for(const file of walk(docsDir)) {
     if(!file.endsWith('.md')) {
       continue;
     }
-    const relative = path.relative(rulesDir, file).split(path.sep).join('/');
-    // A namespace's index page is its directory: `files/index.md` is
-    // `/rules/files/`, and the catalogue itself is `/rules/`.
-    const route = '/rules/' +
+    const relative = path.relative(docsDir, file).split(path.sep).join('/');
+    // Neither VitePress's own directory nor its installed dependencies are
+    // pages of the site.
+    if(relative.startsWith('.vitepress/') ||
+      relative.includes('node_modules/')) {
+      continue;
+    }
+    // An index page is its directory: `rules/files/index.md` is
+    // `/rules/files/`, and `rules/index.md` is `/rules/`.
+    const route = '/' +
       relative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
-    if(!linked.has(route)) {
+    if(!linked.has(route) && !IMPLICIT_ROUTES.has(route)) {
       unreachable.push(`${relative} (${route})`);
     }
   }
