@@ -26,11 +26,11 @@ to the pull request.
 
 ## Running the checks
 
-The checker lives in `tools/checker/` and needs no arguments:
+The checker lives in `tools/check/` and needs no arguments:
 
 ```sh
-cd tools/checker && npm ci
-cd ../.. && node tools/checker/bin/w3id-check.js
+cd tools/check && npm ci
+cd ../.. && node tools/check/bin/w3id-check.js
 ```
 
 It compares your branch against `origin/master`, counts work you have not
@@ -38,7 +38,7 @@ committed yet, and reports only what your own change is answerable for — the
 repository's existing backlog stays out of your way. To look at one directory:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 Only `error` findings block a pull request. A `warning` is something a

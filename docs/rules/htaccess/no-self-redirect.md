@@ -68,7 +68,7 @@ RewriteRule ^(.*)$ /new-project/$1 [R=302,L]
 `htaccess/no-self-redirect`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

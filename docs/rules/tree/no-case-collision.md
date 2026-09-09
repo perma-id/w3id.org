@@ -83,7 +83,7 @@ whole tree to see a collision, so it works from a full checkout even when you
 scope it to one directory:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 ## See also

@@ -114,7 +114,7 @@ still has to say the same things it said before.
 `files/prefer-readme-md`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 ## See also

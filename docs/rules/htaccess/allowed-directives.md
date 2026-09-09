@@ -63,7 +63,7 @@ The refused set is: `RewriteMap`, `Include`, `IncludeOptional`, `AddHandler`,
 `htaccess/allowed-directives`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

@@ -72,7 +72,7 @@ it should not, then check the pattern against both. Pay particular attention to:
 `htaccess/anchor-patterns`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

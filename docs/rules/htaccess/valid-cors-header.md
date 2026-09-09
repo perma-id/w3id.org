@@ -88,7 +88,7 @@ reported. It is unnecessary but harmless, and only the malformed
 `htaccess/valid-cors-header`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

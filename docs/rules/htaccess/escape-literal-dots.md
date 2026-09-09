@@ -72,7 +72,7 @@ is where the mistake actually lives.
 `htaccess/escape-literal-dots`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

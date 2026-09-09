@@ -64,7 +64,7 @@ will be. Put a real hostname in front of it and point the identifier at that.
 `htaccess/https-target`, in this repository's checker:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 

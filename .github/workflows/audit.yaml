@@ -37,23 +37,23 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: tools/checker/package-lock.json
+          cache-dependency-path: tools/check/package-lock.json
 
       - run: npm ci --ignore-scripts
-        working-directory: tools/checker
+        working-directory: tools/check
 
-      # The ratchet: bounds in tools/checker/test/corpus.test.js may not be
+      # The ratchet: bounds in tools/check/test/corpus.test.js may not be
       # exceeded. A count that has fallen is reported so the bound can be
       # lowered and the improvement locked in.
       - name: Check the ratchet
         env:
           W3ID_CHECK_CORPUS: '1'
         run: npm test
-        working-directory: tools/checker
+        working-directory: tools/check
 
       - name: Backlog size
         run: |
-          node tools/checker/bin/w3id-check.js --all --stats \
+          node tools/check/bin/w3id-check.js --all --stats \
             | tee -a "${GITHUB_STEP_SUMMARY}"
 
       - name: Identifiers needing repair
@@ -67,14 +67,14 @@ jobs:
             echo 'recovered from their .htaccess or README.'
             echo
             echo '```'
-            node tools/checker/bin/w3id-check.js --triage
+            node tools/check/bin/w3id-check.js --triage
             echo '```'
           } >> "${GITHUB_STEP_SUMMARY}"
 
       - name: Save the machine-readable report
         run: |
           mkdir -p "${RUNNER_TEMP}/audit"
-          node tools/checker/bin/w3id-check.js --all --stats --triage \
+          node tools/check/bin/w3id-check.js --all --stats --triage \
             --format json --output "${RUNNER_TEMP}/audit/audit.json"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
