@@ -111,8 +111,8 @@ Note what is absent: no `Options`, no `RewriteBase`, no `AddType`, no
    including uncommitted work:
 
    ```sh
-   cd tools/checker && npm ci
-   cd ../.. && node tools/checker/bin/w3id-check.js
+   cd tools/check && npm ci
+   cd ../.. && node tools/check/bin/w3id-check.js
    ```
 
    Every finding names a rule id with a page under `docs/rules/<id>.md`. Fix
@@ -181,7 +181,7 @@ frontmatter with `id`, `title`, `severity`, `status`, and `applies-to`. The `id`
 always equals the page's path under `docs/rules/` without the `.md`, so
 `docs/rules/htaccess/no-double-slash.md` has id `htaccess/no-double-slash`.
 
-The checker in `tools/checker/` enforces that correspondence both ways via
+The checker in `tools/check/` enforces that correspondence both ways via
 `meta/rule-docs-exist`: every rule needs a page, every page claiming
 `status: enforced` needs a rule, and an `id` must match its path. Keep the
 format intact when editing, and add new rules as new files rather than as
