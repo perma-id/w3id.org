@@ -141,9 +141,10 @@ Or the check may only look at **what your change touched**. The checker reports
 what your own diff is responsible for, so a pre-existing problem elsewhere in
 the repository will not appear.
 
-Note also that automated checking only returned to this repository recently.
-Redirect rules went unvalidated for years before the current checker landed, so
-plenty of existing identifiers have never been checked at all.
+Note also that most of the identifiers already in this repository predate any
+automated checking and have never been checked at all. A rule being enforced
+today says nothing about whether the existing tree satisfies it — which is one
+more reason not to copy a neighbouring `.htaccess` as a template.
 
 ## Redirects and HTTP
 
