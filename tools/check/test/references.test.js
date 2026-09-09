@@ -248,6 +248,46 @@ test('references: documentation does not name a real identifier', () => {
     'these name a live identifier; use ids/my-project instead');
 });
 
+test('references: every rule page is reachable from the site sidebar', () => {
+  // The sidebar in the documentation site enumerates every rule page by hand.
+  // A page missing from it is still reachable by URL and still listed in the
+  // catalogue, but a reader browsing the site never sees it -- and the site
+  // build cannot say so. It fails on a sidebar entry pointing at a missing
+  // page, and not on a page that no entry points at, which is the direction
+  // that actually happens: pages are added here, the sidebar lives there.
+  //
+  // Silent when the site is absent, the way meta/rule-docs-exist is silent
+  // without docs/rules/. The two halves of this repository were written
+  // separately and either can be checked out without the other.
+  const config = read(path.join(root, 'docs', '.vitepress', 'config.js'));
+  if(config === null) {
+    return;
+  }
+
+  const linked = new Set(
+    [...config.matchAll(/link:\s*'([^']+)'/g)].map(([, link]) => link));
+  assert.ok([...linked].some(link => link.startsWith('/rules/')),
+    'expected the sidebar to link to rule pages at all');
+
+  const unreachable = [];
+  for(const file of walk(rulesDir)) {
+    if(!file.endsWith('.md')) {
+      continue;
+    }
+    const relative = path.relative(rulesDir, file).split(path.sep).join('/');
+    // A namespace's index page is its directory: `files/index.md` is
+    // `/rules/files/`, and the catalogue itself is `/rules/`.
+    const route = '/rules/' +
+      relative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
+    if(!linked.has(route)) {
+      unreachable.push(`${relative} (${route})`);
+    }
+  }
+
+  assert.deepEqual(unreachable.sort(), [],
+    'these pages are not in the site sidebar; add them to config.js');
+});
+
 function read(file) {
   try {
     return readFileSync(file, 'utf8');
