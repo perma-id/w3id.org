@@ -3,23 +3,32 @@ id: git/minimal-commits
 title: Keep the number of commits small
 severity: warning
 status: enforced
-applies-to: "**"
+applies-to: "ids/**"
 ---
 
 # `git/minimal-commits`
 
-**Severity:** warning · **Status:** enforced · **Applies to:** repository-wide
+**Severity:** warning · **Status:** enforced · **Applies to:** `ids/**`
 
 ## What
 
-A pull request should be a short series of commits — ideally one. In
-particular, one file should not be changed by several commits in a row.
+A change to an identifier should be a short series of commits — ideally one.
+In particular, one file should not be changed by several commits in a row.
+
+Only commits that touch an identifier are counted. Work elsewhere in the
+repository — the documentation, the tooling — is not what this rule is about,
+and a branch that touches no identifier is never reported however many commits
+it has.
 
 ## Why
 
 Adding an identifier is one change. Split across six commits it is six things
 to read, and the reviewer has to reconstruct what the final state is before
 they can judge it.
+
+Maintaining the rest of the repository is a different activity. There the
+history is the useful artifact — what changed, and why, in order — and
+flattening it loses something worth keeping.
 
 The usual cause is the GitHub web editor, which commits once per save. Adding
 a directory through the browser typically produces something like "Create

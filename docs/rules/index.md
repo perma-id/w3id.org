@@ -132,7 +132,7 @@ request and not by a run scoped to a directory.
 
 | Rule | Severity | What |
 | --- | --- | --- |
-| [`git/minimal-commits`](./git/minimal-commits) | warning | One change should be one commit |
+| [`git/minimal-commits`](./git/minimal-commits) | warning | One identifier change should be one commit |
 | [`git/no-merge-commits`](./git/no-merge-commits) | warning | Rebase; do not merge master into your branch |
 | [`git/descriptive-commit-message`](./git/descriptive-commit-message) | warning | Name the identifier, not the filename |
 | [`git/branch-not-stale`](./git/branch-not-stale) | notice | Start from a recent master |

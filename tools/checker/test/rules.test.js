@@ -727,6 +727,57 @@ test('git/minimal-commits counts commits per file', () => {
   assert.match(r.findings[0].message, /4 separate commits/);
 });
 
+test('git/minimal-commits ignores commits that touch no identifier', () => {
+  // Maintainer work on docs and tooling: the history is the useful artifact,
+  // and telling somebody to squash it is telling them to undo a decision they
+  // made on purpose.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  const base = repo.commit('Add a');
+
+  repo.branch('feature');
+  let head;
+  for(let i = 1; i <= 8; ++i) {
+    repo.write('docs/guide.md', `# Guide\n\nRevision ${i}\n`);
+    head = repo.commit(`Explain the ${i}th thing`);
+  }
+
+  const r = check({
+    dir: repo.dir, rules: [minimalCommits], base, head, auditAll: false
+  });
+  assert.deepEqual(findingsOf(r), [],
+    'eight commits, none touching an identifier');
+});
+
+test('git/minimal-commits still counts a change that mixes in docs', () => {
+  // The identifier commits are what matters; editing a guide alongside must
+  // neither trigger the rule nor mask it.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  const base = repo.commit('Add a');
+
+  repo.branch('feature');
+  let head;
+  for(let i = 1; i <= 4; ++i) {
+    repo.write('ids/b/.htaccess', OK_HTACCESS + `# revision ${i}\n`);
+    head = repo.commit(`Adjust redirect for b, take ${i}`);
+  }
+  for(let i = 1; i <= 6; ++i) {
+    repo.write('docs/guide.md', `# Guide\n\nRevision ${i}\n`);
+    head = repo.commit(`Explain the ${i}th thing`);
+  }
+
+  const r = check({
+    dir: repo.dir, rules: [minimalCommits], base, head, auditAll: false
+  });
+  assert.equal(r.findings.length, 1);
+  assert.equal(r.findings[0].file, 'ids/b/.htaccess');
+  assert.match(r.findings[0].message, /4 separate commits/,
+    'the six docs commits must not be counted against the file');
+});
+
 test('git/descriptive-commit-message spares a message that names the id', () => {
   const repo = makeRepo();
   repo.write('.w3id-check.yaml', 'idsDir: ids\n');
