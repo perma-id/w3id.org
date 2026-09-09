@@ -1,0 +1,26 @@
+# MMHO Namespace Redirects - w3id.org
+# This file should be placed at: w3id.org/mmho/.htaccess
+# (inside the perma-id/w3id.org GitHub repository)
+
+# Redirect all mmho namespace requests to the GitHub repository
+# This makes http://w3id.org/mmho/... resolve to https://github.com/MengJ97/mmho/...
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Root namespace
+  RewriteRule ^$ https://github.com/MengJ97/mmho [R=302,L]
+
+  # Versioned namespace (v1.6)
+  RewriteRule ^1\.6/?$ https://github.com/MengJ97/mmho/tree/main#v160 [R=302,L]
+
+  # Direct file access
+  RewriteRule ^MMHO_v1\.6\.0_crm_ids\.owl$ https://raw.githubusercontent.com/MengJ97/mmho/main/MMHO_v1.6.0_crm_ids.owl [R=302,L]
+  RewriteRule ^MMHO_v1\.6\.0_crm_ids\.ttl$ https://raw.githubusercontent.com/MengJ97/mmho/main/MMHO_v1.6.0_crm_ids.ttl [R=302,L]
+
+  # Documentation
+  RewriteRule ^README\.md$ https://github.com/MengJ97/mmho/blob/main/README.md [R=302,L]
+
+  # Catch-all: redirect to repo
+  RewriteRule ^(.*)$ https://github.com/MengJ97/mmho [R=302,L]
+</IfModule>
