@@ -62,7 +62,7 @@ These rules are maintainer guidance. Existing files are not.
 | [`files/no-empty-htaccess`](./files/no-empty-htaccess) | error | An `.htaccess` with no directives resolves to 404 |
 | [`files/htaccess-required`](./files/htaccess-required) | warning | Something in the directory must answer requests |
 | [`files/readme-required`](./files/readme-required) | warning | Say what the identifier is and who maintains it |
-| [`files/readme-canonical-name`](./files/readme-canonical-name) | warning | Call it `README.md` |
+| [`files/prefer-readme-md`](./files/prefer-readme-md) | warning | Write it as Markdown, called `README.md` |
 
 ## [Repository shape](./tree/)
 

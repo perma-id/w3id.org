@@ -24,6 +24,11 @@ ids/my-project/
 The `README.md` is optional. The rules file must be named **exactly**
 `.htaccess` — lowercase, leading dot, no extension.
 
+This rule accepts any README name GitHub will render — `readme.md`,
+`README.adoc`, `README.rst` and the rest — because those are working files,
+not mistakes. Preferring Markdown called `README.md` is a separate and much
+softer matter: see [`files/prefer-readme-md`](./prefer-readme-md).
+
 ## Why
 
 **w3id.org is a redirection service, not a file host.** It answers requests
@@ -118,5 +123,5 @@ node tools/checker/bin/w3id-check.js ids/my-project
 
 ## See also
 
-- [`files/readme-canonical-name`](./readme-canonical-name)
+- [`files/prefer-readme-md`](./prefer-readme-md)
 - [`htaccess/github-raw-target`](../htaccess/github-raw-target)
