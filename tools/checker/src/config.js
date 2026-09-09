@@ -2,6 +2,7 @@
 import {readFileSync, existsSync} from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
+import {rules} from './rules/index.js';
 
 export const SEVERITIES = ['error', 'warning', 'notice'];
 export const PROVENANCES = ['introduced', 'touched', 'preexisting'];
@@ -63,7 +64,19 @@ export function loadConfig(root, overrides = {}) {
 
 function validate(config) {
   const allowed = new Set([...SEVERITIES, 'off']);
+  // Checked against the whole registry rather than the rules a given run
+  // enables, because a single-rule run must not declare the rest unknown.
+  const known = new Set(rules.map(rule => rule.id));
   for(const [id, severity] of Object.entries(config.rules)) {
+    // A key naming no rule does nothing at all: severities are looked up by
+    // id, so a stale one is never consulted. Silence there is dangerous --
+    // renaming a rule would quietly turn a deliberate "off" back on -- and
+    // this is the one place naming rule ids that no membership check covers.
+    if(!known.has(id)) {
+      throw new Error(
+        `${config.source}: rules."${id}" names no rule. It may have been ` +
+        'renamed or removed; run --list-rules to see the current set.');
+    }
     if(!allowed.has(severity)) {
       throw new Error(
         `${config.source}: rules.${id} is "${severity}"; expected one of ` +

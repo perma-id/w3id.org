@@ -8,8 +8,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {makeRepo, check, findingsOf, goodNamespace} from './helpers.js';
 import {resolveScope, ScopeError} from '../src/paths.js';
+import {loadConfig} from '../src/config.js';
 import {rules} from '../src/rules/index.js';
 import {main, EXIT} from '../src/cli.js';
 import rewriteEngineRequired from '../src/rules/htaccess/rewrite-engine-required.js';
@@ -380,4 +382,22 @@ test('only-own-identifier ignores work that touches no identifier', () => {
   });
   assert.deepEqual(r.findings, [],
     'tooling and docs work is not what this rule is looking at');
+});
+
+test('config: a rule id naming no rule is an error, not a no-op', () => {
+  // Severities are looked up by rule id, so a stale key is simply never
+  // consulted. Renaming a rule would then turn a deliberate "off" quietly
+  // back on. This is the one file naming rule ids that meta/rule-docs-exist
+  // does not cover, so the check has to live here.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml',
+    'rules:\n  files/prefer-readme-md: off\n  files/no-such-rule: off\n');
+  repo.commit('fixture');
+  assert.throws(() => loadConfig(repo.dir), /names no rule/);
+});
+
+test('config: every rule id in the shipped config still exists', () => {
+  // The repository's own .w3id-check.yaml, loaded the way the CLI loads it.
+  assert.doesNotThrow(() => loadConfig(path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..')));
 });

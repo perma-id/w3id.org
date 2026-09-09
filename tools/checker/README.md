@@ -71,6 +71,11 @@ with edits in progress does not see the bounds move.
 `.w3id-check.yaml` in the repository root holds that policy. Raising the values
 there is how strictness gets ratcheted up over time; no code changes.
 
+Its `rules:` block names rule ids, and a key naming no rule is refused at load
+rather than ignored. Severities are looked up by id, so a stale key would
+otherwise do nothing at all — and renaming a rule would quietly turn a
+deliberate `off` back on. Run `w3id-check --list-rules` for the current set.
+
 Rules marked `critical` — security problems, and redirects that are silently
 dead in production — are the exception. They are reported for anything the
 change touches even though `preexisting` is off, as a non-blocking `notice`, so
