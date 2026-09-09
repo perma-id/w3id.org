@@ -32,7 +32,7 @@ diff that touches the line. It is not a functional problem in these files.
 The distinction Markdown gets is the point of the rule. A **single** trailing
 space in Markdown does nothing at all — a line break needs two or more — so it
 is pure noise. Reporting the two-space form alongside it would be wrong: those
-lines render as their author intended, and 1268 of them in this repository are
+lines render as their author intended, and many of them in this repository are
 doing real work in maintainer blocks.
 
 ## Wrong

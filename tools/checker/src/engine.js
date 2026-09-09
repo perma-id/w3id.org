@@ -140,7 +140,7 @@ function contextFor(ctx, rule, config) {
  * files -- except for critical rules, which also visit the rest of every
  * namespace the change touches. A contributor editing an identifier should be
  * told that identifier is broken even if they did not break it; they should
- * not be told about the other 2100 namespaces, which is what `--triage` is
+ * not be told about the rest of the tree, which is what `--triage` is
  * for.
  */
 function filesFor(rule, ctx) {

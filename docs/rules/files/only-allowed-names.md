@@ -40,20 +40,20 @@ It is not a size question. A one-line JSON-LD context is as out of scope as a
 fifty-megabyte ontology. The repository is cloned in full onto the production
 host and is shared infrastructure for over two thousand identifiers, so it is
 deliberately kept to configuration only. This is the most common out-of-scope
-contribution and it is reverted every time: one namespace needed six separate
-deletion commits, and another single commit removed 4,843 lines of Turtle.
+contribution, it arrives at every size, and it is reverted every time.
 
 **A misnamed rules file does nothing at all.** Apache reads per-directory
 configuration from a file with that exact name. `htaccess.txt` is just a file
 sitting in the repository, the identifier resolves to a 404, and the
 contributor cannot see why because the file is right there in the pull
-request. At least 22 commits exist purely to rename it after the fact.
+request. Commits exist in this repository purely to rename it after the
+fact.
 
 The usual cause is GitHub's web editor, which will not accept a filename
 beginning with a dot typed into an empty filename box, so people save
 `htaccess.txt` meaning to fix it later. Variants that have all happened here:
 `htaccess.txt`, `htaccess.txt.txt`, `.htaccess.txt`, `htaccess`,
-`default.htaccess`, and `ecsel-dr-prc-PMV.htaccess`.
+`default.htaccess`, and `<project-name>.htaccess`.
 
 ## Wrong
 

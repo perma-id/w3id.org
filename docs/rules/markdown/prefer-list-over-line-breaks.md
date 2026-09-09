@@ -31,7 +31,7 @@ The rule only fires on a run of two or more broken lines in the same block. A
 single hard break inside a paragraph is a deliberate typographic choice, and a
 block that is already a list is left alone even when its items carry markers.
 
-340 blocks in this repository are in this shape.
+Hundreds of blocks in this repository are in this shape.
 
 ## Wrong
 

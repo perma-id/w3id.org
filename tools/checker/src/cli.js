@@ -181,7 +181,7 @@ function renderOutput({values, payload, formatter}) {
   const sections = [];
 
   // A stats or triage run replaces the finding list rather than appending to
-  // it: the point is the aggregate, not 4000 individual lines.
+  // it: the point is the aggregate, not the individual lines.
   if(values.format === 'json') {
     return formatter(payload);
   }

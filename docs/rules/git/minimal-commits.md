@@ -21,11 +21,11 @@ Adding an identifier is one change. Split across six commits it is six things
 to read, and the reviewer has to reconstruct what the final state is before
 they can judge it.
 
-The usual cause is the GitHub web editor, which commits once per save. A
-contributor adding a directory through the browser produces "Add initial
-README", "Create .htaccess", "Update repository links in README.md", "Fix
-contact email format" — four commits for one small change, three of which are
-corrections to the first.
+The usual cause is the GitHub web editor, which commits once per save. Adding
+a directory through the browser typically produces something like "Create
+README.md", "Create .htaccess", "Update README.md", "Update README.md again" —
+four commits for one small change, three of which are corrections to the
+first.
 
 Squashing is not about tidiness. It is about the reviewer being able to see
 what you are actually asking for.
@@ -34,10 +34,10 @@ what you are actually asking for.
 
 ```
 $ git log --oneline origin/master..HEAD
-87738437 Fix contact email format in README
-ee4102a0 Update repository links in README.md
-d3389e3a Create .htaccess with URL rewrite rules
-c885985a Add initial README
+87738437 Update README.md again
+ee4102a0 Update README.md
+d3389e3a Create .htaccess
+c885985a Create README.md
 ```
 
 ## Right

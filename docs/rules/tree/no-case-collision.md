@@ -27,9 +27,9 @@ editing.
 Linux, where the production server runs, is case-sensitive, so the collision is
 invisible until somebody clones the repository on a laptop.
 
-The repository still contains one such pair, and the global `ids/.htaccess`
-carries three rules that exist for no reason other than papering over past
-collisions. Several identifiers have had to be renamed after the fact.
+This has happened here before. The global `ids/.htaccess` carries rules that
+exist for no reason other than papering over past collisions, and identifiers
+have had to be renamed after the fact.
 
 Lowercase names are preferred beyond just avoiding collisions — they remove the
 question of which capitalisation a user should type — but that preference is
@@ -37,18 +37,18 @@ not mechanically checked.
 
 ## Wrong
 
-Given that `ids/gcdfo/` already exists:
+Given that `ids/my-project/` already exists:
 
 ```
-ids/GCDFO/       ← collides
-ids/Gcdfo/       ← collides
+ids/MY-PROJECT/       ← collides
+ids/My-Project/       ← collides
 ```
 
 ## Right
 
 ```
-ids/gcdfo-extended/
 ids/my-project/
+ids/my-project-extended/
 ```
 
 Lowercase letters, digits, and hyphens.

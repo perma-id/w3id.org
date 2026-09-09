@@ -255,10 +255,12 @@ test('htaccess/pattern-relative-to-dir catches a repeated directory name', () =>
 
 test('htaccess/pattern-relative-to-dir spares a filename that shares the name',
   () => {
-    // ids/aio/ holding ^aio\.owl$ is a filename, not a repeated prefix.
+    // ids/my-project/ holding ^my-project\.owl$ is a filename, not a repeated
+    // prefix.
     const r = audit(patternRelativeToDir, {
-      'ids/aio/.htaccess':
-        'RewriteEngine on\nRewriteRule ^aio\\.owl$ https://x/aio.owl [R=303,L]\n'
+      'ids/my-project/.htaccess':
+        'RewriteEngine on\n' +
+        'RewriteRule ^my-project\\.owl$ https://x/my-project.owl [R=303,L]\n'
     });
     assert.deepEqual(findingsOf(r), []);
   });
@@ -667,9 +669,10 @@ test('htaccess/allowed-directives refuses execution and proxying', () => {
 
 test('meta/maintainer-github-username reads the ad hoc formats', () => {
   const r = audit(maintainerGithubUsername, {
-    'ids/a/.htaccess': '# GitHub username: bact\n' + OK_HTACCESS,
-    'ids/b/README.md': '## Maintainers\n- @44inua\n',
-    'ids/c/README.md': 'Maintainer: [Coen](https://github.com/CoenvanG)\n',
+    'ids/a/.htaccess': '# GitHub username: exampleuser\n' + OK_HTACCESS,
+    'ids/b/README.md': '## Maintainers\n- @someone\n',
+    'ids/c/README.md':
+      'Maintainer: [Firstname](https://github.com/ExampleUser)\n',
     'ids/d/.htaccess': '# Maintainer: Someone <a@b.example>\n' + OK_HTACCESS,
     'ids/e/README.md': '# e\n\nNo contact details at all.\n'
   });

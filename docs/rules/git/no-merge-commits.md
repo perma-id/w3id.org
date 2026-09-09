@@ -20,9 +20,9 @@ GitHub's "Sync fork" button merges the upstream branch into yours. That pulls
 every commit it caught up on into your pull request, so a one-line redirect
 change arrives carrying a hundred unrelated commits and a merge commit on top.
 
-672 such merges have reached `master` in this repository, 501 of them the
-`Merge branch 'perma-id:master' into ...` shape that button produces. They add
-no content, make the change hard to read, and are what the pull request
+Hundreds of such merges have reached `master` in this repository, most of them
+the `Merge branch 'perma-id:master' into ...` shape that button produces. They
+add no content, make the change hard to read, and are what the pull request
 template means when it asks for a minimal number of commits.
 
 Rebasing puts your work on top of the current master instead, so the pull

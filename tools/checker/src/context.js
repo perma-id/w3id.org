@@ -167,7 +167,7 @@ export class Context {
   }
 
   /**
-   * The identifier namespace a path belongs to, e.g. `ids/example`.
+   * The identifier namespace a path belongs to, e.g. `ids/my-project`.
    *
    * Returns null for paths outside the identifier directory.
    */

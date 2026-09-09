@@ -25,7 +25,7 @@ Apache does not read that trailing text as a note to the reader. It reads it as
 additional arguments to `RewriteRule`, and either misbehaves or refuses to parse
 the file — which returns 500 for every URL under the directory.
 
-Eight files in this repository do this today.
+There are files in this repository doing this today.
 
 ## Wrong
 

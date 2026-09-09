@@ -26,7 +26,7 @@ at the end of a substitution URL becomes part of the redirect target. The rule
 looks right and sends clients to a URL with an invisible control character on
 the end.
 
-113 files in this repository currently have CRLF endings.
+Plenty of files in this repository already have CRLF endings.
 
 ## Wrong
 
