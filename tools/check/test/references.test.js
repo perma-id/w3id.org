@@ -259,6 +259,11 @@ test('references: every rule page is reachable from the site sidebar', () => {
   // Silent when the site is absent, the way meta/rule-docs-exist is silent
   // without docs/rules/. The two halves of this repository were written
   // separately and either can be checked out without the other.
+  //
+  // Note what that costs when reading the output: this returning early is a
+  // pass, not a skip, so "the test passed" and "the test ran" look the same
+  // here. In a tree with no docs/.vitepress/ it has checked nothing. If you
+  // change what it detects, prove it against a checkout that has the site.
   const config = read(path.join(root, 'docs', '.vitepress', 'config.js'));
   if(config === null) {
     return;
