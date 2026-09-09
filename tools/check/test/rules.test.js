@@ -10,6 +10,8 @@ import readmeRequired from '../src/rules/files/readme-required.js';
 import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
+import noExcessiveBlankLines
+  from '../src/rules/format/no-excessive-blank-lines.js';
 import preferListOverLineBreaks from '../src/rules/markdown/prefer-list-over-line-breaks.js';
 import noFlagWhitespace from '../src/rules/htaccess/no-flag-whitespace.js';
 import noBom from '../src/rules/format/no-bom.js';
@@ -414,6 +416,113 @@ test('format/no-trailing-whitespace reports all of it outside Markdown', () => {
     'ids/a/.htaccess:3:warning',
     'ids/a/.htaccess:4:warning'
   ]);
+});
+
+test('format/no-excessive-blank-lines finds the boundary in both directions',
+  () => {
+    const rule = 'RewriteRule ^a$ https://x/ [R=302,L]\n';
+    const r = audit(noExcessiveBlankLines, {
+      // Three is the allowance, so this is silent.
+      'ids/a/.htaccess': 'RewriteEngine on\n\n\n\n' + rule,
+      // Four is one past it.
+      'ids/b/.htaccess': 'RewriteEngine on\n\n\n\n\n' + rule
+    });
+    assert.deepEqual(findingsOf(r), ['ids/b/.htaccess:2:warning']);
+    assert.match(r.findings[0].message, /^4 blank lines in a row/);
+  });
+
+test('format/no-excessive-blank-lines treats the two edges differently', () => {
+  const rule = 'RewriteEngine on\nRewriteRule ^a$ https://x/ [R=302,L]\n';
+  const r = audit(noExcessiveBlankLines, {
+    // Nothing above the first line needs separating, so one is already too
+    // many.
+    'ids/a/.htaccess': '\n' + rule,
+    // The file is meant to end in a newline, so one blank line at the end is
+    // a single character of overshoot and not worth saying anything about.
+    'ids/b/.htaccess': rule + '\n',
+    // Two is somebody having left a gap.
+    'ids/c/.htaccess': rule + '\n\n',
+    'ids/d/.htaccess': rule
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/a/.htaccess:1:warning',
+    'ids/c/.htaccess:3:warning'
+  ]);
+  const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
+  assert.match(message['ids/a/.htaccess'], /starts with 1 blank line\b/,
+    'singular, because "1 blank lines" reads as a bug in the tool');
+  assert.match(message['ids/c/.htaccess'], /ends with 2 blank lines/);
+});
+
+test('format/no-excessive-blank-lines reports a run once, not per line', () => {
+  const r = audit(noExcessiveBlankLines, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' + '\n'.repeat(8) +
+      'RewriteRule ^a$ https://x/ [R=302,L]\n',
+    // A file of nothing but blank lines is one complaint, not three
+    // overlapping ones: once the start has eaten everything there is no
+    // interior and no end left to describe.
+    'ids/b/README.md': '\n\n\n\n\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/a/.htaccess:2:warning',
+    'ids/b/README.md:1:warning'
+  ]);
+  assert.match(r.findings.find(f => f.file === 'ids/a/.htaccess').message,
+    /^8 blank lines/);
+});
+
+test('format/no-excessive-blank-lines leaves ordinary Markdown alone', () => {
+  // Markdown needs a blank line between blocks, so a short README is
+  // legitimately close to half blank. Anything counting the proportion rather
+  // than the run would report every one of these.
+  const r = audit(noExcessiveBlankLines, {
+    'ids/a/README.md':
+      '# thing\n\nWhat it is.\n\n## Contact\n\nBy @octocat\n',
+    'ids/b/README.md': '# thing\n\n\nWhat it is.\n',
+    'ids/c/.htaccess':
+      'RewriteEngine on\n\nRewriteRule ^a$ https://x/ [R=302,L]\n\n' +
+      'RewriteRule ^b$ https://x/ [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), []);
+});
+
+test('format/no-excessive-blank-lines does not read quoted content', () => {
+  // A README showing an example .htaccess contains whatever it is quoting,
+  // and this rule is about the file's own layout. Found by the rule reporting
+  // its own documentation page, whose "Wrong" example is four blank lines.
+  const r = audit(noExcessiveBlankLines, {
+    'ids/a/README.md':
+      '# thing\n\nBefore:\n\n```apache\nRewriteEngine on\n' +
+      '\n\n\n\n\nRewriteRule ^a$ https://x/ [R=302,L]\n```\n\nAfter.\n',
+    // A run outside the fence is still reported, and one is not allowed to
+    // start inside a fence and finish outside it.
+    'ids/b/README.md':
+      '# thing\n\n```\nquoted\n```\n\n\n\n\nAfter.\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/b/README.md:6:warning']);
+  assert.match(r.findings[0].message, /^4 blank lines/);
+});
+
+test('blank lines and trailing whitespace are separate complaints', () => {
+  // A run of whitespace-only lines is one run here and one finding per line
+  // in format/no-trailing-whitespace. Those are different things to say about
+  // the same region -- what would be wrong is saying either of them twice.
+  const files = {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' + '   \n'.repeat(5) +
+      'RewriteRule ^a$ https://x/ [R=302,L]\n'
+  };
+  assert.deepEqual(findingsOf(audit(noExcessiveBlankLines, files)),
+    ['ids/a/.htaccess:2:warning'],
+    'one finding for the run, at its first line');
+  assert.deepEqual(findingsOf(audit(noTrailingWhitespace, files)), [
+    'ids/a/.htaccess:2:warning',
+    'ids/a/.htaccess:3:warning',
+    'ids/a/.htaccess:4:warning',
+    'ids/a/.htaccess:5:warning',
+    'ids/a/.htaccess:6:warning'
+  ], 'the whitespace itself is still reported per line');
 });
 
 test('format/no-trailing-whitespace leaves a Markdown line break alone', () => {

@@ -118,6 +118,7 @@ These rules are maintainer guidance. Existing files are not.
 | [`format/no-crlf`](./format/no-crlf) | warning | Unix line endings, not CRLF |
 | [`format/final-newline`](./format/final-newline) | warning | End the file with a newline |
 | [`format/no-trailing-whitespace`](./format/no-trailing-whitespace) | warning | No trailing whitespace that does nothing |
+| [`format/no-excessive-blank-lines`](./format/no-excessive-blank-lines) | warning | No long runs of blank lines, and none at the start or end |
 
 ## [Markdown](./markdown/)
 
