@@ -39,8 +39,8 @@ were written separately, which is exactly the situation that produces drift.
 A rule with no page:
 
 ```
-tools/checker/src/rules/htaccess/new-thing.js   ← exists
-docs/rules/htaccess/new-thing.md                ← missing
+tools/checker/src/rules/htaccess/<new-rule>.js   ← exists
+docs/rules/htaccess/<new-rule>.md                ← missing
 ```
 
 A page whose id disagrees with its path:
