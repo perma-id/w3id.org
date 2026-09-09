@@ -27,8 +27,8 @@ It also produces mixed-content failures. A page loaded over HTTPS cannot fetch
 target simply does not work for browser-based clients, whatever the security
 argument.
 
-A large share of rules in this repository still target `http://`. Most of those
-destinations now support HTTPS and the rule was just never updated.
+Well over a thousand rules in this repository still target `http://`. Most of
+those destinations now support HTTPS and the rule was just never updated.
 
 ## Wrong
 

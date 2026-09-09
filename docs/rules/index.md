@@ -45,9 +45,10 @@ Only `error` findings block a pull request. A `warning` is something a
 maintainer will probably ask about; a `notice` is there so you have seen it.
 
 ::: warning The existing repository is not a style guide
-There are thousands of `.htaccess` files here, written by thousands of people
-over more than a decade, and most are copies of copies. That a pattern appears
-in hundreds of files is evidence it was *copied*, not that it is *correct* —
+There are thousands of `.htaccess` files here, written by more than a thousand
+people over more than a decade, and many are copies of copies. That a pattern
+appears in hundreds of files is evidence it was *copied*, not that it is
+*correct* —
 [`htaccess/valid-cors-header`](./htaccess/valid-cors-header) documents a broken
 line that spread to hundreds of files exactly that way.
 
