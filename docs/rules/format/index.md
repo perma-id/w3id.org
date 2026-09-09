@@ -20,9 +20,12 @@ rules by being spelled unusually.
 | [`format/no-crlf`](./no-crlf) | warning | Unix line endings, not CRLF |
 | [`format/final-newline`](./final-newline) | warning | End the file with a newline |
 | [`format/no-trailing-whitespace`](./no-trailing-whitespace) | warning | No trailing whitespace that does nothing |
+| [`format/no-excessive-blank-lines`](./no-excessive-blank-lines) | warning | No long runs of blank lines, and none at the start or end |
 
-Only the first of these can break an identifier. The other three are diff
-hygiene, and your editor can handle all of them for you — see the note about
-EditorConfig on any of those pages.
+Only the first of these can break an identifier. The rest are diff hygiene and
+readability, and your editor can handle most of them for you — see the note
+about EditorConfig on any of those pages. Blank lines are the exception:
+`insert_final_newline` guarantees a file ends with a newline but does not
+remove extra ones, so that rule is fixed by hand.
 
 Back to the [rule catalogue](../).

@@ -18,6 +18,8 @@ import formatNoBom from './format/no-bom.js';
 import formatFinalNewline from './format/final-newline.js';
 import formatNoCrlf from './format/no-crlf.js';
 import formatNoTrailingWhitespace from './format/no-trailing-whitespace.js';
+import formatNoExcessiveBlankLines
+  from './format/no-excessive-blank-lines.js';
 
 import gitMinimalCommits from './git/minimal-commits.js';
 import gitNoMergeCommits from './git/no-merge-commits.js';
@@ -62,6 +64,7 @@ export const rules = [
   formatFinalNewline,
   formatNoCrlf,
   formatNoTrailingWhitespace,
+  formatNoExcessiveBlankLines,
 
   gitMinimalCommits,
   gitNoMergeCommits,
