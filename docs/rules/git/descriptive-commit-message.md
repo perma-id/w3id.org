@@ -24,7 +24,7 @@ The history is how anyone works out later why a redirect points where it does.
 A message that names the identifier makes `git log --grep` useful; one that
 does not makes a decade of commits into an undifferentiated wall.
 
-A large share of commits arrive with the default message.
+About one commit in six arrives with the default message.
 
 ## Wrong
 
