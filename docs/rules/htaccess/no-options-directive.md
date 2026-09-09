@@ -88,8 +88,10 @@ changes what the check should say:
   Nothing in the tree demonstrably relies on that, but this is the directive
   with a stated justification, so a rule that flags it needs to know when it
   is right. Worth knowing before that research starts: MultiViews is
-  **enabled** on the deployed document root, and most files here switch it off
-  — so these are not lines reacting to nothing.
+  **enabled** on the deployed document root, and about a third of the files
+  here switch it off — so these are not lines reacting to nothing. A handful
+  more have the directive commented out, which suggests somebody tried it and
+  backed it out, or copied a template that had already given up on it.
 - **`-Indexes`** probably has no per-directory justification at all, and would
   be better handled once, globally, in the server configuration. If that
   happened, the per-directory copies become redundant rather than wrong —
