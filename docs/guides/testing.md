@@ -16,23 +16,23 @@ Error for every URL under that directory**, not just for the rule you got wrong.
 
 ## Run the checks
 
-The checker lives in `tools/checker/` and reports only what your own change is
+The checker lives in `tools/check/` and reports only what your own change is
 responsible for, including work you have not committed yet:
 
 ```sh
-cd tools/checker && npm ci
-cd ../.. && node tools/checker/bin/w3id-check.js
+cd tools/check && npm ci
+cd ../.. && node tools/check/bin/w3id-check.js
 ```
 
 To look at one directory:
 
 ```sh
-node tools/checker/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js ids/my-project
 ```
 
 Each finding names a rule id, and every rule id has a page under
 [`/rules/`](/rules/) explaining what to do about it. See
-[`tools/checker/README.md`](https://github.com/perma-id/w3id.org/blob/master/tools/checker/README.md)
+[`tools/check/README.md`](https://github.com/perma-id/w3id.org/blob/master/tools/check/README.md)
 for the full set of options.
 
 Not every rule is mechanized. A rule page marked `proposed` is documented but
