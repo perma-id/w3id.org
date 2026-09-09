@@ -18,7 +18,7 @@ If you are looking for a walkthrough rather than a reference, start with the
 | **`id`** | Stable identifier. Also the page's URL and how checks refer to it. |
 | **`severity`** | `error` — the identifier is broken or the change is not acceptable. `warning` — it works, but it will cause problems. `notice` — advisory. |
 | **`status`** | `enforced` — an automated check emits this id. `proposed` — documented, not yet checked. |
-| **`applies-to`** | Which files the rule applies to. |
+| **`applies-to`** | Which files the rule concerns, as a reader-facing summary. The checker's own patterns are the source of truth. |
 
 The three severities are the three annotation levels GitHub Actions
 understands, so a finding keeps the same word from the checker's output through
@@ -159,6 +159,11 @@ That contract is itself checked, by
 [`meta/rule-docs-exist`](./meta/rule-docs-exist): every rule the checker
 implements must have a page, every page claiming `status: enforced` must have a
 rule behind it, and a page's `id` must match its path.
+
+`applies-to` is outside that contract. It is a summary written for readers,
+and nothing verifies it against the patterns the rule actually selects on, so
+do not use it to decide which files to check — read the rule. The frontmatter
+fields safe to build on are the ones above: `id`, `severity` and `status`.
 
 Raw Markdown for any page is available by appending `.md` to its URL, and the
 whole site is published as [`llms.txt`](https://w3id.org/docs/llms.txt) and
