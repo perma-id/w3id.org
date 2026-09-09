@@ -6,7 +6,7 @@
  * rule is a deliberate act.
  */
 import filesOnlyAllowedNames from './files/only-allowed-names.js';
-import filesReadmeCanonicalName from './files/readme-canonical-name.js';
+import filesPreferReadmeMd from './files/prefer-readme-md.js';
 import filesHtaccessRequired from './files/htaccess-required.js';
 import filesReadmeRequired from './files/readme-required.js';
 import filesNoEmptyHtaccess from './files/no-empty-htaccess.js';
@@ -50,7 +50,7 @@ import metaRuleDocsExist from './meta/rule-docs-exist.js';
 
 export const rules = [
   filesOnlyAllowedNames,
-  filesReadmeCanonicalName,
+  filesPreferReadmeMd,
   filesHtaccessRequired,
   filesReadmeRequired,
   filesNoEmptyHtaccess,

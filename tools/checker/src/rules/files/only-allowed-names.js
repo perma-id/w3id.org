@@ -1,3 +1,4 @@
+import {isHtaccess, isReadme} from '../../paths.js';
 import {matchesAny} from '../../glob.js';
 
 /**
@@ -5,13 +6,12 @@ import {matchesAny} from '../../glob.js';
  * an `.htaccess` telling Apache where to send requests and a README telling
  * humans who to ask about it. Anything else either does nothing or is being
  * served in a way the service does not support.
+ *
+ * "README" here means any name GitHub will render as the directory's README,
+ * not only `README.md`: an AsciiDoc one works, and calling a working file an
+ * error would be wrong. Preferring Markdown is a separate, softer matter --
+ * see `files/prefer-readme-md`.
  */
-const ALLOWED = [
-  '**/.htaccess',
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee]',
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee].[Mm][Dd]',
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee].[Tt][Xx][Tt]'
-];
 
 export default {
   id: 'files/only-allowed-names',
@@ -24,9 +24,9 @@ export default {
   messages: {
     notAllowed:
       '{{name}} is not allowed here. An identifier directory may contain ' +
-      'only .htaccess and a README (README.md, readme.md or README.txt). ' +
-      'w3id.org redirects requests; it does not serve files, so anything ' +
-      'else has no effect.',
+      'only .htaccess and a README -- by convention README.md. w3id.org ' +
+      'redirects requests; it does not serve files, so anything else has no ' +
+      'effect.',
     misnamedHtaccess:
       '{{name}} looks like it was meant to be .htaccess, and Apache will not ' +
       'read it under that name -- the identifier does not resolve at all. ' +
@@ -44,7 +44,7 @@ export default {
     if(matchesAny(ctx.file, ctx.config.allowedPaths)) {
       return;
     }
-    if(matchesAny(ctx.file, ALLOWED)) {
+    if(isHtaccess(ctx.file) || isReadme(ctx.file)) {
       return;
     }
     const name = ctx.file.split('/').pop();

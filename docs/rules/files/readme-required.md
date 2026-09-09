@@ -74,4 +74,4 @@ node tools/checker/bin/w3id-check.js ids/my-project
 ## See also
 
 - [`meta/maintainer-github-username`](../meta/maintainer-github-username)
-- [`files/readme-canonical-name`](./readme-canonical-name)
+- [`files/prefer-readme-md`](./prefer-readme-md)

@@ -7,20 +7,76 @@ import {minimatch, matchesAny} from './glob.js';
 export const CANONICAL_README = 'README.md';
 
 /**
- * Every README spelling that has landed in the tree.
+ * The markup extensions GitHub renders when it displays a directory's README,
+ * mapped to the name a person would call the format.
  *
- * `files/only-allowed-names` rejects anything outside this set;
- * `files/readme-canonical-name` nudges the survivors towards README.md.
+ * Being wrong in either direction costs something. Leave one out and the rule
+ * calls a working README an error; put one in that GitHub does not render and
+ * the rule stays quiet about a file that shows up as raw punctuation. This is
+ * the set GitHub's own markup library handles.
  */
-export const README_PATTERNS = [
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee]',
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee].[Mm][Dd]',
-  '**/[Rr][Ee][Aa][Dd][Mm][Ee].[Tt][Xx][Tt]'
-];
+const README_MARKUP = new Map([
+  ['md', 'Markdown'],
+  ['markdown', 'Markdown'],
+  ['mdown', 'Markdown'],
+  ['mkdn', 'Markdown'],
+  ['adoc', 'AsciiDoc'],
+  ['asciidoc', 'AsciiDoc'],
+  ['asc', 'AsciiDoc'],
+  ['rst', 'reStructuredText'],
+  ['org', 'Org mode'],
+  ['textile', 'Textile'],
+  ['rdoc', 'RDoc'],
+  ['creole', 'Creole'],
+  ['mediawiki', 'MediaWiki'],
+  ['wiki', 'MediaWiki'],
+  ['pod', 'Pod']
+]);
 
-/** Whether a path names a README of any accepted spelling. */
+/** The extensions above that GitHub renders as Markdown. */
+const MARKDOWN_EXTENSIONS = new Set(
+  [...README_MARKUP].filter(([, format]) => format === 'Markdown')
+    .map(([extension]) => extension));
+
+// `readme`, optionally followed by one recognised extension. Anything else --
+// `README..md`, `README.me`, `_readme.md` -- is a file GitHub will not show as
+// the directory's README, so it is not a README as far as this tool is
+// concerned.
+const README_NAME = new RegExp(
+  `^readme(\\.(txt|${[...README_MARKUP.keys()].join('|')}))?$`, 'i');
+
+/**
+ * Whether a path names a README that GitHub would render as such.
+ *
+ * Deliberately generous: the checker should not call a working README an
+ * error. `files/prefer-readme-md` is what nudges the survivors towards
+ * README.md.
+ */
 export function isReadme(relPath) {
-  return matchesAny(relPath, README_PATTERNS);
+  return README_NAME.test(relPath.split('/').pop());
+}
+
+/**
+ * How GitHub will treat a README with this name.
+ *
+ * Returns `{kind, format}` where `kind` is:
+ *
+ * - `markdown`   -- already Markdown, so only the name is in question;
+ * - `markup`     -- rendered, but as some other syntax, so the content has to
+ *                   be converted and not merely renamed;
+ * - `plain-text` -- shown verbatim, whatever the content happens to be.
+ */
+export function readmeFormat(name) {
+  const dot = name.indexOf('.');
+  const extension = dot === -1 ? '' : name.slice(dot + 1).toLowerCase();
+  if(MARKDOWN_EXTENSIONS.has(extension)) {
+    return {kind: 'markdown', format: 'Markdown'};
+  }
+  const format = README_MARKUP.get(extension);
+  if(format !== undefined) {
+    return {kind: 'markup', format};
+  }
+  return {kind: 'plain-text', format: 'plain text'};
 }
 
 /** Whether a path names an `.htaccess`. */

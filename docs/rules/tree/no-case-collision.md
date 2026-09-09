@@ -89,4 +89,4 @@ node tools/checker/bin/w3id-check.js ids/my-project
 ## See also
 
 - [`tree/only-own-identifier`](./only-own-identifier)
-- [`files/readme-canonical-name`](../files/readme-canonical-name)
+- [`files/prefer-readme-md`](../files/prefer-readme-md)

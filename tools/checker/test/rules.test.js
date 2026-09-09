@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {makeRepo, check, findingsOf} from './helpers.js';
 
 import onlyAllowedNames from '../src/rules/files/only-allowed-names.js';
-import readmeCanonicalName from '../src/rules/files/readme-canonical-name.js';
+import preferReadmeMd from '../src/rules/files/prefer-readme-md.js';
 import htaccessRequired from '../src/rules/files/htaccess-required.js';
 import readmeRequired from '../src/rules/files/readme-required.js';
 import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
@@ -56,14 +56,25 @@ test('files/only-allowed-names rejects anything else', () => {
     'ids/a/.htaccess': OK_HTACCESS,
     'ids/a/README.md': OK_README,
     'ids/a/readme.txt': 'also fine\n',
+    // GitHub renders these as the directory README, so they are not errors
+    // however much the repository would rather they were Markdown.
+    'ids/a/README.adoc': '= a\n',
+    'ids/b/README.rst': 'a\n=\n',
     'ids/a/index.html': '<p>no</p>\n',
     'ids/a/.gitignore': '.DS_Store\n',
-    'ids/a/logo.png': 'x\n'
+    'ids/a/logo.png': 'x\n',
+    // Near-misses GitHub will not render as a README either.
+    'ids/c/README.me': 'x\n',
+    'ids/d/README..md': 'x\n',
+    'ids/e/_readme.md': 'x\n'
   });
   assert.deepEqual(findingsOf(r).sort(), [
     'ids/a/.gitignore:1:error',
     'ids/a/index.html:1:error',
-    'ids/a/logo.png:1:error'
+    'ids/a/logo.png:1:error',
+    'ids/c/README.me:1:error',
+    'ids/d/README..md:1:error',
+    'ids/e/_readme.md:1:error'
   ]);
 });
 
@@ -269,38 +280,70 @@ test('files/only-allowed-names names the misnamed .htaccess case', () => {
   assert.match(message['ids/e/notes.txt'], /is not allowed here/);
 });
 
-test('files/readme-canonical-name asks for the convention, not a fix', () => {
-  const r = audit(readmeCanonicalName, {
+test('files/prefer-readme-md asks for the convention, not a fix', () => {
+  const r = audit(preferReadmeMd, {
     'ids/a/README.md': OK_README,
     'ids/b/readme.md': OK_README,
-    'ids/c/README.MD': OK_README
+    'ids/c/README.MD': OK_README,
+    'ids/d/README.markdown': OK_README
   });
-  assert.deepEqual(findingsOf(r).sort(),
-    ['ids/b/readme.md:1:warning', 'ids/c/README.MD:1:warning']);
-  // These render perfectly well; the rule must not imply they do not.
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/b/readme.md:1:warning',
+    'ids/c/README.MD:1:warning',
+    'ids/d/README.markdown:1:warning'
+  ]);
+  // These render as Markdown already; the rule must not imply otherwise, and
+  // must not ask for work beyond the rename.
   for(const f of r.findings) {
-    assert.match(f.message, /GitHub recognises other spellings/);
-    assert.doesNotMatch(f.message, /verbatim/);
+    assert.match(f.message, /GitHub renders the other spellings/);
+    assert.doesNotMatch(f.message, /verbatim|rewritten/);
   }
 });
 
-test('files/readme-canonical-name spots Markdown without a .md name', () => {
-  const r = audit(readmeCanonicalName, {
+test('files/prefer-readme-md asks for a conversion, not a rename', () => {
+  const r = audit(preferReadmeMd, {
+    'ids/a/README.adoc': '= /a/\n\nSomething.\n',
+    'ids/b/README.rst': 'Title\n=====\n',
+    // Plain text: converting it is work too, even without a markup syntax to
+    // translate out of.
+    'ids/c/README.txt': 'Contact: someone@example.com\n'
+  });
+  const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
+
+  assert.match(message['ids/a/README.adoc'], /is AsciiDoc/);
+  assert.match(message['ids/a/README.adoc'], /more than a rename/);
+  assert.match(message['ids/b/README.rst'], /is reStructuredText/);
+  assert.match(message['ids/c/README.txt'], /verbatim, as plain text/);
+  assert.match(message['ids/c/README.txt'], /not only renaming/);
+});
+
+test('files/prefer-readme-md spots Markdown without a .md name', () => {
+  const r = audit(preferReadmeMd, {
     // Opens with an ATX heading, so the extension does change what a reader
-    // sees.
+    // sees -- and nothing but the name needs to change.
     'ids/a/README': '# thing\n\nBy @octocat\n',
     // A heading after blank lines still counts.
-    'ids/b/readme.txt': '\n\n## Contact\n\nBy @octocat\n',
-    // Genuinely plain text: nothing is lost by the extension.
-    'ids/c/README.txt': 'Contact: someone@example.com\n'
+    'ids/b/readme.txt': '\n\n## Contact\n\nBy @octocat\n'
   });
   const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
 
   assert.match(message['ids/a/README'], /appear as literal punctuation/);
   assert.match(message['ids/b/readme.txt'], /appear as literal punctuation/);
-  assert.match(message['ids/c/README.txt'],
-    /GitHub recognises other spellings/,
-    'plain text loses nothing, so it gets the convention nudge only');
+  for(const f of r.findings) {
+    assert.doesNotMatch(f.message, /rewritten/,
+      'it is already Markdown, so only the name is wrong');
+  }
+});
+
+test('files/prefer-readme-md leaves names GitHub will not render alone', () => {
+  // `files/only-allowed-names` reports these as errors; two rules saying
+  // different things about one file would only confuse.
+  const r = audit(preferReadmeMd, {
+    'ids/a/README.me': '# x\n',
+    'ids/b/README..md': '# x\n',
+    'ids/c/_readme.md': '# x\n'
+  });
+  assert.deepEqual(findingsOf(r), []);
 });
 
 test('files/htaccess-required accepts a parent that only groups children', () => {
