@@ -86,7 +86,8 @@ export default defineConfig({
           { text: 'Writing .htaccess rules', link: '/guides/htaccess' },
           { text: 'Content negotiation', link: '/guides/content-negotiation' },
           { text: 'Maintaining an identifier', link: '/guides/maintain-an-id' },
-          { text: 'Testing your changes', link: '/guides/testing' }
+          { text: 'Testing your changes', link: '/guides/testing' },
+          { text: 'Running a local server', link: '/guides/local-server' }
         ]
       },
       // Grouped to match the headings in docs/rules/index.md. Rule ids are

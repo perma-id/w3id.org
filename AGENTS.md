@@ -148,9 +148,17 @@ Note what is absent: no `Options`, no `RewriteBase`, no `AddType`, no
    curl -sIL https://example.org/vocab.ttl | grep -iE '^(HTTP|content-type)'
    ```
 
-5. Exercise the rules against a real Apache if you can — see
-   `docs/guides/testing.md`. At minimum, hand-trace one request through each
-   rule and state what the pattern matches and what `$1` contains.
+5. Exercise the rules against a real Apache. There is a supported setup in
+   `tools/server/`, and `docs/guides/local-server.md` explains it:
+
+   ```sh
+   cd tools/server && docker compose up
+   tools/server/bin/resolve-identifier my-project
+   ```
+
+   If you have no container runtime available, say so, and hand-trace one
+   request through each rule instead — state what the pattern matches and what
+   `$1` contains.
 
 Report honestly which of these you actually ran. Do not describe a redirect as
 "tested" when you only read it.

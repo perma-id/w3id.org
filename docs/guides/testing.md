@@ -76,64 +76,29 @@ segment. See [`htaccess/github-raw-target`](/rules/htaccess/github-raw-target).
 
 ## Run the rules locally
 
-To actually exercise your `.htaccess` you need an Apache server with
-`mod_rewrite` enabled and `AllowOverride All` for the document root. Serve the
-repository's `ids/` directory — that is the document root on the live service,
-so `ids/my-project/` is reachable at `/my-project/`.
+To actually exercise your `.htaccess` you need to serve the repository's `ids/`
+directory with a real Apache — that is the document root on the live service, so
+`ids/my-project/` is reachable at `/my-project/`.
 
-### With Docker
-
-::: warning Unverified
-Nobody has yet run this command end to end and confirmed it. It is written from
-Apache's documented behaviour and the layout of the official `httpd` image, so
-treat it as a starting point rather than a recipe known to work. If you get it
-running — or get it running only after changing something — please
-[open an issue](https://github.com/perma-id/w3id.org/issues) so this can be
-corrected or replaced.
-:::
-
-From the root of your checkout:
+There is a supported setup in `tools/server/`, configured to match the live
+server. From the repository root:
 
 ```sh
-docker run --rm -p 8080:80 \
-  -v "$PWD/ids:/usr/local/apache2/htdocs:ro" \
-  httpd:2.4 \
-  sh -c '
-    sed -i \
-      -e "s|^#LoadModule rewrite_module|LoadModule rewrite_module|" \
-      -e "s|^#LoadModule headers_module|LoadModule headers_module|" \
-      -e "s|AllowOverride None|AllowOverride All|" \
-      conf/httpd.conf
-    httpd-foreground
-  '
+cd tools/server && docker compose up
 ```
 
-Then in another terminal:
+Then, in another terminal:
 
 ```sh
-curl -sI http://localhost:8080/my-project/
+tools/server/bin/resolve-identifier my-project
 ```
 
-If you get a **500**, your `.htaccess` has a syntax error. The container's log
-output in the first terminal will name the file and line.
+That makes all the requests described below and prints the status and
+`location:` for each one.
 
-::: tip A supported Docker setup is on the way
-A maintained container configuration for local testing is being added to the
-repository. Once it lands it should replace the command above, which will then
-be both tested and shorter.
-:::
-
-### With a local Apache
-
-If you already run Apache, point a virtual host at the `ids/` directory and make
-sure that:
-
-- `mod_rewrite` is enabled (`a2enmod rewrite` on Debian/Ubuntu);
-- `mod_headers` is enabled (`a2enmod headers`) if you use `Header` directives;
-- the directory block has `AllowOverride All`, otherwise `.htaccess` files are
-  ignored completely and every rule silently does nothing.
-
-`mod_mime` and `mod_setenvif` are usually enabled already.
+[Running a local server](./local-server) has the rest: the same thing without a
+build step, a native Apache setup, HTTPS and self-signed certificates, how to
+read the results, and what to do when it will not start.
 
 ## What to check
 

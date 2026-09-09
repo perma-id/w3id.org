@@ -30,6 +30,11 @@ reuse an old one.
 How to run the automated checks yourself, and how to confirm a redirect actually
 goes where you meant it to — which is the part no checker can do for you.
 
+## [Running a local server](./local-server)
+
+How to serve the `ids/` directory with a real Apache, under Docker or natively,
+so you can watch what your rules actually do before anyone reviews them.
+
 ## Before you open a pull request
 
 Whatever you are doing, these are worth a minute:
