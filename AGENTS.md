@@ -64,9 +64,9 @@ Do not:
 - **Add a `[R=406]` catch-all.** It matches every real request.
   → `docs/rules/htaccess/no-406-fallback.md`
 - **Copy an `.htaccess` from elsewhere in `ids/` as a template.** There are
-  thousands of them, written by thousands of people, and most are copies of
-  copies. A pattern appearing in hundreds of files is evidence that it was easy
-  to copy, not that it is correct — one malformed CORS header reached hundreds
+  thousands of them, written by more than a thousand people, and many are
+  copies of copies. A pattern appearing in hundreds of files is evidence that it
+  was easy to copy, not that it is correct — one malformed CORS header reached hundreds
   of files that way. → `docs/rules/htaccess/valid-cors-header.md`
 - **Use `301`.** Caches may honour it forever, so a mistake cannot be retracted.
   Use `302`, or `303` for content-negotiated ontology IRIs.
