@@ -198,3 +198,10 @@ over-matching. A count that has *fallen* is someone fixing the backlog: the
 test prints the new number so the bound can be lowered and the ground kept.
 It is off by default so that a pull request fixing an identifier does not have
 to edit it; the `Audit` workflow runs it on every push to master.
+
+`test/references.test.js` is the one to know about before renaming a rule. A
+rule id gets written down in more places than the registry: this README, the
+contributor instructions, `.w3id-check.yaml`, workflow files, an
+`.editorconfig` comment. `meta/rule-docs-exist` covers the documentation pages
+and nothing covered the rest, so a rename used to mean sweeping by hand and
+hoping. The test scans them and names any id that no longer resolves.
