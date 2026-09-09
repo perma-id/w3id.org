@@ -26,7 +26,7 @@ silently drop the final line.
 None of this breaks an identifier. It is diff hygiene, which is why it is a
 warning: worth fixing while you are here, not worth blocking a redirect over.
 
-815 files in this repository are currently missing one.
+Hundreds of files in this repository are missing one.
 
 ## Wrong
 

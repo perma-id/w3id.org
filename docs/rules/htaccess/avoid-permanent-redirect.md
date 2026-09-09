@@ -28,7 +28,7 @@ and no way to tell how many are affected.
 For an identifier meant to last decades, the ability to correct a target later
 is the whole point. A 302 costs nothing and keeps it.
 
-436 rules in this repository currently use `301`.
+Hundreds of rules in this repository use `301`.
 
 ## Wrong
 

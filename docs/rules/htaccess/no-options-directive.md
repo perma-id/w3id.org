@@ -17,7 +17,7 @@ below need answering before one should. See [Checked by](#checked-by).
 
 ## What
 
-`Options` directives appear in 2,219 of the 2,860 `.htaccess` files in this
+`Options` directives appear in most of the `.htaccess` files in this
 repository — `Options +FollowSymLinks`, `Options -MultiViews`,
 `Options -Indexes` — almost always copied from an example alongside lines that
 were needed.
@@ -89,9 +89,9 @@ changes what the check should say:
   justification, so a rule that flags it needs to know when it is right.
 - **`-Indexes`** probably has no per-directory justification at all, and would
   be better handled once, globally, in the server configuration. If that
-  happened, the 2,219 per-directory copies become redundant rather than wrong —
+  happened, the per-directory copies become redundant rather than wrong —
   a different message, and arguably a different severity.
-- **`+FollowSymLinks`** is in 1,503 files and nobody remembers why, or whether
+- **`+FollowSymLinks`** is in most files and nobody remembers why, or whether
   it does anything on this service. That needs establishing before the check
   tells people to remove it.
 

@@ -25,7 +25,7 @@ contains the mistake.
 So a single space takes the whole identifier offline, including sub-paths that
 have nothing to do with the broken rule.
 
-This has needed corrective commits in this repository on at least four separate
+This has needed corrective commits in this repository on several separate
 occasions, and instances are still present in the tree.
 
 ## Wrong

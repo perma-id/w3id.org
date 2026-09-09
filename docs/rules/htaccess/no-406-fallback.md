@@ -40,9 +40,9 @@ sending an `Accept` header your `text/html` condition does not quite match, a
 client sending a wildcard media range, a tool sending `application/*`. Those
 users get a 406 and have no idea why.
 
-In this repository one identifier had this fallback in five separate places and
-was returning 406 for real requests until it was removed. 236 rules across 225
-identifiers currently have the catch-all shape.
+This has returned 406 for real requests here, in an identifier that repeated
+the fallback several times over. Hundreds of identifiers carry the catch-all
+shape.
 
 And a 406 is usually just a worse answer. If somebody asks for a format you do
 not publish, giving them your human-readable documentation tells them what does

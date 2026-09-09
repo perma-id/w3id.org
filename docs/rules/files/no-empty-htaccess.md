@@ -25,7 +25,7 @@ This usually happens one of two ways: a file created as a placeholder and never
 filled in, or a file whose rules were commented out during debugging and never
 restored.
 
-Two files in this repository are currently in this state.
+There are files in this repository in this state today.
 
 ## Wrong
 

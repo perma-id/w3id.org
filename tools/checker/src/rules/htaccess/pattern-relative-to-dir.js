@@ -84,8 +84,8 @@ export default {
  * a slash.
  *
  * Only a literal match counts. A pattern that merely begins with the same
- * letters -- `^aio\.owl$` in `ids/aio/` -- is a filename, not a repeated
- * directory prefix, and reporting it would be wrong.
+ * letters -- `^my-project\.owl$` in `ids/my-project/` -- is a filename, not a
+ * repeated directory prefix, and reporting it would be wrong.
  */
 function startsWithDirectory(body, directory) {
   if(!body.startsWith(directory)) {

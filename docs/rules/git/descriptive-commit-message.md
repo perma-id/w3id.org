@@ -18,13 +18,13 @@ Replace the message GitHub fills in for you. Say which identifier changed.
 
 Every identifier in this repository has an `.htaccess` and most have a
 `README.md`, so "Update .htaccess" says nothing at all about what happened.
-There are already 1,778 commits with that exact message.
+More than a thousand commits here already carry that exact message.
 
 The history is how anyone works out later why a redirect points where it does.
 A message that names the identifier makes `git log --grep` useful; one that
-does not makes 16,000 commits into an undifferentiated wall.
+does not makes a decade of commits into an undifferentiated wall.
 
-Roughly one commit in five arrives with the default message.
+A large share of commits arrive with the default message.
 
 ## Wrong
 

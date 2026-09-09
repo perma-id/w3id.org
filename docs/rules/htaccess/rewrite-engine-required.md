@@ -28,7 +28,7 @@ identifier falls through to a **404**.
 The file looks completely reasonable. It contains rules, the rules are correct,
 and none of them run.
 
-25 identifiers in this repository are in this state right now.
+There are identifiers in this repository in this state right now.
 
 `RewriteEngine off` has the same effect and is reported the same way.
 

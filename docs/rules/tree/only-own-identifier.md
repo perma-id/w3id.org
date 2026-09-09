@@ -26,14 +26,14 @@ Three things are reported, none of them fatal:
 
 Three failure modes, all of which have happened here.
 
-**Overwriting the repository README.** A contributor uploaded their project's
-README over the repository's own, replacing 170 lines of service documentation
-with their project description. It had to be reverted. This is easy to do by
-accident with GitHub's "Add files via upload" and easy to miss in review.
+**Overwriting the repository README.** A project's own README gets uploaded
+over the repository's, replacing the service documentation with a project
+description. This is easy to do by accident with GitHub's "Add files via
+upload", easy to miss in review, and has to be reverted.
 
-**Changing someone else's identifier.** Another project's `.htaccess` was
+**Changing someone else's identifier.** Another project's `.htaccess` gets
 replaced wholesale with an unrelated redirect. From the diff alone that is
-indistinguishable from a namespace hijack, and the affected maintainer had no
+indistinguishable from a namespace hijack, and the affected maintainer has no
 warning.
 
 **Editing shared infrastructure.** `ids/.htaccess` applies to the entire
@@ -49,7 +49,7 @@ catching is the unintentional one, and the answer to that is visibility.
 ## Wrong
 
 ```
- README.md                        | 170 +++-----------------
+ README.md                        | 164 +++-----------------
  ids/my-project/.htaccess         |   8 ++
 ```
 

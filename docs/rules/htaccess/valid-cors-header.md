@@ -20,7 +20,7 @@ content, not on the redirect.
 
 ## Why
 
-In 2015 a single `.htaccess` in this repository gained this line:
+A single `.htaccess` in this repository once gained this line:
 
 ```apache
 Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
@@ -30,10 +30,10 @@ It is **truncated mid-token**. The value should end
 `If-Modified-Since,Cache-Control`; instead it stops after `If-Modified` and
 picks up a stray `$`.
 
-Over the following ten years that line was copied, verbatim and unexamined,
-into **223 files**. Only seven files in the repository contain a correct
+Over the years since, that line was copied, verbatim and unexamined, into
+**hundreds of files** — while barely any file here contains a correct
 `If-Modified-Since`. It is the clearest illustration in this codebase of why
-the existing tree is not a style guide: hundreds of occurrences of a string is
+the existing tree is not a style guide: a string appearing everywhere is
 evidence that it was easy to copy, not that it was ever right.
 
 **CORS on a redirect does not do what people think.** When a browser makes a

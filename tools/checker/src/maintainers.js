@@ -34,7 +34,7 @@ const NOT_A_USER = new Set([
 ]);
 
 const PATTERNS = [
-  // GitHub username: bact / GitHub user: x / GitHub ID: @x / github: @x
+  // GitHub username: x / GitHub user: x / GitHub ID: @x / github: @x
   new RegExp(
     `\\bgit\\s?hub\\s*(?:user)?(?:name|id|account|handle|profile)?\\s*[:=]\\s*@?(${USERNAME})\\b`,
     'gi'),

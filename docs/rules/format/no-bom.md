@@ -22,8 +22,7 @@ unparseable — and an unparseable `.htaccess` returns **500 for every URL under
 the directory**. The symptom is an identifier that is completely broken while
 the file looks perfect in every editor.
 
-This has happened here, and the resulting commit message begins with an
-invisible BOM of its own.
+This has happened here.
 
 BOMs are added by some Windows editors, by Notepad, and by a few tools that
 "helpfully" fix encodings. You will not see one by looking.

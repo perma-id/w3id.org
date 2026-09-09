@@ -31,7 +31,7 @@ warning, and no log entry that says what happened; the request falls through to
 a **404**. That silence is what makes this worth checking mechanically — a
 `.htaccess` that looks entirely reasonable can be completely inert.
 
-107 rules in this repository have one of these two shapes.
+Many rules in this repository have one of these two shapes.
 
 ## Wrong
 
@@ -77,8 +77,9 @@ The defensive form `^/?vocab$` also appears in this repository. It works, and is
 not reported, but it is a workaround for the confusion rather than a fix and it
 obscures the actual rule. Prefer `^vocab$`.
 
-A pattern that merely *starts with the same letters* as its directory — `^aio\.owl$`
-in `ids/aio/` — is a filename, not a repeated prefix, and is not reported.
+A pattern that merely *starts with the same letters* as its directory —
+`^my-project\.owl$` in `ids/my-project/` — is a filename, not a repeated
+prefix, and is not reported.
 
 ## Checked by
 

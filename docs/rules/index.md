@@ -49,7 +49,7 @@ There are thousands of `.htaccess` files here, written by thousands of people
 over more than a decade, and most are copies of copies. That a pattern appears
 in hundreds of files is evidence it was *copied*, not that it is *correct* —
 [`htaccess/valid-cors-header`](./htaccess/valid-cors-header) documents a broken
-line that spread to 223 files exactly that way.
+line that spread to hundreds of files exactly that way.
 
 These rules are maintainer guidance. Existing files are not.
 :::

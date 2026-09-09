@@ -101,17 +101,27 @@ test('htaccess: flags parse names, values and raw spelling', () => {
 });
 
 test('maintainers: the recorded formats are all recognised', () => {
+  // Every shape below is one that occurs in the tree. The names are invented:
+  // what each case pins is the *format*, and a real maintainer's handle is not
+  // needed to pin a format.
   const cases = [
-    ['# GitHub username: bact', ['bact']],
-    ['# Maintainer: X (https://github.com/ukonic)', ['ukonic']],
-    ['# Maintainer: X (GitHub: oalbuquerque)', ['oalbuquerque']],
-    ['# Maintainer: X (github.com/shiho1000)', ['shiho1000']],
+    ['# GitHub username: exampleuser', ['exampleuser']],
+    ['# Maintainer: X (https://github.com/example-user)', ['example-user']],
+    ['# Maintainer: X (GitHub: exampleuser)', ['exampleuser']],
+    // Scheme-less URL, and digits in the handle.
+    ['# Maintainer: X (github.com/exampleuser1)', ['exampleuser1']],
     ['# maintainer: @a-one @b-two', ['a-one', 'b-two']],
-    ['# maintainers:\n# - @davidlehn\n# - @msporny', ['davidlehn', 'msporny']],
-    ['- [Yanfeng Shu](https://github.com/YF-SHU)', ['yf-shu']],
-    ['Stian Soiland-Reyes @stain', ['stain']],
-    ['(Maintainer; GitHub: cmaffeo2)', ['cmaffeo2']],
-    ['# GitHub user: RGU-Computing', ['rgu-computing']]
+    ['# maintainers:\n# - @someone\n# - @someone-else',
+      ['someone', 'someone-else']],
+    // A Markdown link, whose handle is capitalised and must come back
+    // lowercased.
+    ['- [Firstname Lastname](https://github.com/Example-User)',
+      ['example-user']],
+    // A hyphenated human name next to a handle: the name must not be read as
+    // one.
+    ['Firstname Lastname-Hyphenated @someone', ['someone']],
+    ['(Maintainer; GitHub: exampleuser2)', ['exampleuser2']],
+    ['# GitHub user: Example-Org', ['example-org']]
   ];
   for(const [text, expected] of cases) {
     assert.deepEqual([...findUsernames(text)].sort(), [...expected].sort(),
@@ -122,7 +132,7 @@ test('maintainers: the recorded formats are all recognised', () => {
 test('maintainers: label words are not mistaken for usernames', () => {
   for(const text of [
     '# Maintainer: Someone <a@b.example>',
-    '# Maintainer: X (ORCID: 0000-0002-0721-5114)',
+    '# Maintainer: X (ORCID: 0000-0000-0000-0000)',
     '# Maintainer: A Community Group',
     '# Maintainer:',
     'See https://github.com/orgs/perma-id/teams'

@@ -38,9 +38,9 @@ runner turns into inline comments on the diff, and the job summary. The
 `pull_request_target` trigger would lift that restriction and is never used —
 it runs with a write token while checking out code the contributor controls.
 
-**The repository has a large backlog.** Around 8,000 findings exist in the tree
-already: 3,700 lines with trailing whitespace, 1,600 redirects still on plain
-`http`, 25 identifiers whose redirects do not work at all. Reporting those to
+**The repository has a large backlog.** Thousands of findings exist in the tree
+already: lines with trailing whitespace, redirects still on plain `http`,
+identifiers whose redirects do not work at all. Reporting those to
 somebody adding one directory would be useless noise. So every finding is
 classified against the diff, and a policy decides what survives.
 
@@ -176,8 +176,8 @@ wrong, what breaks because of it, and the command or edit that fixes it.
 ### `.htaccess` parsing
 
 Use `ctx.htaccess(path)`, not string matching. The corpus is not line-clean —
-57 files use CRLF, nine join directives with trailing backslashes, eight put
-`#` comments after directive arguments, and `#` appears legitimately inside
+files use CRLF, join directives with trailing backslashes, put `#` comments
+after directive arguments, and `#` appears legitimately inside
 rewrite patterns and URL fragments. The parser normalises all of that and
 records what it normalised, so rules can report those facts instead of being
 tripped by them.
