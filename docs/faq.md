@@ -116,9 +116,9 @@ need to resync your fork before your next contribution.
 ### Why does my commit message matter?
 
 `Update .htaccess` is by a wide margin the most common commit message in this
-repository, on thousands of commits. When something breaks years later, that
-history is what somebody has to read. Include your project name and what
-changed.
+repository, on well over a thousand commits — more than twice the next most
+common. When something breaks years later, that history is what somebody has
+to read. Include your project name and what changed.
 
 ### Can I change someone else's identifier?
 
