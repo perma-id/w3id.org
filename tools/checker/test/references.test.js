@@ -130,6 +130,60 @@ test('references: every rule id written down still names a rule', () => {
     'these name no rule page; a rule was probably renamed');
 });
 
+/**
+ * Namespaces the repository documents about itself, and so may name.
+ *
+ * Each is infrastructure or a shared space, not somebody's identifier:
+ * `w3id` holds the service's own pages and is listed in `allowedPaths`;
+ * `examples` is the sanctioned place to look at worked examples; `people` is
+ * documented as a shared namespace rather than as anyone's.
+ */
+const DOCUMENTED_NAMESPACES = new Set(['w3id', 'examples', 'people']);
+
+test('references: documentation does not name a real identifier', () => {
+  // Prose that names a live namespace singles out whoever owns it, and goes
+  // wrong the moment they rename it -- and identifiers here do get renamed.
+  // Placeholders (`ids/my-project`, `ids/foo`) are invented, so the property
+  // to check is not how a name looks but whether it resolves.
+  const named = new Map();
+  for(const relative of listFiles(root)) {
+    // Identifier content is the data being described, not a description of
+    // it: an `.htaccess` names its own directory as a matter of course.
+    if(relative.startsWith('ids/')) {
+      continue;
+    }
+    if(!SCANNED.has(path.extname(relative)) &&
+      !SCANNED.has(path.basename(relative))) {
+      continue;
+    }
+    const text = read(path.join(root, relative));
+    if(text === null) {
+      continue;
+    }
+    for(const [, name] of
+      text.matchAll(/ids\/([A-Za-z0-9][A-Za-z0-9._-]*)/g)) {
+      if(!named.has(name)) {
+        named.set(name, relative);
+      }
+    }
+  }
+  assert.ok(named.size > 5, 'expected to find the placeholder names');
+
+  const real = [];
+  for(const [name, where] of [...named].sort()) {
+    if(DOCUMENTED_NAMESPACES.has(name)) {
+      continue;
+    }
+    if(statSync(path.join(root, 'ids', name), {throwIfNoEntry: false})
+      ?.isDirectory()) {
+      real.push(`${where}: ids/${name}`);
+    }
+  }
+
+  assert.deepEqual(real, [],
+    'these name a live identifier; use ids/my-project instead');
+});
+
 function read(file) {
   try {
     return readFileSync(file, 'utf8');
