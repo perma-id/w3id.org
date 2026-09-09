@@ -1,0 +1,158 @@
+#!/bin/sh
+#
+# Ask a local w3id.org server how it resolves an identifier, and print what
+# comes back.
+#
+#   tools/server/bin/resolve-identifier my-project
+#   tools/server/bin/resolve-identifier my-project vocab vocab/Thing 1.2.0
+#   W3ID_BASE=http://localhost:9000 tools/server/bin/resolve-identifier my-project
+#
+# This runs the checks docs/guides/testing.md asks people to make by hand. It
+# reports what the server said; it cannot tell you whether that is what you
+# meant. Nothing here knows where your identifier is supposed to point.
+#
+# POSIX sh on purpose -- this has to run wherever curl does, without asking
+# anyone to install a shell first.
+
+set -eu
+
+base=${W3ID_BASE:-http://localhost:8080}
+
+usage() {
+  cat >&2 <<'USAGE'
+usage: resolve-identifier IDENTIFIER [SUBPATH...]
+
+Prints the status and Location for the identifier root, its bare no-slash
+form, each SUBPATH given, and a range of Accept headers.
+
+  IDENTIFIER   the directory name under ids/, for example my-project
+  SUBPATH      a further path to check, relative to the identifier
+
+Include the sub-paths you did NOT intend to match, as well as the ones you
+did: a rule landing on a request by accident is the failure this catches.
+
+Set W3ID_BASE to point somewhere other than http://localhost:8080.
+USAGE
+  exit 2
+}
+
+[ $# -ge 1 ] || usage
+case $1 in
+  -h | --help) usage ;;
+esac
+
+# Tolerate a leading or trailing slash, and "ids/foo" for someone who typed
+# the repository path out of habit.
+id=$(printf '%s' "$1" | sed 's|^/*||; s|^ids/||; s|/*$||')
+[ -n "$id" ] || usage
+shift
+
+command -v curl >/dev/null 2>&1 || {
+  echo "resolve-identifier: curl is required but was not found" >&2
+  exit 1
+}
+
+# One request. Prints the status, and the Location when there is one.
+probe() {
+  probe_label=$1
+  probe_url=$2
+  probe_accept=${3-}
+
+  # An empty Accept: header removes curl's default rather than sending a blank
+  # one, which is how we test the "client sent no Accept at all" case.
+  if [ "${probe_accept}" = "@none" ]; then
+    probe_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      -H 'Accept:' "$probe_url" 2>&1) || probe_failed=yes
+  elif [ -n "${probe_accept}" ]; then
+    probe_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      -H "Accept: ${probe_accept}" "$probe_url" 2>&1) || probe_failed=yes
+  else
+    probe_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      "$probe_url" 2>&1) || probe_failed=yes
+  fi
+
+  if [ "${probe_failed-}" = yes ]; then
+    probe_failed=
+    printf '    %-32s  %s\n' "$probe_label" "request failed: ${probe_headers}"
+    return 0
+  fi
+
+  # Take the last status line and the last Location: an intermediate proxy or
+  # a 100-continue would otherwise shadow the real answer.
+  probe_status=$(printf '%s\n' "$probe_headers" |
+    awk '/^HTTP\//{s = $2} END {print s}')
+  probe_location=$(printf '%s\n' "$probe_headers" |
+    awk 'tolower($1) == "location:" {l = $2} END {print l}')
+
+  if [ -n "$probe_location" ]; then
+    printf '    %-32s  %-3s  -> %s\n' \
+      "$probe_label" "$probe_status" "$probe_location"
+  else
+    printf '    %-32s  %-3s\n' "$probe_label" "$probe_status"
+  fi
+}
+
+printf '\nResolving "%s" against %s\n' "$id" "$base"
+
+if ! curl -sS -o /dev/null --max-time 5 "$base/" 2>/dev/null; then
+  cat >&2 <<EOF
+
+Cannot reach $base -- is the server running?
+
+  cd tools/server && docker compose up
+
+See docs/guides/local-server.md if it will not start.
+EOF
+  exit 1
+fi
+
+printf '\n  The identifier itself\n'
+probe "/$id/" "$base/$id/"
+
+# Apache redirects a bare directory URL to the trailing-slash form itself,
+# before any .htaccess rule runs, so this normally shows an extra 301 hop.
+# That hop is expected and is not something to try to remove.
+probe "/$id  (no trailing slash)" "$base/$id"
+
+if [ $# -gt 0 ]; then
+  printf '\n  Sub-paths\n'
+  for sub in "$@"; do
+    sub=$(printf '%s' "$sub" | sed 's|^/*||')
+    probe "/$id/$sub" "$base/$id/$sub"
+  done
+fi
+
+printf '\n  Accept headers, against /%s/\n' "$id"
+probe 'text/turtle' "$base/$id/" 'text/turtle'
+probe 'application/ld+json' "$base/$id/" 'application/ld+json'
+probe 'application/rdf+xml' "$base/$id/" 'application/rdf+xml'
+probe 'application/n-triples' "$base/$id/" 'application/n-triples'
+probe 'text/html' "$base/$id/" 'text/html'
+probe '*/*' "$base/$id/" '*/*'
+probe '(no Accept header)' "$base/$id/" '@none'
+probe 'a browser'"'"'s real Accept' "$base/$id/" \
+  'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+
+printf '\n  Following the whole chain\n'
+if chain=$(curl -sS -o /dev/null -L --max-time 20 \
+  -w '%{http_code} %{num_redirects} %{url_effective}' "$base/$id/" 2>&1); then
+  set -- $chain
+  printf '    final status %s after %s hop(s)\n' "$1" "$2"
+  printf '    ends at      %s\n' "$3"
+else
+  printf '    request failed: %s\n' "$chain"
+fi
+
+cat <<'EOF'
+
+Read the results, do not just count them:
+
+  - A 500 anywhere means an .htaccess syntax error. The server log names the
+    file and the line -- `docker compose logs w3id`.
+  - A 406 means a content-negotiation catch-all is matching real requests.
+  - Every Accept value above should produce something useful, including the
+    ones you wrote no rule for.
+  - The chain should end at 200. A 404 at the end means the rules are fine and
+    the target is wrong, which no local server can tell you about.
+
+EOF
