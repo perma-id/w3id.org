@@ -235,10 +235,10 @@ them. Each of these has caused a real problem here:
 | `RewriteBase` | Almost never needed when substituting an absolute URL. |
 
 ::: warning Other identifiers are not a style guide
-There are thousands of `.htaccess` files in this repository written by thousands
-of people over more than a decade. Most of them are copies of copies. The fact
-that hundreds of files contain a directive is evidence that it was *copied*, not
-that it is *correct* — the truncated CORS header in
+There are thousands of `.htaccess` files in this repository, written by more
+than a thousand people over more than a decade, and many are copies of copies.
+The fact that hundreds of files contain a directive is evidence that it was
+*copied*, not that it is *correct* — the truncated CORS header in
 [`htaccess/valid-cors-header`](/rules/htaccess/valid-cors-header) reached hundreds
 of files that way.
 
