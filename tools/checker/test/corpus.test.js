@@ -32,7 +32,7 @@ const enabled = process.env.W3ID_CHECK_CORPUS === '1' &&
 
 // Highest acceptable count for each rule over the whole tree.
 const BOUNDS = {
-  'format/no-trailing-whitespace': 2372,
+  'format/no-trailing-whitespace': 2404,
   'htaccess/escape-literal-dots': 1199,
   'htaccess/https-target': 1621,
   'htaccess/avoid-permanent-redirect': 458,
@@ -43,7 +43,7 @@ const BOUNDS = {
   'htaccess/no-greedy-capture': 7,
   'htaccess/no-flag-whitespace': 2,
   'format/no-bom': 0,
-  'format/final-newline': 815,
+  'format/final-newline': 819,
   'meta/maintainer-github-username': 645,
   'files/prefer-readme-md': 377,
   'markdown/prefer-list-over-line-breaks': 340,

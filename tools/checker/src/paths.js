@@ -38,6 +38,34 @@ const MARKDOWN_EXTENSIONS = new Set(
   [...README_MARKUP].filter(([, format]) => format === 'Markdown')
     .map(([extension]) => extension));
 
+/** A glob matching a word in any mix of upper and lower case. */
+function anyCase(word) {
+  return [...word].map(c => `[${c.toUpperCase()}${c}]`).join('');
+}
+
+/**
+ * The files the format rules inspect: everything here that a person edits as
+ * text.
+ *
+ * Derived from the list above rather than written out, so that accepting a new
+ * README format cannot quietly exempt it from the format rules. A file the
+ * repository is willing to keep is a file worth holding to the same standard
+ * -- otherwise widening what counts as a README silently widens what may carry
+ * a BOM or CRLF line endings.
+ *
+ * Case-insensitive, because glob matching here is not: a plain `**\/*.md`
+ * pattern passes over `README.MD` entirely, and a file is no less text for
+ * how its extension is capitalised. A bare `README` has no extension to
+ * match, so it is named directly.
+ */
+export const TEXT_FILE_PATTERNS = [
+  '**/.htaccess',
+  `**/*.${anyCase('txt')}`,
+  `**/${anyCase('readme')}`,
+  ...[...README_MARKUP.keys()].map(
+    extension => `**/*.${anyCase(extension)}`)
+];
+
 // `readme`, optionally followed by one recognised extension. Anything else --
 // `README..md`, `README.me`, `_readme.md` -- is a file GitHub will not show as
 // the directory's README, so it is not a README as far as this tool is

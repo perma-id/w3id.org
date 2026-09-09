@@ -1,11 +1,12 @@
 /** Unit tests for the pieces the rules are built out of. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {minimatch} from '../src/glob.js';
+import {minimatch, matchesAny} from '../src/glob.js';
 import {parse, parseFlags} from '../src/htaccess.js';
 import {findUsernames} from '../src/maintainers.js';
 import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js';
 import {resolveSeverity} from '../src/config.js';
+import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
 
 test('glob: ** spans zero or more segments', () => {
   for(const p of ['.htaccess', 'ids/.htaccess', 'ids/a/b/c/.htaccess']) {
@@ -222,4 +223,32 @@ test('severity: the policy softens findings but never sharpens them', () => {
     resolveSeverity({
       rule: {id: 'x/y', severity: 'notice'}, provenance: 'touched', config
     }), 'notice');
+});
+
+test('paths: every accepted README is a file the format rules inspect', () => {
+  // These two sets drifted apart once already: widening what counts as a
+  // README left `README.adoc` accepted by `files/only-allowed-names` but
+  // invisible to every format rule, so a BOM or CRLF in it went unreported.
+  // Anything the repository is willing to keep is held to the same standard.
+  const readmes = [
+    'ids/a/README.md', 'ids/a/readme.md', 'ids/a/README.MD',
+    'ids/a/README.markdown', 'ids/a/README.adoc', 'ids/a/README.rst',
+    'ids/a/README.textile', 'ids/a/README.pod',
+    'ids/a/README', 'ids/a/readme', 'ids/a/README.txt', 'ids/a/readme.TXT'
+  ];
+  for(const p of readmes) {
+    assert.ok(isReadme(p), `${p} should be an accepted README`);
+    assert.ok(matchesAny(p, TEXT_FILE_PATTERNS),
+      `${p} is accepted, so the format rules must inspect it`);
+  }
+});
+
+test('paths: the format rules still cover .htaccess and plain Markdown', () => {
+  for(const p of ['ids/a/.htaccess', 'docs/rules/index.md', 'README.md']) {
+    assert.ok(matchesAny(p, TEXT_FILE_PATTERNS), p);
+  }
+  // Not text a person edits here, and not accepted anywhere in ids/.
+  for(const p of ['ids/a/logo.png', 'ids/a/vocab.ttl', 'tools/x/a.js']) {
+    assert.ok(!matchesAny(p, TEXT_FILE_PATTERNS), p);
+  }
 });

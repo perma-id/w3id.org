@@ -1,3 +1,5 @@
+import {TEXT_FILE_PATTERNS} from '../../paths.js';
+
 export default {
   id: 'format/final-newline',
   description: 'Files must end with a newline',
@@ -5,7 +7,7 @@ export default {
   severity: 'warning',
   fixable: true,
   scope: 'file',
-  files: ['**/.htaccess', '**/*.md', '**/*.txt'],
+  files: TEXT_FILE_PATTERNS,
   messages: {
     missing:
       'No newline at the end of this file. Git marks it "\\ No newline at ' +

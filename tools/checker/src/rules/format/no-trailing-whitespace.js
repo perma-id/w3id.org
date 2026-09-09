@@ -1,3 +1,5 @@
+import {TEXT_FILE_PATTERNS} from '../../paths.js';
+
 /**
  * Trailing whitespace that cannot be doing anything.
  *
@@ -19,7 +21,7 @@ export default {
   severity: 'warning',
   fixable: true,
   scope: 'file',
-  files: ['**/.htaccess', '**/*.md', '**/*.txt'],
+  files: TEXT_FILE_PATTERNS,
   messages: {
     trailing:
       'Trailing whitespace at the end of this line. Nothing reads it, it is ' +
