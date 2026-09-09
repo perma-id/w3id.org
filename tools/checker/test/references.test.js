@@ -19,6 +19,15 @@
  * proposed` -- and prose is entitled to reference it. It is only
  * `.w3id-check.yaml` that needs the stricter set, because a key naming a
  * proposed rule really would be dead.
+ *
+ * If you change what this detects, delete a rule page and watch it fail
+ * before trusting it to pass. A test like this one is green both when
+ * everything resolves and when it has quietly stopped looking, and the two
+ * are indistinguishable from the outside. Every fault found in it so far --
+ * a pattern that matched one convention and missed two others, a crash on a
+ * page deleted but not yet committed, which is the exact state a
+ * half-finished rename leaves behind -- was found that way and by no other
+ * means.
  */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
