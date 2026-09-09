@@ -145,7 +145,8 @@ export default defineConfig({
               { text: 'no-bom', link: '/rules/format/no-bom' },
               { text: 'no-crlf', link: '/rules/format/no-crlf' },
               { text: 'final-newline', link: '/rules/format/final-newline' },
-              { text: 'no-trailing-whitespace', link: '/rules/format/no-trailing-whitespace' }
+              { text: 'no-trailing-whitespace', link: '/rules/format/no-trailing-whitespace' },
+              { text: 'no-excessive-blank-lines', link: '/rules/format/no-excessive-blank-lines' }
             ]
           },
           {
