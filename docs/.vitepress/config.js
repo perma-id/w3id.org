@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import llmstxt from 'vitepress-plugin-llms'
+import { buildEnd } from './buildEnd.js'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -28,8 +29,33 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'author', content: 'W3C Permanent Identifier Community Group' }],
-    ['link', { rel: 'canonical', href: 'https://docs.w3id.org/' }]
+
+    // Feed autodiscovery. Declared site-wide on purpose: a reader should find
+    // the feed from whatever page somebody happened to link them.
+    ['link', {
+      rel: 'alternate', type: 'application/rss+xml', title: 'w3id.org news',
+      href: 'https://docs.w3id.org/news/rss.xml'
+    }],
+    ['link', {
+      rel: 'alternate', type: 'application/atom+xml', title: 'w3id.org news',
+      href: 'https://docs.w3id.org/news/atom.xml'
+    }]
   ],
+
+  // The canonical URL has to be per-page. Everything in `head` above is
+  // injected into every page, so a canonical link there would tell search
+  // engines that every page is a duplicate of whichever single URL it named.
+  transformPageData(pageData) {
+    const url = pageData.relativePath
+      .replace(/(^|\/)index\.md$/, '$1')
+      .replace(/\.md$/, '')
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['link', { rel: 'canonical', href: `https://docs.w3id.org/${url}` }])
+  },
+
+  // Writes news/rss.xml and news/atom.xml into the build output.
+  buildEnd,
 
   themeConfig: {
     nav: [
@@ -37,6 +63,7 @@ export default defineConfig({
       { text: 'Guides', link: '/guides/', activeMatch: '/guides/' },
       { text: 'Rules', link: '/rules/', activeMatch: '/rules/' },
       { text: 'FAQ', link: '/faq' },
+      { text: 'News', link: '/news/', activeMatch: '/news/' },
       { text: 'w3id.org', link: 'https://w3id.org/' }
     ],
 
@@ -179,7 +206,12 @@ export default defineConfig({
           }
         ]
       },
-      { text: 'FAQ', link: '/faq' }
+      { text: 'FAQ', link: '/faq' },
+
+      // A plain link, not a group. The news index lists every post already,
+      // generated from the post files, so enumerating them here too would be
+      // a second copy of the same list maintained by hand.
+      { text: 'News', link: '/news/' }
     ],
 
     socialLinks: [
@@ -209,6 +241,17 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [llmstxt({ domain: 'https://docs.w3id.org' })]
+    plugins: [llmstxt({
+      domain: 'https://docs.w3id.org',
+
+      // News posts are listed in llms.txt, so an agent can see that a section
+      // exists and fetch a post whose title looks relevant, but they are kept
+      // out of the full-text bundle: llms-full.txt is the rules and the
+      // guides, and announcements would accumulate in it permanently.
+      // Patterns are matched with minimatch against the path relative to
+      // docs/, and a single `*` does not cross a `/`, so `news/**` is what
+      // covers the whole subtree.
+      ignoreFilesPerOutput: { llmsFullTxt: ['news/**'] }
+    })]
   }
 })

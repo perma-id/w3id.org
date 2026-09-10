@@ -189,6 +189,35 @@ The checker in `tools/check/` enforces that correspondence both ways via
 format intact when editing, and add new rules as new files rather than as
 sections of existing ones.
 
+### News posts
+
+A post is one file, `docs/news/<date>-<slug>.md`, where the date is written
+`YYYY-MM-DD`, with this frontmatter:
+
+```yaml
+---
+title: A sentence, not a headline
+date: 2026-09-10
+category: tooling
+summary: One sentence. It appears on the index and as the feed description.
+---
+```
+
+`category` must be one of the keys in `docs/news/categories.js` — currently
+`service`, `policy`, `tooling`, `governance`. A category that is not in that
+file puts the post in an "Uncategorised" section on the index rather than
+dropping it silently, but it is still a mistake to fix.
+
+Adding the file is the whole job. The index at `docs/news/index.md` builds
+itself from the frontmatter of every post, the RSS and Atom feeds are generated
+at build time by `docs/.vitepress/buildEnd.js`, and the sidebar links the index
+rather than the posts. Do not hand-edit any of those to add a post; nothing
+about a new post belongs in `docs/.vitepress/config.js`.
+
+Use the frontmatter `date` as the published date. VitePress's own `lastUpdated`
+is derived from the file's last commit, so it moves when somebody fixes a typo
+years later; the two answer different questions.
+
 ## A note on generated pull requests
 
 This project receives a large volume of machine-generated pull requests that
