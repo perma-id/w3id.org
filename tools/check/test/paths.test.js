@@ -167,6 +167,12 @@ test('a tree rule finding outside the scope is suppressed', () => {
   const unscoped = check({dir: repo.dir, rules: [documentIdentifierRoot]});
   assert.deepEqual(unscoped.findings.map(f => f.file).sort(),
     ['ids/bar', 'ids/foo']);
+
+  // Suppressed rather than never computed, and `--why` distinguishes the two.
+  assert.deepEqual(
+    scoped.suppressed.map(f => `${f.file}:${f.reason}`),
+    ['ids/bar:out-of-scope']);
+  assert.deepEqual(unscoped.suppressed, []);
 });
 
 test('resolveScope: paths resolve against the working directory', () => {

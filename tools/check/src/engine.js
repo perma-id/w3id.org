@@ -1,6 +1,6 @@
 /** Rule selection, execution and finding classification. */
 import {minimatch} from './glob.js';
-import {resolveSeverity, ruleOptions} from './config.js';
+import {explainSeverity, ruleOptions} from './config.js';
 import {classify} from './provenance.js';
 
 const SEVERITY_RANK = {error: 0, warning: 1, notice: 2};
@@ -36,10 +36,19 @@ export function run({rules, ctx, config, auditAll = false}) {
   const findings = [];
   const ran = [];
   const errors = [];
+  // Everything computed and then dropped, with the reason. `--why` reports
+  // this; nothing else reads it. Collected unconditionally, because a flag
+  // that changed what the engine computed would make `--why` explain a run
+  // that did not happen. The ceiling is the whole corpus -- a few thousand
+  // small objects -- so it is not worth a switch.
+  const suppressed = [];
+  const notRun = [];
 
   for(const rule of rules) {
-    // A rule configured off never runs, so it costs nothing.
+    // A rule configured off never runs, so it costs nothing. `--why` has to
+    // say that rather than imply the rule looked and found nothing.
     if(config.rules[rule.id] === 'off' && !auditAll) {
+      notRun.push({ruleId: rule.id, reason: 'rule-off'});
       continue;
     }
 
@@ -71,24 +80,36 @@ export function run({rules, ctx, config, auditAll = false}) {
     ran.push(rule);
     for(const raw of collected) {
       const file = raw.file ?? null;
+      const provenance = classify(raw, ctx);
+      // What every dropped finding is recorded as, so that `--why` can say
+      // what was computed as well as what survived.
+      const dropped = {
+        ruleId: rule.id,
+        message: raw.message,
+        file,
+        line: raw.line ?? null,
+        provenance,
+        namespace: file ? ctx.namespaceOf(file) : null
+      };
       // A scope narrows which files are discussed. Findings that carry no
       // file are about the commits themselves -- whether the branch needs a
       // rebase does not stop being true because the reader asked about one
       // directory -- so those are not scoped away.
       if(file !== null && !ctx.inScope(file)) {
+        suppressed.push({...dropped, reason: 'out-of-scope'});
         continue;
       }
-      const provenance = classify(raw, ctx);
       // A rule may declare a different severity for one of its messages, when
       // it reports on more than one kind of thing. Configuration and the
       // provenance policy still apply on top, so this only sets the starting
       // point.
       const declared = raw.severity === undefined ?
         rule : {...rule, severity: raw.severity};
-      const severity = resolveSeverity({
+      const {severity, reason} = explainSeverity({
         rule: declared, provenance, config, auditAll
       });
       if(severity === null) {
+        suppressed.push({...dropped, reason});
         continue;
       }
       findings.push({
@@ -108,7 +129,7 @@ export function run({rules, ctx, config, auditAll = false}) {
   }
 
   findings.sort(compareFindings);
-  return {findings, ran, errors};
+  return {findings, suppressed, notRun, ran, errors};
 }
 
 /** Order findings by severity, then by location, for stable output. */

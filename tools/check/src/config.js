@@ -113,31 +113,48 @@ function validate(config) {
  *
  * @returns {string|null} the severity to report at, or null to suppress.
  */
-export function resolveSeverity({rule, provenance, config, auditAll}) {
+export function resolveSeverity(args) {
+  return explainSeverity(args).severity;
+}
+
+/**
+ * The same decision, with the reason it went that way.
+ *
+ * `--why` needs to name which of several suppressions applied, and the only
+ * way for its explanation to stay true is for it to come from the code that
+ * makes the decision. Deriving the reason separately would be a second copy
+ * of this policy, correct on the day it was written.
+ *
+ * @returns {{severity: string|null, reason: string}} `reason` is `shown` when
+ *   a severity survived, and otherwise names the suppression.
+ */
+export function explainSeverity({rule, provenance, config, auditAll}) {
   const declared = config.rules[rule.id] ?? rule.severity ?? 'warning';
   if(declared === 'off') {
-    return null;
+    return {severity: null, reason: 'rule-off'};
   }
   // `--all` holds the whole tree to each rule's declared severity.
   if(auditAll) {
-    return declared;
+    return {severity: declared, reason: 'shown'};
   }
   if(rule.critical) {
     if(provenance === 'introduced') {
-      return declared;
+      return {severity: declared, reason: 'shown'};
     }
-    return provenance === 'touched' ? 'notice' : null;
+    return provenance === 'touched' ?
+      {severity: 'notice', reason: 'shown'} :
+      {severity: null, reason: 'critical-preexisting'};
   }
   const policy = config.policy[provenance] ?? 'off';
   if(policy === 'off') {
-    return null;
+    return {severity: null, reason: `${provenance}-off`};
   }
   const effective = policy === 'as-declared' ? declared : policy;
   // The policy exists to soften findings a contributor did not cause, never
   // to sharpen them. Without this clamp, `touched: warning` would promote a
   // rule that declares itself a notice -- a suggestion -- into a warning, on
   // precisely the lines it is most likely to fire on.
-  return lessSevereOf(effective, declared);
+  return {severity: lessSevereOf(effective, declared), reason: 'shown'};
 }
 
 const SEVERITY_RANK = {error: 0, warning: 1, notice: 2};

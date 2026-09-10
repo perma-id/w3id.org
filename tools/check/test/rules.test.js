@@ -440,6 +440,23 @@ test('meta/document-identifier-root: a shared namespace is exempt', () => {
   assert.deepEqual(findingsOf(exempt), ['ids/other:-:warning']);
 });
 
+test('a rule switched off in config is recorded as not run', () => {
+  // "Found nothing" and "never ran" are different answers to "why did it not
+  // complain about this", and only one of them is true here.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', '');
+  repo.commit('fixture');
+  const r = check({
+    dir: repo.dir, rules: [noEmptyHtaccess], auditAll: false,
+    config: {rules: {'files/no-empty-htaccess': 'off'}}
+  });
+  assert.deepEqual(r.findings, []);
+  assert.deepEqual(r.notRun,
+    [{ruleId: 'files/no-empty-htaccess', reason: 'rule-off'}]);
+  assert.deepEqual(r.ran, [], 'and it really did not run');
+});
+
 test('files/no-empty-htaccess flags empty and comment-only files', () => {
   const r = audit(noEmptyHtaccess, {
     'ids/a/.htaccess': '',

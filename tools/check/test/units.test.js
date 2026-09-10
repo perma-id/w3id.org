@@ -5,7 +5,8 @@ import {minimatch, matchesAny} from '../src/glob.js';
 import {parse, parseFlags} from '../src/htaccess.js';
 import {findUsernames} from '../src/maintainers.js';
 import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js';
-import {resolveSeverity} from '../src/config.js';
+import {resolveSeverity, explainSeverity} from '../src/config.js';
+import {buildWhy} from '../src/report.js';
 import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
 
 test('glob: ** spans zero or more segments', () => {
@@ -206,6 +207,90 @@ test('severity: a critical rule outlives preexisting: off when touched', () => {
   assert.equal(
     resolveSeverity({rule, provenance: 'preexisting', config}), null,
     'but a broken identifier elsewhere is triage work, not their problem');
+});
+
+test('why: everything computed is accounted for', () => {
+  const result = {
+    findings: [{ruleId: 'a/one', severity: 'error'}],
+    suppressed: [
+      {ruleId: 'a/one', reason: 'preexisting-off'},
+      {ruleId: 'b/two', reason: 'preexisting-off'},
+      {ruleId: 'b/two', reason: 'out-of-scope'}
+    ],
+    notRun: [{ruleId: 'c/three', reason: 'rule-off'}],
+    ran: [{id: 'a/one'}, {id: 'b/two'}],
+    errors: []
+  };
+  const why = buildWhy(result,
+    {allRuleIds: ['a/one', 'b/two', 'c/three', 'd/four']});
+
+  // The invariant worth pinning: a report whose numbers do not add up is
+  // worse than no report, because it is read as complete.
+  assert.equal(why.computed, why.shown + why.hidden);
+  assert.deepEqual(
+    {computed: why.computed, shown: why.shown, hidden: why.hidden},
+    {computed: 3, shown: 1, hidden: 2});
+  assert.equal(why.elsewhere, 1,
+    'out-of-scope is held apart: the reader excluded it by asking');
+  assert.deepEqual(why.byReason, {'preexisting-off': 2});
+  // Ordered by hidden, then shown, then id -- so the ordering is stable
+  // across runs rather than following object insertion.
+  assert.deepEqual(why.byRule, [
+    {ruleId: 'a/one', shown: 1, hidden: 1},
+    {ruleId: 'b/two', shown: 0, hidden: 1}
+  ]);
+  // A rule switched off and a rule left out by --rule are both "did not
+  // run", and saying so beats implying either one looked and found nothing.
+  assert.deepEqual(why.notRun, [
+    {ruleId: 'c/three', reason: 'rule-off'},
+    {ruleId: 'd/four', reason: 'deselected'}
+  ]);
+});
+
+test('severity: every suppression names which one it was', () => {
+  // `--why` reports these strings. They come from the function that makes the
+  // decision, so that an explanation cannot drift from the behaviour -- a
+  // second copy of this policy would be right only on the day it was written.
+  const config = {
+    rules: {'off/rule': 'off'},
+    policy: {introduced: 'as-declared', touched: 'warning', preexisting: 'off'}
+  };
+  const plain = {id: 'x/y', severity: 'error'};
+  const critical = {id: 'x/z', severity: 'error', critical: true};
+  const reasonFor = (rule, provenance, auditAll) =>
+    explainSeverity({rule, provenance, config, auditAll}).reason;
+
+  assert.equal(reasonFor(plain, 'introduced'), 'shown');
+  assert.equal(reasonFor(plain, 'touched'), 'shown');
+  assert.equal(reasonFor(plain, 'preexisting'), 'preexisting-off',
+    'the legacy backlog, which is what a quiet run usually hides');
+  assert.equal(reasonFor(critical, 'touched'), 'shown');
+  assert.equal(reasonFor(critical, 'preexisting'), 'critical-preexisting',
+    'suppressed for a different reason, and surfaced by --triage instead');
+  assert.equal(reasonFor({id: 'off/rule', severity: 'error'}, 'introduced'),
+    'rule-off');
+  assert.equal(reasonFor(plain, 'preexisting', true), 'shown',
+    '--all suppresses nothing, so there is nothing to explain');
+});
+
+test('severity: explaining and resolving cannot disagree', () => {
+  // resolveSeverity is now a wrapper. If it ever stops being one, this fails
+  // rather than letting the two answers drift apart unnoticed.
+  const config = {
+    rules: {'off/rule': 'off'},
+    policy: {introduced: 'as-declared', touched: 'warning', preexisting: 'off'}
+  };
+  for(const rule of [{id: 'x/y', severity: 'notice'},
+    {id: 'x/z', severity: 'error', critical: true},
+    {id: 'off/rule', severity: 'error'}]) {
+    for(const provenance of ['introduced', 'touched', 'preexisting']) {
+      for(const auditAll of [false, true]) {
+        const args = {rule, provenance, config, auditAll};
+        assert.equal(resolveSeverity(args), explainSeverity(args).severity,
+          `${rule.id} ${provenance} auditAll=${auditAll}`);
+      }
+    }
+  }
 });
 
 test('severity: a rule turned off in config stays off even for --all', () => {
