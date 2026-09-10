@@ -80,7 +80,6 @@ export default defineConfig({
               { text: 'only-allowed-names', link: '/rules/files/only-allowed-names' },
               { text: 'no-empty-htaccess', link: '/rules/files/no-empty-htaccess' },
               { text: 'htaccess-required', link: '/rules/files/htaccess-required' },
-              { text: 'readme-required', link: '/rules/files/readme-required' },
               { text: 'prefer-readme-md', link: '/rules/files/prefer-readme-md' }
             ]
           },
@@ -173,6 +172,7 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Overview', link: '/rules/meta/' },
+              { text: 'document-identifier-root', link: '/rules/meta/document-identifier-root' },
               { text: 'maintainer-github-username', link: '/rules/meta/maintainer-github-username' },
               { text: 'rule-docs-exist', link: '/rules/meta/rule-docs-exist' }
             ]
