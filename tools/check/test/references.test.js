@@ -359,9 +359,10 @@ test('references: every documentation page is reachable from the site nav',
   //   page with no entry  -- reachable by URL, but a reader browsing the
   //                          site never sees it. Happens when a page is
   //                          added and the sidebar is not.
-  //   entry with no page  -- a dead link in the sidebar of every page on
+  //   entry with no page  -- a dead link in the navigation of every page on
   //                          the site. Happens when a page is deleted or
-  //                          moved.
+  //                          moved. Covers every `link:` in the config, not
+  //                          only the rule pages.
   //
   // The first premise fails for a page an index *generates* a link to. A
   // VitePress content loader globs its directory, so every page there is on
@@ -428,13 +429,39 @@ test('references: every documentation page is reachable from the site nav',
     }
   }
 
-  // The reverse: every rule link in the sidebar must name a page that is
-  // really there. Restricted to /rules/, the only routes whose file layout
-  // this repository owns -- the rest of the site is the docs worktree's.
-  for(const link of [...linked].filter(l => l.startsWith('/rules/'))) {
-    const base = path.join(docsDir, link.replace(/^\//, ''));
-    const page = link.endsWith('/') ? path.join(base, 'index.md') : base + '.md';
-    if(read(page) === null) {
+  // The reverse: every navigation link must name a page that is really
+  // there. Not restricted to /rules/ -- the direction above already speaks
+  // for all of `docs/`, so restricting this one was an inconsistency rather
+  // than a boundary, and a renamed guide or news post left a dead entry that
+  // nothing saw.
+  //
+  // `linked` collects every `link:` in the file, which is `nav` and
+  // `socialLinks` as well as `sidebar`. Those were always being extracted
+  // and silently dropped by the /rules/ filter; they are checked now too,
+  // which is why the classes below have to be told apart.
+  for(const link of [...linked].sort()) {
+    // An external URL is not a route of this site. Nothing here follows the
+    // network: a test that needs the internet to pass fails for reasons that
+    // have nothing to do with the repository.
+    if(/^[a-z][a-z\d+.-]*:/i.test(link) || link.startsWith('//')) {
+      continue;
+    }
+    const route = link.split('#')[0].split('?')[0];
+    const last = route.slice(route.lastIndexOf('/') + 1);
+    // Not page-shaped. `/news/rss.xml` is written at build time by
+    // buildEnd.js, and `docs/public/` assets are copied verbatim -- neither
+    // is a Markdown page and neither is knowable from the tree here. This
+    // check can only speak for pages the repository contains, and saying so
+    // beats enumerating the extensions it cannot see.
+    if(last !== '' && last.includes('.')) {
+      continue;
+    }
+    const base = path.join(docsDir, route.replace(/^\//, ''));
+    // VitePress serves `/faq` from `faq.md` and `/guides/` from
+    // `guides/index.md`, and a route without a trailing slash may be either.
+    const candidates = route.endsWith('/') ? [path.join(base, 'index.md')] :
+      [base + '.md', path.join(base, 'index.md')];
+    if(candidates.every(page => read(page) === null)) {
       problems.push(`no page for sidebar entry ${link}`);
     }
   }
