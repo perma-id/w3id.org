@@ -5,19 +5,17 @@ real Apache. This page sets one up on your machine, configured the way the live
 service is configured, so `ids/my-project/` answers at
 `http://localhost:8080/my-project/`.
 
-::: info What has been run, and what has not
-Both Docker paths below have been run end to end against this repository's own
-`ids/` directory. The identifier root, the bare no-slash form, sub-paths,
-`Accept` negotiation, the site root, a missing identifier and a request for an
-`.htaccess` file all behaved as this page describes.
+::: info What has been run
+All three setups on this page have been run end to end against this
+repository's own `ids/` directory, and they agree with each other: the
+identifier root, the bare no-slash form, sub-paths, `Accept` negotiation, the
+site root, a missing identifier and a request for an `.htaccess` file all
+behave as described below.
 
-The **native Apache** section has not been run by anyone. If you set it up,
-please [open an issue](https://github.com/perma-id/w3id.org/issues) saying
-whether it worked — in particular whether `Define W3ID_DOCROOT
-${W3ID_REPO}/ids` expands as written, or has to be spelled out in full.
-
-The setup is new either way, so if something here does not work, say so rather
-than working around it quietly.
+That was on one machine, once. If something here does not work for you, or
+works only after you change it, please
+[open an issue](https://github.com/perma-id/w3id.org/issues) rather than
+working around it quietly.
 :::
 
 You do not need this page for a simple redirect. Read your rules carefully,
