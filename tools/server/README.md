@@ -131,9 +131,16 @@ not depend on the tree being mounted in order to load. It has already earned
 itself once, catching a missing `mod_logio` at build time rather than as a
 container that exits on startup.
 
-Everything else is checked by hand. Both Docker paths have been run against the
-real tree and behave as `docs/guides/local-server.md` describes: rules fire,
-`Accept` negotiation varies the target, the bare form takes the extra 301 hop,
-`302` and `303` are preserved distinctly, a missing identifier is a 404, and a
-request for an `.htaccess` is refused with 403. The native Apache path has not
-been run by anyone.
+Everything else is checked by hand. All three setups have been run against the
+real tree and produce the same answers: rules fire, `Accept` negotiation varies
+the target, the bare form takes the extra 301 hop, `302` and `303` are
+preserved distinctly, a missing identifier is a 404, and a request for an
+`.htaccess` is refused with 403.
+
+That the container and a native Debian Apache agree is the result worth
+re-checking after any change to `conf/w3id.conf`, because it is the claim the
+shared-fragment design rests on. It also confirms the context constraint holds
+in practice: every directive in that file is accepted inside a `<VirtualHost>`,
+which is what lets the native wrapper include it. A directive that is
+server-config-only would fail there with `AH00526: not allowed here` while the
+container carried on working.
