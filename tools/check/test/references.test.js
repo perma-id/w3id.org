@@ -35,6 +35,8 @@ import {readdirSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {listFiles} from '../src/git.js';
+import {check} from './helpers.js';
+import ruleDocsExist from '../src/rules/meta/rule-docs-exist.js';
 import {DEFAULTS} from '../src/config.js';
 
 const root = path.resolve(
@@ -168,6 +170,32 @@ const PATH_PATTERNS = [
  * A page with no check yet is exempt from having a command, and the exemption
  * comes from its own frontmatter rather than from a list of filenames here.
  */
+/**
+ * `meta/rule-docs-exist` must find nothing wrong with this repository.
+ *
+ * The rule already compares the registry against `docs/rules/` in both
+ * directions -- a rule with no page, and a page claiming `status: enforced`
+ * with no rule. What it lacked was anything that acts on the answer: it is a
+ * warning, warnings do not block a pull request, and no test read it.
+ *
+ * That gap is exactly rename-shaped, and invisible to the tests above,
+ * because those check that written ids resolve to *some* page. Rename a rule
+ * and add a page for the new id while leaving the old page behind and every
+ * written id still resolves -- verified, they all stay green -- while the
+ * repository now documents a rule that does not exist.
+ *
+ * Asserting on the rule rather than reimplementing it keeps one definition
+ * of the correspondence. No counts: the assertion is that there is nothing
+ * to report, which cannot go out of date.
+ */
+test('references: the docs and the rule registry agree', () => {
+  const result = check({dir: root, rules: [ruleDocsExist]});
+  assert.deepEqual(result.errors.map(e => e.ruleId), [],
+    'meta/rule-docs-exist threw');
+  assert.deepEqual(result.findings.map(f => f.message), [],
+    'a rule has no documentation page, or a page names no rule');
+});
+
 test('references: every rule page checks the rule it documents', () => {
   const COMMAND = /^node tools\/check\/bin\/w3id-check\.js.*$/gm;
   const wrong = [];
