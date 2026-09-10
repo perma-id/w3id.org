@@ -6,11 +6,11 @@ This repository is the public home of the suite identifiers. The RDF release fol
 
 | Module | IRI | Role |
 |--------|-----|------|
-| **OCP** | https://w3id.org/cmod/ocp | Chronological processes (OWL-Time extension) |
-| **OCCP** | https://w3id.org/cmod/occp | Construction phases and lifecycles |
-| **OULD** | https://w3id.org/cmod/ould | Updates, linked data, and provenance |
-| **AMO** | https://w3id.org/cmod/amo | Areas, anchors, and spatial scope |
+| **OCP** | https://w3id.org/cMod/ocp | Chronological processes (OWL-Time extension) |
+| **OCCP** | https://w3id.org/cMod/occp | Construction phases and lifecycles |
+| **OULD** | https://w3id.org/cMod/ould | Updates, linked data, and provenance |
+| **AMO** | https://w3id.org/cMod/amo | Areas, anchors, and spatial scope |
 
-Namespace for terms: append `#` (e.g. `https://w3id.org/cmod/ocp#`).
+Namespace for terms: append `#` (e.g. `https://w3id.org/cMod/ocp#`).
 
 **Maintainer:** Albrecht Vaatz · [ORCID](https://orcid.org/0009-0008-9255-2107) · [DigitalizeMe](https://github.com/DigitalizeMe)
