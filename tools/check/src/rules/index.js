@@ -8,7 +8,6 @@
 import filesOnlyAllowedNames from './files/only-allowed-names.js';
 import filesPreferReadmeMd from './files/prefer-readme-md.js';
 import filesHtaccessRequired from './files/htaccess-required.js';
-import filesReadmeRequired from './files/readme-required.js';
 import filesNoEmptyHtaccess from './files/no-empty-htaccess.js';
 
 import treeNoCaseCollision from './tree/no-case-collision.js';
@@ -47,6 +46,7 @@ import htaccessEscapeLiteralDots from './htaccess/escape-literal-dots.js';
 
 import markdownPreferListOverLineBreaks from './markdown/prefer-list-over-line-breaks.js';
 
+import metaDocumentIdentifierRoot from './meta/document-identifier-root.js';
 import metaMaintainerGithubUsername from './meta/maintainer-github-username.js';
 import metaRuleDocsExist from './meta/rule-docs-exist.js';
 
@@ -54,7 +54,6 @@ export const rules = [
   filesOnlyAllowedNames,
   filesPreferReadmeMd,
   filesHtaccessRequired,
-  filesReadmeRequired,
   filesNoEmptyHtaccess,
 
   treeNoCaseCollision,
@@ -92,6 +91,7 @@ export const rules = [
 
   markdownPreferListOverLineBreaks,
 
+  metaDocumentIdentifierRoot,
   metaMaintainerGithubUsername,
   metaRuleDocsExist
 ];

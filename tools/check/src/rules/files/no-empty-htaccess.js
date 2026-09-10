@@ -1,3 +1,19 @@
+/**
+ * Whether this .htaccess sits above sub-identifiers that resolve on their own.
+ *
+ * A directory may legitimately exist only to group them -- the same exception
+ * `files/htaccess-required` already makes -- and then its own .htaccess has
+ * no redirect to carry. Comments are the recommended way to claim such a
+ * root, so reporting them here would block the fix
+ * `meta/document-identifier-root` asks for.
+ */
+function groupsSubIdentifiers(ctx) {
+  const dir = ctx.file.slice(0, -'/.htaccess'.length) + '/';
+  return ctx.idPaths.some(p =>
+    p !== ctx.file && p.startsWith(dir) && p.endsWith('/.htaccess') &&
+    (ctx.htaccess(p)?.directives.length ?? 0) > 0);
+}
+
 export default {
   id: 'files/no-empty-htaccess',
   description: 'An .htaccess file must contain at least one directive',
@@ -26,7 +42,7 @@ export default {
       report({messageId: 'empty', line: 1, data: {id}});
       return;
     }
-    if(parsed.directives.length === 0) {
+    if(parsed.directives.length === 0 && !groupsSubIdentifiers(ctx)) {
       report({messageId: 'commentsOnly', line: 1, data: {id}});
     }
   }

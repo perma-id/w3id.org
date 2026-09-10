@@ -62,7 +62,6 @@ These rules are maintainer guidance. Existing files are not.
 | [`files/only-allowed-names`](./files/only-allowed-names) | error | Only `.htaccess` and a README — no content files, and the rules file must be named exactly |
 | [`files/no-empty-htaccess`](./files/no-empty-htaccess) | error | An `.htaccess` with no directives resolves to 404 |
 | [`files/htaccess-required`](./files/htaccess-required) | warning | Something in the directory must answer requests |
-| [`files/readme-required`](./files/readme-required) | warning | Say what the identifier is and who maintains it |
 | [`files/prefer-readme-md`](./files/prefer-readme-md) | warning | Write it as Markdown, called `README.md` |
 
 ## [Repository shape](./tree/)
@@ -143,6 +142,7 @@ request and not by a run scoped to a directory.
 
 | Rule | Severity | What |
 | --- | --- | --- |
+| [`meta/document-identifier-root`](./meta/document-identifier-root) | warning | Claim the root of an identifier with a maintainer record |
 | [`meta/maintainer-github-username`](./meta/maintainer-github-username) | warning | Record who maintains the identifier, with a GitHub username |
 | [`meta/rule-docs-exist`](./meta/rule-docs-exist) | warning | Every rule has a page and every page has a rule |
 

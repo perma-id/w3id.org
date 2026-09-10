@@ -119,5 +119,5 @@ node tools/check/bin/w3id-check.js ids/my-project
 
 ## See also
 
-- [`files/readme-required`](./readme-required)
+- [`meta/document-identifier-root`](../meta/document-identifier-root)
 - [`files/only-allowed-names`](./only-allowed-names)

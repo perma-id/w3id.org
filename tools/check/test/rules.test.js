@@ -6,7 +6,8 @@ import {makeRepo, check, findingsOf} from './helpers.js';
 import onlyAllowedNames from '../src/rules/files/only-allowed-names.js';
 import preferReadmeMd from '../src/rules/files/prefer-readme-md.js';
 import htaccessRequired from '../src/rules/files/htaccess-required.js';
-import readmeRequired from '../src/rules/files/readme-required.js';
+import documentIdentifierRoot
+  from '../src/rules/meta/document-identifier-root.js';
 import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
@@ -40,14 +41,14 @@ import noMergeCommits from '../src/rules/git/no-merge-commits.js';
 import descriptiveCommitMessage from '../src/rules/git/descriptive-commit-message.js';
 
 /** Build a repo from a map of path -> contents and audit it with one rule. */
-function audit(rule, files) {
+function audit(rule, files, config = {}) {
   const repo = makeRepo();
   repo.write('.w3id-check.yaml', 'idsDir: ids\n');
   for(const [path, content] of Object.entries(files)) {
     repo.write(path, content);
   }
   repo.commit('fixture');
-  return check({dir: repo.dir, rules: [rule]});
+  return check({dir: repo.dir, rules: [rule], config});
 }
 
 const OK_HTACCESS = 'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n';
@@ -359,26 +360,84 @@ test('files/htaccess-required accepts a parent that only groups children', () =>
   assert.deepEqual(findingsOf(r), ['ids/orphan:-:warning']);
 });
 
-test('files/readme-required ignores files sitting directly in ids/', () => {
-  // The homepage and the global rewrite rules are not identifiers, so they
-  // have no README and no maintainer of their own. `namespaceOf` works from
-  // the path string alone and hands back the file itself for these, which is
-  // what made them look like namespaces.
-  const r = audit(readmeRequired, {
-    'ids/index.html': '<p>the service homepage</p>\n',
-    'ids/.htaccess': '# global rewrites\nRewriteEngine on\n',
-    'ids/real-identifier/.htaccess': OK_HTACCESS
+test('meta/document-identifier-root ignores files sitting directly in ids/',
+  () => {
+    // The homepage and the global rewrite rules are not identifiers, so they
+    // have no maintainer of their own. `namespaceOf` works from the path
+    // string alone and hands back the file itself for these, which is what
+    // made them look like namespaces.
+    const r = audit(documentIdentifierRoot, {
+      'ids/index.html': '<p>the service homepage</p>\n',
+      'ids/.htaccess': '# global rewrites\nRewriteEngine on\n',
+      'ids/real-identifier/.htaccess': OK_HTACCESS
+    });
+    assert.deepEqual(findingsOf(r), ['ids/real-identifier:-:warning']);
   });
-  assert.deepEqual(findingsOf(r), ['ids/real-identifier:-:warning']);
-});
 
-test('files/readme-required accepts a README anywhere in the namespace', () => {
-  const r = audit(readmeRequired, {
-    'ids/a/.htaccess': OK_HTACCESS,
-    'ids/a/sub/README.md': OK_README,
-    'ids/b/.htaccess': OK_HTACCESS
+test('meta/document-identifier-root: a README below the root does not claim it',
+  () => {
+    const r = audit(documentIdentifierRoot, {
+      'ids/a/.htaccess': OK_HTACCESS,
+      'ids/a/sub/README.md': OK_README,
+      'ids/b/.htaccess': OK_HTACCESS
+    });
+    assert.deepEqual(findingsOf(r), ['ids/a:-:warning', 'ids/b:-:warning']);
+    // The deeper file is named, and the message says to leave it alone: the
+    // obvious misreading is "your README is in the wrong place", and acting
+    // on it would delete a sub-tree's own maintainer record.
+    const [a, b] = r.findings;
+    assert.match(a.message, /ids\/a\/sub\/README\.md records a maintainer/);
+    assert.match(a.message, /Keep ids\/a\/sub\/README\.md as it is/);
+    assert.match(b.message, /Nothing in ids\/b/);
   });
-  assert.deepEqual(findingsOf(r), ['ids/b:-:warning']);
+
+test('meta/document-identifier-root: root .htaccess comments claim the root',
+  () => {
+    const r = audit(documentIdentifierRoot, {
+      // A GitHub handle, as most of the tree records it.
+      'ids/a/.htaccess': '# Widgets\n# maintainers:\n# - @octocat\n' +
+        OK_HTACCESS,
+      // A name and an email, with no GitHub account attached.
+      'ids/b/.htaccess': '# Maintainer: Ada Lovelace (ada@example.org)\n' +
+        OK_HTACCESS,
+      // Commented-out directives are not an ownership claim.
+      'ids/c/.htaccess': '#RewriteRule ^$ https://example.org/old [R=302,L]\n' +
+        OK_HTACCESS
+    });
+    assert.deepEqual(findingsOf(r), ['ids/c:-:warning']);
+  });
+
+test('meta/document-identifier-root: a sub-directory may add maintainers',
+  () => {
+    // Additional maintainers for part of a tree are a supported pattern, not
+    // a defect. A claimed root must stay silent however deep the extras go.
+    const r = audit(documentIdentifierRoot, {
+      'ids/a/.htaccess': OK_HTACCESS,
+      'ids/a/README.md': OK_README,
+      'ids/a/sub/README.md':
+        '# sub\n\nAlso maintained by [hubot](https://github.com/hubot).\n',
+      'ids/a/sub/deeper/README.md':
+        '# deeper\n\nAnd by [monalisa](https://github.com/monalisa).\n'
+    });
+    assert.deepEqual(findingsOf(r), []);
+  });
+
+test('meta/document-identifier-root: a shared namespace is exempt', () => {
+  // ids/people maps sub-names to one person each, so no single maintainer
+  // can be recorded at its root.
+  const files = {
+    'ids/shared/.htaccess': OK_HTACCESS,
+    'ids/shared/someone/README.md': OK_README,
+    'ids/other/.htaccess': OK_HTACCESS
+  };
+  assert.deepEqual(findingsOf(audit(documentIdentifierRoot, files)),
+    ['ids/other:-:warning', 'ids/shared:-:warning']);
+  const exempt = audit(documentIdentifierRoot, files, {
+    options: {
+      'meta/document-identifier-root': {sharedNamespaces: ['ids/shared']}
+    }
+  });
+  assert.deepEqual(findingsOf(exempt), ['ids/other:-:warning']);
 });
 
 test('files/no-empty-htaccess flags empty and comment-only files', () => {
@@ -390,6 +449,36 @@ test('files/no-empty-htaccess flags empty and comment-only files', () => {
   assert.deepEqual(findingsOf(r).sort(),
     ['ids/a/.htaccess:1:error', 'ids/b/.htaccess:1:error']);
 });
+
+test('files/no-empty-htaccess spares a root that only groups sub-identifiers',
+  () => {
+    const r = audit(noEmptyHtaccess, {
+      // Comments only, but everything below it resolves -- so this claims the
+      // identifier rather than breaking it.
+      'ids/a/.htaccess': '# a -- see the versions below\n# maintainer: @octocat\n',
+      'ids/a/v1/.htaccess': OK_HTACCESS,
+      'ids/a/v2/.htaccess': OK_HTACCESS,
+      // Comments only with nothing below: still an error, nothing resolves.
+      'ids/b/.htaccess': '# maintainer: @octocat\n',
+      // A sub-directory that does not resolve either cannot rescue the root.
+      'ids/c/.htaccess': '# maintainer: @octocat\n',
+      'ids/c/sub/.htaccess': '# also nothing\n'
+    });
+    assert.deepEqual(findingsOf(r).sort(),
+      ['ids/b/.htaccess:1:error', 'ids/c/.htaccess:1:error',
+        'ids/c/sub/.htaccess:1:error']);
+  });
+
+test('files/no-empty-htaccess still flags an empty file above sub-identifiers',
+  () => {
+    // The grouping exception is for comments, which say something. A
+    // zero-byte file claims a name and says nothing.
+    const r = audit(noEmptyHtaccess, {
+      'ids/a/.htaccess': '',
+      'ids/a/v1/.htaccess': OK_HTACCESS
+    });
+    assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:1:error']);
+  });
 
 test('tree/no-case-collision flags directories differing only in case', () => {
   const r = audit(noCaseCollision, {
