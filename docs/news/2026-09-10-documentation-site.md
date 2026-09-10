@@ -1,7 +1,8 @@
 ---
 title: The documentation site is live
+id: urn:uuid:6a632748-c0fc-408b-bd83-886b3141c36a
 date: 2026-09-10
-category: tooling
+categories: [tooling]
 summary: >-
   w3id.org now has documentation at docs.w3id.org, covering what the service
   is for, how to create and maintain an identifier, and the rules a

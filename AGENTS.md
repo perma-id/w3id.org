@@ -197,16 +197,28 @@ A post is one file, `docs/news/<date>-<slug>.md`, where the date is written
 ```yaml
 ---
 title: A sentence, not a headline
+id: urn:uuid:6a632748-c0fc-408b-bd83-886b3141c36a
 date: 2026-09-10
-category: tooling
+categories: [tooling]
 summary: One sentence. It appears on the index and as the feed description.
 ---
 ```
 
-`category` must be one of the keys in `docs/news/categories.js` — currently
-`service`, `policy`, `tooling`, `governance`. A category that is not in that
-file puts the post in an "Uncategorised" section on the index rather than
-dropping it silently, but it is still a mistake to fix.
+`id` is the post's **permanent identifier**, and it is what feed readers use to
+recognise the post. Mint one with `uuidgen`, prefix it with `urn:uuid:`, and
+keep it lowercase. **Never change it after the post is published**, and never
+copy one from another post — a shared id makes two posts collide into a single
+entry in every subscriber's reader, and no later fix reaches the copies they
+have already stored. The date and the URL may change; this may not.
+
+`categories` is a list, and every entry must be a key in
+`docs/news/schema.js` — currently `service`, `policy`, `tooling`,
+`governance`.
+
+The build **fails**, naming the file, if a post has no `id` or one that is not
+a lowercase `urn:uuid:`, if two posts share an `id`, if a category is not in
+that list, or if `title`, `date` or `summary` is missing. Run `npm run build`
+in `docs/` before you claim a post is finished.
 
 Adding the file is the whole job. The index at `docs/news/index.md` builds
 itself from the frontmatter of every post, the RSS and Atom feeds are generated
