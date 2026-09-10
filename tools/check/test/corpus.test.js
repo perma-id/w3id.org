@@ -50,7 +50,7 @@ const BOUNDS = {
   'markdown/prefer-list-over-line-breaks': 340,
   'htaccess/valid-cors-header': 223,
   'htaccess/no-self-redirect': 215,
-  'files/readme-required': 129,
+  'meta/document-identifier-root': 146,
   'format/no-crlf': 113,
   'htaccess/pattern-relative-to-dir': 107,
   'htaccess/no-inline-comment': 40,

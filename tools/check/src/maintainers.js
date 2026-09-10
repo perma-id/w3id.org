@@ -77,6 +77,34 @@ export function findUsernames(text) {
   return found;
 }
 
+// An email address, and the words people use to label whoever is responsible.
+// Between them these catch a claim written without a GitHub account attached.
+const EMAIL = /[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}/;
+const LABEL =
+  /\b(?:maintainers?|maintained\s+by|contacts?|owners?|owned\s+by|authors?|curators?|responsible)\b/i;
+
+/**
+ * Whether a block of text records a maintainer in any recognised shape.
+ *
+ * Looser than `findUsernames`: a name and an email address claims an
+ * identifier just as well as a GitHub handle does, and one namespace records
+ * its maintainers exactly that way. Callers that specifically need an account
+ * name -- because they are going to look somebody up on GitHub -- want
+ * `findUsernames` instead.
+ *
+ * Kept here so that both notions of "maintainer information" sit in the one
+ * module a structured metadata format will later replace.
+ *
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function hasMaintainerSignal(text) {
+  if(typeof text !== 'string') {
+    return false;
+  }
+  return findUsernames(text).size > 0 || EMAIL.test(text) || LABEL.test(text);
+}
+
 /**
  * Maintainer usernames recorded anywhere in a namespace.
  *

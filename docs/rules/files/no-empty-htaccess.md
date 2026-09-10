@@ -47,6 +47,28 @@ RewriteEngine on
 RewriteRule ^$ https://example.org/ [R=302,L]
 ```
 
+## The exception: a directory that only groups sub-identifiers
+
+A directory may exist only to hold sub-identifiers that each resolve on their
+own, and then it has no redirect of its own to carry:
+
+```
+ids/my-project/
+├── .htaccess              ← comments only, and correct
+├── v1/.htaccess           ← resolves
+└── v2/.htaccess           ← resolves
+```
+
+Comments there are the recommended way to claim the root of such an identifier
+— see [`meta/document-identifier-root`](../meta/document-identifier-root) — so
+this rule stays quiet when a descendant `.htaccess` carries directives.
+`files/htaccess-required` makes the same exception.
+
+The check is for a *descendant that resolves*, not for comments that look
+purposeful. A comments-only `.htaccess` with nothing below it is still an
+error, because nothing under that name resolves at all. An empty file is
+always an error: a zero-byte placeholder claims a name and serves nothing.
+
 ## How to fix
 
 Write the redirect, or remove the directory so the name is free for somebody

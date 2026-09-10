@@ -17,7 +17,8 @@ import {main, EXIT} from '../src/cli.js';
 import rewriteEngineRequired from '../src/rules/htaccess/rewrite-engine-required.js';
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
-import readmeRequired from '../src/rules/files/readme-required.js';
+import documentIdentifierRoot
+  from '../src/rules/meta/document-identifier-root.js';
 import onlyOwnIdentifier from '../src/rules/tree/only-own-identifier.js';
 
 const BROKEN = 'RewriteRule ^$ https://example.com/ [R=302,L]\n';
@@ -159,11 +160,11 @@ test('a tree rule finding outside the scope is suppressed', () => {
   repo.commit('Add foo and bar');
 
   const scoped = check({
-    dir: repo.dir, rules: [readmeRequired], scope: ['ids/foo']
+    dir: repo.dir, rules: [documentIdentifierRoot], scope: ['ids/foo']
   });
   assert.deepEqual(scoped.findings.map(f => f.file), ['ids/foo']);
 
-  const unscoped = check({dir: repo.dir, rules: [readmeRequired]});
+  const unscoped = check({dir: repo.dir, rules: [documentIdentifierRoot]});
   assert.deepEqual(unscoped.findings.map(f => f.file).sort(),
     ['ids/bar', 'ids/foo']);
 });

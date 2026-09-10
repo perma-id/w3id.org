@@ -19,6 +19,15 @@ It can go in `.htaccess` comments, in a `README.md`, or both. Either is
 acceptable — there is no requirement to have a `README.md` if the `.htaccess`
 comments carry the information.
 
+This rule reads the whole identifier, so a record anywhere in it counts.
+[`meta/document-identifier-root`](./document-identifier-root) is the companion
+rule that asks for one at the root specifically, since that is what claims the
+identifier.
+
+A sub-directory may record **additional** maintainers for its own part of the
+tree, and several identifiers do. Those are read together with the root's, not
+instead of them — never move or delete a deeper record to satisfy either rule.
+
 ## Why
 
 This is the single most frequent review comment on this repository.
@@ -110,5 +119,5 @@ format may replace it later.
 
 ## See also
 
-- [`files/readme-required`](../files/readme-required)
+- [`meta/document-identifier-root`](./document-identifier-root)
 - [`markdown/prefer-list-over-line-breaks`](../markdown/prefer-list-over-line-breaks)
