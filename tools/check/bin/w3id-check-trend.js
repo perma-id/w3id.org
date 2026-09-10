@@ -2,11 +2,11 @@
 /**
  * How the backlog is moving: today's rules against the tree as it was.
  *
- * This replaced a table of hand-written upper bounds, one per rule. The
- * bounds were exact counts, and the identifier tree grows about 30% a year,
- * so every one of them went stale within weeks and CI failed on ordinary
- * growth. Nothing here is stored: the comparison points are dates computed
- * when it runs, so there is no number in the repository to go out of date.
+ * Reports, and stores nothing: the comparison points are dates computed when
+ * it runs, so no number in the repository can go out of date. That is the
+ * point of it. Bounding each rule's count instead -- an upper bound per rule,
+ * failing CI when exceeded -- cannot work in a tree growing about 30% a year,
+ * because ordinary growth exceeds any useful bound within weeks.
  *
  * The **current** rules run against **historical** trees. That holds the
  * checker fixed, so a count moves only when the tree does -- which is the
