@@ -56,14 +56,18 @@ Change the status code. If an identifier really has moved permanently and you
 want callers to update their references, say so in the `README.md` — that
 reaches humans, which a status code does not.
 
-## Checked by
+## How to check
 
-`htaccess/avoid-permanent-redirect`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/avoid-permanent-redirect` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/avoid-permanent-redirect ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

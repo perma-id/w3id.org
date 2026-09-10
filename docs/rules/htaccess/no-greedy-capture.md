@@ -69,17 +69,20 @@ it:
 Then check the result for doubled slashes — see
 [`htaccess/no-double-slash`](./no-double-slash).
 
-## Checked by
+## How to check
 
-`htaccess/no-greedy-capture`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/no-greedy-capture` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/no-greedy-capture ids/my-project
 ```
-
 
 Only the `^(.+)/?$` shape is reported. Deciding that some other `(.+)` "should
 have been" `([^/]+)` needs to know what the author meant.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

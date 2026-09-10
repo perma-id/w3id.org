@@ -51,16 +51,22 @@ git rebase upstream/master
 For a fork you have not touched in a long time, it is often quicker to delete
 the local branch and start again from `upstream/master`.
 
-## Checked by
+## How to check
 
-`git/branch-not-stale`, in this repository's checker:
+Run `w3id-check` with `--rule git/branch-not-stale` to check this rule on its
+own; without it the tool runs every rule, as the pull request checks do. This
+rule looks at your commits rather than your files, so it needs a base to
+compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --base origin/master
+node tools/check/bin/w3id-check.js --rule git/branch-not-stale --base origin/master
 ```
 
 The threshold is configurable in `.w3id-check.yaml` under
 `options.git/branch-not-stale.maxBehind`.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

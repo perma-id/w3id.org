@@ -61,13 +61,19 @@ If a rebase goes wrong, the simplest recovery is often to start a fresh branch
 from `upstream/master` and re-apply your change by hand — it is usually two
 files.
 
-## Checked by
+## How to check
 
-`git/no-merge-commits`, in this repository's checker:
+Run `w3id-check` with `--rule git/no-merge-commits` to check this rule on its
+own; without it the tool runs every rule, as the pull request checks do. This
+rule looks at your commits rather than your files, so it needs a base to
+compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --base origin/master
+node tools/check/bin/w3id-check.js --rule git/no-merge-commits --base origin/master
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

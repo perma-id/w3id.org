@@ -67,14 +67,17 @@ are all doing their job, and so is a dot inside a character class. The check
 looks only for a dot followed by something shaped like a file extension, which
 is where the mistake actually lives.
 
-## Checked by
+## How to check
 
-`htaccess/escape-literal-dots`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/escape-literal-dots` to check this rule
+on its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/escape-literal-dots ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

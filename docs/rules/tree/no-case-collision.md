@@ -76,15 +76,20 @@ the other form. Those rules live in the global `ids/.htaccess`, which is not a
 file contributors edit themselves — see
 [`tree/only-own-identifier`](./only-own-identifier).
 
-## Checked by
+## How to check
 
-`tree/no-case-collision`, in this repository's checker. The check needs the
-whole tree to see a collision, so it works from a full checkout even when you
-scope it to one directory:
+Run `w3id-check` with `--rule tree/no-case-collision` to check this rule on its
+own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule tree/no-case-collision ids/my-project
 ```
+
+The check needs the whole tree to see a collision, so it works from a full
+checkout even when you scope it to one directory.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

@@ -82,14 +82,17 @@ negotiated request for `text/turtle` still arrives with the wrong content type
 and some clients reject it. With Pages you control the content type and get a
 real hostname you can move later without touching this repository.
 
-## Checked by
+## How to check
 
-`htaccess/github-raw-target`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/github-raw-target` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/github-raw-target ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

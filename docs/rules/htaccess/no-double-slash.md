@@ -68,18 +68,21 @@ Then confirm with a real request:
 curl -sI http://localhost:8080/my-project/vocab | grep -i '^location:'
 ```
 
-## Checked by
+## How to check
 
-`htaccess/no-double-slash`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/no-double-slash` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/no-double-slash ids/my-project
 ```
-
 
 The check reads the literal text of the target, so it catches the doubled slash
 you can see. The version that only appears once a capture is substituted needs
 tracing by hand.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

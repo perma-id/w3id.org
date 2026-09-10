@@ -94,18 +94,21 @@ curl -sI                  http://localhost:8080/my-vocab/
 
 Neither should return 406.
 
-## Checked by
+## How to check
 
-`htaccess/no-406-fallback`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/no-406-fallback` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/no-406-fallback ids/my-project
 ```
-
 
 The check distinguishes the two cases. A 406 behind a condition that matches any
 `Accept` header gets the stronger message; a 406 behind a specific condition is
 reported as the narrower, considered choice it probably is. Neither is an error.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

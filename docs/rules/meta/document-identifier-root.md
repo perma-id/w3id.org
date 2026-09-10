@@ -138,12 +138,13 @@ own to serve. An `.htaccess` there holding nothing but comments is a
 legitimate way to claim it — [`files/no-empty-htaccess`](../files/no-empty-htaccess)
 makes an exception for exactly this case.
 
-## Checked by
+## How to check
 
-`meta/document-identifier-root`, in this repository's checker:
+Run `w3id-check` with `--rule meta/document-identifier-root` to check this rule
+on its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule meta/document-identifier-root ids/my-project
 ```
 
 A namespace whose sub-names belong to different people has no single
@@ -151,6 +152,9 @@ maintainer to record at its root. Those are listed under
 `options: meta/document-identifier-root: sharedNamespaces` in
 `.w3id-check.yaml`, which is a stopgap until a metadata format can express
 ownership per entry.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

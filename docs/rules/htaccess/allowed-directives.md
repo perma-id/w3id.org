@@ -58,14 +58,17 @@ The refused set is: `RewriteMap`, `Include`, `IncludeOptional`, `AddHandler`,
 `Satisfy`, the `php_*` family, `Options +ExecCGI`, `Options +Includes`,
 `Options All`, and the `[P]` flag.
 
-## Checked by
+## How to check
 
-`htaccess/allowed-directives`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/allowed-directives` to check this rule
+on its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/allowed-directives ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

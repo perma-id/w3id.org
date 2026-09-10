@@ -65,18 +65,21 @@ RewriteRule ^alpha/(.*)$ https://alpha.example.org/$1 [R=302,L]
 RewriteRule ^beta/(.*)$  https://beta.example.org/$1  [R=302,L]
 ```
 
-## Checked by
+## How to check
 
-`htaccess/no-open-redirect`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/no-open-redirect` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/no-open-redirect ids/my-project
 ```
-
 
 The check reasons about where the capture lands and what it can contain, so a
 capture whose character class cannot produce a dot or a slash — and therefore
 cannot change the host — is not reported.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

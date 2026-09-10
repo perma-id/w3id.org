@@ -66,13 +66,18 @@ To find them:
 grep -nE '( {2,}|\\|<br ?/?>)$' ids/my-project/README.md
 ```
 
-## Checked by
+## How to check
 
-`markdown/prefer-list-over-line-breaks`, in this repository's checker:
+Run `w3id-check` with `--rule markdown/prefer-list-over-line-breaks` to check
+this rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule markdown/prefer-list-over-line-breaks ids/my-project
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

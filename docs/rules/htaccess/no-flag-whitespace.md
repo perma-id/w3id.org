@@ -51,18 +51,21 @@ Remove every space and tab between `[` and `]`.
 If your identifier is returning 500 for everything, this is the first thing to
 check.
 
-## Checked by
+## How to check
 
-`htaccess/no-flag-whitespace`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/no-flag-whitespace` to check this rule
+on its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/no-flag-whitespace ids/my-project
 ```
-
 
 Note that a plain search for whitespace between brackets is noisy — it matches
 prose in comments and character classes in patterns. The check reads the parsed
 flag argument instead, so it reports only genuine flag lists.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 
