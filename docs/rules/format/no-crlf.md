@@ -63,13 +63,17 @@ repository's
 will handle this for you on every file you save, along with the other
 whitespace rules.
 
-## Checked by
+## How to check
 
-`format/no-crlf`, in this repository's checker:
+Run `w3id-check` with `--rule format/no-crlf` to check this rule on its own;
+without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule format/no-crlf ids/my-project
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

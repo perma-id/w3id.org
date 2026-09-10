@@ -39,14 +39,18 @@ RewriteRule ^$ https://example.org/ [R=302,L]
 
 Upper-case the flag names. Values keep their own case where they have one.
 
-## Checked by
+## How to check
 
-`htaccess/uppercase-rewrite-flags`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/uppercase-rewrite-flags` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/uppercase-rewrite-flags ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

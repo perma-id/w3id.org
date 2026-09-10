@@ -61,13 +61,17 @@ RewriteRule ^$ https://example.org/my-project/ [R=302,L]
 If the directory was left behind by a change that removed its rules, remove
 the directory too.
 
-## Checked by
+## How to check
 
-`files/htaccess-required`, in this repository's checker:
+Run `w3id-check` with `--rule files/htaccess-required` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule files/htaccess-required ids/my-project
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

@@ -74,13 +74,17 @@ always an error: a zero-byte placeholder claims a name and serves nothing.
 Write the redirect, or remove the directory so the name is free for somebody
 who will use it.
 
-## Checked by
+## How to check
 
-`files/no-empty-htaccess`, in this repository's checker:
+Run `w3id-check` with `--rule files/no-empty-htaccess` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule files/no-empty-htaccess ids/my-project
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

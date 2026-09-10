@@ -53,14 +53,18 @@ per rule.
 Files using only `Redirect` or `RedirectMatch` do not need it — those come from
 a different Apache module — and are not reported.
 
-## Checked by
+## How to check
 
-`htaccess/rewrite-engine-required`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/rewrite-engine-required` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/rewrite-engine-required ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

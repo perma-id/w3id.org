@@ -88,6 +88,7 @@ RewriteRule ^(.*)$ https://example.org/$1 [R=302,L]
 Or in `README.md`:
 
 ```markdown
+
 ## Contact
 
 - Firstname Lastname, <firstname@example.org>,
@@ -103,12 +104,14 @@ Add the block above. If you are taking over an existing identifier, update the
 contact rather than appending to it, and make sure the outgoing maintainer is
 visible on the pull request.
 
-## Checked by
+## How to check
 
-`meta/maintainer-github-username`, in this repository's checker:
+Run `w3id-check` with `--rule meta/maintainer-github-username` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule meta/maintainer-github-username ids/my-project
 ```
 
 The check recognises the many shapes this information takes across the
@@ -116,6 +119,9 @@ repository — `GitHub username: name`, `(GitHub: name)`, a bare `@name`, a
 profile URL, a Markdown link. It is deliberately lenient, and reports only when
 it can find no plausible username anywhere in the identifier. A structured
 format may replace it later.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

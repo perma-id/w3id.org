@@ -83,14 +83,17 @@ A bare `Header set Access-Control-Allow-Origin "*"` on the redirect is not
 reported. It is unnecessary but harmless, and only the malformed
 `Allow-Headers` line is a mistake.
 
-## Checked by
+## How to check
 
-`htaccess/valid-cors-header`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/valid-cors-header` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/valid-cors-header ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

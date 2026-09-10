@@ -65,15 +65,22 @@ Adding a rule means adding its page in the same change, and adding it to the
 catalogue table and the site sidebar. Removing a check without removing the
 page means changing the page's `status` to `proposed`.
 
-## Checked by
+## How to check
 
-`meta/rule-docs-exist`, in this repository's checker. It is silent when
-`docs/rules/` is absent, so the checker still works in a tree without the
-documentation:
+Run `w3id-check` with `--rule meta/rule-docs-exist` to check this rule on its
+own; without it the tool runs every rule, as the pull request checks do. This
+one is about the checker's own documentation rather than an identifier, so it
+runs over the whole tree.
 
 ```sh
 node tools/check/bin/w3id-check.js --all --rule meta/rule-docs-exist
 ```
+
+It is silent when `docs/rules/` is absent, so the checker still works in a tree
+without the documentation.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

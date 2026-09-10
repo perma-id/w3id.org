@@ -113,13 +113,17 @@ git mv ids/my-project/htaccess.txt ids/my-project/.htaccess
 Locally, note that `.htaccess` is hidden from a plain `ls` — use `ls -a`, and
 check that `git status` actually shows it.
 
-## Checked by
+## How to check
 
-`files/only-allowed-names`, in this repository's checker:
+Run `w3id-check` with `--rule files/only-allowed-names` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule files/only-allowed-names ids/my-project
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

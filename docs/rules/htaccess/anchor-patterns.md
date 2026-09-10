@@ -67,18 +67,21 @@ it should not, then check the pattern against both. Pay particular attention to:
 - the form with a trailing slash;
 - a longer identifier that starts with the same letters.
 
-## Checked by
+## How to check
 
-`htaccess/anchor-patterns`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/anchor-patterns` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/anchor-patterns ids/my-project
 ```
-
 
 Only the required-group half is checked. An unanchored pattern is often exactly
 what the author wanted, and a rule cannot tell the deliberate ones from the
 accidents — so the `$` advice above is guidance, not a finding.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

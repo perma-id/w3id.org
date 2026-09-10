@@ -87,14 +87,19 @@ maintainers listed in that directory to approve it.
 **If you want to change the service documentation**, edit `docs/` and say so.
 That is a separate pull request too.
 
-## Checked by
+## How to check
 
-`tree/only-own-identifier`, in this repository's checker. It needs a range to
-compare, so it runs on the default invocation rather than on a path:
+Run `w3id-check` with `--rule tree/only-own-identifier` to check this rule on
+its own; without it the tool runs every rule, as the pull request checks do.
+This rule looks at your commits rather than your files, so it needs a base to
+compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --base origin/master
+node tools/check/bin/w3id-check.js --rule tree/only-own-identifier --base origin/master
 ```
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

@@ -154,6 +154,55 @@ const PATH_PATTERNS = [
     String.raw`((?:${REPO_DIRS})/${SEGMENT}(?:/${SEGMENT})*)`, 'g')
 ];
 
+/**
+ * A rule page tells the reader how to run the rule it documents. Nothing else
+ * checks that the command it gives runs *that* rule.
+ *
+ * The test above catches a `--rule` argument naming no page at all, which is
+ * what a rename leaves behind. It cannot catch a command naming the wrong
+ * page, because that id resolves perfectly well -- and the pages are 38 near
+ * copies of one another, edited together, which is exactly the shape that
+ * produces a pasted-in neighbour's id.
+ *
+ * A page with no check yet is exempt from having a command, and the exemption
+ * comes from its own frontmatter rather than from a list of filenames here.
+ */
+test('references: every rule page checks the rule it documents', () => {
+  const COMMAND = /^node tools\/check\/bin\/w3id-check\.js.*$/gm;
+  const wrong = [];
+
+  for(const file of walk(rulesDir)) {
+    if(!file.endsWith('.md') || path.basename(file) === 'index.md') {
+      continue;
+    }
+    const id = path.relative(rulesDir, file).split(path.sep).join('/')
+      .replace(/\.md$/, '');
+    const text = read(file);
+    if(text === null) {
+      continue;
+    }
+    const commands = [...text.matchAll(COMMAND)].map(m => m[0]);
+    if(commands.length === 0) {
+      if(!/^status:\s*proposed\s*$/m.test(text)) {
+        wrong.push(`${id}: no example command, and not status: proposed`);
+      }
+      continue;
+    }
+    for(const command of commands) {
+      const named = /--rule\s+(\S+)/.exec(command);
+      if(named === null) {
+        wrong.push(
+          `${id}: example command has no --rule, so it runs all of them`);
+      } else if(named[1] !== id) {
+        wrong.push(`${id}: example command runs --rule ${named[1]}`);
+      }
+    }
+  }
+
+  assert.deepEqual(wrong.sort(), [],
+    'these pages document one rule and tell the reader to run another');
+});
+
 test('references: every repository path written down still exists', () => {
   // A rename moves the directory and the references separately, and nothing
   // else notices when the second half is missed. Three times this week a

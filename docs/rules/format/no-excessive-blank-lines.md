@@ -99,14 +99,17 @@ trims trailing whitespace and fixes line endings on save. It will **not** help
 here: `insert_final_newline` guarantees a file *ends* with a newline but does
 not remove extra blank lines before it. This one is done by hand.
 
-## Checked by
+## How to check
 
-`format/no-excessive-blank-lines`, in this repository's checker. A run is
-reported once, at its first line, rather than once per blank line:
+Run `w3id-check` with `--rule format/no-excessive-blank-lines` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule format/no-excessive-blank-lines ids/my-project
 ```
+
+A run is reported once, at its first line, rather than once per blank line.
 
 Content inside a fenced code block is not counted. A README quoting an example
 `.htaccess` contains whatever it is quoting, and this rule is about the layout
@@ -118,6 +121,9 @@ A run of whitespace-only lines is also reported by
 Those are two different things to say about the same lines — that the run is
 too long, and that the lines are not even empty — rather than the same
 complaint twice.
+
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

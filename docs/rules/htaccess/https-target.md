@@ -59,14 +59,17 @@ a hostname, ties the identifier to one specific machine, and will break when the
 host is renumbered — which, over the decades an identifier is meant to last, it
 will be. Put a real hostname in front of it and point the identifier at that.
 
-## Checked by
+## How to check
 
-`htaccess/https-target`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/https-target` to check this rule on its
+own; without it the tool runs every rule, as the pull request checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/https-target ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

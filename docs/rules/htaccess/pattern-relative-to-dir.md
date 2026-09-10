@@ -81,14 +81,18 @@ A pattern that merely *starts with the same letters* as its directory —
 `^my-project\.owl$` in `ids/my-project/` — is a filename, not a repeated
 prefix, and is not reported.
 
-## Checked by
+## How to check
 
-`htaccess/pattern-relative-to-dir`, in this repository's checker:
+Run `w3id-check` with `--rule htaccess/pattern-relative-to-dir` to check this
+rule on its own; without it the tool runs every rule, as the pull request
+checks do.
 
 ```sh
-node tools/check/bin/w3id-check.js ids/my-project
+node tools/check/bin/w3id-check.js --rule htaccess/pattern-relative-to-dir ids/my-project
 ```
 
+[Testing your changes](/guides/testing) covers installing the tool, and what
+else is worth checking by hand.
 
 ## See also
 

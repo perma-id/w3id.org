@@ -78,7 +78,7 @@ curl -sI http://localhost:8080/my-project     # expect 301 → /my-project/
 curl -sI http://localhost:8080/my-project/    # expect your redirect
 ```
 
-## Checked by
+## How to check
 
 Not automated yet, deliberately. Three questions need answering first, and each
 changes what the check should say:
@@ -104,6 +104,9 @@ Until those are settled, this page is guidance for reviewers rather than a gate.
 The related directives that are unambiguously refused — the ones that make the
 server execute code or proxy requests — are covered by
 [`htaccess/allowed-directives`](./allowed-directives), which is enforced.
+
+[Testing your changes](/guides/testing) covers what the tool does check, and
+what is worth checking by hand.
 
 ## See also
 
