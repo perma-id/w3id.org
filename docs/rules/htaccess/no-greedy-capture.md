@@ -88,3 +88,4 @@ else is worth checking by hand.
 
 - [`htaccess/no-double-slash`](./no-double-slash)
 - [`htaccess/anchor-patterns`](./anchor-patterns)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

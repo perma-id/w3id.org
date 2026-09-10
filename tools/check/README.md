@@ -132,6 +132,16 @@ The terminal output caps the list of suppressed findings per rule. `--why
 --format json` carries all of them, which is the form to query when the answer
 is longer than a screen.
 
+## When a rule is wrong
+
+Report it: <https://github.com/perma-id/w3id.org/issues>. A false positive is
+a bug in the rule, and so is a check that should have been made and was not —
+the latter is harder to notice, because the only person placed to see it is
+whoever has just watched their own mistake pass a clean run.
+
+The URL lives in `feedbackUrl` in `.w3id-check.yaml`; the report and every
+rule page take it from there, and a test holds the pages to it.
+
 ## Writing a rule
 
 A rule is a module in `src/rules/<category>/<name>.js`, registered in

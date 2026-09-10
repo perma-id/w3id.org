@@ -162,3 +162,4 @@ else is worth checking by hand.
   maintainer record should contain; this rule only asks where it is
 - [`files/prefer-readme-md`](../files/prefer-readme-md)
 - [`files/no-empty-htaccess`](../files/no-empty-htaccess)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

@@ -26,14 +26,33 @@ const BLURB = {
     'already in the files you touched.'
 };
 
+// Almost everyone who sees this report is contributing once and will not see
+// it again, so the invitation has to be here rather than somewhere they could
+// go and look. Two different reports are wanted, and each needs its own
+// clause: a rule that is wrong reads to a contributor as a rule they failed,
+// and a check that should exist is only ever noticed by somebody looking at a
+// run that passed.
+function feedback(summary) {
+  if(summary.feedbackUrl === undefined) {
+    return null;
+  }
+  return 'Wrong about your files, or missing a check it should have made? ' +
+    `Please [open an issue](${summary.feedbackUrl}) -- a false positive is a ` +
+    'bug in the rule, not something to work around.';
+}
+
 export default function markdown(result) {
   const {findings, summary} = result;
   const out = [];
+  const invitation = feedback(summary);
 
   out.push('## w3id.org checks', '');
 
   if(findings.length === 0) {
     out.push(`All checks passed. ${scopeSentence(summary)}`, '');
+    if(invitation !== null) {
+      out.push(invitation, '');
+    }
     return out.join('\n');
   }
 
@@ -60,6 +79,11 @@ export default function markdown(result) {
     out.push(`- \`${id}\``);
   }
   out.push('', '</details>', '');
+  // After the findings, not before: the reader came here to be told what to
+  // fix, and this must not compete with that for attention.
+  if(invitation !== null) {
+    out.push('', invitation, '');
+  }
   return out.join('\n');
 }
 

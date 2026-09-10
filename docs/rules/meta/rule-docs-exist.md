@@ -85,3 +85,4 @@ else is worth checking by hand.
 ## See also
 
 - [The rule catalogue](../)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

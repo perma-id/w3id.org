@@ -90,3 +90,4 @@ else is worth checking by hand.
 
 - [`files/htaccess-required`](./htaccess-required)
 - [`htaccess/rewrite-engine-required`](../htaccess/rewrite-engine-required)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

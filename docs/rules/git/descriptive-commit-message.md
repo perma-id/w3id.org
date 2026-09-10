@@ -77,3 +77,4 @@ else is worth checking by hand.
 ## See also
 
 - [`git/minimal-commits`](./minimal-commits)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

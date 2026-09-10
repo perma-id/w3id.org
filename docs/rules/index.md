@@ -55,6 +55,13 @@ line that spread to hundreds of files exactly that way.
 These rules are maintainer guidance. Existing files are not.
 :::
 
+The rules are not infallible either. If one is wrong about your files, or if
+something that should have been caught was not, please
+[open an issue](https://github.com/perma-id/w3id.org/issues). A false positive
+is a bug in the rule rather than something to work around, and a check that
+should exist is hardest to notice from the inside — the person best placed to
+report it is whoever has just watched their own mistake pass.
+
 ## [Files and directories](./files/)
 
 | Rule | Severity | What |

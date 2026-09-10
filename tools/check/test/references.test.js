@@ -35,6 +35,7 @@ import {readdirSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {listFiles} from '../src/git.js';
+import {DEFAULTS} from '../src/config.js';
 
 const root = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
@@ -202,6 +203,46 @@ test('references: every rule page checks the rule it documents', () => {
   assert.deepEqual(wrong.sort(), [],
     'these pages document one rule and tell the reader to run another');
 });
+
+/**
+ * Every rule page invites a report of a rule that is wrong, or of a check
+ * that should have been made -- and points at the same place the checker's
+ * own report does.
+ *
+ * The URL is read from `DEFAULTS` rather than repeated here, which is the
+ * point: the config value is authoritative and the pages are derived from it,
+ * so changing where reports go cannot half-land across 38 files. The other
+ * failure this catches is a rule page added later without the invitation,
+ * which nothing else would notice.
+ *
+ * VitePress fails its build on a dead internal link, so in-page links need no
+ * check here. This URL is external, which the build does not follow.
+ */
+test('references: every rule page invites feedback, at the configured URL',
+  () => {
+    const url = DEFAULTS.feedbackUrl;
+    assert.ok(/^https:\/\/\S+$/.test(url), 'expected a feedback URL to exist');
+
+    const missing = [];
+    for(const file of walk(rulesDir)) {
+      if(!file.endsWith('.md') || path.basename(file) === 'index.md') {
+        continue;
+      }
+      const text = read(file);
+      if(text === null) {
+        continue;
+      }
+      const id = path.relative(rulesDir, file).split(path.sep).join('/')
+        .replace(/\.md$/, '');
+      if(!text.includes(url)) {
+        missing.push(id);
+      }
+    }
+
+    assert.deepEqual(missing.sort(), [],
+      `these pages do not link ${url}; a contributor who thinks a rule is ` +
+      'wrong is given nowhere to say so');
+  });
 
 test('references: every repository path written down still exists', () => {
   // A rename moves the directory and the references separately, and nothing

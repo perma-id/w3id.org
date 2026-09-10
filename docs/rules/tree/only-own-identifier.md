@@ -105,3 +105,4 @@ else is worth checking by hand.
 
 - [`tree/no-case-collision`](./no-case-collision)
 - [`git/minimal-commits`](../git/minimal-commits)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

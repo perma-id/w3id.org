@@ -71,3 +71,4 @@ else is worth checking by hand.
 ## See also
 
 - [`git/no-merge-commits`](./no-merge-commits)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

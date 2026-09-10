@@ -98,3 +98,4 @@ else is worth checking by hand.
 
 - [`htaccess/anchor-patterns`](./anchor-patterns)
 - [`htaccess/rewrite-engine-required`](./rewrite-engine-required)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

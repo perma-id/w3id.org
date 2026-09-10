@@ -75,3 +75,4 @@ else is worth checking by hand.
 
 - [`htaccess/github-raw-target`](./github-raw-target)
 - [`htaccess/no-open-redirect`](./no-open-redirect)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

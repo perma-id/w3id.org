@@ -125,3 +125,4 @@ else is worth checking by hand.
 
 - [`meta/document-identifier-root`](../meta/document-identifier-root)
 - [`files/only-allowed-names`](./only-allowed-names)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

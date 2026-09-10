@@ -95,3 +95,4 @@ else is worth checking by hand.
 
 - [`tree/only-own-identifier`](./only-own-identifier)
 - [`files/prefer-readme-md`](../files/prefer-readme-md)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

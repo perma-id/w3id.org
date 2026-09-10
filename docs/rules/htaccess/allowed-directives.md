@@ -74,3 +74,4 @@ else is worth checking by hand.
 
 - [`htaccess/no-open-redirect`](./no-open-redirect)
 - [`htaccess/no-options-directive`](./no-options-directive)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

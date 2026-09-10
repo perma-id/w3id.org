@@ -94,3 +94,4 @@ else is worth checking by hand.
 
 - [`markdown/prefer-list-over-line-breaks`](../markdown/prefer-list-over-line-breaks)
 - [`format/final-newline`](./final-newline)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

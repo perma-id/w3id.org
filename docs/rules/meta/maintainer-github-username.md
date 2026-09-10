@@ -127,3 +127,4 @@ else is worth checking by hand.
 
 - [`meta/document-identifier-root`](./document-identifier-root)
 - [`markdown/prefer-list-over-line-breaks`](../markdown/prefer-list-over-line-breaks)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

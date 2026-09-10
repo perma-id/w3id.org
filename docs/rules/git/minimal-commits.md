@@ -90,3 +90,4 @@ else is worth checking by hand.
 
 - [`git/no-merge-commits`](./no-merge-commits)
 - [`git/descriptive-commit-message`](./descriptive-commit-message)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

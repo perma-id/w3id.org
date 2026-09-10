@@ -83,3 +83,4 @@ else is worth checking by hand.
 
 - [`format/no-trailing-whitespace`](../format/no-trailing-whitespace)
 - [`meta/maintainer-github-username`](../meta/maintainer-github-username)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)
