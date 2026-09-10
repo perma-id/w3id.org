@@ -2,6 +2,8 @@ Options -MultiViews
 
 Header always set Access-Control-Allow-Origin "*"
 Header always set Vary "Accept"
+Header always set Access-Control-Allow-Methods "GET, HEAD, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Accept, Content-Type"
 
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
@@ -31,6 +33,15 @@ RewriteRule ^ripe-o(/1\.0\.0)?/?$ https://ripe-observatory.github.io/RIPE-O/rele
 RewriteRule ^ripe-o(/1\.0\.0)?/?$ https://ripe-observatory.github.io/RIPE-O/release/1.0.0/index-en.html [R=303,L]
 
 # RIPE Knowledge Graph and INSPECT-AI software
+RewriteCond %{REQUEST_METHOD} =OPTIONS
+RewriteRule ^ripe-kg(?:/.*)?$ - [R=204,L]
+
+RewriteRule ^ripe-kg/([0-9]+\.[0-9]+\.[0-9]+)/api/(sparql|health)/?$ https://ripe-kg.inspectai.app/$1/api/$2 [R=307,NE,L]
+RewriteRule ^ripe-kg/api/(sparql|health)/?$ https://ripe-kg.inspectai.app/api/$1 [R=307,NE,L]
+RewriteRule ^ripe-kg/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://ripe-kg.inspectai.app/$1 [R=303,NE,L]
+
+RewriteRule ^ripe-kg/([0-9]+\.[0-9]+\.[0-9]+)/(.+)$ https://ripe-kg.inspectai.app/$1/ripe-kg/$2 [R=303,NE,L]
+
 RewriteRule ^ripe-kg/?$ https://ripe-kg.inspectai.app/ [R=303,L]
 RewriteRule ^ripe-kg/(.+)$ https://ripe-kg.inspectai.app/ripe-kg/$1 [R=303,NE,L]
 RewriteRule ^inspect-ai/?$ https://github.com/RIPE-Observatory/INSPECT-AI_open_source [R=303,L]
