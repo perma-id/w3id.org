@@ -44,7 +44,7 @@ would break the native path, which includes the file inside a `<VirtualHost>`.
 `httpd:2.4` image is built with `--enable-mods-shared=reallyall`, so every
 Apache module is present on disk as a shared object and the configuration alone
 decides what loads. `conf/httpd.conf` loads exactly the set the live server
-enables, minus TLS, PHP-FPM and the auth modules nothing uses.
+enables, minus TLS and the auth modules nothing uses.
 
 This means a contributor who reaches for a directive from a module production
 does not run gets a 500 locally, at the moment they write it, rather than a
@@ -84,15 +84,9 @@ every test request to the real service, so you would be testing the deployed
 rules instead of your own. The local config serves HTTP directly. Rewrite
 behaviour does not depend on the scheme.
 
-**No TLS, and no PHP.** TLS is opt-in; see the guide. PHP-FPM serves exactly
-one maintenance script on the live server, `ids/.utils/git.php`, and nothing
-about resolving an identifier depends on it.
-
-One difference is *not* deliberate but is worth knowing: the live server writes
-`Require all granted` as the 2.2-era `Order allow,deny` / `allow from all`. The
-shared config uses the 2.4 spelling, which behaves identically.
-`mod_access_compat` is still loaded, so an `.htaccess` using the old form keeps
-working here exactly as it does live.
+**No TLS.** It is opt-in; see the guide. Rewrite rules do not behave
+differently by scheme unless they test `%{HTTPS}` or `%{SERVER_PORT}`
+themselves.
 
 ## The unbuilt path
 
