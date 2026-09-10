@@ -139,7 +139,7 @@ export async function main(argv, {stdout = process.stdout,
   const visible = values.quiet ?
     result.findings.filter(f => f.severity === 'error') : result.findings;
 
-  const summary = buildSummary({result, ctx, range, selected});
+  const summary = buildSummary({result, ctx, range, selected, config});
   const payload = {findings: visible, summary, ran: result.ran};
 
   if(values.stats) {
@@ -211,7 +211,7 @@ function renderOutput({values, payload, formatter}) {
   return sections.filter(s => s !== '').join('\n\n');
 }
 
-function buildSummary({result, ctx, range, selected}) {
+function buildSummary({result, ctx, range, selected, config}) {
   const counts = {error: 0, warning: 0, notice: 0};
   for(const f of result.findings) {
     counts[f.severity] += 1;
@@ -226,6 +226,9 @@ function buildSummary({result, ctx, range, selected}) {
     critical: result.findings.filter(f => f.critical).length,
     rulesRun: result.ran.length,
     ruleIds: result.ran.map(r => r.id),
+    // The report needs this on a clean run too, where there are no findings
+    // to carry a URL of their own.
+    feedbackUrl: config.feedbackUrl,
     scope: ctx.scope,
     filesChecked: inScope.length,
     uncommitted: inScope.filter(p => ctx.uncommittedPaths.has(p)).length,

@@ -129,3 +129,4 @@ else is worth checking by hand.
 
 - [`format/final-newline`](./final-newline)
 - [`format/no-trailing-whitespace`](./no-trailing-whitespace)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

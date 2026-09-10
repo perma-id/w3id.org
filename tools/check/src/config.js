@@ -9,8 +9,13 @@ export const PROVENANCES = ['introduced', 'touched', 'preexisting'];
 
 const CONFIG_NAMES = ['.w3id-check.yaml', '.w3id-check.yml'];
 
-const DEFAULTS = {
+export const DEFAULTS = {
   docsBaseUrl: 'https://w3id.org/docs/rules/',
+  // Where a contributor is told to report a rule that is wrong about their
+  // files, or a check that should have been made and was not. Exported and
+  // read from here by the report and by the rule pages' own test, so that
+  // moving to a prefilled issue-template URL is a change in one place.
+  feedbackUrl: 'https://github.com/perma-id/w3id.org/issues',
   idsDir: 'ids',
   policy: {
     introduced: 'as-declared',

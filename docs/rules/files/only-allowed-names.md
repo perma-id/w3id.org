@@ -129,3 +129,4 @@ else is worth checking by hand.
 
 - [`files/prefer-readme-md`](./prefer-readme-md)
 - [`htaccess/github-raw-target`](../htaccess/github-raw-target)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

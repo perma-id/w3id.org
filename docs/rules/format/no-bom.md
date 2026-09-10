@@ -84,3 +84,4 @@ else is worth checking by hand.
 
 - [`format/no-crlf`](./no-crlf)
 - [`htaccess/no-flag-whitespace`](../htaccess/no-flag-whitespace)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

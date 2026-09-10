@@ -73,3 +73,4 @@ else is worth checking by hand.
 - [`htaccess/no-flag-whitespace`](./no-flag-whitespace)
 - [`htaccess/uppercase-rewrite-flags`](./uppercase-rewrite-flags)
 - [`htaccess/no-406-fallback`](./no-406-fallback)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

@@ -77,3 +77,4 @@ else is worth checking by hand.
 
 - [`files/no-empty-htaccess`](./no-empty-htaccess)
 - [`htaccess/rewrite-engine-required`](../htaccess/rewrite-engine-required)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

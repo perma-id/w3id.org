@@ -73,3 +73,4 @@ else is worth checking by hand.
 
 - [`format/no-trailing-whitespace`](./no-trailing-whitespace)
 - [`format/no-crlf`](./no-crlf)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

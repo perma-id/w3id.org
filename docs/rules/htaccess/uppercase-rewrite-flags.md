@@ -55,3 +55,4 @@ else is worth checking by hand.
 ## See also
 
 - [`htaccess/valid-rewrite-flags`](./valid-rewrite-flags)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

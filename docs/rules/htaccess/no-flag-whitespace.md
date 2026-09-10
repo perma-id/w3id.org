@@ -71,3 +71,4 @@ else is worth checking by hand.
 
 - [`htaccess/valid-rewrite-flags`](./valid-rewrite-flags)
 - [`format/no-bom`](../format/no-bom)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

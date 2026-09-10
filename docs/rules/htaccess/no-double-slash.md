@@ -88,3 +88,4 @@ else is worth checking by hand.
 
 - [`htaccess/no-greedy-capture`](./no-greedy-capture)
 - [`htaccess/pattern-relative-to-dir`](./pattern-relative-to-dir)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

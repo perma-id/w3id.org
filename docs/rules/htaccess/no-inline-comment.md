@@ -72,3 +72,4 @@ else is worth checking by hand.
 ## See also
 
 - [`htaccess/no-flag-whitespace`](./no-flag-whitespace)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

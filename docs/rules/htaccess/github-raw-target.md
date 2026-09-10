@@ -98,3 +98,4 @@ else is worth checking by hand.
 
 - [`htaccess/https-target`](./https-target)
 - [`files/only-allowed-names`](../files/only-allowed-names)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

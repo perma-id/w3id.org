@@ -70,3 +70,4 @@ else is worth checking by hand.
 
 - [`files/no-empty-htaccess`](../files/no-empty-htaccess)
 - [`htaccess/pattern-relative-to-dir`](./pattern-relative-to-dir)
+- [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)
