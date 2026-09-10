@@ -375,9 +375,9 @@ test('references: every documentation page is reachable from the site nav',
   // than from a list of directories here, so a later generated section is
   // covered without anybody remembering to add it.
   //
-  // A rename is both at once, which is why this checks both. Only the first
-  // was checked at first, and a rule rename duly left a dead entry behind
-  // that this test watched go past.
+  // A rename is both at once, which is why this checks both directions. One
+  // of them alone diagnoses half a rename and stays quiet about the other
+  // half, which is the case most likely to arise.
   //
   // Silent when the site is absent, the way meta/rule-docs-exist is silent
   // without docs/rules/. The two halves of this repository were written

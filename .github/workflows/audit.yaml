@@ -54,9 +54,10 @@ jobs:
         run: npm test
         working-directory: tools/check
 
-      # Replaces a table of per-rule upper bounds that CI used to fail on.
-      # The tree grows about 30% a year, so exact bounds went stale within
-      # weeks; this stores nothing and computes its own comparison points.
+      # Reports; never fails. Rule counts are not bounded here: the tree
+      # grows about 30% a year, so ordinary growth would exceed any useful
+      # bound within weeks. This stores nothing and computes its own
+      # comparison points from dates.
       - name: Backlog trend
         run: |
           node tools/check/bin/w3id-check-trend.js \

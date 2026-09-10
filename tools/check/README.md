@@ -145,10 +145,12 @@ files -- says whether new contributions are still making the mistake. A count
 can rise while the rate falls, which is a fixed proportion of a growing tree
 rather than anything getting worse.
 
-Nothing in this repository gates on a finding count. There used to be a table
-of per-rule upper bounds here and CI failed when one was exceeded; the tree
-grows about 30% a year, so every bound went stale within weeks. The trend
-report stores no numbers, so there is nothing to keep up to date.
+Nothing in this repository gates on a finding count, and this is why. Bounding
+each rule's count and failing CI when a bound is exceeded is the obvious
+alternative, but the tree grows about 30% a year: ordinary growth exceeds any
+bound tight enough to be useful within weeks, and CI then fails for something
+no contributor did. The trend report stores no numbers at all, so there is
+nothing to keep up to date.
 
 ## When a rule is wrong
 
@@ -250,5 +252,6 @@ to edit it; the `Audit` workflow runs it on every push to master.
 rule id gets written down in more places than the registry: this README, the
 contributor instructions, `.w3id-check.yaml`, workflow files, an
 `.editorconfig` comment. `meta/rule-docs-exist` covers the documentation pages
-and nothing covered the rest, so a rename used to mean sweeping by hand and
-hoping. The test scans them and names any id that no longer resolves.
+and nothing else covers the rest, so without this a rename means sweeping
+those by hand and hoping. The test scans them and names any id that does not
+resolve.
