@@ -33,10 +33,12 @@ const categories = computed(() =>
 </template>
 
 <style scoped>
+/* No negative margin here. The theme resets every heading to `margin: 0` and
+   gives `.vp-doc h1` `position: relative`, so pulling the content up does not
+   just close the gap -- the title paints on top of this line. */
 .post-meta {
   color: var(--vp-c-text-2);
   font-size: 0.875em;
-  margin-bottom: -1rem;
-  padding-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 </style>

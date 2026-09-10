@@ -18,13 +18,13 @@ This is not a changelog of individual identifiers. Those are visible in the
 
 <ul v-if="posts.length" class="news-list">
   <li v-for="post in posts" :key="post.id">
-    <a :href="post.url">{{ post.title }}</a>
+    <h3><a :href="post.url">{{ post.title }}</a></h3>
     <div class="news-meta">
       <time :datetime="post.date">{{ post.displayDate }}</time>
       <span v-for="category in post.categories" :key="category">
         · {{ category }}</span>
     </div>
-    <div>{{ post.summary }}</div>
+    <p>{{ post.summary }}</p>
   </li>
 </ul>
 <p v-else>There are no posts yet.</p>
@@ -39,11 +39,20 @@ This is not a changelog of individual identifiers. Those are visible in the
   list-style: none;
   padding: 0;
 }
-.news-list li {
-  margin: 0 0 1.25rem;
+.news-list li + li {
+  margin-top: 2rem;
+}
+/* The theme gives an h3 a 32px top margin, which belongs between sections
+   rather than between the list item and its own title. */
+.news-list h3 {
+  margin-top: 0;
 }
 .news-meta {
   color: var(--vp-c-text-2);
   font-size: 0.875em;
+  margin-top: 0.25rem;
+}
+.news-list p {
+  margin-top: 0.5rem;
 }
 </style>
