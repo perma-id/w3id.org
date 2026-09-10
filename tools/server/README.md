@@ -127,4 +127,13 @@ docker build -t w3id-local .      # runs `httpd -t` as a build step, so a
 
 The `httpd -t` line in the `Dockerfile` is deliberate. It parses both config
 files against an empty document root, which also proves the configuration does
-not depend on the tree being mounted in order to load.
+not depend on the tree being mounted in order to load. It has already earned
+itself once, catching a missing `mod_logio` at build time rather than as a
+container that exits on startup.
+
+Everything else is checked by hand. Both Docker paths have been run against the
+real tree and behave as `docs/guides/local-server.md` describes: rules fire,
+`Accept` negotiation varies the target, the bare form takes the extra 301 hop,
+`302` and `303` are preserved distinctly, a missing identifier is a 404, and a
+request for an `.htaccess` is refused with 403. The native Apache path has not
+been run by anyone.
