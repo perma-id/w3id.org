@@ -1,20 +1,40 @@
 /**
- * Ratchet test against the real repository.
+ * The one thing worth asserting about the real repository: that the rules
+ * survive it.
  *
- * The numbers below were established by hand before the rules were written,
- * and are treated as upper bounds rather than exact counts. A count that goes
- * up means a rule started matching something it should not, or the tree got
- * worse; a count that goes down is someone fixing the backlog, which must not
- * fail. When a count drops, lower the bound here so the ground stays gained.
+ * This file used to hold thirty upper bounds, one per rule, each set to the
+ * exact count at the time it was written, and CI failed if any was exceeded.
+ * The instrument was wrong. The identifier tree grows about 30% a year, so 25
+ * of 28 counts rose within twelve months and four bounds were already
+ * exceeded on master -- by one or two findings each. A table of exact counts
+ * against a corpus growing a third per year needs editing every few weeks,
+ * and no amount of headroom fixes it: the fastest-growing rule doubles
+ * annually, so even tripling its bound buys about a year.
  *
- * This does not run by default. Contributor pull requests are judged by the
- * rules themselves, not by whether they move a repository-wide total, and a
- * pull request that fixes an identifier should not have to edit this file.
- * Maintainers run it with:
+ * The header used to say "when a count drops, lower the bound here so the
+ * ground stays gained". That line is what put all thirty bounds at zero
+ * headroom, and it is why this note is longer than the test.
+ *
+ * What replaced them is `bin/w3id-check-trend.js`, run weekly by
+ * `.github/workflows/audit.yaml`: today's rules against the tree as it was a
+ * week, a month, a year ago. It stores nothing, so there is no number here to
+ * go stale, and it separates the two questions a single count conflates --
+ * whether the backlog is shrinking, and whether new contributions are still
+ * making the mistake.
+ *
+ * Nothing gates on a count any more. What is left below needs no numbers and
+ * cannot go out of date: 2860 real `.htaccess` files find crashes that
+ * fixtures do not.
+ *
+ * Note what this no longer catches. A rule that silently stops matching used
+ * to fail here, because every rule had a nonzero bound to fall below. The
+ * trend report now names such a rule in a section of its own, but that is a
+ * person reading a weekly report rather than a test failing, and the
+ * difference is deliberate rather than accidental.
+ *
+ * Does not run by default -- the tree is ~5200 files:
  *
  *   W3ID_CHECK_CORPUS=1 npm test
- *
- * and CI runs it on pushes to master.
  */
 import {test, describe} from 'node:test';
 import assert from 'node:assert/strict';
@@ -30,89 +50,17 @@ const root = path.resolve(
 const enabled = process.env.W3ID_CHECK_CORPUS === '1' &&
   existsSync(path.join(root, 'ids', '.htaccess'));
 
-// Highest acceptable count for each rule over the whole tree.
-const BOUNDS = {
-  'format/no-trailing-whitespace': 2404,
-  'format/no-excessive-blank-lines': 287,
-  'htaccess/escape-literal-dots': 1199,
-  'htaccess/https-target': 1621,
-  'htaccess/avoid-permanent-redirect': 458,
-  'htaccess/github-raw-target': 457,
-  'htaccess/no-406-fallback': 264,
-  'htaccess/no-double-slash': 86,
-  'htaccess/anchor-patterns': 21,
-  'htaccess/no-greedy-capture': 7,
-  'htaccess/no-flag-whitespace': 2,
-  'format/no-bom': 0,
-  'format/final-newline': 819,
-  'meta/maintainer-github-username': 645,
-  'files/prefer-readme-md': 377,
-  'markdown/prefer-list-over-line-breaks': 340,
-  'htaccess/valid-cors-header': 223,
-  'htaccess/no-self-redirect': 215,
-  'meta/document-identifier-root': 146,
-  'format/no-crlf': 113,
-  'htaccess/pattern-relative-to-dir': 107,
-  'htaccess/no-inline-comment': 40,
-  'htaccess/rewrite-engine-required': 25,
-  'htaccess/no-open-redirect': 17,
-  'htaccess/uppercase-rewrite-flags': 15,
-  'files/only-allowed-names': 4,
-  'files/htaccess-required': 3,
-  'files/no-empty-htaccess': 2,
-  'htaccess/valid-rewrite-flags': 2,
-  'tree/no-case-collision': 2
-};
-
 describe('corpus', {skip: enabled ? false : 'set W3ID_CHECK_CORPUS=1 to run'},
   () => {
-    // `includeWorkingTree: false` keeps these counts reproducible: they are
-    // bounds on committed content, and a maintainer running this with edits in
-    // progress must not see them move.
-    const result = enabled ?
-      check({dir: root, rules, includeWorkingTree: false}) :
-      {findings: [], errors: []};
-    const counts = {};
-    for(const f of result.findings) {
-      counts[f.ruleId] = (counts[f.ruleId] ?? 0) + 1;
-    }
-
     test('every rule runs against the real tree without throwing', () => {
+      // `includeWorkingTree: false` so a maintainer running this with edits
+      // in progress sees the same thing CI does.
+      const result = check({dir: root, rules, includeWorkingTree: false});
       assert.deepEqual(result.errors.map(e => e.ruleId), []);
-    });
-
-    test('every rule that fires is accounted for', () => {
-      const unlisted = Object.keys(counts).filter(id => !(id in BOUNDS));
-      assert.deepEqual(unlisted, [],
-        'these rules now report findings but have no bound; add them');
-    });
-
-    for(const [ruleId, bound] of Object.entries(BOUNDS)) {
-      test(`${ruleId} at most ${bound}`, () => {
-        const actual = counts[ruleId] ?? 0;
-        assert.ok(actual <= bound,
-          `${ruleId} found ${actual}, above the bound of ${bound}. Either a ` +
-          'change made the tree worse, or the rule started over-matching.');
-        if(actual < bound) {
-          // Not a failure: someone fixed something. Say so, so the bound gets
-          // lowered and the improvement cannot silently regress later.
-          console.log(`  ratchet: ${ruleId} is down to ${actual} ` +
-            `(bound ${bound}); lower the bound in test/corpus.test.js`);
-        }
-      });
-    }
-
-    test('no rule has gone blind against the real tree', () => {
-      // The bounds above only catch a rule that matches too much. A rule that
-      // silently stops matching anything would pass them, so it is caught
-      // here: every rule with a nonzero bound found something when the bounds
-      // were set. One that now finds nothing has either broken, or had its
-      // backlog cleared -- and in that case its bound should go to 0 in the
-      // same change.
-      const silent = Object.entries(BOUNDS)
-        .filter(([ruleId, bound]) => bound > 0 && (counts[ruleId] ?? 0) === 0)
-        .map(([ruleId]) => ruleId);
-      assert.deepEqual(silent, [],
-        'these rules found nothing: fix the rule, or set its bound to 0');
+      // A run that produced nothing at all would pass the line above while
+      // having checked nothing, which is the failure this whole file's
+      // history is made of.
+      assert.ok(result.findings.length > 0,
+        'expected the real tree to produce findings; did the rules run?');
     });
   });
