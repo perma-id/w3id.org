@@ -33,9 +33,9 @@ modules, the same `AllowOverride`, the same document root layout, the same
 - **No redirect to HTTPS.** The live server bounces all plain HTTP to
   `https://w3id.org/`. Locally that would send every test request to the real
   service, so you would be testing the deployed rules instead of your own.
-- **No TLS, and no PHP.** Plain HTTP is enough, because rewrite rules do not
-  behave differently by scheme. See [HTTPS](#https-and-certificates) if you
-  need it anyway.
+- **No TLS.** Plain HTTP is enough, because rewrite rules do not behave
+  differently by scheme. See [HTTPS](#https-and-certificates) if you need it
+  anyway.
 
 The module list is restricted on purpose, to exactly what the live server runs.
 If you use a directive from some other Apache module, you get a 500 here rather
