@@ -7,7 +7,8 @@ import {Context} from './context.js';
 import {rules as allRules, ruleIds, ruleTags} from './rules/index.js';
 import {resolveScope, ScopeError} from './paths.js';
 import {selectRules, run} from './engine.js';
-import {buildStats, renderStats, buildTriage, renderTriage} from './report.js';
+import {buildStats, renderStats, buildTriage, renderTriage, buildWhy,
+  renderWhy} from './report.js';
 import stylish, {renderSummary} from './formatters/stylish.js';
 import githubFormatter from './formatters/github.js';
 import markdownFormatter from './formatters/markdown.js';
@@ -29,6 +30,7 @@ const OPTIONS = {
   triage: {type: 'boolean', default: false},
   'committed-only': {type: 'boolean', default: false},
   stats: {type: 'boolean', default: false},
+  why: {type: 'boolean', default: false},
   format: {type: 'string', default: 'stylish'},
   output: {type: 'string'},
   quiet: {type: 'boolean', short: 'q', default: false},
@@ -146,6 +148,12 @@ export async function main(argv, {stdout = process.stdout,
   if(values.triage) {
     payload.triage = buildTriage(result.findings, ctx);
   }
+  if(values.why) {
+    payload.why = buildWhy(result, {
+      allRuleIds: ruleIds,
+      examined: ctx.hasRange && !auditAll ? ctx.changedPaths.size : null
+    });
+  }
 
   const formatter = FORMATTERS[values.format];
   if(formatter === undefined) {
@@ -167,7 +175,7 @@ export async function main(argv, {stdout = process.stdout,
   }
 
   // Reports never gate; they exist to be read.
-  if(values.stats || values.triage) {
+  if(values.stats || values.triage || values.why) {
     return result.errors.length > 0 ? EXIT.internal : EXIT.ok;
   }
   if(result.errors.length > 0) {
@@ -190,6 +198,9 @@ function renderOutput({values, payload, formatter}) {
   }
   if(values.stats) {
     sections.push(renderStats(payload.stats));
+  }
+  if(values.why) {
+    sections.push(renderWhy(payload.why));
   }
   if(sections.length === 0) {
     sections.push(formatter(payload, {
@@ -342,6 +353,9 @@ Reports (these never fail the run):
   --stats               Counts by severity, provenance, rule and namespace.
   --triage              Every critical finding in the tree, grouped by
                         namespace with the maintainers who can fix it.
+  --why                 What the run computed and then did not show, and the
+                        reason for each. Answers "why did it not complain
+                        about this?". Narrow it with a path.
 
 Selection:
   --rule <id>           Run only this rule. Repeatable.
@@ -371,6 +385,7 @@ Examples:
   w3id-check --all --stats          size of the repository's backlog
   w3id-check --triage               what should be fixed out of band
   w3id-check --triage ids/my-project  ... in one namespace
+  w3id-check --why ids/my-project   why the run was quiet about this one
   w3id-check --rule htaccess/https-target --all
 `;
 }

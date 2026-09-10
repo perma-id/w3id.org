@@ -99,6 +99,7 @@ w3id-check --all                    # whole tree, every rule at its own severity
 w3id-check --all --stats            # how big the backlog is
 w3id-check --triage                 # what should be fixed out of band, and by whom
 w3id-check --triage ids/my-project  # ... in one namespace
+w3id-check --why ids/my-project     # why the run said nothing about this
 
 w3id-check --list-rules
 w3id-check --rule htaccess/https-target --all
@@ -109,9 +110,27 @@ w3id-check --format markdown --output report.md
 Paths are a filter, not a mode: they narrow whatever the run would otherwise
 do, so they combine with `--all`, `--triage` and `--base`.
 
-`--stats` and `--triage` always exit 0; they are reports, not gates. Otherwise
-exit status is 0 for no errors, 1 for at least one error, 2 for bad usage and 3
-if the checker itself failed.
+`--stats`, `--triage` and `--why` always exit 0; they are reports, not gates.
+Otherwise exit status is 0 for no errors, 1 for at least one error, 2 for bad
+usage and 3 if the checker itself failed.
+
+### `--why`
+
+A quiet run has four possible explanations and looks the same in all of them:
+the rule found nothing, it found something the policy suppressed, the finding
+was outside the paths you asked about, or the rule never ran. `--why` says
+which, for each rule, with the suppressed findings listed underneath.
+
+It is worth knowing what it cannot tell you. With a commit range, rules that
+work file by file are only given the paths the change touches, so an untouched
+file is never opened and produces nothing to suppress -- the report says how
+many paths were examined, and `--all` is what widens it. Tree rules see the
+whole tree either way, which is where a `preexisting` finding in a branch run
+comes from.
+
+The terminal output caps the list of suppressed findings per rule. `--why
+--format json` carries all of them, which is the form to query when the answer
+is longer than a screen.
 
 ## Writing a rule
 

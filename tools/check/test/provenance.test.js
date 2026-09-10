@@ -35,6 +35,42 @@ test('a clean change reports nothing despite a backlog', () => {
     'a clean addition must not be blamed for pre-existing problems');
 });
 
+test('the backlog a clean change hides is recorded, with the reason', () => {
+  // The mirror of the test above. Reporting nothing and computing nothing
+  // look identical from the outside, which is the whole reason `--why`
+  // exists -- but only one of them is what happened.
+  //
+  // Note which rules can reach this state. With a commit range,
+  // `unscopedCandidatesFor` hands a non-critical file rule only the changed
+  // paths, so an untouched file is never opened and produces nothing to
+  // suppress. Tree rules scan `ctx.idPaths` regardless, so they are where a
+  // `preexisting` finding in a ranged run actually comes from. Hence a
+  // namespace with no maintainer recorded rather than one with whitespace.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/legacy/.htaccess',
+    'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n');
+  repo.commit('Add legacy identifier, with nobody recorded as maintaining it');
+  const base = repo.git(['rev-parse', 'HEAD']).trim();
+  repo.branch('feature');
+  goodNamespace(repo, 'brand-new');
+  const head = repo.commit('Add redirect for brand-new');
+
+  const result = check({dir: repo.dir, rules, base, head, auditAll: false});
+  assert.deepEqual(result.findings, [],
+    'the contributor is not answerable for ids/legacy');
+  assert.ok(result.suppressed.length > 0,
+    'but it was computed and dropped; --why must be able to say so');
+  const legacy = result.suppressed.filter(f => f.namespace === 'ids/legacy');
+  assert.ok(legacy.length > 0);
+  assert.ok(legacy.every(f => f.provenance === 'preexisting'),
+    'nothing the change introduced should be among the suppressed');
+  assert.ok(legacy.some(f => f.reason === 'preexisting-off'),
+    'and the reason must name the policy that dropped it');
+  assert.ok(legacy.every(f => f.message !== undefined),
+    'each carries its message, so --why can show what would have been said');
+});
+
 test('a whole-tree audit does report the backlog', () => {
   const repo = repoWithBacklog();
   const result = check({dir: repo.dir, rules: [formatNoTrailingWhitespace]});

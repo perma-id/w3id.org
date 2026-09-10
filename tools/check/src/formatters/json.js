@@ -7,12 +7,15 @@
  * every string in it may contain text a contributor chose.
  */
 export default function json(result) {
-  const {findings, summary, stats, triage} = result;
+  const {findings, summary, stats, triage, why} = result;
   return JSON.stringify({
     version: 1,
     summary,
     ...(stats === undefined ? {} : {stats}),
     ...(triage === undefined ? {} : {triage}),
+    // Uncapped, unlike the terminal rendering: this is the form you query
+    // when the suppressed list is too long to read.
+    ...(why === undefined ? {} : {why}),
     findings
   }, null, 2);
 }
