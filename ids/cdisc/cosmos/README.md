@@ -21,13 +21,11 @@ property IRIs of the core rendering are the ones CDISC published
 
 Segments: `bc/` (BC ontology), `bc/instances/` (BC instance graph),
 `sdtm/` (SDTM ontology), `qbc/` (overlay ontology), `qbc/instances/`
-(overlay instance graph). `dss/` is reserved and not yet registered: the
-Dataset Specialization instance graph is deferred, and the IRIs already
-minted under it are stable identity that will resolve when that layer
-lands.
+(overlay instance graph), `dss/<DOMAIN>/` (the Dataset Specialization
+instance graph of one SDTM domain, 32 domains, one generic rule).
 
 The redirect targets are the repository's GitHub Pages site, rebuilt
-from every release tag; the pinned release is `v0.3.0`. Every IRI
+from every release tag; the pinned release is `v0.4.0`. Every IRI
 resolves to the graph that describes it — a term to the ontology, an
 individual to the instance graph — with content negotiation over Turtle,
 N-Triples, RDF/XML and JSON-LD; version IRIs resolve to their own

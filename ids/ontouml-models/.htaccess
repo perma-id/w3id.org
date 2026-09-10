@@ -8,19 +8,19 @@ AddType text/turtle .ttl
 RedirectMatch 302 ^/ontouml-models/vocabulary/git/?$      https://github.com/OntoUML/ontouml-models-vocabulary/
 
 ## Versioning
-### Specific version
-RedirectMatch 302 ^/ontouml-models/vocabulary/v([^/]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
-### Latest version
-RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$   https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
+
+### Specific release tags
+RedirectMatch 302 ^/ontouml-models/vocabulary/release/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+RedirectMatch 302 ^/ontouml-models/vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$          https://github.com/OntoUML/ontouml-models-vocabulary/releases/tag/v$1
+
+### Latest release
+RedirectMatch 302 ^/ontouml-models/vocabulary/latest/?$ https://github.com/OntoUML/ontouml-models-vocabulary/releases/latest
 
 ## Documentation
 RedirectMatch 302 ^/ontouml-models/vocabulary/home/?$     https://ontouml.github.io/ontouml-models-vocabulary
 RedirectMatch 302 ^/ontouml-models/vocabulary/docs/?$     https://ontouml.github.io/ontouml-models-vocabulary
 
 ## Vocabulary
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/turtle
 RedirectMatch 302 ^/ontouml-models/vocabulary(/|#)?$      https://ontouml.github.io/ontouml-models-vocabulary/ontouml-catalog-metadata-vocabulary.ttl
 
 # CATALOG REDIRECTIONS -----------------------------------------------------------------------------------------------------------
@@ -33,20 +33,44 @@ RedirectMatch 302 ^/ontouml-models/git(/?)$ https://github.com/OntoUML/ontouml-m
 ### Dashboard
 RedirectMatch 302 ^/ontouml-models/dash(board)?(/?)$ https://ontouml-dashboard-995390128580.herokuapp.com/
 
+### Direct release Turtle assets
+RewriteRule ^release/latest\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/latest/download/ontouml-models-latest.ttl [R=302,L]
+RewriteRule ^release/([0-9]{8})\.ttl/?$ https://github.com/OntoUML/ontouml-models/releases/download/$1/ontouml-models-$1.ttl [R=302,L]
+
 ### Latest release
-RedirectMatch 302 ^/ontouml-models/release(/?)$ https://github.com/OntoUML/ontouml-models/releases/latest
+RewriteRule ^release/?$ https://github.com/OntoUML/ontouml-models/releases/latest [R=302,L]
 
 ### Specific release (tag)
-RedirectMatch 302 ^/ontouml-models/release/(.*)$ https://github.com/OntoUML/ontouml-models/releases/tag/$1
+RewriteRule ^release/([0-9]{8})/?$ https://github.com/OntoUML/ontouml-models/releases/tag/$1 [R=302,L]
 
 ### Shape TTL files
 RedirectMatch 302 ^/ontouml-models/shape/(.+[^/])/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/shapes/$1-shape.ttl
 
+### Canonical model locations
+RedirectMatch 302 ^/ontouml-models/models/([^/]+)/?$ https://github.com/OntoUML/ontouml-models/tree/master/models/$1
+
+### Canonical model subtree
+RedirectMatch 302 ^/ontouml-models/models/([^/]+)/(.+?)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/$2
+
+### Legacy model-artifact aliases
+RedirectMatch 302 ^/ontouml-models/turtle/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.ttl
+RedirectMatch 302 ^/ontouml-models/json/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.json
+RedirectMatch 302 ^/ontouml-models/vpp/([^/]+)/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/models/$1/ontology.vpp
+
+### Direct catalog files
+RedirectMatch 302 ^/ontouml-models/catalog/metadata\.yaml/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.yaml
+RedirectMatch 302 ^/ontouml-models/catalog/metadata\.ttl/?$ https://raw.githubusercontent.com/OntoUML/ontouml-models/master/catalog.ttl
+
 
 ## REDIRECTION TO METADATA STORAGE SERVICE (FAIR Data Point)
 
-### Catalog item page
-RedirectMatch 302 ^/ontouml-models/?$ https://scs-ontouml.eemcs.utwente.nl/catalog/b663ca18-8085-44a7-bcfe-2c2b5ba1faa8
+### Catalog landing page
+RedirectMatch 302 ^/ontouml-models/?$ https://github.com/OntoUML/ontouml-models
 
-### Generic item page
-RedirectMatch 302 ^/ontouml-models/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/$1
+### Legacy FAIR Data Point
+RedirectMatch 302 ^/ontouml-models/fdp/?$ https://scs-ontouml.eemcs.utwente.nl/catalog/b663ca18-8085-44a7-bcfe-2c2b5ba1faa8
+
+### Explicit semantic FDP routes
+RedirectMatch 302 ^/ontouml-models/catalog/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/catalog/$1
+RedirectMatch 302 ^/ontouml-models/model/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/model/$1
+RedirectMatch 302 ^/ontouml-models/distribution/(.+)/?$ https://scs-ontouml.eemcs.utwente.nl/distribution/$1

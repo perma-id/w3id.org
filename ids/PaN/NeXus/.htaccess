@@ -1,9 +1,70 @@
 Header set Access-Control-Allow-Origin *
-Options +FollowSymLinks
 RewriteEngine On
 
-# Root: Redirect to github repository
-RewriteRule ^$ https://github.com/nexusformat/NeXusOntology [R=303,L]
+## REDIRECTIONS SUPPORTING THE LATEST RELEASE
 
-# Redirect definitions path to the raw OWL file
-RewriteRule ^nexusformat/definitions$ https://raw.githubusercontent.com/nexusformat/NeXusOntology/refs/heads/main/ontology/NeXusOntology.owl [R=303,L]
+# /definitions/latest behaves like bare /definitions (internal rewrite).
+RewriteRule ^definitions/latest/?$ definitions [L]
+
+# Download artefacts
+RewriteRule ^definitions/NeXusOntology\.owl$    https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.owl [R=307,L]
+RewriteRule ^definitions/NeXusOntology\.ttl$    https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.ttl [R=307,L]
+RewriteRule ^definitions/NeXusOntology\.nt$     https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.nt [R=307,L]
+RewriteRule ^definitions/NeXusOntology\.jsonld$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.jsonld [R=307,L]
+RewriteRule ^definitions/NeXusOntology_reasoned\.owl$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full_reasoned.owl [R=307,L]
+
+# Describe IRI (RDF/XML)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^definitions$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.owl [R=307,L]
+
+# Describe IRI (Turtle)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^definitions$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.ttl [R=307,L]
+
+# Describe IRI (N-Triples)
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^definitions$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.nt [R=307,L]
+
+# Describe IRI (JSON-LD)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^definitions$ https://fairmat-nfdi.github.io/NeXusOntology/latest/NeXusOntology_full.jsonld [R=307,L]
+
+# Documentation (default). Makes #NXentry land on the right section.
+RewriteRule ^definitions/$ /PaN/NeXus/definitions [R=308]
+RewriteRule ^definitions$  https://fairmat-nfdi.github.io/NeXusOntology/latest/index-en.html [R=307,L]
+
+
+## REDIRECTIONS SUPPORTING SPECIFIC VERSIONS
+# Follows nexusformat/definitions tags (v2025.11, v2026.01, ...).
+
+# Download artefacts
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/NeXusOntology\.owl$    https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.owl [R=307,L]
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/NeXusOntology\.ttl$    https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.ttl [R=307,L]
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/NeXusOntology\.nt$     https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.nt [R=307,L]
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/NeXusOntology\.jsonld$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.jsonld [R=307,L]
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/NeXusOntology_reasoned\.owl$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full_reasoned.owl [R=307,L]
+
+# Describe IRI (RDF/XML)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.owl [R=307,L]
+
+# Describe IRI (Turtle)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.ttl [R=307,L]
+
+# Describe IRI (N-Triples)
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.nt [R=307,L]
+
+# Describe IRI (JSON-LD)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})$ https://fairmat-nfdi.github.io/NeXusOntology/$1/NeXusOntology_full.jsonld [R=307,L]
+
+# Documentation
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})/$ /PaN/NeXus/definitions/$1 [R=308]
+RewriteRule ^definitions/(v[0-9]{4}\.[0-9]{2})$  https://fairmat-nfdi.github.io/NeXusOntology/$1/index-en.html [R=307,L]
+
+
+## ROOT
+
+RewriteRule ^$ https://github.com/nexusformat/NeXusOntology [R=303,L]
