@@ -31,6 +31,10 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          # The trend report reads the tree as it was a year ago, so it needs
+          # the history. A shallow clone silently produces a one-column
+          # report rather than failing.
+          fetch-depth: 0
           persist-credentials: false
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
@@ -42,14 +46,21 @@ jobs:
       - run: npm ci --ignore-scripts
         working-directory: tools/check
 
-      # The ratchet: bounds in tools/check/test/corpus.test.js may not be
-      # exceeded. A count that has fallen is reported so the bound can be
-      # lowered and the improvement locked in.
-      - name: Check the ratchet
+      # The rules still have to survive the real tree. This is the only
+      # assertion left over it, and it is about crashes rather than counts.
+      - name: Rules survive the real tree
         env:
           W3ID_CHECK_CORPUS: '1'
         run: npm test
         working-directory: tools/check
+
+      # Replaces a table of per-rule upper bounds that CI used to fail on.
+      # The tree grows about 30% a year, so exact bounds went stale within
+      # weeks; this stores nothing and computes its own comparison points.
+      - name: Backlog trend
+        run: |
+          node tools/check/bin/w3id-check-trend.js \
+            | tee -a "${GITHUB_STEP_SUMMARY}"
 
       - name: Backlog size
         run: |
@@ -76,6 +87,8 @@ jobs:
           mkdir -p "${RUNNER_TEMP}/audit"
           node tools/check/bin/w3id-check.js --all --stats --triage \
             --format json --output "${RUNNER_TEMP}/audit/audit.json"
+          node tools/check/bin/w3id-check-trend.js --format=json \
+            > "${RUNNER_TEMP}/audit/trend.json"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

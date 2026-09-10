@@ -132,6 +132,24 @@ The terminal output caps the list of suppressed findings per rule. `--why
 --format json` carries all of them, which is the form to query when the answer
 is longer than a screen.
 
+## Is the backlog shrinking?
+
+```sh
+node tools/check/bin/w3id-check-trend.js
+```
+
+Today's rules against the tree as it was a week, a month and a year ago. It
+prints two things per rule, because they want different responses: the count
+says whether the backlog is shrinking, and the rate -- findings per thousand
+files -- says whether new contributions are still making the mistake. A count
+can rise while the rate falls, which is a fixed proportion of a growing tree
+rather than anything getting worse.
+
+Nothing in this repository gates on a finding count. There used to be a table
+of per-rule upper bounds here and CI failed when one was exceeded; the tree
+grows about 30% a year, so every bound went stale within weeks. The trend
+report stores no numbers, so there is nothing to keep up to date.
+
 ## When a rule is wrong
 
 Report it: <https://github.com/perma-id/w3id.org/issues>. A false positive is
