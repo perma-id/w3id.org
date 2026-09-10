@@ -298,8 +298,14 @@ test('references: every documentation page is reachable from the site nav',
   assert.ok([...linked].some(link => link.startsWith('/rules/')),
     'expected the sidebar to link to rule pages at all');
 
+  // Both directions collect into one report rather than asserting
+  // separately. A rename trips both at once, and two asserts would abort on
+  // the first -- telling a reader about the page they added and nothing
+  // about the dead link they left behind, so they fix one, re-run, and only
+  // then learn about the other.
+  const problems = [];
+
   const docsDir = path.join(root, 'docs');
-  const unreachable = [];
   for(const file of walk(docsDir)) {
     if(!file.endsWith('.md')) {
       continue;
@@ -316,26 +322,25 @@ test('references: every documentation page is reachable from the site nav',
     const route = '/' +
       relative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
     if(!linked.has(route) && !IMPLICIT_ROUTES.has(route)) {
-      unreachable.push(`${relative} (${route})`);
+      problems.push(`no sidebar entry for ${relative} (${route})`);
     }
   }
-
-  assert.deepEqual(unreachable.sort(), [],
-    'these pages are not in the site sidebar; add them to config.js');
 
   // The reverse: every rule link in the sidebar must name a page that is
   // really there. Restricted to /rules/, the only routes whose file layout
   // this repository owns -- the rest of the site is the docs worktree's.
-  const dangling = [...linked]
-    .filter(link => link.startsWith('/rules/'))
-    .filter(link => {
-      const base = path.join(docsDir, link.replace(/^\//, ''));
-      return read(link.endsWith('/') ? path.join(base, 'index.md') :
-        base + '.md') === null;
-    });
-  assert.deepEqual(dangling.sort(), [],
-    'these sidebar entries point at pages that do not exist; ' +
-    'fix the links in config.js');
+  for(const link of [...linked].filter(l => l.startsWith('/rules/'))) {
+    const base = path.join(docsDir, link.replace(/^\//, ''));
+    const page = link.endsWith('/') ? path.join(base, 'index.md') : base + '.md';
+    if(read(page) === null) {
+      problems.push(`no page for sidebar entry ${link}`);
+    }
+  }
+
+  assert.deepEqual(problems.sort(), [],
+    'the sidebar and the pages disagree; fix docs/.vitepress/config.js. ' +
+    'A rename shows up here as both kinds at once -- a page nothing links ' +
+    'to, and a link to no page.');
 });
 
 function read(file) {
