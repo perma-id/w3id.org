@@ -363,6 +363,17 @@ test('references: every documentation page is reachable from the site nav',
   //                          the site. Happens when a page is deleted or
   //                          moved.
   //
+  // The first premise fails for a page an index *generates* a link to. A
+  // VitePress content loader globs its directory, so every page there is on
+  // that index by construction and no reader can miss it -- a hand-written
+  // sidebar list of the same pages is a copy of a derived list, and the only
+  // thing a copy can do is go stale relative to something that cannot. Those
+  // pages are exempt from needing an entry; the index itself is not, because
+  // it is a real destination and losing its entry is exactly the failure
+  // worth naming. The exemption is derived from the loader's presence rather
+  // than from a list of directories here, so a later generated section is
+  // covered without anybody remembering to add it.
+  //
   // A rename is both at once, which is why this checks both. Only the first
   // was checked at first, and a rule rename duly left a dead entry behind
   // that this test watched go past.
@@ -411,7 +422,8 @@ test('references: every documentation page is reachable from the site nav',
     // `/rules/files/`, and `rules/index.md` is `/rules/`.
     const route = '/' +
       relative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
-    if(!linked.has(route) && !IMPLICIT_ROUTES.has(route)) {
+    if(!linked.has(route) && !IMPLICIT_ROUTES.has(route) &&
+      !listedByALoader(file)) {
       problems.push(`no sidebar entry for ${relative} (${route})`);
     }
   }
@@ -432,6 +444,27 @@ test('references: every documentation page is reachable from the site nav',
     'A rename shows up here as both kinds at once -- a page nothing links ' +
     'to, and a link to no page.');
 });
+
+/**
+ * Whether a page is enumerated for its index by a VitePress content loader.
+ *
+ * `docs/news/posts.data.js` globs `news/*.md`, so `docs/news/index.md` lists
+ * every post whether or not anybody adds it anywhere. `index.md` itself is
+ * the destination rather than one of the listed pages, so it is never exempt.
+ */
+function listedByALoader(file) {
+  if(path.basename(file) === 'index.md') {
+    return false;
+  }
+  const dir = path.dirname(file);
+  const hasIndex = statSync(path.join(dir, 'index.md'),
+    {throwIfNoEntry: false})?.isFile() === true;
+  if(!hasIndex) {
+    return false;
+  }
+  // VitePress only treats a file as a loader if its name matches this.
+  return readdirSync(dir).some(name => /\.data\.(?:js|mjs|ts|mts)$/.test(name));
+}
 
 function read(file) {
   try {
