@@ -262,13 +262,20 @@ const IMPLICIT_ROUTES = new Set(['/']);
 
 test('references: every documentation page is reachable from the site nav',
   () => {
-  // The sidebar enumerates every page by hand. A page missing from it is
-  // still reachable by URL and may still be linked from a catalogue, but a
-  // reader browsing the site never sees it -- and the site build cannot say
-  // so. It fails on a sidebar entry pointing at a missing page, and not on a
-  // page that no entry points at, which is the direction that actually
-  // happens: pages are added by whoever writes them, the sidebar lives with
-  // the site.
+  // The sidebar enumerates every page by hand, so it can disagree with the
+  // filesystem in both directions and VitePress reports neither: it does not
+  // resolve sidebar links, and a site with a dead entry builds clean.
+  //
+  //   page with no entry  -- reachable by URL, but a reader browsing the
+  //                          site never sees it. Happens when a page is
+  //                          added and the sidebar is not.
+  //   entry with no page  -- a dead link in the sidebar of every page on
+  //                          the site. Happens when a page is deleted or
+  //                          moved.
+  //
+  // A rename is both at once, which is why this checks both. Only the first
+  // was checked at first, and a rule rename duly left a dead entry behind
+  // that this test watched go past.
   //
   // Silent when the site is absent, the way meta/rule-docs-exist is silent
   // without docs/rules/. The two halves of this repository were written
@@ -315,6 +322,20 @@ test('references: every documentation page is reachable from the site nav',
 
   assert.deepEqual(unreachable.sort(), [],
     'these pages are not in the site sidebar; add them to config.js');
+
+  // The reverse: every rule link in the sidebar must name a page that is
+  // really there. Restricted to /rules/, the only routes whose file layout
+  // this repository owns -- the rest of the site is the docs worktree's.
+  const dangling = [...linked]
+    .filter(link => link.startsWith('/rules/'))
+    .filter(link => {
+      const base = path.join(docsDir, link.replace(/^\//, ''));
+      return read(link.endsWith('/') ? path.join(base, 'index.md') :
+        base + '.md') === null;
+    });
+  assert.deepEqual(dangling.sort(), [],
+    'these sidebar entries point at pages that do not exist; ' +
+    'fix the links in config.js');
 });
 
 function read(file) {
