@@ -10,7 +10,7 @@ import {mkdirSync, writeFileSync} from 'node:fs';
 import path from 'node:path';
 import {Feed} from 'feed';
 import {createContentLoader} from 'vitepress';
-import {CATEGORIES} from '../news/categories.js';
+import {CATEGORIES, validatePosts} from '../news/schema.js';
 
 const SITE = 'https://docs.w3id.org';
 
@@ -25,8 +25,7 @@ export async function buildEnd(siteConfig) {
   const posts = await createContentLoader('news/*.md', {render: true})
     .load();
 
-  const items = posts
-    .filter(page => page.url !== '/news/')
+  const items = validatePosts(posts.filter(page => page.url !== '/news/'))
     .sort((a, b) =>
       +new Date(b.frontmatter.date) - +new Date(a.frontmatter.date));
 
@@ -48,18 +47,27 @@ export async function buildEnd(siteConfig) {
   });
 
   for(const {url, html, frontmatter} of items) {
-    const category = CATEGORIES[frontmatter.category];
     feed.addItem({
       title: frontmatter.title,
-      id: `${SITE}${url}`,
+
+      // The post's permanent identifier, not its address. This becomes the
+      // Atom <id>, which RFC 4287 requires to be an IRI and requires not to
+      // change when an entry moves, and the RSS <guid>, which the feed
+      // library marks isPermaLink="false" whenever an id is supplied. The
+      // <link> below can then change freely without a reader treating the
+      // post as new.
+      //
+      // Readers vary in how faithfully they honour this: careful ones dedupe
+      // on the id and update an entry in place, others key on the link. It
+      // is the correct hedge rather than a guarantee.
+      id: frontmatter.id,
       link: `${SITE}${url}`,
+
       description: frontmatter.summary,
       content: absolutise(html),
       date: new Date(frontmatter.date),
-      // An unknown category is a mistake in the post, and the index page
-      // says so out loud. Here it is simply left off rather than emitted as
-      // an empty term.
-      category: category ? [{name: category}] : undefined
+      category: frontmatter.categories
+        .map(slug => ({name: CATEGORIES[slug]}))
     });
   }
 
