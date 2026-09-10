@@ -45,7 +45,7 @@ export default defineConfig({
         text: 'Overview',
         collapsed: false,
         items: [
-          { text: 'What w3id.org is', link: '/overview/' },
+          { text: 'What is w3id.org?', link: '/overview/' },
           { text: 'Purpose', link: '/overview/purpose' },
           { text: 'Scope', link: '/overview/scope' }
         ]

@@ -1,4 +1,4 @@
-# What w3id.org is
+# What is w3id.org?
 
 w3id.org is a permanent URL redirection service for the Web. It is operated by
 the [W3C Permanent Identifier Community Group](https://www.w3.org/community/perma-id/).
