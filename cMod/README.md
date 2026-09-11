@@ -11,6 +11,6 @@ This repository is the public home of the suite identifiers. The RDF release fol
 | **OULD** | https://w3id.org/cMod/ould | Updates, linked data, and provenance |
 | **AMO** | https://w3id.org/cMod/amo | Areas, anchors, and spatial scope |
 
-Namespace for terms: append `#` (e.g. `https://w3id.org/cMod/ocp#`).
+Namespace for terms: append `#` (e.g., `https://w3id.org/cMod/ocp#`).
 
 **Maintainer:** Albrecht Vaatz · [ORCID](https://orcid.org/0009-0008-9255-2107) · [DigitalizeMe](https://github.com/DigitalizeMe) · [E-Mail](albrecht.vaatz@mailbox.tu-dresden.de)
