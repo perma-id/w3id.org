@@ -29,8 +29,8 @@ to the pull request.
 The checker lives in `tools/check/` and needs no arguments:
 
 ```sh
-cd tools/check && npm ci
-cd ../.. && node tools/check/bin/w3id-check.js
+(cd tools/check && npm ci)   # once
+node tools/check/bin/w3id-check.js
 ```
 
 It compares your branch against `origin/master`, counts work you have not

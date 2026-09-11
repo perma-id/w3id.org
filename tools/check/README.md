@@ -4,7 +4,7 @@ Checks a change to this repository against the rules contributions are
 expected to follow, and explains what to do about anything it finds.
 
 ```sh
-cd tools/check && npm ci      # once
+(cd tools/check && npm ci)   # once
 node tools/check/bin/w3id-check.js
 ```
 
