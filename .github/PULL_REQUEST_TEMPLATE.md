@@ -13,8 +13,8 @@ Automated checks run on this PR. If any fail, look under "Files changed" for
 comments on the offending lines, and under "Checks" for the full report; each
 one explains what to do. You can run them yourself first:
 
-    cd tools/check && npm ci
-    cd ../.. && node tools/check/bin/w3id-check.js
+    (cd tools/check && npm ci)   # once
+    node tools/check/bin/w3id-check.js
 -->
 
 ## New ID Directory Checklist
