@@ -528,6 +528,52 @@ test('references: every documentation page is reachable from the site nav',
 });
 
 /**
+ * The organisations running the service are listed in both `README.md` and
+ * `docs/overview/index.md`; assert that the two lists match.
+ *
+ * The floor on member count keeps a renamed heading from emptying both
+ * lists, which would otherwise compare equal and pass.
+ */
+test('references: the two consortium lists agree', () => {
+  const readme = consortium(path.join(root, 'README.md'), '## Management');
+  const overview = consortium(
+    path.join(root, 'docs', 'overview', 'index.md'), '## Who runs it');
+
+  assert.ok(readme.length >= 3,
+    `parsed ${readme.length} members from README.md -- has the heading or ` +
+    'the list format changed?');
+  assert.ok(overview.length >= 3,
+    `parsed ${overview.length} members from docs/overview/index.md -- has ` +
+    'the heading or the list format changed?');
+
+  assert.deepEqual(readme, overview,
+    'the consortium is listed in both of these files and they no longer ' +
+    'agree. Edit both, or delete one and link to the other.');
+});
+
+/**
+ * The `[name](url)` bullets of the first list under `heading`.
+ *
+ * Accepts either bullet marker: `README.md` writes `*` and the documentation
+ * writes `-`. Reads to the end of the first run of link bullets, so prose
+ * before the list is skipped and prose after it is not swept in.
+ */
+function consortium(file, heading) {
+  const text = read(file);
+  assert.ok(text !== null, `${file} is missing`);
+  const members = [];
+  for(const line of (text.split(heading)[1] ?? '').split('\n')) {
+    const match = /^[*-] \[([^\]]+)\]\(([^)]+)\)\s*$/.exec(line);
+    if(match) {
+      members.push(`${match[1]} ${match[2]}`);
+    } else if(members.length > 0) {
+      break;
+    }
+  }
+  return members;
+}
+
+/**
  * Whether a page is enumerated for its index by a VitePress content loader.
  *
  * `docs/news/posts.data.js` globs `news/*.md`, so `docs/news/index.md` lists
