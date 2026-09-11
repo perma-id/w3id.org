@@ -21,15 +21,27 @@ That is where everything lives — what the service is and is not for, how to
 create and maintain an identifier, how to write and test `.htaccess` rules, and
 a catalogue of the mistakes that most often send a pull request back.
 
+<!--
+These links are relative so that they work in a fork, in an offline clone, and
+on a branch where a page has changed but is not published yet -- and so that
+the path check in tools/check holds them to files that exist. Two pages cannot
+be linked that way, because neither renders as standalone Markdown on GitHub:
+the documentation home is a VitePress `layout: home` whose content is all
+frontmatter, and the news index is a Vue template over a data loader. Those two
+stay absolute on purpose.
+-->
+
 | | |
 | --- | --- |
-| New here? | <https://w3id.org/docs/overview/> |
-| **Creating an identifier** | <https://w3id.org/docs/guides/create-an-id> |
-| Updating an existing one | <https://w3id.org/docs/guides/maintain-an-id> |
-| Writing `.htaccess` rules | <https://w3id.org/docs/guides/htaccess> |
-| Testing your changes | <https://w3id.org/docs/guides/testing> |
-| Rules and common mistakes | <https://w3id.org/docs/rules/> |
-| FAQ | <https://w3id.org/docs/faq> |
+| New here? | [`docs/overview/index.md`](docs/overview/index.md) |
+| **Creating an identifier** | [`docs/guides/create-an-id.md`](docs/guides/create-an-id.md) |
+| Updating an existing one | [`docs/guides/maintain-an-id.md`](docs/guides/maintain-an-id.md) |
+| Writing `.htaccess` rules | [`docs/guides/htaccess.md`](docs/guides/htaccess.md) |
+| Testing your changes | [`docs/guides/testing.md`](docs/guides/testing.md) |
+| Running Apache locally | [`docs/guides/local-server.md`](docs/guides/local-server.md) |
+| Rules and common mistakes | [`docs/rules/index.md`](docs/rules/index.md) |
+| FAQ | [`docs/faq.md`](docs/faq.md) |
+| Announcements | <https://w3id.org/docs/news/> |
 
 AI coding agents should start with [AGENTS.md](AGENTS.md).
 
@@ -59,7 +71,7 @@ RewriteRule ^(.*)$ https://example.org/$1 [R=302,L]
 ```
 
 Please read
-[Creating an identifier](https://w3id.org/docs/guides/create-an-id) before
+[Creating an identifier](docs/guides/create-an-id.md) before
 opening a pull request. In particular:
 
 - **This service redirects; it does not host files.** Do not commit ontologies,
@@ -69,7 +81,7 @@ opening a pull request. In particular:
   URL in that directory.
 
 You can also request a redirect by email — see
-[the FAQ](https://w3id.org/docs/faq#how-do-i-get-one).
+[the FAQ](docs/faq.md#how-do-i-get-one).
 
 ## Checking your changes
 
@@ -93,11 +105,13 @@ node tools/check/bin/w3id-check.js ids/my-project
 
 See [`tools/check/README.md`](tools/check/README.md) for the full set of
 options and how to add a check, and
-<https://w3id.org/docs/rules/> for the rules themselves.
+[`docs/rules/index.md`](docs/rules/index.md) for the rules themselves.
 
 A clean run is not the whole job: nothing can tell whether your redirect points
 where you meant it to. See
-[Testing your changes](https://w3id.org/docs/guides/testing).
+[Testing your changes](docs/guides/testing.md), and
+[Running Apache locally](docs/guides/local-server.md) for a server that applies
+your rules the way the service does.
 
 > [!NOTE]
 > Adding or updating an identifier requires no build step. The checker in
@@ -112,7 +126,9 @@ where you meant it to. See
 | `ids/<id>/.htaccess` | Redirect rules for that identifier. |
 | `ids/<id>/README.md` | Identifier and maintainer information. Optional. |
 | `docs/` | Source for <https://docs.w3id.org/>, built with VitePress. |
+| `docs/news/` | Announcements about the service, with RSS and Atom feeds. |
 | `tools/check/` | The automated contribution checks. |
+| `tools/server/` | A local Apache that serves `ids/` the way the service does. |
 | `AGENTS.md` | Instructions for AI coding agents. |
 
 ## Management
@@ -128,7 +144,7 @@ responsibility for keeping it running:
 * [KurrawongAI](https://kurrawong.ai)
 
 See
-[the documentation](https://w3id.org/docs/overview/#who-runs-it) for how this
+[the documentation](docs/overview/index.md#who-runs-it) for how this
 works and how to join.
 
 ## Community
