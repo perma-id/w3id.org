@@ -81,8 +81,8 @@ Run the same checks yourself first. They report only what your own change is
 responsible for, and they count work you have not committed yet:
 
 ```sh
-cd tools/check && npm ci
-cd ../.. && node tools/check/bin/w3id-check.js
+(cd tools/check && npm ci)   # once
+node tools/check/bin/w3id-check.js
 ```
 
 To look at one directory, name it:

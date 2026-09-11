@@ -113,8 +113,8 @@ Note what is absent: no `Options`, no `RewriteBase`, no `AddType`, no
    including uncommitted work:
 
    ```sh
-   cd tools/check && npm ci
-   cd ../.. && node tools/check/bin/w3id-check.js
+   (cd tools/check && npm ci)   # once
+   node tools/check/bin/w3id-check.js
    ```
 
    Every finding names a rule id with a page under `docs/rules/<id>.md`. Fix

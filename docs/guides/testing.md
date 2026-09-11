@@ -20,8 +20,8 @@ The checker lives in `tools/check/` and reports only what your own change is
 responsible for, including work you have not committed yet:
 
 ```sh
-cd tools/check && npm ci
-cd ../.. && node tools/check/bin/w3id-check.js
+(cd tools/check && npm ci)   # once
+node tools/check/bin/w3id-check.js
 ```
 
 To look at one directory:
