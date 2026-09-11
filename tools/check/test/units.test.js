@@ -24,7 +24,7 @@ test('glob: * does not cross a separator', () => {
 test('glob: dotfiles are not hidden', () => {
   // Every interesting file in this repository starts with a dot.
   assert.ok(minimatch('ids/a/.htaccess', '**/*'));
-  assert.ok(minimatch('ids/.assets/css/x.css', 'ids/.assets/**'));
+  assert.ok(minimatch('ids/.utils/css/x.css', 'ids/.utils/**'));
 });
 
 test('glob: character classes match case variants', () => {

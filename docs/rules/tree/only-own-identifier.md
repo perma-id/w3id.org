@@ -18,7 +18,7 @@ identifier's directory under `ids/`.
 Three things are reported, none of them fatal:
 
 - editing **shared infrastructure** — `ids/.htaccess`, `ids/index.html`,
-  `ids/.assets/`, `ids/.utils/` — alongside an identifier;
+  `ids/.utils/` — alongside an identifier;
 - touching **more than one identifier** in the same change;
 - touching files **outside `ids/`**, which is only a notice.
 
