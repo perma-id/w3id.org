@@ -1,0 +1,28 @@
+# cMod – Chronological Model Ontology Suite
+# Persistent identifiers for OCP, OCCP, OULD, and AMO.
+#
+# https://github.com/DigitalizeMe/cMod
+# https://digitalizeme.github.io/cMod/
+#
+# Administered by:
+# Albrecht Vaatz
+# ORCID: 0009-0008-9255-2107
+# GitHub username: DigitalizeMe
+# Email: albrecht.vaatz@mailbox.tu-dresden.de
+# Email 2: 97295430+DigitalizeMe@users.noreply.github.com
+#
+# Use 302 (temporary) while the stub is the target, so browsers do not
+# cache the redirect after RDF/HTML content negotiation is added.
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Module IRIs (with or without trailing slash or extra path)
+RewriteRule ^(ocp|occp|ould|amo)(/.*)?$ https://digitalizeme.github.io/cMod/ [R=302,L]
+
+# Suite IRI
+RewriteRule ^$ https://digitalizeme.github.io/cMod/ [R=302,L]
+
+# Any other path under /cmod
+RewriteRule ^.+$ https://digitalizeme.github.io/cMod/ [R=302,L]
