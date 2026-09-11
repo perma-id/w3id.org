@@ -8,17 +8,26 @@ RewriteEngine On
 
 # The hash-term namespace resolves as the current ontology document.
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/2.2.0/omaro.jsonld [R=303,L]
+RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/2.2.0/omaro.ttl [R=303,L]
+RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/2.2.0/omaro.rdf [R=303,L]
-RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/2.2.0/index.html [R=303,L]
+RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.rdf [R=303,L]
+RewriteRule ^$ https://modavis-project.github.io/omaro/ontology/0.1.0/index.html [R=303,L]
 
 # The stable ontology IRI follows the current compatible ontology release.
-RewriteRule ^ontology/?$ https://w3id.org/modavis/omaro/ontology/2.2.0 [R=302,L]
+RewriteRule ^ontology/?$ https://w3id.org/modavis/omaro/ontology/0.1.0 [R=302,L]
 
-# Versioned ontology 2.2.0.
+# Versioned ontology 0.1.0.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology/0\.1\.0/?$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/0\.1\.0/?$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/0\.1\.0/?$ https://modavis-project.github.io/omaro/ontology/0.1.0/omaro.rdf [R=303,L]
+RewriteRule ^ontology/0\.1\.0/?$ https://modavis-project.github.io/omaro/ontology/0.1.0/index.html [R=303,L]
+
+# Historical ontology documents used by existing MODAVIS snapshots.
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
 RewriteRule ^ontology/2\.2\.0/?$ https://modavis-project.github.io/omaro/ontology/2.2.0/omaro.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
