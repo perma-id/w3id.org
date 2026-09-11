@@ -40,7 +40,7 @@ export default {
     if(!ctx.file.startsWith(ctx.idsDir + '/')) {
       return;
     }
-    // Service infrastructure -- the homepage, shared assets, the update hook.
+    // Service infrastructure -- the homepage, the update hook, the error pages.
     if(matchesAny(ctx.file, ctx.config.allowedPaths)) {
       return;
     }

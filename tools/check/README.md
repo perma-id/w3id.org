@@ -166,8 +166,8 @@ rule page take it from there, and a test holds the pages to it.
 
 A rule is a module in `src/rules/<category>/<name>.js`, registered in
 `src/rules/index.js`. Its `id` doubles as its documentation slug: findings link
-to `<docsBaseUrl><id>`, and `meta/rule-docs-exist` will hold `docs/rules/` and
-the registry to a one-to-one mapping once that directory exists.
+to `<docsBaseUrl><id>`, and `meta/rule-docs-exist` holds `docs/rules/` and the
+registry to a one-to-one mapping.
 
 ```js
 export default {

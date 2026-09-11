@@ -20,7 +20,6 @@ import {matchesAny} from '../../glob.js';
 const SHARED_INFRASTRUCTURE = [
   'ids/.htaccess',
   'ids/index.html',
-  'ids/.assets/**',
   'ids/.utils/**'
 ];
 
@@ -35,7 +34,7 @@ export default {
     sharedInfrastructure:
       'This change edits {{paths}} as well as {{identifiers}}. Those files ' +
       'are shared by every identifier on the service -- the global rewrite ' +
-      'rules, the homepage, the site assets -- and are not part of adding or ' +
+      'rules, the homepage, the update hook -- and are not part of adding or ' +
       'updating one. If you did not mean to touch them, revert that part; if ' +
       'you did, say why in the pull request so a maintainer knows it was ' +
       'deliberate.',
