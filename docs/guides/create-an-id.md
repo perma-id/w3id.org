@@ -188,8 +188,8 @@ actually meant it to.
 Run the checks and resolve the identifier yourself:
 
 ```sh
-cd tools/check && npm ci
-cd ../.. && node tools/check/bin/w3id-check.js
+(cd tools/check && npm ci)   # once
+node tools/check/bin/w3id-check.js
 ```
 
 See [Testing your changes](./testing) for the full recipe, including how to run
