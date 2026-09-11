@@ -34,7 +34,7 @@ import assert from 'node:assert/strict';
 import {readdirSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {listFiles} from '../src/git.js';
+import {git, listFiles} from '../src/git.js';
 import {check} from './helpers.js';
 import ruleDocsExist from '../src/rules/meta/rule-docs-exist.js';
 import {DEFAULTS} from '../src/config.js';
@@ -272,6 +272,30 @@ test('references: every rule page invites feedback, at the configured URL',
       'wrong is given nowhere to say so');
   });
 
+/**
+ * Does git ignore this path?
+ *
+ * Build output is written down -- a workflow has to name the directory it
+ * uploads -- and is absent from a clean checkout. `.gitignore` is already
+ * the place the repository records which paths those are, so ask it, rather
+ * than keep a second list here that would go stale on its own.
+ *
+ * A directory-only pattern (`/docs/.vitepress/dist/`) matches nothing while
+ * the directory is absent, because git cannot tell that a path it cannot see
+ * is a directory. Probing a child settles it: the pattern matches on the
+ * child's leading directory whether or not either exists.
+ */
+function isIgnored(relative) {
+  for(const candidate of [relative, `${relative}/.probe`]) {
+    const out = git(['check-ignore', candidate],
+      {cwd: root, allowFailure: true});
+    if(out !== null) {
+      return true;
+    }
+  }
+  return false;
+}
+
 test('references: every repository path written down still exists', () => {
   // A rename moves the directory and the references separately, and nothing
   // else notices when the second half is missed. Three times this week a
@@ -284,7 +308,9 @@ test('references: every repository path written down still exists', () => {
   // wrong first guess when it goes off. The other cause is a path that is
   // generated at runtime: write those relative to a working directory the
   // reader has been told to `cd` into, so no `tools/...` token names a file
-  // that only exists after somebody runs a command.
+  // that only exists after somebody runs a command. Build output a workflow
+  // has to name repository-relative cannot be written that way, so
+  // `.gitignore` is what exempts it instead.
   for(const relative of listFiles(root)) {
     // Identifier content is the data, not a description of it, and its
     // redirect targets are full of URLs whose tails look like paths.
@@ -305,7 +331,8 @@ test('references: every repository path written down still exists', () => {
         // never part of a filename here.
         const referenced = (match[1] ?? match[0]).replace(/\.+$/, '');
         ++found;
-        if(!statSync(path.join(root, referenced), {throwIfNoEntry: false})) {
+        if(!statSync(path.join(root, referenced), {throwIfNoEntry: false}) &&
+          !isIgnored(referenced)) {
           missing.add(`${relative}: ${referenced}`);
         }
       }
@@ -316,8 +343,8 @@ test('references: every repository path written down still exists', () => {
   assert.ok(found > 20, `expected to find repository paths, saw ${found}`);
   assert.deepEqual([...missing].sort(), [],
     'these paths are written down but do not exist. Either something was ' +
-    'renamed, or a new file cites a path that is generated, gitignored or ' +
-    'not written yet');
+    'renamed, or a new file cites a path that is generated and not ' +
+    'gitignored, or one not written yet');
 });
 
 /**
