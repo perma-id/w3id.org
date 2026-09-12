@@ -46,8 +46,18 @@ SetEnvIf Request_URI ^.*$ ADA_BASE=https://usgin.github.io/geochemBuildingBlocks
 SetEnvIf Request_URI ^.*$ DDE_BASE=https://usgin.github.io/ddeBuildingBlocks
 SetEnvIf Request_URI ^.*$ ECRR_BASE=https://usgin.github.io/ecrrBuildingBlocks
 
-# Release-repo bases (each release repo is its own GitHub Pages site,
-# serving from the reviewRevision202606 branch as of 2026-05-30)
+# Release-repo bases (each release repo is its own GitHub Pages site).
+#
+# Pages serves each repo's `main` branch, and main is always the CURRENT RELEASE
+# -- work happens on `updates` and reaches main by pull request at release time.
+# So these bases always resolve to the newest release, with GitHub Pages'
+# correct content types (application/json for schemas).
+#
+# That is why the versioned rules below can point at these bases only while the
+# version they name is current. When the next minor version ships, the outgoing
+# version's rules must be repointed at its release tag on raw.githubusercontent
+# -- see README.md, "Cutting a new version". Miss that step and, say,
+# core/1.1/schema silently starts serving 1.2 content.
 SetEnvIf Request_URI ^.*$ PROFILE_CORE=https://cross-domain-interoperability-framework.github.io/profile-core
 SetEnvIf Request_URI ^.*$ PROFILE_DISCOVERY=https://cross-domain-interoperability-framework.github.io/profile-discovery
 SetEnvIf Request_URI ^.*$ PROFILE_DATADESC=https://cross-domain-interoperability-framework.github.io/profile-datadescription
@@ -641,6 +651,59 @@ RewriteRule ^bbr/metadata/([^/]+)/([^/]+)/?$ %{ENV:BB_BASE}/bblock/cdif.bbr.meta
 
 # Register index → bblocks-viewer home
 RewriteRule ^bbr/metadata/?$ %{ENV:BB_BASE}/ [R=303,L]
+
+# ============================================================
+# Unversioned "current version" aliases
+# ============================================================
+# https://w3id.org/cdif/core/  ->  https://w3id.org/cdif/core/1.1/
+#
+# These are convenience pointers to whatever version is CURRENT. They are 302
+# (temporary) on purpose: the target is expected to move at each minor release,
+# unlike the versioned conformance URIs above, which are 303 and must keep
+# resolving to the version named in the URI, forever.
+#
+# Do NOT put an unversioned URI in a dcterms:conformsTo -- a record must declare
+# the version it was written against. These exist for humans and for docs that
+# want to link to "the current spec".
+#
+# TO CUT A NEW MINOR VERSION: change the version in these rules AND repoint the
+# outgoing version's rules above from Pages to the release tag. Both, together.
+# See README.md, "Cutting a new version".
+#
+# These patterns deliberately do not match a version segment, so they cannot
+# shadow the versioned rules above no matter the ordering.
+
+RewriteRule ^core/?$                                    /cdif/core/1.1/ [R=302,L]
+RewriteRule ^core/(schema|resolved|shacl|guide)/?$      /cdif/core/1.1/$1 [R=302,L]
+
+RewriteRule ^discovery/?$                               /cdif/discovery/1.1/ [R=302,L]
+RewriteRule ^discovery/(schema|resolved|shacl|guide)/?$ /cdif/discovery/1.1/$1 [R=302,L]
+
+RewriteRule ^data_description/?$                              /cdif/data_description/1.1/ [R=302,L]
+RewriteRule ^data_description/(schema|resolved|shacl|guide)/?$ /cdif/data_description/1.1/$1 [R=302,L]
+
+RewriteRule ^data_structure/?$                                /cdif/data_structure/1.1/ [R=302,L]
+RewriteRule ^data_structure/(schema|resolved|shacl|guide)/?$  /cdif/data_structure/1.1/$1 [R=302,L]
+
+RewriteRule ^manifest/?$                                /cdif/manifest/1.1/ [R=302,L]
+RewriteRule ^manifest/(schema|resolved|shacl|guide)/?$  /cdif/manifest/1.1/$1 [R=302,L]
+
+RewriteRule ^provenance/?$                                /cdif/provenance/1.1/ [R=302,L]
+RewriteRule ^provenance/(schema|resolved|shacl|guide)/?$  /cdif/provenance/1.1/$1 [R=302,L]
+
+RewriteRule ^conceptscheme/?$                                /cdif/conceptscheme/1.1/ [R=302,L]
+RewriteRule ^conceptscheme/(schema|resolved|shacl|guide)/?$  /cdif/conceptscheme/1.1/$1 [R=302,L]
+
+RewriteRule ^codelist/?$                                /cdif/codelist/1.1/ [R=302,L]
+RewriteRule ^codelist/(schema|resolved|shacl|guide)/?$  /cdif/codelist/1.1/$1 [R=302,L]
+
+# XAS tiers are at 1.0 and live on mBB main, not in a release repo -- so they
+# have a `context` sub-path and no `guide`, the reverse of the profiles above.
+RewriteRule ^xasCore/?$                                 /cdif/xasCore/1.0/ [R=302,L]
+RewriteRule ^xasCore/(schema|resolved|shacl|context)/?$ /cdif/xasCore/1.0/$1 [R=302,L]
+
+RewriteRule ^xasOptional/?$                             /cdif/xasOptional/1.0/ [R=302,L]
+RewriteRule ^xasOptional/(schema|resolved|shacl|context)/?$ /cdif/xasOptional/1.0/$1 [R=302,L]
 
 # ============================================================
 # Base CDIF redirect: /cdif
