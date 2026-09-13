@@ -455,6 +455,19 @@ test('references: every documentation page is reachable from the site nav',
   assert.ok([...linked].some(link => link.startsWith('/rules/')),
     'expected the sidebar to link to rule pages at all');
 
+  // The forward check asks whether a page is linked. A page's route carries
+  // a trailing slash when it is an index; a sidebar entry need not, and may
+  // carry a fragment -- the htaccess groups point at sections of one index
+  // page. Normalised here for that comparison only. `linked` itself stays
+  // verbatim, because the reverse check resolves each entry as written and
+  // would report these synthetic spellings as links to nothing.
+  const linkedRoutes = new Set();
+  for(const link of linked) {
+    const route = link.split('#')[0].split('?')[0];
+    linkedRoutes.add(route);
+    linkedRoutes.add(route.endsWith('/') ? route.slice(0, -1) : route + '/');
+  }
+
   // Both directions collect into one report rather than asserting
   // separately. A rename trips both at once, and two asserts would abort on
   // the first -- telling a reader about the page they added and nothing
@@ -478,7 +491,7 @@ test('references: every documentation page is reachable from the site nav',
     // `/rules/files/`, and `rules/index.md` is `/rules/`.
     const route = '/' +
       relative.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '');
-    if(!linked.has(route) && !IMPLICIT_ROUTES.has(route) &&
+    if(!linkedRoutes.has(route) && !IMPLICIT_ROUTES.has(route) &&
       !listedByALoader(file)) {
       problems.push(`no sidebar entry for ${relative} (${route})`);
     }

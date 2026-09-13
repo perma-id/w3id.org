@@ -92,9 +92,11 @@ export default defineConfig({
       },
       // Grouped to match the headings in docs/rules/index.md. Rule ids are
       // namespaced, and within any one group the namespace is constant, so the
-      // sidebar shows the short name and the group carries the rest. Each
-      // namespace's own index page appears once, as that namespace's first
-      // "Overview" entry.
+      // sidebar shows the short name and the group carries the rest. Every
+      // group opens with an "Overview" entry pointing at its namespace's index
+      // page. The htaccess namespace spans four groups whose titles do not all
+      // say so, so each of those anchors the section of the index it belongs
+      // to -- otherwise there is nothing in the sidebar tying them together.
       {
         text: 'Rules',
         collapsed: false,
@@ -124,7 +126,7 @@ export default defineConfig({
             text: '.htaccess syntax',
             collapsed: true,
             items: [
-              { text: 'Overview', link: '/rules/htaccess/' },
+              { text: 'Overview', link: '/rules/htaccess#syntax' },
               { text: 'no-flag-whitespace', link: '/rules/htaccess/no-flag-whitespace' },
               { text: 'valid-rewrite-flags', link: '/rules/htaccess/valid-rewrite-flags' },
               { text: 'no-inline-comment', link: '/rules/htaccess/no-inline-comment' },
@@ -135,6 +137,7 @@ export default defineConfig({
             text: 'Rules that never match',
             collapsed: true,
             items: [
+              { text: 'Overview', link: '/rules/htaccess#rules-that-never-match' },
               { text: 'rewrite-engine-required', link: '/rules/htaccess/rewrite-engine-required' },
               { text: 'pattern-relative-to-dir', link: '/rules/htaccess/pattern-relative-to-dir' },
               { text: 'anchor-patterns', link: '/rules/htaccess/anchor-patterns' },
@@ -146,6 +149,7 @@ export default defineConfig({
             text: 'Redirect targets',
             collapsed: true,
             items: [
+              { text: 'Overview', link: '/rules/htaccess#redirect-targets' },
               { text: 'no-open-redirect', link: '/rules/htaccess/no-open-redirect' },
               { text: 'https-target', link: '/rules/htaccess/https-target' },
               { text: 'github-raw-target', link: '/rules/htaccess/github-raw-target' },
@@ -158,6 +162,7 @@ export default defineConfig({
             text: 'Directives and negotiation',
             collapsed: true,
             items: [
+              { text: 'Overview', link: '/rules/htaccess#directives-and-negotiation' },
               { text: 'allowed-directives', link: '/rules/htaccess/allowed-directives' },
               { text: 'valid-cors-header', link: '/rules/htaccess/valid-cors-header' },
               { text: 'no-406-fallback', link: '/rules/htaccess/no-406-fallback' },
