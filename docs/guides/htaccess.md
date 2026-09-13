@@ -116,7 +116,9 @@ many servers treat as a different path. See
 
 ## Flags
 
-A comma-separated list in square brackets.
+A comma-separated list in square brackets. These are the ones that come up
+here; the full list is in the
+[Apache documentation](https://httpd.apache.org/docs/current/rewrite/flags.html).
 
 | Flag | Meaning |
 | --- | --- |
@@ -195,6 +197,13 @@ RewriteRule ^vocab\.(ttl|jsonld|rdf)$ https://example.org/vocab.$1 [R=303,L]
 The query string is **not** part of what the pattern matches. It is passed
 through to the substitution automatically, as long as your substitution does not
 contain a `?` of its own.
+
+If it does — because you are adding parameters yourself — the incoming query
+string is dropped instead. `QSA` appends it to yours rather than replacing it:
+
+```apache
+RewriteRule ^vocab$ https://example.org/get?format=ttl [QSA,R=302,L]
+```
 
 To match on the query string, you need `RewriteCond` with `%{QUERY_STRING}`:
 
