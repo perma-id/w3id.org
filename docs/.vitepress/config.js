@@ -20,6 +20,13 @@ export default defineConfig({
   // GitHub Pages serves /foo from foo.html directly, with no redirect.
   cleanUrls: true,
 
+  // README.md documents this directory for somebody reading the repository
+  // on GitHub. It is not a page of the site: without this it would build as
+  // /README, appear in the sitemap, get a canonical URL and be folded into
+  // llms.txt. The nav check in tools/check reads this list, so a file
+  // excluded here is also not expected to have a sidebar entry.
+  srcExclude: ['README.md'],
+
   // Requires `fetch-depth: 0` in .github/workflows/docs.yaml.
   lastUpdated: true,
 
