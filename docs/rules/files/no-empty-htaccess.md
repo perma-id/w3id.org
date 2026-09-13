@@ -25,8 +25,6 @@ This usually happens one of two ways: a file created as a placeholder and never
 filled in, or a file whose rules were commented out during debugging and never
 restored.
 
-There are files in this repository in this state today.
-
 ## Wrong
 
 ```apache
