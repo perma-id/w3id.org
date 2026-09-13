@@ -87,14 +87,25 @@ server. From the repository root:
 cd tools/server && docker compose up
 ```
 
-Then, in another terminal:
+It is an ordinary Apache on an ordinary port, so anything that speaks HTTP
+will do: `curl`, a browser, an editor's REST client, whatever you already
+use.
+
+```sh
+curl -sI http://localhost:8080/my-project/
+```
+
+`resolve-identifier` is a shortcut for the common cases. It makes the
+requests described below and prints the status and `location:` for each one:
 
 ```sh
 tools/server/bin/resolve-identifier my-project
 ```
 
-That makes all the requests described below and prints the status and
-`location:` for each one.
+It does not know anything about your identifier, though. Whatever your rules
+do that is not on that list — the paths you dispatch on, the formats you
+negotiate, the ones you deliberately do not handle — you still have to ask
+for yourself.
 
 [Running a local server](./local-server) has the rest: the same thing without a
 build step, a native Apache setup, HTTPS and self-signed certificates, how to
@@ -138,14 +149,20 @@ sensible rather than landing on a rule by accident.
 
 ### Content negotiation
 
-If you negotiate on `Accept`, check every format **and** the cases you did not
-write a rule for:
+If you negotiate on `Accept`, start with one format and look at the result:
+
+```sh
+curl -sI -H 'Accept: text/turtle' http://localhost:8080/my-project/
+```
+
+Then check every format you handle **and** the cases you did not write a rule
+for:
 
 ```sh
 for a in 'text/turtle' 'application/ld+json' 'application/rdf+xml' \
          'application/n-triples' 'text/html' '*/*'; do
   printf '%-24s ' "$a"
-  curl -sI -H "Accept: $a" http://localhost:8080/my-vocab/ \
+  curl -sI -H "Accept: $a" http://localhost:8080/my-project/ \
     | awk 'tolower($1)=="location:" || $1 ~ /^HTTP/ {printf "%s ", $2}'
   echo
 done
@@ -154,9 +171,9 @@ done
 Also check with **no** `Accept` header at all, and with a browser's real one:
 
 ```sh
-curl -sI http://localhost:8080/my-vocab/
+curl -sI http://localhost:8080/my-project/
 curl -sI -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
-  http://localhost:8080/my-vocab/
+  http://localhost:8080/my-project/
 ```
 
 Every one of these must produce a useful response. If any returns `406`, you
