@@ -105,7 +105,7 @@ It now holds:
 - The [rule catalogue](/rules/). Each rule has a page saying what it is, why
   it exists, what breaking it actually causes, and how to fix it.
 - An [FAQ](/faq).
-- News, which is where you are.
+- [News](/news/), which is where you are.
 
 ## A start on agent support
 
@@ -130,8 +130,7 @@ just as welcome.
 
 - More documentation.
 - More rules.
-- Revisions to the rules that are already here, based on what the feedback
-  says.
+- Revisions to the rules that are already here, based on feedback.
 
 **What would you like to see?** Say so at
 <https://github.com/perma-id/w3id.org/issues>.
