@@ -24,7 +24,12 @@ other — but two things go wrong:
   base nobody is looking at any more;
 - the contributor reaches for "Sync fork", which merges rather than rebases and
   drags a merge commit plus everything since into the pull request. See
-  [`git/no-merge-commits`](./no-merge-commits).
+  [`git/no-merge-commits`](./no-merge-commits);
+- the checks run against an old copy of the tooling. The rules and the checker
+  live in this repository, so a branch cut months ago runs the checker as it
+  was then. Updating means the checks you see are the ones that will run when
+  the pull request is merged, rather than a subset that passes now and fails
+  later.
 
 This is a notice, not a warning. Being behind is not itself a mistake, and it
 never blocks anything — it is here because it is the step before the mistake.
