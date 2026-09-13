@@ -35,6 +35,7 @@ import {readdirSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {git, listFiles} from '../src/git.js';
+import {matchesAny} from '../src/glob.js';
 import {check} from './helpers.js';
 import ruleDocsExist from '../src/rules/meta/rule-docs-exist.js';
 import {DEFAULTS} from '../src/config.js';
@@ -455,6 +456,15 @@ test('references: every documentation page is reachable from the site nav',
   assert.ok([...linked].some(link => link.startsWith('/rules/')),
     'expected the sidebar to link to rule pages at all');
 
+  // Files VitePress is told not to build are not pages, so nothing should
+  // expect a sidebar entry for them. Parsed from the same text as the links
+  // above; an entry written in double quotes would be missed, which is the
+  // same limitation the link extraction has and is checked the same way --
+  // by the assertion below that something was found at all.
+  const srcExcludeBlock = /srcExclude:\s*\[([^\]]*)\]/.exec(config);
+  const srcExclude = srcExcludeBlock === null ? [] :
+    [...srcExcludeBlock[1].matchAll(/'([^']+)'/g)].map(([, pattern]) => pattern);
+
   // The forward check asks whether a page is linked. A page's route carries
   // a trailing slash when it is an index; a sidebar entry need not, and may
   // carry a fragment -- the htaccess groups point at sections of one index
@@ -485,6 +495,12 @@ test('references: every documentation page is reachable from the site nav',
     // pages of the site.
     if(relative.startsWith('.vitepress/') ||
       relative.includes('node_modules/')) {
+      continue;
+    }
+    // Nor is anything the site is configured not to build. Read from the
+    // config rather than listed here, so that excluding a file is one edit
+    // and this cannot disagree with what VitePress actually does.
+    if(matchesAny(relative, srcExclude)) {
       continue;
     }
     // An index page is its directory: `rules/files/index.md` is
