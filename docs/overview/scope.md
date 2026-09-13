@@ -64,8 +64,7 @@ declined for names that are:
   bulk.
 
 Do not squat on names for projects that do not exist yet, and do not claim a
-top-level directory when a path under an existing namespace would do. This has
-been the stated policy for many years.
+top-level directory when a path under an existing namespace would do.
 
 ### It is not a dynamic application platform
 
@@ -104,14 +103,16 @@ current practice:
   aesthetics, case collisions genuinely break the repository on macOS and
   Windows.
 
-Maintainers may decline a name for any of the reasons above. Ask on the
-[mailing list](https://lists.w3.org/Archives/Public/public-perma-id/) first if
-you are unsure whether a name will be acceptable — that is much cheaper than
-finding out in a pull request review.
+Maintainers may decline a name for any of the reasons above. If you are
+unsure whether a name will be acceptable, ask first — on the
+[mailing list](https://lists.w3.org/Archives/Public/public-perma-id/) or as an
+[issue](https://github.com/perma-id/w3id.org/issues). Either is much cheaper
+than finding out in a pull request review.
 
 ## Still not sure?
 
-Ask on the
+Ask before you write any code, on the
 [public-perma-id@w3.org mailing list](https://lists.w3.org/Archives/Public/public-perma-id/)
-before you write any code. Describe what you want to identify and where the
-content will live, and somebody will tell you whether this is the right tool.
+or as an [issue](https://github.com/perma-id/w3id.org/issues). Describe what
+you want to identify and where the content will live, and somebody will tell
+you whether this is the right tool.
