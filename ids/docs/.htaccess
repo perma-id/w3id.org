@@ -1,21 +1,10 @@
 # # /docs/
 #
-# The w3id.org documentation site.
+# The w3id.org documentation site. The whole path is passed through, so
+# /docs/<anything> reaches https://docs.w3id.org/<anything>.
 #
-# https://w3id.org/docs/ redirects to https://docs.w3id.org/
-# https://w3id.org/docs/guides/create-an-id redirects to
-# https://docs.w3id.org/guides/create-an-id
-#
-# The site is built from the `docs/` directory of this repository and published
-# to GitHub Pages. A 302 is used rather than a 301 because the layout of the
-# documentation site is expected to change over time, and a cached permanent
-# redirect cannot be taken back.
-#
-# NOTE: do not add `DirectorySlash Off` or `Options -Indexes` to this file.
-# This is a real directory, so Apache first redirects /docs to /docs/ and the
-# rule below then handles the request. Turning DirectorySlash off would stop
-# the rule from running for the bare /docs URL and would produce a 403 instead.
-# See https://w3id.org/docs/rules/htaccess/no-options-directive
+# Do not add `DirectorySlash Off` or `Options -Indexes` here: either one stops
+# the rule below running for the bare /docs URL. See README.md.
 #
 # ## Contact
 # This space is administered by:
@@ -27,6 +16,4 @@
 
 RewriteEngine on
 
-# Pass the whole path through, so that https://w3id.org/docs/llms.txt and
-# https://w3id.org/docs/rules/htaccess/https-target resolve too.
 RewriteRule ^(.*)$ https://docs.w3id.org/$1 [R=302,L]
