@@ -5,17 +5,18 @@ real Apache. This page sets one up on your machine, configured the way the live
 service is configured, so `ids/my-project/` answers at
 `http://localhost:8080/my-project/`.
 
-::: info What has been run
-All three setups on this page have been run end to end against this
-repository's own `ids/` directory, and they agree with each other: the
-identifier root, the bare no-slash form, sub-paths, `Accept` negotiation, the
-site root, a missing identifier and a request for an `.htaccess` file all
-behave as described below.
+::: info This page has had limited testing
+All three setups have been run end to end against this repository's own
+`ids/` directory, and they agree with each other: the identifier root, the
+bare no-slash form, sub-paths, `Accept` negotiation, the site root, a missing
+identifier and a request for an `.htaccess` file all behave as described
+below.
 
-That was on one machine, once. If something here does not work for you, or
-works only after you change it, please
+That is not much exposure, and the setups touch Docker versions, Apache
+builds and host networking that vary. If something here does not work for
+you, or works only after you change it, please
 [open an issue](https://github.com/perma-id/w3id.org/issues) rather than
-working around it quietly.
+working around it quietly — that feedback is what this page needs most.
 :::
 
 You do not need this page for a simple redirect. Read your rules carefully,
