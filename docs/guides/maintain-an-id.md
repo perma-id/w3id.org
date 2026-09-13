@@ -22,21 +22,38 @@ The maintainers listed in the identifier's `.htaccess` comments or `README.md`.
 
 If you are submitting a change to a directory you are not listed on, say so in
 the pull request and **tag one of the listed maintainers to approve it**.
-Reviewers check this. An unexplained change to somebody else's namespace looks
-exactly like an attempt to hijack it, and namespaces have been taken over that
-way before — a project's rules replaced wholesale by an unrelated one.
+Reviewers check this. From the outside, an unexplained change to somebody
+else's namespace is indistinguishable from an attempt to take it over, and a
+reviewer has no way to tell the two apart without being told.
 
-If the listed maintainer is unreachable and you have a legitimate claim, raise
-it on the
-[mailing list](https://lists.w3.org/Archives/Public/public-perma-id/) rather
-than pushing the change through.
+If the listed maintainer is unreachable and you have a legitimate claim, say
+so — in the pull request, or by raising it first as an
+[issue](https://github.com/perma-id/w3id.org/issues) or on the
+[mailing list](https://lists.w3.org/Archives/Public/public-perma-id/) — rather
+than pushing the change through and leaving the reviewer to guess.
 
 ## Zero-downtime updates
 
+You control your target server; you do not control when the pull request
+changing this repository is merged. Everything between those two moments is a
+window in which the identifier is live and pointing somewhere, so sequence the
+two so that no arrangement of them breaks:
+
+1. On the target, keep the old URLs working and **add** the new ones. Both
+   resolve.
+2. Open the pull request, and let it be reviewed and merged whenever it is.
+3. Only then retire the old target resources, if retiring them is appropriate
+   at all.
+
+Do it the other way round — remove the old URLs, then wait for review — and
+the identifier is broken for however long the review takes.
+
 ### Add before you remove
 
-When your content moves, do not rewrite the existing rule in place and hope. Add
-the new rule, confirm it works, and only then consider removing anything.
+The same rule applies inside the `.htaccess`. When your content moves, do not
+rewrite the existing rule in place and assume nothing was using the old path;
+you cannot see who is. Add the new rule, confirm it works, and only then
+consider removing anything.
 
 ```apache
 RewriteEngine on
@@ -52,7 +69,7 @@ RewriteRule ^v1/vocab$ https://new-host.example.org/v1/vocab.ttl [R=302,L]
 Old paths cost you two lines of configuration. Removing them costs somebody
 else a broken application.
 
-### Keep the meaning stable
+## Keep the meaning stable
 
 An identifier names a thing. Redirecting it somewhere that describes a
 *different* thing is a breaking change even though every URL still resolves —
@@ -61,7 +78,7 @@ wrong data.
 
 If the thing genuinely changed, mint a new identifier.
 
-### Never repurpose an identifier
+## Never repurpose an identifier
 
 Do not take over a directory that belonged to an abandoned project and point it
 at yours. The old identifier is still in other people's data, and now it
@@ -70,7 +87,7 @@ fails silently.
 
 If a project is gone and you want a similar name, pick a different one.
 
-### Avoid 301, and be careful undoing one
+## Avoid 301, and be careful undoing one
 
 **302** and **303** are re-checked by clients. **301 Moved Permanently** may be
 cached indefinitely — browsers in particular are aggressive about this — so a
@@ -81,7 +98,7 @@ Use 302 for ordinary redirects and 303 for content-negotiated ontology IRIs.
 Reserve 301 for cases where you are certain the move is permanent and you have
 thought about the consequences of being wrong.
 
-### Test both before and after
+## Test both before and after
 
 Before opening the pull request, check that the paths that worked before still
 work, and that the new ones do too:
