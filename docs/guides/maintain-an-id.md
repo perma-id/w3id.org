@@ -48,6 +48,12 @@ two so that no arrangement of them breaks:
 Do it the other way round — remove the old URLs, then wait for review — and
 the identifier is broken for however long the review takes.
 
+If that is not possible — a target that cannot serve both sets of URLs at
+once, a coordinated announcement, an embargo — say so rather than hoping the
+timing works out. Open the pull request **as a draft** and describe the window
+you need. A draft cannot be merged, so it will not land early by accident, and
+a maintainer will work out a time with you; mark it ready when that time comes.
+
 ### Add before you remove
 
 The same rule applies inside the `.htaccess`. When your content moves, do not
