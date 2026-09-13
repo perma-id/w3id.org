@@ -68,6 +68,11 @@ jobs:
           node tools/check/bin/w3id-check.js --all --stats \
             | tee -a "${GITHUB_STEP_SUMMARY}"
 
+      # The code fence is not formatting. This report prints maintainer
+      # handles as `@name`, read out of files contributors control, and
+      # GitHub does not linkify a mention inside a fence. Without it every
+      # run would notify every account named anywhere under ids/. Keep the
+      # report fenced, or strip the `@` before rendering it any other way.
       - name: Identifiers needing repair
         run: |
           {
