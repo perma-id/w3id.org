@@ -121,7 +121,21 @@ curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/shacl
 curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/context
 ```
 
-All redirects use HTTP 303 (See Other).
+All *versioned* conformance-URI redirects use HTTP 303 (See Other). The unversioned
+aliases below use 302, because their target moves with each release — for that reason an
+unversioned URI must never appear in a record's `dcterms:conformsTo`.
+
+## Versioning
+
+**A versioned conformance URI must keep resolving to the version it names.** The rules for a
+current version point at GitHub Pages, which serves each release repo's newest release, so when
+a newer minor version ships the outgoing version's rules must be repointed to its release tag on
+`raw.githubusercontent.com`. Miss that and the URI quietly serves the wrong spec, with no error
+anywhere.
+
+The policy, the checklist for cutting a version, and the weekly automated check are documented
+in
+[CDIF/validation `docs/w3id-redirect-policy.md`](https://github.com/Cross-Domain-Interoperability-Framework/validation/blob/main/docs/w3id-redirect-policy.md).
 
 ## Contacts:
 
