@@ -17,7 +17,8 @@ on:
     branches: [master]
   pull_request:
     branches: ['**']
-    # The ~500 identifier pull requests a year touch none of this.
+    # Identifier pull requests, which are almost all of them, touch none
+    # of this.
     paths:
       - '.github/workflows/**'
       - '.github/actions/**'
@@ -34,7 +35,7 @@ concurrency:
 env:
   # Pinned rather than floating: a new release should be an explicit change,
   # not something that appears one morning and blocks unrelated work.
-  ZIZMOR_VERSION: '1.30.0'
+  ZIZMOR_VERSION: '1.30.1'
 
 jobs:
   # Runs for pull requests, including from forks. Needs no special permission,
@@ -88,7 +89,7 @@ jobs:
         # is what blocks.
         run: zizmor --config .github/zizmor.yaml --format=sarif . > results.sarif
 
-      - uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4
+      - uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
         with:
           sarif_file: results.sarif
           category: zizmor
