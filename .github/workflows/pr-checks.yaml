@@ -116,9 +116,13 @@ jobs:
   selftest:
     name: Checker tests
     runs-on: ubuntu-latest
-    # Runs on every pull request, not only ones that touch tools/check: the
-    # suite includes a regression test against the real tree, so a change to
-    # ids/ that moves a rule's finding count is caught here too.
+    # Runs on every pull request rather than only those touching tools/.
+    # Not because an identifier change could fail it -- nothing in the
+    # default suite reads ids/; the one test that does is gated behind
+    # W3ID_CHECK_CORPUS, which only the weekly audit sets. It runs everywhere
+    # because it is seconds long, and because a `paths:` filter on a required
+    # check leaves a pull request waiting forever on a status that a skipped
+    # job never reports.
     permissions:
       contents: read # to check out the checker and its tests
     steps:
