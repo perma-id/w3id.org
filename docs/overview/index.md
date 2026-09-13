@@ -63,8 +63,8 @@ become unreachable for long periods without affecting the service.
 
 ### Joining the consortium
 
-Introduce yourself to the community on the mailing list first (see below). If
-you still want to join, open an issue on the
+Introduce yourself on the mailing list first (see below) and say what your
+organisation would bring. Then open an issue on the
 [issue tracker](https://github.com/perma-id/w3id.org/issues) titled
 *Seeking to join the W3ID Consortium* with your details.
 
