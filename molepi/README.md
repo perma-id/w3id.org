@@ -9,8 +9,11 @@ This repository is structured as followed:
 
 /MICA/ - This folder will host identifiers for our MICA applications
 
-* VOILA/ - this
-* LLS/
+* VOILA/ - this is our MICA metadata portal page for VOILA
+* LLS/ - this is our MICA metadata portal page for LLS
+* GOTO/ - this is our MICA metadata portal page for VOILA
+
+
 
 This w3id is administered by:
 Julian Dekker
