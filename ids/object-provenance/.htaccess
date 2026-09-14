@@ -1,0 +1,32 @@
+# # /object-provenance/
+#
+# A vocabulary of terms for recording, batching, and archiving provenance
+# claims about physical objects. See README.md in this directory.
+#
+# https://w3id.org/object-provenance/v1# redirects to
+# https://object-provenance.github.io/vocab/v1/
+# with content negotiation for JSON-LD.
+#
+# The namespace is hash-based, so the fragment never reaches the server and
+# these rules serve the whole vocabulary.
+#
+# 302 rather than 301: a 301 is cached permanently by browsers and
+# intermediaries and cannot be recalled, which would destroy the repointing
+# ability this service exists to provide.
+#
+# ## Contact
+# This space is administered by:
+#
+# RelicQuery — hello@relicquery.org
+# GitHub username: RichardHerold
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^v1/?$ https://object-provenance.github.io/vocab/v1/context.jsonld [R=302,L]
+
+RewriteRule ^v1/?$ https://object-provenance.github.io/vocab/v1/ [R=302,L]
+
+RewriteRule ^/?$ https://object-provenance.github.io/vocab/ [R=302,L]

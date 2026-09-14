@@ -1,0 +1,79 @@
+# ESKA — Executable Semantic Knowledge Architecture
+# Point of contact: Gerhard Balz — GitHub @GerhardBalz
+# Canonical project: https://github.com/GerhardBalz/executable-semantic-knowledge-architecture
+#
+# Permanent namespace active since perma-id/w3id.org#6530.
+# Unversioned routes follow governed main; versioned routes below resolve only to
+# immutable ESKA release tags.
+
+Options +FollowSymLinks -Indexes
+RewriteEngine On
+
+# Vocabulary base / hash namespace document.
+# RDF clients receive the combined Turtle distribution; browsers receive project docs.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/dist/eska.ttl [R=303,NE,L]
+
+RewriteRule ^$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture [R=303,NE,L]
+
+# Human-readable documentation.
+RewriteRule ^docs/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/docs/namespace-publication-versioning.md [R=303,NE,L]
+
+# Combined current RDF distribution.
+RewriteRule ^dist/eska\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/dist/eska.ttl [R=303,NE,L]
+
+# Stable unversioned module documents. RDF clients receive raw Turtle; browsers
+# receive GitHub-rendered source.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/core/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/model/eska-core.ttl [R=303,NE,L]
+RewriteRule ^model/core/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/model/eska-core.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/capability/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/model/eska-capability.ttl [R=303,NE,L]
+RewriteRule ^model/capability/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/model/eska-capability.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/service/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/model/eska-service.ttl [R=303,NE,L]
+RewriteRule ^model/service/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/model/eska-service.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/agent/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/model/eska-agent.ttl [R=303,NE,L]
+RewriteRule ^model/agent/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/model/eska-agent.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/deployment/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/main/model/eska-deployment.ttl [R=303,NE,L]
+RewriteRule ^model/deployment/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/main/model/eska-deployment.ttl [R=303,NE,L]
+
+# Immutable ontology-version IRIs. Each route resolves to the exact repository
+# release tag that first published that module version.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/core/0\.1\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-core.ttl [R=303,NE,L]
+RewriteRule ^model/core/0\.1\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.1.0/model/eska-core.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/core/0\.2\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.2.0/model/eska-core.ttl [R=303,NE,L]
+RewriteRule ^model/core/0\.2\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.2.0/model/eska-core.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/capability/0\.2\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-capability.ttl [R=303,NE,L]
+RewriteRule ^model/capability/0\.2\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.1.0/model/eska-capability.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/service/0\.4\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-service.ttl [R=303,NE,L]
+RewriteRule ^model/service/0\.4\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.1.0/model/eska-service.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/agent/0\.3\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-agent.ttl [R=303,NE,L]
+RewriteRule ^model/agent/0\.3\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.1.0/model/eska-agent.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^model/deployment/0\.1\.0/?$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-deployment.ttl [R=303,NE,L]
+RewriteRule ^model/deployment/0\.1\.0/?$ https://github.com/GerhardBalz/executable-semantic-knowledge-architecture/blob/eska-v0.1.0/model/eska-deployment.ttl [R=303,NE,L]
+
+# Immutable module distribution routes defined by the ESKA publication contract.
+RewriteRule ^dist/0\.1\.0/eska-core\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-core.ttl [R=303,NE,L]
+RewriteRule ^dist/0\.2\.0/eska-core\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.2.0/model/eska-core.ttl [R=303,NE,L]
+RewriteRule ^dist/0\.2\.0/eska-capability\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-capability.ttl [R=303,NE,L]
+RewriteRule ^dist/0\.4\.0/eska-service\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-service.ttl [R=303,NE,L]
+RewriteRule ^dist/0\.3\.0/eska-agent\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-agent.ttl [R=303,NE,L]
+RewriteRule ^dist/0\.1\.0/eska-deployment\.ttl$ https://raw.githubusercontent.com/GerhardBalz/executable-semantic-knowledge-architecture/eska-v0.1.0/model/eska-deployment.ttl [R=303,NE,L]

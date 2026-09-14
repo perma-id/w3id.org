@@ -1,0 +1,65 @@
+# Name of the project: SPECL
+# Description: SPECL is an RDF-native, SHACL-validated specification language.
+# Specifications are authored in markdown, translated to RDF, and validated
+# against a tiered SHACL shapes graph. This identifier serves the vocabulary,
+# the shapes graph, the graph-contract descriptions, and the project's own
+# published specifications.
+# Repository: https://github.com/zwelz3/specl
+# Contacts:
+# - Zachary Welz (GitHub: zwelz3)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Ontology namespace: content negotiation
+# Turtle
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.ttl [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.*
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ns.jsonld [R=303,NE,L]
+
+# HTML (default for browsers)
+RewriteRule ^ns/?$ https://zwelz3.github.io/specl/ [R=303,NE,L]
+
+# Shapes
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^shapes/?$ https://zwelz3.github.io/specl/shapes.ttl [R=303,NE,L]
+RewriteRule ^shapes/?$ https://zwelz3.github.io/specl/ [R=303,NE,L]
+
+# Version-aware URIs for the vocabulary and shapes. The version is the graph
+# contract rather than the release: a contract changes only in a designated
+# breaking release, and every emitted graph names the one it conforms to. The
+# unversioned URIs above always serve the current contract.
+RewriteRule ^ns/1/?$ https://zwelz3.github.io/specl/ns/1.ttl [R=303,NE,L]
+RewriteRule ^ns/2/?$ https://zwelz3.github.io/specl/ns/2.ttl [R=303,NE,L]
+RewriteRule ^shapes/1/?$ https://zwelz3.github.io/specl/shapes/1.ttl [R=303,NE,L]
+RewriteRule ^shapes/2/?$ https://zwelz3.github.io/specl/shapes/2.ttl [R=303,NE,L]
+
+# Descriptions of each graph contract, naming what a consumer holding a graph
+# of that version may rely on.
+RewriteRule ^contract/1/?$ https://github.com/zwelz3/specl/blob/main/docs/contracts/1.md [R=303,NE,L]
+RewriteRule ^contract/2/?$ https://github.com/zwelz3/specl/blob/main/docs/contracts/2.md [R=303,NE,L]
+
+# Retired instance namespace. Until specl 0.3.0 every specification minted its
+# items under this one shared namespace, so identifiers from different
+# specifications collided. Each specification now declares its own base and this
+# one is not reassigned. Graphs distributed before that change still carry these
+# IRIs, so the rule stays and now resolves to the migration guide.
+RewriteRule ^spec/?$ https://github.com/zwelz3/specl/blob/main/NAMESPACE-MIGRATION.md [R=303,NE,L]
+
+# specl's own specifications, each under its own base.
+RewriteRule ^tool/spec/?$ https://github.com/zwelz3/specl/blob/main/specs/specl_tool/spec.md [R=303,NE,L]
+RewriteRule ^explorer/spec/?$ https://github.com/zwelz3/specl/blob/main/specs/specl_explorer/spec.md [R=303,NE,L]
+RewriteRule ^commitments/spec/?$ https://github.com/zwelz3/specl/blob/main/specs/commitments/spec.md [R=303,NE,L]
+
+# Explorer
+RewriteRule ^explorer/?$ https://zwelz3.github.io/specl/explorer.html [R=303,NE,L]
+
+# Root — repo landing
+RewriteRule ^$ https://github.com/zwelz3/specl [R=303,NE,L]

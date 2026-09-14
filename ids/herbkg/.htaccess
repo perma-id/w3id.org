@@ -1,0 +1,29 @@
+# ============================================================
+# File: herbkg/.htaccess
+# ============================================================
+
+# HerbKG — ontology-guided cross-lingual knowledge graph
+# integrating traditional Chinese medicine and modern biomedicine
+# Contact: Xian Zhu <zhuxian@njucm.edu.cn>  
+# Source repository: https://github.com/shellezhu/tcm-mm-ontology
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Content negotiation for the ontology schema ---
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf\+turtle
+RewriteRule ^$ https://raw.githubusercontent.com/shellezhu/tcm-mm-ontology/main/ontology-core.ttl [R=302,L]
+
+# --- Direct file access ---
+RewriteRule ^ontology-core\.ttl$ https://raw.githubusercontent.com/shellezhu/tcm-mm-ontology/main/ontology-core.ttl [R=302,L]
+RewriteRule ^ontology-extension-datatypes\.ttl$ https://raw.githubusercontent.com/shellezhu/tcm-mm-ontology/main/ontology-extension-datatypes.ttl [R=302,L]
+
+# --- Released derived subset ---
+RewriteRule ^data/herbkg-derived-core\.ttl$ https://raw.githubusercontent.com/shellezhu/tcm-mm-ontology/main/data/derived/herbkg-derived-core.ttl [R=302,L]
+RewriteRule ^data/herbkg-derived-core\.csv$ https://raw.githubusercontent.com/shellezhu/tcm-mm-ontology/main/data/derived/herbkg-derived-core.csv [R=302,L]
+
+# --- Human-readable default: bare namespace, term URIs, and anything else ---
+RewriteRule ^$ https://github.com/shellezhu/tcm-mm-ontology [R=302,L]
+RewriteRule ^(.*)$ https://github.com/shellezhu/tcm-mm-ontology [R=302,L]

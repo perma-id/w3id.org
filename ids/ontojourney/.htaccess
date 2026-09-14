@@ -1,0 +1,36 @@
+Options -MultiViews
+RewriteEngine On
+
+# OntoJourney Core: immutable v0.9 representation targets.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^core/0\.9/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.0/ontojourney-core.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/(?:rdf\+xml|owl\+xml) [NC]
+RewriteRule ^core/0\.9/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.0/ontojourney-core.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^core/0\.9/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.0/ontojourney-core.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^core/0\.9/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.0/ontojourney-core.ttl [R=303,L]
+
+# OntoJourney Core v0.9.1 and unversioned latest representation targets.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^core(?:/0\.9\.1)?/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.1/ontojourney-core.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/(?:rdf\+xml|owl\+xml) [NC]
+RewriteRule ^core(?:/0\.9\.1)?/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.1/ontojourney-core.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^core(?:/0\.9\.1)?/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.1/ontojourney-core.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^core(?:/0\.9\.1)?/?$ https://luisfcosta2015.github.io/ontojourney/artifacts/0.9.1/ontojourney-core.ttl [R=303,L]
+
+# Human-readable defaults.
+RewriteRule ^core/0\.9/?$ https://luisfcosta2015.github.io/ontojourney/releases/0.9.0/ [R=303,L]
+RewriteRule ^core/0\.9\.1/?$ https://luisfcosta2015.github.io/ontojourney/releases/0.9.1/ [R=303,L]
+RewriteRule ^core/?$ https://luisfcosta2015.github.io/ontojourney/model/ [R=303,L]
+
+# Project root.
+RewriteRule ^$ https://luisfcosta2015.github.io/ontojourney/ [R=302,L]

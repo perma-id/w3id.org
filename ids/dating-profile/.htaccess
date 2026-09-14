@@ -1,0 +1,24 @@
+# https://w3id.org/dating-profile
+#
+# Dating Profile Vocabulary — an open vocabulary for publishing
+# machine-readable dating profiles on personal websites.
+#
+# ## Contact
+# This space is administered by:
+#
+# Aaron Bailey
+# GitHub username: aaronbailey
+# Email: aaron@aaronbailey.com
+
+RewriteEngine on
+
+# JSON-LD context via content negotiation
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://aaronbailey.github.io/dating-profile/context.jsonld [R=303,L]
+
+# Explicit context path
+RewriteRule ^context(\.jsonld)?$ https://aaronbailey.github.io/dating-profile/context.jsonld [R=303,L]
+
+# Default: human-readable specification
+RewriteRule ^(.*)$ https://aaronbailey.github.io/dating-profile/$1 [R=303,L]

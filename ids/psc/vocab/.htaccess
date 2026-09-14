@@ -1,0 +1,31 @@
+# /psc/vocab/
+#
+# Persistent IRI namespace for the Pacific Salmon Commission's public salmon
+# controlled vocabularies.
+#
+# Public authority:
+# https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/
+#
+# Maintainer:
+# Brett Johnson
+# GitHub username: Br-Johnson
+
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+# Representation-specific identifiers.  These explicit paths are deliberate:
+# Simple mod_rewrite substring tests do not parse or rank arbitrary HTTP Accept
+# quality values, and current W3ID external 303 responses have not included the
+# configured Vary: Accept header.  Keeping the canonical redirects below
+# invariant is therefore safer for shared caches.
+RewriteRule ^scheme/([A-Za-z0-9._-]+)\.ttl$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/scheme/$1/index.ttl [R=303,L]
+RewriteRule ^scheme/([A-Za-z0-9._-]+)\.jsonld$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/scheme/$1/index.jsonld [R=303,L]
+RewriteRule ^concept/(PSC-CV-[0-9]{6})\.ttl$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/concept/$1/index.ttl [R=303,L]
+RewriteRule ^concept/(PSC-CV-[0-9]{6})\.jsonld$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/concept/$1/index.jsonld [R=303,L]
+
+# Human-facing namespace and identifier pages.
+RewriteRule ^$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/ [R=303,L]
+RewriteRule ^(scheme/[A-Za-z0-9._-]+|concept/PSC-CV-[0-9]{6}|release/[A-Za-z0-9._-]+)/?$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/$1/ [R=303,L]
+
+# Preserve release artifact and future subordinate paths.
+RewriteRule ^(.*)$ https://pacific-salmon-commission.gitlab.io/psc-data-systems/psc-salmon-vocabularies/$1 [R=303,L]

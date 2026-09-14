@@ -1,0 +1,391 @@
+# ===================================================
+# Info
+# ===================================================
+#
+# https://w3id.org/bcore redirects to https://github.com/TUD-IMB/bcore
+#
+# Contact:
+# This space is administered by:
+# - Tim Noack / tim.noack@tu-dresden.de / https://github.com/NoackTim
+# - Johannes Reimer / johannes.reimer@tu-dresden.de / https://github.com/JohannesReimer
+# - Xiaoli Song / xiaoli.song@tu-dresden.de / https://github.com/XiaoliSong1126
+# - Morris Florek / morris_benedikt.florek@tu-dresden.de / https://github.com/morrisfl
+
+
+
+
+# ===================================================
+# General configuration
+# ===================================================
+# Directive to ensure *.rdf files served as appropriate content type, if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/owl+xml .owl
+
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+
+
+
+
+# ===================================================
+# Main ontology content negotiation (bcore)
+# ===================================================
+
+
+# ---------------------------------------------------
+# Rewrite rules
+# ---------------------------------------------------
+# > HTML content
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://tud-imb.github.io/BCore/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} \*/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\*
+RewriteRule ^$ https://tud-imb.github.io/BCore/bcore.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://tud-imb.github.io/BCore/bcore.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://tud-imb.github.io/BCore/bcore.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://tud-imb.github.io/BCore/bcore.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^$ https://tud-imb.github.io/BCore/bcore.n3 [R=303,L]
+
+
+# ---------------------------------------------------
+# File redirects
+# ---------------------------------------------------
+# > .html suffix
+RewriteRule ^bcore.html$ https://tud-imb.github.io/BCore/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^bcore.ttl$ https://tud-imb.github.io/BCore/bcore.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^bcore.rdf$ https://tud-imb.github.io/BCore/bcore.rdf [R=303,L]
+RewriteRule ^bcore.owl$ https://tud-imb.github.io/BCore/bcore.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^bcore.jsonld$ https://tud-imb.github.io/BCore/bcore.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^bcore.nt$ https://tud-imb.github.io/BCore/bcore.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^bcore.n3$ https://tud-imb.github.io/BCore/bcore.n3 [R=303,L]
+
+
+
+
+
+# ===================================================
+# Sub-Ontologies content negotiation
+# (comp, infra, mat, media, zones)  
+# ===================================================
+
+
+# ---------------------------------------------------
+# Rewrite rules
+# ---------------------------------------------------
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# comp
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > HTML content
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/bcorecomp.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/bcorecomp.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/bcorecomp.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/bcorecomp.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} application/n3
+RewriteRule ^comp/?$ https://tud-imb.github.io/BCore/comp/bcorecomp.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# infra
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/bcoreinfra.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/bcoreinfra.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/bcoreinfra.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/bcoreinfra.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} application/n3
+RewriteRule ^infra/?$ https://tud-imb.github.io/BCore/infra/bcoreinfra.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# mat
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/bcoremat.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/bcoremat.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/bcoremat.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/bcoremat.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} application/n3
+RewriteRule ^mat/?$ https://tud-imb.github.io/BCore/mat/bcoremat.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# media
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/bcoremedia.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/bcoremedia.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/bcoremedia.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/bcoremedia.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} application/n3
+RewriteRule ^media/?$ https://tud-imb.github.io/BCore/media/bcoremedia.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# zones
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/ [R=303,L]
+# > TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/bcorezones.ttl [R=303,L]
+# > JSON-LD content
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/bcorezones.jsonld [R=303,L]
+# > RDF/XML content
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/bcorezones.rdf [R=303,L]
+# > N-Triples content
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/bcorezones.nt [R=303,L]
+# > N3 content
+RewriteCond %{HTTP_ACCEPT} application/n3
+RewriteRule ^zones/?$ https://tud-imb.github.io/BCore/zones/bcorezones.n3 [R=303,L]
+
+
+# ---------------------------------------------------
+# File redirects
+# ---------------------------------------------------
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# comp
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > .html suffix
+RewriteRule ^comp/(bcorecomp|comp)\.html$ https://tud-imb.github.io/BCore/comp/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^comp/(bcorecomp|comp)\.ttl$ https://tud-imb.github.io/BCore/comp/bcorecomp.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^comp/(bcorecomp|comp)\.rdf$ https://tud-imb.github.io/BCore/comp/bcorecomp.rdf [R=303,L]
+RewriteRule ^comp/(bcorecomp|comp)\.owl$ https://tud-imb.github.io/BCore/comp/bcorecomp.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^comp/(bcorecomp|comp)\.jsonld$ https://tud-imb.github.io/BCore/comp/bcorecomp.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^comp/(bcorecomp|comp)\.nt$ https://tud-imb.github.io/BCore/comp/bcorecomp.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^comp/(bcorecomp|comp)\.n3$ https://tud-imb.github.io/BCore/comp/bcorecomp.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# infra
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > .html suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.html$ https://tud-imb.github.io/BCore/infra/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.ttl$ https://tud-imb.github.io/BCore/infra/bcoreinfra.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.rdf$ https://tud-imb.github.io/BCore/infra/bcoreinfra.rdf [R=303,L]
+RewriteRule ^infra/(bcoreinfra|infra)\.owl$ https://tud-imb.github.io/BCore/infra/bcoreinfra.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.jsonld$ https://tud-imb.github.io/BCore/infra/bcoreinfra.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.nt$ https://tud-imb.github.io/BCore/infra/bcoreinfra.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^infra/(bcoreinfra|infra)\.n3$ https://tud-imb.github.io/BCore/infra/bcoreinfra.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# mat
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > .html suffix
+RewriteRule ^mat/(bcoremat|mat)\.html$ https://tud-imb.github.io/BCore/mat/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^mat/(bcoremat|mat)\.ttl$ https://tud-imb.github.io/BCore/mat/bcoremat.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^mat/(bcoremat|mat)\.rdf$ https://tud-imb.github.io/BCore/mat/bcoremat.rdf [R=303,L]
+RewriteRule ^mat/(bcoremat|mat)\.owl$ https://tud-imb.github.io/BCore/mat/bcoremat.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^mat/(bcoremat|mat)\.jsonld$ https://tud-imb.github.io/BCore/mat/bcoremat.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^mat/(bcoremat|mat)\.nt$ https://tud-imb.github.io/BCore/mat/bcoremat.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^mat/(bcoremat|mat)\.n3$ https://tud-imb.github.io/BCore/mat/bcoremat.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# media
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > .html suffix
+RewriteRule ^media/(bcoremedia|media)\.html$ https://tud-imb.github.io/BCore/media/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^media/(bcoremedia|media)\.ttl$ https://tud-imb.github.io/BCore/media/bcoremedia.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^media/(bcoremedia|media)\.rdf$ https://tud-imb.github.io/BCore/media/bcoremedia.rdf [R=303,L]
+RewriteRule ^media/(bcoremedia|media)\.owl$ https://tud-imb.github.io/BCore/media/bcoremedia.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^media/(bcoremedia|media)\.jsonld$ https://tud-imb.github.io/BCore/media/bcoremedia.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^media/(bcoremedia|media)\.nt$ https://tud-imb.github.io/BCore/media/bcoremedia.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^media/(bcoremedia|media)\.n3$ https://tud-imb.github.io/BCore/media/bcoremedia.n3 [R=303,L]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# zones
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# > .html suffix
+RewriteRule ^zones/(bcorezones|zones)\.html$ https://tud-imb.github.io/BCore/zones/ [R=303,L]
+# > .ttl suffix
+RewriteRule ^zones/(bcorezones|zones)\.ttl$ https://tud-imb.github.io/BCore/zones/bcorezones.ttl [R=303,L]
+# > .rdf suffix
+RewriteRule ^zones/(bcorezones|zones)\.rdf$ https://tud-imb.github.io/BCore/zones/bcorezones.rdf [R=303,L]
+RewriteRule ^zones/(bcorezones|zones)\.owl$ https://tud-imb.github.io/BCore/zones/bcorezones.owl [R=303,L]
+# > .jsonld suffix
+RewriteRule ^zones/(bcorezones|zones)\.jsonld$ https://tud-imb.github.io/BCore/zones/bcorezones.jsonld [R=303,L]
+# > .nt suffix
+RewriteRule ^zones/(bcorezones|zones)\.nt$ https://tud-imb.github.io/BCore/zones/bcorezones.nt [R=303,L]
+# > .n3 suffix
+RewriteRule ^zones/(bcorezones|zones)\.n3$ https://tud-imb.github.io/BCore/zones/bcorezones.n3 [R=303,L]
+
+
+
+
+
+# ===================================================
+# Fragment identifiers (client side)
+# ===================================================
+# NE flag ensures that fragments are not escaped.
+RewriteRule ^comp/(.*)$ https://tud-imb.github.io/BCore/comp/#$1 [R=303,L,NE]
+RewriteRule ^infra/(.*)$ https://tud-imb.github.io/BCore/infra/#$1 [R=303,L,NE]
+RewriteRule ^mat/(.*)$ https://tud-imb.github.io/BCore/mat/#$1 [R=303,L,NE]
+RewriteRule ^media/(.*)$ https://tud-imb.github.io/BCore/media/#$1 [R=303,L,NE]
+RewriteRule ^zones/(.*)$ https://tud-imb.github.io/BCore/zones/#$1 [R=303,L,NE]
+RewriteRule ^(.*)$ https://tud-imb.github.io/BCore/#$1 [R=303,L,NE]
+
+# Default response
+RewriteRule ^$ https://tud-imb.github.io/BCore/ [R=303,L]
+
+
+
+
+
+# # ===================================================
+# # Legacy: Prior versions of bcore etc.
+# # ===================================================
+
+
+# # ---------------------------------------------------
+# # Rewrite rules
+# # ---------------------------------------------------
+
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# # bcore
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# # > TTL content
+# RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+# RewriteCond %{HTTP_ACCEPT} \*/turtle
+# RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/bcore-$1.ttl [R=302,NE,L]
+# # > JSON-LD content
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/bcore-$1.jsonld [R=302,NE,L]
+# # > RDF/XML content
+# RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+# RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/bcore-$1.rdf [R=302,NE,L]
+# # > N-Triples content
+# RewriteCond %{HTTP_ACCEPT} application/n-triples
+# RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/bcore-$1.nt [R=302,NE,L]
+# # > N3 content
+# RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+# RewriteCond %{HTTP_ACCEPT} \*/n3 
+# RewriteRule ^bcore-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/bcore-$1.n3 [R=302,NE,L]
+
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# # comp
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# # > TTL content
+# RewriteCond %{HTTP_ACCEPT} text/turtle
+# RewriteRule ^comp/bcorecomp-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/comp/bcorecomp-$1.ttl [R=303,NE,L]
+# # > JSON-LD content
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# RewriteRule ^comp/bcorecomp-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/comp/bcorecomp-$1.json [R=303,NE,L]
+# # > RDF/XML content
+# RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+# RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+# RewriteRule ^comp/bcorecomp-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/comp/bcorecomp-$1.rdf [R=303,NE,L]
+# # > N-Triples content
+# RewriteCond %{HTTP_ACCEPT} application/n-triples
+# RewriteRule ^comp/bcorecomp-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/comp/bcorecomp-$1.nt [R=303,NE,L]
+# # > N3 content
+# RewriteCond %{HTTP_ACCEPT} application/n3
+# RewriteRule ^comp/bcorecomp-?([0-9]+\.[0-9]+\.[0-9]+)$ https://tud-imb.github.io/BCore/comp/bcorecomp-$1.n3 [R=303,NE,L]
+
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -
+# # ...
+# # - - - - - - - - - - - - - - - - - - - - - - - - - -

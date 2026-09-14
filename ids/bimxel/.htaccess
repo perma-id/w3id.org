@@ -1,0 +1,38 @@
+# Permanent identifier redirect for https://w3id.org/bimxel
+#
+# w3id.org does not host the BIMxel ontology itself: this file only
+# 303-redirects, by content negotiation, to wherever it is actually
+# published (currently GitLab Pages, hosted by UPC). The target below
+# always points at the *current* revision of the ontology; past revisions
+# are archived outside of any public URL, so no version number ever
+# appears here — bumping the ontology's version does not require touching
+# this file. See README.md in this same folder for details and contact info.
+
+RewriteEngine On
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/ontology.jsonld [R=303,L]
+
+# HTML documentation, for browsers
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/index.html [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/ontology.nt [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/ontology.ttl [R=303,L]
+
+# RDF/XML, explicit request
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/ontology.owl [R=303,L]
+
+# Default: RDF/XML (e.g. a plain "*/*" Accept header, or anything unmatched above)
+RewriteRule ^$ https://ontologia-bimxels-185727.mygitpages.cs.upc.edu/ontology.owl [R=303,L]

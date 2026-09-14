@@ -1,0 +1,26 @@
+Options +FollowSymLinks
+
+RewriteEngine on
+
+AddType text/turtle .ttl
+
+# Serve Turtle when RDF serialisations are requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/grc-ontology.ttl [R=303,NE,L]
+
+# NFCRM clause graph
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^nfcrm/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/nfcrm-clauses.ttl [R=303,NE,L]
+
+# HTML / default: ontology documentation in the repository
+RewriteRule ^ontology/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/README.md [R=303,NE,L]
+RewriteRule ^nfcrm/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/nfcrm-clauses.ttl [R=303,NE,L]
+
+# Everything else under /grc/ resolves to the repository
+RewriteRule ^(.*)$ https://github.com/MOo207/shacl-risk-grounding [R=303,NE,L]

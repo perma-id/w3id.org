@@ -1,0 +1,34 @@
+# # /varda/
+#
+# Varda - a dimensional modeling profile for LinkML.
+#
+# https://w3id.org/varda             profile IRI, content negotiated
+# https://w3id.org/varda/varda.yaml  profile source
+# https://w3id.org/varda/{term}      term documentation, e.g. /varda/role
+#
+# Project: https://github.com/mluttikh/varda
+#
+# ## Contact
+# This space is administered by:
+#
+# GitHub username: mluttikh
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# linkml-runtime appends `.yaml` to an import, so
+# `imports: https://w3id.org/varda/varda` resolves here.
+RewriteRule ^varda\.yaml$ https://raw.githubusercontent.com/mluttikh/varda/main/src/varda/profile/varda.yaml [R=302,L]
+
+# Browsers get the documentation.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://mluttikh.github.io/varda/ [R=302,L]
+
+# Everything else - schema loaders sending */*, curl, YAML media types -
+# gets the profile source.
+RewriteRule ^$ https://raw.githubusercontent.com/mluttikh/varda/main/src/varda/profile/varda.yaml [R=302,L]
+
+# Terms resolve to the vocabulary reference. `NE` keeps Apache from escaping
+# the `#` into `%23`.
+RewriteRule ^(.+)$ https://mluttikh.github.io/varda/reference/vocabulary/#$1 [R=302,L,NE]

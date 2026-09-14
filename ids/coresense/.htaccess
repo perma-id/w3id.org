@@ -1,0 +1,82 @@
+# CoreSense Ontology (CSO)
+#
+# Permanent identifier for the ontology developed by the CORESENSE project,
+# funded by the European Union under Horizon Europe grant #101070254.
+#
+#   https://w3id.org/coresense/cso
+#
+# Term IRIs are hash-style (e.g. https://w3id.org/coresense/cso#Modelet), so the
+# fragment is never sent to the server and the rules below resolve every term in
+# the vocabulary. Browsers get the HTML documentation; reasoners get the Turtle.
+#
+# Redirect target : https://coresenseeu.github.io/cso/
+# Source repo     : https://github.com/CoreSenseEU/ontology
+# Project website : https://www.coresense.eu
+#
+# ## Contact
+# This space is administered by:
+#
+# Ricardo Sanz <ricardo.sanz@upm.es>
+# Autonomous Systems Laboratory, Universidad Politecnica de Madrid
+# GitHub username: rsanz
+
+Options -MultiViews
+Options +FollowSymLinks
+
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# Version IRIs:  https://w3id.org/coresense/cso/YYYY-MM-DD
+# Each release is snapshotted under a date-stamped directory and never changes.
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^cso/([0-9]{4}-[0-9]{2}-[0-9]{2})/?$ https://coresenseeu.github.io/cso/$1/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^cso/([0-9]{4}-[0-9]{2}-[0-9]{2})/?$ https://coresenseeu.github.io/cso/$1/cso.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^cso/([0-9]{4}-[0-9]{2}-[0-9]{2})/?$ https://coresenseeu.github.io/cso/$1/cso.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^cso/([0-9]{4}-[0-9]{2}-[0-9]{2})/?$ https://coresenseeu.github.io/cso/$1/cso.nt [R=303,L]
+
+# Turtle is the canonical serialization, and the default for non-browser clients.
+RewriteRule ^cso/([0-9]{4}-[0-9]{2}-[0-9]{2})/?$ https://coresenseeu.github.io/cso/$1/cso.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Latest version:  https://w3id.org/coresense/cso
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^cso/?$ https://coresenseeu.github.io/cso/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^cso/?$ https://coresenseeu.github.io/cso/cso.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^cso/?$ https://coresenseeu.github.io/cso/cso.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^cso/?$ https://coresenseeu.github.io/cso/cso.nt [R=303,L]
+
+# Turtle, including the no-Accept-header and */* cases.
+RewriteRule ^cso/?$ https://coresenseeu.github.io/cso/cso.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Anything else under /coresense/ goes to the project website.
+# ---------------------------------------------------------------------------
+
+RewriteRule ^$ https://www.coresense.eu [R=302,L]

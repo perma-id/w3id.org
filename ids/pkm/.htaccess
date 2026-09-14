@@ -1,0 +1,45 @@
+# https://w3id.org/pkm — PKM (Personal Knowledge Management) namespace
+#
+# A SKOS vocabulary and related Linked Data for the Knowledge System
+# Architecture (KSA) project. Served from GitHub Pages at dpw67.github.io/pkm.
+#
+# ## Contact
+# This space is administered by:
+#
+# Doug Warren
+# GitHub username: dpw67
+# Email: doug@warrenweb.net
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Individual vocabulary terms: /vocab/Recipe -> vocab/terms/Recipe.ttl
+# 303, not 302: a concept is not a document, so the redirect says "here is a
+# document *about* it" (httpRange-14).
+#
+# No dot in the character class, so /vocab/Recipe.ttl and the version IRI
+# /vocab/0.1.1 both fall through to the catch-all rather than matching here.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^vocab/([A-Za-z][A-Za-z0-9_-]*)$ https://dpw67.github.io/pkm/vocab/terms/$1.ttl [R=303,L]
+
+# The concept scheme itself, as a single document.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^vocab/?$ https://dpw67.github.io/pkm/vocab/pkm-vocab.ttl [R=303,L]
+
+# Provenance: the people and software credited in the vocabulary, and the
+# documents it cites. Hash URIs, so one file answers for all of them.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^agents/?$ https://dpw67.github.io/pkm/agents/index.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^resources/?$ https://dpw67.github.io/pkm/resources/index.ttl [R=303,L]
+
+# Declared but not yet populated; the URIs resolve and carry their metadata.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^ontology/?$ https://dpw67.github.io/pkm/ontology/pkm.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|text/n3) [NC]
+RewriteRule ^taxonomy/?$ https://dpw67.github.io/pkm/taxonomy/pkm-taxonomy.ttl [R=303,L]
+
+# Everything else: HTML. Must stay last.
+RewriteRule ^(.*)$ https://dpw67.github.io/pkm/$1 [R=302,L,QSA]

@@ -1,0 +1,47 @@
+# # /greek-coptic-spellings/
+#
+# Persistent identifiers for individual spelling deviations in the dataset
+# "Greek Loanword Spellings in Coptic": places where the Coptic spelling of a
+# Greek loanword departs from the form its Greek lemma leads one to expect, in
+# manuscripts of the 3rd-13th centuries.
+#
+# https://w3id.org/greek-coptic-spellings/deviation/<id> redirects to that one
+# record in the dataset's browsing interface. /dataset negotiates on content
+# type: the CLDF descriptor for JSON, the data table for CSV, the landing page
+# otherwise.
+#
+# 302 rather than 301 throughout: the identifiers are permanent, but the hosting
+# of the interface they resolve to is not promised to be.
+#
+# ## Contact
+# This space is administered by:
+#
+# Kierán Meinhardt
+# GitHub username: kmein
+# ORCID: https://orcid.org/0009-0000-1250-807X
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# A single spelling deviation, e.g. /deviation/71615-3
+#
+# Anchored regex rather than a substring match: some identifiers carry a
+# two-digit index (114524-10 ... 114524-15), so an unanchored search for
+# "114524-1" would select those alongside the intended record.
+RewriteRule ^deviation/(.+)$ https://kmein.github.io/greek-coptic-data/?deviation_id_regex=\%5E$1\%24 [NE,R=302,L]
+
+# The dataset itself: content negotiation between the human landing page and the
+# machine-readable CLDF/JSON-LD descriptor.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^dataset/?$ https://kmein.github.io/greek-coptic-data/cldf-metadata.json [NE,R=302,L]
+
+# ... and the data table itself to a client that asks for CSV, so that the
+# table can be fetched without naming the host it currently sits on.
+RewriteCond %{HTTP_ACCEPT} text/csv
+RewriteRule ^dataset/?$ https://kmein.github.io/greek-coptic-data/deviations.csv [NE,R=302,L]
+
+RewriteRule ^dataset/?$ https://kmein.github.io/greek-coptic-data/ [NE,R=302,L]
+
+# Anything else lands on the dataset.
+RewriteRule ^$ https://kmein.github.io/greek-coptic-data/ [NE,R=302,L]

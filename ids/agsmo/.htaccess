@@ -1,0 +1,38 @@
+# AGSMO — Agent Semantic Memory Ontology
+#
+# Permanent identifiers under:
+#   https://w3id.org/agsmo/
+#
+# Targets (GitHub Pages):
+#   https://sadnanalmanir.github.io/agsmo/
+#
+# ## Contact
+# This space is administered by:
+#
+# Sadnan Al Manir
+# sadnanalmanir@gmail.com
+# GitHub username: sadnanalmanir
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Tutorial ---
+# https://w3id.org/agsmo/tutorial  →  progressive HTML tutorial
+RewriteRule ^tutorial/?$ https://sadnanalmanir.github.io/agsmo/tutorial/ [R=303,L]
+
+# --- Ontology namespace (latest + version 0.1) ---
+# https://w3id.org/agsmo/ns
+# https://w3id.org/agsmo/ns/0.1
+# (Fragment identifiers like #Goal are handled by the client after redirect.)
+RewriteRule ^ns/0\.1/?$ https://sadnanalmanir.github.io/agsmo/ontology/agsmo.ttl [R=303,L]
+RewriteRule ^ns/?$ https://sadnanalmanir.github.io/agsmo/ontology/agsmo.ttl [R=303,L]
+
+# --- Optional: examples directory on Pages ---
+RewriteRule ^examples/?(.*)$ https://sadnanalmanir.github.io/agsmo/examples/$1 [R=303,L]
+
+# --- Project home (WIDOCO docs) ---
+# https://w3id.org/agsmo  and  https://w3id.org/agsmo/
+RewriteRule ^$ https://sadnanalmanir.github.io/agsmo/ [R=303,L]
+
+# --- Fallback: anything else under /agsmo/ → same path on Pages ---
+RewriteRule ^(.+)$ https://sadnanalmanir.github.io/agsmo/$1 [R=303,L]
