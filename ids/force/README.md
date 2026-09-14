@@ -42,7 +42,7 @@ FORCE is designed to assist in ODRL policy development and enhance comprehension
 **Wout Slabbinck**
 - Phd Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
 - email: [wout.slabbinck@ugent.be](mailto:wout.slabbinck@ugent.be)
-- github: [woutslabbinck](https://github.com/woutslabbinck/)OPAL2026
+- github: [woutslabbinck](https://github.com/woutslabbinck/)
 
 **Beatriz Esteves**
 - Postdoctoral Researcher, [UGent](https://www.ugent.be/), [imec](https://www.imec-int.com/en), Belgium
