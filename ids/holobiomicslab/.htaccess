@@ -1,0 +1,42 @@
+# w3id.org permanent identifier: https://w3id.org/holobiomicslab
+# Holobiomics Lab (CNRS / Universite Cote d'Azur) -- artefact identifiers.
+# Skill collections, their registry and the contribution leaderboards.
+# Maintainer: https://github.com/HolobiomicsLab/asb-skill-collections
+
+Options -MultiViews
+RewriteEngine On
+RewriteBase /holobiomicslab
+
+# --- registry -------------------------------------------------------------
+# JSON-LD / RDF  ->  the catalogue document
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^asb-skill/registry/?$ https://raw.githubusercontent.com/HolobiomicsLab/asb-skill-collections/main/catalogue.jsonld [R=303,L]
+RewriteRule ^asb-skill/registry/?$ https://github.com/HolobiomicsLab/asb-skill-collections/blob/main/catalogue.jsonld [R=302,L]
+
+# --- contributors ---------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^asb-skill/contributors/?$ https://raw.githubusercontent.com/HolobiomicsLab/asb-skill-collections/main/contributors.jsonld [R=303,L]
+RewriteRule ^asb-skill/contributors/?$ https://github.com/HolobiomicsLab/asb-skill-collections/blob/main/contributors.jsonld [R=302,L]
+
+# --- leaderboards ---------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^asb-skill/leaderboard/([^/]+)/?$ https://raw.githubusercontent.com/HolobiomicsLab/asb-skill-collections/main/leaderboard/$1.jsonld [R=303,L]
+RewriteRule ^asb-skill/leaderboard/([^/]+)/?$ https://github.com/HolobiomicsLab/asb-skill-collections/blob/main/leaderboard/$1.jsonld [R=302,L]
+
+# --- collections ----------------------------------------------------------
+# A collection IRI is https://w3id.org/holobiomicslab/asb-skill/collection/<slug>/v<N>.
+# No per-collection JSON-LD document is published yet, so every accept type
+# resolves to the collection's directory; add a content-negotiated rule here
+# when collection.jsonld ships.
+RewriteRule ^asb-skill/collection/([^/]+)/v([0-9]+)/?$ https://github.com/HolobiomicsLab/asb-skill-collections/tree/main/collections/$1/v$2 [R=302,L]
+
+# --- namespace root and fall-through --------------------------------------
+RewriteRule ^asb-skill/?$ https://github.com/HolobiomicsLab/asb-skill-collections [R=302,L]
+RewriteRule ^$ https://github.com/HolobiomicsLab [R=302,L]
+RewriteRule ^(.+) https://github.com/HolobiomicsLab/asb-skill-collections [R=302,L]
