@@ -1,0 +1,103 @@
+# Whole-tree audit, for maintainers rather than contributors.
+#
+# Pull requests are judged only on what they change, so the repository's
+# existing backlog stays invisible there by design. This is where it stays
+# visible: a weekly count of every finding in the tree, and the standing list
+# of identifiers that do not resolve or that are a security problem.
+#
+# Nothing here gates anything. It reports.
+name: Audit
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    # Mondays, early UTC.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Whole-tree audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to check out the tree being audited
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The trend report reads the tree as it was a year ago, so it needs
+          # the history. A shallow clone silently produces a one-column
+          # report rather than failing.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: tools/check/package-lock.json
+
+      - run: npm ci --ignore-scripts
+        working-directory: tools/check
+
+      # The rules still have to survive the real tree. This is the only
+      # assertion left over it, and it is about crashes rather than counts.
+      - name: Rules survive the real tree
+        env:
+          W3ID_CHECK_CORPUS: '1'
+        run: npm test
+        working-directory: tools/check
+
+      # Reports; never fails. Rule counts are not bounded here: the tree
+      # grows about 30% a year, so ordinary growth would exceed any useful
+      # bound within weeks. This stores nothing and computes its own
+      # comparison points from dates.
+      - name: Backlog trend
+        run: |
+          node tools/check/bin/w3id-check-trend.js \
+            | tee -a "${GITHUB_STEP_SUMMARY}"
+
+      - name: Backlog size
+        run: |
+          node tools/check/bin/w3id-check.js --all --stats \
+            | tee -a "${GITHUB_STEP_SUMMARY}"
+
+      # The code fence is not formatting. This report prints maintainer
+      # handles as `@name`, read out of files contributors control, and
+      # GitHub does not linkify a mention inside a fence. Without it every
+      # run would notify every account named anywhere under ids/. Keep the
+      # report fenced, or strip the `@` before rendering it any other way.
+      - name: Identifiers needing repair
+        run: |
+          {
+            echo
+            echo '## Needs repair'
+            echo
+            echo 'These identifiers do not resolve, or are a security problem.'
+            echo 'They are listed with whatever maintainer usernames could be'
+            echo 'recovered from their .htaccess or README.'
+            echo
+            echo '```'
+            node tools/check/bin/w3id-check.js --triage
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Save the machine-readable report
+        run: |
+          mkdir -p "${RUNNER_TEMP}/audit"
+          node tools/check/bin/w3id-check.js --all --stats --triage \
+            --format json --output "${RUNNER_TEMP}/audit/audit.json"
+          node tools/check/bin/w3id-check-trend.js --format=json \
+            > "${RUNNER_TEMP}/audit/trend.json"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: audit
+          path: ${{ runner.temp }}/audit/
+          retention-days: 90

@@ -1,0 +1,223 @@
+#!/bin/sh
+#
+# Ask a local w3id.org server how it resolves an identifier, and print what
+# comes back.
+#
+#   tools/server/bin/resolve-identifier my-project
+#   tools/server/bin/resolve-identifier my-project vocab vocab/Thing 1.2.0
+#   W3ID_BASE=http://localhost:9000 tools/server/bin/resolve-identifier my-project
+#
+# This runs the checks docs/guides/testing.md asks people to make by hand. It
+# reports what the server said; it cannot tell you whether that is what you
+# meant. Nothing here knows where your identifier is supposed to point.
+#
+# The Accept matrix runs against the identifier root AND against every
+# sub-path given, because negotiation is usually written for a particular
+# resource rather than for the identifier itself -- a rule like
+# `RewriteRule ^context\.jsonld$ ... ` can only be seen by asking for that
+# path with those headers. Testing the root alone reports "no negotiation" for
+# an identifier that negotiates perfectly well one level down.
+#
+# POSIX sh on purpose -- this has to run wherever curl does, without asking
+# anyone to install a shell first.
+
+set -eu
+
+base=${W3ID_BASE:-http://localhost:8080}
+
+usage() {
+  cat >&2 <<'USAGE'
+usage: resolve-identifier IDENTIFIER [SUBPATH...]
+
+Prints the status and Location for the identifier root, its bare no-slash
+form, each SUBPATH given, and a range of Accept headers against each.
+
+  IDENTIFIER   the directory name under ids/, for example my-project
+  SUBPATH      a further path to check, relative to the identifier
+
+Include the sub-paths you did NOT intend to match, as well as the ones you
+did: a rule landing on a request by accident is the failure this catches. If
+your rules negotiate on Accept, name the path they negotiate for -- the
+headers are tried against every sub-path you give.
+
+Set W3ID_BASE to point somewhere other than http://localhost:8080.
+USAGE
+  exit 2
+}
+
+[ $# -ge 1 ] || usage
+case $1 in
+  -h | --help) usage ;;
+esac
+
+# Tolerate a leading or trailing slash, and "ids/foo" for someone who typed
+# the repository path out of habit.
+id=$(printf '%s' "$1" | sed 's|^/*||; s|^ids/||; s|/*$||')
+[ -n "$id" ] || usage
+shift
+
+command -v curl >/dev/null 2>&1 || {
+  echo "resolve-identifier: curl is required but was not found" >&2
+  exit 1
+}
+
+work=$(mktemp) || exit 1
+trap 'rm -f "$work"' EXIT INT TERM
+
+# The Accept values worth trying, as tokens expanded by accept_header and
+# accept_label below. Kept as tokens because a POSIX shell has no arrays and
+# these values contain the characters a delimiter would want.
+ACCEPTS='turtle jsonld rdfxml ntriples html any none browser'
+
+accept_header() {
+  case $1 in
+    turtle) echo 'text/turtle' ;;
+    jsonld) echo 'application/ld+json' ;;
+    rdfxml) echo 'application/rdf+xml' ;;
+    ntriples) echo 'application/n-triples' ;;
+    html) echo 'text/html' ;;
+    any) echo '*/*' ;;
+    none) echo '@none' ;;
+    browser) echo 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' ;;
+  esac
+}
+
+accept_label() {
+  case $1 in
+    none) echo '(no Accept header)' ;;
+    browser) echo "a browser's real Accept" ;;
+    *) accept_header "$1" ;;
+  esac
+}
+
+# One request. Sets req_status, req_location and req_failed.
+request() {
+  req_url=$1
+  req_accept=${2-}
+  req_failed=
+
+  # An empty Accept: header removes curl's default rather than sending a blank
+  # one, which is how the "client sent no Accept at all" case is tested.
+  if [ "$req_accept" = '@none' ]; then
+    req_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      -H 'Accept:' "$req_url" 2>&1) || req_failed=yes
+  elif [ -n "$req_accept" ]; then
+    req_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      -H "Accept: $req_accept" "$req_url" 2>&1) || req_failed=yes
+  else
+    req_headers=$(curl -sS -o /dev/null -D - --max-time 10 \
+      "$req_url" 2>&1) || req_failed=yes
+  fi
+
+  if [ -n "$req_failed" ]; then
+    req_status='---'
+    req_location="request failed: $req_headers"
+    return 0
+  fi
+
+  # Take the last status line and the last Location: an intermediate 100
+  # Continue would otherwise shadow the real answer.
+  req_status=$(printf '%s\n' "$req_headers" |
+    awk '/^HTTP\//{s = $2} END {print s}')
+  req_location=$(printf '%s\n' "$req_headers" |
+    awk 'tolower($1) == "location:" {l = $2} END {print l}')
+}
+
+row() {
+  if [ -n "$2" ]; then
+    printf '    %-32s  %-3s  -> %s\n' "$1" "$3" "$2"
+  else
+    printf '    %-32s  %-3s\n' "$1" "$3"
+  fi
+}
+
+probe() {
+  request "$2" "${3-}"
+  row "$1" "$req_location" "$req_status"
+}
+
+# Every Accept value against one URL. Prints one line if they all agree, and
+# the full table when they do not -- so a path that negotiates stands out from
+# one that does not, instead of both being eight near-identical lines.
+accept_matrix() {
+  am_label=$1
+  am_url=$2
+
+  : >"$work"
+  for am_token in $ACCEPTS; do
+    request "$am_url" "$(accept_header "$am_token")"
+    printf '%s\t%s\t%s\n' "$am_token" "$req_status" "$req_location" >>"$work"
+  done
+
+  am_distinct=$(cut -f2,3 <"$work" | sort -u | wc -l)
+
+  printf '\n  Accept headers, against %s\n' "$am_label"
+  if [ "$am_distinct" -eq 1 ]; then
+    am_status=$(head -n 1 "$work" | cut -f2)
+    am_location=$(head -n 1 "$work" | cut -f3)
+    row 'every Accept value alike' "$am_location" "$am_status"
+    printf '    %s\n' '(this path does not vary by Accept)'
+  else
+    while IFS=$(printf '\t') read -r am_token am_status am_location; do
+      row "$(accept_label "$am_token")" "$am_location" "$am_status"
+    done <"$work"
+  fi
+}
+
+printf '\nResolving "%s" against %s\n' "$id" "$base"
+
+if ! curl -sS -o /dev/null --max-time 5 "$base/" 2>/dev/null; then
+  cat >&2 <<EOF
+
+Cannot reach $base -- is the server running?
+
+  cd tools/server && docker compose up
+
+See docs/guides/local-server.md if it will not start.
+EOF
+  exit 1
+fi
+
+printf '\n  The identifier itself\n'
+probe "/$id/" "$base/$id/"
+
+# Apache redirects a bare directory URL to the trailing-slash form itself,
+# before any .htaccess rule runs, so this normally shows an extra 301 hop.
+# That hop is expected and is not something to try to remove.
+probe "/$id  (no trailing slash)" "$base/$id"
+
+accept_matrix "/$id/" "$base/$id/"
+
+for sub in "$@"; do
+  sub=$(printf '%s' "$sub" | sed 's|^/*||')
+  printf '\n  Sub-path /%s/%s\n' "$id" "$sub"
+  probe "/$id/$sub" "$base/$id/$sub"
+  accept_matrix "/$id/$sub" "$base/$id/$sub"
+done
+
+printf '\n  Following the whole chain from /%s/\n' "$id"
+if chain=$(curl -sS -o /dev/null -L --max-time 20 \
+  -w '%{http_code} %{num_redirects} %{url_effective}' "$base/$id/" 2>&1); then
+  IFS=' ' read -r chain_code chain_hops chain_url <<EOF
+$chain
+EOF
+  printf '    final status %s after %s hop(s)\n' "$chain_code" "$chain_hops"
+  printf '    ends at      %s\n' "$chain_url"
+else
+  printf '    request failed: %s\n' "$chain"
+fi
+
+cat <<'EOF'
+
+Read the results, do not just count them:
+
+  - A 500 anywhere means an .htaccess syntax error. The server log names the
+    file and the line -- `docker compose logs w3id`.
+  - A 406 means a content-negotiation catch-all is matching real requests.
+  - "does not vary by Accept" is only news if you wrote a rule that should
+    have varied. Negotiation is usually written for one path, so check it
+    against that path rather than the identifier root.
+  - The chain should end at 200. A 404 at the end means the rules are fine and
+    the target is wrong, which no local server can tell you about.
+
+EOF

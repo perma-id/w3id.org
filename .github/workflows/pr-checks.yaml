@@ -1,0 +1,145 @@
+# Checks every pull request against the repository's contribution rules.
+#
+# Almost every pull request here comes from a fork, and a fork's GITHUB_TOKEN
+# is read-only no matter what this file requests. That is deliberate and this
+# workflow is built for it: inline annotations and the job summary are produced
+# by the runner itself, need no token and no permissions, and therefore work
+# for forks. Nothing here posts a comment, and nothing here may.
+#
+# The workflow must never use `pull_request_target`: that trigger would run
+# with a read/write token and repository secrets while checking out code the
+# contributor controls.
+name: PR checks
+
+on:
+  pull_request:
+    branches: ['**']
+
+# No permissions by default; each job asks for the minimum it needs.
+permissions: {}
+
+# A new push supersedes any run still in flight for the same pull request.
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Rules
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to check out the pull request being examined
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The checker compares against the merge base, so it needs history.
+          fetch-depth: 0
+          # Never leave a token in .git/config for contributor code to find.
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: tools/check/package-lock.json
+
+      - name: Install the checker
+        # --ignore-scripts: a dependency's install hook must not run here.
+        run: npm ci --ignore-scripts
+        working-directory: tools/check
+
+      - name: Run the checks
+        id: checks
+        # Values from the event are passed through the environment. Putting
+        # them in the script would let a branch name or a title inject shell.
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        # Let the report be written and uploaded even when checks fail; the
+        # job's final step decides the outcome.
+        continue-on-error: true
+        run: |
+          node tools/check/bin/w3id-check.js \
+            --base "${BASE_SHA}" \
+            --head "${HEAD_SHA}" \
+            --format github
+
+      - name: Write the job summary
+        if: always()
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          node tools/check/bin/w3id-check.js \
+            --base "${BASE_SHA}" \
+            --head "${HEAD_SHA}" \
+            --format markdown \
+            --output "${RUNNER_TEMP}/summary.md" || true
+          cat "${RUNNER_TEMP}/summary.md" >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Build the report artifact
+        if: always()
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p "${RUNNER_TEMP}/report"
+          node tools/check/bin/w3id-check.js \
+            --base "${BASE_SHA}" \
+            --head "${HEAD_SHA}" \
+            --format json \
+            --output "${RUNNER_TEMP}/report/results.json" || true
+          cp "${RUNNER_TEMP}/summary.md" "${RUNNER_TEMP}/report/comment.md"
+          printf '%s\n' "${PR_NUMBER}" > "${RUNNER_TEMP}/report/pr-number.txt"
+
+      # Nothing consumes this yet. It is what a later privileged workflow will
+      # read to post a pull request comment, and it must be treated there as
+      # untrusted data: read it, never execute it.
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pr-check-report
+          path: ${{ runner.temp }}/report/
+          retention-days: 7
+
+      - name: Fail if any check reported an error
+        if: steps.checks.outcome == 'failure'
+        run: |
+          echo 'The checks above must be fixed before this can be merged.'
+          echo 'See the job summary for the full report.'
+          exit 1
+
+  selftest:
+    name: Checker tests
+    runs-on: ubuntu-latest
+    # Runs on every pull request rather than only those touching tools/.
+    # Not because an identifier change could fail it -- nothing in the
+    # default suite reads ids/; the one test that does is gated behind
+    # W3ID_CHECK_CORPUS, which only the weekly audit sets. It runs everywhere
+    # because it is seconds long, and because a `paths:` filter on a required
+    # check leaves a pull request waiting forever on a status that a skipped
+    # job never reports.
+    permissions:
+      contents: read # to check out the checker and its tests
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: tools/check/package-lock.json
+
+      - run: npm ci --ignore-scripts
+        working-directory: tools/check
+
+      - name: Run the checker's own tests
+        run: npm test
+        working-directory: tools/check
