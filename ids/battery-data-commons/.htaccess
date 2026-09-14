@@ -1,0 +1,92 @@
+##########################################################################
+# .htaccess file https://w3id.org/battery-data-commons
+#
+# If testing interactively with https://htaccess.madewithlove.com/
+# remember to remove the initial "battery-data-commons/" in the URL to test.
+#
+##########################################################################
+
+Options +FollowSymLinks
+RewriteEngine On
+
+##########################################################################
+##  Redirections to raw files in the GitHub repo
+##########################################################################
+
+RewriteRule ^raw/(.+)$ https://raw.githubusercontent.com/BatteryCommons/BatteryDataCommons/main/$1 [R=303,NE,L]
+RewriteRule ^schema/(.+)$ https://raw.githubusercontent.com/BatteryCommons/BatteryDataCommons/main/schemas/$1 [R=303,NE,L]
+
+##########################################################################
+##  Catalogue root and whole-catalogue graph
+##########################################################################
+
+# https://w3id.org/battery-data-commons
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://batterydatacommons.org/ [R=303,NE,L]
+RewriteRule ^$ https://batterydatacommons.org/releases/battinfo/bdc.ttl [R=303,NE,L]
+
+# https://w3id.org/battery-data-commons/turtle
+RewriteRule ^turtle/?$ https://batterydatacommons.org/releases/battinfo/bdc.ttl [R=303,NE,L]
+
+##########################################################################
+##  Source/latest aliases
+##########################################################################
+
+RewriteRule ^latest/?$ https://raw.githubusercontent.com/BatteryCommons/BatteryDataCommons/main/releases/battinfo/bdc.ttl [R=303,NE,L]
+RewriteRule ^source/?$ https://raw.githubusercontent.com/BatteryCommons/BatteryDataCommons/main/releases/battinfo/bdc.ttl [R=303,NE,L]
+
+##########################################################################
+##  Record identifiers: datasets and tools (latest release)
+##########################################################################
+
+# https://w3id.org/battery-data-commons/dataset/bdc_000001
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^dataset/(bdc_[0-9]{6})/?$ https://batterydatacommons.org/dataset.html?id=$1 [R=303,NE,L]
+RewriteRule ^dataset/(bdc_[0-9]{6})/?$ https://batterydatacommons.org/releases/battinfo/records/$1.jsonld [R=303,NE,L]
+
+# https://w3id.org/battery-data-commons/tool/bdc_sw_001
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^tool/(bdc_sw_[0-9]{3})/?$ https://batterydatacommons.org/tools.html#$1 [R=303,NE,L]
+RewriteRule ^tool/(bdc_sw_[0-9]{3})/?$ https://batterydatacommons.org/releases/battinfo/records/$1.jsonld [R=303,NE,L]
+
+##########################################################################
+##  BDC vocabulary, SKOS concept scheme (latest release)
+##########################################################################
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^vocab/?$ https://batterydatacommons.org/vocab.html [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^vocab/([^/]+)/?$ https://batterydatacommons.org/vocab.html#$1 [R=303,NE,L]
+RewriteRule ^vocab(/.*)?$ https://batterydatacommons.org/releases/battinfo/vocab.ttl [R=303,NE,L]
+
+##########################################################################
+##  Versioned releases: one folder per release under releases/versions/
+##  (versions start with "v" and a digit, e.g. v1309.2026)
+##########################################################################
+
+# https://w3id.org/battery-data-commons/v1309.2026
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(v[0-9][^/]*)/?$ https://batterydatacommons.org/releases/versions/$1/ [R=303,NE,L]
+RewriteRule ^(v[0-9][^/]*)/?$ https://batterydatacommons.org/releases/versions/$1/bdc.ttl [R=303,NE,L]
+
+RewriteRule ^(v[0-9][^/]*)/turtle/?$ https://batterydatacommons.org/releases/versions/$1/bdc.ttl [R=303,NE,L]
+
+# https://w3id.org/battery-data-commons/v1309.2026/dataset/bdc_000001
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(v[0-9][^/]*)/dataset/(bdc_[0-9]{6})/?$ https://batterydatacommons.org/releases/versions/$1/records/$2.html [R=303,NE,L]
+RewriteRule ^(v[0-9][^/]*)/dataset/(bdc_[0-9]{6})/?$ https://batterydatacommons.org/releases/versions/$1/records/$2.jsonld [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(v[0-9][^/]*)/tool/(bdc_sw_[0-9]{3})/?$ https://batterydatacommons.org/releases/versions/$1/records/$2.html [R=303,NE,L]
+RewriteRule ^(v[0-9][^/]*)/tool/(bdc_sw_[0-9]{3})/?$ https://batterydatacommons.org/releases/versions/$1/records/$2.jsonld [R=303,NE,L]
+
+# https://w3id.org/battery-data-commons/v1309.2026/vocab
+RewriteRule ^(v[0-9][^/]*)/vocab(/.*)?$ https://batterydatacommons.org/releases/versions/$1/vocab.ttl [R=303,NE,L]
