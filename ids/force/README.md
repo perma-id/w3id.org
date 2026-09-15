@@ -34,6 +34,7 @@ FORCE is designed to assist in ODRL policy development and enhance comprehension
 | /papers/NXDG2025           | Paper introducing FORCE                                                                              | https://pod.woutslabbinck.com/WIP/25-08-05_NXDG25-FORCE.pdf                                                                                 |
 | /papers/WOP2025            | Paper elaborating formalisation ODRL inputs                                                          | https://raw.githubusercontent.com/woutslabbinck/papers/main/2025/Capturing_Requests_and_Context_for_ODRL-based_Access_and_Usage_Control.pdf |
 | /papers/OPAL2026           | Paper highlighting issues with ODRL 2.2 and providing suggestions for ODRL 3.0                       | https://knowledgeonwebscale.github.io/odrl3paper/paper.pdf                                                                                  |
+| /papers/NXDG2026           | Paper introducing the ODRL Validator: SHACL validation + inconsistency detection                     | https://openreview.net/pdf?id=IKYFFh0qab                                                                                                    |
 
 
 ## Contacts

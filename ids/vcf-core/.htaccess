@@ -1,0 +1,88 @@
+# https://w3id.org/vcf-core/
+#
+# VCF Core Vocabulary - an RDF vocabulary and SHACL profile for VCF 4.5 files,
+# headers, records, calls, and genotype data.
+#
+# Maintainer: Elias Crum <elias.crum@ugent.be>
+#             IDLab, Ghent University - imec, Belgium
+# Source:     https://github.com/ecrum19/vcf-core-vocabulary
+#
+# ## Contact
+# This space is administered by:
+# Elias Crum
+# GitHub username: ecrum19
+# Email: elias.crum@ugent.be
+#
+#   https://ecrum19.github.io/vcf-core-vocabulary
+#
+# The predecessor namespace https://w3id.org/vcf-rdfizer/ is handled by a
+# SEPARATE .htaccess in this pull request.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# The /vocab endpoint has different representations depending on Accept.
+# Tell caches not to reuse the HTML response for RDF clients, or vice versa.
+<IfModule mod_headers.c>
+  Header always append Vary Accept
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Vocabulary. Fragment IRIs such as .../vocab#VCFFile dereference to /vocab.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*text/turtle([[:space:];,]|$) [NC,OR]
+RewriteCond %{HTTP_ACCEPT} (^|,)[[:space:]]*application/x-turtle([[:space:];,]|$) [NC]
+# Serve the generated aggregate here so every vcfc: fragment dereferences to a
+# document that contains its definition; normative module files remain routed
+# individually below.
+RewriteRule ^vocab/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary.bundle.ttl [R=302,L]
+
+RewriteRule ^vocab/?$ https://ecrum19.github.io/vcf-core-vocabulary/ontology-reference.html [R=302,L]
+
+# Explicit file extensions bypass negotiation.
+RewriteRule ^vocab\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary.bundle.ttl [R=302,L]
+RewriteRule ^vocab\.html$ https://ecrum19.github.io/vcf-core-vocabulary/ontology-reference.html [R=302,L]
+
+# Additive VCF 4.5 modules. These IRIs have no fragment namespace of their
+# own; all terms continue to use the vcfc: namespace served at /vocab.
+RewriteRule ^alleles/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-alleles.ttl [R=302,L]
+RewriteRule ^alleles\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-alleles.ttl [R=302,L]
+RewriteRule ^genotypes/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-genotypes.ttl [R=302,L]
+RewriteRule ^genotypes\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-genotypes.ttl [R=302,L]
+RewriteRule ^sv/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-sv.ttl [R=302,L]
+RewriteRule ^sv\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-sv.ttl [R=302,L]
+RewriteRule ^reserved-keys/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-reserved-keys.ttl [R=302,L]
+RewriteRule ^reserved-keys\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-reserved-keys.ttl [R=302,L]
+
+# Versioned snapshots (owl:versionIRI).
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/ecrum19/vcf-core-vocabulary/releases/tag/v$1 [R=302,L]
+
+# ---------------------------------------------------------------------------
+# SHACL shapes
+# ---------------------------------------------------------------------------
+RewriteRule ^shapes/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary.shacl.ttl [R=302,L]
+RewriteRule ^shapes\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary.shacl.ttl [R=302,L]
+RewriteRule ^shapes/sparql/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary-sparql.shacl.ttl [R=302,L]
+RewriteRule ^shapes/sparql\.ttl$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-vocabulary-sparql.shacl.ttl [R=302,L]
+
+# Shared consistency rules and version overlays; load with the portable/core profiles.
+RewriteRule ^shapes/consistency(?:\.ttl)?/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-core-consistency.shacl.ttl [R=302,L]
+RewriteRule ^shapes/4\.([1-5])(?:\.ttl)?/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-4.$1.shacl.ttl [R=302,L]
+RewriteRule ^reserved-keys/4\.([1-4])(?:\.ttl)?/?$ https://ecrum19.github.io/vcf-core-vocabulary/assets/vcf-4.$1-reserved.ttl [R=302,L]
+
+# ---------------------------------------------------------------------------
+# Examples
+# ---------------------------------------------------------------------------
+RewriteRule ^examples/?$ https://ecrum19.github.io/vcf-core-vocabulary/index.html#examples [R=302,L]
+RewriteRule ^examples/(.+)$ https://ecrum19.github.io/vcf-core-vocabulary/assets/$1 [R=302,L]
+
+# ---------------------------------------------------------------------------
+# Instance IRI space, reserved. Nothing is published under it yet.
+# ---------------------------------------------------------------------------
+RewriteRule ^vcf/ - [R=404,L]
+
+# ---------------------------------------------------------------------------
+# Everything else: the companion documentation site.
+# ---------------------------------------------------------------------------
+RewriteRule ^$ https://ecrum19.github.io/vcf-core-vocabulary/ [R=302,L]
+RewriteRule ^(.*)$ https://ecrum19.github.io/vcf-core-vocabulary/$1 [R=302,L]

@@ -15,21 +15,20 @@
 #   sdtm/          core SDTM ontology        cosmos_sdtm_v1
 #   qbc/           overlay ontology          cosmos_qbc_v1
 #   qbc/instances/ overlay instance graph    cosmos_qbc_v1.instances
-#   dss/           RESERVED, not registered: the Dataset Specialization
-#                  instance graph is deferred (cosmos-rdf decision D4). The
-#                  IRIs already minted under it (recording subjects) are
-#                  stable identity and will resolve when that layer lands;
-#                  until then they 404 by design.
+#   dss/<DOMAIN>/  Dataset Specialization instance graph of one SDTM
+#                  domain, cosmos_sdtm_v1.<DOMAIN>.instances (32 domains,
+#                  one generic rule)
 #
 # Rule: an IRI resolves to a document that has it as subject. A term of
 # the overlay ontology (class, property; enum values carry a fragment, so
 # the enum is the term) resolves to the ontology; an individual - a
 # qualified concept, a scale node, a use-node, a category label-node - to
 # its instance graph; an ontology IRI to the ontology at the current
-# release; a version IRI (bare-numeric path, e.g. bc/0.3.0) to its own
-# release through one generic rule per graph. Fixed paths serve the
-# JSON-LD contexts (bc/context.jsonld, sdtm/context.jsonld) and the SHACL
-# shapes (bc/shapes, sdtm/shapes, qbc/shapes).
+# release; a version IRI (bare-numeric path, e.g. bc/0.3.0 or
+# dss/LB/0.4.0) to its own release through one generic rule per graph.
+# Fixed paths serve the JSON-LD contexts (bc/context.jsonld,
+# sdtm/context.jsonld) and the SHACL shapes (bc/shapes, sdtm/shapes,
+# qbc/shapes).
 #
 # Targets are the GitHub Pages site of kerfors/cosmos-rdf, rebuilt from
 # every release tag: /vX.Y.Z/<graph>.{ttl,nt,rdf,jsonld}, Turtle canonical
@@ -130,7 +129,7 @@ RewriteRule ^qbc/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/
 
 # --- Ontology IRIs (segment root, with or without the slash) and, for the
 #     overlay, its terms: the classes and properties the T-Box declares,
-#     read from cosmos_qbc_v1.ttl by 80_generate_htaccess.ipynb (44 at v0.3.0).
+#     read from cosmos_qbc_v1.ttl by 80_generate_htaccess.ipynb (44 at v0.4.0).
 #     A browser gets the WIDOCO description; an RDF client gets the ontology.
 #     Three overlay terms carry no rdfs:label and so have no anchor in the page
 #     (gen-owl emits a bare declaration for a name declared on more than one
@@ -198,7 +197,54 @@ RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^qbc/.+ https://kerfors.github.io/cosmos-rdf/latest/index.html [R=303,L]
 RewriteRule ^qbc/.+ https://kerfors.github.io/cosmos-rdf/latest/cosmos_qbc_v1.instances.ttl [R=303,L]
 
-# --- sdtm/ has no instance graph (decision D4): the root and anything under it
+# --- dss/: the Dataset Specialization graphs, one per domain (decision D32).
+#     dss/{DOMAIN}/X.Y.Z is the version IRI of that domain's graph, dss/{DOMAIN}
+#     its ontology IRI, and every IRI beneath - a specialization, a variable,
+#     an assigned term, a relationship - is an individual in the same graph.
+#     One generic block each, so neither a release nor a new domain changes
+#     this file. No WIDOCO page: an instance graph, so a browser gets the
+#     release index. The bare segment is the site index, as the namespace root.
+#     First, the overlay's recording specimen (D17, D22): a node the DSS layer
+#     never mints, described only by the overlay graph, so it resolves there.
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^dss/[A-Z]+/[A-Z][A-Z0-9_]*/specimen$ https://kerfors.github.io/cosmos-rdf/latest/cosmos_qbc_v1.instances.nt [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dss/[A-Z]+/[A-Z][A-Z0-9_]*/specimen$ https://kerfors.github.io/cosmos-rdf/latest/cosmos_qbc_v1.instances.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dss/[A-Z]+/[A-Z][A-Z0-9_]*/specimen$ https://kerfors.github.io/cosmos-rdf/latest/cosmos_qbc_v1.instances.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^dss/[A-Z]+/[A-Z][A-Z0-9_]*/specimen$ https://kerfors.github.io/cosmos-rdf/latest/index.html [R=303,L]
+RewriteRule ^dss/[A-Z]+/[A-Z][A-Z0-9_]*/specimen$ https://kerfors.github.io/cosmos-rdf/latest/cosmos_qbc_v1.instances.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^dss/([A-Z]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/v$2/dss/cosmos_sdtm_v1.$1.instances.nt [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dss/([A-Z]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/v$2/dss/cosmos_sdtm_v1.$1.instances.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dss/([A-Z]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/v$2/dss/cosmos_sdtm_v1.$1.instances.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^dss/([A-Z]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/v$2/index.html [R=303,L]
+RewriteRule ^dss/([A-Z]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://kerfors.github.io/cosmos-rdf/v$2/dss/cosmos_sdtm_v1.$1.instances.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^dss/([A-Z]+)(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/dss/cosmos_sdtm_v1.$1.instances.nt [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dss/([A-Z]+)(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/dss/cosmos_sdtm_v1.$1.instances.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dss/([A-Z]+)(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/dss/cosmos_sdtm_v1.$1.instances.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^dss/([A-Z]+)(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/index.html [R=303,L]
+RewriteRule ^dss/([A-Z]+)(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/dss/cosmos_sdtm_v1.$1.instances.ttl [R=303,L]
+
+RewriteRule ^dss/?$ https://kerfors.github.io/cosmos-rdf/latest/index.html [R=303,L]
+
+# --- sdtm/ has no instance graph of its own: the root and anything under it
 #     resolve to the ontology. The class and property IRIs of the core rendering
 #     are CDISC's own https://www.cdisc.org/cosmos/ strings and are not served here,
 #     so there is no per-term rule to write for this segment.
@@ -219,6 +265,3 @@ RewriteRule ^sdtm(/.*)?$ https://kerfors.github.io/cosmos-rdf/latest/cosmos_sdtm
 #     target gets percent-encoded by mod_rewrite unless flagged NE, and GitHub
 #     answers %23readme with 400 - measured live 2026-09-04.)
 RewriteRule ^$ https://kerfors.github.io/cosmos-rdf/index.html [R=303,L]
-
-# dss/ deliberately has no rule (see header): unmatched, it falls through to
-# the w3id 404 until the Dataset Specialization layer lands (D4).
