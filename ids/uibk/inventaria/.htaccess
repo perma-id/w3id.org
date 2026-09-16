@@ -1,0 +1,23 @@
+# Permanent identifier redirect for https://w3id.org/uibk/inventaria/
+#
+# Within the [Inventaria project](https://www.inventaria.at/) an RDF Graph was developped and we use w3id for permanent URIs
+#
+# Contact
+# Gerald Hiebel
+# University of Innsbruck, Digital Science Center (DiSC)
+# GitHub: @geraldhiebel
+
+RewriteEngine On
+
+# Raum
+RewriteRule ^uibk/inventaria/E27_site/inv_castle:([0-9]+)(/X)?/room:([A-Za-z0-9_]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/burgen/castle/$1/room:$3" [R=303,NE,L]
+# Burg
+RewriteRule ^uibk/inventaria/E27_site/inv_castle:([0-9]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/burgen/castle/$1" [R=303,NE,L]
+# Person
+RewriteRule ^uibk/inventaria/E21_person/(inv_per:[0-9]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/personen/$1" [R=303,NE,L]
+# Gegenstand
+RewriteRule ^uibk/inventaria/([^/]+)/TX7_text_segment/(entity[0-9a-f]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/gegenstaende/$1/$2" [R=303,NE,L]
+# Inventar
+RewriteRule ^uibk/inventaria/E31_document_TX1_written_text/([^/]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/inventare/$1" [R=303,NE,L]
+# Inventarerstellung
+RewriteRule ^uibk/inventaria/E65_creation_actE3_Intention_to_Apply/creation_([^/]+)$ "https://disc-semantic.uibk.ac.at/home/inventaria/#/erstellung/$1" [R=303,NE,L]
