@@ -8,13 +8,15 @@
 #
 #   /campop/                  → CAMPOP homepage
 #   /campop/place/{id}        → a place
-#   /campop/source/{id}       → a source (a published list or record series)
-#   /campop/criterion/{id}    → a named, versioned selection criterion
 #   /campop/context           → JSON-LD context document
 #
-# Entity-level rules will be added in a follow-up pull request when the
-# corresponding static API is deployed; see README.md for the intended URI
-# scheme. Only rules with live targets are enabled here.
+# Place rules are now live, resolving to the static API at
+# https://docuracy.github.io/CAMPOP-Places/. Only rules with live targets are
+# enabled here.
+#
+# Place identifiers are {County}.{Place} - a three-letter Chapman county code and
+# the place's canonical name with spaces as hyphens, e.g. AGY.Beaumaris. The whole
+# string is authoritative. See README.md.
 
 Options +FollowSymLinks
 RewriteEngine on
@@ -24,3 +26,34 @@ Header set Access-Control-Allow-Headers "Accept"
 
 # --- Namespace homepage ---
 RewriteRule ^$ https://www.campop.geog.cam.ac.uk/ [R=303,L]
+
+# --- Places -----------------------------------------------------------------
+# 303 See Other throughout, not 302: a place is not a document, so its
+# identifier must not 200. 303 says "the thing you asked for is not a web
+# resource, but here is a description of it" - httpRange-14, which linked-data
+# clients depend on.
+#
+# GitHub Pages is static and cannot read an Accept header, so the negotiation
+# has to happen here. Pages only ever serves a file.
+
+# An explicit .json suffix beats any Accept header, for curl and for anything
+# sending Accept: */*.
+RewriteRule ^place/([A-Za-z]{3})\.(.+)\.json$ https://docuracy.github.io/CAMPOP-Places/place/$1/$2.json [R=303,L]
+
+# Machine representations. Files are sharded on the county code so that ~1,700
+# of them browse as 92 directories.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^place/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/CAMPOP-Places/place/$1/$2.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^place/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/CAMPOP-Places/place/?id=$1.$2 [R=303,L]
+
+# The collection, for bulk users.
+RewriteRule ^places\.json$ https://docuracy.github.io/CAMPOP-Places/campop-places.lp.geo.json [R=303,L]
+
+# --- JSON-LD context --------------------------------------------------------
+# The Linked Places context plus the ten terms this dataset adds. Served as a
+# plain file, so a 303 is not required and would only add a hop.
+RewriteRule ^context$ https://docuracy.github.io/CAMPOP-Places/context.jsonld [R=302,L]
