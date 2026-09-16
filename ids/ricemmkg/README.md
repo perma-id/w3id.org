@@ -1,6 +1,6 @@
 # Rice MMKG — Rice Multimodal Knowledge Graph
 
-Permanent identifier for the namespace of **Rice MMKG**, an OWL 2 ontology and knowledge graph for rice disease and pest diagnosis. It links diseases, pests, pathogens, symptoms, growth stages, environmental factors, treatments and management actions, with every domain assertion carrying a literature citation, and connects them to 10,407 field images from the Paddy Doctor dataset.
+Permanent identifier for the namespace of **Rice MMKG**, an OWL 2 ontology and knowledge graph for rice disease and pest diagnosis. It links diseases, pests, pathogens, symptoms, growth stages, environmental factors, treatments, and management actions, with every domain assertion carrying a literature citation, and connects them to 10,407 field images from the Paddy Doctor dataset.
 
 - **Namespace:** `https://w3id.org/ricemmkg#` — hash IRIs, e.g. `https://w3id.org/ricemmkg#Rice_Blast_Disease`
 - **Version IRIs:** `https://w3id.org/ricemmkg/<version>`, e.g. `https://w3id.org/ricemmkg/0.6.1`
