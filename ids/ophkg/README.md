@@ -3,7 +3,7 @@
 Persistent identifier: <https://w3id.org/ophkg/>
 
 OphKG is an ophthalmology-domain ontology and knowledge graph. This identifier
-provides stable IRIs for the OphKG core ontology, its individual (ABox) data and
+provides stable IRIs for the OphKG core ontology, its individual (ABox) data, and
 its SHACL shapes.
 
 ## Redirect targets
