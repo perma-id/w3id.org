@@ -43,8 +43,11 @@ RewriteRule ^ucs/([a-z0-9]+)((?:/.*)?)$ ucs-$1$2 [N,DPI]
 #   STEM: artifact filename stem (hyphens->underscores). Default: $1.
 #   BRANCH: git branch. Default: main. Variants: master (FINOS), gh-pages (CI-published), artifacts (dedicated).
 #   PROJECT: artifact prefix ("project/" or empty). Default: "project/".
+#   SIDECAR: directory prefix when LinkML lives in a sidecar next to the upstream
+#            project's own tree (".linkml/", the FINOS convention - see w3id.org/finos).
+#            Default: unset (= empty: LinkML at the repo root).
 
-# Defaults: STEM=URL repo segment, BRANCH=main, PROJECT=project/
+# Defaults: STEM=URL repo segment, BRANCH=main, PROJECT=project/, SIDECAR=(empty)
 RewriteRule ^([^/]+) - [E=STEM:$1,E=BRANCH:main,E=PROJECT:project/]
 
 # UCO / UCS families: single hyphen after prefix, no internal hyphens.
@@ -71,11 +74,17 @@ RewriteRule ^fluxnova-bpm-platform(?:/|$) - [E=STEM:fluxnova_bpm_platform]
 # common-domain-model: FINOS upstream uses `master` branch (not `main`).
 RewriteRule ^common-domain-model(?:/|$)   - [E=STEM:common_domain_model,E=BRANCH:master]
 
+# Sidecar layout: LinkML lives in `.linkml/` beside the upstream project's own
+# tree, so `src/`, `project/`, `docs/` are all under that prefix. This is the
+# layout proposed to FINOS (w3id.org/finos uses it as the default).
+RewriteRule ^ai-governance-framework(?:/|$) - [E=STEM:ai_governance_framework,E=SIDECAR:.linkml/]
+
 # ----------------------------------------------------------------------------
 # Template: repo with `project/` gitignored, artifacts CI-published elsewhere
 # Variant A: artifacts on `artifacts` branch, standard layout. E=STEM:...,E=BRANCH:artifacts
 # Variant B: artifacts at branch root. E=STEM:...,E=BRANCH:artifacts,E=PROJECT:
 # Variant C: artifacts on `gh-pages` (requires custom deploy). E=STEM:...,E=BRANCH:gh-pages
+# Variant D: LinkML in a `.linkml/` sidecar directory. E=STEM:...,E=SIDECAR:.linkml/
 
 # Schemas - explicit filename honors $2 (supports multi-file schemas)
 #   $2's `(.+)` is greedy and spans `/`, so nested module
@@ -85,84 +94,84 @@ RewriteRule ^common-domain-model(?:/|$)   - [E=STEM:common_domain_model,E=BRANCH
 # Bare /schema canonicalizes to root schema (+ .yaml extension).
 # And /schema/<path> (single- or multi-segment) resolves to the named schema,
 # honoring the filename (+ .yaml extension); nested sub-directory paths supported.
-RewriteRule ^([^/]+)/schema/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/schema/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
 RewriteCond %{REQUEST_URI} !\.[^/]+$
-RewriteRule ^([^/]+)/schema/(.+?)/?$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
-RewriteRule ^([^/]+)/schema/?$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/schema/(.+?)/?$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/schema/$2.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/schema/?$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # Bare <repo>/<anything>.yaml fallback (excludes prefixmap, golr, yaml, .linkml.yaml)
 RewriteCond %{REQUEST_URI} !/(schema|prefixmap|golr|yaml)/
 RewriteCond %{REQUEST_URI} !\.linkml\.yaml$
-RewriteRule ^([^/]+)/(.+)\.yaml$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.yaml$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # Core LinkML Artifacts - representations (non-information resource) -> 303 See Other
 
 # GraphQL
-RewriteRule ^([^/]+)/(.+)\.graphql$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}graphql/$2.graphql [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.graphql$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}graphql/$2.graphql [R=303,NE,L]
 
 # JSON-LD context + plain. .context.json variant for CDN compatibility.
-RewriteRule ^([^/]+)/context\.jsonld$      https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
-RewriteRule ^([^/]+)/context\.json$        https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.context\.jsonld$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/$2.context.jsonld [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.context\.json$   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/$2.context.jsonld [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.jsonld$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/$2.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/context\.jsonld$      https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/context\.json$        https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.context\.jsonld$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/$2.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.context\.json$   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/$2.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.jsonld$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/$2.jsonld [R=303,NE,L]
 
 # JSON Schema + plain JSON. .schema.json matched first; .json excludes /terminusdb/ (Non-Core rule).
-RewriteRule ^([^/]+)/(.+)\.schema\.json$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonschema/$2.schema.json [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.schema\.json$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonschema/$2.schema.json [R=303,NE,L]
 RewriteCond %{REQUEST_URI} !/terminusdb/
-RewriteRule ^([^/]+)/(.+)\.json$          https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}json/$2.json [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.json$          https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}json/$2.json [R=303,NE,L]
 
 # OWL (emitted as .owl.ttl). Both .owl and .owl.ttl resolve to same file.
-RewriteRule ^([^/]+)/(.+)\.owl(?:\.ttl)?$   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}owl/$2.owl.ttl [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.rdf$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/$2.rdf [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.nt$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/$2.nt [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.owl(?:\.ttl)?$   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}owl/$2.owl.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.rdf$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/$2.rdf [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.nt$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/$2.nt [R=303,NE,L]
 
 # Prefix map (semantic config)
-RewriteRule ^([^/]+)/prefixmap/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}prefixmap/$2.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/prefixmap/(.+)\.yaml$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}prefixmap/$2.yaml [R=303,NE,L]
 
 # Protobuf, SHACL, ShEx, SQL DDL. (.shexc is alias for .shex)
-RewriteRule ^([^/]+)/(.+)\.wire\.proto$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}protobuf/$2.wire.proto [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.proto$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}protobuf/$2.proto [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.shacl\.ttl$      https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shacl/$2.shacl.ttl [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.shex$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shex/$2.shex [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.shexc$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shex/$2.shex [R=303,NE,L]
-RewriteRule ^([^/]+)/(.+)\.shexj$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shex/$2.shexj [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.wire\.proto$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}protobuf/$2.wire.proto [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.proto$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}protobuf/$2.proto [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.shacl\.ttl$      https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shacl/$2.shacl.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.shex$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shex/$2.shex [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.shexc$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shex/$2.shex [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.shexj$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shex/$2.shexj [R=303,NE,L]
 RewriteCond %{REQUEST_URI} !/sqlvalidation/
-RewriteRule ^([^/]+)/(.+)\.sql$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}sqlschema/$2.sql [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.sql$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sqlschema/$2.sql [R=303,NE,L]
 
 # Turtle (excludes .owl.ttl which is matched by the .owl rule above)
 RewriteCond %{REQUEST_URI} !\.owl\.
-RewriteRule ^([^/]+)/(.+)\.ttl$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/$2.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.ttl$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/$2.ttl [R=303,NE,L]
 
 # Merged LinkML YAML
-RewriteRule ^([^/]+)/(.+)\.linkml\.yaml$    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}linkml/$2.linkml.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)/(.+)\.linkml\.yaml$    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}linkml/$2.linkml.yaml [R=303,NE,L]
 
 # Non-Core Artifacts - information resources / code-gen outputs (302, no conneg)
 # MIME collisions handled by path segmentation (3× .py, 3× .yaml, 2× .md, 2× .sql)
-RewriteRule ^([^/]+)/(.+)\.xlsx$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}excel/$2.xlsx [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.java$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}java/$2.java [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.ts$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}typescript/$2.ts [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.h$                     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}cpp/$2.h [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.csv$                   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}csv/$2.csv [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.dbml$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}dbml/$2.dbml [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.er\.md$                https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}erdiagram/$2.er.md [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.go$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}golang/$2.go [R=302,NE,L]
-RewriteRule ^([^/]+)/golr/(.+)\.yaml$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}golr/$2.yaml [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.dot\.dot$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}graphviz/$2.dot.dot [R=302,NE,L]
-RewriteRule ^([^/]+)/markdown-datadict/(.+)\.md$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}markdown-datadict/$2.md [R=302,NE,L]
-RewriteRule ^([^/]+)/mermaid/(.+)\.md$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}mermaid/$2.md [R=302,NE,L]
-RewriteRule ^([^/]+)/namespaces/(.+)\.py$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}namespaces/$2.py [R=302,NE,L]
-RewriteRule ^([^/]+)/pandera/(.+)\.py$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}pandera/$2.py [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.plantuml$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}plantuml/$2.plantuml [R=302,NE,L]
-RewriteRule ^([^/]+)/sqla/(.+)\.py$               https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}sqla/$2.py [R=302,NE,L]
-RewriteRule ^([^/]+)/sqlvalidation/(.+)\.sql$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}sqlvalidation/$2.sql [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.sssom\.tsv$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}sssom/$2.sssom.tsv [R=302,NE,L]
-RewriteRule ^([^/]+)/summary/(.+)\.tsv$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}summary/$2.tsv [R=302,NE,L]
-RewriteRule ^([^/]+)/terminusdb/(.+)\.json$       https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}terminusdb/$2.json [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.tql$                   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}typedb/$2.tql [R=302,NE,L]
-RewriteRule ^([^/]+)/yaml/(.+)\.yaml$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}yaml/$2.yaml [R=302,NE,L]
-RewriteRule ^([^/]+)/rust/Cargo\.toml$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rust/Cargo.toml [R=302,NE,L]
-RewriteRule ^([^/]+)/(.+)\.rq$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}sparql/$2.rq [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.xlsx$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}excel/$2.xlsx [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.java$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}java/$2.java [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.ts$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}typescript/$2.ts [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.h$                     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}cpp/$2.h [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.csv$                   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}csv/$2.csv [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.dbml$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}dbml/$2.dbml [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.er\.md$                https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}erdiagram/$2.er.md [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.go$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}golang/$2.go [R=302,NE,L]
+RewriteRule ^([^/]+)/golr/(.+)\.yaml$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}golr/$2.yaml [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.dot\.dot$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}graphviz/$2.dot.dot [R=302,NE,L]
+RewriteRule ^([^/]+)/markdown-datadict/(.+)\.md$  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}markdown-datadict/$2.md [R=302,NE,L]
+RewriteRule ^([^/]+)/mermaid/(.+)\.md$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}mermaid/$2.md [R=302,NE,L]
+RewriteRule ^([^/]+)/namespaces/(.+)\.py$         https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}namespaces/$2.py [R=302,NE,L]
+RewriteRule ^([^/]+)/pandera/(.+)\.py$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}pandera/$2.py [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.plantuml$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}plantuml/$2.plantuml [R=302,NE,L]
+RewriteRule ^([^/]+)/sqla/(.+)\.py$               https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sqla/$2.py [R=302,NE,L]
+RewriteRule ^([^/]+)/sqlvalidation/(.+)\.sql$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sqlvalidation/$2.sql [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.sssom\.tsv$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sssom/$2.sssom.tsv [R=302,NE,L]
+RewriteRule ^([^/]+)/summary/(.+)\.tsv$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}summary/$2.tsv [R=302,NE,L]
+RewriteRule ^([^/]+)/terminusdb/(.+)\.json$       https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}terminusdb/$2.json [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.tql$                   https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}typedb/$2.tql [R=302,NE,L]
+RewriteRule ^([^/]+)/yaml/(.+)\.yaml$             https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}yaml/$2.yaml [R=302,NE,L]
+RewriteRule ^([^/]+)/rust/Cargo\.toml$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rust/Cargo.toml [R=302,NE,L]
+RewriteRule ^([^/]+)/(.+)\.rq$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sparql/$2.rq [R=302,NE,L]
 
 # Content negotiation - no file extension triggers (303 See Other)
 # Matches repo root and any depth (e.g. /lmodel/<repo>/<TermName>)
@@ -170,51 +179,51 @@ RewriteRule ^([^/]+)/(.+)\.rq$                    https://raw.githubusercontent.
 # Turtle
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/%{ENV:STEM}.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/%{ENV:STEM}.ttl [R=303,NE,L]
 
 # RDF/XML and OWL/XML (requires `gen-rdf` to have produced .rdf)
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/%{ENV:STEM}.rdf [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/%{ENV:STEM}.rdf [R=303,NE,L]
 
 # N-Triples
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}rdf/%{ENV:STEM}.nt [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}rdf/%{ENV:STEM}.nt [R=303,NE,L]
 
 # JSON-LD
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
 
 # Plain JSON - fallback to JSON-LD context (broadest JSON form).
 # Must come after application/ld+json so clients accepting both pick more specific representation.
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/json [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonld/%{ENV:STEM}.context.jsonld [R=303,NE,L]
 
 # JSON Schema
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}jsonschema/%{ENV:STEM}.schema.json [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}jsonschema/%{ENV:STEM}.schema.json [R=303,NE,L]
 
 # SHACL (Turtle profile)
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/shacl\+turtle [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shacl/%{ENV:STEM}.shacl.ttl [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shacl/%{ENV:STEM}.shacl.ttl [R=303,NE,L]
 
 # ShEx
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} text/shex [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:PROJECT}shex/%{ENV:STEM}.shex [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}shex/%{ENV:STEM}.shex [R=303,NE,L]
 
 # LinkML schema source (YAML)
 RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} application/yaml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} text/yaml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-yaml [NC]
-RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
+RewriteRule ^([^/]+)(?:/.*)?$ https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/schema/%{ENV:STEM}.yaml [R=303,NE,L]
 
 # HTML - browser default. Returns 303 See Other to docs site. Accept:*/* excluded.
 RewriteCond %{REQUEST_URI} !\.[^./]+$
