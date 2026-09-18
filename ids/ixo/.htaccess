@@ -138,6 +138,15 @@ RewriteRule ^schema/shapes/v1/([^/]+?)(?:\.jsonld)?/?$ https://ixofoundation.git
 #   templates/v1/<name> | templates/v1/<name>.jsonld -> templates/v1/<name>.jsonld
 RewriteRule ^templates/v1/([^/]+?)(?:\.jsonld)?/?$ https://ixofoundation.github.io/ns/templates/v1/$1.jsonld [R=303,L]
 
+# --- 7b. Credential contexts  (decision receipts, review attestations) --------
+#   credentials/decision/v3 | credentials/review-attestation/v1  ->  …/index.jsonld
+#   These two IRIs are embedded in the signed bytes of every IXO claim-decision
+#   receipt and reviewer attestation, so they must dereference to a document.
+#   Without an explicit rule the catch-all below forwards the bare directory
+#   path, which GitHub Pages 404s.
+RewriteRule ^credentials/decision/v3/?$ https://ixofoundation.github.io/ns/credentials/decision/v3/index.jsonld [R=303,L]
+RewriteRule ^credentials/review-attestation/v1/?$ https://ixofoundation.github.io/ns/credentials/review-attestation/v1/index.jsonld [R=303,L]
+
 # --- 8. Catch-all  →  GitHub Pages /ns/ tree ----------------------------------
 # Preserves the path under /ns/ (the prior config dropped the /ns/ prefix and
 # landed on the wrong host root). Direct file paths (…/index.jsonld) and repo
