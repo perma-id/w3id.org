@@ -12,7 +12,7 @@ https://github.com/KnoEdg/kee
 
 Current published normative baseline:
 
-**KEE v0.9.0**
+**KEE v0.9.2**
 
 ## Purpose
 
