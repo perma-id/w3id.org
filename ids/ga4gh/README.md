@@ -12,7 +12,7 @@ For general GA4GH enquiries: info at ga4gh dot org
 
 This space is adminstered by
 
-- Susan Fairley 
-  - GitHub: [@susanfairley](https://www.github.com/susanfairley)
+- Sasha Siegel
+  - GitHub: [@svsiegel](https://www.github.com/svsiegel)
 - Andy Yates 
   - GitHub: [@andrewyatz](https://www.github.com/andrewyatz)
