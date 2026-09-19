@@ -235,18 +235,29 @@ tripped by them.
 
 ```sh
 npm test                          # fixtures and unit tests, no repository needed
-W3ID_CHECK_CORPUS=1 npm test      # also ratchet the counts against the real tree
+W3ID_CHECK_CORPUS=1 npm test      # also run every rule over the real tree
 ```
 
 Rule tests build a throwaway git repository (`test/helpers.js`) rather than
 asserting against the live tree, so they stay valid as the tree changes.
 
-`test/corpus.test.js` holds an upper bound per rule over the whole repository.
-Exceeding one means either a change made the tree worse or a rule started
-over-matching. A count that has *fallen* is someone fixing the backlog: the
-test prints the new number so the bound can be lowered and the ground kept.
-It is off by default so that a pull request fixing an identifier does not have
-to edit it; the `Audit` workflow runs it on every push to master.
+`test/corpus.test.js` runs every rule over the whole repository and asserts
+that none of them throws, and that the run produced findings at all — a rule
+set that fails to load and a tree that is not there both look like "no
+errors" from outside. It is off by default because the tree is ~5200 files;
+the `Audit` workflow runs it on pushes to master and weekly, and
+`Checker Node matrix` runs it on each supported Node version when `tools/`
+changes.
+
+**It asserts no counts**, deliberately. The file's own header gives the
+argument: the identifier tree grows about 30% a year, so a per-rule upper
+bound tight enough to notice a rule over-matching is exceeded within weeks by
+ordinary growth, and one loose enough to survive that detects nothing. Counts
+are reported instead, by `bin/w3id-check-trend.js`, which computes its
+comparison points from dates and stores no numbers. The consequence to know
+about: nothing here notices a rule that silently stops matching — the trend
+report names a rule whose count has reached zero, but that is somebody
+reading a report, not CI failing.
 
 `test/references.test.js` is the one to know about before renaming a rule. A
 rule id gets written down in more places than the registry: this README, the
