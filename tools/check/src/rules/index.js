@@ -9,6 +9,7 @@ import filesOnlyAllowedNames from './files/only-allowed-names.js';
 import filesPreferReadmeMd from './files/prefer-readme-md.js';
 import filesHtaccessRequired from './files/htaccess-required.js';
 import filesNoEmptyHtaccess from './files/no-empty-htaccess.js';
+import filesNoExecutableBit from './files/no-executable-bit.js';
 
 import treeNoCaseCollision from './tree/no-case-collision.js';
 import treeOnlyOwnIdentifier from './tree/only-own-identifier.js';
@@ -55,6 +56,7 @@ export const rules = [
   filesPreferReadmeMd,
   filesHtaccessRequired,
   filesNoEmptyHtaccess,
+  filesNoExecutableBit,
 
   treeNoCaseCollision,
   treeOnlyOwnIdentifier,

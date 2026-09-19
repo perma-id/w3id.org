@@ -116,6 +116,7 @@ export default defineConfig({
               { text: 'Overview', link: '/rules/files/' },
               { text: 'only-allowed-names', link: '/rules/files/only-allowed-names' },
               { text: 'no-empty-htaccess', link: '/rules/files/no-empty-htaccess' },
+              { text: 'no-executable-bit', link: '/rules/files/no-executable-bit' },
               { text: 'htaccess-required', link: '/rules/files/htaccess-required' },
               { text: 'prefer-readme-md', link: '/rules/files/prefer-readme-md' }
             ]

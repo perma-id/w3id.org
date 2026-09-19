@@ -1,5 +1,6 @@
 /** Test helpers: throwaway git repositories and in-process CLI runs. */
-import {mkdtempSync, mkdirSync, writeFileSync, rmSync} from 'node:fs';
+import {mkdtempSync, mkdirSync, writeFileSync, chmodSync, rmSync}
+  from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -29,11 +30,22 @@ export function makeRepo() {
     dir,
     git: args => execFileSync('git', args,
       {cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}),
-    /** Write a file, creating parent directories. */
-    write(relPath, content) {
+    /**
+     * Write a file, creating parent directories.
+     *
+     * `mode` is here for the one thing a fixture cannot otherwise express: a
+     * file carrying the executable bit. It is applied with chmod rather than
+     * passed to writeFileSync, whose mode is masked by the process umask --
+     * a fixture that depends on the umask of whoever runs the tests is not a
+     * fixture.
+     */
+    write(relPath, content, mode = null) {
       const full = path.join(dir, relPath);
       mkdirSync(path.dirname(full), {recursive: true});
       writeFileSync(full, content);
+      if(mode !== null) {
+        chmodSync(full, mode);
+      }
     },
     /** Delete a file from the working tree, leaving it committed. */
     remove(relPath) {

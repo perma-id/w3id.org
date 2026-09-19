@@ -9,6 +9,7 @@ import htaccessRequired from '../src/rules/files/htaccess-required.js';
 import documentIdentifierRoot
   from '../src/rules/meta/document-identifier-root.js';
 import noEmptyHtaccess from '../src/rules/files/no-empty-htaccess.js';
+import noExecutableBit from '../src/rules/files/no-executable-bit.js';
 import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import noTrailingWhitespace from '../src/rules/format/no-trailing-whitespace.js';
 import noExcessiveBlankLines
@@ -90,6 +91,100 @@ test('files/only-allowed-names exempts configured infrastructure paths', () => {
   repo.write('ids/a/.htaccess', OK_HTACCESS);
   repo.commit('fixture');
   assert.deepEqual(findingsOf(check({dir: repo.dir, rules: [onlyAllowedNames]})), []);
+});
+
+/** Build a repo from a map of path -> [contents, mode] and audit it. */
+function auditModes(rule, files, opts = {}) {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  for(const [path, [content, mode]] of Object.entries(files)) {
+    repo.write(path, content, mode);
+  }
+  repo.commit('fixture');
+  return {repo, result: check({dir: repo.dir, rules: [rule], ...opts})};
+}
+
+test('files/no-executable-bit reports the bit anywhere under ids/', () => {
+  const {result} = auditModes(noExecutableBit, {
+    'ids/a/.htaccess': [OK_HTACCESS, 0o755],
+    'ids/a/README.md': [OK_README, 0o755],
+    'ids/b/.htaccess': [OK_HTACCESS, 0o644],
+    // A shebang buys nothing inside the identifier tree: nothing there is
+    // ever run, and this pins the ids/ branch as the one that short-circuits.
+    'ids/c/.htaccess': ['#!/bin/sh\n' + OK_HTACCESS, 0o755]
+  });
+  assert.deepEqual(findingsOf(result).sort(), [
+    'ids/a/.htaccess:1:error',
+    'ids/a/README.md:1:error',
+    'ids/c/.htaccess:1:error'
+  ]);
+});
+
+test('files/no-executable-bit spares a real script outside ids/', () => {
+  const {result} = auditModes(noExecutableBit, {
+    'ids/a/.htaccess': [OK_HTACCESS, 0o644],
+    'tools/x/run': ['#!/bin/sh\necho hi\n', 0o755],
+    'tools/x/notes.md': ['# notes\n', 0o755],
+    // A shebang without the bit is not this rule's business.
+    'tools/x/plain.js': ['#!/usr/bin/env node\n', 0o644]
+  });
+  assert.deepEqual(findingsOf(result), ['tools/x/notes.md:1:error']);
+});
+
+test('files/no-executable-bit names both ways to clear the bit', () => {
+  const {result} = auditModes(noExecutableBit, {
+    'ids/a/.htaccess': [OK_HTACCESS, 0o755]
+  });
+  const {message} = result.findings[0];
+  assert.match(message, /chmod 644 ids\/a\/\.htaccess/);
+  assert.match(message, /git update-index --chmod=-x ids\/a\/\.htaccess/);
+});
+
+test('files/no-executable-bit sees a bit set but not yet staged', () => {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  repo.commit('fixture');
+  repo.write('ids/a/.htaccess', OK_HTACCESS, 0o755);
+
+  const rules = [noExecutableBit];
+  assert.deepEqual(
+    findingsOf(check({dir: repo.dir, rules, includeWorkingTree: true})),
+    ['ids/a/.htaccess:1:error']);
+  // An audit of committed content only must not see the working tree.
+  assert.deepEqual(
+    findingsOf(check({dir: repo.dir, rules, includeWorkingTree: false})), []);
+});
+
+test('files/no-executable-bit sees an untracked file carrying the bit', () => {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  repo.commit('fixture');
+  repo.write('ids/z/.htaccess', OK_HTACCESS, 0o755);
+
+  const rules = [noExecutableBit];
+  assert.deepEqual(
+    findingsOf(check({dir: repo.dir, rules, includeWorkingTree: true})),
+    ['ids/z/.htaccess:1:error']);
+  assert.deepEqual(
+    findingsOf(check({dir: repo.dir, rules, includeWorkingTree: false})), []);
+});
+
+test('files/no-executable-bit ignores a bit git does not record', () => {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  repo.commit('fixture');
+  // Windows, FAT, some network mounts. The bit on disk cannot be committed
+  // and no command a contributor runs will clear it, so reporting it would
+  // be a finding with no fix.
+  repo.git(['config', 'core.fileMode', 'false']);
+  repo.write('ids/z/.htaccess', OK_HTACCESS, 0o755);
+
+  assert.deepEqual(findingsOf(check({
+    dir: repo.dir, rules: [noExecutableBit], includeWorkingTree: true
+  })), []);
 });
 
 test('htaccess/no-flag-whitespace ignores brackets that are not flag lists', () => {

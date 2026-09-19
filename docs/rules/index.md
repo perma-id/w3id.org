@@ -68,6 +68,7 @@ report it is whoever has just watched their own mistake pass.
 | --- | --- | --- |
 | [`files/only-allowed-names`](./files/only-allowed-names) | error | Only `.htaccess` and a README — no content files, and the rules file must be named exactly |
 | [`files/no-empty-htaccess`](./files/no-empty-htaccess) | error | An `.htaccess` with no directives resolves to 404 |
+| [`files/no-executable-bit`](./files/no-executable-bit) | error | A file that is not a program must not be executable |
 | [`files/htaccess-required`](./files/htaccess-required) | warning | Something in the directory must answer requests |
 | [`files/prefer-readme-md`](./files/prefer-readme-md) | warning | Write it as Markdown, called `README.md` |
 
