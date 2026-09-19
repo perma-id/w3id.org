@@ -171,7 +171,8 @@ if ! curl -sS -o /dev/null --max-time 5 "$base/" 2>/dev/null; then
 
 Cannot reach $base -- is the server running?
 
-  cd tools/server && docker compose up
+  tools/server/bin/run-server          # no Docker, no root
+  cd tools/server && docker compose up # with Docker
 
 See docs/guides/local-server.md if it will not start.
 EOF
@@ -211,8 +212,9 @@ cat <<'EOF'
 
 Read the results, do not just count them:
 
-  - A 500 anywhere means an .htaccess syntax error. The server log names the
-    file and the line -- `docker compose logs w3id`.
+  - A 500 anywhere means an .htaccess syntax error. The error log names the
+    file and the line: `run-server status` says where it is, or
+    `docker compose logs w3id` under Docker.
   - A 406 means a content-negotiation catch-all is matching real requests.
   - "does not vary by Accept" is only news if you wrote a rule that should
     have varied. Negotiation is usually written for one path, so check it
