@@ -97,7 +97,17 @@ for tool in curl make cc sha256sum tar; do
   }
 done
 
+# bin/run-server looks for $cache/current, so it does not have to know which
+# version was built. Replaced rather than added to, so building a new version
+# switches what runs. Refreshed on the already-built path as well: the symlink
+# can be missing when the prefix is not, and then nothing would find it.
+link_current() {
+  mkdir -p "$cache"
+  ln -sfn "$prefix" "$cache/current"
+}
+
 if [ -x "$prefix/bin/httpd" ] && [ "$force" = no ]; then
+  link_current
   printf 'Already built: %s\n' "$prefix/bin/httpd"
   printf 'Pass --force to build it again.\n'
   exit 0
@@ -183,9 +193,7 @@ mv "srclib/apr-util-$APR_UTIL_VERSION" srclib/apr-util
 make -j"$jobs" >/dev/null
 make install >/dev/null
 
-# bin/run-server looks here, so it does not have to know the version. Replaced
-# rather than added to, so building a new version switches what runs.
-ln -sfn "$prefix" "$cache/current"
+link_current
 
 printf '\nBuilt %s\n' "$prefix/bin/httpd"
 "$prefix/bin/httpd" -v
