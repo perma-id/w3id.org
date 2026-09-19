@@ -6,11 +6,16 @@ service is configured, so `ids/my-project/` answers at
 `http://localhost:8080/my-project/`.
 
 ::: info This page has had limited testing
-All three setups have been run end to end against this repository's own
+All four setups have been run end to end against this repository's own
 `ids/` directory, and they agree with each other: the identifier root, the
 bare no-slash form, sub-paths, `Accept` negotiation, the site root, a missing
 identifier and a request for an `.htaccess` file all behave as described
 below.
+
+The unprivileged setup is the newest and least exercised of the four, and one
+option within it has not been run at all: pointing it at an
+already-installed Apache with `W3ID_ALLOW_SYSTEM_HTTPD`. What has been tested
+there is the Apache it builds for itself.
 
 That is not much exposure, and the setups touch Docker versions, Apache
 builds and host networking that vary. If something here does not work for
@@ -118,6 +123,59 @@ it somewhere like `/srv/w3id.org` or grant the `www-data` user traversal — a
 403 on every URL usually means it cannot get through a parent directory.
 
 Logs land in `/var/log/apache2/w3id-local-error.log`.
+
+## Without Docker or root
+
+For a machine where you cannot install anything — a container, a locked-down
+workstation, a shared host — or where you would simply rather not. This builds
+an Apache into your own cache directory and runs it as you. Nothing is
+installed system-wide and no step uses `sudo`.
+
+Build it once. This downloads Apache, APR and PCRE2, checks them against
+checksums pinned in the script, and compiles them. Expect a few minutes, most
+of it Apache itself:
+
+```sh
+tools/server/bin/build-httpd
+```
+
+Then start it. It serves the `ids/` directory of the checkout the script
+itself lives in, so if you have several worktrees each one serves its own
+tree:
+
+```sh
+tools/server/bin/run-server
+```
+
+That stays in the foreground until you press Ctrl-C. To leave one running
+instead:
+
+```sh
+tools/server/bin/run-server start
+tools/server/bin/run-server status
+tools/server/bin/run-server stop
+```
+
+`status` prints where the error and access logs are. `run-server test` checks
+the configuration without starting anything, and prints the full `httpd`
+command it would run, so nothing about the setup is hidden from you.
+
+The port is 8080, the same one every example on this page uses. `W3ID_PORT`
+changes it, and `W3ID_BASE` is how you tell `resolve-identifier`:
+
+```sh
+W3ID_PORT=8081 tools/server/bin/run-server start
+W3ID_BASE=http://localhost:8081 tools/server/bin/resolve-identifier my-project
+```
+
+Two limits are worth knowing before you choose this setup. The build has no
+`mod_ssl`, so [HTTPS](#https-and-certificates) is not available here — use
+Docker or a native Apache if you need it. And if you already have Apache
+installed and would rather not build one, `W3ID_ALLOW_SYSTEM_HTTPD=1` makes
+`run-server` use it, at a cost: a distribution Apache links some modules into
+the binary, where no configuration can unload them, so a rule relying on a
+module the live server does not have can pass locally and still fail in
+production. That is the one thing this setup is otherwise good at catching.
 
 ## Checking a redirect
 

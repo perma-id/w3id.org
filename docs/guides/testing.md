@@ -81,10 +81,18 @@ directory with a real Apache — that is the document root on the live service, 
 `ids/my-project/` is reachable at `/my-project/`.
 
 There is a supported setup in `tools/server/`, configured to match the live
-server. From the repository root:
+server. From the repository root, with Docker:
 
 ```sh
 cd tools/server && docker compose up
+```
+
+or without Docker and without root, which builds an Apache of its own the
+first time and is then as quick to start:
+
+```sh
+tools/server/bin/build-httpd   # once
+tools/server/bin/run-server
 ```
 
 It is an ordinary Apache on an ordinary port, so anything that speaks HTTP
@@ -108,8 +116,9 @@ negotiate, the ones you deliberately do not handle — you still have to ask
 for yourself.
 
 [Running a local server](./local-server) has the rest: the same thing without a
-build step, a native Apache setup, HTTPS and self-signed certificates, how to
-read the results, and what to do when it will not start.
+build step, a native Apache setup, an unprivileged one for machines where you
+cannot install anything, HTTPS and self-signed certificates, how to read the
+results, and what to do when it will not start.
 
 ## What to check
 
