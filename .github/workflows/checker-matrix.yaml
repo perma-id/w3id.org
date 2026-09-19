@@ -1,0 +1,75 @@
+# Runs the checker's own test suite on every Node version it claims to support.
+#
+# `tools/check/package.json` says `engines: ">=22"`. The other workflows run one
+# version, so without this that range is an assertion nothing tests: a syntax or
+# API change that needs a newer Node would pass CI and fail for a contributor on
+# an older one, with an error that looks nothing like the cause.
+#
+# NOTE: do not make this a required status check. It is filtered by path, and a
+# skipped job never reports a status -- a required one would leave every pull
+# request that does not touch tools/ waiting on it forever. That is why the
+# equivalent job in pr-checks.yaml runs unfiltered instead.
+name: Checker Node matrix
+
+on:
+  pull_request:
+    # Only what could behave differently between Node versions. Everything
+    # else is covered by the unfiltered checker job in pr-checks.yaml.
+    paths:
+      - 'tools/**'
+      - '.github/workflows/checker-matrix.yaml'
+  workflow_dispatch:
+
+permissions: {}
+
+# A new push supersedes any run still in flight for the same pull request.
+concurrency:
+  group: checker-matrix-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      # The question is which versions work, so one failure must not cancel
+      # the others and leave that unanswered.
+      fail-fast: false
+      matrix:
+        # The floor `engines` claims, current LTS, and what CI runs.
+        node: ['22', '24', '26']
+    permissions:
+      contents: read # to check out the checker and its tests
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # No test reads this repository's history -- the git-dependent ones
+          # build their own repositories -- but the corpus run below exercises
+          # every rule, including the git-scoped ones, against the real tree.
+          # Matching the checkout the equivalent job already uses rather than
+          # discovering here which of them a shallow clone would change.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: tools/check/package-lock.json
+
+      - name: Install the checker
+        # --ignore-scripts: a dependency's install hook must not run here.
+        # This step is also load-bearing on its own -- a lockfile that resolves
+        # on one Node version and not on another fails here, before any test.
+        run: npm ci --ignore-scripts
+        working-directory: tools/check
+
+      - name: Run the tests against the real tree
+        # W3ID_CHECK_CORPUS runs every rule over all of ids/ as well as the
+        # unit suite. That is the part worth repeating per version: a
+        # difference in regex or filesystem behaviour shows up against real
+        # files long before it shows up against fixtures.
+        env:
+          W3ID_CHECK_CORPUS: '1'
+        run: npm test
+        working-directory: tools/check

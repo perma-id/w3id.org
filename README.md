@@ -1,40 +1,140 @@
 Permanent Identifiers for the Web
 =================================
 
-This repository holds the website source code for <https://w3id.org/>.
-
-#### Content
-
-* [Purpose](#purpose)
-* [Management](#management)
-* [System Operations](#system-operations)
-* [**Creating a New Identifier**](#new)
-* [Naming Policy](#naming-policy)
-* [W3ID Community](#w3id-community)
-* [Disclaimer](#disclaimer)
-
-### Purpose
-
-The purpose of this website is to provide a secure, permanent
-[URL](https://en.wikipedia.org/wiki/URL) re-direction service for Web
-applications. This service is run by the
+This repository holds the website source code for <https://w3id.org/>, a
+secure, permanent [URL](https://en.wikipedia.org/wiki/URL) redirection service
+run by the
 [W3C Permanent Identifier Community Group](https://www.w3.org/community/perma-id/).
 
-Web applications that deal with
-[Linked Data](https://en.wikipedia.org/wiki/Linked_data) often need to
-specify and use URLs that are very stable. They utilize services such
-as this one to ensure that applications using their URLs will always
-be re-directed to a working website. This website operates like a
-[switchboard](https://en.wikipedia.org/wiki/Telephone_switchboard),
-connecting requests for information with the true location of the
-information on the Web. The switchboard can be reconfigured to point
-to a new location if the old location stops working.
+Applications that deal with
+[Linked Data](https://en.wikipedia.org/wiki/Linked_data) need URLs that stay
+stable for decades. This service operates like a
+[switchboard](https://en.wikipedia.org/wiki/Telephone_switchboard): it connects
+a request for an identifier to wherever that information currently lives, and
+it can be reconfigured when the information moves.
 
-### Management
+## 📖 Documentation
 
-There is a growing group of organizations in a consortium that have pledged
-responsibility to ensure the operation of this website. These organizations
-are:
+**<https://w3id.org/docs/>**
+
+That is where everything lives — what the service is and is not for, how to
+create and maintain an identifier, how to write and test `.htaccess` rules, and
+a catalogue of the mistakes that most often send a pull request back.
+
+<!--
+These links are relative so that they work in a fork, in an offline clone, and
+on a branch where a page has changed but is not published yet -- and so that
+the path check in tools/check holds them to files that exist. Two pages cannot
+be linked that way, because neither renders as standalone Markdown on GitHub:
+the documentation home is a VitePress `layout: home` whose content is all
+frontmatter, and the news index is a Vue template over a data loader. Those two
+stay absolute on purpose.
+-->
+
+| | |
+| --- | --- |
+| New here? | [`docs/overview/index.md`](docs/overview/index.md) |
+| **Creating an identifier** | [`docs/guides/create-an-id.md`](docs/guides/create-an-id.md) |
+| Updating an existing one | [`docs/guides/maintain-an-id.md`](docs/guides/maintain-an-id.md) |
+| Writing `.htaccess` rules | [`docs/guides/htaccess.md`](docs/guides/htaccess.md) |
+| Testing your changes | [`docs/guides/testing.md`](docs/guides/testing.md) |
+| Running Apache locally | [`docs/guides/local-server.md`](docs/guides/local-server.md) |
+| Rules and common mistakes | [`docs/rules/index.md`](docs/rules/index.md) |
+| FAQ | [`docs/faq.md`](docs/faq.md) |
+| Announcements | <https://w3id.org/docs/news/> |
+
+AI coding agents should start with [AGENTS.md](AGENTS.md).
+
+## Creating an identifier, in short
+
+1. **Fork** this repository on GitHub.
+2. Create `ids/<your-id>/.htaccess` containing your redirect rules and your
+   contact details, including a **GitHub username**.
+3. **Test it**, then open a **pull request**.
+
+A minimal identifier is just this:
+
+```apache
+# # /my-project/
+#
+# https://w3id.org/my-project/ redirects to https://example.org/
+#
+# ## Contact
+# This space is administered by:
+#
+# Firstname Lastname
+# firstname@example.org
+# GitHub username: exampleuser
+
+RewriteEngine on
+RewriteRule ^(.*)$ https://example.org/$1 [R=302,L]
+```
+
+Please read
+[Creating an identifier](docs/guides/create-an-id.md) before
+opening a pull request. In particular:
+
+- **This service redirects; it does not host files.** Do not commit ontologies,
+  schemas, contexts, or documentation to this repository.
+- **Only change your own directory** under `ids/`.
+- **Test your changes.** A syntax error in `.htaccess` returns a 500 for every
+  URL in that directory.
+
+You can also request a redirect by email — see
+[the FAQ](docs/faq.md#how-do-i-get-one).
+
+## Checking your changes
+
+Every pull request is checked automatically. Anything that needs fixing appears
+as a comment on the changed lines under _Files changed_, with the full report
+under _Checks_, and each finding links to the rule explaining what to do.
+
+Run the same checks yourself first. They report only what your own change is
+responsible for, and they count work you have not committed yet:
+
+```sh
+(cd tools/check && npm ci)   # once
+node tools/check/bin/w3id-check.js
+```
+
+To look at one directory, name it:
+
+```sh
+node tools/check/bin/w3id-check.js ids/my-project
+```
+
+See [`tools/check/README.md`](tools/check/README.md) for the full set of
+options and how to add a check, and
+[`docs/rules/index.md`](docs/rules/index.md) for the rules themselves.
+
+A clean run is not the whole job: nothing can tell whether your redirect points
+where you meant it to. See
+[Testing your changes](docs/guides/testing.md), and
+[Running Apache locally](docs/guides/local-server.md) for a server that applies
+your rules the way the service does.
+
+> [!NOTE]
+> Adding or updating an identifier requires no build step. The checker in
+> `tools/check/` is optional — pull requests are checked automatically — and
+> the tooling in `docs/` is only for people editing the documentation site.
+
+## Repository layout
+
+| Path | |
+| --- | --- |
+| `ids/` | The document root. One directory per identifier. |
+| `ids/<id>/.htaccess` | Redirect rules for that identifier. |
+| `ids/<id>/README.md` | Identifier and maintainer information. Optional. |
+| `docs/` | Source for <https://docs.w3id.org/>, built with VitePress. |
+| `docs/news/` | Announcements about the service, with RSS and Atom feeds. |
+| `tools/check/` | The automated contribution checks. |
+| `tools/server/` | A local Apache that serves `ids/` the way the service does. |
+| `AGENTS.md` | Instructions for AI coding agents. |
+
+## Management
+
+The service is operated by a consortium of organisations that have pledged
+responsibility for keeping it running:
 
 * [Digital Bazaar](https://www.digitalbazaar.com/)
 * [3 Round Stones](http://3roundstones.com/)
@@ -43,115 +143,22 @@ are:
 * [Bosatsu Consulting](https://bosatsu.net/)
 * [KurrawongAI](https://kurrawong.ai)
 
-They are responsible for all
-administrative tasks associated with operating the service. The social
-contract between these organizations gives each of them full access to
-all information required to maintain and operate the website. The
-agreement is setup such that a number of these companies could fail,
-lose interest, or become unavailable for long periods of time without
-negatively affecting the operation of the site.
+See
+[the documentation](docs/overview/index.md#who-runs-it) for how this
+works and how to join.
 
-#### Joining the Management consortium
+## Community
 
-To join the management consortium, please make yourself known to the
-W3ID community via participation in the mailing list (see the
-[W3ID Community](#w3id-community) section below) and then, if you are
-still keen to join, please submit an Issue to the
-[GitHub Issue Tracker](https://github.com/perma-id/w3id.org/issues)
-with the title *Seeking to join the W3ID Consortium* and include
-your details.
-
-### System Operations
-
-This website operates in HTTPS-only mode to ensure end-to-end security.
-This means that it may be used for Linked Data applications that require
-high levels of security such as those found in the financial, medical,
-and public infrastructure sectors.
-
-All identifiers associated with this website are intended to be around
-for as long as the Web is around. This means decades, if not centuries.
-If the final destination for popular identifiers used by this service
-fail in such a way as to be a major inconvenience or danger to the Web,
-the community will mirror the information for the popular identifier
-and setup a working redirect to restore service to the rest of the Web.
-
-<a id="new"></a>
-## Creating a New Identifier
-
-If you would like to add or update a permanent identifier of the form
-`https://w3id.org/...`, the preferred procedure is to perform the
-following steps:
-
-1. _Fork_ [the _Repository_ for this system](https://github.com/perma-id/w3id.org)
-   on GitHub.
-2. Add or update a new redirect entry and commit your changes.
-   1. If it does not yet exist, create a new directory under the `ids/`
-      directory with an intended permanent identifier name
-      (see [Naming Policy](#naming-policy) below).
-   2. If they do not yet exist, add `.htaccess` and `README.md` files to the directory.
-      * `.htaccess` contains redirection rules, for computer to read and perform.
-      * `README.md` contains more identifier info and contact info, for humans to read.
-      * See [w3id.org/examples](https://github.com/perma-id/w3id.org/tree/master/ids/examples)
-        for examples of `.htaccess` and `README.md`.
-3. Submit a _Pull Request_ for your changes.
-
-The maintainers of this system will then act on that _Pull Request_ and
-merge it into this system's content. You will then be able to see your
-changes in the repository and via resolution of the identifier you
-created or edited.
-
-If the terms _Fork_ and _Pull Request_ are new to you, you need to
-familiarize yourself with the [Git](https://git-scm.com/) version
-control system and [GitHub](https://github.com/), the platform used
-to host this system. Please see this documentation:
-
-* [Forking a Repository](https://docs.github.com/en/github-ae@latest/github/getting-started-with-github/fork-a-repo)
-* [Creating a Pull Request across Forks](https://docs.github.com/en/github-ae@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
-
-#### Suitable PR content
-
-Please help out the maintainers of the service with the following in your
-Pull Requests:
-
-* **Contact info** in a `README.md` or `.htaccess` comment.
-* **Test your changes** with a local checkout of the site.
-* **_Squash_ multiple commits** into one commit before a pull request
-  if appropriate.
-  * Here is information on _squashing_ commits:
-    [How to Squash Commits in Git](https://www.git-tower.com/learn/git/faq/git-squash/)
-* **Use descriptive commit messages**. In particular, include your project
-  name in the commit message. For those using the GitHub interface, please
-  modify the default "Create/Update/Delete `.htaccess`" message.
-
-You can also send a request to add a redirect to the
-[public-perma-id@w3.org](https://lists.w3.org/Archives/Public/public-perma-id/)
-mailing list. Make sure to include the URL that you want on w3id.org, the
-URL that you want to redirect to, and the HTTP code that you want to use
-when redirecting. An administrator will then create the redirect for you.
-
-### Naming Policy
-
-There is no official policy on identifier names. The current practice
-is to claim a top-level directory name and add project specific second
-level identifiers. For instance, `https://w3id.org/PROJECT-ID/SUB-ID...`.
-Shared top-levels are also available such as
-`https://w3id.org/people/PERSON-ID`. There is no official list or policy
-for reserved identifiers. However, the administrators may deny requests
-for identifiers that are too generic, could cause confusion, are
-inappropriate or offensive, or otherwise may be needed for future
-service expansion.
-
-### W3ID Community
-
-If you wish to engage the community in discussion about this service for
-your Web application, please send an e-mail to the
+Discussion happens on the
 [public-perma-id@w3.org mailing list](https://lists.w3.org/Archives/Public/public-perma-id/).
+For problems with a specific identifier, use the
+[issue tracker](https://github.com/perma-id/w3id.org/issues).
 
 * * *
 
 ### Disclaimer
 
-The letters 'w3' in the domain name for this site stand for "World Wide
-Web". Other than hosting the software for the Permanent Identifier
-Community Group, the "World Wide Web Consortium" (W3C) is not involved
-in the support or management of this website in any way.
+The letters 'w3' in the domain name for this site stand for "World Wide Web".
+Other than hosting the software for the Permanent Identifier Community Group,
+the "World Wide Web Consortium" (W3C) is not involved in the support or
+management of this website in any way.

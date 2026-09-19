@@ -1,0 +1,95 @@
+# Static analysis of this repository's own GitHub Actions workflows.
+#
+# The workflows here run on pull requests from thousands of people nobody has
+# met. zizmor is what stops a change to them from quietly reintroducing the
+# mistakes that make that dangerous: pull_request_target, an expression
+# interpolated into a shell script, a token left in .git/config, an action
+# pinned to a mutable tag.
+#
+# Because a `pull_request` run uses the workflow files from the pull request
+# itself, a change to a workflow is analysed by the version of this file that
+# the change proposes -- which is exactly the self-check that is wanted. Make
+# this a required status check so a workflow change cannot merge without it.
+name: zizmor
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['**']
+    # Identifier pull requests, which are almost all of them, touch none
+    # of this.
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/zizmor.yaml'
+      - '.github/dependabot.yaml'
+
+permissions: {}
+
+# A new push supersedes any analysis still in flight for the same ref.
+concurrency:
+  group: zizmor-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned rather than floating: a new release should be an explicit change,
+  # not something that appears one morning and blocks unrelated work.
+  ZIZMOR_VERSION: '1.30.1'
+
+jobs:
+  # Runs for pull requests, including from forks. Needs no special permission,
+  # so it works where a code-scanning upload would not.
+  annotate:
+    name: Analyse workflows
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to check out the workflows being analysed
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # pipx is preinstalled on GitHub-hosted runners, so this needs no
+      # third-party setup action.
+      - name: Install zizmor
+        run: pipx install "zizmor==${ZIZMOR_VERSION}"
+
+      - name: Run zizmor
+        env:
+          # Read-only from a fork. The audits that need the API degrade
+          # gracefully without it rather than failing the run.
+          GH_TOKEN: ${{ github.token }}
+        run: zizmor --config .github/zizmor.yaml --format=github .
+
+  # Runs on master, where security-events: write is available and findings can
+  # be tracked in the Security tab over time.
+  scan:
+    name: Upload to code scanning
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to check out the workflows being analysed
+      actions: read # required by upload-sarif to attach results to this run
+      security-events: write # to publish findings to the Security tab
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install zizmor
+        run: pipx install "zizmor==${ZIZMOR_VERSION}"
+
+      - name: Run zizmor
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # SARIF output suppresses the severity-based exit codes, so a finding
+        # is recorded rather than failing this job; the pull request job above
+        # is what blocks.
+        run: zizmor --config .github/zizmor.yaml --format=sarif . > results.sarif
+
+      - uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          sarif_file: results.sarif
+          category: zizmor
