@@ -209,11 +209,19 @@ saving — the findings would have been dropped anyway. Findings that carry no
 `file` (the `git` rules) are never scoped away: whether the branch needs a
 rebase does not stop being true because the reader asked about one directory.
 
-`ctx` provides `tree`, `idPaths`, `read(path)`, `htaccess(path)` (parsed and
-cached), `namespaceOf(path)`, `changes`, `changedPaths`, `changedNamespaces`,
-`addedLines`, `commits`, `behindUpstream`, `uncommittedPaths`, `scope`,
-`inScope(path)` and `options` (this rule's entry under `options:` in the
-config). Everything is computed at most once per run.
+`ctx` provides `tree`, `idPaths`, `read(path)`, `size(path)`, `mode(path)`,
+`htaccess(path)` (parsed and cached), `namespaceOf(path)`, `changes`,
+`changedPaths`, `changedNamespaces`, `addedLines`, `commits`,
+`behindUpstream`, `uncommittedPaths`, `scope`, `inScope(path)` and `options`
+(this rule's entry under `options:` in the config). Everything is computed at
+most once per run.
+
+`mode(path)` returns the file mode git records — `'100644'`, `'100755'`,
+`'120000'` — taken from the index, and from disk for work the run counts as
+uncommitted. It returns `null` when the mode cannot be established, including
+everywhere git does not record the executable bit at all. `null` means "not
+known", never "not executable", so test for the mode you care about rather
+than negating.
 
 A rule does not normally need `scope` or `inScope` — the engine applies them —
 but they are there for a rule that wants to skip work it knows will be

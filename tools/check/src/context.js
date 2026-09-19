@@ -5,11 +5,33 @@
  * ~5200 files and ~22MB, so a full read is cheap, but rules should not each
  * pay for it.
  */
-import {readFileSync, statSync} from 'node:fs';
+import {readFileSync, statSync, lstatSync} from 'node:fs';
 import path from 'node:path';
 import * as git from './git.js';
 import {parse as parseHtaccess} from './htaccess.js';
 import {matchesAny} from './glob.js';
+
+/**
+ * A path's mode on disk, in git's vocabulary.
+ *
+ * `lstat`, not `stat`: a symlink's own permission bits say nothing about what
+ * it points at, and following one would report the target's executable bit
+ * against the link. Git stores a symlink as 120000 whatever its bits are.
+ */
+function diskMode(absPath) {
+  try {
+    const st = lstatSync(absPath);
+    if(st.isSymbolicLink()) {
+      return '120000';
+    }
+    if(!st.isFile()) {
+      return null;
+    }
+    return (st.mode & 0o111) === 0 ? '100644' : '100755';
+  } catch {
+    return null;
+  }
+}
 
 export class Context {
   /**
@@ -155,6 +177,45 @@ export class Context {
       } catch {
         return null;
       }
+    });
+  }
+
+  /**
+   * File mode as git records it -- '100644', '100755', '120000', '160000' --
+   * or null when it cannot be established.
+   *
+   * The index is the base, because the index is what a commit is made of.
+   * When the working tree counts, paths the working tree has changed --
+   * including files that exist only on disk -- are overlaid from disk, so a
+   * bit that is set but not yet staged is still seen. That overlay is skipped
+   * where git does not record the bit, because there the bit on disk is not
+   * part of the file and never will be.
+   *
+   * Null means "not established", never "not executable". A caller must stay
+   * silent on null rather than assume either answer.
+   */
+  mode(relPath) {
+    return this._modes.get(relPath) ?? null;
+  }
+
+  get _modes() {
+    return this._memo('modes', () => {
+      const modes = git.listFileModes(this.root);
+      // The core.fileMode probe costs a subprocess, so it is only paid when
+      // there is something to overlay: a committed-only run never pays it.
+      if(!this.includeWorkingTree || this.uncommittedPaths.size === 0 ||
+        !git.fileModeRecorded(this.root)) {
+        return modes;
+      }
+      for(const p of this.uncommittedPaths) {
+        const onDisk = diskMode(this.abs(p));
+        // Unreadable, or gone between `git status` and now: leave the index
+        // entry standing rather than replacing it with a guess.
+        if(onDisk !== null) {
+          modes.set(p, onDisk);
+        }
+      }
+      return modes;
     });
   }
 

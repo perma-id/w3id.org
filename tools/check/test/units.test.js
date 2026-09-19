@@ -8,6 +8,11 @@ import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js'
 import {resolveSeverity, explainSeverity} from '../src/config.js';
 import {buildWhy} from '../src/report.js';
 import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
+import {mkdtempSync, rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {listFileModes} from '../src/git.js';
+import {makeRepo} from './helpers.js';
 
 test('glob: ** spans zero or more segments', () => {
   for(const p of ['.htaccess', 'ids/.htaccess', 'ids/a/b/c/.htaccess']) {
@@ -318,6 +323,40 @@ test('severity: the policy softens findings but never sharpens them', () => {
     resolveSeverity({
       rule: {id: 'x/y', severity: 'notice'}, provenance: 'touched', config
     }), 'notice');
+});
+
+/**
+ * `ls-files -s -z` writes the path verbatim after a tab, with none of the
+ * quoting `core.quotePath` applies to unusual bytes. A parser that split on
+ * whitespace, or that trusted the field count, would lose exactly the paths
+ * least likely to be noticed -- so the awkward ones are the test.
+ */
+test('git: index modes are read back for paths of any shape', () => {
+  const repo = makeRepo();
+  repo.write('ids/a b/.htaccess', 'RewriteEngine on\n', 0o755);
+  repo.write('ids/née/README.md', '# née\n');
+  repo.write('ids/plain/.htaccess', 'RewriteEngine on\n');
+  repo.commit('fixture');
+
+  const modes = listFileModes(repo.dir);
+  assert.equal(modes.get('ids/a b/.htaccess'), '100755');
+  assert.equal(modes.get('ids/née/README.md'), '100644');
+  assert.equal(modes.get('ids/plain/.htaccess'), '100644');
+  // Absent rather than guessed: a caller must be able to tell "not recorded"
+  // from "not executable".
+  assert.equal(modes.get('ids/nothing/.htaccess'), undefined);
+});
+
+test('git: modes outside a repository are unknown, not an error', () => {
+  // Nothing to read is not a failure to report: the map comes back empty and
+  // every lookup says "not established", which is what keeps a rule silent
+  // rather than throwing into result.errors.
+  const outside = mkdtempSync(path.join(tmpdir(), 'w3id-check-bare-'));
+  try {
+    assert.equal(listFileModes(outside).size, 0);
+  } finally {
+    rmSync(outside, {recursive: true, force: true});
+  }
 });
 
 test('paths: every accepted README is a file the format rules inspect', () => {

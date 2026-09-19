@@ -44,6 +44,61 @@ export function listFiles(cwd) {
   return git(['ls-files', '-z'], {cwd}).split('\0').filter(p => p !== '');
 }
 
+/**
+ * Index mode of every tracked path, keyed by path.
+ *
+ * `ls-files -s` prints `<mode> <sha> <stage>\t<path>`. With `-z` the path is
+ * written verbatim -- no `core.quotePath` escaping, so no question of what a
+ * backslash meant -- and splitting at the first tab is exact for every byte a
+ * path may contain, spaces and non-ASCII included. The three fields before it
+ * cannot contain a tab, so the first one found is always the separator.
+ *
+ * The index is what a commit is built from, which makes it the authority on
+ * what will land in the repository. Where git does not record the executable
+ * bit at all, it is also the only thing that means anything.
+ *
+ * Only stage 0 is kept. A conflicted path appears once per stage and has no
+ * settled mode until the merge is resolved; leaving it out reports it as
+ * unknown rather than as whichever side happened to be parsed last.
+ */
+export function listFileModes(cwd) {
+  const modes = new Map();
+  const out = git(['ls-files', '-s', '-z'], {cwd, allowFailure: true});
+  if(out === null) {
+    return modes;
+  }
+  for(const record of out.split('\0')) {
+    if(record === '') {
+      continue;
+    }
+    const tab = record.indexOf('\t');
+    if(tab === -1) {
+      continue;
+    }
+    const [mode, , stage] = record.slice(0, tab).split(' ');
+    if(stage !== '0') {
+      continue;
+    }
+    modes.set(record.slice(tab + 1), mode);
+  }
+  return modes;
+}
+
+/**
+ * Whether git records the executable bit in this working tree.
+ *
+ * False on Windows, on FAT and exFAT volumes, and on some network mounts.
+ * There the bit on disk is not part of the file as far as this repository is
+ * concerned: it cannot be committed, and no command a contributor runs will
+ * clear it. A finding about it would be a finding with no fix.
+ */
+export function fileModeRecorded(cwd) {
+  const out = git(['config', '--type=bool', '--get', 'core.fileMode'],
+    {cwd, allowFailure: true});
+  // Unset: git's own compiled default, which is true everywhere but Windows.
+  return out === null ? process.platform !== 'win32' : out.trim() === 'true';
+}
+
 /** Resolve a ref to a full SHA, or null if it does not exist. */
 export function resolve(ref, cwd) {
   const out = git(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`],
