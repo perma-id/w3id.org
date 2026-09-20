@@ -8,6 +8,7 @@ import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js'
 import {resolveSeverity, explainSeverity} from '../src/config.js';
 import {buildWhy} from '../src/report.js';
 import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
+import {looksLikeFlagList} from '../src/rewrite-flags.js';
 import {mkdtempSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -146,6 +147,23 @@ test('htaccess: a comment indented with a no-break space is still a comment',
     const h = parse(' # a note\n \nRewriteEngine on\n');
     assert.equal(h.directives.length, 1);
     assert.equal(h.comments.length, 1);
+  });
+
+test('rewrite flags: a bracket group is a flag list only if its names are',
+  () => {
+    assert.ok(looksLikeFlagList('[R=302,NE,L]'));
+    // Long and lower-case spellings are the same flags to Apache.
+    assert.ok(looksLikeFlagList('[redirect=302,last]'));
+    assert.ok(looksLikeFlagList('[r=302,l]'));
+    // A bad status is still a flag list. Saying so is what lets
+    // valid-rewrite-flags report the status once the space is back.
+    assert.ok(looksLikeFlagList('[R=30,L]'));
+    // Character classes and empty groups are not.
+    assert.ok(!looksLikeFlagList('[0-9]'));
+    assert.ok(!looksLikeFlagList('[A-Z]'));
+    assert.ok(!looksLikeFlagList('[]'));
+    assert.ok(!looksLikeFlagList('[,]'));
+    assert.ok(!looksLikeFlagList('not-brackets'));
   });
 
 test('maintainers: the recorded formats are all recognised', () => {
