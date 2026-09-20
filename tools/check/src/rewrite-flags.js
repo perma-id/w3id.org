@@ -24,6 +24,17 @@ export const FLAGS = new Set([
 ]);
 
 /**
+ * The flags a `RewriteCond` takes, which are not the ones a `RewriteRule`
+ * takes.
+ *
+ * Kept apart rather than folded into the set above, because the difference is
+ * load-bearing: `[OR]` on a `RewriteRule` is an error, and merging the two
+ * would make `htaccess/valid-rewrite-flags` accept it. `NC` is in both and is
+ * listed once, above.
+ */
+export const COND_FLAGS = new Set(['OR', 'ORNEXT', 'NV', 'NOVARY']);
+
+/**
  * `[R=...]` accepts any HTTP status code, not only the 3xx family: given a
  * code outside 300-399 mod_rewrite drops the substitution and ends the
  * request with that status. Content negotiation in this repository relies on
@@ -44,18 +55,24 @@ export function isHttpStatus(value) {
  * happens to end an argument.
  *
  * Every comma-separated name has to be one mod_rewrite knows, so a trailing
- * `[0-9]` fails on `0-9`. The value of `R=` is deliberately not checked here:
+ * `[0-9]` fails on `0-9`. Both vocabularies are accepted, because the
+ * question here is "did somebody mean flags", not "are these the right flags
+ * for this directive" -- that second question is
+ * `htaccess/valid-rewrite-flags`, and it can only ask it once the flag list
+ * is a flag list. The value of `R=` is deliberately not checked here:
  * `[R=30,L]` is still a flag list, and saying so is what lets
  * `htaccess/valid-rewrite-flags` go on to report the bad status once the
  * directive is otherwise repaired. A directive with two mistakes should not
  * be silent about both.
  *
  * Nothing in the tree currently reaches this test and fails it: the
- * structural checks its caller applies first already exclude every bracket in
- * the corpus that is not a flag list. It is here against the target URL that
- * ends in `[0-9]` one day, not because it is carrying weight today.
+ * structural checks in `htaccess/space-before-flags` already exclude every
+ * bracket in the corpus that is not a flag list. It is here against the
+ * target URL that ends in `[0-9]` one day, not because it is carrying weight
+ * today.
  */
 export function looksLikeFlagList(group) {
   const flags = parseFlags(group);
-  return flags.size > 0 && [...flags.keys()].every(name => FLAGS.has(name));
+  return flags.size > 0 && [...flags.keys()].every(
+    name => FLAGS.has(name) || COND_FLAGS.has(name));
 }

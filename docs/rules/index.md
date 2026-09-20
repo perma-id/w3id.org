@@ -84,6 +84,7 @@ report it is whoever has just watched their own mistake pass.
 | Rule | Severity | What |
 | --- | --- | --- |
 | [`htaccess/no-flag-whitespace`](./htaccess/no-flag-whitespace) | error | No spaces inside the `[...]` flag list |
+| [`htaccess/space-before-flags`](./htaccess/space-before-flags) | error | A space *before* the `[...]`, or it is part of the target |
 | [`htaccess/valid-rewrite-flags`](./htaccess/valid-rewrite-flags) | error | Flag names must be ones mod_rewrite knows |
 | [`htaccess/no-inline-comment`](./htaccess/no-inline-comment) | error | `#` only starts a comment at the start of a line |
 | [`htaccess/uppercase-rewrite-flags`](./htaccess/uppercase-rewrite-flags) | warning | Write flags in upper case |

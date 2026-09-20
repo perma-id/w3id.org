@@ -136,6 +136,7 @@ export default defineConfig({
             items: [
               { text: 'Overview', link: '/rules/htaccess#syntax' },
               { text: 'no-flag-whitespace', link: '/rules/htaccess/no-flag-whitespace' },
+              { text: 'space-before-flags', link: '/rules/htaccess/space-before-flags' },
               { text: 'valid-rewrite-flags', link: '/rules/htaccess/valid-rewrite-flags' },
               { text: 'no-inline-comment', link: '/rules/htaccess/no-inline-comment' },
               { text: 'uppercase-rewrite-flags', link: '/rules/htaccess/uppercase-rewrite-flags' }

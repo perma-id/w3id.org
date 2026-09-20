@@ -8,7 +8,7 @@ import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js'
 import {resolveSeverity, explainSeverity} from '../src/config.js';
 import {buildWhy} from '../src/report.js';
 import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
-import {looksLikeFlagList} from '../src/rewrite-flags.js';
+import {FLAGS, looksLikeFlagList} from '../src/rewrite-flags.js';
 import {mkdtempSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -164,6 +164,12 @@ test('rewrite flags: a bracket group is a flag list only if its names are',
     assert.ok(!looksLikeFlagList('[]'));
     assert.ok(!looksLikeFlagList('[,]'));
     assert.ok(!looksLikeFlagList('not-brackets'));
+    // A RewriteCond flag list is a flag list too. [OR] is deliberately absent
+    // from FLAGS, because it is an error on a RewriteRule and
+    // valid-rewrite-flags must go on saying so -- merging the two sets to
+    // make this line pass would break that.
+    assert.ok(looksLikeFlagList('[NC,OR]'));
+    assert.ok(!FLAGS.has('OR'));
   });
 
 test('maintainers: the recorded formats are all recognised', () => {

@@ -37,6 +37,7 @@ import htaccessValidCorsHeader from './htaccess/valid-cors-header.js';
 import htaccessNoSelfRedirect from './htaccess/no-self-redirect.js';
 import htaccessAllowedDirectives from './htaccess/allowed-directives.js';
 import htaccessNoFlagWhitespace from './htaccess/no-flag-whitespace.js';
+import htaccessSpaceBeforeFlags from './htaccess/space-before-flags.js';
 import htaccessAvoidPermanentRedirect from './htaccess/avoid-permanent-redirect.js';
 import htaccessGithubRawTarget from './htaccess/github-raw-target.js';
 import htaccessNoDoubleSlash from './htaccess/no-double-slash.js';
@@ -83,6 +84,7 @@ export const rules = [
   htaccessNoSelfRedirect,
   htaccessAllowedDirectives,
   htaccessNoFlagWhitespace,
+  htaccessSpaceBeforeFlags,
   htaccessAvoidPermanentRedirect,
   htaccessGithubRawTarget,
   htaccessNoDoubleSlash,

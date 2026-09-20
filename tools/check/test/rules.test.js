@@ -16,6 +16,7 @@ import noExcessiveBlankLines
   from '../src/rules/format/no-excessive-blank-lines.js';
 import preferListOverLineBreaks from '../src/rules/markdown/prefer-list-over-line-breaks.js';
 import noFlagWhitespace from '../src/rules/htaccess/no-flag-whitespace.js';
+import spaceBeforeFlags from '../src/rules/htaccess/space-before-flags.js';
 import noBom from '../src/rules/format/no-bom.js';
 import avoidPermanentRedirect from '../src/rules/htaccess/avoid-permanent-redirect.js';
 import githubRawTarget from '../src/rules/htaccess/github-raw-target.js';
@@ -203,6 +204,104 @@ test('htaccess/no-flag-whitespace ignores brackets that are not flag lists', () 
     'ids/a/.htaccess:5:error', 'ids/a/.htaccess:6:error'
   ]);
   assert.match(r.findings[0].message, /\[R=302,L\]/);
+});
+
+test('htaccess/space-before-flags finds a flag list with no space', () => {
+  const r = audit(spaceBeforeFlags, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      // The two shapes that occur in this repository.
+      'RewriteRule ^a$ https://example.org/a[R=303,L]\n' +
+      'RewriteRule ^b$ https://example.org/b.ttl[R=302,NE,L]\n' +
+      // Long and lower-case spellings are the same flags to Apache.
+      'RewriteRule ^c$ https://example.org/c[redirect=302,last]\n' +
+      'RewriteRule ^d$ https://example.org/d[r=302,l]\n' +
+      // A relative substitution: nothing redirects at all.
+      'RewriteRule ^e$ /local/e[R=302,L]\n' +
+      // RewriteCond takes flags too, though the tree has no instance.
+      'RewriteCond %{HTTP_ACCEPT} text/turtle[NC,OR]\n' +
+      'RewriteRule ^f$ https://example.org/f [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:2:error', 'ids/a/.htaccess:3:error',
+    'ids/a/.htaccess:4:error', 'ids/a/.htaccess:5:error',
+    'ids/a/.htaccess:6:error', 'ids/a/.htaccess:7:error'
+  ]);
+});
+
+test('htaccess/space-before-flags leaves real brackets alone', () => {
+  const r = audit(spaceBeforeFlags, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      // From the tree: the bracket is a negated character class in the
+      // *pattern*, and [S=28] is a genuine, correctly separated flag list.
+      'RewriteRule ![A-Z] - [S=28]\n' +
+      // A character class ending a pattern.
+      'RewriteRule ^v[0-9]$ https://example.org/v [R=302,L]\n' +
+      // Brackets that belong to the URL.
+      'RewriteRule ^g$ https://example.org/g?filter[]=1 [R=302,L]\n' +
+      // A trailing bracket group whose contents are not flag names.
+      'RewriteRule ^h$ https://example.org/h[0-9] [R=302,L]\n' +
+      'RewriteRule ^i$ https://example.org/i[0-9]\n' +
+      // An argument that *is* a flag list means a missing substitution,
+      // which is a different mistake and not this rule's.
+      'RewriteRule ^j$ [R=302,L]\n' +
+      // Whitespace inside the list belongs to htaccess/no-flag-whitespace.
+      'RewriteRule ^k$ https://example.org/k [R=302, L]\n' +
+      'RewriteCond %{HTTP_ACCEPT} text/html [NC]\n' +
+      'RewriteRule ^l$ https://example.org/l [R=303,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), []);
+});
+
+test('htaccess/space-before-flags names the invisible character', () => {
+  const r = audit(spaceBeforeFlags, {
+    // From the tree. This line looks correct in every editor and diff.
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^$ https://example.org/x [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:2:error']);
+  const {message} = r.findings[0];
+  assert.match(message, /no-break space \(U\+00A0\)/);
+  // The suggested fix drops the invisible character rather than adding a
+  // space after it. One that still contained it would be useless.
+  assert.match(message, /https:\/\/example\.org\/x \[R=302,L\]/);
+  assert.ok(!message.includes(' '),
+    'the repaired line must not carry the character it tells you to delete');
+});
+
+test('htaccess/space-before-flags is honest about what still happens', () => {
+  const r = audit(spaceBeforeFlags, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://example.org/a[R=303,L]\n' +
+      'RewriteRule ^b$ /local/b[R=303,L]\n'
+  });
+  // An absolute target still redirects, at the wrong status to a wrong URL.
+  assert.match(r.findings[0].message, /still redirected/);
+  assert.match(r.findings[0].message, /default 302/);
+  // A relative one does not redirect at all, and the message must not say it
+  // does.
+  assert.match(r.findings[1].message, /returns 404 instead of redirecting/);
+  assert.ok(!/still redirected/.test(r.findings[1].message));
+});
+
+test('htaccess: the flag rules cannot see a fused flag list', () => {
+  // Why the rule above has to exist. Apache parses no flag list here, so
+  // rewriteRules() reports none, so the three rules that judge flags have
+  // nothing to judge. If this starts failing, the parser has begun modelling
+  // what the author meant rather than what the server does, and several
+  // other rules are now reporting on flags that never apply.
+  const files = {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://example.org/a[R=303,L]\n' +
+      'RewriteRule ^b$ https://example.org/b [r=302,l]\n'
+  };
+  assert.deepEqual(findingsOf(audit(validRewriteFlags, files)), []);
+  assert.deepEqual(findingsOf(audit(uppercaseRewriteFlags, files)), []);
+  assert.deepEqual(findingsOf(audit(noFlagWhitespace, files)), []);
 });
 
 test('format/no-bom finds a byte order mark', () => {

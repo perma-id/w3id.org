@@ -15,6 +15,7 @@ unparseable `.htaccess` returns 500 for every URL under the directory.
 | Rule | Severity | What |
 | --- | --- | --- |
 | [`htaccess/no-flag-whitespace`](./no-flag-whitespace) | error | No spaces inside the `[...]` flag list |
+| [`htaccess/space-before-flags`](./space-before-flags) | error | A space *before* the `[...]`, or it is part of the target |
 | [`htaccess/valid-rewrite-flags`](./valid-rewrite-flags) | error | Flag names must be ones mod_rewrite knows |
 | [`htaccess/no-inline-comment`](./no-inline-comment) | error | `#` only starts a comment at the start of a line |
 | [`htaccess/uppercase-rewrite-flags`](./uppercase-rewrite-flags) | warning | Write flags in upper case |

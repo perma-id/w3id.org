@@ -139,6 +139,18 @@ cause of outages in this repository. See
 [`htaccess/no-flag-whitespace`](/rules/htaccess/no-flag-whitespace).
 :::
 
+::: danger And a space before them
+```apache
+RewriteRule ^ https://example.com/[R=302,L]     # ← no flags at all
+RewriteRule ^ https://example.com/ [R=302,L]    # ← correct
+```
+Without the space Apache reads the brackets as part of the target, so no flag
+applies. The redirect still happens, which is why this survives review: it goes
+to the target with `%5BR=302,L%5D` on the end, at 302 whatever status you asked
+for. See
+[`htaccess/space-before-flags`](/rules/htaccess/space-before-flags).
+:::
+
 Always use `L` on a redirect rule. Without it Apache keeps evaluating
 subsequent rules, which at best wastes work and at worst produces a redirect
 loop.
