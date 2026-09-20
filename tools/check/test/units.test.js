@@ -106,6 +106,48 @@ test('htaccess: flags parse names, values and raw spelling', () => {
   assert.equal(parseFlags('[r=302]').get('R').raw, 'r=302');
 });
 
+test('htaccess: a no-break space does not separate arguments', () => {
+  // Apache splits a directive on ASCII space and tab. A file in the tree puts
+  // a U+00A0 before its flag list, and reading that as a separator would show
+  // a well-formed directive where Apache sees a broken one -- three arguments
+  // and working flags, instead of two arguments and none.
+  const h = parse('RewriteRule ^$ https://x/a [R=302,L]\n');
+  assert.deepEqual(h.directives[0].args,
+    ['^$', 'https://x/a [R=302,L]']);
+  const rule = h.rewriteRules()[0];
+  assert.equal(rule.substitution, 'https://x/a [R=302,L]');
+  assert.equal(rule.flags.size, 0,
+    'Apache applies no flags here, so neither may the parser');
+});
+
+test('htaccess: a tab still separates arguments', () => {
+  const h = parse('RewriteRule\t^$\thttps://x/\t[R=302,L]\n');
+  assert.deepEqual(h.directives[0].args, ['^$', 'https://x/', '[R=302,L]']);
+});
+
+test('htaccess: only ASCII whitespace may follow a continuation backslash',
+  () => {
+    // apr_isspace does not count U+00A0 either, so Apache does not trim it and
+    // the backslash is then not the last character on the line.
+    const joined = parse('RewriteRule ^a$ \\  \nhttps://x/ [R=302,L]\n');
+    assert.equal(joined.directives.length, 1);
+    assert.deepEqual(joined.continuationLines, [1]);
+
+    const separate = parse('RewriteRule ^a$ \\ \nhttps://x/ [R=302,L]\n');
+    assert.equal(separate.directives.length, 2);
+    assert.deepEqual(separate.continuationLines, []);
+  });
+
+test('htaccess: a comment indented with a no-break space is still a comment',
+  () => {
+    // Blank and comment classification trims with `\s` on purpose, and stays
+    // that way: it decides nothing about arguments, and files in the tree
+    // carry U+00A0 inside their comments.
+    const h = parse(' # a note\n \nRewriteEngine on\n');
+    assert.equal(h.directives.length, 1);
+    assert.equal(h.comments.length, 1);
+  });
+
 test('maintainers: the recorded formats are all recognised', () => {
   // Every shape below is one that occurs in the tree. The names are invented:
   // what each case pins is the *format*, and a real maintainer's handle is not

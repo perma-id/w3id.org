@@ -52,6 +52,11 @@ export function parse(text) {
     const startLine = i + 1;
     const trimmed = lines[i].trim();
 
+    // `trim()` is broader than ARG_SEPARATOR on purpose. It gates
+    // classification only -- blank, comment or directive -- and the directive
+    // is tokenized from the raw line, so nothing here can reach an argument.
+    // Several files indent a comment with a no-break space, and calling those
+    // directives named " #" would invent a problem nobody has.
     if(trimmed === '') {
       continue;
     }
@@ -60,11 +65,16 @@ export function parse(text) {
       continue;
     }
 
-    // Join backslash continuations into one logical directive.
+    // Join backslash continuations into one logical directive. The trailing
+    // whitespace allowed before the backslash is ASCII-only for the same
+    // reason argument separation is: Apache's line reader trims with
+    // apr_isspace, which is false for every byte above 0x7f, so a backslash
+    // followed by a no-break space is not the last character on the line and
+    // does not continue.
     let joined = lines[i];
-    while(/\\\s*$/.test(joined) && i + 1 < lines.length) {
+    while(/\\[ \t]*$/.test(joined) && i + 1 < lines.length) {
       continuationLines.push(i + 1);
-      joined = joined.replace(/\\\s*$/, ' ') + lines[++i];
+      joined = joined.replace(/\\[ \t]*$/, ' ') + lines[++i];
     }
 
     const tokens = tokenize(joined);
@@ -106,6 +116,20 @@ export function parse(text) {
 }
 
 /**
+ * What separates one directive argument from the next.
+ *
+ * Apache splits on ASCII space and tab. JavaScript's `\s` also matches U+00A0
+ * and the rest of the Unicode space characters, so splitting on `\s` would
+ * read a no-break space as an argument boundary where Apache reads it as part
+ * of the argument -- turning a directive Apache sees as broken into one this
+ * parser sees as well formed. One file in the tree does exactly that.
+ *
+ * Named rather than written out twice below: the two uses must never
+ * disagree, and the reason they exist takes a paragraph.
+ */
+const ARG_SEPARATOR = /[ \t]/;
+
+/**
  * Split a directive line into tokens, honouring Apache's double-quoting.
  *
  * Returns entries of {value, quoted}; `quoted` matters because a `#` inside
@@ -115,7 +139,7 @@ function tokenize(line) {
   const tokens = [];
   let i = 0;
   while(i < line.length) {
-    while(i < line.length && /\s/.test(line[i])) {
+    while(i < line.length && ARG_SEPARATOR.test(line[i])) {
       ++i;
     }
     if(i >= line.length) {
@@ -135,7 +159,7 @@ function tokenize(line) {
       }
       ++i;
     } else {
-      while(i < line.length && !/\s/.test(line[i])) {
+      while(i < line.length && !ARG_SEPARATOR.test(line[i])) {
         value += line[i++];
       }
     }
