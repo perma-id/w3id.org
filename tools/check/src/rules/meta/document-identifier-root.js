@@ -1,5 +1,5 @@
 import {hasMaintainerSignal, namespaceMaintainers} from '../../maintainers.js';
-import {isReadme, isHtaccess, isInfrastructure, identifierNamespaces}
+import {isReadme, isHtaccess, isInfrastructure, identifierNamespaces, anchorIn}
   from '../../paths.js';
 
 export default {
@@ -81,8 +81,13 @@ export default {
       // file whose author is being asked not to move it.
       const where = paths.filter(p => !atRoot(p)).find(
         p => isReadme(p) || namespaceMaintainers(ctx, dir, [p]).usernames.size > 0);
+      // The finding is about the directory, but it is reported against a file
+      // inside it: an annotation naming a directory never appears in the diff
+      // a contributor is reading. The message names the directory, so nothing
+      // is lost by hanging it on the file they would edit to fix it.
       report({
-        file: dir,
+        file: anchorIn(ctx, dir) ?? dir,
+        line: 1,
         messageId: where === undefined ? 'undocumented' : 'deeper',
         data: {dir, where, id: dir.slice(ctx.idsDir.length + 1)}
       });

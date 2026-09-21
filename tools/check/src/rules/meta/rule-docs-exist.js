@@ -47,7 +47,11 @@ export default {
         continue;
       }
       report({
-        file: 'docs/rules',
+        // The catalogue page, not the directory holding it: an annotation
+        // naming a directory never reaches the diff, and the index is where a
+        // reader goes to find the page that is missing.
+        file: 'docs/rules/index.md',
+        line: 1,
         messageId: 'missingPage',
         data: {ruleId: id, url: ctx.config.docsBaseUrl + id}
       });

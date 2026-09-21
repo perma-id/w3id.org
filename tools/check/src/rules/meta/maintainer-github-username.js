@@ -1,5 +1,6 @@
 import {namespaceMaintainers} from '../../maintainers.js';
-import {isInfrastructure, isReadme, isHtaccess} from '../../paths.js';
+import {isInfrastructure, isReadme, isHtaccess, anchorIn}
+  from '../../paths.js';
 
 export default {
   id: 'meta/maintainer-github-username',
@@ -61,7 +62,10 @@ export default {
       const htaccess = paths.find(isHtaccess);
       const where = readme ?? htaccess;
       report({
-        file: where ?? ns,
+        // `where` is the file to edit when there is one. Without it, a file
+        // inside the namespace rather than the namespace itself: an
+        // annotation naming a directory never reaches the diff.
+        file: where ?? anchorIn(ctx, ns) ?? ns,
         line: 1,
         messageId: where === undefined ? 'missingBoth' :
           readme === undefined ? 'missingHtaccess' : 'missingReadme',

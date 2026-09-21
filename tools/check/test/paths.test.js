@@ -146,8 +146,12 @@ test('a scope does not blind a tree rule to the rest of the tree', () => {
     includeWorkingTree: true
   });
   // The collision is only detectable by looking outside the scope, but is
-  // reported against the path inside it.
-  assert.deepEqual(result.findings.map(f => f.file), ['ids/Widget']);
+  // reported against the path inside it -- and against a file within that
+  // path, since an annotation naming a directory never reaches the diff. A
+  // scope prefix still matches, which is the property that keeps the two
+  // behaviours compatible.
+  assert.deepEqual(result.findings.map(f => f.file),
+    ['ids/Widget/.htaccess']);
   assert.match(result.findings[0].message, /ids\/widget/);
 });
 
@@ -162,16 +166,18 @@ test('a tree rule finding outside the scope is suppressed', () => {
   const scoped = check({
     dir: repo.dir, rules: [documentIdentifierRoot], scope: ['ids/foo']
   });
-  assert.deepEqual(scoped.findings.map(f => f.file), ['ids/foo']);
+  // Anchored on a file inside the namespace, which the scope prefix still
+  // covers: scoping to `ids/foo` has to keep matching `ids/foo/.htaccess`.
+  assert.deepEqual(scoped.findings.map(f => f.file), ['ids/foo/.htaccess']);
 
   const unscoped = check({dir: repo.dir, rules: [documentIdentifierRoot]});
   assert.deepEqual(unscoped.findings.map(f => f.file).sort(),
-    ['ids/bar', 'ids/foo']);
+    ['ids/bar/.htaccess', 'ids/foo/.htaccess']);
 
   // Suppressed rather than never computed, and `--why` distinguishes the two.
   assert.deepEqual(
     scoped.suppressed.map(f => `${f.file}:${f.reason}`),
-    ['ids/bar:out-of-scope']);
+    ['ids/bar/.htaccess:out-of-scope']);
   assert.deepEqual(unscoped.suppressed, []);
 });
 

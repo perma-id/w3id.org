@@ -122,6 +122,39 @@ export function isInfrastructure(relPath, idsDir) {
   return rest.startsWith('.');
 }
 
+/**
+ * A real file to hang a finding about a directory on.
+ *
+ * GitHub renders an inline annotation from a file and a line, and a directory
+ * is neither. An annotation naming `ids/my-project` is dropped from the "files
+ * changed" view entirely -- which is the one place a contributor reliably
+ * reads annotations -- so it reaches nobody who has not gone looking through
+ * the checks tab for it. A rule with something to say about a namespace
+ * therefore says it against a file inside that namespace, and names the
+ * directory in the message instead.
+ *
+ * Prefers the `.htaccess` at the root of the directory, then a README there,
+ * then the first path inside it: the order in which a reader would look for
+ * the thing the message is asking them to change. Falls back to the whole
+ * subtree when the root itself holds no file, because a namespace that exists
+ * only to group sub-identifiers still has to be reportable.
+ *
+ * Returns null for a directory holding no file at all, which leaves the
+ * caller to report against the directory and reach the summary but not the
+ * diff. That is the best available answer, not a good one.
+ */
+export function anchorIn(ctx, dir) {
+  const prefix = dir + '/';
+  const inside = ctx.tree.filter(p => p.startsWith(prefix)).sort();
+  if(inside.length === 0) {
+    return null;
+  }
+  const atRoot = inside.filter(p => !p.slice(prefix.length).includes('/'));
+  const candidates = atRoot.length > 0 ? atRoot : inside;
+  return candidates.find(isHtaccess) ?? candidates.find(isReadme) ??
+    candidates[0];
+}
+
 /** A path argument that cannot be used as a scope. */
 export class ScopeError extends Error {}
 

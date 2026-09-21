@@ -551,7 +551,7 @@ test('files/htaccess-required accepts a parent that only groups children', () =>
     'ids/group/child/.htaccess': OK_HTACCESS,
     'ids/orphan/README.md': OK_README
   });
-  assert.deepEqual(findingsOf(r), ['ids/orphan:-:warning']);
+  assert.deepEqual(findingsOf(r), ['ids/orphan/README.md:1:warning']);
 });
 
 test('meta/document-identifier-root ignores files sitting directly in ids/',
@@ -565,7 +565,7 @@ test('meta/document-identifier-root ignores files sitting directly in ids/',
       'ids/.htaccess': '# global rewrites\nRewriteEngine on\n',
       'ids/real-identifier/.htaccess': OK_HTACCESS
     });
-    assert.deepEqual(findingsOf(r), ['ids/real-identifier:-:warning']);
+    assert.deepEqual(findingsOf(r), ['ids/real-identifier/.htaccess:1:warning']);
   });
 
 test('meta/document-identifier-root: a README below the root does not claim it',
@@ -575,7 +575,7 @@ test('meta/document-identifier-root: a README below the root does not claim it',
       'ids/a/sub/README.md': OK_README,
       'ids/b/.htaccess': OK_HTACCESS
     });
-    assert.deepEqual(findingsOf(r), ['ids/a:-:warning', 'ids/b:-:warning']);
+    assert.deepEqual(findingsOf(r), ['ids/a/.htaccess:1:warning', 'ids/b/.htaccess:1:warning']);
     // The deeper file is named, and the message says to leave it alone: the
     // obvious misreading is "your README is in the wrong place", and acting
     // on it would delete a sub-tree's own maintainer record.
@@ -598,7 +598,7 @@ test('meta/document-identifier-root: root .htaccess comments claim the root',
       'ids/c/.htaccess': '#RewriteRule ^$ https://example.org/old [R=302,L]\n' +
         OK_HTACCESS
     });
-    assert.deepEqual(findingsOf(r), ['ids/c:-:warning']);
+    assert.deepEqual(findingsOf(r), ['ids/c/.htaccess:1:warning']);
   });
 
 test('meta/document-identifier-root: a sub-directory may add maintainers',
@@ -625,13 +625,13 @@ test('meta/document-identifier-root: a shared namespace is exempt', () => {
     'ids/other/.htaccess': OK_HTACCESS
   };
   assert.deepEqual(findingsOf(audit(documentIdentifierRoot, files)),
-    ['ids/other:-:warning', 'ids/shared:-:warning']);
+    ['ids/other/.htaccess:1:warning', 'ids/shared/.htaccess:1:warning']);
   const exempt = audit(documentIdentifierRoot, files, {
     options: {
       'meta/document-identifier-root': {sharedNamespaces: ['ids/shared']}
     }
   });
-  assert.deepEqual(findingsOf(exempt), ['ids/other:-:warning']);
+  assert.deepEqual(findingsOf(exempt), ['ids/other/.htaccess:1:warning']);
 });
 
 test('a rule switched off in config is recorded as not run', () => {
@@ -697,8 +697,42 @@ test('tree/no-case-collision flags directories differing only in case', () => {
     'ids/widget/nested/.htaccess': OK_HTACCESS,
     'ids/unique/.htaccess': OK_HTACCESS
   });
+  // The colliding paths are directories, and an annotation naming a directory
+  // never reaches the "files changed" view. Each finding is therefore hung on
+  // a file inside -- the root .htaccess where there is one, the only file in
+  // the subtree where there is not.
   const files = r.findings.map(f => f.file).sort();
-  assert.deepEqual(files, ['ids/Widget', 'ids/widget']);
+  assert.deepEqual(files,
+    ['ids/Widget/.htaccess', 'ids/widget/nested/.htaccess']);
+  // The message still names the directory, which is what collides.
+  for(const f of r.findings) {
+    assert.match(f.message, /ids\/(Widget|widget) differs from/);
+    assert.equal(f.line, 1, 'a line is what makes it render in the diff');
+  }
+});
+
+test('findings about a namespace land on a file, not the directory', () => {
+  // A directory is not somewhere GitHub can draw an annotation, so a finding
+  // naming one is absent from the "files changed" view -- the one place a
+  // contributor reliably reads them. Every rule that has something to say
+  // about a namespace has to say it against a file inside.
+  const r = audit(documentIdentifierRoot, {
+    // The shape that prompted this: a new identifier with no maintainer
+    // recorded anywhere.
+    'ids/testdir/.htaccess': OK_HTACCESS,
+    // No file at the root at all, so the anchor comes from below it.
+    'ids/grouper/sub/.htaccess': OK_HTACCESS
+  });
+  // The README case cannot arise here -- a README at the root is itself the
+  // claim this rule asks for -- and is covered by the files/htaccess-required
+  // test above, which anchors on `ids/orphan/README.md`.
+  assert.deepEqual(findingsOf(r).sort(), [
+    'ids/grouper/sub/.htaccess:1:warning',
+    'ids/testdir/.htaccess:1:warning'
+  ]);
+  // The directory is still what the message is about.
+  const testdir = r.findings.find(f => f.file.startsWith('ids/testdir'));
+  assert.match(testdir.message, /ids\/testdir/);
 });
 
 test('format/no-trailing-whitespace reports all of it outside Markdown', () => {

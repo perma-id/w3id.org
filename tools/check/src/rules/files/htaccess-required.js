@@ -1,4 +1,4 @@
-import {isHtaccess, isInfrastructure} from '../../paths.js';
+import {isHtaccess, isInfrastructure, anchorIn} from '../../paths.js';
 
 export default {
   id: 'files/htaccess-required',
@@ -42,8 +42,12 @@ export default {
       if(dir === ctx.idsDir || covered.has(dir)) {
         continue;
       }
+      // Against a file inside the directory, not the directory itself: an
+      // annotation naming a directory is dropped from the diff view. The
+      // message names the directory.
       report({
-        file: dir,
+        file: anchorIn(ctx, dir) ?? dir,
+        line: 1,
         messageId: 'missing',
         data: {dir, id: dir.slice(prefix.length)}
       });

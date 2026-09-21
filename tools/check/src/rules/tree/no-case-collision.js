@@ -1,3 +1,5 @@
+import {anchorIn} from '../../paths.js';
+
 export default {
   id: 'tree/no-case-collision',
   description:
@@ -33,6 +35,10 @@ export default {
       byLower.get(lower).push(p);
     };
 
+    // Which of the recorded paths are files rather than implied directories,
+    // so a finding can be anchored somewhere an annotation will render.
+    const files = new Set(ctx.tree);
+
     for(const p of ctx.tree) {
       const segments = p.split('/');
       for(let i = 1; i <= segments.length; ++i) {
@@ -66,10 +72,14 @@ export default {
         continue;
       }
       // Report against each colliding path, so whichever one a change touches
-      // is the one that gets flagged.
+      // is the one that gets flagged. A colliding path is as often a
+      // directory as a file, and an annotation naming a directory never
+      // reaches the diff, so those are hung on a file inside. The message
+      // names the colliding path either way.
       for(const p of sorted) {
         report({
-          file: p,
+          file: files.has(p) ? p : (anchorIn(ctx, p) ?? p),
+          line: 1,
           messageId: 'collision',
           data: {path: p, other: sorted.filter(o => o !== p).join(', ')}
         });
