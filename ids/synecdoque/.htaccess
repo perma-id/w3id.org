@@ -1,0 +1,26 @@
+# https://w3id.org/synecdoque/
+#
+# Synecdoque ontologies: the Arrowhead Framework Ontology (AFO) and its
+# alignment ontologies.
+#
+# Creator:      Oskar Wintercorn — author of AFO
+# Maintainer:   Jan A. van Deventer, Synecdoque — vanDeventer
+# Described in: https://doi.org/10.1109/OJIES.2026.3693084
+# Source:       https://github.com/sdoque/systems/tree/main/kgrapher/ontologies
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- AFO, a specific release: /synecdoque/afo/1.2.0 -> the matching git tag
+RewriteRule ^afo/(\d+\.\d+\.\d+)/?$ https://raw.githubusercontent.com/sdoque/systems/afo-$1/kgrapher/ontologies/afo.ttl [R=302,L]
+
+# --- AFO, current version, for RDF clients
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|text/n3|application/n-triples|application/ld\+json) [NC]
+RewriteRule ^afo/?$ https://raw.githubusercontent.com/sdoque/systems/main/kgrapher/ontologies/afo.ttl [R=302,L]
+
+# --- AFO, current version, for a person in a browser
+RewriteRule ^afo/?$ https://github.com/sdoque/systems/blob/main/kgrapher/ontologies/afo.ttl [R=302,L]
+
+# --- the alignment ontologies
+RewriteRule ^afo-lis/?$ https://raw.githubusercontent.com/sdoque/systems/main/kgrapher/ontologies/afo-lis.ttl [R=302,L]
+RewriteRule ^afo-lbd/?$ https://raw.githubusercontent.com/sdoque/systems/main/kgrapher/ontologies/afo-lbd.ttl [R=302,L]

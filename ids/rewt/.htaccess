@@ -1,0 +1,38 @@
+# w3id.org redirects for REWT — Rivers of England and Wales, Temporally.
+#
+# Maintainer: Stephen Gadd — https://github.com/docuracy
+#
+# Namespace layout — identifiers are grouped by entity type, because the same
+# stretch of river must carry one identifier across every published edition of
+# the dataset. Partitioning by edition would mint a second identifier for a
+# reach the moment a later edition described it again.
+#
+#   /rewt/                    → project documentation
+#   /rewt/docs/{path}         → a documentation page
+#   /rewt/link/{id}           → a watercourse link
+#   /rewt/node/{id}           → a hydro node
+#   /rewt/basin/{id}          → a delineated basin
+#   /rewt/course/{id}         → a reconstructed historical course
+#   /rewt/correction/{id}     → a curated judgement, with its reason and evidence
+#   /rewt/context             → JSON-LD context document
+#
+# Entity-level rules will be added in a follow-up pull request once the static
+# API and the map viewer they resolve to are deployed; see README.md for the
+# intended URI scheme. Only rules with live targets are enabled here.
+#
+# Note on fragments: a fragment supplied by the client (…/link/{id}#geometry)
+# is never sent to the server and cannot be routed. Where a rule below writes a
+# fragment of its own, the NE flag stops Apache escaping the '#' to '%23'.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers "Accept"
+
+# --- Documentation ---
+RewriteRule ^docs/?$ https://docuracy.github.io/REWT/ [R=303,L]
+RewriteRule ^docs/(.+)$ https://docuracy.github.io/REWT/$1 [R=303,L]
+
+# --- Namespace homepage ---
+RewriteRule ^$ https://docuracy.github.io/REWT/ [R=303,L]

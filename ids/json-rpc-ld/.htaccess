@@ -1,0 +1,30 @@
+# # /json-rpc-ld/
+#
+# JSON-RPC-LD: a Linked Data extension for JSON-RPC 2.0. Core OWL vocabulary
+# for envelopes, operations and outcomes (Result / Error), with JSON-LD
+# identity and idempotency terms. Profiles specialize it; it imports nothing.
+#
+# https://w3id.org/json-rpc-ld/ redirects to
+# https://github.com/laquereric/json-rpc-ld
+#
+# IRI shapes in use:
+#   https://w3id.org/json-rpc-ld/ns#                  term namespace (jrl:)
+#   https://w3id.org/json-rpc-ld/ontology/core/1.0.0  ontology and version IRI
+#
+# ## Contact
+# This space is administered by:
+#
+# Eric Laquer
+# GitHub username: laquereric
+
+RewriteEngine on
+
+# RDF clients asking for the term namespace or the ontology get Turtle.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ns|ontology/core(/.*)?)?$ https://raw.githubusercontent.com/laquereric/json-rpc-ld/main/ontology/json-rpc-ld-core.ttl [R=303,L]
+
+# Everything else goes to the specification repository.
+RewriteRule ^(.*)$ https://github.com/laquereric/json-rpc-ld [R=302,L]
