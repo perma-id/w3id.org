@@ -1,0 +1,20 @@
+# PCNN — Post-COVID Network Netherlands
+# Maintainer: Hajar Hasannejadasl (https://orcid.org/0000-0001-5262-7399)
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary-pilot.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary-pilot.rdf [R=303,L]
+
+RewriteRule ^var/(.*)$ https://Hajarhn.github.io/PCNN-vars/#$1 [R=302,L]
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/ [R=302,L]
+RewriteRule ^(.*)$ https://Hajarhn.github.io/PCNN-vars/$1 [R=302,L]
