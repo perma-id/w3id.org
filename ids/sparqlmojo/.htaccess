@@ -1,0 +1,26 @@
+# SPARQLMojo — permanent identifiers for the SPARQLMojo project's vocabularies.
+#
+# https://w3id.org/sparqlmojo/temporal  — Temporal Graph Vocabulary (bitemporal RDF)
+#
+# Project:  https://gitlab.com/gitterdan/sparqlmojo  (MIT)
+# Contact:  Oliver Sampson — GitHub username: MrSampson
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Temporal Graph Vocabulary — content negotiation.
+# RDF serialisations are matched first, so that a client asking explicitly for
+# RDF is not captured by the text/html fallback below.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^temporal/?$ https://gitterdan.gitlab.io/sparqlmojo/ns/temporal.ttl [R=303,L]
+
+# Anything else asking for the vocabulary gets the human-readable page.
+RewriteRule ^temporal/?$ https://gitterdan.gitlab.io/sparqlmojo/ns/temporal/ [R=303,L]
+
+# The bare project identifier resolves to the project.
+RewriteRule ^$ https://gitlab.com/gitterdan/sparqlmojo [R=302,L]
