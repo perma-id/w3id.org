@@ -22,8 +22,11 @@
 
 RewriteEngine On
 
-# Redirect the MEXO namespace root to the published documentation.
+# Namespace root
 RewriteRule ^$ https://synapse-rg.github.io/MEXO-Ont/ [R=303,L]
 
-# Redirect requests for MEXO terms and subpaths to the published documentation.
-RewriteRule ^(.+)$ https://synapse-rg.github.io/MEXO-Ont/$1 [R=303,L]
+# Version identifiers
+RewriteRule ^1\.0\.0/?$ https://synapse-rg.github.io/MEXO-Ont/ [R=303,L]
+
+# Ontology terms: convert the path into an HTML fragment
+RewriteRule ^([^/]+)/?$ https://synapse-rg.github.io/MEXO-Ont/#$1 [R=303,L,NE]
