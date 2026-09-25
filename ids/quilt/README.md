@@ -7,6 +7,7 @@ identifiers relating to Quilt data packaging.
 Profiles:
 
 * https://w3id.org/quilt/ro-crate - Quilt RO-Crate profile, latest version
+* https://w3id.org/quilt/ro-crate/0.2 - version 0.2 of the profile
 * https://w3id.org/quilt/ro-crate/0.1 - version 0.1 of the profile
 
 Terms (namespace `https://w3id.org/quilt/ro-crate#`):
