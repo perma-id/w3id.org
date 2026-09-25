@@ -1,0 +1,66 @@
+# # /quilt/
+#
+# Permanent identifiers for Quilt data packaging, used by Quilt Data, Inc.
+#
+# https://w3id.org/quilt/ro-crate      the Quilt RO-Crate profile, latest version
+# https://w3id.org/quilt/ro-crate/0.1  a specific version of the profile
+# https://w3id.org/quilt/ro-crate#...  term definitions within the profile
+#
+# All redirect to the project's GitHub Pages site:
+# https://quiltdata.github.io/quilt-ro-crate-profile/
+#
+# Content negotiation: application/ld+json returns the machine-readable Profile
+# Crate, anything else returns the HTML specification. This is required because
+# an RO-Crate profile URI must resolve to a human-readable description and may
+# also resolve to a Profile Crate; GitHub Pages cannot negotiate on its own.
+# Modelled on ids/ro/wfrun/process/.htaccess.
+#
+# Source: https://github.com/quiltdata/quilt-ro-crate-profile
+#
+# ## Contact
+# This space is administered by:
+#
+# Ernest Prabhakar
+# ernest@quilt.bio
+# GitHub username: drernie
+
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# https://w3id.org/quilt/ro-crate -> latest version
+#
+# Term IRIs such as https://w3id.org/quilt/ro-crate#packageName are the same
+# HTTP request as the bare profile URI, because a fragment is never sent to the
+# server. They are handled by these rules and land on the specification page,
+# which carries matching anchor ids. Terms are intentionally unversioned so
+# they stay stable as the profile versions.
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ro-crate$ https://quiltdata.github.io/quilt-ro-crate-profile/0.1/ro-crate-metadata.jsonld [R=303,L]
+
+# HTML for humans, and the default for anything else
+RewriteRule ^ro-crate$ https://quiltdata.github.io/quilt-ro-crate-profile/0.1/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# https://w3id.org/quilt/ro-crate/0.1 -> that specific version
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ro-crate/(\d+\.\d+)/?$ https://quiltdata.github.io/quilt-ro-crate-profile/$1/ro-crate-metadata.jsonld [R=303,L]
+
+RewriteRule ^ro-crate/(\d+\.\d+)/?$ https://quiltdata.github.io/quilt-ro-crate-profile/$1/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Anything deeper under a version, e.g. /quilt/ro-crate/0.1/example1/
+# ---------------------------------------------------------------------------
+
+RewriteRule ^ro-crate/(\d+\.\d+)/(.+)$ https://quiltdata.github.io/quilt-ro-crate-profile/$1/$2 [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Namespace root
+# ---------------------------------------------------------------------------
+
+RewriteRule ^$ https://github.com/quiltdata/quilt-ro-crate-profile [R=302,L]
