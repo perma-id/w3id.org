@@ -1,0 +1,29 @@
+# AUGMANITAI - permanent identifiers for a public research lexicon
+# Maintainer: Andreas Ehstand, independent researcher
+# ORCID 0009-0006-3773-7796, Wikidata Q138634675, contact andreas.ehstand@augmanitai.com
+Options +FollowSymLinks
+RewriteEngine on
+
+# Entry point
+RewriteRule ^$ https://augmanitai.com/ [R=302,L]
+
+# Person
+RewriteRule ^person$ https://augmanitai.com/autor/ [R=302,L]
+
+# Concept scheme and machine-readable serialisations
+RewriteRule ^lexicon$ https://augmanitai.com/lexicon/ [R=302,L]
+RewriteRule ^lexicon/terms\.json$ https://augmanitai.com/lexicon/terms.json [R=302,L]
+RewriteRule ^lexicon/terms\.jsonld$ https://augmanitai.com/lexicon/terms.jsonld [R=302,L]
+RewriteRule ^lexicon/terms\.ttl$ https://augmanitai.com/lexicon/terms.ttl [R=302,L]
+
+# Single terms: w3id.org/augmanitai/lexicon/<term>
+RewriteRule ^lexicon/(.+)$ https://augmanitai.com/lexicon/terms/$1 [R=302,L]
+
+# Identifiers of the concept family
+RewriteRule ^id/(.*)$ https://augmanitai.com/id/$1 [R=302,L]
+
+# OAI-PMH harvesting endpoint
+RewriteRule ^oai$ https://augmanitai.com/oai/identify.xml [R=302,L]
+
+# Everything else keeps its path
+RewriteRule ^(.+)$ https://augmanitai.com/$1 [R=302,L]
