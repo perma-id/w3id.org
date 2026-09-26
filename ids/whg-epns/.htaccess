@@ -1,0 +1,88 @@
+# whg-epns: persistent identifiers for the DEEP digitisation of the English Place-Name Society survey
+# https://w3id.org/whg-epns/
+#
+# The corpus (539,372 place records, 1.4 million dated attestations of spellings, from the EPNS county
+# volumes as digitised by the Jisc-funded DEEP project, 2011-13) was published with its own URIs,
+# http://placenames.org.uk/id/placename/{county}/{serial}. That domain has changed hands and now
+# serves an unrelated commercial site; the project's other URLs at epns.nottingham.ac.uk answer 200
+# with the university home page for every path. This namespace gives the original identifiers a
+# working home: the path {county}/{serial} IS DEEP's own pair, carried unchanged, so a citation made
+# against the 2013 URIs maps to a w3id by prefix substitution alone.
+#
+# Everything resolves to static files on GitHub Pages, which cannot negotiate content, so every
+# negotiated branch here must land on a file that exists. Per-record machine representations are
+# published for the 15,587 records at parish level and above (counties, hundreds, parishes,
+# townships and their kin); for minor names and field-names the HTML view is a fragment on one page
+# and is always available, while a machine request answers 404 with a page that carries a person to
+# the record. The README beside this file states the cut and the reasoning.
+#
+# House style follows ids/whg/.htaccess, including its treatment of `*/*`.
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Allow cross-origin requests for identifier consumers.
+Header set Access-Control-Allow-Origin *
+
+# ---------------------------------------------------------------------------------------------------
+# Namespace root: the explorer. Any Accept, since the site is the only thing the root can mean.
+RewriteRule ^$ https://worldhistoricalgazetteer.github.io/epns/ [R=303,L]
+
+# Stable non-record entry points
+RewriteRule ^downloads/?$ https://worldhistoricalgazetteer.github.io/epns/downloads.html [R=303,L]
+
+# Bulk files: always the LATEST release of the data (GitHub resolves /releases/latest/download/),
+# so a regeneration does not need a change here. The manifest names the PLATO commit each was
+# validated against and the sha256 of every file.
+RewriteRule ^data/manifest$        https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/export-manifest.json   [R=303,L]
+RewriteRule ^data/plato$           https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-plato.jsonl.gz    [R=303,L]
+RewriteRule ^data/plato-counties$  https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-plato-counties.tar [R=303,L]
+RewriteRule ^data/parquet$         https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-parquet.tar        [R=303,L]
+RewriteRule ^data/duckdb$          https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep.duckdb.gz          [R=303,L]
+RewriteRule ^data/lpf$             https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-lpf.geojsonl.gz    [R=303,L]
+RewriteRule ^data/lpf-counties$    https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-lpf-counties.tar   [R=303,L]
+
+# ---------------------------------------------------------------------------------------------------
+# Records: {county}/{serial}, two digits and six digits, exactly as DEEP numbered them. DEEP numbered
+# records and name forms in one county-wide sequence, so a form's serial (02/000003, Bonestou) reaches
+# the record that carries it in the HTML view; the machine files exist only for record serials at
+# parish level and above, and a request for any other serial answers 404 at the target, honestly.
+
+# Explicit suffixes first. A suffix is what a person pastes into a browser and puts in a footnote,
+# and it must win over whatever Accept header the client happens to send.
+RewriteRule ^(\d{2})/(\d{6})\.html$    https://worldhistoricalgazetteer.github.io/epns/#u=$1/$2              [R=303,NE,L]
+RewriteRule ^(\d{2})/(\d{6})\.json$    https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.json          [R=303,L]
+RewriteRule ^(\d{2})/(\d{6})\.geojson$ https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.geojson       [R=303,L]
+RewriteRule ^(\d{2})/(\d{6})\.xml$     https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.xml           [R=303,L]
+
+# HTML: the record on the map. Available for every record, field-names included.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(\d{2})/(\d{6})$ https://worldhistoricalgazetteer.github.io/epns/#u=$1/$2 [R=303,NE,L]
+
+# GeoJSON: the record as a Linked Places Format FeatureCollection (lossy; the site says what is lost).
+RewriteCond %{HTTP_ACCEPT} application/geo\+json
+RewriteRule ^(\d{2})/(\d{6})$ https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.geojson [R=303,L]
+
+# XML: the original MADS element from the DEEP source file.
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^(\d{2})/(\d{6})$ https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.xml [R=303,L]
+
+# JSON / JSON-LD: the record as a PLATO place-centric document (lossless), stamped with the PLATO
+# release it was validated against.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(\d{2})/(\d{6})$ https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.json [R=303,L]
+
+# No stated preference (`Accept: */*`, or no Accept header): the PLATO representation rather than
+# 404. `*/*` is what curl, wget and most scripted clients send by default; it means any
+# representation is acceptable, so 404 would be the least accurate answer and the one most often
+# seen. This cannot shadow the negotiated cases above, each of which terminates with [L]; a
+# genuinely unsatisfiable Accept (say image/png) still falls through to the 404 below.
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} ^$
+RewriteRule ^(\d{2})/(\d{6})$ https://worldhistoricalgazetteer.github.io/epns/id/$1/$2.json [R=303,L]
+
+# Fallback: nothing else under this namespace resolves, and nothing falls through to the site root.
+RewriteRule ^.*$ - [R=404,L]
