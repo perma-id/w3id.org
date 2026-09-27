@@ -6,11 +6,11 @@ An ontology for describing places and their geographic and historical characteri
 
 | PLATO Vector      | Behaviour                                                                                                                                                                                         |
 |-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `/schemas/`       | Returns the JSON schema files from the GitHub repository (`schemas/*`).                                                                                                                           |
+| `/schemas/`       | Redirects to the JSON-LD context and JSON schema files (`schemas/*`), served by GitHub Pages with their proper media types.                                                                       |
 | `/webvowl/`       | Redirects to the WebVOWL interactive visualisation of the ontology.                                                                                                                               |
-| `*`               | Default access: returns the Turtle representation of the ontology (`ontology.ttl`) for semantic clients accepting RDF formats. Browsers are redirected to WIDOCO documentation (`index-en.html`). |
+| `*`               | Default access: returns the ontology in the RDF format the client asks for (Turtle, JSON-LD, RDF/XML or N-Triples). Browsers are redirected to WIDOCO documentation (`index-en.html`).            |
 
-> **Note:** Content negotiation is used to serve Turtle to semantic clients and HTML to browsers.
+> **Note:** Content negotiation is used to serve RDF to semantic clients and HTML to browsers.
 
 ## Contact
 
