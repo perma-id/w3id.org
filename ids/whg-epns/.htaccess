@@ -32,8 +32,15 @@ RewriteRule ^$ https://worldhistoricalgazetteer.github.io/epns/ [R=303,L]
 # Stable non-record entry points
 RewriteRule ^downloads/?$ https://worldhistoricalgazetteer.github.io/epns/downloads.html [R=303,L]
 
+# Releases: each data release is a frozen, versioned snapshot of the gazetteer (PLATO 0.5.0: a published
+# gazetteer is append-only, so a release is never regenerated in place and a correction is a new release).
+# release/{name} identifies the snapshot, and is what its data names as its gazetteer; it resolves to the
+# release page. release/{name}/{file} is a file of THAT release, fixed for good, unlike /data/* below.
+RewriteRule ^release/(data-\d{4}-\d{2}-\d{2})/?$ https://github.com/WorldHistoricalGazetteer/epns/releases/tag/$1 [R=303,L]
+RewriteRule ^release/(data-\d{4}-\d{2}-\d{2})/([A-Za-z0-9._-]+)$ https://github.com/WorldHistoricalGazetteer/epns/releases/download/$1/$2 [R=303,L]
+
 # Bulk files: always the LATEST release of the data (GitHub resolves /releases/latest/download/),
-# so a regeneration does not need a change here. The manifest names the PLATO commit each was
+# so a new release does not need a change here. The manifest names the PLATO commit each was
 # validated against and the sha256 of every file.
 RewriteRule ^data/manifest$        https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/export-manifest.json   [R=303,L]
 RewriteRule ^data/plato$           https://github.com/WorldHistoricalGazetteer/epns/releases/latest/download/deep-plato.jsonl.gz    [R=303,L]
