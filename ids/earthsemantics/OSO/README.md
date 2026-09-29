@@ -25,7 +25,7 @@ https://github.com/spiel-ifremer
 ## Features
 
 - Persistent ontology IRIs
-- Versioned IRIs for all historical releases (1.0.0 – 1.2.0)
+- Versioned IRIs for all historical releases (1.0.0 – 1.2.1)
 - RDF content negotiation (303 for explicit, 302 for O'FAIRe compatibility)
 - Multiple RDF serializations (Turtle, RDF/XML, JSON-LD, JSON, N-Triples, N3, TriG)
 - Distribution paths: ontology (TBox), instances (ABox), complete (TBox+ABox)
@@ -45,7 +45,7 @@ https://github.com/spiel-ifremer
 
 ## Recommended OSO URLs
 
-Main persistent ontology IRI (pinned to latest version, currently 1.2.0):
+Main persistent ontology IRI (pinned to latest version, currently 1.2.1):
 
 - https://w3id.org/earthsemantics/OSO
 
@@ -78,7 +78,7 @@ Virtuoso interface:
 
 ## Versioned URLs
 
-All versions from 1.0.0 to 1.2.0 are available:
+All versions from 1.0.0 to 1.2.1 are available:
 
 - https://w3id.org/earthsemantics/OSO/1.0.0
 - https://w3id.org/earthsemantics/OSO/1.0.1
@@ -88,6 +88,7 @@ All versions from 1.0.0 to 1.2.0 are available:
 - https://w3id.org/earthsemantics/OSO/1.0.5
 - https://w3id.org/earthsemantics/OSO/1.1.0
 - https://w3id.org/earthsemantics/OSO/1.2.0
+- https://w3id.org/earthsemantics/OSO/1.2.1
 
 ### Versioned distribution paths
 
@@ -102,21 +103,21 @@ For each version, the following sub-paths are available:
 
 Example:
 
-- https://w3id.org/earthsemantics/OSO/1.2.0/ontology
-- https://w3id.org/earthsemantics/OSO/1.2.0/instances
-- https://w3id.org/earthsemantics/OSO/1.2.0/complete
-- https://w3id.org/earthsemantics/OSO/1.2.0/shacl
-- https://w3id.org/earthsemantics/OSO/1.2.0/void
-- https://w3id.org/earthsemantics/OSO/1.2.0/dcat
+- https://w3id.org/earthsemantics/OSO/1.2.1/ontology
+- https://w3id.org/earthsemantics/OSO/1.2.1/instances
+- https://w3id.org/earthsemantics/OSO/1.2.1/complete
+- https://w3id.org/earthsemantics/OSO/1.2.1/shacl
+- https://w3id.org/earthsemantics/OSO/1.2.1/void
+- https://w3id.org/earthsemantics/OSO/1.2.1/dcat
 
 ### Explicit versioned serializations
 
-- https://w3id.org/earthsemantics/OSO/1.2.0.ttl
-- https://w3id.org/earthsemantics/OSO/1.2.0.owl
-- https://w3id.org/earthsemantics/OSO/1.2.0.jsonld
-- https://w3id.org/earthsemantics/OSO/1.2.0.nt
-- https://w3id.org/earthsemantics/OSO/1.2.0.n3
-- https://w3id.org/earthsemantics/OSO/1.2.0.trig
+- https://w3id.org/earthsemantics/OSO/1.2.1.ttl
+- https://w3id.org/earthsemantics/OSO/1.2.1.owl
+- https://w3id.org/earthsemantics/OSO/1.2.1.jsonld
+- https://w3id.org/earthsemantics/OSO/1.2.1.nt
+- https://w3id.org/earthsemantics/OSO/1.2.1.n3
+- https://w3id.org/earthsemantics/OSO/1.2.1.trig
 
 ## Backend
 
