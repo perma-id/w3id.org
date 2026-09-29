@@ -1,0 +1,27 @@
+# # /solidhealthconnect/
+#
+# Ontology, SHACL shapes and Health Connect vocabulary used by Solid Health Connect,
+# an Android app that exports Health Connect records to a Solid pod as RDF.
+# https://github.com/dorschre/SolidHealthConnect
+#
+# ## Contact
+# This space is administered by:
+#
+# GitHub username: dorschre
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Versioned releases, e.g. /solidhealthconnect/ontology/0.2
+RewriteRule ^ontology/([0-9]+(\.[0-9]+)*)$ https://renedorsch.solidcommunity.net/apps/solid-health-connect/$1/solidhealthconnect-health.ttl [R=303,L]
+RewriteRule ^health-connect/([0-9]+(\.[0-9]+)*)$ https://renedorsch.solidcommunity.net/apps/solid-health-connect/$1/health-connect-vocab.ttl [R=303,L]
+
+# Health Connect vocabulary: health-connect#, exercise-type/, exercise-segment-type/, sleep-stage/
+RewriteRule ^(health-connect|exercise-type|exercise-segment-type|sleep-stage)(/.*)?$ https://renedorsch.solidcommunity.net/apps/solid-health-connect/health-connect-vocab.ttl [R=303,L]
+
+# Health ontology and SHACL shapes
+RewriteRule ^(ontology|shapes|category|datatype|health-connect-enum|property|measurement-model|observable-property|source-record)(/.*)?$ https://renedorsch.solidcommunity.net/apps/solid-health-connect/solidhealthconnect-health.ttl [R=303,L]
+RewriteRule ^$ https://renedorsch.solidcommunity.net/apps/solid-health-connect/solidhealthconnect-health.ttl [R=303,L]
+
+# Anything else is not a published term
+RewriteRule ^ - [R=404,L]
