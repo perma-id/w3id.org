@@ -1,6 +1,14 @@
+# RE-X Digital Material Passport namespace
+# https://w3id.org/re-x/dpp/{uuid}
+# Maintainer: @KMKgit
+#
+# Only canonical UUIDs resolve. Invalid paths deliberately return 404.
+
 Options +FollowSymLinks
 RewriteEngine On
 
+# Namespace landing page.
 RewriteRule ^$ https://www.rexbuildings.com [R=302,L]
 
+# Preserve the permanent DPP UUID while allowing the application host to move.
 RewriteRule ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/?$ https://bank.rexbuildings.com/passport/p/$1 [R=303,L,NE]
