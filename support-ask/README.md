@@ -10,4 +10,4 @@ Project: https://github.com/gurusup/support-ask
 ## Contacts
 
 - GuruSup, GitHub organization: https://github.com/gurusup
-- Maintainer: @nchgn
+- Maintainer: @nchgn, nacho@gurusup.com
