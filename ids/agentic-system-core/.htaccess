@@ -1,0 +1,106 @@
+# # /agentic-system-core/
+#
+# Permanent identifiers for AgenticSystemCore, a specification for publishing
+# machine-discoverable knowledge bundles.
+#
+#   https://w3id.org/agentic-system-core/ns#<Term>   vocabulary terms
+#   https://w3id.org/agentic-system-core/ns/<version> immutable vocabulary versions
+#   https://w3id.org/agentic-system-core/profile/agentic-knowledge   profile URI
+#   https://w3id.org/agentic-system-core/rel#<name>  extension link relations
+#
+# Every target is a static file on https://agenticsystemcore.com/ ; every
+# redirect is 303 See Other. The vocabulary table follows rule AGSC-06-06 of
+# the AgenticSystemCore specification:
+#   Accept: text/turtle         -> /ns/agsc.ttl
+#   Accept: application/ld+json -> /ns/context.jsonld
+#   Accept: application/rdf+xml -> /ns/agsc.rdf
+#   anything else               -> /ns/            (HTML documentation)
+#
+# ## Contact
+# This space is administered by:
+#
+# Andrei N. Besleaga
+# GitHub username: andreibesleaga
+
+# Let browser-based RDF tools follow the redirects. `always` is needed because
+# plain `Header set` applies to 2xx responses only, and every response here is
+# a 303. `set` replaces any value already present, so the header is never sent
+# twice.
+Header always set Access-Control-Allow-Origin "*"
+
+Options -MultiViews
+
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# 1. Distribution files, current or versioned: /ns/agsc.ttl,
+#    /ns/1.0.0/context.jsonld, ... (first, so no later rule captures them)
+# ---------------------------------------------------------------------------
+RewriteRule ^ns/(.+\.(ttl|jsonld|json|rdf|owl|nt|html))$ https://agenticsystemcore.com/ns/$1 [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 2. Immutable versioned namespace: /ns/<major>.<minor>.<patch>, with an
+#    optional SemVer pre-release suffix (e.g. 1.0.0-draft.1). This is the
+#    owl:versionIRI of each release. Same negotiation as the current namespace.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/?$ https://agenticsystemcore.com/ns/$1/agsc.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/?$ https://agenticsystemcore.com/ns/$1/context.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/?$ https://agenticsystemcore.com/ns/$1/agsc.rdf [R=303,L]
+
+# Browsers and anything else: that version's HTML documentation
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/?$ https://agenticsystemcore.com/ns/$1/ [R=303,L]
+
+# Any deeper path under a version: the same path in that version's copy
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?)/(.+)$ https://agenticsystemcore.com/ns/$1/$2 [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 3. Current namespace: /ns (a client never sends the #Term fragment, so
+#    every hash term arrives here)
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ns/?$ https://agenticsystemcore.com/ns/agsc.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ns/?$ https://agenticsystemcore.com/ns/context.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ns/?$ https://agenticsystemcore.com/ns/agsc.rdf [R=303,L]
+
+# Browsers and anything else: the HTML documentation
+RewriteRule ^ns/?$ https://agenticsystemcore.com/ns/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 4. Slash-form term convenience: /ns/<Term> -> the term's anchor on the
+#    documentation page. NE keeps '#' from being escaped to '%23'.
+# ---------------------------------------------------------------------------
+RewriteRule ^ns/([A-Za-z][A-Za-z0-9_-]*)/?$ https://agenticsystemcore.com/ns/#$1 [R=303,NE,L]
+
+# ---------------------------------------------------------------------------
+# 5. Profile URI of the agentic-knowledge link set (RFC 9264 section 5,
+#    RFC 7284) -> its published specification page.
+# ---------------------------------------------------------------------------
+RewriteRule ^profile/agentic-knowledge/?$ https://agenticsystemcore.com/specs/agentic-knowledge/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 6. Extension link relations: /rel#<name>. The client keeps its own #<name>
+#    (the Location carries no fragment) and lands on that relation's anchor
+#    of the same specification page.
+# ---------------------------------------------------------------------------
+RewriteRule ^rel/?$ https://agenticsystemcore.com/specs/agentic-knowledge/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 7. The project prefix itself -> the site; anything else -> the vocabulary
+#    documentation. Only the /ns/ paths above are carried over to the site;
+#    every target is on the same host, so nothing here is an open redirect.
+# ---------------------------------------------------------------------------
+RewriteRule ^$ https://agenticsystemcore.com/ [R=303,L]
+RewriteRule ^ https://agenticsystemcore.com/ns/ [R=303,L]
