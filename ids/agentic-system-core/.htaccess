@@ -28,6 +28,12 @@
 # twice.
 Header always set Access-Control-Allow-Origin "*"
 
+# The /ns redirects depend on Accept, including the HTML fallbacks that no
+# condition guards, so every response tells caches to key on it. mod_rewrite
+# adds Vary only for the rule whose condition matched; `merge` never lists
+# Accept twice.
+Header always merge Vary "Accept"
+
 Options -MultiViews
 
 RewriteEngine on

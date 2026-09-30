@@ -16,7 +16,7 @@ The vocabulary is served in the format the client asks for in its `Accept` heade
 | `/ns#<Term>` | the same as `/ns`; the browser then scrolls to the term |
 | `/ns/<Term>` | `https://agenticsystemcore.com/ns/#<Term>` |
 | `/ns/<version>`, e.g. `/ns/1.0.0-draft.1` | the fixed copy of that version, with the same `Accept` table (`/ns/<version>/agsc.ttl`, `…/context.jsonld`, `…/agsc.rdf`, or `…/`) |
-| `/ns/<file>` and `/ns/<version>/<file>` | that file under `https://agenticsystemcore.com/ns/` |
+| `/ns/<file>` for a vocabulary file (`.ttl`, `.jsonld`, `.json`, `.rdf`, `.nt`, `.owl`, `.html`), and any `/ns/<version>/<path>` | that file under `https://agenticsystemcore.com/ns/` |
 | `/profile/agentic-knowledge` | `https://agenticsystemcore.com/specs/agentic-knowledge/` |
 | `/rel#<name>` | `https://agenticsystemcore.com/specs/agentic-knowledge/`; the browser then scrolls to `#<name>` |
 | `/` | `https://agenticsystemcore.com/` |
