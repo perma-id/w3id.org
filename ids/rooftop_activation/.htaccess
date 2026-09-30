@@ -4,30 +4,26 @@
 # GitHub: @alejandro3500
 # Documentation and serialisations are hosted on GitHub Pages.
 
-Header set Access-Control-Allow-Origin *
+# "always" also adds the header to the redirect responses
+Header always set Access-Control-Allow-Origin "*"
 Options +FollowSymLinks
 RewriteEngine on
 
-# Versioned IRIs, e.g. https://w3id.org/rooftop_activation/2.0.0
-# Redirect to the ontology file of the matching Git tag (v2.0.0).
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/alejandro3500/Rooftop_activation_ontology/v$1/ontology/rooftop_activation_ontology.rdf [R=303,L]
+# Versioned IRIs, e.g. https://w3id.org/rooftop_activation/2.1.0
+# Redirect to the ontology file of the matching Git tag (v2.1.0).
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/alejandro3500/Rooftop_activation_ontology/v$1/ontology/rooftop_activation_ontology.rdf [R=303,L]
 
-# Current version: content negotiation
-
-# HTML documentation for browsers
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/index-en.html [R=303,L]
-
-# RDF/XML
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.owl [R=303,L]
+# Current version: content negotiation.
+# RDF formats are checked first. Browsers do not request them,
+# so they always reach the HTML default below.
 
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.owl [R=303,L]
 
 # JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
@@ -37,5 +33,5 @@ RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/ont
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.nt [R=303,L]
 
-# Default: HTML documentation
+# Default (browsers and any other client): HTML documentation
 RewriteRule ^/?$ https://alejandro3500.github.io/Rooftop_activation_ontology/index-en.html [R=303,L]
