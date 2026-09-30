@@ -19,7 +19,7 @@ XenoSite is an established research project from the Swamidass laboratory at Was
 
 ## Maintainer
 
-- S. Joshua Swamidass
+#### S. Joshua Swamidass
 - GitHub username: [swamidass](https://github.com/swamidass)
 - Organization: [swamidasslab](https://github.com/swamidasslab)
 - Contact: https://github.com/swamidasslab/w3id.org/issues
