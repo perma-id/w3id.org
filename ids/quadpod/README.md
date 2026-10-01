@@ -1,6 +1,6 @@
 # /quadpod/
 
-Permanent identifiers for the [quadpod](https://github.com/tophcodes/quadpod)
+Permanent identifiers for the [quadpod](https://github.com/aleph-garden/quadpod)
 vocabulary. quadpod implements the Solid Protocol in Rust: LDP over HTTP, Web
 Access Control, and every resource stored as a named graph in one embedded
 quad store.

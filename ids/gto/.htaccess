@@ -1,0 +1,44 @@
+# # /gto/
+#
+# GoTriple — persistent identifiers for the resources published by the GoTriple
+# discovery platform (https://www.gotriple.eu), the discovery service for the
+# social sciences and humanities built by the TRIPLE project.
+#
+#     https://w3id.org/gto/{type}/{reference}
+#
+# {type} is the entity type spelled out (document, dataset, media-object,
+# semantic-artefact, project, profile). {reference} is the ARK name of the
+# resource without its NAAN, so the w3id IRI and the ARK of the same resource
+# share their last segment by construction.
+#
+# Scope: resources only. The TRIPLE ontology is a separate namespace on purpose
+# (https://gotriple.eu/ontology/triple) and is not served from here.
+# Naming rules:
+# https://github.com/atrium-research/triple-ontology/blob/main/URI-CONVENTIONS.md
+#
+# ## Contact
+# This space is administered by:
+#
+# Alessandro Bertozzi
+# GitHub username: AlessandroBertozzi
+
+# "always": every response here is a redirect, and a CORS check applies to each
+# hop of the chain — the default (2xx only) would never fire.
+Header always set Access-Control-Allow-Origin "*"
+Options +FollowSymLinks
+RewriteEngine on
+
+# The prefix root is not a resource: send a human to the knowledge graph itself.
+RewriteRule ^$ https://kg.gotriple.eu/ [R=302,L]
+
+# Every resource is forwarded to its complete ARK on the GoTriple knowledge
+# graph, path and Accept header untouched: the {type} segment is dropped,
+# because the ARK name is already unique inside NAAN 64989 and identifies the
+# resource on its own.
+#
+#     /gto/document/x54g7  ->  https://kg.gotriple.eu/ark:64989/x54g7
+#
+# The host and the NAAN below are deployment facts, not naming decisions:
+# updating them is a routine pull request here, while the w3id IRIs above never
+# move. That indirection is the reason this space exists.
+RewriteRule ^[^/]+/(.+)$ https://kg.gotriple.eu/ark:64989/$1 [R=302,L]

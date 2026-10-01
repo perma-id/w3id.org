@@ -1,0 +1,44 @@
+# # /japan-synthetic-personas/
+#
+# Japan Synthetic Consumer Personas (N=3,000), Linked Data edition
+# 3,000 statistically grounded synthetic Japanese consumer personas, each with a
+# permanent URI, linked to e-Stat Statistics LOD (prefectures, industries).
+#
+# https://w3id.org/japan-synthetic-personas/               -> https://furuchanchan.github.io/japan-synthetic-personas/lod/
+# https://w3id.org/japan-synthetic-personas/ns             -> the vocabulary (Turtle by content negotiation)
+# https://w3id.org/japan-synthetic-personas/id/persona/... -> one persona (HTML, or Turtle / JSON-LD by content negotiation)
+#
+# Source: https://github.com/furuchanchan/japan-synthetic-personas
+#
+# ## Contact
+# This space is administered by:
+#
+# Kotaro Furuno (TechWorker Inc.)
+# GitHub username: furuchanchan
+# Email: info@techworker.co.jp
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ns/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/vocab.ttl [R=303,L]
+RewriteRule ^ns/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/ns/ [R=303,L]
+
+RewriteRule ^context\.jsonld$ https://furuchanchan.github.io/japan-synthetic-personas/lod/context.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^id/persona/([0-9a-f]+)/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/id/persona/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^id/persona/([0-9a-f]+)/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/id/persona/$1.jsonld [R=303,L]
+RewriteRule ^id/persona/([0-9a-f]+)/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/id/persona/$1/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dataset/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/personas.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dataset/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/personas.jsonld [R=303,L]
+RewriteRule ^dataset/?$ https://furuchanchan.github.io/japan-synthetic-personas/lod/ [R=303,L]
+RewriteRule ^(.*)$ https://furuchanchan.github.io/japan-synthetic-personas/lod/$1 [R=302,L]

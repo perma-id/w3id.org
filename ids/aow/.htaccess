@@ -1,0 +1,32 @@
+# Permanent identifiers for the Agentic Ontology of Work
+# Source: https://github.com/Skandotai/agentic-ontology-of-work/tree/main/w3id
+#
+# Contacts:
+#   Manish Garg, Skan.ai <https://www.linkedin.com/in/manishga>
+#   GitHub: @Skandotai, https://github.com/Skandotai/agentic-ontology-of-work/issues
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Machine-readable artifacts at fixed paths
+RewriteRule ^context\.jsonld$ https://skandotai.github.io/agentic-ontology-of-work/ontology/context.jsonld [R=302,L]
+RewriteRule ^shapes$ https://skandotai.github.io/agentic-ontology-of-work/ontology/shapes.ttl [R=302,L]
+RewriteRule ^shapes\.ttl$ https://skandotai.github.io/agentic-ontology-of-work/ontology/shapes.ttl [R=302,L]
+RewriteRule ^schemas/(.+)$ https://skandotai.github.io/agentic-ontology-of-work/schemas/$1 [R=302,L]
+
+# Versioned ontology: https://w3id.org/aow/2.0.0
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://skandotai.github.io/agentic-ontology-of-work/ontology/$1/aow.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://skandotai.github.io/agentic-ontology-of-work/ontology/$1/aow.jsonld [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://skandotai.github.io/agentic-ontology-of-work/ontology/ [R=302,L]
+
+# Current ontology (and every term, since terms are hash IRIs): https://w3id.org/aow
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://skandotai.github.io/agentic-ontology-of-work/ontology/aow.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://skandotai.github.io/agentic-ontology-of-work/ontology/aow.jsonld [R=303,L]
+RewriteRule ^$ https://skandotai.github.io/agentic-ontology-of-work/ontology/ [R=303,L]
+
+# Anything else goes to the site
+RewriteRule ^(.*)$ https://skandotai.github.io/agentic-ontology-of-work/$1 [R=302,L]

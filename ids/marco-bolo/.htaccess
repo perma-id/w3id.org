@@ -7,15 +7,38 @@
 # pier.buttigieg@awi.de
 # GitHub username: pbuttigieg
 #
-# roblinksdata
-# robert.barry@awi.de
-# GitHub username: roblinksdata
+# Steve Formel
+# steve@thedatapatch.com
+# GitHub username: sformel
 
 RewriteEngine on
 
-RewriteRule ^mbo_0000001$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/grants/marco-bolo-grant.json [R=302,L]
-RewriteRule ^mbo_0000002$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/organisations-and-projects/european-union.json [R=302,L]
-RewriteRule ^mbo_0000003$ https://raw.githubusercontent.com/marco-bolo/metadata-catalogue/c6fbf43cbe2c5e43d9c44ce726392833503eb4aa/assets/organisations-and-projects/marco-bolo.json [R=302,L]
+# Metadata catalogue entities.
+#
+# Identifiers are of the form mbo_<uuid>, where <uuid> is a lowercase RFC 4122
+# UUID. Each resolves to the JSON-LD document describing it, served from
+# https://lab.marcobolo-project.eu/csv-to-json-ld/schema-jsonld/ and generated
+# by https://github.com/marco-bolo/csv-to-json-ld
+#
+# 303 See Other is used because these identifiers denote real-world things --
+# a person, a dataset, a sampling platform -- and not the documents that
+# describe them.
+
+# The provenance description embedded in each entity document under subjectOf.
+# It is not a separate file, so it resolves to the entity document itself.
+RewriteRule ^(mbo_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})-input-metadata$ https://lab.marcobolo-project.eu/csv-to-json-ld/schema-jsonld/$1.json [R=303,L]
+
+# The entity itself.
+RewriteRule ^(mbo_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$ https://lab.marcobolo-project.eu/csv-to-json-ld/schema-jsonld/$1.json [R=303,L]
+
+# Identifiers minted before the move to UUIDs, for the grant and two organisations.
+#
+# 301 Moved Permanently, to the UUID identifier which superseded each one. These denote the same
+# three things as before and are now described by the catalogue rather than by a frozen copy, so
+# the redirect targets the identifier, not the document: the rules above then resolve it as usual.
+RewriteRule ^mbo_0000001$ https://w3id.org/marco-bolo/mbo_e44cf12c-8239-4216-b05d-94c31f3027c2 [R=301,L]
+RewriteRule ^mbo_0000002$ https://w3id.org/marco-bolo/mbo_7351b43a-294d-4006-9a32-d6e02ba105f9 [R=301,L]
+RewriteRule ^mbo_0000003$ https://w3id.org/marco-bolo/mbo_468ad172-b7d8-4d4a-b11b-6cb1d8b463f1 [R=301,L]
 
 # Redirect the top level identifier to the MARCO-BOLO CORDIS page.
 RewriteRule ^$ https://doi.org/10.3030/101082021 [R=302,L]

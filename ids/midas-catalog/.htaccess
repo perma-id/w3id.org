@@ -1,7 +1,31 @@
 RewriteEngine on
-AddDefaultCharset UTF-8 
+AddDefaultCharset UTF-8
 
-RewriteRule ^([0-9]+)$ https://catalog.midasnetwork.us/?object_id=$1 [R=302,L,NE]
+# --- Record identity (shared by S & L) → landing page ---
+RewriteRule ^([0-9]+)$ https://catalog.midasnetwork.us/collection/$1 [R=302,L,NE]
+
+# --- S product: JSON Schema, catalog-hosted (live SCHEMA_ID — unchanged) ---
 RewriteRule ^schema/(.+)$ https://catalog.midasnetwork.us/schema/$1 [R=302,L,NE]
-RewriteRule ^$ https://catalog.midasnetwork.us/ [R=302,L,NE]
 
+# --- L product: LinkML model + docs → GitHub Pages ---
+# Machine artifacts, clean aliases (these are the IRIs records will carry)
+RewriteRule ^linkml/context\.jsonld$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.context.jsonld [R=302,L,NE]
+RewriteRule ^linkml/schema\.json$    https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.schema.json    [R=302,L,NE]
+RewriteRule ^linkml/model\.owl\.ttl$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.owl.ttl        [R=302,L,NE]
+RewriteRule ^linkml/model\.yaml$     https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.yaml           [R=302,L,NE]
+
+# Model "home": content-negotiate — machines get the schema, humans get the docs
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^linkml/?$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.schema.json [R=303,L,NE]
+RewriteRule ^linkml/?$ https://midas-network.github.io/midas-catalog-linkml/ [R=303,L,NE]
+
+# Everything else under /linkml/ (docs pages, reference/) → Pages passthrough
+RewriteRule ^linkml/(.*)$ https://midas-network.github.io/midas-catalog-linkml/$1 [R=302,L,NE]
+
+# --- Legacy object_id query on the namespace root → collection landing (one hop, drop the query) ---
+RewriteCond %{QUERY_STRING} (?:^|&)object_id=([0-9]+)
+RewriteRule ^$ https://catalog.midasnetwork.us/collection/%1? [R=302,L,NE]
+
+# --- Catalog root ---
+RewriteRule ^$ https://catalog.midasnetwork.us/ [R=302,L,NE]

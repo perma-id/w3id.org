@@ -9,7 +9,7 @@ digital humanities project.
 
 ## Homepage
 
-<https://docuracy.github.io/London_Customs_Accounts/>
+<https://ihr-digital.github.io/london-customs-accounts-1380-1560/>
 
 ## URI patterns
 

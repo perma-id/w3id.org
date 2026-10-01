@@ -1,6 +1,7 @@
 # QPM Ontology — w3id Permanent Identifier
 
 **Permanent URI:** https://w3id.org/qpm
+**Version 1.1 URI:** https://w3id.org/qpm/1.1
 **Version 1.0 URI:** https://w3id.org/qpm/1.0
 
 **Ontology name:** Qualitative Place Model (QPM) Ontology
@@ -25,6 +26,7 @@ Cardiff University.
 * Turtle (canonical): https://raw.githubusercontent.com/Aliaia/qpm/main/qpm.ttl
 * RDF/XML: https://raw.githubusercontent.com/Aliaia/qpm/main/qpm.owl
 * SHACL shapes: https://raw.githubusercontent.com/Aliaia/qpm/main/qpm-shapes.ttl
+* Version 1.1 (tagged): https://github.com/Aliaia/qpm/tree/v1.1
 * Version 1.0 (tagged): https://github.com/Aliaia/qpm/tree/v1.0
 * GitHub repository: https://github.com/Aliaia/qpm
 
