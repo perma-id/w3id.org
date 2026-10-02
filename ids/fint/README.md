@@ -20,8 +20,10 @@ resolution rules are prepared.
 For example, `https://w3id.org/fint/administrasjon/fullmakt` currently redirects
 to `https://informasjonsmodell.felleskomponent.no/`.
 
-## Maintainer
+## Maintainers
 
-- Ole Anders Eidjord
-- GitHub: [oleanders](https://github.com/oleanders)
-- Contact: [GitHub profile](https://github.com/oleanders)
+This namespace is maintained by Novari IKS.
+
+- Organization: [Novari IKS](https://novari.no/)
+- GitHub organization: [FINTLabs](https://github.com/FINTLabs)
+- Technical contact: [Ole Anders Eidjord](https://github.com/oleanders)
