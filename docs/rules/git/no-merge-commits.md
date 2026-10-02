@@ -22,8 +22,7 @@ change arrives carrying a hundred unrelated commits and a merge commit on top.
 
 Hundreds of such merges have reached `master` in this repository, most of them
 the `Merge branch 'perma-id:master' into ...` shape that button produces. They
-add no content, make the change hard to read, and are what the pull request
-template means when it asks for a minimal number of commits.
+add no content and make the change hard to read.
 
 Rebasing puts your work on top of the current master instead, so the pull
 request contains your commits and nothing else.

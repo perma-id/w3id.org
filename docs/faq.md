@@ -110,8 +110,31 @@ See the [rule catalogue](/rules/) for the full list.
 ### Do I have to squash my commits?
 
 A new identifier should ideally be one commit. If you are not comfortable
-squashing, say so in the pull request and a maintainer can do it — you will then
-need to resync your fork before your next contribution.
+squashing, tick the box in the pull request template and a maintainer will
+squash when merging.
+
+Your fork then needs resyncing before your next change. The squashed commit is
+a new one, so your original commits are not in `master`, and a next change
+built on top of them would carry them along.
+
+In the browser, delete the merged branch (the merged pull request offers a
+button for it), use **Sync fork** on your fork's page, and start the next
+change on a new branch. If you committed straight to your fork's default branch
+and it still shows commits ahead of `perma-id/w3id.org:master`, the dependable
+fix in the browser is to delete the fork and fork again.
+
+From the command line:
+
+```sh
+git fetch upstream
+git switch master
+git reset --hard upstream/master
+git push --force-with-lease origin master
+```
+
+To avoid needing this at all, make each change on its own branch. GitHub's web
+editor offers "Create a new branch for this commit and start a pull request"
+when you commit.
 
 ### Why does my commit message matter?
 

@@ -18,18 +18,18 @@ A branch should start from a reasonably recent `master`.
 
 A fork that was cloned once and never updated diverges quietly. The change
 itself is usually still fine — identifier directories rarely conflict with each
-other — but two things go wrong:
+other — but three things go wrong:
 
 - the pull request is harder to review, because the diff is computed against a
   base nobody is looking at any more;
 - the contributor reaches for "Sync fork", which merges rather than rebases and
   drags a merge commit plus everything since into the pull request. See
   [`git/no-merge-commits`](./no-merge-commits);
-- the checks run against an old copy of the tooling. The rules and the checker
-  live in this repository, so a branch cut months ago runs the checker as it
-  was then. Updating means the checks you see are the ones that will run when
-  the pull request is merged, rather than a subset that passes now and fails
-  later.
+- the checks can miss things. The pull request's own checks run on the change
+  merged into the current `master`, so they use the current rules however old
+  the branch is — but GitHub runs no checks at all on a pull request with a
+  merge conflict, and the checker you run yourself is whatever version your
+  branch has.
 
 This is a notice, not a warning. Being behind is not itself a mistake, and it
 never blocks anything — it is here because it is the step before the mistake.
@@ -48,6 +48,8 @@ $ git rev-list --count HEAD..upstream/master
 
 ## How to fix
 
+From the command line:
+
 ```sh
 git fetch upstream
 git rebase upstream/master
@@ -55,6 +57,18 @@ git rebase upstream/master
 
 For a fork you have not touched in a long time, it is often quicker to delete
 the local branch and start again from `upstream/master`.
+
+In the browser:
+
+- **Before you start a change**, open your fork on GitHub and use **Sync
+  fork**, then make your edit. If you have not committed to your fork's
+  default branch, this only catches it up.
+- **Once the pull request is open**, use the **Update branch** button in the
+  merge section near the bottom of the pull request, and choose **Update with
+  rebase** from its dropdown. GitHub shows the button when there are no merge
+  conflicts and the branch is behind. The plain **Update branch** and **Update
+  with merge commit** add a merge commit, which
+  [`git/no-merge-commits`](./no-merge-commits) reports.
 
 ## How to check
 

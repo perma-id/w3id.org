@@ -198,10 +198,12 @@ real Apache on your own machine.
 
 ## 7. Open the pull request
 
-- **One identifier per pull request.** Do not bundle unrelated changes.
+- **One identifier per pull request, or as few as practical.** Do not bundle
+  unrelated changes.
 - **Squash your commits.** A new identifier should be one commit. If you are not
-  comfortable squashing, say so in the pull request and a maintainer can do it —
-  but be aware you will then need to resync your fork before your next
+  comfortable squashing, tick the box in the pull request template and a
+  maintainer will squash when merging — but you will then need to
+  [resync your fork](/faq#do-i-have-to-squash-my-commits) before your next
   contribution.
 - **Write a real commit message.** Include your project name. `Update .htaccess`
   tells a reviewer nothing, and it is already the single most common commit
