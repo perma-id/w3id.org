@@ -193,7 +193,13 @@ test('maintainers: the recorded formats are all recognised', () => {
     // one.
     ['Firstname Lastname-Hyphenated @someone', ['someone']],
     ['(Maintainer; GitHub: exampleuser2)', ['exampleuser2']],
-    ['# GitHub user: Example-Org', ['example-org']]
+    ['# GitHub user: Example-Org', ['example-org']],
+    // A bare "Username:" label, with no "GitHub" on the line.
+    ['Username: exampleuser', ['exampleuser']],
+    ['# Username: Example-User3', ['example-user3']],
+    ['**Username:** exampleuser', ['exampleuser']],
+    ['# Project\n\nA vocabulary.\nUsername: exampleuser\nContact: a@b.example',
+      ['exampleuser']]
   ];
   for(const [text, expected] of cases) {
     assert.deepEqual([...findUsernames(text)].sort(), [...expected].sort(),
@@ -207,7 +213,11 @@ test('maintainers: label words are not mistaken for usernames', () => {
     '# Maintainer: X (ORCID: 0000-0000-0000-0000)',
     '# Maintainer: A Community Group',
     '# Maintainer:',
-    'See https://github.com/orgs/perma-id/teams'
+    'See https://github.com/orgs/perma-id/teams',
+    // Another service's account is not a GitHub one.
+    'Twitter username: someone',
+    // An email address must not be cut down to its local part.
+    'Username: someone@example.org'
   ]) {
     assert.deepEqual([...findUsernames(text)], [], text);
   }

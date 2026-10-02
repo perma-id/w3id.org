@@ -48,7 +48,13 @@ const PATTERNS = [
     `(?:https?://)?(?:www\\.)?github\\.com/(${USERNAME})(?:[/)\\]>,.\\s]|$)`,
     'gi'),
   // A bare @handle, as used in maintainer lists.
-  new RegExp(`(?:^|[\\s(\\[<,;])@(${USERNAME})\\b`, 'gm')
+  new RegExp(`(?:^|[\\s(\\[<,;])@(${USERNAME})\\b`, 'gm'),
+  // Username: x, with no "GitHub" on the line. Only at the start of a line,
+  // so that another service's label ("Twitter username:") does not count, and
+  // only when the value ends at whitespace, so that an email address is not
+  // read as its local part.
+  new RegExp(
+    `^[ \\t#*>-]*username\\s*:[*_ \\t]*@?(${USERNAME})(?=\\s|$)`, 'gim')
 ];
 
 /**

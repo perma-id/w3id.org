@@ -116,9 +116,9 @@ node tools/check/bin/w3id-check.js --rule meta/maintainer-github-username ids/my
 
 The check recognises the many shapes this information takes across the
 repository — `GitHub username: name`, `(GitHub: name)`, a bare `@name`, a
-profile URL, a Markdown link. It is deliberately lenient, and reports only when
-it can find no plausible username anywhere in the identifier. A structured
-format may replace it later.
+line starting `Username: name`, a profile URL, a Markdown link. It is
+deliberately lenient, and reports only when it can find no plausible username
+anywhere in the identifier. A structured format may replace it later.
 
 [Testing your changes](/guides/testing) covers installing the tool, and what
 else is worth checking by hand.
