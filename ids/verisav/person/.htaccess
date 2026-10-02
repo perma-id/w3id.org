@@ -1,0 +1,38 @@
+# W3ID Redirections for Verisav person LOD identifiers
+# Contact: k.boutillier@verisav.fr · https://www.verisav.fr
+# Existing namespace: https://w3id.org/verisav/ (dpp, rma, wty)
+
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /verisav/person/
+
+# ---------------------------------------------------------------------------
+# kevin-boutillier — content negotiation (303 See Other → ns.verisav.fr)
+# Persistent URI: https://w3id.org/verisav/person/kevin-boutillier
+# ---------------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^kevin-boutillier/?$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^kevin-boutillier/?$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+RewriteRule ^kevin-boutillier/?$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.rdf [R=303,L]
+
+# HTML (browsers) + default human-facing fallback
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^kevin-boutillier/?$ https://ns.verisav.fr/person/kevin-boutillier/ [R=303,L]
+
+# No Accept / machine default → Turtle (canonical RDF dump)
+RewriteRule ^kevin-boutillier/?$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.ttl [R=303,L]
+
+# Namespace index
+RewriteRule ^$ https://ns.verisav.fr/person/ [R=303,L]
