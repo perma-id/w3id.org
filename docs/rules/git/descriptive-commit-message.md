@@ -50,8 +50,13 @@ is pre-filled — replace the text before committing.
 Locally:
 
 ```sh
+git status   # anything staged is added to the amended commit
 git commit --amend -m "Add redirect for my-project"
 ```
+
+This rewords only the most recent commit. For an older one, use the
+`git rebase -i` in [`git/minimal-commits`](./minimal-commits#how-to-fix) and
+mark it `reword`.
 
 For a message already pushed, amend and force-push:
 

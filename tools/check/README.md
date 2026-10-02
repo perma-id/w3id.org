@@ -238,7 +238,7 @@ Stop a server started with `run-server start` (`run-server stop`) or Docker
 
 ```sh
 git worktree remove ../w3id-pr-123
-git branch -D pr-123 pr-123-merge
+git branch -D pr-123 pr-123-merge   # also deletes anything you committed on them
 ```
 
 Ignored files such as `node_modules` do not stop `git worktree remove`; other

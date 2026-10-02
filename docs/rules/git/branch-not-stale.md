@@ -52,11 +52,19 @@ From the command line:
 
 ```sh
 git fetch upstream
+git branch backup-my-change   # a copy to go back to if this goes wrong
 git rebase upstream/master
+git push --force-with-lease   # a plain push is rejected; do not pull instead
 ```
 
-For a fork you have not touched in a long time, it is often quicker to delete
-the local branch and start again from `upstream/master`.
+Git's message for the rejected push suggests `git pull`. After a rebase, that
+either stops with an error or merges the old commits back in, adding the merge
+commit [`git/no-merge-commits`](./no-merge-commits) reports. Delete the copy
+with `git branch -D backup-my-change` once the pull request is merged.
+
+For a fork you have not touched in a long time, it is often quicker to start a
+new branch from `upstream/master` and re-apply your change, keeping the old
+branch until the new one is pushed.
 
 In the browser:
 

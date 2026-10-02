@@ -46,6 +46,7 @@ $ git log --oneline upstream/master..HEAD
 
 ```sh
 git fetch upstream
+git branch backup-my-change   # a copy to go back to if this goes wrong
 git rebase upstream/master
 git push --force-with-lease
 ```
@@ -56,9 +57,11 @@ If you have not added the upstream remote:
 git remote add upstream https://github.com/perma-id/w3id.org.git
 ```
 
-If a rebase goes wrong, the simplest recovery is often to start a fresh branch
-from `upstream/master` and re-apply your change by hand — it is usually two
-files.
+If a rebase goes wrong partway through, `git rebase --abort` returns to where
+you started. Your original commits are still on `backup-my-change` afterwards.
+Often the simplest recovery is to start a fresh branch from `upstream/master`
+and re-apply your change by hand — it is usually two files. Delete the copy
+with `git branch -D backup-my-change` once the pull request is merged.
 
 ## How to check
 

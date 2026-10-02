@@ -128,9 +128,14 @@ From the command line:
 ```sh
 git fetch upstream
 git switch master
+git status                       # commit anything listed: reset discards it
+git log upstream/master..master  # dropped next: only the squashed commits?
+git branch old-master            # a copy to go back to
 git reset --hard upstream/master
 git push --force-with-lease origin master
 ```
+
+Once your next change is in, delete the copy with `git branch -D old-master`.
 
 To avoid needing this at all, make each change on its own branch. GitHub's web
 editor offers "Create a new branch for this commit and start a pull request"

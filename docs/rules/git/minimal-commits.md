@@ -66,15 +66,21 @@ next change.
 To squash them yourself:
 
 ```sh
+git branch backup-my-change   # a copy to go back to if this goes wrong
 git rebase -i upstream/master
 ```
 
 Mark every commit after the first as `squash`, save, and write one message for
-the combined change. Then force-push your branch:
+the combined change. Check the result with `git show` before you force-push
+your branch:
 
 ```sh
 git push --force-with-lease
 ```
+
+Partway through, `git rebase --abort` returns to where you started. Afterwards,
+your original commits are still on `backup-my-change`; delete it with
+`git branch -D backup-my-change` once the pull request is merged.
 
 ## How to check
 
