@@ -218,7 +218,8 @@ real Apache on your own machine.
 - [ ] The directory is under `ids/`, lowercase, and the name is free
 - [ ] The file is named exactly `.htaccess`
 - [ ] The redirect target is live and uses HTTPS
-- [ ] No content files are committed — redirect rules and contact info only
+- [ ] No content files are committed — redirect rules plus minimal project and
+  maintainer information
 - [ ] Maintainer contact includes a GitHub username
 - [ ] The rules have been tested
 - [ ] Commits are squashed and the message is descriptive

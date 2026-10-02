@@ -12,8 +12,8 @@ applies-to: "ids/**"
 
 ## What
 
-An identifier directory contains redirect rules and contact information, and
-nothing else:
+An identifier directory contains its redirect rules and, optionally, a README
+describing the identifier and its maintainers, and no other files:
 
 ```
 ids/my-project/

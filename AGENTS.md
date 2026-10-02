@@ -12,7 +12,8 @@ one holds an `.htaccess` file with Apache rewrite rules.
 
 ## What a change here is allowed to be
 
-**A redirect, plus contact information. Nothing else.**
+**A redirect, plus brief information about the identifier and its maintainers.
+Nothing else.**
 
 This constraint is absolute and it is the thing agents get wrong most often.
 The service does not host files, serve content, run code, proxy, or

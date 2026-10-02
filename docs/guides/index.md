@@ -40,8 +40,8 @@ watch what your rules actually do before anyone reviews them.
 
 Whatever you are doing, these are worth a minute:
 
-- Your change is a redirect and contact information, and nothing else —
-  [Scope](/overview/scope).
+- Your change is a redirect plus minimal information about the project and its
+  maintainers, with no hosted content — [Scope](/overview/scope).
 - Your redirect target is live, HTTPS, and returns what you expect —
   [`htaccess/https-target`](/rules/htaccess/https-target),
   [Testing](./testing).
