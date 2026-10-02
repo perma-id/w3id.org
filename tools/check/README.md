@@ -66,6 +66,13 @@ changes to what is checked out; laid over another commit, such as a pull
 request fetched for review, they would report the reviewer's work in progress
 as the contributor's.
 
+Where files are read from follows the same logic. Normally that is the disk.
+For a `--head` the checkout does not contain, such as a pull request fetched
+into a branch, the file list and contents come from that commit, because none
+of its files need be on disk. When the checkout does contain it, as CI's merge
+of the pull request into master does, the disk is still what is read, so the
+check also sees whatever master has gained since the pull request forked.
+
 ## Provenance
 
 | Provenance | Meaning | Reported as, by default |
@@ -164,11 +171,18 @@ node tools/check/bin/w3id-check.js --base origin/master --head pr-123
 Worth knowing:
 
 - Your own uncommitted work stays out. A `--head` that is not the checkout
-  implies `--committed-only`.
+  implies `--committed-only`, and the pull request's files are read from its
+  commit rather than from your disk.
 - Run it from your own up-to-date checkout rather than checking out the pull
   request. CI checks the pull request merged into current master, so it uses
   today's checker and rules; an old fork's branch carries an old checker, or
   none at all.
+- Add a directory to narrow the report, even one only the pull request has:
+  `--head pr-123 ids/their-id`.
+- The one difference from CI: checked from your own checkout, the tree is the
+  pull request's commit, which lacks any identifier master has gained since it
+  forked. A check that depends on those, such as a case collision with a newer
+  identifier, is only exact from a worktree of the merge ref, described below.
 - The report covers only what the pull request is answerable for. A finding
   marked "already there" is in a file or namespace it touches, on a line it
   left alone — see [Provenance](#provenance).
@@ -204,10 +218,18 @@ W3ID_PORT=8081 W3ID_RUNDIR=~/.local/state/w3id/pr-123 tools/server/bin/run-serve
 Docker works the same way: `cd tools/server && docker compose up` in the
 worktree.
 
-When the pull request changes `tools/check` itself, CI runs its version of the
-checker. To reproduce that, run the checker inside the worktree, after
-`(cd tools/check && npm ci)` there; `node_modules` is not shared between
-worktrees.
+The same worktree reproduces CI exactly. Run the checker inside it with the
+pull request's own head, as CI does; the worktree contains that commit, so its
+files are read from disk, merged with today's master:
+
+```sh
+node tools/check/bin/w3id-check.js --base origin/master --head pr-123
+```
+
+That needs the `pr-123` branch from earlier, and `(cd tools/check && npm ci)`
+in the worktree first, because `node_modules` is not shared between worktrees.
+It is also the way to check a pull request that changes `tools/check` itself,
+since CI then runs the pull request's version of the checker.
 
 ### Cleaning up
 

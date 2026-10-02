@@ -45,15 +45,20 @@ export class Context {
    * @param {boolean} opts.includeWorkingTree - whether uncommitted edits and
    *   untracked files count as part of the change. False gives a reproducible
    *   audit of committed content.
+   * @param {string|null} opts.readFrom - a commit to take the tree and file
+   *   contents from, instead of the checkout. For checking a commit that is
+   *   not checked out, such as a pull request fetched for review; the working
+   *   tree never counts then.
    */
   constructor({root, config, base = null, head = null, scope = null,
-    includeWorkingTree = true}) {
+    includeWorkingTree = true, readFrom = null}) {
     this.root = root;
     this.config = config;
     this.base = base;
     this.head = head;
     this.scope = scope;
-    this.includeWorkingTree = includeWorkingTree;
+    this.readFrom = readFrom;
+    this.includeWorkingTree = readFrom === null && includeWorkingTree;
     this.idsDir = config.idsDir;
     this._cache = new Map();
   }
@@ -90,7 +95,8 @@ export class Context {
   get tree() {
     return this._memo('tree', () => {
       const ignore = this.config.ignorePaths ?? [];
-      let files = git.listFiles(this.root);
+      let files = this.readFrom === null ? git.listFiles(this.root) :
+        git.listFilesAt(this.readFrom, this.root);
 
       if(this.includeWorkingTree) {
         const deleted = new Set();
@@ -161,6 +167,9 @@ export class Context {
   /** File contents, cached. Returns null if the file cannot be read. */
   read(relPath) {
     return this._memo('read:' + relPath, () => {
+      if(this.readFrom !== null) {
+        return git.readAt(this.readFrom, relPath, this.root);
+      }
       try {
         return readFileSync(this.abs(relPath), 'utf8');
       } catch {
@@ -172,6 +181,9 @@ export class Context {
   /** File size in bytes, or null if it cannot be stat'ed. */
   size(relPath) {
     return this._memo('size:' + relPath, () => {
+      if(this.readFrom !== null) {
+        return git.sizeAt(this.readFrom, relPath, this.root);
+      }
       try {
         return statSync(this.abs(relPath)).size;
       } catch {
@@ -189,7 +201,8 @@ export class Context {
    * including files that exist only on disk -- are overlaid from disk, so a
    * bit that is set but not yet staged is still seen. That overlay is skipped
    * where git does not record the bit, because there the bit on disk is not
-   * part of the file and never will be.
+   * part of the file and never will be. When reading a commit that is not
+   * checked out, that commit's tree is the base and nothing is overlaid.
    *
    * Null means "not established", never "not executable". A caller must stay
    * silent on null rather than assume either answer.
@@ -200,6 +213,9 @@ export class Context {
 
   get _modes() {
     return this._memo('modes', () => {
+      if(this.readFrom !== null) {
+        return git.listFileModesAt(this.readFrom, this.root);
+      }
       const modes = git.listFileModes(this.root);
       // The core.fileMode probe costs a subprocess, so it is only paid when
       // there is something to overlay: a committed-only run never pays it.

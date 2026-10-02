@@ -99,6 +99,56 @@ export function fileModeRecorded(cwd) {
   return out === null ? process.platform !== 'win32' : out.trim() === 'true';
 }
 
+/** Whether a repository-relative file or directory exists in a commit. */
+export function existsInCommit(sha, relPath, cwd) {
+  return git(['cat-file', '-e', `${sha}:${relPath}`],
+    {cwd, allowFailure: true}) !== null;
+}
+
+/** Whether `ancestor` is `descendant` or one of its ancestors. */
+export function isAncestor(ancestor, descendant, cwd) {
+  return git(['merge-base', '--is-ancestor', ancestor, descendant],
+    {cwd, allowFailure: true}) !== null;
+}
+
+/**
+ * Every path in a commit, repository-relative: `listFiles` for a commit that
+ * is not checked out.
+ */
+export function listFilesAt(sha, cwd) {
+  return git(['ls-tree', '-r', '-z', '--name-only', sha], {cwd})
+    .split('\0').filter(p => p !== '');
+}
+
+/** File modes as a commit records them, by path: see `listFileModes`. */
+export function listFileModesAt(sha, cwd) {
+  const modes = new Map();
+  const out = git(['ls-tree', '-r', '-z', sha], {cwd, allowFailure: true});
+  if(out === null) {
+    return modes;
+  }
+  for(const record of out.split('\0')) {
+    const tab = record.indexOf('\t');
+    if(tab !== -1) {
+      modes.set(record.slice(tab + 1), record.slice(0, tab).split(' ')[0]);
+    }
+  }
+  return modes;
+}
+
+/** A file's contents in a commit, or null where it is not a file. */
+export function readAt(sha, relPath, cwd) {
+  return git(['cat-file', 'blob', `${sha}:${relPath}`],
+    {cwd, allowFailure: true});
+}
+
+/** A file's size in bytes in a commit, or null where it is not there. */
+export function sizeAt(sha, relPath, cwd) {
+  const out = git(['cat-file', '-s', `${sha}:${relPath}`],
+    {cwd, allowFailure: true});
+  return out === null ? null : Number(out.trim());
+}
+
 /** Resolve a ref to a full SHA, or null if it does not exist. */
 export function resolve(ref, cwd) {
   const out = git(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`],

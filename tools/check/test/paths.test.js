@@ -285,6 +285,75 @@ test('--head other than the checkout leaves uncommitted work out', async () => {
   assert.match(own.stdout, /ids\/wip\/\.htaccess/);
 });
 
+test('with --head, paths are looked up in that commit', async () => {
+  // A pull request's new identifier exists in its commit and nowhere on the
+  // reviewer's disk.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'existing');
+  const base = repo.commit('Add existing');
+  repo.write('ids/theirs/.htaccess', BROKEN);
+  const theirs = repo.commit('Add theirs');
+  repo.git(['checkout', '-q', '-b', 'mine', base]);
+
+  const scoped = await captureRun(
+    ['--base', base, '--head', theirs, 'ids/theirs'], repo.dir);
+  assert.equal(scoped.code, EXIT.findings, scoped.stderr);
+  assert.match(scoped.stdout, /ids\/theirs\/\.htaccess/);
+
+  const typo = await captureRun(
+    ['--base', base, '--head', theirs, 'ids/theirz'], repo.dir);
+  assert.equal(typo.code, EXIT.usage);
+  assert.match(typo.stderr, /"ids\/theirz" does not exist in /);
+
+  // Naming the checkout still looks on disk, where uncommitted work is.
+  repo.write('ids/wip/.htaccess', BROKEN);
+  const own = await captureRun(
+    ['--base', base, '--head', 'HEAD', 'ids/wip'], repo.dir);
+  assert.equal(own.code, EXIT.findings, own.stderr);
+});
+
+test('with --head, contents come from that commit, not the disk', async () => {
+  // The pull request breaks an identifier that exists, so the path is on the
+  // reviewer's disk -- with the old, working contents.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'shared');
+  const base = repo.commit('Add shared');
+  repo.write('ids/shared/.htaccess', BROKEN);
+  const theirs = repo.commit('Break shared');
+  repo.git(['checkout', '-q', '-b', 'mine', base]);
+
+  const run = await captureRun(['--base', base, '--head', theirs], repo.dir);
+  assert.equal(run.code, EXIT.findings,
+    'the broken version is the one under review');
+  assert.match(run.stdout, /ids\/shared\/\.htaccess/);
+});
+
+test('a checkout containing --head is read from disk, as CI does', async () => {
+  // CI checks out the pull request merged into a master that may have gained
+  // identifiers since it forked. The merge is what has to be checked against:
+  // the pull request alone does not contain them.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'existing');
+  repo.commit('Add existing');
+  repo.git(['branch', 'pr']);
+  goodNamespace(repo, 'foo');
+  repo.commit('Add foo');
+  repo.checkout('pr');
+  goodNamespace(repo, 'FOO');
+  const head = repo.commit('Add FOO');
+  repo.checkout('master');
+  const masterTip = repo.git(['rev-parse', 'HEAD']).trim();
+  repo.git(['merge', '-q', '--no-ff', '-m', 'Merge pr', 'pr']);
+
+  const run = await captureRun(['--base', masterTip, '--head', head],
+    repo.dir);
+  assert.match(run.stdout, /no-case-collision/,
+    'FOO collides with foo, which only the merge contains');
+});
+
 test('with no --base, a fork clone is compared with upstream', async () => {
   // In a clone of a fork, `origin` is the fork. After committing to master and
   // pushing, origin/master is the contributor's own commit, and comparing with

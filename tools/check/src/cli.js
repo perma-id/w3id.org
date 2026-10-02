@@ -77,9 +77,34 @@ export async function main(argv, {stdout = process.stdout,
     return EXIT.usage;
   }
 
+  // Where files are read from. A --head the checkout contains -- the checkout
+  // itself, or CI's merge of the pull request into master -- is read from
+  // disk, which also holds whatever master has gained since the pull request
+  // forked. Any other commit, such as a pull request fetched for review, is
+  // read from that commit: none of its files need be on disk.
+  //
+  // Uncommitted edits are changes to the checkout, so they count only when
+  // --head is the checkout itself.
+  let headIsCheckout = true;
+  let readFrom = null;
+  if(values.head !== undefined) {
+    const headSha = git.resolve(values.head, root);
+    if(headSha !== null && headSha !== git.resolve('HEAD', root)) {
+      headIsCheckout = false;
+      if(!git.isAncestor(headSha, 'HEAD', root)) {
+        readFrom = headSha;
+      }
+    }
+  }
+  // Paths name things in whatever is read, so they are looked up there too.
+  const inCommit = readFrom === null ? null : {
+    name: values.head,
+    has: relPath => git.existsInCommit(readFrom, relPath, root)
+  };
+
   let scope;
   try {
-    scope = resolveScope(positionals, {root, cwd});
+    scope = resolveScope(positionals, {root, cwd, inCommit});
   } catch(e) {
     if(!(e instanceof ScopeError)) {
       throw e;
@@ -98,18 +123,13 @@ export async function main(argv, {stdout = process.stdout,
     return EXIT.usage;
   }
 
-  // Uncommitted edits are changes to the checked-out commit. Laid over any
-  // other commit they describe nothing that commit contains, so a --head that
-  // is not the checkout implies --committed-only.
-  const headIsCheckout = range.head === null ||
-    range.head === git.resolve('HEAD', root);
-
   const ctx = new Context({
     root,
     config,
     ...range,
     scope,
-    includeWorkingTree: !values['committed-only'] && headIsCheckout
+    includeWorkingTree: !values['committed-only'] && headIsCheckout,
+    readFrom
   });
   ctx.allRuleIds = ruleIds;
 
@@ -357,7 +377,9 @@ Scope:
   --base <ref>          Commit to compare against (default: upstream/master
                         if there is an upstream remote, else origin/master).
   --head <ref>          Commit to check (default: HEAD). Uncommitted edits
-                        count only when this is the checked-out commit.
+                        count only when this is the checked-out commit, and
+                        a commit the checkout does not contain is read from
+                        git rather than from disk.
   --all                 Check the whole tree at each rule's own severity,
                         ignoring the provenance policy. For maintainers.
   --committed-only      Ignore uncommitted edits and untracked files. Use for

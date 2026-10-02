@@ -168,13 +168,20 @@ export class ScopeError extends Error {}
  * and reporting success is the one outcome a contributor must never get from a
  * typo.
  *
+ * Existence is checked on disk unless `inCommit` is given. Checking another
+ * commit -- a pull request fetched for review -- the paths worth naming are
+ * the ones in that commit, which need not exist in the working tree at all.
+ *
  * @param {string[]} args - raw path arguments.
  * @param {object} opts
  * @param {string} opts.root - repository root.
  * @param {string} opts.cwd - directory the arguments are relative to.
+ * @param {{name: string, has: function(string): boolean}|null}
+ *   [opts.inCommit] - the commit to look paths up in instead of the disk, by
+ *   repository-relative path.
  * @returns {string[]|null} scope prefixes, or null for the whole repository.
  */
-export function resolveScope(args, {root, cwd}) {
+export function resolveScope(args, {root, cwd, inCommit = null}) {
   if(args.length === 0) {
     return null;
   }
@@ -188,15 +195,17 @@ export function resolveScope(args, {root, cwd}) {
       throw new ScopeError(
         `"${arg}" is outside the repository at ${root}.`);
     }
-    if(!existsSync(absolute)) {
-      throw new ScopeError(`"${arg}" does not exist.`);
-    }
     // An argument naming the repository root asks for everything, which is
     // the absence of a scope rather than a scope of one entry.
     if(relative === '') {
       return null;
     }
-    resolved.push(relative.split(path.sep).join('/').replace(/\/+$/, ''));
+    const posix = relative.split(path.sep).join('/').replace(/\/+$/, '');
+    if(inCommit === null ? !existsSync(absolute) : !inCommit.has(posix)) {
+      throw new ScopeError(inCommit === null ? `"${arg}" does not exist.` :
+        `"${arg}" does not exist in ${inCommit.name}.`);
+    }
+    resolved.push(posix);
   }
 
   // Sorting puts a parent before anything nested inside it, so the filter
