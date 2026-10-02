@@ -8,9 +8,10 @@
  * in READMEs, or in neither.
  *
  * This module is deliberately lenient: it answers "is there a plausible GitHub
- * username recorded here at all", which is what the pull request template
- * actually asks for. It is the seam a structured metadata format would replace
- * later, so callers depend on `findUsernames` and not on any of these regexes.
+ * username recorded here at all", which is what
+ * `meta/maintainer-github-username` asks for. It is the seam a structured
+ * metadata format would replace later, so callers depend on `findUsernames`
+ * and not on any of these regexes.
  */
 
 // GitHub's own rule: 1-39 alphanumerics or hyphens, no leading or trailing

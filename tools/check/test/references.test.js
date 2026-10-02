@@ -240,9 +240,9 @@ test('references: every rule page checks the rule it documents', () => {
  *
  * The URL is read from `DEFAULTS` rather than repeated here, which is the
  * point: the config value is authoritative and the pages are derived from it,
- * so changing where reports go cannot half-land across 38 files. The other
- * failure this catches is a rule page added later without the invitation,
- * which nothing else would notice.
+ * so changing where reports go cannot half-land across the rule pages. The
+ * other failure this catches is a rule page added later without the
+ * invitation, which nothing else would notice.
  *
  * VitePress fails its build on a dead internal link, so in-page links need no
  * check here. This URL is external, which the build does not follow.

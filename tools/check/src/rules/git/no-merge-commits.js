@@ -1,9 +1,7 @@
 /**
  * Hundreds of merge commits made inside contributor branches have reached
  * master, most of them "Merge branch 'perma-id:master' into ...". They add no
- * content, make the change hard to read, and are what the pull request
- * template is asking to avoid when it says to keep the number of commits
- * minimal.
+ * content and make the change hard to read.
  */
 
 // The shape GitHub's "Sync fork" button and the web editor produce.

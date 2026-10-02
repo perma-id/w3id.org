@@ -2,7 +2,7 @@
  * Shared, lazily populated view of the repository that rules run against.
  *
  * Everything here is computed at most once per run and cached: the tree is
- * ~5200 files and ~22MB, so a full read is cheap, but rules should not each
+ * over five thousand files, so a full read is cheap, but rules should not each
  * pay for it.
  */
 import {readFileSync, statSync, lstatSync} from 'node:fs';

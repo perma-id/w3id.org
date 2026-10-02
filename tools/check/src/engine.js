@@ -157,8 +157,8 @@ function contextFor(ctx, rule, config) {
  * Files a file-scope rule runs against.
  *
  * A whole-tree run visits everything. A range run visits only what the change
- * touches, which keeps a pull request from paying to parse 2860 `.htaccess`
- * files -- except for critical rules, which also visit the rest of every
+ * touches, which keeps a pull request from paying to parse every `.htaccess`
+ * in the tree -- except for critical rules, which also visit the rest of every
  * namespace the change touches. A contributor editing an identifier should be
  * told that identifier is broken even if they did not break it; they should
  * not be told about the rest of the tree, which is what `--triage` is

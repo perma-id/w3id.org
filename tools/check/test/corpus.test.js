@@ -1,8 +1,8 @@
 /**
  * The rules have to survive the real repository.
  *
- * 2860 `.htaccess` files written by more than a thousand people over a
- * decade contain shapes no fixture anticipates. A rule that throws on one of
+ * Thousands of `.htaccess` files written by more than a thousand people over
+ * a decade contain shapes no fixture anticipates. A rule that throws on one of
  * them fails every pull request until somebody works out why, so running all
  * of them over the whole tree is worth the second it costs.
  *
@@ -26,7 +26,7 @@
  * zero, because a cleared backlog and a broken rule look identical from
  * there -- but that is somebody reading a report, not CI failing.
  *
- * Does not run by default -- the tree is ~5200 files:
+ * Does not run by default -- the tree is over five thousand files:
  *
  *   W3ID_CHECK_CORPUS=1 npm test
  */
