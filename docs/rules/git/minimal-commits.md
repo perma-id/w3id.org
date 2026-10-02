@@ -42,7 +42,7 @@ what you are actually asking for.
 ## Wrong
 
 ```
-$ git log --oneline origin/master..HEAD
+$ git log --oneline upstream/master..HEAD
 87738437 Update README.md again
 ee4102a0 Update README.md
 d3389e3a Create .htaccess
@@ -52,14 +52,21 @@ c885985a Create README.md
 ## Right
 
 ```
-$ git log --oneline origin/master..HEAD
+$ git log --oneline upstream/master..HEAD
 a1b2c3d4 Add redirect for my-project
 ```
 
 ## How to fix
 
+The simplest way is to tick **Please squash my commits when merging** in the
+pull request description, and a maintainer will squash them when merging. Your
+fork then needs [resyncing](/faq#do-i-have-to-squash-my-commits) before your
+next change.
+
+To squash them yourself:
+
 ```sh
-git rebase -i origin/master
+git rebase -i upstream/master
 ```
 
 Mark every commit after the first as `squash`, save, and write one message for
@@ -69,9 +76,6 @@ the combined change. Then force-push your branch:
 git push --force-with-lease
 ```
 
-If you would rather a maintainer did it, say so in the pull request — the
-template has a checkbox for exactly that.
-
 ## How to check
 
 Run `w3id-check` with `--rule git/minimal-commits` to check this rule on its
@@ -80,7 +84,7 @@ rule looks at your commits rather than your files, so it needs a base to
 compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --rule git/minimal-commits --base origin/master
+node tools/check/bin/w3id-check.js --rule git/minimal-commits
 ```
 
 [Testing your changes](/guides/testing) covers installing the tool, and what

@@ -23,12 +23,14 @@ export default {
   messages: {
     tooMany:
       'This pull request changes identifiers across {{count}} commits. ' +
-      'Squash them into one before it is reviewed: git rebase -i ' +
-      'origin/master, then mark all but the first as "squash".',
+      'Tick "Please squash my commits when merging" in the pull request ' +
+      'description, or squash them yourself before review: git rebase -i ' +
+      'upstream/master, then mark all but the first as "squash".',
     tooManyPerFile:
       '{{file}} is changed by {{count}} separate commits ({{subjects}}). ' +
       'Editing a file through the GitHub web interface makes one commit per ' +
-      'save; squash them into a single change to that file.'
+      'save. Tick "Please squash my commits when merging" in the pull ' +
+      'request description, or squash them into a single change yourself.'
   },
   check(ctx, report) {
     if(!ctx.hasRange) {
