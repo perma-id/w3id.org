@@ -162,9 +162,16 @@ Note what is absent: no `Options`, no `RewriteBase`, no `AddType`, no
    tools/server/bin/resolve-identifier my-project
    ```
 
-   If you have no container runtime available, say so, and hand-trace one
-   request through each rule instead — state what the pattern matches and what
-   `$1` contains.
+   Without a container runtime, `tools/server/bin/build-httpd` builds an Apache
+   of its own and `tools/server/bin/run-server` serves it, with no root
+   needed. The build compiles Apache from source, so it needs `cc`, `make`,
+   `curl`, `tar`, `sha256sum`, network access and a few minutes. If Apache is
+   already installed, `W3ID_ALLOW_SYSTEM_HTTPD=1` makes `run-server` use it and
+   skips the build. See "Without Docker or root" in
+   `docs/guides/local-server.md`.
+
+   If none of that is possible, say so, and hand-trace one request through each
+   rule instead — state what the pattern matches and what `$1` contains.
 
 Report honestly which of these you actually ran. Do not describe a redirect as
 "tested" when you only read it.
