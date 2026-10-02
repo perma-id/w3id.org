@@ -36,8 +36,8 @@ features:
   - title: The mistakes we see over and over
     details: >-
       A catalogue of specific, checkable rules, each one written because
-      contributors keep getting it wrong. A missing backslash or a stray space
-      can take an identifier offline.
+      contributors keep getting it wrong. A single stray space can take an
+      identifier offline.
     link: /rules/
     linkText: Rule catalogue
   - title: Changing an identifier that people already use
@@ -69,6 +69,7 @@ That is the entire service. It is deliberately small.
 | Understand the `.htaccess` syntax | [Writing .htaccess rules](/guides/htaccess) |
 | Serve RDF and HTML from one URL | [Content negotiation](/guides/content-negotiation) |
 | Check your change before opening a pull request | [Testing your changes](/guides/testing) |
+| See what Apache actually does with your rules | [Running a local server](/guides/local-server) |
 | Find out why a reviewer asked you to change something | [Rules](/rules/) |
 | Ask a common question | [FAQ](/faq) |
 

@@ -154,6 +154,11 @@ Note what is absent: no `Options`, no `RewriteBase`, no `AddType`, no
 
    ```sh
    cd tools/server && docker compose up
+   ```
+
+   Leave it running, and from the repository root in another terminal:
+
+   ```sh
    tools/server/bin/resolve-identifier my-project
    ```
 

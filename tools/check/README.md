@@ -89,6 +89,7 @@ them. `--triage` is what surfaces those, to maintainers.
 w3id-check                          # your branch, committed or not
 w3id-check --quiet                  # only what blocks the pull request
 w3id-check --base origin/main       # compare against a different branch
+w3id-check --head my-branch         # check a branch other than the current one
 w3id-check --committed-only         # ignore what is not committed yet
 
 w3id-check ids/my-project           # one directory, as it stands
@@ -103,8 +104,10 @@ w3id-check --why ids/my-project     # why the run said nothing about this
 
 w3id-check --list-rules
 w3id-check --rule htaccess/https-target --all
+w3id-check --skip-rule git/minimal-commits   # everything except one rule
 w3id-check --tag security --all
 w3id-check --format markdown --output report.md
+w3id-check --help                   # every option
 ```
 
 Paths are a filter, not a mode: they narrow whatever the run would otherwise
@@ -252,8 +255,8 @@ asserting against the live tree, so they stay valid as the tree changes.
 `test/corpus.test.js` runs every rule over the whole repository and asserts
 that none of them throws, and that the run produced findings at all — a rule
 set that fails to load and a tree that is not there both look like "no
-errors" from outside. It is off by default because the tree is ~5200 files;
-the `Audit` workflow runs it on pushes to master and weekly, and
+errors" from outside. It is off by default because the tree is over five
+thousand files; the `Audit` workflow runs it on pushes to master and weekly, and
 `Checker Node matrix` runs it on each supported Node version when `tools/`
 changes.
 

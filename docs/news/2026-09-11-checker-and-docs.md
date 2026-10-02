@@ -69,7 +69,8 @@ redirect points where you meant it to.
 
 `tools/server/` has a supported Apache setup, so you can make a request to
 your own rules and see what happens, rather than reasoning about it. There are
-two ways in: a container, or an Apache you already have.
+three ways in: a container, an Apache you already have, or one it builds for you
+that needs neither Docker nor root.
 
 ```sh
 cd tools/server && docker compose up

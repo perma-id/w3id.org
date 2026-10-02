@@ -12,7 +12,7 @@ applies-to: "ids/**/.htaccess"
 
 ::: info Documented, not yet checked
 This rule is **proposed**. No automated check reports it, and the questions
-below need answering before one should. See [Checked by](#checked-by).
+below need answering before one should. See [How to check](#how-to-check).
 :::
 
 ## What
