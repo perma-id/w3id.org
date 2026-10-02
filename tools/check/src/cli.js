@@ -307,10 +307,7 @@ function resolveRange(values, root, auditAll, hasPaths) {
 
   let base = values.base;
   if(base === undefined) {
-    // `upstream` first: in a clone of a fork, `origin` is the fork, and once
-    // the contributor has pushed, origin/master is their own work.
-    base = ['upstream/master', 'upstream/main', 'origin/master', 'origin/main',
-      'master', 'main']
+    base = git.DEFAULT_BRANCH_REFS
       .find(ref => git.resolve(ref, root) !== null);
     if(base === undefined) {
       throw new Error(

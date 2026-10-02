@@ -366,7 +366,7 @@ export class Context {
       if(this.base === null) {
         return null;
       }
-      for(const ref of ['origin/master', 'origin/main', 'master', 'main']) {
+      for(const ref of git.DEFAULT_BRANCH_REFS) {
         if(git.resolve(ref, this.root) === null) {
           continue;
         }

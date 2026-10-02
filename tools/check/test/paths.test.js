@@ -20,6 +20,7 @@ import noCaseCollision from '../src/rules/tree/no-case-collision.js';
 import documentIdentifierRoot
   from '../src/rules/meta/document-identifier-root.js';
 import onlyOwnIdentifier from '../src/rules/tree/only-own-identifier.js';
+import branchNotStale from '../src/rules/git/branch-not-stale.js';
 
 const BROKEN = 'RewriteRule ^$ https://example.com/ [R=302,L]\n';
 const OK = 'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n';
@@ -371,6 +372,32 @@ test('with no --base, a fork clone is compared with upstream', async () => {
   assert.equal(run.code, EXIT.findings,
     'upstream/master is the real base, so the change must be checked');
   assert.match(run.stdout, /ids\/mine\/\.htaccess/);
+});
+
+test('in a fork clone, staleness is measured against upstream', () => {
+  // The fork's own master is as old as the branch, so measuring against it
+  // would always say the branch is current.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'existing');
+  const forked = repo.commit('Add existing');
+  repo.git(['update-ref', 'refs/remotes/origin/master', forked]);
+  for(const id of ['a', 'b', 'c']) {
+    goodNamespace(repo, id);
+    repo.commit(`Add ${id}`);
+  }
+  repo.git(['update-ref', 'refs/remotes/upstream/master', 'HEAD']);
+  repo.git(['checkout', '-q', '-b', 'mine', forked]);
+  goodNamespace(repo, 'mine');
+  repo.commit('Add mine');
+
+  const result = check({
+    dir: repo.dir, rules: [branchNotStale], base: forked, head: 'HEAD',
+    config: {options: {'git/branch-not-stale': {maxBehind: 2}}}
+  });
+  const messages = result.findings.map(f => f.message);
+  assert.equal(messages.length, 1);
+  assert.match(messages[0], /upstream\/master is 3 commits ahead/);
 });
 
 test('paths narrow --all rather than conflicting with it', async () => {

@@ -149,6 +149,15 @@ export function sizeAt(sha, relPath, cwd) {
   return out === null ? null : Number(out.trim());
 }
 
+/**
+ * Where the main repository's default branch may be found, best first.
+ *
+ * `upstream` leads: in a clone of a fork, `origin` is the fork, and its master
+ * is either the contributor's own pushed work or as old as their branch.
+ */
+export const DEFAULT_BRANCH_REFS = ['upstream/master', 'upstream/main',
+  'origin/master', 'origin/main', 'master', 'main'];
+
 /** Resolve a ref to a full SHA, or null if it does not exist. */
 export function resolve(ref, cwd) {
   const out = git(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`],
