@@ -8,7 +8,8 @@ expected to follow, and explains what to do about anything it finds.
 node tools/check/bin/w3id-check.js
 ```
 
-With no arguments it compares your branch against `origin/master`, counts
+With no arguments it compares your branch against `upstream/master` if you have
+an `upstream` remote, and `origin/master` otherwise, counts
 anything you have not committed yet as part of that change, and reports only
 what the change is answerable for.
 

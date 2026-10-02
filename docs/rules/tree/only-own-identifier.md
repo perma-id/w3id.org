@@ -70,14 +70,14 @@ catching is the unintentional one, and the answer to that is visibility.
 Check what your change actually touches before opening the pull request:
 
 ```sh
-git diff --stat origin/master
+git diff --stat upstream/master
 ```
 
 Everything listed should be under your own directory. If something else
 appears, revert it:
 
 ```sh
-git checkout origin/master -- README.md
+git checkout upstream/master -- README.md
 ```
 
 **If you genuinely need to change a directory you do not maintain**, that is
@@ -95,7 +95,7 @@ This rule looks at your commits rather than your files, so it needs a base to
 compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --rule tree/only-own-identifier --base origin/master
+node tools/check/bin/w3id-check.js --rule tree/only-own-identifier
 ```
 
 [Testing your changes](/guides/testing) covers installing the tool, and what

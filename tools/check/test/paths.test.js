@@ -260,6 +260,25 @@ test('the CLI reports uncommitted work with no arguments at all', async () => {
   assert.doesNotMatch(committed.stdout, /ids\/wip/);
 });
 
+test('with no --base, a fork clone is compared with upstream', async () => {
+  // In a clone of a fork, `origin` is the fork. After committing to master and
+  // pushing, origin/master is the contributor's own commit, and comparing with
+  // it would check nothing.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'existing');
+  const base = repo.commit('Add existing');
+  repo.write('ids/mine/.htaccess', BROKEN);
+  const pushed = repo.commit('Add mine');
+  repo.git(['update-ref', 'refs/remotes/origin/master', pushed]);
+  repo.git(['update-ref', 'refs/remotes/upstream/master', base]);
+
+  const run = await captureRun([], repo.dir);
+  assert.equal(run.code, EXIT.findings,
+    'upstream/master is the real base, so the change must be checked');
+  assert.match(run.stdout, /ids\/mine\/\.htaccess/);
+});
+
 test('paths narrow --all rather than conflicting with it', async () => {
   const repo = twoBrokenNamespaces();
   const result = await captureRun(['--all', 'ids/bar'], repo.dir);

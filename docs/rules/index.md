@@ -33,7 +33,8 @@ The checker lives in `tools/check/` and needs no arguments:
 node tools/check/bin/w3id-check.js
 ```
 
-It compares your branch against `origin/master`, counts work you have not
+It compares your branch against `upstream/master` if you have an `upstream`
+remote, and `origin/master` otherwise. It counts work you have not
 committed yet, and reports only what your own change is answerable for — the
 repository's existing backlog stays out of your way. To look at one directory:
 

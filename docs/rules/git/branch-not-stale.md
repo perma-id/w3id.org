@@ -78,7 +78,7 @@ rule looks at your commits rather than your files, so it needs a base to
 compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --rule git/branch-not-stale --base origin/master
+node tools/check/bin/w3id-check.js --rule git/branch-not-stale
 ```
 
 The threshold is configurable in `.w3id-check.yaml` under

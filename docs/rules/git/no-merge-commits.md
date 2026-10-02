@@ -30,7 +30,7 @@ request contains your commits and nothing else.
 ## Wrong
 
 ```
-$ git log --oneline origin/master..HEAD
+$ git log --oneline upstream/master..HEAD
 9f3c1a2  Merge branch 'perma-id:master' into my-branch
 7b2d4e8  Add redirect for my-project
 ```
@@ -38,7 +38,7 @@ $ git log --oneline origin/master..HEAD
 ## Right
 
 ```
-$ git log --oneline origin/master..HEAD
+$ git log --oneline upstream/master..HEAD
 7b2d4e8  Add redirect for my-project
 ```
 
@@ -68,7 +68,7 @@ rule looks at your commits rather than your files, so it needs a base to
 compare against; narrowing it to a path would not change what it reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --rule git/no-merge-commits --base origin/master
+node tools/check/bin/w3id-check.js --rule git/no-merge-commits
 ```
 
 [Testing your changes](/guides/testing) covers installing the tool, and what

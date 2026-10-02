@@ -281,7 +281,10 @@ function resolveRange(values, root, auditAll, hasPaths) {
 
   let base = values.base;
   if(base === undefined) {
-    base = ['origin/master', 'origin/main', 'master', 'main']
+    // `upstream` first: in a clone of a fork, `origin` is the fork, and once
+    // the contributor has pushed, origin/master is their own work.
+    base = ['upstream/master', 'upstream/main', 'origin/master', 'origin/main',
+      'master', 'main']
       .find(ref => git.resolve(ref, root) !== null);
     if(base === undefined) {
       throw new Error(
@@ -345,7 +348,8 @@ these as they stand on disk", which is what you want for work in progress;
 combined with --base or --all they narrow that run instead.
 
 Scope:
-  --base <ref>          Commit to compare against (default: origin/master).
+  --base <ref>          Commit to compare against (default: upstream/master
+                        if there is an upstream remote, else origin/master).
   --head <ref>          Commit to check (default: HEAD).
   --all                 Check the whole tree at each rule's own severity,
                         ignoring the provenance policy. For maintainers.

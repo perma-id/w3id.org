@@ -68,7 +68,7 @@ a base to compare against; narrowing it to a path would not change what it
 reports.
 
 ```sh
-node tools/check/bin/w3id-check.js --rule git/descriptive-commit-message --base origin/master
+node tools/check/bin/w3id-check.js --rule git/descriptive-commit-message
 ```
 
 [Testing your changes](/guides/testing) covers installing the tool, and what
