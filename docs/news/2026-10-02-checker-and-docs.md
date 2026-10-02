@@ -1,7 +1,7 @@
 ---
 title: A new layout, a rule checker, and a documentation site
 id: urn:uuid:6a632748-c0fc-408b-bd83-886b3141c36a
-date: 2026-09-11
+date: 2026-10-02
 categories: [service, tooling]
 summary: >-
   Every identifier now lives under ids/, a checker runs the contribution rules
