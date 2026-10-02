@@ -58,8 +58,13 @@ ones. Untracked files come from `git status`, so `.gitignore` still applies and
 `node_modules/` stays out.
 
 `--committed-only` turns that off, for a reproducible audit of committed
-content. `test/corpus.test.js` uses it, so that a maintainer running the ratchet
-with edits in progress does not see the bounds move.
+content. `test/corpus.test.js` does the same, so that a maintainer running it
+with edits in progress sees what CI sees.
+
+A `--head` that is not the checked-out commit implies it. Uncommitted edits are
+changes to what is checked out; laid over another commit, such as a pull
+request fetched for review, they would report the reviewer's work in progress
+as the contributor's.
 
 ## Provenance
 

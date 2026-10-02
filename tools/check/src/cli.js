@@ -98,12 +98,18 @@ export async function main(argv, {stdout = process.stdout,
     return EXIT.usage;
   }
 
+  // Uncommitted edits are changes to the checked-out commit. Laid over any
+  // other commit they describe nothing that commit contains, so a --head that
+  // is not the checkout implies --committed-only.
+  const headIsCheckout = range.head === null ||
+    range.head === git.resolve('HEAD', root);
+
   const ctx = new Context({
     root,
     config,
     ...range,
     scope,
-    includeWorkingTree: !values['committed-only']
+    includeWorkingTree: !values['committed-only'] && headIsCheckout
   });
   ctx.allRuleIds = ruleIds;
 
@@ -350,7 +356,8 @@ combined with --base or --all they narrow that run instead.
 Scope:
   --base <ref>          Commit to compare against (default: upstream/master
                         if there is an upstream remote, else origin/master).
-  --head <ref>          Commit to check (default: HEAD).
+  --head <ref>          Commit to check (default: HEAD). Uncommitted edits
+                        count only when this is the checked-out commit.
   --all                 Check the whole tree at each rule's own severity,
                         ignoring the provenance policy. For maintainers.
   --committed-only      Ignore uncommitted edits and untracked files. Use for

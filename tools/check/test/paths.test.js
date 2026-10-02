@@ -260,6 +260,31 @@ test('the CLI reports uncommitted work with no arguments at all', async () => {
   assert.doesNotMatch(committed.stdout, /ids\/wip/);
 });
 
+test('--head other than the checkout leaves uncommitted work out', async () => {
+  // Uncommitted edits are changes to what is checked out. Laid over some other
+  // commit -- a pull request fetched for review, say -- they are the
+  // reviewer's work in progress reported as the contributor's.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  goodNamespace(repo, 'existing');
+  const base = repo.commit('Add existing');
+  goodNamespace(repo, 'theirs');
+  const theirs = repo.commit('Add theirs');
+  repo.git(['checkout', '-q', '-b', 'mine', base]);
+  repo.write('ids/wip/.htaccess', BROKEN);
+
+  const review = await captureRun(['--base', base, '--head', theirs],
+    repo.dir);
+  assert.equal(review.code, EXIT.ok,
+    'the reviewer\'s uncommitted file is not part of the commit under review');
+  assert.doesNotMatch(review.stdout, /ids\/wip/);
+
+  const own = await captureRun(['--base', base, '--head', 'HEAD'], repo.dir);
+  assert.equal(own.code, EXIT.findings,
+    'naming the checked-out commit still counts uncommitted work');
+  assert.match(own.stdout, /ids\/wip\/\.htaccess/);
+});
+
 test('with no --base, a fork clone is compared with upstream', async () => {
   // In a clone of a fork, `origin` is the fork. After committing to master and
   // pushing, origin/master is the contributor's own commit, and comparing with
