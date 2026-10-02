@@ -141,6 +141,91 @@ The terminal output caps the list of suppressed findings per rule. `--why
 --format json` carries all of them, which is the form to query when the answer
 is longer than a screen.
 
+## Checking a pull request
+
+Fetch its commits and point `--head` at them. For a one-off check, `FETCH_HEAD`
+saves making a branch:
+
+```sh
+git fetch origin                     # current master
+git fetch origin pull/123/head       # the pull request, as FETCH_HEAD
+node tools/check/bin/w3id-check.js --base origin/master --head FETCH_HEAD
+```
+
+Fetch the pull request on its own: `FETCH_HEAD` names the first ref fetched,
+and the next fetch replaces it. To keep it around, fetch it into a branch. The
+`+` lets a re-fetch replace the branch after the contributor force-pushes:
+
+```sh
+git fetch origin +pull/123/head:pr-123
+node tools/check/bin/w3id-check.js --base origin/master --head pr-123
+```
+
+Worth knowing:
+
+- Your own uncommitted work stays out. A `--head` that is not the checkout
+  implies `--committed-only`.
+- Run it from your own up-to-date checkout rather than checking out the pull
+  request. CI checks the pull request merged into current master, so it uses
+  today's checker and rules; an old fork's branch carries an old checker, or
+  none at all.
+- The report covers only what the pull request is answerable for. A finding
+  marked "already there" is in a file or namespace it touches, on a line it
+  left alone — see [Provenance](#provenance).
+- `--format markdown` gives the report CI writes to its job summary, and
+  `--format github` the annotation lines. `--why` explains a finding you
+  expected and did not get.
+- In a clone of your own fork, the main repository is usually the `upstream`
+  remote; use it in place of `origin`.
+
+### Serving it, or running its own checker
+
+GitHub also publishes `pull/123/merge`: the pull request merged into current
+master, which is exactly what CI checks — today's `tools/` with the
+contributor's `ids/`. It exists only while the pull request is open and merges
+without conflicts. A worktree of it can be served:
+
+```sh
+git fetch origin +pull/123/merge:pr-123-merge
+git worktree add ../w3id-pr-123 pr-123-merge
+cd ../w3id-pr-123
+tools/server/bin/run-server
+```
+
+`run-server` serves the `ids/` of the checkout it is run from, and reuses the
+Apache that `build-httpd` cached, so nothing is rebuilt. Every checkout shares
+one pid file, though, so stop any server you already have running, or give this
+one its own run directory and port:
+
+```sh
+W3ID_PORT=8081 W3ID_RUNDIR=~/.local/state/w3id/pr-123 tools/server/bin/run-server
+```
+
+Docker works the same way: `cd tools/server && docker compose up` in the
+worktree.
+
+When the pull request changes `tools/check` itself, CI runs its version of the
+checker. To reproduce that, run the checker inside the worktree, after
+`(cd tools/check && npm ci)` there; `node_modules` is not shared between
+worktrees.
+
+### Cleaning up
+
+Stop a server started with `run-server start` (`run-server stop`) or Docker
+(`docker compose down`) in the worktree first. Then, from your own checkout:
+
+```sh
+git worktree remove ../w3id-pr-123
+git branch -D pr-123 pr-123-merge
+```
+
+Ignored files such as `node_modules` do not stop `git worktree remove`; other
+untracked files do, and `git status` inside the worktree lists them.
+`git branch --list 'pr-*'` and
+`git worktree list` show anything left over, and `git worktree prune` tidies up
+after a worktree directory deleted by hand. `FETCH_HEAD` needs nothing: the
+next fetch replaces it.
+
 ## Is the backlog shrinking?
 
 ```sh
