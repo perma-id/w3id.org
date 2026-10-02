@@ -1,32 +1,31 @@
 <!-- Recommended W3ID Pull Request Details. Please adjust as needed. -->
-## Brief Description
-<!-- Brief description of the purpose of this PR. -->
+## Brief description
 
-## General Checklist
-<!-- For all ID related PRs. -->
-- [ ] Changes have been tested.
-- [ ] The number of commits is minimal. Squash if needed.
-- [ ] Commits only include redirects and basic information. Serving content and full documentation is not supported on this service.
+<!-- What this changes, and its purpose. -->
 
-<!--
-Automated checks run on this PR. If any fail, look under "Files changed" for
-comments on the offending lines, and under "Checks" for the full report; each
-one explains what to do. You can run them yourself first:
+## Checklist
 
-    (cd tools/check && npm ci)   # once
-    node tools/check/bin/w3id-check.js
--->
+- Update your branch from `master` before opening this:
+  https://w3id.org/docs/rules/git/branch-not-stale#how-to-fix
+- Test your redirects: https://w3id.org/docs/guides/testing
+- Add or update one identifier, or as few as practical, per pull request.
+- New identifiers: keep each to its own directory, holding the redirect and
+  minimal information about the project and its maintainers:
+  https://w3id.org/docs/guides/create-an-id
+- Existing identifiers: be one of the listed maintainers, or tag one here to
+  approve.
+- Name the pull request after what it changes, for example
+  "my-project: add vocabulary redirect".
 
-## New ID Directory Checklist
-<!-- For new ID PRs. -->
-- [ ] Maintainer details are in `.htaccess` or `README.md`.
-- [ ] GitHub username ids are listed in the maintainer details.
+## Automated checks
 
-## Update ID Directory Checklist
-<!-- For updated ID PRs. -->
-- [ ] GitHub username ids are listed in the changed maintainer details.
-- [ ] The GitHub account submitting this PR is listed as a maintainer of the directories and files changed in this PR or one or more of those maintainers are tagged to approve these changes.
+Results appear under **Files changed**, on the lines you changed, and under
+**Checks**, which has the full report. Errors must be fixed before merging;
+warnings are advice. For a first contribution, a maintainer may need to start
+the checks before any results appear. If a check looks wrong, say so here.
 
-## Optional Requests for W3ID Maintainers
-<!-- Optional requests for any PR. -->
-- [ ] Please squash commits for me. I understand this will likely require resyncing my local repository before making further PRs.
+## Requests
+
+- [ ] Please squash my commits when merging. Your fork then needs resyncing
+  before your next change:
+  https://w3id.org/docs/faq#do-i-have-to-squash-my-commits
