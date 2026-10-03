@@ -12,7 +12,7 @@ import {FLAGS, looksLikeFlagList} from '../src/rewrite-flags.js';
 import {mkdtempSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {spawnSync} from 'node:child_process';
+import {spawn, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {listFileModes} from '../src/git.js';
 import {makeRepo} from './helpers.js';
@@ -484,4 +484,22 @@ test('output: color only on a terminal, even under CI', () => {
   assert.ok(!piped.includes('\x1b'), 'escape codes in piped output');
   // Proves the assertion above could fail: color shows when asked for.
   assert.ok(run({FORCE_COLOR: '1'}).includes('\x1b'));
+});
+
+test('output: a reader that stops early is not a crash', async () => {
+  // `w3id-check | head` closes the pipe before the report is written.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess',
+    'RewriteRule ^$ https://example.com/ [R=302,L]\n');
+  repo.commit('Add a');
+  const bin = fileURLToPath(new URL('../bin/w3id-check.js', import.meta.url));
+  const child = spawn(process.execPath, [bin, '--all'], {cwd: repo.dir});
+  child.stdout.destroy();
+  let stderr = '';
+  child.stderr.on('data', chunk => stderr += chunk);
+  const code = await new Promise(resolve => child.on('close', resolve));
+
+  assert.doesNotMatch(stderr, /EPIPE/);
+  assert.equal(code, 1, 'the run still reports the error it found');
 });

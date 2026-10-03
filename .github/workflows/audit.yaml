@@ -26,6 +26,11 @@ jobs:
   audit:
     name: Whole-tree audit
     runs-on: ubuntu-latest
+    # Reports go into a Markdown job summary, where color is escape codes.
+    # The checker already colors only a terminal; this keeps a runner that
+    # sets FORCE_COLOR from undoing that.
+    env:
+      NO_COLOR: '1'
     permissions:
       contents: read # to check out the tree being audited
     steps:
