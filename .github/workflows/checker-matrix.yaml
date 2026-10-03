@@ -1,20 +1,24 @@
 # Runs the checker's own test suite on every Node version it claims to support.
+# This is the only place pull requests run it: an identifier change cannot
+# affect it, and a failure shown on one would only confuse its author.
 #
 # `tools/check/package.json` says `engines: ">=22"`. The other workflows run one
 # version, so without this that range is an assertion nothing tests: a syntax or
 # API change that needs a newer Node would pass CI and fail for a contributor on
 # an older one, with an error that looks nothing like the cause.
 #
-# NOTE: do not make this a required status check. It is filtered by path, and a
-# skipped job never reports a status -- a required one would leave every pull
-# request that does not touch tools/ waiting on it forever. That is why the
-# equivalent job in pr-checks.yaml runs unfiltered instead.
+# NOTE: do not make this a required status check as it stands. It is filtered
+# by path, and a filtered-out workflow never reports a status -- a required one
+# would leave every pull request that does not touch tools/ waiting on it
+# forever. To require it, run it unfiltered with a job-level `if:` on whether
+# tools/ changed instead: a job skipped that way reports success.
 name: Checker Node matrix
 
 on:
   pull_request:
-    # Only what could behave differently between Node versions. Everything
-    # else is covered by the unfiltered checker job in pr-checks.yaml.
+    # Only what can change the checker's behaviour. Nothing in the suite's
+    # outcome depends on ids/ beyond the corpus run, which the Audit workflow
+    # repeats on every push to master.
     paths:
       - 'tools/**'
       - '.github/workflows/checker-matrix.yaml'
