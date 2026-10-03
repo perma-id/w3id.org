@@ -9,7 +9,7 @@ Persistent URIs under `https://w3id.org/verisav/`.
 - Email: k.boutillier@verisav.fr
 - Website: https://www.verisav.fr
 
-This contact covers all subdirectories under `/verisav/` (`dpp`, `rma`, `wty`, `person`, …).
+This contact covers the vocabulary subdirectories under `/verisav/` (`dpp`, `rma`, `wty` only).
 
 ## Subdirectories
 
@@ -18,4 +18,3 @@ This contact covers all subdirectories under `/verisav/` (`dpp`, `rma`, `wty`, `
 | `dpp/` | Digital Product Passport vocabulary | https://ns.verisav.fr/dpp/ |
 | `rma/` | Return Merchandise Authorization vocabulary | https://ns.verisav.fr/rma/ |
 | `wty/` | Warranty vocabulary | https://ns.verisav.fr/wty/ |
-| `person/` | Person LOD identifiers | https://ns.verisav.fr/person/ |
