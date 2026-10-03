@@ -1,0 +1,31 @@
+# W3ID — person LOD for Kévin Boutillier
+# Persistent URI: https://w3id.org/people/kevin-boutillier
+# Contact: k.boutillier@verisav.fr
+# GitHub: https://github.com/kevinbouti
+# Target RDF: https://ns.verisav.fr/person/kevin-boutillier/
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.rdf [R=303,L]
+
+# HTML / browsers
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/ [R=303,L]
+
+# Default → Turtle
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.ttl [R=303,L]
