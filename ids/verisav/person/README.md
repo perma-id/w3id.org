@@ -21,6 +21,8 @@ Intended for Wikidata exact match (P2888) and Schema.org `sameAs`.
 
 ## Contact
 
-- k.boutillier@verisav.fr
-- https://www.verisav.fr
+- GitHub: https://github.com/kevinbouti
+- Email: k.boutillier@verisav.fr
+- Website: https://www.verisav.fr
+- See also: [`/verisav/README.md`](../README.md) (maintainer for all `verisav/` subdirs)
 - Existing namespace: https://w3id.org/verisav/ (dpp, rma, wty already live)
