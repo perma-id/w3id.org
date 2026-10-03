@@ -7,6 +7,13 @@
 Options +FollowSymLinks
 RewriteEngine On
 
+# HTML / browsers FIRST — browsers send application/xml;q=0.9 in Accept,
+# which must not win over text/html (otherwise .rdf is downloaded).
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/ [R=303,L]
+
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
@@ -16,16 +23,9 @@ RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.tt
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
 RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.jsonld [R=303,L]
 
-# RDF/XML
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+# RDF/XML (application/rdf+xml only — not bare application/xml)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
 RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.rdf [R=303,L]
 
-# HTML / browsers
-RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC,OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+# Default → HTML (human-readable landing)
 RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/ [R=303,L]
-
-# Default → Turtle
-RewriteRule ^$ https://ns.verisav.fr/person/kevin-boutillier/kevin-boutillier.ttl [R=303,L]
