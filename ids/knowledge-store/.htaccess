@@ -1,0 +1,37 @@
+# Knowledge Store: permanent identifiers for the Knowledge Store core vocabulary.
+#
+# Knowledge Store is an open-source (Apache-2.0) kit that turns documents in S3 into an
+# ontology-typed knowledge graph. Its core vocabulary (provenance: documents,
+# passages, extraction runs, assertions) is identified by https://w3id.org/knowledge-store/core#
+#
+#   https://w3id.org/knowledge-store/                 -> the project
+#   https://w3id.org/knowledge-store/core             -> the latest core vocabulary
+#                                                 (Turtle for RDF clients, a page for browsers)
+#   https://w3id.org/knowledge-store/core/<version>   -> that release (git tag core-v<version>)
+#   https://w3id.org/knowledge-store/core/shapes      -> the core SHACL shapes (latest)
+#
+# ## Contact
+# This space is administered by:
+#
+# Patternode (https://github.com/patternode)
+# GitHub username: dermot-obrien
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# A specific release of the core vocabulary or its shapes
+RewriteRule ^core/([0-9]+\.[0-9]+\.[0-9]+)/shapes$ https://raw.githubusercontent.com/patternode/knowledge-store/core-v$1/src/knowledge_store/ontology/core-shapes.ttl [R=303,L]
+RewriteRule ^core/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/patternode/knowledge-store/core-v$1/src/knowledge_store/ontology/core.ttl [R=303,L]
+
+# The latest shapes
+RewriteRule ^core/shapes$ https://raw.githubusercontent.com/patternode/knowledge-store/main/src/knowledge_store/ontology/core-shapes.ttl [R=303,L]
+
+# The latest vocabulary: Turtle (or N-Triples) for RDF clients, the documentation page otherwise
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^core/?$ https://raw.githubusercontent.com/patternode/knowledge-store/main/src/knowledge_store/ontology/core.ttl [R=303,L]
+RewriteRule ^core/?$ https://github.com/patternode/knowledge-store/blob/main/docs/core-vocabulary.md [R=303,L]
+
+# Anything else under the space: the project
+RewriteRule ^.*$ https://github.com/patternode/knowledge-store [R=303,L]
