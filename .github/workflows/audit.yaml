@@ -26,6 +26,11 @@ jobs:
   audit:
     name: Whole-tree audit
     runs-on: ubuntu-latest
+    # Reports go into a Markdown job summary, where color is escape codes.
+    # The checker already colors only a terminal; this keeps a runner that
+    # sets FORCE_COLOR from undoing that.
+    env:
+      NO_COLOR: '1'
     permissions:
       contents: read # to check out the tree being audited
     steps:
@@ -63,10 +68,18 @@ jobs:
           node tools/check/bin/w3id-check-trend.js \
             | tee -a "${GITHUB_STEP_SUMMARY}"
 
+      # Fenced because the report is aligned plain text, which Markdown would
+      # run together into paragraphs.
       - name: Backlog size
         run: |
-          node tools/check/bin/w3id-check.js --all --stats \
-            | tee -a "${GITHUB_STEP_SUMMARY}"
+          {
+            echo
+            echo '## Backlog size'
+            echo
+            echo '```'
+            node tools/check/bin/w3id-check.js --all --stats
+            echo '```'
+          } | tee -a "${GITHUB_STEP_SUMMARY}"
 
       # The code fence is not formatting. This report prints maintainer
       # handles as `@name`, read out of files contributors control, and

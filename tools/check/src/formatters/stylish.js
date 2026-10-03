@@ -1,5 +1,5 @@
 /** Human-readable terminal output. */
-import pc from 'picocolors';
+import pc from '../colors.js';
 
 const MARK = {
   error: () => pc.red('error'),

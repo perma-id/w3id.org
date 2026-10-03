@@ -8,7 +8,7 @@
  * for the question a quiet run cannot otherwise answer -- what did it find
  * and decide not to tell me?
  */
-import pc from 'picocolors';
+import pc from './colors.js';
 import {namespaceMaintainers} from './maintainers.js';
 import {isReadme, isHtaccess} from './paths.js';
 
