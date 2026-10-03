@@ -130,6 +130,10 @@ do, so they combine with `--all`, `--triage` and `--base`.
 Otherwise exit status is 0 for no errors, 1 for at least one error, 2 for bad
 usage and 3 if the checker itself failed.
 
+Output is colored only on a terminal, so a report piped to a file has no
+escape codes in it. `NO_COLOR=1` turns color off and `FORCE_COLOR=1` turns it
+on.
+
 ### `--why`
 
 A quiet run has four possible explanations and looks the same in all of them:

@@ -63,10 +63,18 @@ jobs:
           node tools/check/bin/w3id-check-trend.js \
             | tee -a "${GITHUB_STEP_SUMMARY}"
 
+      # Fenced because the report is aligned plain text, which Markdown would
+      # run together into paragraphs.
       - name: Backlog size
         run: |
-          node tools/check/bin/w3id-check.js --all --stats \
-            | tee -a "${GITHUB_STEP_SUMMARY}"
+          {
+            echo
+            echo '## Backlog size'
+            echo
+            echo '```'
+            node tools/check/bin/w3id-check.js --all --stats
+            echo '```'
+          } | tee -a "${GITHUB_STEP_SUMMARY}"
 
       # The code fence is not formatting. This report prints maintainer
       # handles as `@name`, read out of files contributors control, and
