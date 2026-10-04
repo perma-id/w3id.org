@@ -1,0 +1,9 @@
+RewriteEngine on
+
+# Record identifiers: https://w3id.org/histact/data/<project>/<kind>/<uuid>
+# HistAct answers by the Accept header: a browser is sent on to the record's page,
+# text/turtle or application/ld+json get the record's RDF.
+RewriteRule ^data/(.*)$ https://histact.ldas.jp/id/$1 [R=303,L]
+
+# The rest of /histact/ is kept for the HistAct vocabulary. Until it exists, go to the home page.
+RewriteRule ^(.*)$ https://histact.ldas.jp/ [R=302,L]
