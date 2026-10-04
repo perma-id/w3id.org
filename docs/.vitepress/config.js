@@ -126,6 +126,7 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Overview', link: '/rules/tree/' },
+              { text: 'identifier-under-ids', link: '/rules/tree/identifier-under-ids' },
               { text: 'no-case-collision', link: '/rules/tree/no-case-collision' },
               { text: 'only-own-identifier', link: '/rules/tree/only-own-identifier' }
             ]
