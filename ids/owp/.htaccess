@@ -1,0 +1,46 @@
+# # /owp/
+#
+# Open World Package (OWP): an open package standard for Worlds, World Views,
+# Effective World State, and World Models.
+# https://github.com/ontle-world/open-world-package
+#
+# https://w3id.org/owp/ns#                         the OWP vocabulary (OWL 2 DL, CC BY 4.0)
+# https://w3id.org/owp/ns/{release}                a release of the vocabulary (owl:versionIRI)
+# https://w3id.org/owp/align/{prov,bfo,dul}        informative alignments
+# https://w3id.org/owp/spec/{apiVersion}           specification snapshots (dct:conformsTo)
+# https://w3id.org/owp/pkg/{namespace}/{name}/{version}  package identifiers
+#
+# Content is served by GitHub Pages of ontle-world/open-world-package.
+#
+# ## Contact
+# This space is administered by the ontle-world organization:
+#
+# Eunkyu Park
+# GitHub username: eunkyui
+#
+# Won-Kyu Park
+# GitHub username: wkpark
+
+RewriteEngine on
+
+# The vocabulary: Turtle, JSON-LD, or HTML by Accept header.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns$ https://ontle-world.github.io/open-world-package/vocab/owp/ns.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ns$ https://ontle-world.github.io/open-world-package/vocab/owp/ns.jsonld [R=303,L]
+RewriteRule ^ns$ https://ontle-world.github.io/open-world-package/vocab/owp/ [R=303,L]
+
+# A release of the vocabulary.
+RewriteRule ^ns/(v[0-9a-z.]+)$ https://ontle-world.github.io/open-world-package/vocab/owp/releases/$1/ns.ttl [R=302,L]
+
+# Alignments.
+RewriteRule ^align/(prov|bfo|dul)$ https://ontle-world.github.io/open-world-package/alignments/owp-align-$1/align.ttl [R=302,L]
+
+# Specification snapshots.
+RewriteRule ^spec/(v[0-9a-z]+)$ https://ontle-world.github.io/open-world-package/spec/$1/ [R=302,L]
+
+# Package identifiers: a page explaining the identifier (the archive is fetched from a registry and verified).
+RewriteRule ^pkg/([^/]+)/([^/]+)/([^/]+)$ https://ontle-world.github.io/open-world-package/pkg/?ns=$1&name=$2&version=$3 [R=302,L]
+
+# Anything else: the project home.
+RewriteRule ^$ https://ontle-world.github.io/open-world-package/ [R=302,L]
