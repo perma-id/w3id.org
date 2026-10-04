@@ -86,7 +86,7 @@ function materialise(sha, into, root, exclude) {
   mkdirSync(ids, {recursive: true});
   execFileSync('/bin/sh', ['-c',
     `git archive ${sha} | tar -x -C ${JSON.stringify(ids)}`], {cwd: root});
-  for(const name of exclude) {
+  for(const name of exclude()) {
     rmSync(path.join(ids, name), {recursive: true, force: true});
   }
   return true;
@@ -134,9 +134,20 @@ function main(argv) {
     process.stderr.write('w3id-check-trend: no ids/ directory here.\n');
     return 2;
   }
-  const ref = argv[0] ?? 'HEAD';
-  const exclude = notIdentifiers(root);
-  const asJson = argv.includes('--format=json');
+  // An option must never reach git as the ref: `--format=json` once did,
+  // and every audit run failed on it.
+  const options = argv.filter(arg => arg.startsWith('-'));
+  const unknown = options.find(arg => arg !== '--format=json');
+  if(unknown !== undefined) {
+    process.stderr.write(`w3id-check-trend: unknown option ${unknown}. ` +
+      'Usage: w3id-check-trend.js [--format=json] [ref]\n');
+    return 2;
+  }
+  const ref = argv.find(arg => !arg.startsWith('-')) ?? 'HEAD';
+  const asJson = options.includes('--format=json');
+  // Only a tree from before the move needs this, so it is looked up then.
+  let excluded;
+  const exclude = () => excluded ??= notIdentifiers(root);
 
   const columns = [];
   for(const {label, days} of POINTS) {

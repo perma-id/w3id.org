@@ -505,6 +505,28 @@ test('output: markdown shows a message as text, not as markup', () => {
   assert.ok(!/<br/i.test(row), row);
 });
 
+test('trend: an option is not taken for the ref to measure', () => {
+  // The audit's `--format=json` reached git as a revision, and every run
+  // failed. A fresh repository has one point in time, which is its own
+  // refusal (status 2) -- the one that says the arguments were understood.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess',
+    'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n');
+  repo.commit('Add a');
+  const bin = fileURLToPath(
+    new URL('../bin/w3id-check-trend.js', import.meta.url));
+  const run = args => spawnSync(process.execPath, [bin, ...args],
+    {cwd: repo.dir, encoding: 'utf8'});
+
+  const json = run(['--format=json']);
+  assert.equal(json.status, 2, json.stderr);
+  assert.match(json.stderr, /only one point/);
+  const unknown = run(['--format=xml']);
+  assert.equal(unknown.status, 2, unknown.stderr);
+  assert.match(unknown.stderr, /unknown option --format=xml/);
+});
+
 test('output: a reader that stops early is not a crash', async () => {
   // `w3id-check | head` closes the pipe before the report is written.
   const repo = makeRepo();
