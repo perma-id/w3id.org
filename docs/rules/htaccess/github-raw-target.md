@@ -14,7 +14,8 @@ applies-to: "ids/**/.htaccess"
 
 When redirecting to a file hosted on GitHub:
 
-- use `raw.githubusercontent.com`, not `github.com/.../blob/...`;
+- use `raw.githubusercontent.com`, not `github.com/.../blob/...`, unless the
+  target is documentation for people to read;
 - do not include a `refs/heads/` path segment.
 
 ## Why
@@ -23,8 +24,8 @@ When redirecting to a file hosted on GitHub:
 `https://github.com/user/repo/blob/main/vocab.ttl` returns an HTML document
 with syntax highlighting, navigation, and a comment box. A triple store fetching
 your ontology IRI gets that HTML and fails to parse it. The redirect looks
-right, the URL opens fine in a browser, and every machine client breaks. Around
-a hundred rules in this repository still do this.
+right, the URL opens fine in a browser, and every machine client breaks. More
+than a hundred rules in this repository still do this.
 
 The raw equivalent — `https://raw.githubusercontent.com/user/repo/main/vocab.ttl`
 — returns the file itself.
@@ -70,7 +71,18 @@ curl -sIL https://raw.githubusercontent.com/user/repo/main/vocab.ttl \
   | grep -iE '^(HTTP|content-type)'
 ```
 
-Two things this rule deliberately does not tell you to do.
+Three things this rule deliberately does not tell you to do.
+
+**Documentation is the exception.** A `/blob/` link to Markdown, or another
+format GitHub renders as a page, is not reported. That page is for people,
+and the raw file is `text/plain` markup. A common shape sends RDF clients to
+the raw vocabulary and everyone else to its rendered documentation:
+
+```apache
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^core$ https://raw.githubusercontent.com/user/repo/main/core.ttl [R=303,L]
+RewriteRule ^core$ https://github.com/user/repo/blob/main/docs/core.md [R=303,L]
+```
 
 **Branch names move**, and a tag does not — but a branch target is the right
 answer when you want whatever is current, so preferring a tag is advice rather

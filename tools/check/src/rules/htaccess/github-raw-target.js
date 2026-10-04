@@ -1,3 +1,5 @@
+import {rendersAsPage} from '../../paths.js';
+
 /**
  * Redirect targets that point at GitHub's web interface rather than the file.
  *
@@ -14,7 +16,11 @@
  * Deliberately not checked: whether the target names a branch or a tag. A
  * branch is the right answer when you want whatever is current, so preferring
  * a tag is advice a rule cannot give without knowing the intent.
+ *
+ * Nor is a /blob/ target for documentation GitHub renders, such as Markdown.
+ * That page is for people, and its raw file is `text/plain` markup.
  */
+
 const BLOB = /^https?:\/\/(?:www\.)?github\.com\/[^/]+\/[^/]+\/blob\//i;
 const REFS_HEADS = /^https?:\/\/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/refs\/heads\//i;
 
@@ -44,6 +50,9 @@ export default {
     for(const redirect of parsed.redirects()) {
       const target = redirect.target;
       if(BLOB.test(target)) {
+        if(isDocumentation(target)) {
+          continue;
+        }
         report({
           messageId: 'blob',
           line: redirect.line,
@@ -61,6 +70,13 @@ export default {
     }
   }
 };
+
+function isDocumentation(target) {
+  const name = target.replace(/[?#].*$/, '').split('/').pop();
+  // GitHub renders `.asc` as AsciiDoc, but a redirect to one is far more
+  // likely a key or a signature, which a client fetches to use.
+  return rendersAsPage(name) && !/\.asc$/i.test(name);
+}
 
 function toRaw(target) {
   return target

@@ -15,6 +15,7 @@ import path from 'node:path';
 import {spawn, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {listFileModes} from '../src/git.js';
+import markdown from '../src/formatters/markdown.js';
 import {makeRepo} from './helpers.js';
 
 test('glob: ** spans zero or more segments', () => {
@@ -484,6 +485,46 @@ test('output: color only on a terminal, even under CI', () => {
   assert.ok(!piped.includes('\x1b'), 'escape codes in piped output');
   // Proves the assertion above could fail: color shows when asked for.
   assert.ok(run({FORCE_COLOR: '1'}).includes('\x1b'));
+});
+
+test('output: markdown shows a message as text, not as markup', () => {
+  const finding = {
+    file: 'ids/a/README.md', line: 3, severity: 'notice',
+    ruleId: 'markdown/prefer-list-over-line-breaks', docsUrl: 'https://x/',
+    message: 'held apart by a trailing <br> | then git fetch && git rebase'
+  };
+  const out = markdown({
+    findings: [finding],
+    summary: {mode: 'range', filesChecked: 1, scope: null, uncommitted: 0,
+      rulesRun: 1, ruleIds: [finding.ruleId],
+      counts: {error: 0, warning: 0, notice: 1}}
+  });
+  const row = out.split('\n').find(l => l.includes('held apart'));
+  assert.ok(row.includes('a trailing &lt;br&gt; \\| then'), row);
+  assert.ok(row.includes('git fetch &amp;&amp; git rebase'), row);
+  assert.ok(!/<br/i.test(row), row);
+});
+
+test('trend: an option is not taken for the ref to measure', () => {
+  // The audit's `--format=json` reached git as a revision, and every run
+  // failed. A fresh repository has one point in time, which is its own
+  // refusal (status 2) -- the one that says the arguments were understood.
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess',
+    'RewriteEngine on\nRewriteRule ^$ https://example.com/ [R=302,L]\n');
+  repo.commit('Add a');
+  const bin = fileURLToPath(
+    new URL('../bin/w3id-check-trend.js', import.meta.url));
+  const run = args => spawnSync(process.execPath, [bin, ...args],
+    {cwd: repo.dir, encoding: 'utf8'});
+
+  const json = run(['--format=json']);
+  assert.equal(json.status, 2, json.stderr);
+  assert.match(json.stderr, /only one point/);
+  const unknown = run(['--format=xml']);
+  assert.equal(unknown.status, 2, unknown.stderr);
+  assert.match(unknown.stderr, /unknown option --format=xml/);
 });
 
 test('output: a reader that stops early is not a crash', async () => {

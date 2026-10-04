@@ -77,6 +77,7 @@ report it is whoever has just watched their own mistake pass.
 
 | Rule | Severity | What |
 | --- | --- | --- |
+| [`tree/identifier-under-ids`](./tree/identifier-under-ids) | error | Identifier directories must be under `ids/` |
 | [`tree/no-case-collision`](./tree/no-case-collision) | error | Two names differing only by case cannot both be checked out |
 | [`tree/only-own-identifier`](./tree/only-own-identifier) | warning | Keep a change to one identifier |
 

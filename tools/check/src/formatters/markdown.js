@@ -66,7 +66,7 @@ export default function markdown(result) {
     out.push(`### ${HEADING[severity]} (${group.length})`, '', BLURB[severity], '');
     out.push('| Where | What | Rule |', '| --- | --- | --- |');
     for(const f of group) {
-      out.push(`| ${cell(location(f))} | ${cell(f.message)} | ` +
+      out.push(`| ${cell(location(f))} | ${cell(plain(f.message))} | ` +
         `[${cell(f.ruleId)}](${f.docsUrl}) |`);
     }
     out.push('');
@@ -106,6 +106,14 @@ function location(f) {
   }
   const suffix = f.line === null ? '' : `:${f.line}`;
   return '`' + f.file + suffix + '`';
+}
+
+// A message is plain text, and some quote markup: a rule naming `<br>`, or a
+// line from a contributor's file. Escaped, it shows as written rather than
+// being rendered -- a `<br>` in the summary was an invisible line break.
+function plain(text) {
+  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 // Table cells cannot contain a raw pipe or newline.

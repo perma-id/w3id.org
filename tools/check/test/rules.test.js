@@ -41,6 +41,7 @@ import maintainerGithubUsername from '../src/rules/meta/maintainer-github-userna
 import minimalCommits from '../src/rules/git/minimal-commits.js';
 import noMergeCommits from '../src/rules/git/no-merge-commits.js';
 import descriptiveCommitMessage from '../src/rules/git/descriptive-commit-message.js';
+import identifierUnderIds from '../src/rules/tree/identifier-under-ids.js';
 
 /** Build a repo from a map of path -> contents and audit it with one rule. */
 function audit(rule, files, config = {}) {
@@ -336,6 +337,38 @@ test('htaccess/avoid-permanent-redirect covers both directive families', () => {
   ]);
 });
 
+test('tree/identifier-under-ids reports an .htaccess outside ids/', () => {
+  const r = audit(identifierUnderIds, {
+    'ids/a/.htaccess': OK_HTACCESS,
+    'histact/.htaccess': OK_HTACCESS,
+    'histact/README.md': OK_README,
+    'cdisc/cosmos/.htaccess': OK_HTACCESS,
+    'docs/guide.md': '# guide\n'
+  });
+  assert.deepEqual(findingsOf(r).sort(), [
+    'cdisc/cosmos/.htaccess:1:error',
+    'histact/.htaccess:1:error'
+  ]);
+  assert.match(r.findings.find(f => f.file === 'histact/.htaccess').message,
+    /move this directory to ids\/histact\//);
+});
+
+test('tree/identifier-under-ids blocks a change that adds nothing under ids/',
+  () => {
+    // The shape that slipped through: a whole identifier at the root, and
+    // so no change under ids/ for the identifier rules to look at.
+    const repo = makeRepo();
+    repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+    repo.write('ids/a/.htaccess', OK_HTACCESS);
+    const base = repo.commit('base');
+    repo.write('histact/.htaccess', OK_HTACCESS);
+    repo.write('histact/README.md', OK_README);
+    repo.commit('Add histact');
+    const r = check({dir: repo.dir, rules: [identifierUnderIds], base,
+      head: 'HEAD'});
+    assert.deepEqual(findingsOf(r), ['histact/.htaccess:1:error']);
+  });
+
 test('htaccess/github-raw-target separates breakage from redundancy', () => {
   const r = audit(githubRawTarget, {
     'ids/a/.htaccess':
@@ -352,6 +385,29 @@ test('htaccess/github-raw-target separates breakage from redundancy', () => {
   assert.match(blob.message, /raw\.githubusercontent\.com\/u\/r\/main\/v\.ttl/);
   // Redundant, not broken -- the wording matters.
   assert.match(r.findings[1].message, /It works, but/);
+});
+
+test('htaccess/github-raw-target leaves rendered documentation alone', () => {
+  const r = audit(githubRawTarget, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      // A page for people: raw would show them unrendered markup.
+      'RewriteRule ^a$ https://github.com/u/r/blob/main/docs/v.md [R=302,L]\n' +
+      'RewriteRule ^b$ https://github.com/u/r/blob/main/README.MD#use [R=302,L]\n' +
+      'RewriteRule ^c$ https://github.com/u/r/blob/main/guide.adoc?plain=0 [R=302,L]\n' +
+      // A file for machines is still reported, whatever it is called.
+      'RewriteRule ^d$ https://github.com/u/r/blob/main/v.ttl [R=302,L]\n' +
+      'RewriteRule ^e$ https://github.com/u/r/blob/main/v.md.ttl [R=302,L]\n' +
+      // `.asc` is AsciiDoc to GitHub, but in a redirect more likely a key.
+      'RewriteRule ^f$ https://github.com/u/r/blob/main/key.asc [R=302,L]\n' +
+      'RewriteRule ^g$ https://github.com/u/r/blob/main/$1 [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:5:warning',
+    'ids/a/.htaccess:6:warning',
+    'ids/a/.htaccess:7:warning',
+    'ids/a/.htaccess:8:warning'
+  ]);
 });
 
 test('htaccess/no-double-slash ignores the scheme separator', () => {

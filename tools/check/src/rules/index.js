@@ -11,6 +11,7 @@ import filesHtaccessRequired from './files/htaccess-required.js';
 import filesNoEmptyHtaccess from './files/no-empty-htaccess.js';
 import filesNoExecutableBit from './files/no-executable-bit.js';
 
+import treeIdentifierUnderIds from './tree/identifier-under-ids.js';
 import treeNoCaseCollision from './tree/no-case-collision.js';
 import treeOnlyOwnIdentifier from './tree/only-own-identifier.js';
 
@@ -59,6 +60,7 @@ export const rules = [
   filesNoEmptyHtaccess,
   filesNoExecutableBit,
 
+  treeIdentifierUnderIds,
   treeNoCaseCollision,
   treeOnlyOwnIdentifier,
 
