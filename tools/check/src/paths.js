@@ -33,6 +33,12 @@ const README_MARKUP = new Map([
   ['pod', 'Pod']
 ]);
 
+/** Whether GitHub renders a file of this name as a page, by its extension. */
+export function rendersAsPage(name) {
+  const dot = name.lastIndexOf('.');
+  return dot !== -1 && README_MARKUP.has(name.slice(dot + 1).toLowerCase());
+}
+
 /** The extensions above that GitHub renders as Markdown. */
 const MARKDOWN_EXTENSIONS = new Set(
   [...README_MARKUP].filter(([, format]) => format === 'Markdown')

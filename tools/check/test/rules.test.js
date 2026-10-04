@@ -354,6 +354,29 @@ test('htaccess/github-raw-target separates breakage from redundancy', () => {
   assert.match(r.findings[1].message, /It works, but/);
 });
 
+test('htaccess/github-raw-target leaves rendered documentation alone', () => {
+  const r = audit(githubRawTarget, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      // A page for people: raw would show them unrendered markup.
+      'RewriteRule ^a$ https://github.com/u/r/blob/main/docs/v.md [R=302,L]\n' +
+      'RewriteRule ^b$ https://github.com/u/r/blob/main/README.MD#use [R=302,L]\n' +
+      'RewriteRule ^c$ https://github.com/u/r/blob/main/guide.adoc?plain=0 [R=302,L]\n' +
+      // A file for machines is still reported, whatever it is called.
+      'RewriteRule ^d$ https://github.com/u/r/blob/main/v.ttl [R=302,L]\n' +
+      'RewriteRule ^e$ https://github.com/u/r/blob/main/v.md.ttl [R=302,L]\n' +
+      // `.asc` is AsciiDoc to GitHub, but in a redirect more likely a key.
+      'RewriteRule ^f$ https://github.com/u/r/blob/main/key.asc [R=302,L]\n' +
+      'RewriteRule ^g$ https://github.com/u/r/blob/main/$1 [R=302,L]\n'
+  });
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:5:warning',
+    'ids/a/.htaccess:6:warning',
+    'ids/a/.htaccess:7:warning',
+    'ids/a/.htaccess:8:warning'
+  ]);
+});
+
 test('htaccess/no-double-slash ignores the scheme separator', () => {
   const r = audit(noDoubleSlash, {
     'ids/a/.htaccess':
