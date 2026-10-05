@@ -10,4 +10,4 @@ Resources under this namespace include:
 
 ## Maintainer
 
-Katarina Lucic — @katalu
+Katarina Lučić — @katalu
