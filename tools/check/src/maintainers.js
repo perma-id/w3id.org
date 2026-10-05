@@ -34,6 +34,17 @@ const NOT_A_USER = new Set([
   'readme', 'gist', 'raw', 'assets', 'site', 'gh-pages'
 ]);
 
+// A bare @handle, as used in maintainer lists.
+const BARE_HANDLE = new RegExp(`(?:^|[\\s(\\[<,;])@(${USERNAME})\\b`, 'gm');
+
+// Turtle and JSON-LD keywords, which READMEs quote and which read as a bare
+// @handle: `@prefix ex: <...>`, `"@context": ...`.
+const RDF_KEYWORDS = new Set([
+  'prefix', 'base', 'context', 'id', 'type', 'value', 'language', 'list',
+  'set', 'reverse', 'index', 'vocab', 'graph', 'container', 'nest', 'version',
+  'json', 'none', 'direction', 'import', 'included', 'propagate', 'protected'
+]);
+
 const PATTERNS = [
   // GitHub username: x / GitHub user: x / GitHub ID: @x / github: @x
   new RegExp(
@@ -44,12 +55,13 @@ const PATTERNS = [
   // URL pattern below rather than yielding "com".
   new RegExp(`\\bgit\\s?hub\\b[^A-Za-z\\d.\\n]{1,4}@?(${USERNAME})\\b`, 'gi'),
   // https://github.com/x, github.com/x, with or without a scheme or trailing
-  // repository path.
+  // repository path. Not a link to this repository, which comments copied
+  // from a template point at and which names no maintainer.
   new RegExp(
-    `(?:https?://)?(?:www\\.)?github\\.com/(${USERNAME})(?:[/)\\]>,.\\s]|$)`,
+    `(?:https?://)?(?:www\\.)?github\\.com/(?!perma-id/w3id\\.org\\b)` +
+    `(${USERNAME})(?:[/)\\]>,.\\s]|$)`,
     'gi'),
-  // A bare @handle, as used in maintainer lists.
-  new RegExp(`(?:^|[\\s(\\[<,;])@(${USERNAME})\\b`, 'gm'),
+  BARE_HANDLE,
   // Username: x, with no "GitHub" on the line. Only at the start of a line,
   // so that another service's label ("Twitter username:") does not count, and
   // only when the value ends at whitespace, so that an email address is not
@@ -75,7 +87,8 @@ export function findUsernames(text) {
     let m;
     while((m = pattern.exec(text)) !== null) {
       const name = m[1];
-      if(NOT_A_USER.has(name.toLowerCase())) {
+      if(NOT_A_USER.has(name.toLowerCase()) ||
+        pattern === BARE_HANDLE && RDF_KEYWORDS.has(name.toLowerCase())) {
         continue;
       }
       found.add(name.toLowerCase());
