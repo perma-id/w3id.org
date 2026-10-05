@@ -1,0 +1,46 @@
+# SEOntology w3id configuration
+# Canonical namespace: https://w3id.org/seovoc/
+# Maintainer repository: https://github.com/seontology/seontology
+
+Options -MultiViews
+Options +FollowSymLinks
+
+RewriteEngine On
+Header merge Vary "Accept"
+
+# Explicit content-type mappings
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+# Root URI: /seovoc/
+# ---------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.owl [R=303,L]
+
+# Default for humans and unknown media types
+RewriteRule ^$ https://github.com/seontology/seontology [R=303,L]
+
+# Term URIs: /seovoc/<term>
+# e.g. https://w3id.org/seovoc/WebPage
+# ---------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.owl [R=303,L]
+
+# Default for humans and unknown media types
+RewriteRule ^([^/]+)/?$ https://github.com/seontology/seontology [R=303,L]

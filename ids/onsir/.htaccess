@@ -1,0 +1,81 @@
+# # /onsir/
+#
+# OnSIR -- Ontology for Seed Irradiation Research.
+#
+# An OWL 2 DL ontology for gamma and X-ray irradiation of plant seeds: treatments,
+# doses, dose rates, endpoints, taxon-specific dose windows expressed as OWL 2
+# datatype facets, and an ABox curated from a systematic review.
+#
+# Canonical location: https://github.com/lfmalves/OnSIR
+# Documentation:      https://lfmalves.github.io/OnSIR/
+#
+# https://w3id.org/onsir           -> HTML documentation, or the ontology under
+#                                     content negotiation (Turtle / RDF+XML)
+# https://w3id.org/onsir/<Term>    -> the term in the documentation, or the ontology
+# https://w3id.org/onsir/abox      -> the curated ABox
+# https://w3id.org/onsir/1.3.0     -> that version, from the matching git tag
+#
+# ## Contact
+# This space is administered by:
+#
+# Luis Felipe Medeiro Alves
+# GitHub username: lfmalves
+# ORCID: https://orcid.org/0009-0005-4227-5568
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+
+# Turn off MultiViews so that content negotiation is decided by the rules below
+Options -MultiViews
+
+# Serve the ontology serializations with the right media type
+AddType application/rdf+xml .owl
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# ---------------------------------------------------------------- versioned IRIs
+# owl:versionIRI values have the form https://w3id.org/onsir/<major>.<minor>.<patch>
+# and resolve to the matching annotated git tag, so a version IRI keeps meaning the
+# release it was minted for.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR.ttl [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/lfmalves/OnSIR/tree/v$1 [R=303,L]
+
+# ---------------------------------------------------------------- the ABox
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^abox/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_abox.owl [R=303,L]
+
+RewriteRule ^abox/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_abox.ttl [R=303,L]
+
+# ---------------------------------------------------------------- the ontology IRI
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.ttl [R=303,L]
+
+RewriteRule ^$ https://lfmalves.github.io/OnSIR/ [R=303,L]
+
+# ---------------------------------------------------------------- term IRIs
+# Terms are slash IRIs (https://w3id.org/onsir/HormeticDose). An RDF client is sent
+# the ontology that defines the term; a browser is sent to the term's entry in the
+# generated documentation.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.+)$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^(.+)$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.ttl [R=303,L]
+
+RewriteRule ^(.+)$ https://lfmalves.github.io/OnSIR/#$1 [R=303,L]

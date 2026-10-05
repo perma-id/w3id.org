@@ -1,0 +1,40 @@
+# Rice MMKG - Rice Multimodal Knowledge Graph
+#
+# https://w3id.org/ricemmkg is the namespace of Rice MMKG, an OWL 2 ontology
+# and knowledge graph for rice disease and pest diagnosis.
+#
+# Terms are hash IRIs, e.g. https://w3id.org/ricemmkg#Rice_Blast_Disease.
+# The fragment is never sent to the server, so every term IRI resolves
+# through the root rules below.
+#
+# https://w3id.org/ricemmkg            browsers     -> GitHub repository
+#                                      RDF clients  -> latest ontology (RDF/XML)
+# https://w3id.org/ricemmkg/<version>  any client   -> ontology at git tag v<version>
+#
+# ## Contact
+# This space is administered by:
+#
+# Muhammad Ariful Furqon
+# GitHub username: Ariful-Furqon
+
+Options -MultiViews
+
+RewriteEngine on
+
+# Version IRIs, e.g. https://w3id.org/ricemmkg/0.6.1
+# -> the ontology file as released under git tag v0.6.1.
+# "\%20" is a literal %20 (the file name contains a space); NE stops Apache
+# from re-escaping it to %2520.
+RewriteRule ^([0-9]+\.[0-9]+(\.[0-9]+)?)/?$ https://raw.githubusercontent.com/Ariful-Furqon/Rice-Multimodal-Knowledge-Graph/v$1/Ontology/Rice\%20MMKG.rdf [R=303,L,NE]
+
+# Browsers -> repository page (to be switched to the HTML documentation
+# once it is published)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/Ariful-Furqon/Rice-Multimodal-Knowledge-Graph [R=303,L]
+
+# Everything else at the root (application/rdf+xml, */*, no Accept header)
+# -> latest ontology, RDF/XML
+RewriteRule ^$ https://raw.githubusercontent.com/Ariful-Furqon/Rice-Multimodal-Knowledge-Graph/main/Ontology/Rice\%20MMKG.rdf [R=303,L,NE]

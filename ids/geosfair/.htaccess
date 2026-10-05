@@ -1,0 +1,14 @@
+RewriteEngine On
+Options +FollowSymLinks
+RewriteBase /
+
+# Rules for metadata PID
+# RewriteRule ^/geosfair/metadata/(.*)$ https://hub.geosciences-ir.it/MetaEditor/rest/document?$1 [R=302,L]
+RewriteRule ^metadata/(.*)$ https://hub.geosciences-ir.it/MetaEditor/catalog/search/resource/details.page?uuid=$1 [R=302,L]
+RewriteRule ^metaxml/(.*)$ https://hub.geosciences-ir.it/MetaEditor/rest/document?id=$1 [R=302,L]
+
+# Rules for software code PID
+RewriteRule ^software/(.*)$ https://hub.geosciences-ir.it/git/geosciencesir-devop/$1 [R=302,L]
+
+# Rules for DataService
+RewriteRule ^dataset/(.*)$ https://geosciencesir.isprambiente.it/geoserver/$1/ogc/features/v1/collections?f=text%2Fhtml [R=307,L]

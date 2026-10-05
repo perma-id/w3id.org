@@ -1,0 +1,39 @@
+# w3id.org redirect rules for PhiloKG
+# Namespace: http://w3id.org/philokg/
+#
+# PhiloKG is a knowledge graph of classical philosophical discourse,
+# comprising 2M+ triples extracted from 1,000+ philosophical texts.
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Accept
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Ontology (content negotiation) ---
+
+# Turtle request for ontology namespace
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://zenodo.org/records/19417427/files/philokg.ttl [R=303,L]
+
+# RDF/XML request for ontology namespace
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://zenodo.org/records/19417427/files/philokg.ttl [R=303,L]
+
+# N-Triples request for ontology namespace
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://zenodo.org/records/19417427/files/philokg.nt [R=303,L]
+
+# Default: HTML landing page (Zenodo deposit)
+RewriteRule ^$ https://doi.org/10.5281/zenodo.19417427 [R=303,L]
+
+# --- Entity URIs ---
+# http://w3id.org/philokg/entity/X → Zenodo (no per-entity resolution yet)
+RewriteRule ^entity/(.+)$ https://doi.org/10.5281/zenodo.19417427 [R=303,L]
+
+# --- Statement URIs ---
+# http://w3id.org/philokg/stmt/X → Zenodo
+RewriteRule ^stmt/(.+)$ https://doi.org/10.5281/zenodo.19417427 [R=303,L]
+
+# --- Catch-all ---
+RewriteRule ^(.+)$ https://doi.org/10.5281/zenodo.19417427 [R=303,L]

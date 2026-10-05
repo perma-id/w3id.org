@@ -1,0 +1,17 @@
+Options -MultiViews
+
+Header set Access-Control-Allow-Origin *
+Header set Cache-Control "max-age=3600"
+
+# Redirect ontology URI to raw GitHub file
+RewriteEngine on
+
+# If request accepts text/html, redirect to GitHub page
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ontology$ https://github.com/mducos/SFonto/blob/main/src/SFonto.ttl [R=303,L]
+
+# Otherwise redirect to raw TTL file
+RewriteRule ^ontology$ https://raw.githubusercontent.com/mducos/SFonto/main/src/SFonto.ttl [R=303,L]
+
+## Contact
+# This space is administered by:  Mathilde Ducos (mathilde.ducos@sorbonne-nouvelle.fr / Github: mducos)

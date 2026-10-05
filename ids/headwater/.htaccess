@@ -1,0 +1,18 @@
+# headwater — Headwater documentation governance system
+# https://github.com/headwater-ai/headwater
+# Contact: James Baxter <james AT baxter DOT consulting> @jameswbaxter
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Poor man's conneg
+# ------------------------------------
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*[^/])$ https://headwater.tools/ns/$1.ttl [R=302,L]
+
+# Human-readable documentation
+# ------------------------------------
+RewriteRule ^$ https://headwater.tools/ns/ [R=302,L]
+RewriteRule ^(.*)$ https://headwater.tools/ns/$1 [R=302,L]

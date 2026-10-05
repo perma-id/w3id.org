@@ -1,0 +1,45 @@
+# # /semprini/
+#
+# The namespace of the Semprini metamodel ontology. Terms are hash IRIs under
+# https://w3id.org/semprini/ontology# (for example .../ontology#Entity), so
+# requests arrive for the ontology document itself. Redirects target the
+# project's own GitHub Pages site; see README.md and
+# https://juhakor.github.io/semprini/
+#
+# ## Contact
+# This space is administered by:
+#
+# Juha Korpela
+# juha.korpela@datakor.fi
+# GitHub username: JuhaKor
+#
+# On behalf of Datakor Consulting Oy, Finland.
+
+RewriteEngine on
+
+# Explicit document URLs first, so a request naming the file is served whatever
+# the Accept header says.
+RewriteRule ^ontology/sem\.ttl$ https://juhakor.github.io/semprini/ontology/sem.ttl [R=302,L]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/sem\.ttl$ https://juhakor.github.io/semprini/ontology/$1/sem.ttl [R=302,L]
+
+# /ontology and /ontology/X.Y.Z are negotiated. The optional group is empty when
+# no version is given, so one rule serves both.
+
+# RDF clients get the Turtle document; only Turtle is published.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^ontology(/[0-9]+\.[0-9]+\.[0-9]+)?/?$ https://juhakor.github.io/semprini/ontology$1/sem.ttl [R=302,L]
+
+# Everything else -- browsers, and clients sending */* -- gets the documentation.
+RewriteRule ^ontology(/[0-9]+\.[0-9]+\.[0-9]+)?/?$ https://juhakor.github.io/semprini/ontology$1/ [R=302,L]
+
+# Project home.
+RewriteRule ^$ https://juhakor.github.io/semprini/ [R=302,L]
+
+# Anything else under /semprini/ maps to the same path on the site, so later
+# additions need no change here.
+RewriteRule ^(.*)$ https://juhakor.github.io/semprini/$1 [R=302,L]

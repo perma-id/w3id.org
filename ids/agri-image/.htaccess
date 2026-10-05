@@ -1,0 +1,49 @@
+# ======================================
+# .htaccess for https://w3id.org/agri-image/
+# Redirects to:
+#   https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl
+#
+# Best practice: 303 redirects for Linked Data identifiers
+# ======================================
+
+Options +FollowSymLinks
+RewriteEngine On
+
+# --------------------------------------
+# Base redirect (no file requested)
+# --------------------------------------
+# /agri-image  → Turtle ontology
+RewriteCond %{REQUEST_URI} ^/agri-image/?$
+RewriteRule ^$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# --------------------------------------
+# /agri-image/ontology  → same ontology
+# --------------------------------------
+RewriteCond %{REQUEST_URI} ^/agri-image/ontology/?$
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# --------------------------------------
+# Content negotiation (if Accept header is given)
+# All cases point to TTL because you only provide Turtle.
+# --------------------------------------
+
+# Turtle requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# JSON-LD requested → we return TTL
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# RDF/XML requested → TTL fallback
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# HTML requested → TTL fallback
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]
+
+# --------------------------------------
+# Fallback for everything else → TTL
+# --------------------------------------
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TeamWalabi/agriculture-image-metadata/main/ontology/ontology.ttl [R=303,L]

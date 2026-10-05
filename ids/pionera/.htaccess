@@ -1,0 +1,103 @@
+# /pionera/
+#
+# Namespace for PIONERA resources. The first registered identifier is DAIMO.
+#
+# https://w3id.org/pionera/daimo          ontology IRI (content negotiation)
+# https://w3id.org/pionera/daimo/0.1.7    current version IRI
+# Canonical term pattern                 https://w3id.org/pionera/daimo#<TermName>
+#
+# Redirect target: GitHub Pages
+#   https://edmundomori.github.io/Papers-DAIMO/
+# Source repository:
+#   https://github.com/EdmundoMori/Papers-DAIMO
+#
+# ## Contact
+# This space is administered by:
+#
+# Edmundo de Elvira Mori Orrillo
+# edmundo.mori@alumnos.upm.es
+# GitHub username: EdmundoMori
+
+Options +FollowSymLinks
+Options -MultiViews
+
+AddType text/turtle         .ttl
+AddType application/rdf+xml .owl .rdf
+AddType application/ld+json .jsonld
+AddType application/n-triples .nt
+
+RewriteEngine On
+
+# --- Namespace root: content negotiation --------------------------------
+
+# HTML for browsers (official w3id vocabulary example / ppop / cosmos)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.nt [R=303,L]
+
+# Default when Accept is absent or unmatched: HTML documentation
+RewriteRule ^daimo/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+
+# --- Versioned IRI 0.1.7 (content negotiation) --------------------------
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/ontology.nt [R=303,L]
+
+RewriteRule ^daimo/0\.1\.7/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+
+# --- Prior version IRIs (HTML only; no frozen historical serialisations) -
+
+RewriteRule ^daimo/0\.1\.6/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+RewriteRule ^daimo/0\.1\.6-swj-submission/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+RewriteRule ^daimo/0\.1\.5/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+RewriteRule ^daimo/0\.1\.1/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+RewriteRule ^daimo/0\.1\.0/?$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]
+
+# --- Direct serialisation access ----------------------------------------
+
+RewriteRule ^daimo\.ttl$     https://edmundomori.github.io/Papers-DAIMO/ontology.ttl     [R=303,L]
+RewriteRule ^daimo\.owl$     https://edmundomori.github.io/Papers-DAIMO/ontology.owl     [R=303,L]
+RewriteRule ^daimo\.jsonld$  https://edmundomori.github.io/Papers-DAIMO/ontology.jsonld  [R=303,L]
+RewriteRule ^daimo\.nt$      https://edmundomori.github.io/Papers-DAIMO/ontology.nt      [R=303,L]
+
+# --- Companion documents cited by the ontology --------------------------
+
+RewriteRule ^daimo/align/?$            https://edmundomori.github.io/Papers-DAIMO/alignment.ttl    [R=303,L]
+RewriteRule ^daimo/align/0\.1\.7/?$    https://edmundomori.github.io/Papers-DAIMO/alignment.ttl    [R=303,L]
+RewriteRule ^daimo/alignment\.ttl$     https://edmundomori.github.io/Papers-DAIMO/alignment.ttl    [R=303,L]
+RewriteRule ^daimo/docs/?$             https://edmundomori.github.io/Papers-DAIMO/index-en.html    [R=303,L]
+RewriteRule ^daimo/shapes/?$           https://edmundomori.github.io/Papers-DAIMO/daimo-shapes.ttl [R=303,L]
+RewriteRule ^daimo/shapes/0\.1\.7/?$   https://edmundomori.github.io/Papers-DAIMO/daimo-shapes.ttl [R=303,L]
+RewriteRule ^daimo/shapes\.ttl$        https://edmundomori.github.io/Papers-DAIMO/daimo-shapes.ttl [R=303,L]
+
+# Publisher IRI currently lands on the DAIMO documentation
+RewriteRule ^$ https://edmundomori.github.io/Papers-DAIMO/index-en.html [R=303,L]

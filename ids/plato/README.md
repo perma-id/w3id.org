@@ -1,0 +1,25 @@
+# /plato/
+This [W3ID](https://w3id.org) provides a persistent URI namespace for [*PLATO*](https://github.com/pelagios/place-attestation-ontology/blob/main/README.md):
+## Place Attestation Ontology
+
+An ontology for describing places and their geographic and historical characteristics, developed by the Place Working Group of the [Pelagios Network](https://pelagios.org/about-us/working-groups).
+
+| PLATO Vector      | Behaviour                                                                                                                                                                                         |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/X.Y.Z`          | A release of the ontology (e.g. `/0.6.0`), negotiated like the default: RDF clients get that release's Turtle, JSON-LD, RDF/XML or N-Triples. Browsers are redirected to its GitHub release page.                  |
+| `/schemas/`       | Redirects to the JSON-LD context and JSON schema files (`schemas/*`), served by GitHub Pages with their proper media types.                                                                       |
+| `/webvowl/`       | Redirects to the WebVOWL interactive visualisation of the ontology.                                                                                                                               |
+| `*`               | Default access: returns the ontology in the RDF format the client asks for (Turtle, JSON-LD, RDF/XML or N-Triples). Browsers are redirected to WIDOCO documentation (`index-en.html`).            |
+
+> **Note:** Content negotiation is used to serve RDF to semantic clients and HTML to browsers.
+
+## Contact
+
+**[Stephen Gadd](https://www.wikidata.org/wiki/Q7609282)**<br/>
+[Docuracy Ltd](https://docuracy.co.uk)<br/>
+[Rotherhithe, UK](https://www.wikidata.org/wiki/Q2886632)<br/>
+<stephen@docuracy.co.uk>  <br/>
+GitHub: [docuracy](https://github.com/docuracy)<br/>
+ORCID: [0000-0003-3060-0181](https://orcid.org/0000-0003-3060-0181)<br/>
+
+

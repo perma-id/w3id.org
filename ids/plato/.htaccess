@@ -1,0 +1,70 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Define repository paths for easy maintenance
+# NO! w3id.org seems to prohibit the use of variables in RewriteRules, so we have to hardcode the paths.
+#Define GITHUB_REPO pelagios/place-attestation-ontology
+#Define GITHUB_PAGES pelagios.org/place-attestation-ontology
+
+# --- Ontology content negotiation ---
+
+# All four RDF files are on GitHub Pages, which serves each with its own media type. ontology.ttl is
+# the source file as committed; the other three are serialised from it and checked isomorphic with
+# it before each deploy.
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/ontology.ttl [R=303,L]
+
+# JSON-LD, RDF/XML, N-Triples
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/ontology.nt [R=303,L]
+
+# --- HTML/XHTML: WIDOCO documentation ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/index-en.html [R=303,L]
+
+# --- Versioned releases: /plato/X.Y.Z ---
+
+# Each release's four RDF files are kept on GitHub Pages under releases/X.Y.Z/, negotiated as above.
+# The pattern admits digits only, so it cannot capture schemas/ or webvowl/ paths.
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://pelagios.org/place-attestation-ontology/releases/$1/ontology.ttl [R=303,L]
+
+# JSON-LD, RDF/XML, N-Triples
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://pelagios.org/place-attestation-ontology/releases/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://pelagios.org/place-attestation-ontology/releases/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://pelagios.org/place-attestation-ontology/releases/$1/ontology.nt [R=303,L]
+
+# HTML, XHTML and anything else: there is no versioned WIDOCO documentation, so the release's page
+# on GitHub, which links its notes, files and Zenodo archive.
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://github.com/pelagios/place-attestation-ontology/releases/tag/v$1 [R=303,L]
+
+# --- JSON Schemas and the JSON-LD context ---
+# GitHub Pages, not raw.githubusercontent.com: raw serves text/plain, which JSON-LD processors such as
+# jsonld.js reject as a remote context; Pages serves .jsonld as application/ld+json and .json as
+# application/json. Any Accept, since document loaders vary in what they send.
+RewriteRule ^schemas/(.+)$ https://pelagios.org/place-attestation-ontology/schemas/$1 [R=303,L]
+
+# --- WebVOWL visualization ---
+RewriteRule ^webvowl/?(.*)$ https://pelagios.org/place-attestation-ontology/webvowl/$1 [R=303,L]
+
+# --- Default: browser gets WIDOCO docs ---
+RewriteRule ^$ https://pelagios.org/place-attestation-ontology/index-en.html [R=303,L]

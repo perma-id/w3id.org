@@ -1,0 +1,41 @@
+# /kc/
+#
+# Knowledge Complex — typed simplicial complexes backed by OWL, SHACL, and SPARQL.
+# https://w3id.org/kc/ provides persistent URIs for the Knowledge Complex ontology.
+#
+# Core ontology: https://w3id.org/kc#  (kc_core.ttl)
+# Core shapes:   https://w3id.org/kc/shape#  (kc_core_shapes.ttl)
+#
+# Repository: https://github.com/BlockScience/knowledgecomplex
+#
+# ## Contact
+# This space is administered by:
+# Zargham
+# GitHub username: mzargham
+
+Options +FollowSymLinks
+Options -MultiViews
+
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# /kc/shape — SHACL shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^shape$ https://raw.githubusercontent.com/BlockScience/knowledgecomplex/main/knowledgecomplex/resources/kc_core_shapes.ttl [R=303,L]
+
+RewriteRule ^shape$ https://blockscience.github.io/knowledgecomplex/ [R=303,L]
+
+# /kc/queries/<name> — SPARQL query templates for topological operations
+# boundary, coboundary, star, closure, skeleton, degree, vertices
+RewriteRule ^queries/([a-z]+)$ https://raw.githubusercontent.com/BlockScience/knowledgecomplex/main/knowledgecomplex/queries/$1.sparql [R=303,L]
+
+# /kc/queries/ — list (redirect to docs)
+RewriteRule ^queries/?$ https://blockscience.github.io/knowledgecomplex/api/graph/ [R=303,L]
+
+# /kc/ — Core ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/BlockScience/knowledgecomplex/main/knowledgecomplex/resources/kc_core.ttl [R=303,L]
+
+# Default: HTML documentation
+RewriteRule ^$ https://blockscience.github.io/knowledgecomplex/ [R=303,L]

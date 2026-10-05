@@ -1,0 +1,112 @@
+# https://w3id.org/bedro redirects to https://github.com/NoackTim/BEDRO
+#
+# ## Contact
+# This space is administered by:
+#
+# Tim Noack
+# tim.noack@tu-dresden.de
+# GitHub username: NoackTim
+
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+### Rewrite rules for latest version
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://noacktim.github.io/BEDRO/ [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle 
+RewriteRule ^$ https://noacktim.github.io/BEDRO/bedro.ttl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://noacktim.github.io/BEDRO/bedro.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://noacktim.github.io/BEDRO/bedro.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://noacktim.github.io/BEDRO/bedro.nt [R=303,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^$ https://noacktim.github.io/BEDRO/bedro.n3 [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^bedro.ttl$ https://noacktim.github.io/BEDRO/bedro.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^bedro.html$ https://noacktim.github.io/BEDRO/ [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^bedro.rdf$ https://noacktim.github.io/BEDRO/bedro.rdf [R=303,L]
+
+# If suffix owl, redirect to owl version
+RewriteRule ^bedro.owl$ https://noacktim.github.io/BEDRO/bedro.owl [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^bedro.jsonld$ https://noacktim.github.io/BEDRO/bedro.jsonld [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^bedro.nt$ https://noacktim.github.io/BEDRO/bedro.nt [R=303,L]
+
+# If suffix n3, redirect to N3 version
+RewriteRule ^bedro.n3$ https://noacktim.github.io/BEDRO/bedro.n3 [R=303,L]
+
+
+### Rewrite rules for any other version
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.ttl [R=302,NE,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.jsonld [R=302,NE,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.rdf [R=302,NE,L]
+
+# Rewrite rule to serve OWL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.owl [R=302,NE,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.nt [R=302,NE,L]
+
+# Rewrite rule to serve N3 content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} ^.*text/n3.* [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/n3 
+RewriteRule ^bedro-?([0-9]+\.[0-9]+\.[0-9]+)$ https://noacktim.github.io/BEDRO/bedro-$1.n3 [R=302,NE,L]
+
+### Default response
+RewriteRule ^$ https://noacktim.github.io/BEDRO/ [R=303,L]

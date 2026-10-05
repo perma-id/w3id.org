@@ -1,0 +1,16 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://fairification-framework.readthedocs.io/en/latest/ [R=301]
+
+
+# FAIR Requirements Ontology, maintained in the nanopublication space https://w3id.org/spaces/fff
+
+RewriteRule ^req/?$ https://nanodash.knowledgepixels.com/resource?id=https://w3id.org/fff/req [R=302,NE,L]
+
+RewriteRule ^req/np/.+/(RA[A-Za-z0-9_\-]{43})$ https://nanodash.knowledgepixels.com/explore?id=$1 [R=302,NE,L]
+
+RewriteRule ^req/(.+)$ https://nanodash.knowledgepixels.com/part?context=https://w3id.org/fff/req&id=https://w3id.org/fff/req/$1 [R=302,NE,L]
+
+# Against the current live file, the diff is: the new Header set line at the top, and the three req rules at the bottom. Lines 2–5 are unchanged.

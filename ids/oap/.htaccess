@@ -1,0 +1,16 @@
+# w3id.org/oap — OntoAgenticPerformance (OAP) ontology
+Options +FollowSymLinks
+RewriteEngine on
+
+# Version IRI -> the ontology document
+RewriteRule ^1\.0\.0$ https://raw.githubusercontent.com/erKikeGM/OntoAgenticPerformance/main/ontology/oap.ttl [R=303,L]
+
+# Content negotiation: RDF serialisations -> raw Turtle
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples) [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/erKikeGM/OntoAgenticPerformance/main/ontology/oap.ttl [R=303,L]
+
+# Humans -> repository documentation
+RewriteRule ^$ https://github.com/erKikeGM/OntoAgenticPerformance [R=303,L]
+
+# Sub-paths (e.g. /oap/traces) -> repository
+RewriteRule ^(.+)$ https://github.com/erKikeGM/OntoAgenticPerformance [R=303,L]

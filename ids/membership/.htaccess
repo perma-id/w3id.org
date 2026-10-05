@@ -1,0 +1,29 @@
+# w3id.org/membership — Membership Organisations Ontology
+# Source: https://github.com/society-ontologies/membership-fraternal
+# Targets are that repository's GitHub Pages site
+# (https://society-ontologies.github.io/membership-fraternal/).
+#
+#   https://w3id.org/membership            -> ontology (Turtle or HTML docs)
+#   https://w3id.org/membership/code[/x]   -> codelists
+#   https://w3id.org/membership/external   -> external declarations
+#   https://w3id.org/membership/shapes     -> SHACL shapes
+#   https://w3id.org/membership/mappings/x -> generated mapping set x
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turtle for machines, HTML for browsers (docs generated with pyLODE: make docs).
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/membership/membership-ontology.ttl [R=303,L]
+RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/docs/membership/ [R=303,L]
+
+# Current version IRIs. When there are several releases, point each older
+# version IRI at its release tag instead of the current files.
+RewriteRule ^1\.0\.0$ https://society-ontologies.github.io/membership-fraternal/membership/membership-ontology.ttl [R=303,L]
+RewriteRule ^external(/1\.0\.0)?$ https://society-ontologies.github.io/membership-fraternal/external/external-declarations.ttl [R=303,L]
+RewriteRule ^code(/1\.0\.0)?/?$ https://society-ontologies.github.io/membership-fraternal/membership/membership-codes.ttl [R=303,L]
+RewriteRule ^code/(.+)$ https://society-ontologies.github.io/membership-fraternal/membership/membership-codes.ttl [R=303,L]
+RewriteRule ^shapes$ https://society-ontologies.github.io/membership-fraternal/membership/membership-shapes.ttl [R=303,L]
+RewriteRule ^mappings/(.+)$ https://society-ontologies.github.io/membership-fraternal/mappings/generated/$1.ttl [R=303,L]

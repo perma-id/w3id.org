@@ -1,0 +1,29 @@
+# https://w3id.org/isoiec/ redirects for 21972 ontology
+# ## Contact
+# This space is administered by:
+# The ISO/IEC 21972 editors, including:
+# Megan Katsumi
+# megan.katsumi@utoronto.ca
+# GitHub username: megankatsumi
+
+RewriteEngine On
+Options -MultiViews
+
+# Prefer HTML only when explicitly requested; otherwise default to RDF
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ - [E=FORMAT:html]
+
+RewriteCond %{ENV:FORMAT} ^$
+RewriteRule ^ - [E=FORMAT:rdf]
+
+
+# -----------------------------------------------------------------------------
+# URL patterns for 21972 Ontology
+# To do: more detailed rules to be implemented to capture redirects for latest and specific versions/editions, as well as for documentation.
+
+
+# =============================================================================
+# 1) .ttl: 
+# =============================================================================
+
+RewriteRule ^21972/(v\d+)/([^/]+)/r([\d\.]+)(?:\.ttl)?/?$ https://raw.githubusercontent.com/megankatsumi/ontology-i72-$1/$3/docs/$2.ttl [R=303,L]

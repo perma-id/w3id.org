@@ -1,0 +1,53 @@
+RewriteEngine On
+
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+AddType application/json .json
+
+# ldes rules
+RewriteCond %{HTTP_ACCEPT} text/turtle
+# Redirect LDES endpoint to latest version in Turtle format
+RewriteRule ^ror\.org/(?i:ldes)/?$ https://kgfixed.github.io/ror.org/LDES/latest.ttl [R=303,L]
+
+# latest rules
+RewriteCond %{HTTP_ACCEPT} text/turtle
+# Redirect latest version requests for individual organizations to their Turtle representation
+RewriteRule "^ror\.org/latest/([^/]+)$" https://kgfixed.github.io/ror.org/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/json
+# Redirect latest version requests for individual organizations to their json representation
+RewriteRule "^ror\.org/latest/([^/]+)$" https://kgfixed.github.io/ror.org/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# Redirect latest version requests for individual organizations to their jsonld representation
+RewriteRule "^ror\.org/latest/([^/]+)$" https://kgfixed.github.io/ror.org/$1.jsonld [R=303,L]
+
+# Default rule: redirect latest version requests for individual organizations to their Turtle representation
+RewriteRule "^ror\.org/latest/([^/]+)$" https://kgfixed.github.io/ror.org/$1.ttl [R=303,L]
+
+# Add rules for text/turtle files
+RewriteCond %{HTTP_ACCEPT} text/turtle
+# Redirect versioned organization requests to their specific Turtle representations
+RewriteRule "^ror\.org/([^/]+)/([^/]+)$" https://kgfixed.github.io/ror.org/$1/$2.ttl [R=303,L]
+# Redirect ROR base endpoint to the main GitHub Pages index
+RewriteRule "^ror\.org/$" https://kgfixed.github.io/ror.org/ [R=303,L]
+
+# Add rules for text/jsonld files
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# Redirect versioned organization requests to their specific jsonld representations
+RewriteRule "^ror\.org/([^/]+)/([^/]+)$" https://kgfixed.github.io/ror.org/$1/$2.jsonld [R=303,L]
+# Redirect ROR base endpoint to the main GitHub Pages index
+RewriteRule "^ror\.org/$" https://kgfixed.github.io/ror.org/ [R=303,L]
+
+# Add rules for text/json files
+RewriteCond %{HTTP_ACCEPT} application/json
+# Redirect versioned organization requests to their specific json representations
+RewriteRule "^ror\.org/([^/]+)/([^/]+)$" https://kgfixed.github.io/ror.org/$1/$2.json [R=303,L]
+# Redirect ROR base endpoint to the main GitHub Pages index
+RewriteRule "^ror\.org/$" https://kgfixed.github.io/ror.org/ [R=303,L]
+
+# By default, ttl file
+RewriteRule "^ror\.org/([^/]+)/([^/]+)$" https://kgfixed.github.io/ror.org/$1/$2.ttl [R=302,L]
+
+# Catch-all rule: redirect any unmatched paths to their equivalent on GitHub Pages
+RewriteRule "^(.*)$" "https://kgfixed.github.io/$1" [R=302,L]

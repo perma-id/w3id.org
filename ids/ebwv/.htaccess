@@ -1,0 +1,49 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+#context
+RewriteRule ^(.+/)?[vV](\d.*)$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1v$2/vocabulary.context.jsonld [R=302,L]
+
+# Serve HTML content of the terminology from the base vocab URI if requested. There is only one terminology for EBWV.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^terminology$ https://sanastot.suomi.fi/en/terminology/webuild [R=302,L]
+
+# Serve JSON-LD content of the terminology from the base vocab URI if requested. There is only one terminology for EBWV.
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^terminology$ https://webuild-consortium.github.io/wp4-semantics-group/ebw/terminology.jsonld [R=302,L]
+
+# Serve Turtle content of the terminology from the base vocab URI if requested. There is only one terminology for EBWV.
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^terminology$ https://webuild-consortium.github.io/wp4-semantics-group/ebw/terminology.ttl [R=302,L]
+
+# Serve HTML content from the vocabulary URI if requested. There may be more than one vocabulary for EBWV (e.g. ebwv/poa)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)?$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1/vocabulary.html [R=302,L]
+
+# Serve JSON-LD content from the vocabulary URI if requested. There may be more than one vocabulary for EBWV (e.g. ebwv/poa)
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)?$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1/vocabulary.jsonld [R=302,L]
+
+# Serve Turtle content from the vocabulary URI if requested. There may be more than one vocabulary for EBWV (e.g. ebwv/poa)
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+)?$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1/vocabulary.ttl [R=302,L]
+
+# Serve SVG images if requested. There may be more than one vocabulary for EBWV (e.g. ebwv/poa)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(image/svg\+xml)
+RewriteCond %{HTTP_ACCEPT} image/svg\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)?$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1/vocabulary.svg [R=302,L]
+
+# Serve default. There may be more than one vocabulary for EBWV (e.g. ebwv/poa)
+#vocabulary
+RewriteRule ^(.+)?$ https://webuild-consortium.github.io/wp4-semantics-group/ebwv/$1/vocabulary.html [R=302,L]
