@@ -49,21 +49,14 @@ RedirectMatch 302 ^/earthsemantics/OSO$ /earthsemantics/OSO/
 # All versions now have OSO-shacl.ttl (auto-generated for versions that lacked one)
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/shacl/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO-shacl.ttl [R=303,L]
 
-# --- Ontology (TBox) distribution ---
-# Versions with separate OSO-ontology.ttl: 1.0.2, 1.2.0, 1.2.1
-RewriteRule ^1\.0\.2/ontology/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO-ontology.ttl [R=303,L]
-RewriteRule ^1\.2\.0/ontology/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO-ontology.ttl [R=303,L]
-RewriteRule ^1\.2\.1/ontology/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-ontology.ttl [R=303,L]
-# Versions with only OSO.ttl: alias ontology → OSO.ttl
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
-
-# --- Instances (ABox) distribution ---
-# Versions with separate OSO-instances.ttl: 1.0.2, 1.2.0, 1.2.1
-RewriteRule ^1\.0\.2/instances/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO-instances.ttl [R=303,L]
-RewriteRule ^1\.2\.0/instances/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO-instances.ttl [R=303,L]
-RewriteRule ^1\.2\.1/instances/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-instances.ttl [R=303,L]
-# Other versions: OSO.ttl contains TBox+ABox, alias instances → OSO.ttl
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/instances/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
+# --- Ontology (TBox) and instances (ABox) distributions ---
+# Legacy versions without a separate TBox/ABox (frozen list: 1.0.0, 1.0.1,
+# 1.0.3, 1.0.4, 1.0.5, 1.1.0): OSO.ttl holds TBox+ABox.
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/(ontology|instances)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
+# Every other version (1.0.2, 1.2.0 and later) ships OSO-ontology.ttl and
+# OSO-instances.ttl: new releases need no change here.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO-ontology.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/instances/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO-instances.ttl [R=303,L]
 
 # --- Complete graph distribution with content negotiation ---
 # All versions have OSO.ttl; versions 1.0.2+ have all serializations
@@ -111,99 +104,46 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/dcat/?$ https://virtuoso.ifremer.fr/oso-ve
 # Bare versioned IRIs — 302 (not 303) for O'FAIRe F1Q4
 # ============================================================
 
-# Versions with separate TBox (1.0.2, 1.2.0, 1.2.1): bare → OSO-ontology.ttl
+# Legacy versions without a separate TBox (frozen list: 1.0.0, 1.0.1,
+# 1.0.3, 1.0.4, 1.0.5, 1.1.0): full content negotiation → OSO.ttl and
+# serializations of the complete graph.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.jsonld [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.nt [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.n3 [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.json [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
+
+# Fallback → turtle
+RewriteRule ^(1\.0\.[01345]|1\.1\.0)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=302,L]
+
+# Every other version (1.0.2, 1.2.0 and later): bare → OSO-ontology.ttl.
 # Other RDF formats redirect to the complete graph serialization since
-# the TBox is only available in Turtle.
-
-# 1.0.2 bare → TBox
+# the TBox is only available in Turtle. New releases need no change here.
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^1\.0\.2/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO-ontology.ttl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO.owl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO.jsonld [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO.nt [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO.n3 [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO.json [R=302,L]
-
-# Fallback for 1.0.2 → TBox turtle
-RewriteRule ^1\.0\.2/?$ https://virtuoso.ifremer.fr/oso-versions/1.0.2/OSO-ontology.ttl [R=302,L]
-
-# 1.2.0 bare → TBox
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^1\.2\.0/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO-ontology.ttl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO.owl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO.jsonld [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO.nt [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO.n3 [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO.json [R=302,L]
-
-# Fallback for 1.2.0 → TBox turtle
-RewriteRule ^1\.2\.0/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.0/OSO-ontology.ttl [R=302,L]
-
-# 1.2.1 bare → TBox
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^1\.2\.1/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-ontology.ttl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.jsonld [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.nt [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.n3 [R=302,L]
-
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.json [R=302,L]
-
-# Fallback for 1.2.1 → TBox turtle
-RewriteRule ^1\.2\.1/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-ontology.ttl [R=302,L]
-
-# Generic bare versioned IRI (1.0.0, 1.0.1, 1.0.3, 1.0.4, 1.0.5, 1.1.0)
-# Full content negotiation → OSO.ttl and serializations
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO-ontology.ttl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/xml
@@ -221,12 +161,8 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-version
 RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.json [R=302,L]
 
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
-
-# Fallback → turtle
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=302,L]
+# Fallback → TBox turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO-ontology.ttl [R=302,L]
 
 # Explicit serialization extensions for versioned IRIs
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)\.ttl/?$ https://virtuoso.ifremer.fr/oso-versions/$1/OSO.ttl [R=303,L]
@@ -243,7 +179,10 @@ RewriteRule ^ui/?$ https://virtuoso.ifremer.fr/oso/ [R=303,L]
 
 # ============================================================
 # Main ontology IRI (https://w3id.org/earthsemantics/OSO)
-# Pinned to 1.2.1, defaults to TBox (OSO-ontology.ttl) for Turtle.
+# Follows the release deployed on Virtuoso (/oso-versions/latest/ is the
+# pinned release, byte-identical to /oso-versions/<version>/), so a new
+# OSO release needs no change here. Defaults to TBox (OSO-ontology.ttl)
+# for Turtle.
 # Other RDF formats redirect to the complete graph serialization
 # since the TBox is only available in Turtle.
 # 302 (not 303) for O'FAIRe A1Q1/A1Q3, which only accepts 200/302.
@@ -255,51 +194,51 @@ RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-ontology.ttl [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO-ontology.ttl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/xml
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.owl [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.jsonld [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.jsonld [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.json [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.json [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.nt [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.nt [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/n3
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.n3 [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.n3 [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} application/trig
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.trig [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.trig [R=302,L]
 
 RewriteCond %{HTTP_ACCEPT} text/plain
-RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.ttl [R=302,L]
+RewriteRule ^$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.ttl [R=302,L]
 
 # Fallback → documentation
 RewriteRule ^$ https://emso-eric.github.io/oso-ontology/ [R=302,L]
 
-# Explicit serialization URLs (main IRI → 1.2.1 complete graph)
-RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.ttl [R=303,L]
-RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=303,L]
-RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=303,L]
-RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.jsonld [R=303,L]
-RewriteRule ^OSO\.json/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.json [R=303,L]
-RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.nt [R=303,L]
-RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.n3 [R=303,L]
-RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.trig [R=303,L]
-RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.ttl [R=303,L]
-RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=303,L]
-RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.owl [R=303,L]
-RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.jsonld [R=303,L]
-RewriteRule ^json/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.json [R=303,L]
-RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.nt [R=303,L]
-RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.n3 [R=303,L]
-RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO.trig [R=303,L]
+# Explicit serialization URLs (main IRI → latest complete graph)
+RewriteRule ^OSO\.ttl/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.ttl [R=303,L]
+RewriteRule ^OSO\.owl/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.owl [R=303,L]
+RewriteRule ^OSO\.rdf/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.owl [R=303,L]
+RewriteRule ^OSO\.jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.jsonld [R=303,L]
+RewriteRule ^OSO\.json/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.json [R=303,L]
+RewriteRule ^OSO\.nt/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.nt [R=303,L]
+RewriteRule ^OSO\.n3/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.n3 [R=303,L]
+RewriteRule ^OSO\.trig/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.trig [R=303,L]
+RewriteRule ^ttl/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.ttl [R=303,L]
+RewriteRule ^owl/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.owl [R=303,L]
+RewriteRule ^rdf/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.owl [R=303,L]
+RewriteRule ^jsonld/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.jsonld [R=303,L]
+RewriteRule ^json/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.json [R=303,L]
+RewriteRule ^nt/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.nt [R=303,L]
+RewriteRule ^n3/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.n3 [R=303,L]
+RewriteRule ^trig/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO.trig [R=303,L]
 
-# Metadata artifacts (latest = 1.2.1)
-RewriteRule ^void/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-void.ttl [R=303,L]
-RewriteRule ^dcat/?$ https://virtuoso.ifremer.fr/oso-versions/1.2.1/OSO-dcat.ttl [R=303,L]
+# Metadata artifacts (latest release)
+RewriteRule ^void/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO-void.ttl [R=303,L]
+RewriteRule ^dcat/?$ https://virtuoso.ifremer.fr/oso-versions/latest/OSO-dcat.ttl [R=303,L]
