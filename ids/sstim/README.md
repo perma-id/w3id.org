@@ -27,6 +27,10 @@ Future PRs touching `sstim/` will be authored or approved by
 
 ## Routes
 
+Every unversioned route answers machines with the latest SSTIM release; the
+development line has no persistent identifier. `/sstim/{major.minor.patch}`
+pins one release.
+
 | PID | Content |
 |---|---|
 | `/sstim` | Generated namespace catalogue for `sstim:` hash terms |
@@ -56,8 +60,9 @@ Future PRs touching `sstim/` will be authored or approved by
 The namespace, kernel, module, and profile routes negotiate Turtle (default),
 JSON-LD (`application/ld+json`), and RDF/XML (`application/rdf+xml`); HTML
 requests redirect to project documentation. A request whose `Accept` header
-allows none of these receives `406`. `Vary: Accept` is set, so caches do not
-serve an HTML representation to an RDF client or the reverse. The manifest and
+allows none of these receives `406`. The rules set `Vary: Accept`, but w3id.org
+does not emit it on redirects; these `303` responses carry no caching headers,
+so a conformant shared cache does not store them. The manifest and
 schema are JSON; VoID, versioned snapshots, and the instance routes below are
 Turtle resources.
 
@@ -68,9 +73,9 @@ modules. That is what keeps `/sstim#Preset` and
 wanting one exact module use `/sstim/kernel` or `/sstim/module/exposure`, and
 consumers wanting a defined subset use a `/sstim/profile/` entry point.
 
-Snapshot routes are enumerated per file rather than matched by wildcard, so a
-version or filename that does not exist returns 404 instead of redirecting to a
-missing target.
+Snapshot routes match any version-shaped path by pattern, so a new release
+needs no change here. A version or file that was never published redirects and
+then answers 404 at the target.
 
 Audited static catalog routes send RDF clients to the owning Turtle instance
 file. General live ecosystem namespace rules send RDF clients to the mutable,
@@ -90,4 +95,4 @@ caches or previously downloaded copies. The mutable projection is not part of
 a Zenodo ontology snapshot and carries no archival-consent implication.
 
 Redirect issues: open an issue at
-<https://github.com/laBioSynCare/laBioSynCare.github.io/issues>.
+<https://github.com/w3c-cg/sstim/issues>.
