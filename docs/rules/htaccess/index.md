@@ -40,6 +40,7 @@ through to a 404 with nothing in the logs to say why.
 | [`htaccess/no-open-redirect`](./no-open-redirect) | error | Never build the target hostname from the request |
 | [`htaccess/https-target`](./https-target) | warning | Redirect to `https://` |
 | [`htaccess/github-raw-target`](./github-raw-target) | warning | Raw file URLs, not `/blob/` pages |
+| [`htaccess/no-rawgit`](./no-rawgit) | error | RawGit has shut down; use jsDelivr |
 | [`htaccess/no-double-slash`](./no-double-slash) | warning | No `//` in the produced URL |
 | [`htaccess/no-self-redirect`](./no-self-redirect) | warning | Point at the destination, not back at w3id.org |
 | [`htaccess/avoid-permanent-redirect`](./avoid-permanent-redirect) | warning | A 301 cannot be taken back |
