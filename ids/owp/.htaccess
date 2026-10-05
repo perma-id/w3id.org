@@ -6,7 +6,9 @@
 #
 # https://w3id.org/owp/ns#                         the OWP vocabulary (OWL 2 DL, CC BY 4.0)
 # https://w3id.org/owp/ns/{release}                a release of the vocabulary (owl:versionIRI)
-# https://w3id.org/owp/align/{prov,bfo,dul}        informative alignments
+# https://w3id.org/owp/vs/{set}                    value sets as SKOS concept schemes (concepts: vs/{set}#{value})
+# https://w3id.org/owp/shapes                      SHACL shapes for EWS data
+# https://w3id.org/owp/align/{prov,bfo,dul,schemaorg}  informative alignments
 # https://w3id.org/owp/spec/{apiVersion}           specification snapshots (dct:conformsTo)
 # https://w3id.org/owp/pkg/{namespace}/{name}/{version}  package identifiers
 #
@@ -33,8 +35,12 @@ RewriteRule ^ns$ https://ontle-world.github.io/open-world-package/vocab/owp/ [R=
 # A release of the vocabulary.
 RewriteRule ^ns/(v[0-9a-z.]+)$ https://ontle-world.github.io/open-world-package/vocab/owp/releases/$1/ns.ttl [R=302,L]
 
+# Value sets (one Turtle file holds every scheme) and SHACL shapes.
+RewriteRule ^vs/([A-Za-z]+)$ https://ontle-world.github.io/open-world-package/vocab/owp/value-sets.ttl [R=302,L]
+RewriteRule ^shapes$ https://ontle-world.github.io/open-world-package/vocab/owp/shapes.ttl [R=302,L]
+
 # Alignments.
-RewriteRule ^align/(prov|bfo|dul)$ https://ontle-world.github.io/open-world-package/alignments/owp-align-$1/align.ttl [R=302,L]
+RewriteRule ^align/(prov|bfo|dul|schemaorg)$ https://ontle-world.github.io/open-world-package/alignments/owp-align-$1/align.ttl [R=302,L]
 
 # Specification snapshots.
 RewriteRule ^spec/(v[0-9a-z]+)$ https://ontle-world.github.io/open-world-package/spec/$1/ [R=302,L]
