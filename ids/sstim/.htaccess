@@ -2,7 +2,7 @@
 # Persistent identifier base: https://w3id.org/sstim
 # Target:                     https://w3c-cg.github.io/sstim/ontology/
 # Maintainer:                 Renato Fabbri <renato.fabbri@gmail.com>, GitHub @ttm
-# Source repository:          https://github.com/laBioSynCare/laBioSynCare.github.io
+# Source repository:          https://github.com/w3c-cg/sstim
 
 Options +FollowSymLinks
 Options -MultiViews
@@ -51,35 +51,39 @@ RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim
 # Machine-readable bill of materials, public modules, and profile entrypoints.
 # The alternatives are explicit so a new manifest item cannot silently acquire
 # a persistent route. This is the sole block for manifest-owned latest routes.
+# Every RDF and JSON answer in it comes from `latest/`, the newest frozen
+# release, never from the development line at the top of /ontology/: an
+# unversioned IRI resolves to a release (ADR 0055, ADR 0060 in the SSTIM
+# repository). /sstim/{version}/... pins one release instead.
 # Explicit RDF types take precedence in JSON-LD, RDF/XML order, then HTML, then
 # Turtle or */*. Media ranges with q=0 are excluded and matching is nocase.
 # -------------------------------------------------------------------------
 # BEGIN audited SSTIM manifest routes
-RewriteRule ^manifest$ https://w3c-cg.github.io/sstim/ontology/manifest.json [R=303,L]
-RewriteRule ^manifest-schema/1$ https://w3c-cg.github.io/sstim/ontology/manifest.schema.json [R=303,L]
+RewriteRule ^manifest$ https://w3c-cg.github.io/sstim/ontology/latest/manifest.json [R=303,L]
+RewriteRule ^manifest-schema/1$ https://w3c-cg.github.io/sstim/ontology/latest/manifest.schema.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.jsonld [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1-profile.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.rdf [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1-profile.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1-profile.ttl [R=303,L]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1-profile.ttl [R=303,L]
 RewriteRule ^profile/(kernel|core|core-plus|full)$ - [R=406,L]
 
 # The logical Kernel ontology IRI remains /sstim for compatibility. /kernel is
 # its exact small retrieval endpoint; /sstim itself is the namespace catalog.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.jsonld [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-core.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.rdf [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-core.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/sstim-core.ttl [R=303,L]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-core.ttl [R=303,L]
 RewriteRule ^kernel$ - [R=406,L]
 
 # exposure#StimulusChannel is stimulus-owned after ADR 0044, so the namespace
@@ -95,26 +99,26 @@ RewriteRule ^kernel$ - [R=406,L]
 # nothing selected. The knowledge browser reads the fragment client-side,
 # selects the term, and links onward to its reference entry.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.jsonld [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.rdf [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure-namespace.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure-namespace.ttl [R=303,L]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure-namespace.ttl [R=303,L]
 RewriteRule ^exposure$ - [R=406,L]
 
 # Exact Exposure module retrieval, separate from its hash-namespace catalog.
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.jsonld [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.rdf [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/sstim-exposure.ttl [R=303,L]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure.ttl [R=303,L]
 RewriteRule ^module/exposure$ - [R=406,L]
 
 # vocab and ecosystem are hash namespaces whose terms are defined across more
@@ -135,14 +139,14 @@ RewriteRule ^module/exposure$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^(vocab|ecosystem)$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.jsonld [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.rdf [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1.rdf [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/docs/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/sstim-$1.ttl [R=303,L]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1.ttl [R=303,L]
 RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ - [R=406,L]
 
 # /sstim is the generated Full namespace catalog. Fragment IRIs such as
@@ -153,6 +157,8 @@ RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|eviden
 # build, so the ontology IRI returned a graph declaring owl:versionInfo
 # "0.17.0-dev", mod:status "under development" and no owl:versionIRI at all:
 # unpinnable, uncitable, and what LOV and Archivo would have harvested as SSTIM.
+# The module, profile, catalogue and manifest routes above kept serving that
+# build until ADR 0060 gave them the same answer.
 # `latest/` is a stable path written from the newest snapshot on every deploy, so
 # cutting a release still needs no pull request here (ADR 0053).
 #
@@ -309,7 +315,7 @@ RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/b
 RewriteRule ^(framework/bsc/technique/martigli-breathing-oscillation|framework/bsc/technique/martigli-binaural-hybrid|framework/bsc/technique/symmetry-permutation-entrainment)/?$ - [R=406,L]
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://w3c-cg.github.io/sstim/ontology/sstim-vocab.ttl [R=303,L]
+RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-vocab.ttl [R=303,L]
 RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ - [R=406,L]
 # END audited BSC technique routes
 
