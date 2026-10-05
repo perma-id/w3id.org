@@ -41,6 +41,7 @@ import htaccessNoFlagWhitespace from './htaccess/no-flag-whitespace.js';
 import htaccessSpaceBeforeFlags from './htaccess/space-before-flags.js';
 import htaccessAvoidPermanentRedirect from './htaccess/avoid-permanent-redirect.js';
 import htaccessGithubRawTarget from './htaccess/github-raw-target.js';
+import htaccessNoRawgit from './htaccess/no-rawgit.js';
 import htaccessNoDoubleSlash from './htaccess/no-double-slash.js';
 import htaccessNoGreedyCapture from './htaccess/no-greedy-capture.js';
 import htaccessAnchorPatterns from './htaccess/anchor-patterns.js';
@@ -89,6 +90,7 @@ export const rules = [
   htaccessSpaceBeforeFlags,
   htaccessAvoidPermanentRedirect,
   htaccessGithubRawTarget,
+  htaccessNoRawgit,
   htaccessNoDoubleSlash,
   htaccessNoGreedyCapture,
   htaccessAnchorPatterns,

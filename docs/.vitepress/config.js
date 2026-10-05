@@ -163,6 +163,7 @@ export default defineConfig({
               { text: 'no-open-redirect', link: '/rules/htaccess/no-open-redirect' },
               { text: 'https-target', link: '/rules/htaccess/https-target' },
               { text: 'github-raw-target', link: '/rules/htaccess/github-raw-target' },
+              { text: 'no-rawgit', link: '/rules/htaccess/no-rawgit' },
               { text: 'no-double-slash', link: '/rules/htaccess/no-double-slash' },
               { text: 'no-self-redirect', link: '/rules/htaccess/no-self-redirect' },
               { text: 'avoid-permanent-redirect', link: '/rules/htaccess/avoid-permanent-redirect' }

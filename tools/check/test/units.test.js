@@ -220,9 +220,29 @@ test('maintainers: label words are not mistaken for usernames', () => {
     // Another service's account is not a GitHub one.
     'Twitter username: someone',
     // An email address must not be cut down to its local part.
-    'Username: someone@example.org'
+    'Username: someone@example.org',
+    // A link to this repository, copied from a template, names nobody.
+    '#  - https://github.com/perma-id/w3id.org/blob/master/food/.htaccess',
+    // RDF syntax quoted in a README is not a handle.
+    '@prefix ex: <https://w3id.org/ex#> .',
+    'URI: https://w3id.org/ex (@prefix `ex`)',
+    '# Appended to the @context array',
+    'redefine the @base instruction'
   ]) {
     assert.deepEqual([...findUsernames(text)], [], text);
+  }
+});
+
+test('maintainers: narrowing those cases keeps the real handles', () => {
+  const cases = [
+    // A repository link still names its owner, who is usually the maintainer.
+    ['Source: https://github.com/example-user/vocab', ['example-user']],
+    // The keywords are excluded only as a bare @handle.
+    ['# GitHub username: base', ['base']],
+    ['@prefix ex: <x> . Maintained by @someone', ['someone']]
+  ];
+  for(const [text, expected] of cases) {
+    assert.deepEqual([...findUsernames(text)].sort(), expected, text);
   }
 });
 

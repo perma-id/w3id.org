@@ -42,6 +42,7 @@ import minimalCommits from '../src/rules/git/minimal-commits.js';
 import noMergeCommits from '../src/rules/git/no-merge-commits.js';
 import descriptiveCommitMessage from '../src/rules/git/descriptive-commit-message.js';
 import identifierUnderIds from '../src/rules/tree/identifier-under-ids.js';
+import noRawgit from '../src/rules/htaccess/no-rawgit.js';
 
 /** Build a repo from a map of path -> contents and audit it with one rule. */
 function audit(rule, files, config = {}) {
@@ -368,6 +369,36 @@ test('tree/identifier-under-ids blocks a change that adds nothing under ids/',
       head: 'HEAD'});
     assert.deepEqual(findingsOf(r), ['histact/.htaccess:1:error']);
   });
+
+test('htaccess/no-rawgit reports both hosts and names the jsDelivr URL', () => {
+  const r = audit(noRawgit, {
+    'ids/a/.htaccess':
+      'RewriteEngine on\n' +
+      'RewriteRule ^a$ https://rawgit.com/u/r/master/v.ttl [R=303,L]\n' +
+      'RewriteRule ^b$ https://cdn.rawgit.com/u/r/gh-pages/d/v.owl [R=303,L]\n' +
+      // Inside a longer target, as a documentation service's argument.
+      'RewriteRule ^c$ http://x/lode/https://rawgit.com/u/r/v1/v.owl [R=303,L]\n' +
+      'RewriteRule ^d$ https://rawgit.com/u/r/master/doc/index.html [R=303,L]\n' +
+      'RewriteRule ^e$ https://cdn.jsdelivr.net/gh/u/r@master/v.ttl [R=303,L]\n' +
+      '# https://rawgit.com/u/r/master/old.ttl in a comment is not a target\n'
+  });
+  assert.deepEqual(findingsOf(r), [
+    'ids/a/.htaccess:2:error',
+    'ids/a/.htaccess:3:error',
+    'ids/a/.htaccess:4:error',
+    'ids/a/.htaccess:5:error'
+  ]);
+  const [dead, forwarded, embedded, page] = r.findings.map(f => f.message);
+  assert.match(dead, /returns 404/);
+  assert.match(dead, /https:\/\/cdn\.jsdelivr\.net\/gh\/u\/r@master\/v\.ttl/);
+  assert.match(forwarded, /still forwards/);
+  assert.match(forwarded,
+    /https:\/\/cdn\.jsdelivr\.net\/gh\/u\/r@gh-pages\/d\/v\.owl/);
+  assert.match(embedded,
+    /http:\/\/x\/lode\/https:\/\/cdn\.jsdelivr\.net\/gh\/u\/r@v1\/v\.owl/);
+  assert.match(page, /GitHub Pages/);
+  assert.equal(noRawgit.critical, true);
+});
 
 test('htaccess/github-raw-target separates breakage from redundancy', () => {
   const r = audit(githubRawTarget, {

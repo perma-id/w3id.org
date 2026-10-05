@@ -108,6 +108,7 @@ report it is whoever has just watched their own mistake pass.
 | [`htaccess/no-open-redirect`](./htaccess/no-open-redirect) | error | Never build the target hostname from the request |
 | [`htaccess/https-target`](./htaccess/https-target) | warning | Redirect to `https://` |
 | [`htaccess/github-raw-target`](./htaccess/github-raw-target) | warning | Raw file URLs, not `/blob/` pages |
+| [`htaccess/no-rawgit`](./htaccess/no-rawgit) | error | RawGit has shut down; use jsDelivr |
 | [`htaccess/no-double-slash`](./htaccess/no-double-slash) | warning | No `//` in the produced URL |
 | [`htaccess/no-self-redirect`](./htaccess/no-self-redirect) | warning | Point at the destination, not back at w3id.org |
 | [`htaccess/avoid-permanent-redirect`](./htaccess/avoid-permanent-redirect) | warning | A 301 cannot be taken back |
