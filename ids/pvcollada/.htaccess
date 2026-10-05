@@ -1,0 +1,19 @@
+# This namespace is maintained by the Universy of Central Florida
+# Current maintainers are:
+# Brent Thompson (https://github.com/TheAlgoDev) – UCF, CWRU, PSEL
+# Contact Info: brent.thompson@ucf.edu
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Serve Turtle when requested by an RDF client
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/TheAlgoDev/pvcollada-onto/main/ontology/pvcollada_onto.ttl [R=303,L]
+
+# Default: redirect to GitHub Pages documentation (human readable)
+RewriteRule ^(.*)$ https://thealgodev.github.io/pvcollada-onto/ [R=303,L]
+
+# Contact Info : Brent Thompson - brent.thompson@ucf.edu

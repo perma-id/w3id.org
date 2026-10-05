@@ -1,0 +1,16 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+
+## marine indicators
+RewriteRule ^marine/?$ https://project-seadots-definition-server.lab.dive.edito.eu/ds/indicator/catalog [R=303,L]
+RewriteRule ^marine/(.+)$ https://project-seadots-definition-server.lab.dive.edito.eu/prez-b/object?uri=https://w3id.org/indicators/marine/$1 [R=303,L]
+

@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Schema classes/properties, controlled vocabularies, ontology header
+RewriteRule ^(schema|vocab|ontology)(/.*)?$ https://doi.org/10.5281/zenodo.22107499 [R=303,L]
+
+# Instance IRIs (patients, biospecimens, runs): stable, but the underlying data is not public.
+# They resolve to the archived record, which states data availability.
+RewriteRule ^id/.*$ https://doi.org/10.5281/zenodo.22107499 [R=303,L]
+
+# Named-graph IRIs and the namespace base
+RewriteRule ^graph/.*$ https://doi.org/10.5281/zenodo.22107499 [R=302,L]
+RewriteRule ^$         https://doi.org/10.5281/zenodo.22107499 [R=302,L]

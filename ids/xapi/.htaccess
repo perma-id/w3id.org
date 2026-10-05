@@ -1,0 +1,146 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Directive to allow Cross origin requests
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept, Accept-Language"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS"
+
+
+
+#######################################################################################################
+################################ xAPI Ontology & Statement Context ####################################
+#######################################################################################################
+
+# Ontology Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology [R=303]
+
+# Ontology Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology/ontology.rdf [R=303]
+
+# Ontology Rewrite rule to serve Turtle content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-ontology/ontology.ttl [R=303]
+
+# JSON-LD xAPI STATEMENT CONTEXT
+# Context for xAPI Statements published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement-context.jsonld [R=303]
+
+# JSON-LD xAPI STATEMENT CONTEXT
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^statement-context$ https://adlnet.github.io/xapi-ontology/statement-context.jsonld [R=303]
+
+
+#######################################################################################################
+#################### XAPI Published Profiles | HTML Content Negotiation RULES #########################
+#######################################################################################################
+
+# Manual Redirect Rules for Navy xAPI Profile Library
+# ---------------------------
+# Serve HTML content at profile IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^navy/?$ https://navy-xapi-library.bitbucket.io [R=303]
+RewriteRule ^navy/index.html$ https://navy-xapi-library.bitbucket.io [R=303]
+RewriteRule ^navy/(.*?)\.html$ https://navy-xapi-library.bitbucket.io [R=303]
+
+
+# Multiple HTML Rules Below to account for ADL profile server change
+# ---------------------------
+# Serve HTML content at profile IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve HTML content at profile IRI if x.x.x version requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve HTML content at type IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve HTML content at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve HTML content at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+#######################################################################################################
+##################### XAPI Authored Profiles | RDF Content Negotiation RULES ##########################
+#######################################################################################################
+# NOTE - Removed all RDF representations except JSON to account for ADL profile server change from vocab server  - persistent IRI pattern matching and RDF content negotiation not supported since they use UUIDs
+
+
+# Serve JSON-LD at profile IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve JSON-LD for the x.x.x version of the profile
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve JSON-LD at vocabulary type IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve JSON-LD at vocabulary term IRI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+
+# Serve Constrained JSON-LD at profile IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve Constrained JSON-LD at profile IRI if x.x.x version and JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/v[0-9][0-9.]*/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve Constrained JSON-LD at vocabulary type IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+
+# Serve Constrained JSON-LD at vocabulary term IRI if JSON is requested
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)/?$ https://tools.xapi.ly/profiles/ [R=303]
+

@@ -1,0 +1,21 @@
+# w3id.org permanent identifier for https://w3id.org/castello-edizione-vocab/
+# SKOS vocabulary of the 17 mystical states (twin repo: castello-dell-anima-edizione).
+# Dereferenceable URIs with content negotiation:
+#   - a machine requesting RDF/Turtle -> the full .ttl vocabulary
+#   - a browser (or anything else)    -> the human-readable viewer
+# maintainer: @luciano-longo77
+Options +FollowSymLinks
+RewriteEngine On
+
+# 1) Explicit RDF/Turtle request -> the full .ttl (machine data)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^(.*)$ https://luciano-longo77.github.io/castello-dell-anima-edizione/vocab/castello-edizione-vocab.ttl [R=303,L]
+
+# 2) A single mystical state -> its page in the viewer
+RewriteRule ^([^/]+)/?$ https://luciano-longo77.github.io/castello-dell-anima-edizione/vocab/?c=$1 [R=303,L]
+
+# 3) The vocabulary base -> the viewer index
+RewriteRule ^$ https://luciano-longo77.github.io/castello-dell-anima-edizione/vocab/ [R=303,L]
+

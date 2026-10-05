@@ -1,0 +1,35 @@
+# https://w3id.org/mlips - MLIPs Ontology
+#
+# Permanent identifier for an OWL 2 DL ontology describing
+# Machine Learning Interatomic Potentials: training datasets with
+# DFT/wavefunction-method provenance, MLIP algorithms with their
+# hyperparameters and implementations, training runs and trained
+# models, and published benchmark results.
+#
+# Currently redirects to https://onto.degu.cl/mlips/ where the
+# upstream server performs Accept-header content negotiation across
+# XHTML+RDFa documentation, Turtle, and RDF/XML. The redirect target
+# is the maintainer's personal server, used while a University of
+# Stuttgart institutional URL is being provisioned. Updates to the
+# redirect target must preserve content negotiation.
+#
+# Submitted as an ISWC 2026 Resources Track paper.
+#
+# ## Contact
+# This space is administered by:
+#
+# Daniel Hernandez
+# daniel@degu.cl (primary)
+# daniel.hernandez@ki.uni-stuttgart.de (institutional)
+# GitHub username: danielhz
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Bare URL: tools resolve the namespace IRI by stripping the
+# fragment, so this is the most common entry point.
+RewriteRule ^$ https://onto.degu.cl/mlips/ [R=302,L]
+
+# Path-form URLs: future-proofing for slash-style IRIs and for
+# direct file requests like /mlips/mlips.ttl.
+RewriteRule ^(.*)$ https://onto.degu.cl/mlips/$1 [R=302,L]

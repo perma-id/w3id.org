@@ -1,0 +1,39 @@
+# ASTRA — Agentic Schema for Transparent Research Analysis
+#
+# https://w3id.org/astra/ is the namespace IRI for the ASTRA specification,
+# a declarative format for scientific analyses defined in LinkML.
+#
+# The spec site is versioned with mike: each release is deployed to its own
+# subdirectory (e.g. /0.0.8/) on https://astra-spec.org, with /latest/
+# tracking the most recent release. Bare requests resolve to the latest
+# version; a version segment may be inserted to pin to a specific release.
+#
+# Project:   https://github.com/LightconeResearch/astra-spec
+# Spec site: https://astra-spec.org
+#
+# ## Contact
+# This space is administered by:
+#
+# Francois Lanusse
+# GitHub username: eiffl
+
+RewriteEngine on
+
+# Version-pinned requests: /astra/X.Y.Z/... or /astra/latest/...
+# Pass straight through to the matching versioned path on the spec site.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+|latest)(/.*)?$ https://astra-spec.org/$1$2 [R=302,L]
+
+# Schema artifacts (LinkML source, JSON Schema, JSON-LD context, etc.) — latest
+RewriteRule ^schema/(.*)$ https://astra-spec.org/latest/schema/$1 [R=302,L]
+
+# Per-element doc pages — latest
+RewriteRule ^elements/(.*)$ https://astra-spec.org/latest/elements/$1 [R=302,L]
+
+# Documentation sections — latest
+RewriteRule ^(about|cli|community|getting-started|specification|assets)(/.*)?$ https://astra-spec.org/latest/$1$2 [R=302,L]
+
+# Term URIs (e.g. /astra/Input, /astra/recipe) -> per-element doc pages on latest
+RewriteRule ^([A-Za-z][A-Za-z0-9_-]*)/?$ https://astra-spec.org/latest/elements/$1/ [R=302,L]
+
+# Namespace root and anything else -> spec homepage (mike redirects / to /latest/)
+RewriteRule ^ https://astra-spec.org/ [R=302,L]

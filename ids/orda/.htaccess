@@ -1,0 +1,29 @@
+# https://w3id.org/orda — Ontology for Research Data Access (ORDA)
+# Redirects to https://jakemlstein.github.io/ORDA/
+Options -MultiViews
+RewriteEngine On
+
+# --- Content negotiation on the base IRI (hash namespace) ---
+
+# Any RDF serialisation request -> the published Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle          [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle  [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml  [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json  [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://jakemlstein.github.io/ORDA/ORDA.ttl [R=302,L]
+
+# Everything else (browsers, text/html, */*) -> HTML documentation
+RewriteRule ^$ https://jakemlstein.github.io/ORDA/index.html [R=302,L]
+
+# --- Explicit sub-paths pass straight through to the same GitHub Pages folder ---
+# e.g. https://w3id.org/orda/ORDA.ttl -> .../ORDA/ORDA.ttl
+RewriteRule ^(.+)$ https://jakemlstein.github.io/ORDA/$1 [R=302,L]
+
+# ## Contact
+# This space is administered by:
+#
+# Jake Stein
+# jake.stein@cs.ox.ac.uk
+# GitHub username: jakemlstein

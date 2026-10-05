@@ -1,0 +1,31 @@
+# w3id.org/ontodesire
+#
+# OntoDesire -- a reference ontology for declaring theoretical commitments
+# about desire (OWL 2, CC BY 4.0).
+#
+# Contact: Wesley da Silva Santos <wesley.santos@prof.inteli.edu.br>
+#          GitHub username: santos-wesley
+#          ORCID: https://orcid.org/0000-0003-4405-349X
+#          Inteli -- Instituto de Tecnologia e Lideranca, Sao Paulo, Brazil
+# Source:  https://github.com/santos-wesley/ontodesire
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------- audit
+RewriteCond %{HTTP_ACCEPT} .*(text/turtle|application/x-turtle|text/rdf\+n3|application/rdf\+xml|application/n-triples|application/ld\+json).*
+RewriteRule ^audit/?$ https://santos-wesley.github.io/ontodesire/commitments-audit.ttl [R=302,L]
+RewriteRule ^audit/?$ https://santos-wesley.github.io/ontodesire/ [R=302,L]
+
+# ---------------------------------------------------------- commitments
+RewriteCond %{HTTP_ACCEPT} .*(text/turtle|application/x-turtle|text/rdf\+n3|application/rdf\+xml|application/n-triples|application/ld\+json).*
+RewriteRule ^commitments/?$ https://santos-wesley.github.io/ontodesire/ontodesire-commitments.ttl [R=302,L]
+RewriteRule ^commitments/?$ https://santos-wesley.github.io/ontodesire/ [R=302,L]
+
+# ----------------------------------------------------------------- core
+RewriteCond %{HTTP_ACCEPT} .*(text/turtle|application/x-turtle|text/rdf\+n3|application/rdf\+xml|application/n-triples|application/ld\+json).*
+RewriteRule ^$ https://santos-wesley.github.io/ontodesire/ontodesire-core.ttl [R=302,L]
+RewriteRule ^$ https://santos-wesley.github.io/ontodesire/ [R=302,L]
+
+# --------------------------------------------------- any other sub-path
+RewriteRule ^(.+)$ https://santos-wesley.github.io/ontodesire/$1 [R=302,L]

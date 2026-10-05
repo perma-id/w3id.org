@@ -1,0 +1,44 @@
+# Data Governance Ontology (DGO)
+# https://w3id.org/dgo/ -> https://github.com/james-geiger/dgo
+#
+# Browsers (Accept: text/html) are sent to the GitHub repository; everything
+# else (RDF clients, curl) gets the OWL ontology serialized as Turtle.
+#
+# Versioned IRIs, e.g. https://w3id.org/dgo/0.1.0/dgo.owl.ttl, resolve against
+# the git tag of the same name.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# Versioned releases: /dgo/{tag}/ and /dgo/{tag}/{file}
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/james-geiger/dgo/tree/$1 [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/james-geiger/dgo/$1/dist/dgo.owl.ttl [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(dgo\.owl\.ttl|dgo\.ttl|dgo\.owl)$ https://raw.githubusercontent.com/james-geiger/dgo/$1/dist/dgo.owl.ttl [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(dgo|dgo-template)\.yaml$ https://raw.githubusercontent.com/james-geiger/dgo/$1/dist/$2.yaml [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/LICENSE$ https://raw.githubusercontent.com/james-geiger/dgo/$1/LICENSE [R=302,L]
+
+# ---------------------------------------------------------------------------
+# Latest release files
+# ---------------------------------------------------------------------------
+RewriteRule ^(dgo\.owl\.ttl|dgo\.ttl|dgo\.owl)$ https://raw.githubusercontent.com/james-geiger/dgo/main/dist/dgo.owl.ttl [R=302,L]
+RewriteRule ^(dgo|dgo-template)\.yaml$ https://raw.githubusercontent.com/james-geiger/dgo/main/dist/$1.yaml [R=302,L]
+RewriteRule ^LICENSE$ https://raw.githubusercontent.com/james-geiger/dgo/main/LICENSE [R=302,L]
+
+# ---------------------------------------------------------------------------
+# Ontology IRI: https://w3id.org/dgo/
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^$ https://github.com/james-geiger/dgo [R=303,L]
+RewriteRule ^$ https://raw.githubusercontent.com/james-geiger/dgo/main/dist/dgo.owl.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Terms: https://w3id.org/dgo/DGO_00000001, https://w3id.org/dgo/Chair, ...
+# No per-term HTML pages yet, so browsers land on the repository.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/html|application/xhtml\+xml)
+RewriteRule ^[A-Za-z][A-Za-z0-9_]*$ https://github.com/james-geiger/dgo [R=303,L]
+RewriteRule ^[A-Za-z][A-Za-z0-9_]*$ https://raw.githubusercontent.com/james-geiger/dgo/main/dist/dgo.owl.ttl [R=303,L]

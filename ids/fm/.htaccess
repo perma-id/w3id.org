@@ -1,0 +1,54 @@
+Options -MultiViews
+RewriteEngine On
+
+# (Optional but recommended) tell caches this varies by Accept
+<IfModule mod_headers.c>
+  Header always set Vary "Accept"
+</IfModule>
+
+# --------------------------------------------------------------------
+# A) If the request already targets a file (has an extension), redirect
+#    to the same relative file under ontology.flandersmake.be/<xyz>/...
+#    Examples:
+#      /fm/aqume/index_en.html   -> https://ontology.flandersmake.be/aqume/index_en.html
+#      /fm/aqume/style.css       -> https://ontology.flandersmake.be/aqume/style.css
+#      /fm/aqume/sections/x.html -> https://ontology.flandersmake.be/aqume/sections/x.html
+# --------------------------------------------------------------------
+RewriteRule ^([^/]+)/(.*\.[A-Za-z0-9]+)$ https://ontology.flandersmake.be/$1/$2 [R=302,L]
+
+# --------------------------------------------------------------------
+# B) Explicit "root file" requests like /fm/xyz.ttl (no slash)
+#    Map to https://ontology.flandersmake.be/xyz/xyz.ttl
+# --------------------------------------------------------------------
+RewriteRule ^([^/]+)\.(ttl|rdf|owl|jsonld|json|nt|nq|trig)$ https://ontology.flandersmake.be/$1/$1.$2 [R=302,L]
+
+# --------------------------------------------------------------------
+# C) Concept IRIs: /fm/xyz/ABC  ->  .../xyz/index_en.html#ABC
+#    (Only first segment after xyz becomes the fragment.)
+# --------------------------------------------------------------------
+RewriteRule ^([^/]+)/([^/.#?]+)(?:/.*)?$ https://ontology.flandersmake.be/$1/index_en.html#$2 [R=302,L,NE]
+
+# --------------------------------------------------------------------
+# D) Content negotiation on the ontology IRI itself: /fm/xyz
+#    Redirect based on Accept header.
+#    Order matters: handle specific RDF formats before HTML fallback.
+# --------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^([^/]+)/?$ https://ontology.flandersmake.be/$1/$1.ttl [R=302,L]
+
+# RDF/XML (use .rdf; swap to .owl if that's what you publish)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([^/]+)/?$ https://ontology.flandersmake.be/$1/$1.rdf [R=302,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([^/]+)/?$ https://ontology.flandersmake.be/$1/$1.jsonld [R=302,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} (application/n-triples|text/plain) [NC]
+RewriteRule ^([^/]+)/?$ https://ontology.flandersmake.be/$1/$1.nt [R=302,L]
+
+# HTML fallback (browsers typically send text/html in Accept)
+RewriteRule ^([^/]+)/?$ https://ontology.flandersmake.be/$1/index_en.html [R=302,L,NE]

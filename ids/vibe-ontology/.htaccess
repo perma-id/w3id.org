@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Vibe Ontology namespace:
+# https://w3id.org/vibe-ontology/
+
+# RDF clients: redirect ontology namespace and term IRIs to the Turtle file.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads) [NC]
+RewriteRule ^.*$ https://raw.githubusercontent.com/dersuchendee/vibe-ontology/main/ontology/latest/vibeontology.ttl [R=303,L]
+
+# Human-readable documentation for the ontology namespace.
+RewriteRule ^$ https://dersuchendee.github.io/vibe-ontology/ [R=303,L]
+
+# Human-readable documentation for individual ontology terms.
+# Example:
+# https://w3id.org/vibe-ontology/Aesthetic
+RewriteRule ^(.+)$ https://dersuchendee.github.io/vibe-ontology/#$1 [R=303,L,NE]

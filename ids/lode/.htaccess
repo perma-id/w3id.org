@@ -1,0 +1,56 @@
+# Name of the project: LODE (Live OWL Documentation Environment, https://w3id.org/lode/)
+# Maintainer: Silvio Peroni (essepuntato@gmail.com), Valentina Pasqual (valentina.pasqual2@unibo.it)
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} closure/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&closure=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} imported/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&imported=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} closure/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&closure=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} imported/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&imported=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} owlapi/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&owlapi=true&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} closure/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&closure=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} imported/
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&imported=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} reasoner/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&reasoner=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} closure/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&closure=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} imported/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&imported=true&url=$1://$2 [QSA,L,R=303]
+
+RewriteCond %{REQUEST_URI} (lang=[^/]+)/
+RewriteRule ^.+(https?)://?(.+)$ https://lode.opencitations.net/extract?read_as=owl&%1&url=$1://$2 [QSA,L,R=303]
+
+RewriteRule ^.*?(https?)://?(.+)$  https://lode.opencitations.net/extract?read_as=owl&url=$1://$2 [NE,QSA,L,R=303]
+
+RewriteRule ^(.*)$ https://lode.opencitations.net/ [L,R=303]

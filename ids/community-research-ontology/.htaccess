@@ -1,0 +1,26 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+# Enable content negotiation types
+AddType text/turtle .ttl
+AddType application/rdf+xml .owl
+AddType application/ld+json .json
+
+RewriteEngine On
+
+# CORS (useful for ontology access)
+Header set Access-Control-Allow-Origin "*"
+
+# Base GitHub RAW location of your ontology
+RewriteRule ^$ https://raw.githubusercontent.com/liadraetta/community-research-ontology/main/ontology/research-onotology.ttl [R=303,L]
+
+# If someone requests the TTL explicitly
+RewriteRule ^ontology.ttl$ https://raw.githubusercontent.com/liadraetta/community-research-ontology/main/ontology/research-onotology.ttl [R=303,L]
+
+# Content negotiation: HTML documentation (if browser)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/liadraetta/community-research-ontology [R=303,L]
+
+# Default fallback to ontology file
+RewriteRule ^.*$ https://raw.githubusercontent.com/liadraetta/community-research-ontology/main/ontology/research-onotology.ttl [R=303,L]

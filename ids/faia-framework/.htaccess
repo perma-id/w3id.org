@@ -1,0 +1,41 @@
+# FAIA Framework Ontology & Vocabulary Redirects
+# https://w3id.org/faia-framework
+#
+# Repository: https://github.com/faia-framework/w3id.docs
+#
+# Contact:
+#   Kristina Hettne     - https://github.com/kmhettne
+#   Yury Kharytanovich  <yury.kharytanovich.liccium@gmail.com> - https://github.com/yurykharytanovich
+#   Sebastian Post      <info@liccium.com> - https://github.com/sposth
+
+
+# Turn off MultiViews
+Options -MultiViews
+
+# MIME type declarations
+AddType text/turtle .ttl
+
+# Rewrite engine setup
+RewriteEngine On
+RewriteBase /faia-framework/
+
+# ------------------------------
+# FAIA Ontology files
+# ------------------------------
+# Default: faia_ont/ or faia_ont → faia_ont.ttl
+RewriteRule ^faia_ont/?$ https://raw.githubusercontent.com/faia-framework/w3id.docs/main/faia_ont/faia_ont.ttl [R=303,L]
+# Specific file: faia_ont/<version>.ttl
+RewriteRule ^faia_ont/(.+)\.ttl$ https://raw.githubusercontent.com/faia-framework/w3id.docs/main/faia_ont/$1.ttl [R=303,L]
+
+# ------------------------------
+# FAIA Vocabulary files
+# ------------------------------
+# Default: faia_vocab/ or faia_vocab → faia_vocab.ttl
+RewriteRule ^faia_vocab/?$ https://raw.githubusercontent.com/faia-framework/w3id.docs/main/faia_vocab/faia_vocab.ttl [R=303,L]
+# Specific file: faia_vocab/<version>.ttl
+RewriteRule ^faia_vocab/(.+)\.ttl$ https://raw.githubusercontent.com/faia-framework/w3id.docs/main/faia_vocab/$1.ttl [R=303,L]
+
+# ------------------------------
+# Default response (redirect to GitHub repo)
+# ------------------------------
+RewriteRule ^$ https://github.com/faia-framework/w3id.docs [R=303,L]
