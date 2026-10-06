@@ -9,9 +9,10 @@ Current sub-identifiers:
 
 ## Contact
 
-Joshua W. Tashman
-Mass General Brigham
-
-Emilio Madrigal  
-Mass General Brigham  
+Joshua W. Tashman<br>
+Mass General Brigham<br>
+Github: @jwilliam28
+<br>
+Emilio Madrigal<br>
+Mass General Brigham<br>
 GitHub: @emiliomadrigal
