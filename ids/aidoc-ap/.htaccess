@@ -28,6 +28,29 @@ RewriteRule ^$ https://certain-project.github.io/aidoc-ap/ontology.jsonld [R=302
 # https://w3id.org/aidoc-ap/1.0
 RewriteRule ^1.0$ https://certain-project.github.io/aidoc-ap/ [R=302,L]
 
+# AIDOC-AP Lifecycle Extension: https://w3id.org/aidoc-ap/lifecycle (namespace https://w3id.org/aidoc-ap/lifecycle#)
+# Documented from its own repository, CERTAIN-Project/aidoc-ap-lifecycle; these rules precede the default rules below.
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^lifecycle/?$ https://certain-project.github.io/aidoc-ap-lifecycle/ontology.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^lifecycle/?$ https://certain-project.github.io/aidoc-ap-lifecycle/aidoc-lc.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^lifecycle/?$ https://certain-project.github.io/aidoc-ap-lifecycle/ontology.jsonld [R=302,L]
+
+RewriteRule ^lifecycle/?$ https://certain-project.github.io/aidoc-ap-lifecycle/ [R=302,L]
+
+# https://w3id.org/aidoc-ap/lifecycle/<version>: release snapshot
+RewriteRule ^lifecycle/([0-9]+\.[0-9]+)/?$ https://certain-project.github.io/aidoc-ap-lifecycle/$1/aidoc-lc.ttl [R=302,L]
+
+# https://w3id.org/aidoc-ap/lifecycle/example/...: instances of the example graphs
+RewriteRule ^lifecycle/example/.*$ https://certain-project.github.io/aidoc-ap-lifecycle/examples.html [R=302,L]
+
+RewriteRule ^lifecycle/(.+)$ https://certain-project.github.io/aidoc-ap-lifecycle/$1 [R=302,L]
+
 # Default
 
 RewriteRule ^$ https://certain-project.github.io/aidoc-ap [R=302,L]
