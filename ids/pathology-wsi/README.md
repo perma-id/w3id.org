@@ -12,7 +12,7 @@ Current sub-identifiers:
 
 ## Contact
 
-- Emilio Madrigal, DO
-- Mass General Brigham
-- emadrigaldo@gmail.com
-- GitHub: @emiliomadrigal
+Emilio Madrigal, DO<br>
+Mass General Brigham<br>
+emadrigaldo@gmail.com<br>
+GitHub: @emiliomadrigal
