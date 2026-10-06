@@ -21,3 +21,22 @@ RewriteRule ^main$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/ocsm-
 RewriteRule ^main-context.jsonld$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/jsonld/ocsm-profile-context.jsonld [R=302,L]
 
 
+
+## Root level
+# JSON-LD context
+RewriteRule ^main-context.jsonld$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/jsonld/ocsm-profile-context.jsonld [R=302,L]
+# Ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^main$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/ocsm-profile.ttl [R=303,L]
+# default for now
+RewriteRule ^main$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/ocsm-profile.ttl  [R=303,L]
+
+## Modules
+# JSON-LD contexts
+RewriteRule ^main/(.*)-context$ https://raw.githubusercontent.com/openagri-eu/OCSM/main/jsonld/$1-context.jsonld [R=302,L]
+# Ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^main/(.*)$  https://raw.githubusercontent.com/openagri-eu/OCSM/main/$1.ttl [R=303,L]
+# default for now
+RewriteRule ^main/(.*)$  https://raw.githubusercontent.com/openagri-eu/OCSM/main/$1.ttl [R=303,L]
+
