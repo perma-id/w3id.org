@@ -7,9 +7,12 @@ to individual project repositories.
 Current sub-identifiers:
 - `alk-thyroid` — ALK-rearranged follicular thyroid neoplasm cohort 
   (Mass General Brigham and Lenox Hill Hospital)
+- `3dprinted-scanner` — 3D-printed whole-slide imaging scanning instrument
+  (Mass General Brigham)
 
 ## Contact
 
 Emilio Madrigal, DO
+Mass General Brigham
 emadrigaldo@gmail.com  
 GitHub: @emiliomadrigal
