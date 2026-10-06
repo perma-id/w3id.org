@@ -6,6 +6,11 @@ images acquired on a commercial slide scanner and on an open-source,
 
 ## Contact
 
-Emilio Madrigal  
-Department of Pathology, Mass General Brigham  
+Joshua W. Tashman<br>
+Mass General Brigham<br>
+Github: @jwilliam28
+
+
+Emilio Madrigal<br>
+Mass General Brigham<br>
 GitHub: @emiliomadrigal
