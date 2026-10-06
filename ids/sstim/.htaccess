@@ -320,6 +320,34 @@ RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/te
 # END audited BSC technique routes
 
 # -------------------------------------------------------------------------
+# The BSC framework's own vocabulary and shapes (SSTIM ADR 0061). These terms
+# left SSTIM's universal namespaces and belong to no SSTIM release, so they are
+# served from the framework's static directory, never from latest/ or a
+# snapshot. vocab is a hash namespace whose local names repeat those of the
+# SSTIM terms it replaced, so a browser cannot be sent to a bare fragment: the
+# knowledge browser resolves bare names into SSTIM first. It goes to ?ns=bsc-v
+# instead, re-attaches the fragment the server never saw, and the browser
+# qualifies it as #bsc-v:<name>. Shapes are not drawable nodes, so a browser
+# gets the Turtle file, as every RDF client does.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC framework vocabulary routes
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^framework/bsc/vocab/?$ https://w3c-cg.github.io/sstim/graph/?ns=bsc-v [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^framework/bsc/shapes/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-shapes.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(framework/bsc/vocab)/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-vocab.ttl [R=303,L]
+RewriteRule ^(framework/bsc/vocab)/?$ - [R=406,L]
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(framework/bsc/shapes)/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-shapes.ttl [R=303,L]
+RewriteRule ^(framework/bsc/shapes)/?$ - [R=406,L]
+# END audited BSC framework vocabulary routes
+
+# -------------------------------------------------------------------------
 # Live ecosystem identifier namespaces. Dataset membership belongs to the
 # mutable RDF projection, not this registry configuration: new, corrected, or
 # retracted records therefore do not require a w3id.org rule change. The

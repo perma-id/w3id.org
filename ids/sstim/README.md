@@ -29,7 +29,9 @@ Future PRs touching `sstim/` will be authored or approved by
 
 Every unversioned route answers machines with the latest SSTIM release; the
 development line has no persistent identifier. `/sstim/{major.minor.patch}`
-pins one release.
+pins one release. The BSC framework's vocabulary and shapes are the exception:
+they are not part of SSTIM, so they are served from the framework's own
+directory.
 
 | PID | Content |
 |---|---|
@@ -48,6 +50,8 @@ pins one release.
 | `/sstim/module/exposure` | Exact exposure module distribution |
 | `/sstim/ecosystem` | Ecosystem relationships and consent lifecycle |
 | `/sstim/framework/bsc` | BSC framework catalog record |
+| `/sstim/framework/bsc/vocab` | The BSC framework's own vocabulary, not part of SSTIM (Turtle; browsers open the knowledge browser) |
+| `/sstim/framework/bsc/shapes` | The BSC framework's SHACL shapes (Turtle only) |
 | `/sstim/implementation/bsclab` | BSC Lab implementation catalog record |
 | `/sstim/implementation/biosyncare` | BioSynCare application catalog record |
 | `/sstim/implementation/bsclab/component/patch-studio` | Patch Studio software-component catalog record |
@@ -84,6 +88,11 @@ a `synthetic-*` slug rejected by those rules and are available only through the
 direct fixture artifact; there are no fixture-specific routes. Previously
 published frozen snapshots remain unchanged. HTML requests reach the project
 landing page for static catalog and live ecosystem identifiers.
+
+The BSC vocabulary reuses the local names of the SSTIM terms it replaced, so
+its HTML route passes the namespace as `?ns=bsc-v`. The browser re-attaches the
+term's fragment, and the knowledge browser selects the BSC term rather than the
+SSTIM one.
 
 Dataset membership belongs to the live RDF projection, not the registry
 configuration. Adding, correcting, or retracting a record therefore does not
