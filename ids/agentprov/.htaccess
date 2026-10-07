@@ -1,0 +1,27 @@
+# # /agentprov/
+#
+# Persistent identifiers for AgentPROV, an execution-provenance framework for
+# LLM-agent security research (successor of AgentDojo-PROV). Targets are served
+# by GitHub Pages from https://github.com/nickjones39/agentprov-ns
+#
+# https://w3id.org/agentprov/ns         apv vocabulary namespace (content-negotiated, 303)
+# https://w3id.org/agentprov/exec/...   execution instance IRIs (identifiers; 302 to an explanation page)
+# https://w3id.org/agentprov/...        everything else (302, path preserved)
+#
+# ## Contact
+# This space is administered by:
+#
+# GitHub username: nickjones39
+
+RewriteEngine on
+
+# Vocabulary namespace: Turtle for RDF clients, HTML otherwise
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/?$ https://nickjones39.github.io/agentprov-ns/ns/apv.ttl [R=303,L]
+RewriteRule ^ns/?$ https://nickjones39.github.io/agentprov-ns/ns/ [R=303,L]
+
+# Execution instance IRIs are identifiers, not individually dereferenceable
+RewriteRule ^exec(/.*)?$ https://nickjones39.github.io/agentprov-ns/exec/ [R=302,L]
+
+# Everything else
+RewriteRule ^(.*)$ https://nickjones39.github.io/agentprov-ns/$1 [R=302,L]
