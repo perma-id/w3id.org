@@ -1,6 +1,6 @@
 # /fmpo/
 
-Permanent identifiers for the Finnish Medium of Peformance Ontology
+Permanent identifiers for the Finnish Medium of Performance Ontology  of musical instruments and ensembles
 
 `https://w3id.org/fmpo/` redirects to <https://natlibfi.github.io/SEKO/schema/fmpo/>.
 
