@@ -5,6 +5,7 @@
 # by GitHub Pages from https://github.com/nickjones39/agentprov-ns
 #
 # https://w3id.org/agentprov/ns         apv vocabulary namespace (content-negotiated, 303)
+# https://w3id.org/agentprov/ns/0.1.0   a released version of the vocabulary (content-negotiated, 303)
 # https://w3id.org/agentprov/exec/...   execution instance IRIs (identifiers; 302 to an explanation page)
 # https://w3id.org/agentprov/...        everything else (302, path preserved)
 #
@@ -19,6 +20,11 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ns/?$ https://nickjones39.github.io/agentprov-ns/ns/apv.ttl [R=303,L]
 RewriteRule ^ns/?$ https://nickjones39.github.io/agentprov-ns/ns/ [R=303,L]
+
+# Versioned vocabulary (/ns/<major>.<minor>.<patch>): Turtle for RDF clients, HTML otherwise
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nickjones39.github.io/agentprov-ns/ns/$1/apv.ttl [R=303,L]
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nickjones39.github.io/agentprov-ns/ns/$1/ [R=303,L]
 
 # Execution instance IRIs are identifiers, not individually dereferenceable
 RewriteRule ^exec(/.*)?$ https://nickjones39.github.io/agentprov-ns/exec/ [R=302,L]
