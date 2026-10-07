@@ -1,9 +1,14 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# BCO Bridge Compliance Ontology
-# Maintainer: Dongwook Kim (ORCID: 0000-0002-0721-5114)
-# Contact: clearup7@nate.com
+# BCO bridge ontology — content negotiation
+# Zenodo concept DOI: 10.5281/zenodo.20585466
+# Zenodo record: 23203730
+# Updated: 2026-10-07
 
-RewriteRule ^$ https://doi.org/10.5281/zenodo.20585467 [R=303,L]
-RewriteRule ^(.*)$ https://doi.org/10.5281/zenodo.20585467 [R=303,L]
+# Machine-readable Turtle serialization
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://zenodo.org/records/23203730/files/S3_BCO_Turtle_all_rules.ttl?download=1 [R=303,L]
+
+# Default browser / HTML documentation
+RewriteRule ^$ https://zenodo.org/records/23203730/files/BCO_documentation.html?download=1 [R=303,L]
