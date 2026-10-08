@@ -11,3 +11,6 @@ Contacts:
 * Sylvain Marie <sylvain.marie@schneider-electric.com>
 * Imran Khan <imran2.khan@se.com>
 * Alexis Radisson <alexis.radisson@se.com>
+
+* Maintainer:
+             [imrankhan1984](https://github.com/imrankhan1984)
