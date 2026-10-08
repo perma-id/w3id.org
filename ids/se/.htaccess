@@ -1,7 +1,45 @@
+# w3id.org/se - Schneider Electric semantic artifacts. Maintained by the SCOPE Semantics Portal team.
+# All files are served by the SCOPE Semantics Portal (internal GitHub Pages):
+# https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/
+# Layout of each artifact on the portal:
+#   ontologies/<artifact>/index.html                    documentation of the latest version
+#   ontologies/<artifact>/latest/<artifact>.ttl         Turtle file of the latest version
+#   ontologies/<artifact>/<version>/index.html          documentation of that version
+#   ontologies/<artifact>/<version>/<artifact>.ttl      Turtle file of that version
+# Rule order matters: version IRIs first, then the artifact IRI, then the catch-all at the end.
+# Each RewriteRule must stay on ONE line.
+
 Options +FollowSymLinks
 RewriteEngine on
 
-RewriteRule ^$ https://se-ontologies.github.io [R=302,L]
+RewriteRule ^$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/index.html [R=302,L]
+
+# =====================================================================================
+# Circuit Breaker Ontology (Example)
+# IRI:          https://w3id.org/se/domain/product/circuit-breaker-ontology
+# Version IRI:  https://w3id.org/se/domain/product/circuit-breaker-ontology/<x.y.z>
+# Term IRIs (…circuit-breaker-ontology#CircuitBreaker) resolve with the IRI: the part after # is never sent.
+# =====================================================================================
+
+# Version IRI, for example …/circuit-breaker-ontology/0.1.0: always that exact version
+# machine: the Turtle file (303)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^domain/product/circuit-breaker-ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/circuit-breaker-ontology/$1/circuit-breaker-ontology.ttl [R=303,L]
+# people: the documentation of that version (302)
+RewriteRule ^domain/product/circuit-breaker-ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/circuit-breaker-ontology/$1/index.html [R=302,L]
+
+# Artifact IRI and all term IRIs: always the latest version
+# machine: the Turtle file (303)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^domain/product/circuit-breaker-ontology/?$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/circuit-breaker-ontology/latest/circuit-breaker-ontology.ttl [R=303,L]
+# people: the documentation of the latest version (302)
+RewriteRule ^domain/product/circuit-breaker-ontology/?$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/circuit-breaker-ontology/index.html [R=302,L]
+
+# =====================================================================================
+# ADD THE NEXT ARTIFACT HERE: copy the Circuit Breaker block above and change
+#   the path (domain/product/circuit-breaker-ontology) and the portal folder and file names.
+# =====================================================================================
+
 
 # Timeseries ontology
 RewriteRule ^core/tso$ https://pages.github.schneider-electric.com/Schneider-Ontology-Directory/Timeseries-Ontology/generated_static/TimeSeriesOntology.html [R=302,L]
@@ -10,4 +48,5 @@ RewriteRule ^core/tso/example1$ https://pages.github.schneider-electric.com/Schn
 RewriteRule ^core/tsofull$ https://pages.github.schneider-electric.com/Schneider-Ontology-Directory/Timeseries-Ontology/generated_static/TSO_full.html [R=302,L]
 RewriteRule ^info-extension/tso$ https://pages.github.schneider-electric.com/Schneider-Ontology-Directory/Timeseries-Ontology/generated_static/Timeseries-Information-Extension.html [R=302,L]
 
-RewriteRule ^(.*)$ https://se-ontologies.github.io/$1 [R=302,L]
+# Catch-all: any other w3id.org/se address opens the Ontology Catalog (302)
+RewriteRule ^.*$ https://pages.github.schneider-electric.com/SCOPE-Community/scope-semantics-portal/ontologies/index.html [R=302,L]
