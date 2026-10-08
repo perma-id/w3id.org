@@ -7,6 +7,7 @@
 #   https://w3id.org/fraternal/code[/x]   -> codelists
 #   https://w3id.org/fraternal/shapes     -> SHACL shapes
 #   https://w3id.org/fraternal/mappings/x -> generated mapping set x
+#   …/X.Y.Z, …/code/X.Y.Z, …/shapes/X.Y.Z -> frozen copy of release X.Y.Z
 
 Options +FollowSymLinks
 RewriteEngine on
@@ -18,10 +19,14 @@ RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-ontology.ttl [R=303,L]
 RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/docs/fraternal/ [R=303,L]
 
-# Current version IRIs. When there are several releases, point each older
-# version IRI at its release tag instead of the current files.
-RewriteRule ^1\.0\.0$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-ontology.ttl [R=303,L]
-RewriteRule ^code(/1\.0\.0)?/?$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-codes.ttl [R=303,L]
+# Version IRIs: every release keeps a frozen copy in versions/<version>/ in the
+# repository, so these rules never need changing for a new release.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/fraternal/fraternal-ontology.ttl [R=303,L]
+RewriteRule ^code/([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/fraternal/fraternal-codes.ttl [R=303,L]
+RewriteRule ^shapes/([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/fraternal/fraternal-shapes.ttl [R=303,L]
+
+# Current files.
+RewriteRule ^code/?$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-codes.ttl [R=303,L]
 RewriteRule ^code/(.+)$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-codes.ttl [R=303,L]
 RewriteRule ^shapes$ https://society-ontologies.github.io/membership-fraternal/fraternal/fraternal-shapes.ttl [R=303,L]
 RewriteRule ^mappings/(.+)$ https://society-ontologies.github.io/membership-fraternal/mappings/generated/$1.ttl [R=303,L]
