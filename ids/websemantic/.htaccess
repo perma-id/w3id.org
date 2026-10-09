@@ -1,0 +1,18 @@
+# websemantic ontology — https://github.com/cyrilvoyant/websemantic
+# Contact: Cyril Voyant (GitHub: cyrilvoyant), https://orcid.org/0000-0003-0242-7377
+RewriteEngine on
+
+# Versioned ontology, e.g. https://w3id.org/websemantic/ns/core/0.2.0
+RewriteRule ^ns/core/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/cyrilvoyant/websemantic/v$1/ontology/core.ttl [R=302,L]
+
+# RDF clients (Turtle, RDF/XML, N-Triples): current ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ns(/core)?/?$ https://raw.githubusercontent.com/cyrilvoyant/websemantic/main/ontology/core.ttl [R=303,L]
+
+# Browsers and other clients: documentation
+RewriteRule ^ns(/core)?/?$ https://github.com/cyrilvoyant/websemantic/tree/main/ontology [R=302,L]
+
+# Project root
+RewriteRule ^$ https://github.com/cyrilvoyant/websemantic [R=302,L]
