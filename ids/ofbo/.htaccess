@@ -1,13 +1,16 @@
 RewriteEngine On
 
-# Main OFBO ontology (redirects base URI to raw ontology file)
-RewriteRule ^$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/OFBO.ttl [R=302,L]
+# Main OFBO namespace: redirects to human-readable documentation.
+RewriteRule ^$ https://rfb-predictor.github.io/OFBO/ [R=302,L]
 
-# Documentation redirect (redirects /docs to GitHub Pages)
-RewriteRule ^docs/?$ https://rfb-predictor.github.io/OFBO/ [R=302,L]
+# Explicit Turtle ontology file, for Protégé and RDF tools.
+RewriteRule ^OFBO\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/OFBO.ttl [R=302,L]
 
-# OFBO imported ontology modules
-RewriteRule ^imports/chmo-subset$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/chmo-subset.ttl [R=302,L]
-RewriteRule ^imports/mdo-subset$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/mdo-subset.ttl [R=302,L]
-RewriteRule ^imports/prov-o-subset$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/prov-o-subset.ttl [R=302,L]
-RewriteRule ^imports/qudt-subset$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/qudt-subset.ttl [R=302,L]
+# Source code, notebooks, releases, and project repository.
+RewriteRule ^repository/?$ https://github.com/rfb-predictor/OFBO [R=302,L]
+
+# Imported ontology modules
+RewriteRule ^imports/chmo-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/chmo-subset.ttl [R=302,L]
+RewriteRule ^imports/mdo-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/mdo-subset.ttl [R=302,L]
+RewriteRule ^imports/prov-o-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/prov-o-subset.ttl [R=302,L]
+RewriteRule ^imports/qudt-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/qudt-subset.ttl [R=302,L]
