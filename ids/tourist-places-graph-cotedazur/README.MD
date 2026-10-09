@@ -7,6 +7,6 @@
 
 # Contact
 - Alicia Blanchi-Sic
-- aliciablsic@outlook.fr 
+- aliciablsic@outlook.fr
 - Alicia.blanchi-sic@univ-cotedazur.fr
 - GitHub username: aliciabs28
