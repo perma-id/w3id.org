@@ -33,6 +33,17 @@ RewriteEngine On
 # BEGIN generated SSTIM snapshot routes
 # Pre-modular snapshots, a closed set: their version IRI resolves to the
 # Kernel file, which was the whole ontology before ADR 0043 split it.
+# Every version IRI negotiates: Turtle when asked for, then JSON-LD,
+# RDF/XML, the release page for a browser, and Turtle for anything else,
+# as it always answered.
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-core.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-core.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-core.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/ [R=302,L]
 RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\.10\.0|0\.11\.0|0\.12\.0)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-core.ttl [R=302,L]
 # These frozen manifests state root-absolute paths, so they only resolve
 # their own references from an origin-root deployment. They are immutable;
@@ -40,10 +51,18 @@ RewriteRule ^(0\.1\.0|0\.2\.0|0\.3\.0|0\.5\.0|0\.6\.0|0\.7\.0|0\.8\.0|0\.9\.0|0\
 # snapshots, so a future release that regressed would be pinned too.
 RewriteRule ^(0\.13\.0|0\.14\.0|0\.15\.0|0\.16\.0)/manifest$ https://labiosyncare.github.io/ontology/$1/manifest.json [R=302,L]
 # Every snapshot, including releases not yet cut. Four patterns rather than
-# four rules per release (ADR 0053).
+# four rules per release (ADR 0053); the version IRI's pattern negotiates.
 RewriteRule ^(\d+\.\d+\.\d+)/(sstim-[a-z0-9-]+\.ttl)$ https://w3c-cg.github.io/sstim/ontology/$1/$2 [R=302,L]
 RewriteRule ^(\d+\.\d+\.\d+)/manifest$ https://w3c-cg.github.io/sstim/ontology/$1/manifest.json [R=302,L]
 RewriteRule ^(\d+\.\d+\.\d+)/manifest\.schema\.json$ https://w3c-cg.github.io/sstim/ontology/$1/manifest.schema.json [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-namespace.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-namespace.jsonld [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-namespace.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/ [R=302,L]
 RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim-namespace.ttl [R=302,L]
 # END generated SSTIM snapshot routes
 
@@ -55,13 +74,17 @@ RewriteRule ^(\d+\.\d+\.\d+)/?$ https://w3c-cg.github.io/sstim/ontology/$1/sstim
 # release, never from the development line at the top of /ontology/: an
 # unversioned IRI resolves to a release (ADR 0055, ADR 0060 in the SSTIM
 # repository). /sstim/{version}/... pins one release instead.
-# Explicit RDF types take precedence in JSON-LD, RDF/XML order, then HTML, then
-# Turtle or */*. Media ranges with q=0 are excluded and matching is nocase.
+# An explicit Turtle request takes precedence, so a client that lists Turtle
+# among others gets SSTIM's source format. Then JSON-LD, RDF/XML and HTML, and
+# finally */* or no Accept, which also get Turtle. Media ranges with q=0 are
+# excluded and matching is nocase.
 # -------------------------------------------------------------------------
 # BEGIN audited SSTIM manifest routes
 RewriteRule ^manifest$ https://w3c-cg.github.io/sstim/ontology/latest/manifest.json [R=303,L]
 RewriteRule ^manifest-schema/1$ https://w3c-cg.github.io/sstim/ontology/latest/manifest.schema.json [R=303,L]
 
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1-profile.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^profile/(kernel|core|core-plus|full)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1-profile.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -75,6 +98,8 @@ RewriteRule ^profile/(kernel|core|core-plus|full)$ - [R=406,L]
 
 # The logical Kernel ontology IRI remains /sstim for compatibility. /kernel is
 # its exact small retrieval endpoint; /sstim itself is the namespace catalog.
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-core.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^kernel$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-core.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -98,6 +123,8 @@ RewriteRule ^kernel$ - [R=406,L]
 # carries the bare local name, so the reader landed at the top of an index with
 # nothing selected. The knowledge browser reads the fragment client-side,
 # selects the term, and links onward to its reference entry.
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure-namespace.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -110,6 +137,8 @@ RewriteRule ^exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-expo
 RewriteRule ^exposure$ - [R=406,L]
 
 # Exact Exposure module retrieval, separate from its hash-namespace catalog.
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^module/exposure$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-exposure.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -136,6 +165,8 @@ RewriteRule ^module/exposure$ - [R=406,L]
 # drawable nodes in the knowledge browser, so sending a shape IRI there would
 # select nothing; the reference index remains the better answer until shapes are
 # either drawable or anchored by local name.
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|evidence|neuromodulation|patch-studio|vocab|ecosystem|neuromodulation-evidence|evidence-exposure|technique-exposure|alignments|shapes)$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-$1.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^(vocab|ecosystem)$ https://w3c-cg.github.io/sstim/ [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -169,6 +200,8 @@ RewriteRule ^(stimulus|core-shapes|common|technique|configuration|session|eviden
 # any fragment on to the knowledge browser, which is the only surface that can
 # select the term (measured 2026-08-23: WIDOCO anchors by full IRI, pyLODE by
 # label, so neither could).
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-namespace.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/ld\+json\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
 RewriteRule ^$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-namespace.jsonld [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*application/rdf\+xml\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
@@ -191,6 +224,16 @@ RewriteRule ^$ - [R=406,L]
 # -------------------------------------------------------------------------
 RewriteRule ^schemas/preset\.schema\.json$ https://w3c-cg.github.io/sstim/schemas/preset.schema.json [R=303,L]
 RewriteRule ^schemas/session\.schema\.json$ https://w3c-cg.github.io/sstim/schemas/session.schema.json [R=303,L]
+
+# -------------------------------------------------------------------------
+# SSTIM's JSON-LD context, so a document can declare
+# "@context": "https://w3id.org/sstim/context.jsonld". This serves the live
+# context, not a release's. Every other unversioned route answers with a
+# release (ADR 0060), and this is the one decided exception (2026-10-06): terms
+# are deprecated, never deleted, so the context grows rather than changes, and
+# a document written against any release still compacts and expands as it did.
+# -------------------------------------------------------------------------
+RewriteRule ^context\.jsonld$ https://w3c-cg.github.io/sstim/ontology/context.jsonld [R=303,L]
 
 # -------------------------------------------------------------------------
 # Stable BSC catalog identities. Programme, framework, application, and
@@ -318,6 +361,34 @@ RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\
 RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ https://w3c-cg.github.io/sstim/ontology/latest/sstim-vocab.ttl [R=303,L]
 RewriteRule ^(framework/bsc/technique/binaural-beat-stimulation|framework/bsc/technique/photic-rhythm-stimulation|framework/bsc/technique/audiovisual-rhythm-coordination|framework/bsc/technique/vibrotactile-rhythm-stimulation)/?$ - [R=406,L]
 # END audited BSC technique routes
+
+# -------------------------------------------------------------------------
+# The BSC framework's own vocabulary and shapes (SSTIM ADR 0061). These terms
+# left SSTIM's universal namespaces and belong to no SSTIM release, so they are
+# served from the framework's static directory, never from latest/ or a
+# snapshot. vocab is a hash namespace whose local names repeat those of the
+# SSTIM terms it replaced, so a browser cannot be sent to a bare fragment: the
+# knowledge browser resolves bare names into SSTIM first. It goes to ?ns=bsc-v
+# instead, re-attaches the fragment the server never saw, and the browser
+# qualifies it as #bsc-v:<name>. Shapes are not drawable nodes, so a browser
+# gets the Turtle file, as every RDF client does.
+# -------------------------------------------------------------------------
+# BEGIN audited BSC framework vocabulary routes
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^framework/bsc/vocab/?$ https://w3c-cg.github.io/sstim/graph/?ns=bsc-v [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^framework/bsc/shapes/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-shapes.ttl [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(framework/bsc/vocab)/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-vocab.ttl [R=303,L]
+RewriteRule ^(framework/bsc/vocab)/?$ - [R=406,L]
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^(framework/bsc/shapes)/?$ https://w3c-cg.github.io/sstim/ontology/frameworks/bsc/bsc-shapes.ttl [R=303,L]
+RewriteRule ^(framework/bsc/shapes)/?$ - [R=406,L]
+# END audited BSC framework vocabulary routes
 
 # -------------------------------------------------------------------------
 # Live ecosystem identifier namespaces. Dataset membership belongs to the
