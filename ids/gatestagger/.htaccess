@@ -7,16 +7,7 @@
 
 RewriteEngine on
 
-# The versioned illustrative records are described in the complete worked graph.
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^id/illustrative-v5/ https://zenodo.org/records/23265291/files/worked_example_prov.ttl [R=303,L]
-
-# Other record identifiers are documented in the deposit and its archive.
-RewriteRule ^id/ https://zenodo.org/records/23265291 [R=303,L]
-
-# Vocabulary terms resolve to the released Turtle definitions.
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^ https://zenodo.org/records/23265291/files/gatestagger-vocabulary.ttl [R=303,L]
-
-# Human-readable/default documentation is the public deposit.
+# Vocabulary and record IRIs resolve to the public documentation deposit.
+# The vocabulary, worked Turtle graph and complete record archive are downloads.
+# Zenodo serves those files as binary downloads; no RDF content negotiation is claimed.
 RewriteRule ^ https://zenodo.org/records/23265291 [R=303,L]
