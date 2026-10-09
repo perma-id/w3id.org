@@ -1,0 +1,33 @@
+# # /fair-bioheaders/
+#
+# Persistent identifiers for FAIR-bioHeaders, metadata headers that embed
+# provenance in reference genome, transcriptome and annotation files
+# (https://doi.org/10.1093/bib/bbae122).
+#
+# - https://w3id.org/fair-bioheaders/ redirects to the GitHub organisation.
+# - https://w3id.org/fair-bioheaders/fhr/vX.Y.Z redirects to the FHR JSON
+#   schema (fhr.json) of FHR-Specification release vX.Y.Z.
+# - https://w3id.org/fair-bioheaders/fhr/vX.Y.Z/PATH redirects to PATH in that
+#   release (for example schemas/core.yaml).
+# - https://w3id.org/fair-bioheaders/gff3-validator redirects to the
+#   in-browser GFF3 validator.
+#
+# Schema URLs are versioned on purpose: each one always names the same
+# release, so metadata files keep their meaning when the schema changes.
+#
+# ## Contact
+# This space is administered by:
+#
+# Adam Wright
+# adam.wright@oicr.on.ca
+# GitHub username: adamjohnwright
+#
+# David Molik
+# GitHub username: molikd
+
+RewriteEngine on
+
+RewriteRule ^$ https://github.com/FAIR-bioHeaders [R=302,L]
+RewriteRule ^fhr/(v[0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/FAIR-bioHeaders/FHR-Specification/$1/fhr.json [R=302,L]
+RewriteRule ^fhr/(v[0-9]+\.[0-9]+\.[0-9]+)/(.+)$ https://raw.githubusercontent.com/FAIR-bioHeaders/FHR-Specification/$1/$2 [R=302,L]
+RewriteRule ^gff3-validator/?$ https://fair-bioheaders.github.io/gff3-validator/ [R=302,L]
