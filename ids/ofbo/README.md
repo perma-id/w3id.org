@@ -1,17 +1,17 @@
 # w3id.org/ofbo
 
-**Persistent identifier for the Organic Flow Battery Ontology (OFBO)**  
+Persistent identifiers for the Organic Flow Battery Ontology (OFBO), developed within
+the [PREDICTOR MSCA DN project](https://rfb-predictor.eu).
 
-This W3ID provides a permanent, persistent URL for the **Organic Flow Battery Ontology (OFBO)** developed within the [PREDICTOR MSCA DN project](https://rfb-predictor.eu).  
+## Redirect targets
 
-## Redirect Target
+- Ontology: <https://w3id.org/ofbo>
+- Documentation: <https://w3id.org/ofbo/docs>
 
-The w3id redirects to the GitHub repository:  
+The ontology documents are maintained in the source repository:
 
-[https://github.com/rfb-predictor/OFBO](https://github.com/rfb-predictor/OFBO)
+<https://github.com/rfb-predictor/OFBO>
 
 ## Maintenance
 
-The current maintainer and point of contact for modifications is:  
-
-- ** Daniel Willimetz** — [GitHub Profile](https://github.com/dwillimetz)  
+- Daniel Willimetz — <https://github.com/dwillimetz>
