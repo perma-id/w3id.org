@@ -1,0 +1,22 @@
+# /gatestagger/
+# Permanent IRIs for the GateStagger approval-release decision vocabulary.
+# Content is hosted in the author's public Zenodo deposit, not on w3id.org.
+# Maintainer: Ahmad Baghdadi
+# Contact: ambaghdadi@uqu.edu.sa
+# GitHub username: baghdadi05555-sketch
+
+RewriteEngine on
+
+# The versioned illustrative records are described in the complete worked graph.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^id/illustrative-v5/ https://zenodo.org/records/23265291/files/worked_example_prov.ttl [R=303,L]
+
+# Other record identifiers are documented in the deposit and its archive.
+RewriteRule ^id/ https://zenodo.org/records/23265291 [R=303,L]
+
+# Vocabulary terms resolve to the released Turtle definitions.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ https://zenodo.org/records/23265291/files/gatestagger-vocabulary.ttl [R=303,L]
+
+# Human-readable/default documentation is the public deposit.
+RewriteRule ^ https://zenodo.org/records/23265291 [R=303,L]
