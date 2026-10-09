@@ -6,11 +6,7 @@ the [PREDICTOR MSCA DN project](https://rfb-predictor.eu).
 ## Redirect targets
 
 - Ontology: <https://w3id.org/ofbo>
-- OFBO namespace: <https://w3id.org/ofbo#>
-- CHMO subset: <https://w3id.org/ofbo/imports/chmo-subset>
-- MDO subset: <https://w3id.org/ofbo/imports/mdo-subset>
-- PROV-O subset: <https://w3id.org/ofbo/imports/prov-o-subset>
-- QUDT subset: <https://w3id.org/ofbo/imports/qudt-subset>
+- Documentation: <https://w3id.org/ofbo/docs>
 
 The ontology documents are maintained in the source repository:
 
