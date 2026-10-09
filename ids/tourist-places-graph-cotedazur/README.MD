@@ -1,4 +1,4 @@
-tourist-places-graph-cotedazur
+# tourist-places-graph-cotedazur
 
 - Persistent identifiers for the knowledge graph of places cited in short-term rental listings of the Côte d'Azur (France) ||  Graphe discursif des lieux touristiques de la Côte d'Azur 
  construit à partir des mentions de lieux dans les annonces Airbnb (Janvier-2026) - Version 0.1.0.
