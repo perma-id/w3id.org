@@ -5,7 +5,7 @@
 
 - Documentation and data: https://doi.org/10.5281/zenodo.23235539
 
-# Contact
+## Contact
 - Alicia Blanchi-Sic
 - aliciablsic@outlook.fr
 - Alicia.blanchi-sic@univ-cotedazur.fr
