@@ -1,0 +1,42 @@
+# # /spot/sg/
+#
+# Content-negotiated IRIs for SPOT-SG (SPOT Scene Graph), an extension of the
+# Space Types Ontology (SPOT, https://w3id.org/spot/).
+#
+# https://w3id.org/spot/sg redirects to
+# https://design-computation-rwth.github.io/spot-sg/
+#
+# ## Contact
+# This space is administered by:
+#
+# Oliver Schulz
+# schulz@dc.rwth-aachen.de
+# GitHub username: OlliSchu
+
+RewriteEngine on
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://design-computation-rwth.github.io/spot-sg/ontology.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://design-computation-rwth.github.io/spot-sg/ontology.jsonld [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://design-computation-rwth.github.io/spot-sg/ontology.owl [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://design-computation-rwth.github.io/spot-sg/ontology.nt [R=303,NE,L]
+
+# Explicit format by file extension (same paths as /spot/ and /spot/am/)
+RewriteRule ^ontology\.ttl$ https://design-computation-rwth.github.io/spot-sg/ontology.ttl [R=302,NE,L]
+RewriteRule ^ontology\.html$ https://design-computation-rwth.github.io/spot-sg/ [R=302,NE,L]
+RewriteRule ^ontology\.rdf$ https://design-computation-rwth.github.io/spot-sg/ontology.owl [R=302,NE,L]
+RewriteRule ^ontology\.jsonld$ https://design-computation-rwth.github.io/spot-sg/ontology.jsonld [R=302,NE,L]
+RewriteRule ^ontology\.nt$ https://design-computation-rwth.github.io/spot-sg/ontology.nt [R=302,NE,L]
+
+# Default: human-readable documentation
+RewriteRule ^$ https://design-computation-rwth.github.io/spot-sg/ [R=303,NE,L]
