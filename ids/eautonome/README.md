@@ -3,4 +3,4 @@ This W3 identifier is meant to provide a generic identifier for Projet Maison Ea
 
 ### Contact
 - email: erdemonal at outlook dot fr
-- github: [Eautonome/eautonome](https://github.com/Eautonome/eautonome)
+- GitHub username: erdemonal
