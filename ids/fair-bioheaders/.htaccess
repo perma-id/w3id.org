@@ -9,6 +9,13 @@
 #   schema (fhr.json) of FHR-Specification release vX.Y.Z.
 # - https://w3id.org/fair-bioheaders/fhr/vX.Y.Z/PATH redirects to PATH in that
 #   release (for example schemas/core.yaml).
+# - https://w3id.org/fair-bioheaders/fhr/vX.Y.Z/jsonld/FILE redirects to the
+#   GitHub Pages copy of that release's JSON-LD file, which is served with the
+#   JSON-LD or Turtle media type (raw GitHub serves text/plain).
+# - https://w3id.org/fair-bioheaders/terms is the namespace of FAIR-bioHeaders
+#   vocabulary terms (https://w3id.org/fair-bioheaders/terms#checksum etc.).
+#   Clients asking for Turtle or JSON-LD get the vocabulary in that form;
+#   everyone else gets its documentation page, where each term has an anchor.
 # - https://w3id.org/fair-bioheaders/gff3-validator redirects to the
 #   in-browser GFF3 validator.
 #
@@ -28,6 +35,12 @@
 RewriteEngine on
 
 RewriteRule ^$ https://github.com/FAIR-bioHeaders [R=302,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^terms/?$ https://fair-bioheaders.github.io/FHR-Specification/terms/terms.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^terms/?$ https://fair-bioheaders.github.io/FHR-Specification/terms/terms.jsonld [R=302,L]
+RewriteRule ^terms/?$ https://fair-bioheaders.github.io/FHR-Specification/terms/ [R=302,L]
+RewriteRule ^fhr/(v[0-9]+\.[0-9]+\.[0-9]+)/jsonld/([^/]+)$ https://fair-bioheaders.github.io/FHR-Specification/fhr/$1/jsonld/$2 [R=302,L]
 RewriteRule ^fhr/(v[0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/FAIR-bioHeaders/FHR-Specification/$1/fhr.json [R=302,L]
 RewriteRule ^fhr/(v[0-9]+\.[0-9]+\.[0-9]+)/(.+)$ https://raw.githubusercontent.com/FAIR-bioHeaders/FHR-Specification/$1/$2 [R=302,L]
 RewriteRule ^gff3-validator/?$ https://fair-bioheaders.github.io/gff3-validator/ [R=302,L]
