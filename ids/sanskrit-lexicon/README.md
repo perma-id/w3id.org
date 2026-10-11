@@ -23,7 +23,7 @@ negotiation — an RDF media type (`text/turtle`, `application/rdf+xml`,
 (`vocab#term`) is reserved for the project vocabulary document.
 
 Redirects point at GitHub Pages
-([gasyoun.github.io/pwg-ru-lod](https://gasyoun.github.io/pwg-ru-lod/)) so that
+([sanskrit-lexicon.github.io/pwg-ru-lod](https://sanskrit-lexicon.github.io/pwg-ru-lod/)) so that
 the identifiers remain independent of any project domain or hosting arrangement.
 The target is expected to move to an institutional endpoint in future; that
 change will not affect any IRI.
