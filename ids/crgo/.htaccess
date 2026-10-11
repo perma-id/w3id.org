@@ -20,22 +20,27 @@ RewriteRule ^(CRGO_[0-9]+)$ https://itriskmgr.github.io/CyberRiskGuardian-Ontolo
 RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
 RewriteRule ^$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/ontology/crgo.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
-RewriteRule ^(crgo|crgo-gov|crgo-core|crgo-measure|crgo-crg|crgo-full)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/ontology/$1.ttl [R=303,L]
+RewriteRule ^(crgo|crgo-[a-z]+)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/ontology/$1.ttl [R=303,L]
 
 # --- HTML (browsers and everything else) ------------------------------------------------------------
 RewriteRule ^$ https://itriskmgr.github.io/CyberRiskGuardian-Ontology/ [R=303,L]
 RewriteRule ^(CRGO_[0-9]+)$ https://itriskmgr.github.io/CyberRiskGuardian-Ontology/doc/index-en.html#$1 [R=303,NE,L]
-RewriteRule ^(crgo|crgo-gov|crgo-core|crgo-measure|crgo-crg)$ https://itriskmgr.github.io/CyberRiskGuardian-Ontology/doc/index-en.html [R=303,L]
 RewriteRule ^crgo-full$ https://itriskmgr.github.io/CyberRiskGuardian-Ontology/ [R=303,L]
+RewriteRule ^(crgo|crgo-[a-z]+)$ https://itriskmgr.github.io/CyberRiskGuardian-Ontology/doc/index-en.html [R=303,L]
 
 # --- Files served as Turtle whatever the request -----------------------------------------------------
 # Version IRIs: the file at the release tag (https://w3id.org/crgo/0.4.0/crgo-core -> tag v0.4.0)
-RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(crgo|crgo-gov|crgo-core|crgo-measure|crgo-crg|crgo-full)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/v$1/ontology/$2.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(crgo|crgo-[a-z]+)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/v$1/ontology/$2.ttl [R=303,L]
 RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/([a-z0-9-]+)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/v$1/ontology/vocab/$2.ttl [R=303,L]
 # Vocabularies and their concepts (https://w3id.org/crgo/vocab/csf2/PR.AA-05 -> the csf2 vocabulary)
 RewriteRule ^vocab/([a-z0-9-]+)(/.*)?$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/ontology/vocab/$1.ttl [R=303,L]
 # Scenario library and its individuals
+RewriteRule ^data/library-proposed$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/data/abox/crgo-library-proposed.ttl [R=303,L]
 RewriteRule ^data/library(/.*)?$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/data/abox/crgo-library.ttl [R=303,L]
 # SHACL shapes and imports
 RewriteRule ^shapes(/.*)?$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/shapes/crgo-shapes.ttl [R=303,L]
-RewriteRule ^imports/cco-slice$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/imports/cco-slice.ttl [R=303,L]
+RewriteRule ^imports/([a-z]+-slice)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/imports/$1.ttl [R=303,L]
+# 0.9.0 GRCA: illustrative work programmes, versioned data files, DSS contract schemas (JSON)
+RewriteRule ^data/([0-9]+\.[0-9]+\.[0-9]+)/([a-z-]+)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/v$1/data/abox/crgo-$2.ttl [R=303,L]
+RewriteRule ^data/workprogrammes(/.*)?$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/data/abox/crgo-workprogrammes.ttl [R=303,L]
+RewriteRule ^contracts/([a-z]+)/(v[0-9]+)/([a-z0-9.-]+\.json)$ https://raw.githubusercontent.com/ITriskMgr/CyberRiskGuardian-Ontology/main/contracts/$1/$2/$3 [R=303,L]
