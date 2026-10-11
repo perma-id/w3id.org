@@ -47,6 +47,7 @@ https://natural-language-to-logic.aalto.fi/context/nltl_benchmark_context.jsonld
 Saad Ahmed Rana  
 Aalto University  
 GitHub: https://github.com/saadahmedrana
+Email:saad.rana@aalto.fi
 
 Haitham Al-Shami  
 Aalto University
