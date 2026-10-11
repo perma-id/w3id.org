@@ -7,10 +7,10 @@ The redirects point at the project's GitHub Pages site.
 | IRI | Redirects to |
 |---|---|
 | `https://w3id.org/fraternal` | the ontology: Turtle for RDF clients, HTML documentation for browsers |
-| `https://w3id.org/fraternal/1.0.0` | version 1.0.0 of the ontology (Turtle) |
 | `https://w3id.org/fraternal/code`, `…/code/<concept>` | the codelists (Turtle) |
 | `https://w3id.org/fraternal/shapes` | SHACL shapes (Turtle) |
 | `https://w3id.org/fraternal/mappings/<set>` | generated SSSOM mapping set (Turtle) |
+| `https://w3id.org/fraternal/<version>`, `…/code/<version>`, `…/shapes/<version>` | the frozen copy of that release, e.g. `…/1.0.0` (Turtle) |
 
 Source: https://github.com/society-ontologies/membership-fraternal
 
