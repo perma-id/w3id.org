@@ -1,0 +1,44 @@
+# # /koine/
+#
+# Koine -- an agnostic neuro-symbolic interchange fabric. A set of open
+# specifications by which any conformant producer, consumer, authority, host, or
+# provider exchanges identity, knowledge, media, and capability. Contracts only:
+# there is no runtime code under this namespace.
+#
+# https://w3id.org/koine/ and everything beneath it redirects to the
+# specifications' canonical documentation host:
+#
+#     https://github.com/danieldekerlegand/koine
+#
+# The most-used identifiers under this namespace are the Koine Capability-Bus
+# Protocol (KCB) manifest extension URIs, for example
+#
+#     https://w3id.org/koine/kcb/manifest/0.3
+#
+# which a consumer string-matches to locate the KCB manifest entry inside an A2A
+# AgentCard's capabilities.extensions[] array. Those are *identifying* URIs
+# rather than fetch targets, so they must stay stable independently of any
+# private domain registration -- which is why they live here.
+#
+# ## Contact
+# This space is administered by:
+#
+# Daniel DeKerlegand
+# dldekerl@gmail.com
+# GitHub username: danieldekerlegand
+
+RewriteEngine on
+
+# The KCB manifest AgentCard-extension URI family: /koine/kcb/manifest/<version>
+RewriteRule ^kcb/manifest(/[^/]*)?/?$ https://github.com/danieldekerlegand/koine/blob/main/specs/capability-bus.md#2-the-capability-manifest [R=302,L]
+
+# One rule per specification: /koine/<abbreviation>/...
+RewriteRule ^kinp(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/identity.md [R=302,L]
+RewriteRule ^kgp(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/grounding-pack.md [R=302,L]
+RewriteRule ^kcb(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/capability-bus.md [R=302,L]
+RewriteRule ^kmi(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/media-interchange.md [R=302,L]
+RewriteRule ^kcs(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/conformance-scenario.md [R=302,L]
+RewriteRule ^kft(/.*)?$ https://github.com/danieldekerlegand/koine/blob/main/specs/fine-tuning.md [R=302,L]
+
+# Catch-all: anything else under /koine/ resolves to the specification repository.
+RewriteRule ^(.*)$ https://github.com/danieldekerlegand/koine [R=302,L]

@@ -1,0 +1,61 @@
+# Turn off MultiViews
+Options -MultiViews
+# Rewrite engine setup
+RewriteEngine On
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+
+# ===============================
+# HTML representation
+# ===============================
+# Versioned IRI to the respective HTML representation
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/$1/ [R=303,L]
+
+# Unversioned IRIs to latest HTML representation
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ [R=303,L]
+
+# Term IRIs (unversioned) to latest version HTML representation
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^([A-Za-z][A-Za-z0-9_-]*)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ [R=303,L]
+
+# ===============================
+# Turtle representation
+# ===============================
+# Versioned IRI to the respective Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/$1/ttl/languageDCAT-AP.ttl [R=303,L]
+
+# Unversioned IRIs to latest Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ttl/languageDCAT-AP.ttl [R=303,L]
+
+# Term IRIs (unversioned) to latest Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([A-Za-z][A-Za-z0-9_-]*)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ttl/languageDCAT-AP.ttl [R=303,L]
+
+# ===============================
+# Generic RDF fallback
+# ===============================
+# Versioned IRI to the respective Turtle representation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|application/ld\+json [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/$1/ttl/languageDCAT-AP.ttl [R=303,L]
+
+# Unversioned IRIs to latest Turtle representation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|application/ld\+json [NC]
+RewriteRule ^$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ttl/languageDCAT-AP.ttl [R=303,L]
+
+# Term IRIs (unversioned) to latest Turtle representation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|text/turtle|application/ld\+json [NC]
+RewriteRule ^([A-Za-z][A-Za-z0-9_-]*)/?$ https://languagedcat-ap.github.io/LanguageDCAT-AP/releases/0.9.5/ttl/languageDCAT-AP.ttl [R=303,L]

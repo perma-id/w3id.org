@@ -1,0 +1,73 @@
+# This namespace is maintained by Empa, Materials for Energy Conversion.
+# https://github.com/EmpaEconversion/catalysis-data-format-ontology
+#
+# Current maintainers are:
+# Corsin Battaglia (https://github.com/CorsinBattaglia) - Empa
+# Graham Kimbell (https://github.com/g-kimbell) - Empa
+#
+# Catalysis Data Format (CDF), a tabular format for electrochemical catalysis
+# time-series data, extending the Battery Data Format (BDF).
+
+Options +FollowSymLinks
+RewriteEngine On
+
+Header set Access-Control-Allow-Origin *
+
+# ==============================================
+# Non-versioned
+# ==============================================
+
+# [R1] /ontology -> the rendered term reference for browsers with anchors for terms.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/ [R=303,NE,L]
+
+# [R2] /ontology -> JSON-LD context when explicitly requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/context/context.json [R=303,NE,L]
+
+# [R3] /ontology -> Turtle fallback for all other agents
+RewriteRule ^ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/catalysis-data-format.ttl [R=303,NE,L]
+
+# [R4] /context
+RewriteRule ^context/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/context/context.json [R=303,NE,L]
+
+# [R5] /schema/vendors/{vendor} -- must precede R6
+RewriteRule ^schema/vendors/([^/]+)/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/schema/vendors/$1.json [R=303,NE,L]
+
+# [R6] /schema
+RewriteRule ^schema/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/schema/schema.json [R=303,NE,L]
+
+# [R7] /source -> Turtle from the default branch
+RewriteRule ^source/?$ https://raw.githubusercontent.com/EmpaEconversion/catalysis-data-format-ontology/main/catalysis-data-format.ttl [R=303,NE,L]
+
+# ==============================================
+# Versioned
+# ==============================================
+
+# [R8] /{version}/ontology -> HTML for browsers
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/ [R=303,NE,L]
+
+# [R9] /{version}/ontology -> JSON-LD context when explicitly requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/context/context.json [R=303,NE,L]
+
+# [R10] /{version}/ontology -> Turtle fallback
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/ontology/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/catalysis-data-format.ttl [R=303,NE,L]
+
+# [R11] /{version}/context
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/context/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/context/context.json [R=303,NE,L]
+
+# [R12] /{version}/schema/vendors/{vendor} -- must precede R13
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/schema/vendors/([^/]+)/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/schema/vendors/$2.json [R=303,NE,L]
+
+# [R13] /{version}/schema
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/schema/?$ https://empaeconversion.github.io/catalysis-data-format-ontology/versions/$1/schema/schema.json [R=303,NE,L]
+
+# ==============================================
+# Catch-all
+# ==============================================
+
+RewriteRule ^(.*)$ https://empaeconversion.github.io/catalysis-data-format-ontology/$1 [R=303,NE,L]

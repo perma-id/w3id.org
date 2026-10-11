@@ -1,0 +1,42 @@
+# /extendedmatrix/
+#
+# Permanent identifiers for the Extended Matrix ecosystem: an open
+# methodology and toolchain for archaeological and palaeontological
+# stratigraphy, source documentation and virtual reconstruction.
+# https://extendedmatrix.org
+#
+# Targets resolve to extendedmatrix.org, a static site.
+#
+# ## Contact
+# This space is administered by:
+#
+# Emanuele Demetrescu — CNR-ISPC (Institute of Heritage Science, Italy)
+# emanuel.demetrescu@cnr.it
+# ORCID 0000-0002-5065-7970
+# GitHub username: zalmoxes-laran
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ EM_SITE=https://extendedmatrix.org
+
+# ── vocabulary modules ────────────────────────────────────────────────
+# /vocab/<module>/           a SKOS module
+# /vocab/<module>/<concept>  a concept within it (slash URIs)
+# Browsers (Accept: text/html) get the human-readable page; every other
+# client gets Turtle.
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^vocab/([a-z0-9-]+)/([A-Za-z0-9._-]+)$ %{ENV:EM_SITE}/vocab/$1/#$2 [R=303,L,NE]
+RewriteRule ^vocab/([a-z0-9-]+)/([A-Za-z0-9._-]+)$ %{ENV:EM_SITE}/vocab/$1/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^vocab/([a-z0-9-]+)/?$ %{ENV:EM_SITE}/vocab/$1/ [R=303,L]
+RewriteRule ^vocab/([a-z0-9-]+)/?$ %{ENV:EM_SITE}/vocab/$1/$1.ttl [R=303,L]
+
+RewriteRule ^vocab/?$ %{ENV:EM_SITE}/vocab/ [R=302,L]
+
+# ── everything else under the prefix ──────────────────────────────────
+RewriteRule ^$ %{ENV:EM_SITE}/ [R=302,L]
+RewriteRule ^(.*)$ %{ENV:EM_SITE}/$1 [R=302,L]

@@ -1,0 +1,18 @@
+# w3id.org/gelmat — Gelmat: An Ontology for Sol-Gel Materials
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Version IRIs, e.g. https://w3id.org/gelmat/1.1.0 ---------------------
+# Machine-readable formats -> the tagged ontology file
+RewriteCond %{HTTP_ACCEPT} text/turtle|application/rdf\+xml|application/owl\+xml|application/ld\+json|application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/dlr-wf/Gelmat-Ontology/v$1/gelmat.ttl [R=303,L]
+# Browsers -> the release page
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/dlr-wf/Gelmat-Ontology/releases/tag/v$1 [R=303,L]
+
+# --- Ontology IRI and term IRIs, e.g. https://w3id.org/gelmat/Density -----
+# Machine-readable formats -> the current ontology file
+RewriteCond %{HTTP_ACCEPT} text/turtle|application/rdf\+xml|application/owl\+xml|application/ld\+json|application/n-triples
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/dlr-wf/Gelmat-Ontology/main/gelmat.ttl [R=303,L]
+
+# Default (browsers) -> the HTML documentation
+RewriteRule ^(.*)$ https://dlr-wf.github.io/Gelmat-Ontology/ [R=303,L]

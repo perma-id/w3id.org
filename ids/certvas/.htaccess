@@ -1,0 +1,42 @@
+# # /certvas/
+#
+# Permanent identifiers for the Certvas Ontology, a CC0 LinkML schema describing company,
+# fundamentals, procurement and macro data for African and emerging markets.
+#
+# https://w3id.org/certvas/ontology redirects to
+# https://certvas-ontology.pages.dev/
+#
+# Redirects are 302, not 301: the IRI is permanent, but where it points today is not, and a
+# cached permanent redirect would make a future change of host take years to clear.
+#
+# ## Contact
+# This space is administered by:
+#
+# Rebaone Theo Mandase
+# GitHub username: KingMandase
+# mandase@certvas.com
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Content negotiation: machine formats first, human documentation as the fallback.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/certvas.context.jsonld [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-yaml
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/certvas-ontology.yaml [R=302,L]
+
+# Explicit extensions, for links that should bypass negotiation.
+RewriteRule ^ontology\.yaml$   https://certvas-ontology.pages.dev/certvas-ontology.yaml [R=302,L]
+RewriteRule ^ontology\.jsonld$ https://certvas-ontology.pages.dev/certvas.context.jsonld [R=302,L]
+RewriteRule ^ontology\.json$   https://certvas-ontology.pages.dev/certvas.schema.json [R=302,L]
+RewriteRule ^ontology\.sql$    https://certvas-ontology.pages.dev/certvas.sql [R=302,L]
+
+# Per-term IRIs: /ontology/Fundamentals resolves to that term's documentation page.
+RewriteRule ^ontology/([A-Za-z_][A-Za-z0-9_]*)$ https://certvas-ontology.pages.dev/$1 [R=302,L]
+
+RewriteRule ^ontology/?$ https://certvas-ontology.pages.dev/ [R=302,L]
+RewriteRule ^/?$         https://certvas.com/ontology [R=302,L]

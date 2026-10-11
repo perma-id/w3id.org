@@ -1,0 +1,31 @@
+# w3id.org/gridalyn -- persistent identifiers for the vocabularies of the
+# gridalyn SDK (https://github.com/lirei-lab/gridalyn).
+#
+# Maintainer: Nilson Henao <lirei.info@uqtr.ca> (GitHub: @nilsonfh)
+# The source of this file is tools/w3id/gridalyn/ in the gridalyn repository.
+#
+# Each vocabulary is a hash namespace, e.g.
+# https://w3id.org/gridalyn/ontology/flexint#CurtailmentContract. The fragment
+# never reaches the server: a rule matches the vocabulary path, and the client
+# re-applies the fragment to the page it is redirected to, where every term has
+# an anchor of its own. GitHub Pages does no content negotiation, so Turtle and
+# HTML are redirected to separate files here.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turtle, for RDF clients
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/digital-twin/?$ https://lirei.ca/gridalyn/ontology/digital-twin.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/flexint/?$ https://lirei.ca/gridalyn/ontology/flexint.ttl [R=303,L]
+
+# HTML, for everything else
+RewriteRule ^ontology/digital-twin/?$ https://lirei.ca/gridalyn/reference/ontology/digital-twin/ [R=303,L]
+RewriteRule ^ontology/flexint/?$ https://lirei.ca/gridalyn/reference/ontology/flexint/ [R=303,L]
+
+# The project itself
+RewriteRule ^$ https://lirei.ca/gridalyn/ [R=302,L]

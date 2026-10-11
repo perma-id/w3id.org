@@ -1,0 +1,29 @@
+# CCICO namespace — https://w3id.org/ccico/
+# Chinese Clinical Informed Consent Ontology (CCICO)
+# Maintainer: Shijie Song (Associate Professor), ssong@hhu.edu.cn
+# GitHub: @waibihuccc
+# Affiliations: Hohai University Business School; Wuhan University School of Information Management; Nanjing University Institute of Health Informatics
+# License: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Bare namespace -> repository homepage (human-readable)
+RewriteRule ^$ https://github.com/waibihuccc/ccico [R=302,L]
+
+# Current ontology snapshot
+RewriteRule ^ccico\.owl$ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.owl [R=302,L]
+RewriteRule ^ccico\.ttl$ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.ttl [R=302,L]
+
+# Versioned release (versionIRI = 0.9.0-dev)
+RewriteRule ^releases/0\.9\.0-dev/ccico\.owl$ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.owl [R=302,L]
+RewriteRule ^releases/0\.9\.0-dev/ccico\.ttl$ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.ttl [R=302,L]
+
+# Imports / modules (content inlined in ccico.owl); redirect to full snapshot for resolvability
+RewriteRule ^(releases/0\.9\.0-dev/)?(imports|modules)/.*\.owl$ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.owl [R=302,L]
+
+# Entity IRI subspaces -> defining ontology document
+RewriteRule ^(md|to|bridge|annotation|instance)/ https://raw.githubusercontent.com/waibihuccc/ccico/main/ccico.owl [R=302,L]
+
+# Fallback
+RewriteRule ^(.*)$ https://github.com/waibihuccc/ccico [R=302,L]
