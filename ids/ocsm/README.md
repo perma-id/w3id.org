@@ -6,3 +6,5 @@ References:
 
 Contacts: 
 * Raul Palma <rpalma@man.poznan.pl>
+
+Maintainer: [rapw3k](https://github.com/rapw3k)
