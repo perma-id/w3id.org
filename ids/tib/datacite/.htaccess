@@ -3,6 +3,14 @@ RewriteEngine on
 # Namespace landing page
 RewriteRule ^$ https://tibhannover.github.io/datacite/ [R=302,L]
 
+# Turtle for clients that ask for it (Accept: text/turtle); everyone else gets JSON-LD below
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(class|property)/([^/.]+)$ https://tibhannover.github.io/datacite/$1/$2.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocab/([^/.]+)$ https://tibhannover.github.io/datacite/vocab/$1/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocab/([^/]+)/([^/.]+)$ https://tibhannover.github.io/datacite/vocab/$1/$2.ttl [R=303,L]
+
 # RDF classes and properties
 RewriteRule ^class/([^/.]+)$ https://tibhannover.github.io/datacite/class/$1.jsonld [R=303,L]
 RewriteRule ^property/([^/.]+)$ https://tibhannover.github.io/datacite/property/$1.jsonld [R=303,L]
@@ -18,5 +26,5 @@ RewriteRule ^vocab/([^/]+)/([^/.]+)$ https://tibhannover.github.io/datacite/voca
 # Concrete JSON-LD files under class/property/vocab, if requested directly
 RewriteRule ^(class|property|vocab)/(.*\.jsonld)$ https://tibhannover.github.io/datacite/$1/$2 [R=302,L]
 
-# Concrete supporting documents
-RewriteRule ^(context|manifest|dist)/(.*)$ https://tibhannover.github.io/datacite/$1/$2 [R=302,L]
+# Concrete supporting documents, mapping sets, SHACL shapes and JSON Schemas
+RewriteRule ^(context|manifest|dist|mappings|shapes|schema-profiles)/(.*)$ https://tibhannover.github.io/datacite/$1/$2 [R=302,L]

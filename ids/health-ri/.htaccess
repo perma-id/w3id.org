@@ -14,24 +14,27 @@ RewriteEngine On
 # RESOURCES' VERSIONING
 # --------------------------------------------------------------------------------------------------------------
 
+# Both /metadata and /metadata-schema are supported; existing destinations are unchanged.
+
 # Latest release
-RewriteRule ^metadata/releases/(latest|current)/?$ https://github.com/Health-RI/health-ri-metadata/releases/latest [R=302,L]
+RewriteRule ^metadata(?:-schema)?/releases/(latest|current)/?$ https://github.com/Health-RI/health-ri-metadata/releases/latest [R=302,L]
 
 # All releases
-RewriteRule ^metadata/releases/?$ https://github.com/Health-RI/health-ri-metadata/releases [R=302,L]
+RewriteRule ^metadata(?:-schema)?/releases/?$ https://github.com/Health-RI/health-ri-metadata/releases [R=302,L]
 
 # Specific release (single path segment)
-RewriteRule ^metadata/releases/([^/]+)/?$ https://github.com/Health-RI/health-ri-metadata/releases/tag/$1 [R=302,L]
+RewriteRule ^metadata(?:-schema)?/releases/([^/]+)/?$ https://github.com/Health-RI/health-ri-metadata/releases/tag/$1 [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
 # RESOURCES' HOMEPAGES
 # --------------------------------------------------------------------------------------------------------------
 
 # Health-RI Metadata Schema
-RewriteRule ^metadata/?$ https://health-ri.github.io/metadata-documentation/ [R=302,L]
-RewriteRule ^metadata/(doc|docs|documentation)/?$ https://health-ri.github.io/metadata-documentation/ [R=302,L]
-RewriteRule ^metadata/(doc|docs|documentation)/(git|repo)/?$ https://github.com/Health-RI/metadata-documentation/ [R=302,L]
-RewriteRule ^metadata/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata/ [R=302,L]
+# Both /metadata and /metadata-schema are supported; existing destinations are unchanged.
+RewriteRule ^metadata(?:-schema)?/?$ https://health-ri.github.io/metadata-documentation/ [R=302,L]
+RewriteRule ^metadata(?:-schema)?/(doc|docs|documentation)/?$ https://health-ri.github.io/metadata-documentation/ [R=302,L]
+RewriteRule ^metadata(?:-schema)?/(doc|docs|documentation)/(git|repo)/?$ https://github.com/Health-RI/metadata-documentation/ [R=302,L]
+RewriteRule ^metadata(?:-schema)?/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata/ [R=302,L]
 
 # Health-RI Semantic Interoperability
 RewriteRule ^semantic-interoperability/?$ https://health-ri.github.io/semantic-interoperability/ [R=302,L]
@@ -216,6 +219,74 @@ RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/he
 # Representations
 RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/ttl/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/health-ri-vocabulary-v$1.ttl [R=302,L]
 RewriteRule ^mapping-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification)/?$ https://raw.githubusercontent.com/Health-RI/semantic-interoperability/refs/heads/main/vocabulary/versioned/documentations/specification-v$1.html [R=302,L]
+
+# --------------------------------------------------------------------------------------------------------------
+# METADATA VOCABULARY — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/metadata-vocabulary
+# Representation URIs:        .../metadata-vocabulary/ttl | .../metadata-vocabulary/spec
+# Term namespace:             https://w3id.org/health-ri/metadata-vocabulary#
+# Clients preserve term fragments through redirects to the latest PyLODE HTML anchors.
+# Negotiation uses fixed media-type precedence, not Accept quality-value ranking.
+# --------------------------------------------------------------------------------------------------------------
+
+# --- Latest/current aliases and repository ---
+# Aliases retain negotiation or the explicitly requested destination.
+RewriteRule ^metadata-vocabulary/(latest|current)/?$ https://w3id.org/health-ri/metadata-vocabulary [R=302,L]
+RewriteRule ^metadata-vocabulary/(latest|current)/(ttl|shacl|example|spec|specification|doc|docs|documentation)/?$ https://w3id.org/health-ri/metadata-vocabulary/$2 [R=302,L]
+RewriteRule ^metadata-vocabulary/(git|repo)/?$ https://github.com/Health-RI/health-ri-metadata-vocabulary [R=302,L]
+
+# Explicit Turtle requests take precedence over HTML when both are advertised.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^metadata-vocabulary/?$ https://w3id.org/health-ri/metadata-vocabulary/ttl [R=303,L]
+
+# HTML requests, including normal browser requests.
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^metadata-vocabulary/?$ https://w3id.org/health-ri/metadata-vocabulary/spec [R=303,L]
+
+# Default representation, including absent Accept and */*.
+RewriteRule ^metadata-vocabulary/?$ https://w3id.org/health-ri/metadata-vocabulary/ttl [R=303,L]
+
+# --- Representation URIs: latest vocabulary files/docs ---
+# Pages publishes vocabulary/latest/index.html; archived HTML is not published there.
+RewriteRule ^metadata-vocabulary/ttl/?$ https://raw.githubusercontent.com/Health-RI/health-ri-metadata-vocabulary/refs/heads/main/vocabulary/latest/health-ri-metadata-vocabulary.ttl [R=302,L]
+RewriteRule ^metadata-vocabulary/(spec|specification|doc|docs|documentation)/?$ https://health-ri.github.io/health-ri-metadata-vocabulary/ [R=302,L]
+
+# --- Supporting artifacts (not alternative vocabulary representations) ---
+RewriteRule ^metadata-vocabulary/shacl/?$ https://raw.githubusercontent.com/Health-RI/health-ri-metadata-vocabulary/refs/heads/main/validation/health-ri-metadata-shapes.ttl [R=302,L]
+RewriteRule ^metadata-vocabulary/example/?$ https://raw.githubusercontent.com/Health-RI/health-ri-metadata-vocabulary/refs/heads/main/examples/health-condition-of-interest.ttl [R=302,L]
+
+# Named examples: accept the filename with or without .ttl and deliver Turtle.
+# Each name must correspond to an existing file in the repository's examples folder.
+RewriteRule ^metadata-vocabulary/example/([A-Za-z0-9][A-Za-z0-9._-]*?)(?:\.ttl)?/?$ https://raw.githubusercontent.com/Health-RI/health-ri-metadata-vocabulary/refs/heads/main/examples/$1.ttl [R=302,L]
+
+# Examples folder: use the personal fork explicitly requested for this directory link.
+RewriteRule ^metadata-vocabulary/examples/?$ https://github.com/pedropaulofb/health-ri-metadata-vocabulary/tree/main/examples/ [R=302,L]
+
+# --------------------------------------------------------------------------------------------------------------
+# VERSIONED METADATA VOCABULARY (vX.Y.Z) — CONTENT NEGOTIATION + REPRESENTATION URIs
+# About URI (negotiated):     https://w3id.org/health-ri/metadata-vocabulary/v0.2.1
+# Representation URIs:        .../metadata-vocabulary/v0.2.1/ttl | .../metadata-vocabulary/v0.2.1/spec
+# Term IRIs remain unversioned.
+# --------------------------------------------------------------------------------------------------------------
+
+# Explicit Turtle requests take precedence over HTML when both are advertised.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^metadata-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/metadata-vocabulary/v$1/ttl [R=303,L]
+
+# HTML requests.
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^metadata-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/metadata-vocabulary/v$1/spec [R=303,L]
+
+# Default representation, including absent Accept and */*.
+RewriteRule ^metadata-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://w3id.org/health-ri/metadata-vocabulary/v$1/ttl [R=303,L]
+
+# --- Representation URIs: versioned vocabulary files/docs ---
+# Snapshots use flat, versioned filenames.
+# Archived HTML opens in GitHub file view, not as a rendered historical Pages site.
+RewriteRule ^metadata-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/ttl/?$ https://raw.githubusercontent.com/Health-RI/health-ri-metadata-vocabulary/refs/heads/main/vocabulary/versioned/health-ri-metadata-vocabulary-v$1.ttl [R=302,L]
+RewriteRule ^metadata-vocabulary/v([0-9]+\.[0-9]+\.[0-9]+)/(spec|specification|doc|docs|documentation)/?$ https://github.com/Health-RI/health-ri-metadata-vocabulary/blob/main/vocabulary/versioned/health-ri-metadata-vocabulary-v$1.html [R=302,L]
 
 # --------------------------------------------------------------------------------------------------------------
 # DOCUMENTS

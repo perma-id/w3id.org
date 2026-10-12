@@ -21,6 +21,8 @@ alone.
 |---|---|
 | `/` | 303 to the explorer, `https://worldhistoricalgazetteer.github.io/epns/`. |
 | `/downloads` | 303 to the downloads page. |
+| `/release/{name}` | 303 to that data release's page (`/release/data-2026-09-28`). Each release is a frozen snapshot of the gazetteer, never regenerated in place, and its data names this IRI as its gazetteer, with `isVersionOf` the namespace root and `previousVersion` the release before. |
+| `/release/{name}/{file}` | 303 to one file of that release, fixed for good: `/release/data-2026-09-28/deep-plato.nt.gz`. |
 | `/data/plato`, `/data/plato-counties`, `/data/rdf`, `/data/parquet`, `/data/duckdb`, `/data/lpf`, `/data/lpf-counties`, `/data/manifest` | 303 to the corresponding whole-corpus file of the **latest** data release (`/releases/latest/download/…`), so a regeneration needs no change here. The manifest names the PLATO release each file was validated against and the sha256 of every file. |
 | `/{county}/{serial}` | Content-negotiated, 303: `text/html` → the record on the map; `application/ld+json` or `application/json` → the record as a PLATO place-centric document (lossless); `application/geo+json` → the record as a Linked Places Format FeatureCollection (lossy; the site states what is lost); `application/xml` or `text/xml` → the original MADS element from the DEEP file; `*/*` or no `Accept` → PLATO, for the reasons given in the `.htaccess`. |
 | `/{county}/{serial}.html`, `.json`, `.geojson`, `.xml` | The same four targets by explicit suffix, which wins over any `Accept` header. |

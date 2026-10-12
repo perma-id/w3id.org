@@ -81,7 +81,19 @@ SetEnvIf Request_URI ^.*$ MBB_TREE=https://github.com/Cross-Domain-Interoperabil
 #   XAS_PAGES/concepts/  = per-concept JSON-LD files ({localname}.jsonld)
 #   XAS_PAGES/XAS_{edges,emissionlines,detectionmodes}_SKOS.json
 #                        = the three value-list vocabularies, whole-file
-SetEnvIf Request_URI ^.*$ XAS_PAGES=https://smrgeoinfo.github.io/XAS-CDIF
+#
+# Moved from smrgeoinfo.github.io to the CDIF-4-XAS organisation on
+# 2026-09-29, once Pages was enabled there from the gh-pages branch. This was
+# the only base in this file resolving through an individual's account rather
+# than an organisation, which left a set of permanent identifiers depending on
+# one person's repository.
+#
+# The organisation site was confirmed serving before this was changed: the
+# index, all three value-list vocabularies and a per-concept file each return
+# 200, and the glossary, the edges vocabulary and concepts/facility.jsonld are
+# byte-identical between the two sites. A redirect moved before its target
+# serves gives a 303 to a 404, which is worse than leaving it where it was.
+SetEnvIf Request_URI ^.*$ XAS_PAGES=https://cdif-4-xas.github.io/XAS-CDIF
 
 # ============================================================
 # Conformance URIs: /cdif/{component}/{version}/
