@@ -13,7 +13,7 @@ Identifiers:
 Each answers by the Accept header: text/turtle and application/ld+json get RDF, anything else the HTML page.
 
 Homepage:
-* https://nakamura196.github.io/railclass/
+* https://railclass.ldas.jp/
 
 Source:
 * https://github.com/nakamura196/railclass
