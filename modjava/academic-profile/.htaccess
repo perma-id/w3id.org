@@ -1,0 +1,32 @@
+# w3id.org redirect rules for the Academic Profile Ontology (APO)
+# Persistent IRI: https://w3id.org/modjava/academic-profile  (hash namespace, terms are #Fragment)
+# Version IRIs:   https://w3id.org/modjava/academic-profile/<MAJOR.MINOR.PATCH>
+# Targets live in the GitHub repository Modjava-Inc/jenniferbethell; "main" serves the latest, tags serve versions.
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- version IRIs: /academic-profile/1.0.0  (serialisation by Accept header; release assets are tagged files)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/v$1/docs/onto/ontology/apo.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/v$1/docs/onto/release/apo-v$1/ontology/apo-v$1.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/v$1/docs/onto/ontology/apo.ttl [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/Modjava-Inc/jenniferbethell/releases/tag/v$1 [R=303,L]
+
+# --- documentation and shapes
+RewriteRule ^docs/?$ https://github.com/Modjava-Inc/jenniferbethell/tree/main/docs/onto/documentation [R=303,L]
+RewriteRule ^shapes/?$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/ontology/apo-shapes.ttl [R=303,L]
+
+# --- the ontology IRI itself (and any #fragment request, which arrives as the bare IRI)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/ontology/apo.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/release/apo-v1.0.0/ontology/apo-v1.0.0.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/ontology/apo.ttl [R=303,L]
+RewriteRule ^$ https://github.com/Modjava-Inc/jenniferbethell/blob/main/docs/onto/documentation/bethell-profile-README.md [R=303,L]

@@ -1,0 +1,16 @@
+# w3id.org redirect rules for the Jennifer Bethell data module of APO
+# Persistent IRI: https://w3id.org/modjava/bethell  (slash namespace; individuals are /bethell/<LocalName>)
+Options +FollowSymLinks
+RewriteEngine on
+
+# individual IRIs: RDF clients get the whole data module (Turtle/RDF-XML); browsers get the entity page in the web application when it is hosted, else the Turtle file
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/release/apo-v1.0.0/ontology/bethell-data-v1.0.0.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/release/apo-v1.0.0/ontology/bethell-data-v1.0.0.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/Modjava-Inc/jenniferbethell/main/docs/onto/ontology/jb.ttl [R=303,L]
+RewriteRule ^$ https://github.com/Modjava-Inc/jenniferbethell/blob/main/docs/onto/sources/README.md [R=303,L]
+RewriteRule ^(.+)$ https://github.com/Modjava-Inc/jenniferbethell/blob/main/docs/onto/ontology/jb.ttl [R=303,L]
