@@ -16,31 +16,33 @@ The ontology is developed and maintained at
 | `https://w3id.org/hcmo/ontology/hcm/env#` | Environmental module |
 | `https://w3id.org/hcmo/ontology/hcm/obs#` | Observational module |
 | `https://w3id.org/hcmo/ontology/hcm/tech#` | Technology module |
-| `https://w3id.org/hcmo/ontology/hcm/<version>` | Version IRI (e.g. `/0.2.0`) |
+| `https://w3id.org/hcmo/ontology/hcm/<version>` | Version IRI (e.g. `/0.4.1`) |
+| `https://w3id.org/hcmo/id/vocab/<scheme>[/<concept>]` | SKOS vocabulary of the scheme (file formats, data-access methods, vendors, systems) |
+| `https://w3id.org/hcmo/ontology/profile/bfo-sosa-bridge` | Optional BFO/SOSA bridge profile |
+| `https://w3id.org/hcmo/ontology/external/upper-presentation` | Upper-level presentation module |
 
 ## Content negotiation
 
-Requests to the ontology IRI are redirected (HTTP `303`) according to the
-`Accept` header. RDF is served from **GitHub Release assets**:
+Requests are redirected (HTTP `303`) according to the `Accept` header. RDF is
+served from **GitHub Pages** (`https://dhuzard.github.io/HCMO/`), which holds
+byte-identical copies of the GitHub release assets and serves them with RDF
+media types. (GitHub release downloads are served as
+`application/octet-stream`, which RDF crawlers such as LOV do not parse.)
 
 | `Accept` | Latest (`…/hcm`) | Versioned (`…/hcm/<version>`) |
 | --- | --- | --- |
 | `text/html` (browsers) | WIDOCO docs on GitHub Pages | release page `releases/tag/v<version>` |
-| `application/rdf+xml` | `releases/latest/download/hcmo.owl` | `releases/download/v<version>/hcmo.owl` |
-| `text/turtle` (default) | `releases/latest/download/hcmo.ttl` | `releases/download/v<version>/hcmo.ttl` |
-| `application/ld+json` | `releases/latest/download/hcmo.json` | `releases/download/v<version>/hcmo.json` |
+| `application/rdf+xml` | `dist/latest/hcmo.owl` | `dist/<version>/hcmo.owl` |
+| `text/turtle` (default) | `dist/latest/hcmo.ttl` | `dist/<version>/hcmo.ttl` |
+| `application/ld+json` | `dist/latest/hcmo.jsonld` | `dist/<version>/hcmo.jsonld` |
 
 The merged distributions contain all modules, so the `bio`/`env`/`obs`/`tech`
 module IRIs resolve to the same merged graph. A version segment is any path
-segment beginning with a digit (e.g. `…/hcm/0.2.0`) and is mapped to the GitHub
-release tag `v<version>`.
-
-## Current release
-
-HCMO `0.2.0` is published as GitHub release `v0.2.0`. The version IRI
-`https://w3id.org/hcmo/ontology/hcm/0.2.0` resolves to the matching release
-artifacts, while the unversioned ontology and module IRIs resolve to the latest
-release.
+segment beginning with a digit (e.g. `…/hcm/0.4.1`); it matches the GitHub
+release tag `v<version>` and the Pages folder `dist/<version>/`. Vocabulary
+IRIs (scheme or concept) resolve to `vocab/<scheme>.ttl`; browsers are sent to
+the vocabularies folder of the repository. The Pages copies are produced by the
+HCMO documentation workflow (`tooling/publish_rdf.py`).
 
 ## Contact
 
