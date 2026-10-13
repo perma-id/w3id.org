@@ -1,17 +1,18 @@
 # TWB: the Thin-Walled Blueprint ontology, its modules and its JSON-LD contexts
 # https://github.com/MadsHolten/arch
 #
-# The ontology and its modules (hash namespaces), served by content negotiation:
-#   https://w3id.org/twb                -> twb.ttl            (browser: the data model page)
-#   https://w3id.org/twb/shapes         -> twb-shapes.ttl
-#   https://w3id.org/twb/doc            -> twb-doc.ttl
-#   https://w3id.org/twb/align          -> twb-align.ttl
+# TWB is modular, as SEAS is: one namespace (https://w3id.org/twb#), and each module an ontology
+# of its own at https://w3id.org/twb/{module} (core, construction, detailing, requirements,
+# profile, decision, derivation, housefile, doc; beside them shapes, align and catalogue/arch).
+# https://w3id.org/twb imports every module. Served by content negotiation:
+#   https://w3id.org/twb                -> twb.ttl              (browser: the data model page)
+#   https://w3id.org/twb/{module}       -> twb-{module}.ttl     (browser: the module on that page)
 #   https://w3id.org/twb/catalogue/arch -> twb-catalogue.ttl
 # A browser (text/html) goes to https://twb.madsholten.dk/en/datamodel/; anything else gets Turtle.
-# The suffixed forms (twb.ttl, shapes.ttl, ...) always give Turtle.
+# The suffixed forms (twb.ttl, core.ttl, ...) always give Turtle.
 #
 # The JSON-LD context of the TWB house file, by version:
-#   https://w3id.org/twb/context/1.jsonld -> https://twb.madsholten.dk/context/1.jsonld
+#   https://w3id.org/twb/context/{n}.jsonld -> https://twb.madsholten.dk/context/{n}.jsonld
 #
 # Maintainer: Mads Holten Rasmussen, GitHub username: MadsHolten
 
@@ -23,15 +24,21 @@ RewriteRule ^context/([0-9]+)\.jsonld$ https://twb.madsholten.dk/context/$1.json
 
 # Explicit Turtle
 RewriteRule ^twb\.ttl$ https://twb.madsholten.dk/ontology/twb.ttl [R=302,L]
-RewriteRule ^(shapes|doc|align)\.ttl$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=302,L]
 RewriteRule ^catalogue/arch\.ttl$ https://twb.madsholten.dk/ontology/twb-catalogue.ttl [R=302,L]
+RewriteRule ^([a-z]+)\.ttl$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=302,L]
 
-# Browsers: the human-readable data model page
+# Browsers: the human-readable data model page, at the module asked for
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^(|shapes|doc|align|catalogue/arch)$ https://twb.madsholten.dk/en/datamodel/ [R=303,L]
+RewriteRule ^$ https://twb.madsholten.dk/en/datamodel/#moduler [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^catalogue/arch$ https://twb.madsholten.dk/en/datamodel/#modul-catalogue [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^([a-z]+)$ https://twb.madsholten.dk/en/datamodel/#modul-$1 [R=303,NE,L]
 
 # Everything else (text/turtle, */*, no Accept): Turtle
 RewriteRule ^$ https://twb.madsholten.dk/ontology/twb.ttl [R=303,L]
-RewriteRule ^(shapes|doc|align)$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=303,L]
 RewriteRule ^catalogue/arch$ https://twb.madsholten.dk/ontology/twb-catalogue.ttl [R=303,L]
+RewriteRule ^([a-z]+)$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=303,L]
