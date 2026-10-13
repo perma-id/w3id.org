@@ -19,10 +19,11 @@ The rules are in [.htaccess](.htaccess).
 ## This space is administered by:
 
 Adam Wright
-- Email: adam.wright@oicr.on.ca
+- Email: wright@fhref.org
 - ORCID: https://orcid.org/0000-0002-5719-4024
 - GitHub: [@adamjohnwright](https://github.com/adamjohnwright)
 
 David Molik
+- Email: molik@fhref.org
 - ORCID: https://orcid.org/0000-0003-3192-6538
 - GitHub: [@molikd](https://github.com/molikd)
