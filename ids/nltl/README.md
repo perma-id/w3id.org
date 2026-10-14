@@ -44,10 +44,7 @@ https://natural-language-to-logic.aalto.fi/context/nltl_benchmark_context.jsonld
 
 ## Maintainers
 
-Saad Ahmed Rana  
-Aalto University  
-GitHub: https://github.com/saadahmedrana
-Email:saad.rana@aalto.fi
-
-Haitham Al-Shami  
-Aalto University
+- Saad Ahmed Rana — Aalto University
+- GitHub: [@saadahmedrana](https://github.com/saadahmedrana)
+- Email: <saad.rana@aalto.fi>
+- Haitham Al-Shami — Aalto University
