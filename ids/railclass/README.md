@@ -8,7 +8,8 @@ Identifiers:
 * `https://w3id.org/railclass/<cid>` a vehicle class (`<cid>` is a Wikidata Q number, `era-<ERATV type>` or `tb-<name>`)
 * `https://w3id.org/railclass/model/<id>` a 3D model
 * `https://w3id.org/railclass/vocab#<term>` the vocabulary
-* `https://w3id.org/railclass/` the dataset
+* `https://w3id.org/railclass/` the concept scheme (all classes)
+* `https://w3id.org/railclass/dataset` the dataset description (VoID and DCAT)
 
 Each answers by the Accept header: text/turtle and application/ld+json get RDF, anything else the HTML page.
 
