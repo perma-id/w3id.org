@@ -7,7 +7,7 @@ headers that embed provenance in reference genome, transcriptome, protein and an
 | Identifier | Redirects to |
 | --- | --- |
 | `/fair-bioheaders/` | The GitHub organisation |
-| `/fair-bioheaders/fhr/vX.Y.Z` | The FHR JSON schema (`fhr.json`) of FHR-Specification release vX.Y.Z |
+| `/fair-bioheaders/fhr/vX.Y.Z` | The FHR JSON schema (`fhr.json`) of FAIR-bioHeaders-Specification release vX.Y.Z |
 | `/fair-bioheaders/fhr/vX.Y.Z/PATH` | PATH in that release; JSON-LD files (`jsonld/...`) go to the GitHub Pages copy |
 | `/fair-bioheaders/fhp/vX.Y.Z` | The FHP (protein FASTA header) JSON schema (`fhp.json`) of release vX.Y.Z |
 | `/fair-bioheaders/fhgff3/vX.Y.Z` | The FHGFF3 (GFF3 annotation header) JSON schema (`fhgff3.json`) of release vX.Y.Z |
