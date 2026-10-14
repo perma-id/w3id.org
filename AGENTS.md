@@ -39,7 +39,7 @@ Check whether the user is a listed maintainer of that directory first.
 
 Full explanations, with the failure each one causes, are in `docs/rules/`.
 One file per rule; a rule's id is its path under `docs/rules/` without the
-`.md`. This is a summary, not the whole catalogue — read `docs/rules/index.md`
+`.md`. This is a summary, not the whole catalog — read `docs/rules/index.md`
 for all of it.
 
 Do not:
@@ -69,7 +69,7 @@ Do not:
   copies of copies. A pattern appearing in hundreds of files is evidence that it
   was easy to copy, not that it is correct — one malformed CORS header reached hundreds
   of files that way. → `docs/rules/htaccess/valid-cors-header.md`
-- **Use `301`.** Caches may honour it forever, so a mistake cannot be retracted.
+- **Use `301`.** Caches may honor it forever, so a mistake cannot be retracted.
   Use `302`, or `303` for content-negotiated ontology IRIs.
   → `docs/rules/htaccess/avoid-permanent-redirect.md`
 - **Redirect to `http://`, a bare IP, or a `github.com/.../blob/...` URL.**
@@ -203,7 +203,7 @@ so they still work in a fork or offline.
 
 ### Rule pages
 
-Files in `docs/rules/` are the machine-readable rule catalogue. Each has YAML
+Files in `docs/rules/` are the machine-readable rule catalog. Each has YAML
 frontmatter with `id`, `title`, `severity`, `status`, and `applies-to`. The `id`
 always equals the page's path under `docs/rules/` without the `.md`, so
 `docs/rules/htaccess/no-double-slash.md` has id `htaccess/no-double-slash`.
@@ -230,7 +230,7 @@ summary: One sentence. It appears on the index and as the feed description.
 ```
 
 `id` is the post's **permanent identifier**, and it is what feed readers use to
-recognise the post. Mint one with `uuidgen`, prefix it with `urn:uuid:`, and
+recognize the post. Mint one with `uuidgen`, prefix it with `urn:uuid:`, and
 keep it lowercase. **Never change it after the post is published**, and never
 copy one from another post — a shared id makes two posts collide into a single
 entry in every subscriber's reader, and no later fix reaches the copies they
@@ -259,7 +259,7 @@ years later; the two answer different questions.
 
 This project receives a large volume of machine-generated pull requests that
 are confident, well-formatted, and wrong — usually because they treat the
-service as a file host, copy a broken template from a neighbouring directory,
+service as a file host, copy a broken template from a neighboring directory,
 or add directives nobody needed.
 
 Correcting one costs a volunteer reviewer more time than writing it by hand

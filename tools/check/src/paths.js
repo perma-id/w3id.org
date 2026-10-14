@@ -61,7 +61,7 @@ function anyCase(word) {
  *
  * Case-insensitive, because glob matching here is not: a plain `**\/*.md`
  * pattern passes over `README.MD` entirely, and a file is no less text for
- * how its extension is capitalised. A bare `README` has no extension to
+ * how its extension is capitalized. A bare `README` has no extension to
  * match, so it is named directly.
  */
 export const TEXT_FILE_PATTERNS = [
@@ -72,7 +72,7 @@ export const TEXT_FILE_PATTERNS = [
     extension => `**/*.${anyCase(extension)}`)
 ];
 
-// `readme`, optionally followed by one recognised extension. Anything else --
+// `readme`, optionally followed by one recognized extension. Anything else --
 // `README..md`, `README.me`, `_readme.md` -- is a file GitHub will not show as
 // the directory's README, so it is not a README as far as this tool is
 // concerned.

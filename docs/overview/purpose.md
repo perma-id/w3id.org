@@ -12,13 +12,13 @@ archived, and exchanged for years. A property IRI ends up in triple stores
 around the world. Those IRIs are *names*, and names are supposed to be stable.
 
 But the address half of the URL is not stable at all. It points at a hostname
-that belongs to a particular organisation, on a particular server, under a
+that belongs to a particular organization, on a particular server, under a
 particular directory layout, subject to a particular funding cycle. Three years
 later:
 
 - the research group's grant ends and `project.cs.example.edu` disappears;
 - the company is acquired and every URL moves to a new domain;
-- somebody reorganises the website and `/ontologies/` becomes `/vocab/`;
+- somebody reorganizes the website and `/ontologies/` becomes `/vocab/`;
 - the maintainer leaves and nobody renews the domain.
 
 Every dataset that referenced those IRIs now contains dead links, and there is

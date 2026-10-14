@@ -150,7 +150,7 @@ test('a scope does not blind a tree rule to the rest of the tree', () => {
   // reported against the path inside it -- and against a file within that
   // path, since an annotation naming a directory never reaches the diff. A
   // scope prefix still matches, which is the property that keeps the two
-  // behaviours compatible.
+  // behaviors compatible.
   assert.deepEqual(result.findings.map(f => f.file),
     ['ids/Widget/.htaccess']);
   assert.match(result.findings[0].message, /ids\/widget/);
@@ -190,7 +190,7 @@ test('resolveScope: paths resolve against the working directory', () => {
     'cd ids && w3id-check foo must mean ids/foo');
 });
 
-test('resolveScope: normalises separators, slashes and duplicates', () => {
+test('resolveScope: normalizes separators, slashes and duplicates', () => {
   const repo = twoBrokenNamespaces();
   const at = args => resolveScope(args, {root: repo.dir, cwd: repo.dir});
 

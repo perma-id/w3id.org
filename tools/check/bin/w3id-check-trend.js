@@ -72,7 +72,7 @@ function notIdentifiers(root) {
  *
  * @returns {boolean} whether the tree had to be re-rooted.
  */
-function materialise(sha, into, root, exclude) {
+function materialize(sha, into, root, exclude) {
   const top = git(['ls-tree', '--name-only', sha], root).split('\n');
   if(top.includes('ids')) {
     execFileSync('/bin/sh', ['-c',
@@ -96,7 +96,7 @@ function materialise(sha, into, root, exclude) {
 function measure(sha, root, exclude) {
   const dir = mkdtempSync(path.join(tmpdir(), 'w3id-trend-'));
   try {
-    const reRooted = materialise(sha, dir, root, exclude);
+    const reRooted = materialize(sha, dir, root, exclude);
     // The repository's own configuration, not a synthetic one: allowedPaths
     // and ignorePaths change what several rules report, and a stand-in
     // silently inflates them.
@@ -229,7 +229,7 @@ function render(columns) {
   }
 
   // Rules that say nothing anywhere are noise. `git`-scope rules are the
-  // bulk of these: they judge a pull request, and a materialised tree has no
+  // bulk of these: they judge a pull request, and a materialized tree has no
   // pull request to judge.
   const ruleIds = [...new Set(columns.flatMap(c => Object.keys(c.counts)))]
     .filter(id => columns.some(c => (c.counts[id] ?? 0) > 0))

@@ -104,7 +104,7 @@ const LABEL =
   /\b(?:maintainers?|maintained\s+by|contacts?|owners?|owned\s+by|authors?|curators?|responsible)\b/i;
 
 /**
- * Whether a block of text records a maintainer in any recognised shape.
+ * Whether a block of text records a maintainer in any recognized shape.
  *
  * Looser than `findUsernames`: a name and an email address claims an
  * identifier just as well as a GitHub handle does, and one namespace records

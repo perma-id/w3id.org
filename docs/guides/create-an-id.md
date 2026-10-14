@@ -38,7 +38,7 @@ Read the [naming section of Scope](/overview/scope#naming) first. In short:
 - Use **lowercase**, digits, and hyphens. See
   [`tree/no-case-collision`](/rules/tree/no-case-collision).
 - Avoid generic words, and avoid anything that could be confused with an
-  existing identifier or a well-known organisation.
+  existing identifier or a well-known organization.
 - For a personal identifier, use the shared
   [`/people/`](https://github.com/perma-id/w3id.org/tree/master/ids/people)
   namespace rather than a new top-level directory.
@@ -131,7 +131,7 @@ strings, serving different formats to browsers and machines — read
 | **307** Temporary Redirect | When the request method must be preserved. Rare here. |
 | **301** Moved Permanently | Avoid. |
 
-**Avoid 301.** Browsers and caches honour it indefinitely, and many will never
+**Avoid 301.** Browsers and caches honor it indefinitely, and many will never
 re-check. If you get a 301 wrong, you cannot take it back for the users who
 already cached it — and this is a service designed for identifiers that live for
 decades. Use 302 unless you have a specific reason not to.

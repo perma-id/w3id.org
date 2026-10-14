@@ -32,7 +32,7 @@ most expensive kind of wrong in this repository. Every decision below follows
 from that.
 
 **So the configuration is shared, not copied.** `conf/w3id.conf` holds
-everything that defines w3id.org's behaviour and nothing about where Apache
+everything that defines w3id.org's behavior and nothing about where Apache
 keeps its files. Each setup adds a thin wrapper supplying only its own layout —
 server root, module paths, listener, log destinations — and then includes that
 one file. Several hand-maintained configs would drift, and the drift would be
@@ -84,7 +84,7 @@ turn those directories into 500s.
 ## Files
 
 ```
-conf/w3id.conf          shared behaviour; included by every wrapper
+conf/w3id.conf          shared behavior; included by every wrapper
 conf/httpd.conf         container wrapper, upstream layout
 conf/w3id-site.conf     native Debian wrapper, for sites-available/
 conf/docker-direct.conf overlay for running the stock image unbuilt
@@ -104,7 +104,7 @@ Two, both deliberate, both commented where they occur.
 `Redirect permanent / https://w3id.org/`. Reproduced locally it would bounce
 every test request to the real service, so you would be testing the deployed
 rules instead of your own. The local config serves HTTP directly. Rewrite
-behaviour does not depend on the scheme.
+behavior does not depend on the scheme.
 
 **No TLS.** It is opt-in; see the guide. Rewrite rules do not behave
 differently by scheme unless they test `%{HTTPS}` or `%{SERVER_PORT}`

@@ -16,4 +16,4 @@ run scoped to a directory.
 | [`git/no-session-link`](./no-session-link) | warning | No links to a private agent session |
 | [`git/branch-not-stale`](./branch-not-stale) | notice | Start from a recent master |
 
-Back to the [rule catalogue](../).
+Back to the [rule catalog](../).

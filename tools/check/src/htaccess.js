@@ -130,7 +130,7 @@ export function parse(text) {
 const ARG_SEPARATOR = /[ \t]/;
 
 /**
- * Split a directive line into tokens, honouring Apache's double-quoting.
+ * Split a directive line into tokens, honoring Apache's double-quoting.
  *
  * Returns entries of {value, quoted}; `quoted` matters because a `#` inside
  * quotes is data, not a stray comment.
@@ -151,7 +151,7 @@ function tokenize(line) {
       quoted = true;
       ++i;
       while(i < line.length && line[i] !== '"') {
-        // Apache honours backslash escapes inside quoted arguments.
+        // Apache honors backslash escapes inside quoted arguments.
         if(line[i] === '\\' && i + 1 < line.length) {
           ++i;
         }

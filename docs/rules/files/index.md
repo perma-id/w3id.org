@@ -15,4 +15,4 @@ they are recorded.
 | [`files/htaccess-required`](./htaccess-required) | warning | Something in the directory must answer requests |
 | [`files/prefer-readme-md`](./prefer-readme-md) | warning | Write it as Markdown, called `README.md` |
 
-Back to the [rule catalogue](../).
+Back to the [rule catalog](../).

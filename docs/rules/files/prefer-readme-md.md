@@ -23,7 +23,7 @@ directory page just as `README.md` does. **Nothing is broken.** This is a
 convention, not a fix.
 
 The convention earns its keep in small ways. Every identifier's documentation
-reads and edits the same, contributors copying a neighbouring directory copy
+reads and edits the same, contributors copying a neighboring directory copy
 something consistent, and a reviewer skimming a pull request does not have to
 work out which syntax a diff is written in.
 
@@ -51,7 +51,7 @@ rewriting the content leaves a page that renders as a jumble.
 
 ### Names this rule does not accept
 
-The recognised extensions are the ones GitHub itself renders: `.md`,
+The recognized extensions are the ones GitHub itself renders: `.md`,
 `.markdown`, `.mdown`, `.mkdn`, `.adoc`, `.asciidoc`, `.asc`, `.rst`, `.org`,
 `.textile`, `.rdoc`, `.creole`, `.mediawiki`, `.wiki` and `.pod`, plus a bare
 `README` and `README.txt`.

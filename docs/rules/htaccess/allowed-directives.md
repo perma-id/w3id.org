@@ -50,7 +50,7 @@ RewriteRule ^run$ https://example.org/thing [R=302,L]
 
 Remove the directive. If you believe your identifier genuinely needs one of
 them, open an issue describing what you are trying to do rather than putting it
-in a pull request — the answer is usually that the behaviour belongs on the
+in a pull request — the answer is usually that the behavior belongs on the
 server that hosts your content.
 
 The refused set is: `RewriteMap`, `Include`, `IncludeOptional`, `AddHandler`,
