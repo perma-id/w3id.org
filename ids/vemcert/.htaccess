@@ -1,0 +1,25 @@
+# # /vemcert/
+#
+# Vocabulary for W3C Verifiable Credentials issued with Vemcert.
+# https://w3id.org/vemcert/v1 is the namespace of version 1: its terms are
+# https://w3id.org/vemcert/v1#<term>. JSON-LD clients are sent the context,
+# everything else the human-readable term reference, both published at
+# https://gasmsyteacher.github.io/vemcert-vocab/
+#
+# ## Contact
+# This space is administered by:
+#
+# Vemcert maintainers
+# GitHub username: gasmsyteacher
+
+RewriteEngine on
+
+# Version 1, JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^v1/?$ https://gasmsyteacher.github.io/vemcert-vocab/v1.jsonld [R=303,L]
+
+# Version 1, term reference (the default, including browsers)
+RewriteRule ^v1/?$ https://gasmsyteacher.github.io/vemcert-vocab/v1.html [R=303,L]
+
+# The identifier itself: the version index
+RewriteRule ^$ https://gasmsyteacher.github.io/vemcert-vocab/ [R=302,L]
