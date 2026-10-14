@@ -1,0 +1,29 @@
+RewriteEngine on
+
+# The site is static (GitHub Pages), so the Accept header is read here:
+# text/turtle and application/ld+json get the RDF file, anything else the HTML page.
+
+# Vehicle classes: https://w3id.org/railclass/<cid>
+# <cid> is a Wikidata Q number, era-<ERATV type> or tb-<name>.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(Q[0-9]+|era-[A-Za-z0-9-]+|tb-[a-z0-9-]+)$ https://railclass.ldas.jp/rdf/class/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(Q[0-9]+|era-[A-Za-z0-9-]+|tb-[a-z0-9-]+)$ https://railclass.ldas.jp/rdf/class/$1.jsonld [R=303,L]
+RewriteRule ^(Q[0-9]+|era-[A-Za-z0-9-]+|tb-[a-z0-9-]+)$ https://railclass.ldas.jp/rdf/class/$1 [R=303,L]
+
+# 3D models: https://w3id.org/railclass/model/<id>
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^model/([A-Za-z0-9_-]+)$ https://railclass.ldas.jp/rdf/model/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^model/([A-Za-z0-9_-]+)$ https://railclass.ldas.jp/rdf/model/$1.jsonld [R=303,L]
+RewriteRule ^model/([A-Za-z0-9_-]+)$ https://railclass.ldas.jp/rdf/model/$1 [R=303,L]
+
+# Vocabulary: https://w3id.org/railclass/vocab#<term> (only a Turtle file exists)
+RewriteRule ^vocab$ https://railclass.ldas.jp/rdf/vocab.ttl [R=303,L]
+
+# The whole dataset (the concept scheme): https://w3id.org/railclass/
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://railclass.ldas.jp/rdf/all.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://railclass.ldas.jp/rdf/all.jsonld [R=303,L]
+RewriteRule ^$ https://railclass.ldas.jp/ [R=303,L]
