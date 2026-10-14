@@ -12,7 +12,7 @@
  *
  * Whether a backreference is actually dangerous depends on where in the
  * authority it lands and what its capture group is allowed to match, so both
- * are analysed rather than flagging every `$N` near a hostname.
+ * are analyzed rather than flagging every `$N` near a hostname.
  */
 
 // Probes for a group that ends the authority: matching any of these means the
@@ -46,7 +46,7 @@ export default {
       return;
     }
     for(const redirect of parsed.redirects()) {
-      const finding = analyse(redirect.target, patternOf(redirect));
+      const finding = analyze(redirect.target, patternOf(redirect));
       if(finding === null) {
         continue;
       }
@@ -67,12 +67,12 @@ function patternOf(redirect) {
 }
 
 /**
- * Analyse one redirect target.
+ * Analyze one redirect target.
  *
  * @returns {{ref: string}|null} the offending backreference, or null if the
  *   hostname cannot be influenced by the requester.
  */
-export function analyse(target, pattern) {
+export function analyze(target, pattern) {
   // Only absolute or protocol-relative targets carry a hostname; everything
   // else redirects within w3id.org.
   const m = /^(?:[a-z][a-z0-9+.-]*:)?\/\/([^/?#]*)/i.exec(target);
@@ -136,7 +136,7 @@ export function captureGroups(pattern) {
       }
     }
   }
-  // An unclosed group cannot be analysed; treat its body as the remainder.
+  // An unclosed group cannot be analyzed; treat its body as the remainder.
   return groups.map(g => g ?? '.*');
 }
 

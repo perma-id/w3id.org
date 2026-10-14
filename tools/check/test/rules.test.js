@@ -1,4 +1,4 @@
-/** Per-rule behaviour, against fixtures rather than the live tree. */
+/** Per-rule behavior, against fixtures rather than the live tree. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {makeRepo, check, findingsOf} from './helpers.js';
@@ -293,7 +293,7 @@ test('htaccess/space-before-flags is honest about what still happens', () => {
 test('htaccess: the flag rules cannot see a fused flag list', () => {
   // Why the rule above has to exist. Apache parses no flag list here, so
   // rewriteRules() reports none, so the three rules that judge flags have
-  // nothing to judge. If this starts failing, the parser has begun modelling
+  // nothing to judge. If this starts failing, the parser has begun modeling
   // what the author meant rather than what the server does, and several
   // other rules are now reporting on flags that never apply.
   const files = {
