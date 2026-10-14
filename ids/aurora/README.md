@@ -4,12 +4,7 @@ Persistent identifiers for the AURORA ontology framework.
 
 Maintainers:
 
-- Carlos Blanco
-- Antonio Santos-Olmo
-- Luis E. Sanchez
-- David G. Rosado
-- Manuel A. Serrano
-- Eduardo Fernández-Medina
+- Carlos Blanco (@blancobc)
 
 GitHub repository:
 
