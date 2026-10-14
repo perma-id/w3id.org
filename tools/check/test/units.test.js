@@ -525,6 +525,30 @@ test('output: markdown shows a message as text, not as markup', () => {
   assert.ok(!/<br/i.test(row), row);
 });
 
+test('output: markdown shows a suggested line as the text to write', () => {
+  // A suggestion rendered as a link, or a glob as emphasis, no longer shows
+  // what to type.
+  const finding = {
+    file: 'ids/a/README.md', line: 1, severity: 'warning',
+    ruleId: 'meta/maintainer-github-username', docsUrl: 'https://x/',
+    message: 'Add a line such as: ' +
+      '"Maintainer: [your-username](https://github.com/your-username)". ' +
+      'Applies to **/.htaccess; see https://example.org/a_b_c*d'
+  };
+  const out = markdown({
+    findings: [finding],
+    summary: {mode: 'range', filesChecked: 1, scope: null, uncommitted: 0,
+      rulesRun: 1, ruleIds: [finding.ruleId],
+      counts: {error: 0, warning: 1, notice: 0}}
+  });
+  const row = out.split('\n').find(l => l.includes('Add a line'));
+  assert.ok(row.includes(
+    '\\[your-username\\](https://github.com/your-username)'), row);
+  assert.ok(row.includes('Applies to \\*\\*/.htaccess'), row);
+  // Escapes inside a URL would show in it, or break it.
+  assert.ok(row.includes('https://example.org/a_b_c*d'), row);
+});
+
 test('trend: an option is not taken for the ref to measure', () => {
   // The audit's `--format=json` reached git as a revision, and every run
   // failed. A fresh repository has one point in time, which is its own
