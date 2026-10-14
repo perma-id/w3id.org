@@ -355,6 +355,12 @@ export class Context {
       git.commits(this.base, this.head, this.root) : []);
   }
 
+  /** Full message of each commit in the range, by sha. */
+  get commitMessages() {
+    return this._memo('commitMessages', () => this.hasRange ?
+      git.commitMessages(this.base, this.head, this.root) : new Map());
+  }
+
   /**
    * Commits the branch point lags the upstream default branch by.
    *

@@ -43,6 +43,7 @@ import noMergeCommits from '../src/rules/git/no-merge-commits.js';
 import descriptiveCommitMessage from '../src/rules/git/descriptive-commit-message.js';
 import identifierUnderIds from '../src/rules/tree/identifier-under-ids.js';
 import noRawgit from '../src/rules/htaccess/no-rawgit.js';
+import noSessionLink from '../src/rules/git/no-session-link.js';
 
 /** Build a repo from a map of path -> contents and audit it with one rule. */
 function audit(rule, files, config = {}) {
@@ -1327,4 +1328,30 @@ test('git/descriptive-commit-message spares a message that names the id', () => 
   assert.equal(r.findings.length, 1);
   assert.match(r.findings[0].message, /Create \.htaccess/);
   assert.match(r.findings[0].message, /Add redirect for b/);
+});
+
+test('git/no-session-link reports a session link and spares attribution', () => {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  const base = repo.commit('Add a');
+
+  repo.branch('feature');
+  repo.write('ids/b/.htaccess', OK_HTACCESS);
+  const linked = repo.commit('b: add redirect\n\nBody text.\n\n' +
+    'Co-Authored-By: Claude <noreply@anthropic.com>\n' +
+    'Claude-Session: https://claude.ai/code/session_01Example');
+  repo.write('ids/b/README.md', OK_README);
+  repo.commit('b: add README\n\n' +
+    'Co-Authored-By: Claude <noreply@anthropic.com>');
+  repo.write('ids/b/README.md', OK_README + '\nMore.\n');
+  const head = repo.commit('b: expand README\n\nAssisted-by: Claude');
+
+  const r = check({
+    dir: repo.dir, rules: [noSessionLink], base, head, auditAll: false
+  });
+  assert.equal(r.findings.length, 1);
+  assert.match(r.findings[0].message, new RegExp(linked.slice(0, 8)));
+  assert.match(r.findings[0].message,
+    /https:\/\/claude\.ai\/code\/session_01Example/);
 });
