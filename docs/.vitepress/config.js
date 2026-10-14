@@ -208,6 +208,7 @@ export default defineConfig({
               { text: 'minimal-commits', link: '/rules/git/minimal-commits' },
               { text: 'no-merge-commits', link: '/rules/git/no-merge-commits' },
               { text: 'descriptive-commit-message', link: '/rules/git/descriptive-commit-message' },
+              { text: 'no-session-link', link: '/rules/git/no-session-link' },
               { text: 'branch-not-stale', link: '/rules/git/branch-not-stale' }
             ]
           },

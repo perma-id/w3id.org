@@ -77,6 +77,10 @@ Do not:
 - **Write `Update .htaccess` as a commit message.** It is already the most
   common message in this repository. Name the project and say what changed.
   → `docs/rules/git/descriptive-commit-message.md`
+- **Put a session link in a commit message**, such as a
+  `Claude-Session: https://claude.ai/code/session_...` trailer. Nobody else
+  can open it, and a merged commit keeps it for good. A `Co-Authored-By` or
+  `Assisted-by` line is fine. → `docs/rules/git/no-session-link.md`
 
 And do include:
 
