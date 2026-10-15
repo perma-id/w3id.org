@@ -57,6 +57,9 @@ still compacts and expands as it did.
 | `/sstim/implementation/bsclab` | BSC Lab implementation catalog record |
 | `/sstim/implementation/biosyncare` | BioSynCare application catalog record |
 | `/sstim/implementation/bsclab/component/patch-studio` | Patch Studio software-component catalog record |
+| `/sstim/implementation/bsclab/{preset,protocol,experiment}/{name}` | Committed presets, protocols and experiments, one Turtle file each |
+| `/sstim/implementation/bsclab/evidence/{path}` | Committed evidence records, nested paths included |
+| `/sstim/ref/{KEY}` | Committed bibliographic references |
 | `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
 | `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
 | `/sstim/void` | VoID + DCAT dataset description (Turtle only) |
@@ -89,13 +92,22 @@ Snapshot routes match any version-shaped path by pattern, so a new release
 needs no change here. A version or file that was never published redirects and
 then answers 404 at the target.
 
+Committed records route by one pattern per family, so a new record needs no
+change here either. An RDF client is sent to a Turtle document describing that
+record alone: its own file for presets, protocols and experiments, and for
+evidence records and references, whose source files are shared, a document
+generated for each committed record. A name that is no record redirects to a
+document that does not exist and answers 404 at the target, as an unknown
+version does. A path outside a family's grammar answers 404 here.
+
 Audited static catalog routes send RDF clients to the owning Turtle instance
 file. General live ecosystem namespace rules send RDF clients to the mutable,
 live-only `current.ttl` projection. Current synthetic contract subjects reserve
 a `synthetic-*` slug rejected by those rules and are available only through the
 direct fixture artifact; there are no fixture-specific routes. Previously
-published frozen snapshots remain unchanged. HTML requests reach the project
-landing page for static catalog and live ecosystem identifiers.
+published frozen snapshots remain unchanged. HTML requests for static catalog,
+record and live ecosystem identifiers reach that identifier's node in the
+knowledge browser.
 
 The BSC vocabulary reuses the local names of the SSTIM terms it replaced, so
 its HTML route passes the namespace as `?ns=bsc-v`. The browser re-attaches the

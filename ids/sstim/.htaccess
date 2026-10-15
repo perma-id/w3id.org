@@ -288,30 +288,47 @@ RewriteRule ^(implementation/bsclab|implementation/biosyncare|implementation/bsc
 # END audited BSC catalog routes
 
 # -------------------------------------------------------------------------
-# Public BSC Lab preset and reference identities. These are committed static
-# records, so routes are an exact audited inventory rather than a namespace
-# wildcard: adding or retiring a public record requires an intentional registry
-# update. Browsers deep-link to the requested graph node; RDF clients receive
-# the Turtle file that owns that subject. NE preserves the literal hash in each
-# browser target.
+# Committed public records: presets, protocols, experiments, evidence records
+# and references. One pattern per family, so adding a record to a family needs
+# no change here. ADR 0065 in the SSTIM repository records the decision; it
+# replaced the exact preset and reference inventory this block used to hold.
+#
+# Browsers deep-link to the record's node in the knowledge browser; NE keeps
+# the literal hash. RDF clients receive a document describing that record
+# alone: its own committed file where it has one (presets, protocols,
+# experiments), otherwise the record document the SSTIM build generates for
+# each committed evidence record and reference, whose source files are shared.
+# A path that names no committed record still ends at a 404, now from GitHub
+# Pages rather than here, and no target is ever a file that does not describe
+# the record asked for. The SSTIM repository executes these rules against
+# every committed record in CI and fails if one does not resolve to a document
+# containing it.
 # -------------------------------------------------------------------------
-# BEGIN audited BSC preset and reference routes
+# BEGIN audited committed record routes
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed|support-smr-focus-seed|indulge-alpha-warmth-seed|transcend-theta-drift-seed)/?$ https://w3c-cg.github.io/sstim/graph/#bsclab-preset:$1 [R=303,L,NE]
+RewriteRule ^implementation/bsclab/(preset|protocol|experiment)/([a-z0-9-]+)/?$ https://w3c-cg.github.io/sstim/graph/#bsclab-$1:$2 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://w3c-cg.github.io/sstim/graph/#sstim-ref:$1 [R=303,L,NE]
+RewriteRule ^implementation/bsclab/evidence/([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ https://w3c-cg.github.io/sstim/graph/#bsclab-evidence:$1 [R=303,L,NE]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/html|application/xhtml\+xml)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^ref/([A-Z][A-Z0-9_]*)/?$ https://w3c-cg.github.io/sstim/graph/#sstim-ref:$1 [R=303,L,NE]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed|support-smr-focus-seed|indulge-alpha-warmth-seed|transcend-theta-drift-seed)/?$ https://w3c-cg.github.io/sstim/ontology/instances/presets/$1.ttl [R=303,L]
-RewriteRule ^implementation/bsclab/preset/(heal-theta-breathing-seed|perform-alpha-10-seed|support-smr-focus-seed|indulge-alpha-warmth-seed|transcend-theta-drift-seed)/?$ - [R=406,L]
+RewriteRule ^implementation/bsclab/(preset|protocol|experiment)/([a-z0-9-]+)/?$ https://w3c-cg.github.io/sstim/ontology/instances/$1s/$2.ttl [R=303,L]
+RewriteRule ^implementation/bsclab/(preset|protocol|experiment)/([a-z0-9-]+)/?$ - [R=406,L]
 
 RewriteCond %{HTTP_ACCEPT} ^$ [OR]
 RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
-RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ https://w3c-cg.github.io/sstim/ontology/instances/references/references.ttl [R=303,L]
-RewriteRule ^ref/(INGENDOH_2023|PICTON_2003|SKOE_KRAUS_2010|ZACCARO_2018|VIALATTE_2010|PETIT_2021|STEIN_STANFORD_2008|KLIMESCH_1999|KLIMESCH_2012|FRIES_2009|BUZSAKI_2004)/?$ - [R=406,L]
-# END audited BSC preset and reference routes
+RewriteRule ^implementation/bsclab/evidence/([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ https://w3c-cg.github.io/sstim/ontology/records/implementation/bsclab/evidence/$1.ttl [R=303,L]
+RewriteRule ^implementation/bsclab/evidence/([a-z0-9-]+(?:/[a-z0-9-]+)*)/?$ - [R=406,L]
+
+RewriteCond %{HTTP_ACCEPT} ^$ [OR]
+RewriteCond %{HTTP_ACCEPT} (?:^|,)\s*(?:text/turtle|application/x-turtle|\*/\*)\s*(?=;|,|$)(?![^,]*;\s*q\s*=\s*0(?:\.0*)?\s*(?:;|,|$)) [NC]
+RewriteRule ^ref/([A-Z][A-Z0-9_]*)/?$ https://w3c-cg.github.io/sstim/ontology/records/ref/$1.ttl [R=303,L]
+RewriteRule ^ref/([A-Z][A-Z0-9_]*)/?$ - [R=406,L]
+# END audited committed record routes
 
 # -------------------------------------------------------------------------
 # BSC framework technique identities. Every rule is exact — no prefix wildcard
