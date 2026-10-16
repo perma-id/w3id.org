@@ -1,5 +1,5 @@
 # TWB: the Thin-Walled Blueprint ontology, its modules and its JSON-LD contexts
-# https://github.com/MadsHolten/arch
+# https://github.com/LBD-Hackers/twb
 #
 # TWB is modular, as SEAS is: one namespace (https://w3id.org/twb#), and each module an ontology
 # of its own at https://w3id.org/twb/{module} (core, construction, detailing, requirements,
@@ -8,11 +8,13 @@
 #   https://w3id.org/twb                -> twb.ttl              (browser: the data model page)
 #   https://w3id.org/twb/{module}       -> twb-{module}.ttl     (browser: the module on that page)
 #   https://w3id.org/twb/catalogue/arch -> twb-catalogue.ttl
-# A browser (text/html) goes to https://twb.madsholten.dk/en/datamodel/; anything else gets Turtle.
-# The suffixed forms (twb.ttl, core.ttl, ...) always give Turtle.
+# A browser (text/html) goes to https://twb.madsholten.dk/en/datamodel/; anything else gets the
+# Turtle from the source repository's ontology/, served by GitHub Pages at
+# https://lbd-hackers.github.io/twb/ontology/. The suffixed forms (twb.ttl, core.ttl, ...) always
+# give Turtle.
 #
 # The JSON-LD context of the TWB house file, by version:
-#   https://w3id.org/twb/context/{n}.jsonld -> https://twb.madsholten.dk/context/{n}.jsonld
+#   https://w3id.org/twb/context/{n}.jsonld -> https://lbd-hackers.github.io/twb/context/{n}.jsonld
 #
 # Maintainer: Mads Holten Rasmussen, GitHub username: MadsHolten
 
@@ -20,12 +22,12 @@ RewriteEngine on
 Options -MultiViews
 
 # JSON-LD contexts
-RewriteRule ^context/([0-9]+)\.jsonld$ https://twb.madsholten.dk/context/$1.jsonld [R=302,L]
+RewriteRule ^context/([0-9]+)\.jsonld$ https://lbd-hackers.github.io/twb/context/$1.jsonld [R=302,L]
 
 # Explicit Turtle
-RewriteRule ^twb\.ttl$ https://twb.madsholten.dk/ontology/twb.ttl [R=302,L]
-RewriteRule ^catalogue/arch\.ttl$ https://twb.madsholten.dk/ontology/twb-catalogue.ttl [R=302,L]
-RewriteRule ^([a-z]+)\.ttl$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=302,L]
+RewriteRule ^twb\.ttl$ https://lbd-hackers.github.io/twb/ontology/twb.ttl [R=302,L]
+RewriteRule ^catalogue/arch\.ttl$ https://lbd-hackers.github.io/twb/ontology/twb-catalogue.ttl [R=302,L]
+RewriteRule ^([a-z]+)\.ttl$ https://lbd-hackers.github.io/twb/ontology/twb-$1.ttl [R=302,L]
 
 # Browsers: the human-readable data model page, at the module asked for
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
@@ -39,6 +41,6 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^([a-z]+)$ https://twb.madsholten.dk/en/datamodel/#modul-$1 [R=303,NE,L]
 
 # Everything else (text/turtle, */*, no Accept): Turtle
-RewriteRule ^$ https://twb.madsholten.dk/ontology/twb.ttl [R=303,L]
-RewriteRule ^catalogue/arch$ https://twb.madsholten.dk/ontology/twb-catalogue.ttl [R=303,L]
-RewriteRule ^([a-z]+)$ https://twb.madsholten.dk/ontology/twb-$1.ttl [R=303,L]
+RewriteRule ^$ https://lbd-hackers.github.io/twb/ontology/twb.ttl [R=303,L]
+RewriteRule ^catalogue/arch$ https://lbd-hackers.github.io/twb/ontology/twb-catalogue.ttl [R=303,L]
+RewriteRule ^([a-z]+)$ https://lbd-hackers.github.io/twb/ontology/twb-$1.ttl [R=303,L]
