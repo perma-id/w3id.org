@@ -65,10 +65,10 @@ export default {
       if(rootPaths.some(isReadme)) {
         continue;
       }
-      // Only comments count, not directives: a redirect target such as
-      // https://github.com/someone/repo names a repository owner, who need
-      // not be responsible for the identifier. `namespaceMaintainers` already
-      // draws that line, so reuse it and check the comments the same way.
+      // Only comments count, not directives: a redirect target says where the
+      // identifier points, not who is responsible for it.
+      // `namespaceMaintainers` already draws that line, so reuse it and check
+      // the comments the same way.
       const rootHtaccess = rootPaths.find(isHtaccess);
       const comments = rootHtaccess === undefined ? '' :
         (ctx.htaccess(rootHtaccess)?.comments ?? [])
