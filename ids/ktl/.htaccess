@@ -41,5 +41,51 @@ RewriteCond %{HTTP_ACCEPT} text/markdown
 RewriteRule ^knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/knowledge-trust-ladder/knowledge/$1.md [R=303,L]
 RewriteRule ^knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/knowledge-trust-ladder/knowledge/$1/ [R=303,L]
 
+# The federation's top domain, https://w3id.org/ktl/federation/knowledge/,
+# kept in the ktl-federation repository, whose site, with the workspace
+# built from the domain's members, is everything else under federation/.
+RewriteRule ^federation/(knowledge/.+\.(jsonld|json|md|nt))$ https://noelmcloughlin.github.io/ktl-federation/$1 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^federation/knowledge/?$ https://noelmcloughlin.github.io/ktl-federation/knowledge/concepts.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (application/n-triples|text/turtle)
+RewriteRule ^federation/knowledge/?$ https://noelmcloughlin.github.io/ktl-federation/knowledge/graph.nt [R=303,L]
+RewriteRule ^federation/knowledge/?$ https://noelmcloughlin.github.io/ktl-federation/knowledge/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^federation/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/ktl-federation/knowledge/$1.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^federation/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/ktl-federation/knowledge/$1.md [R=303,L]
+RewriteRule ^federation/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/ktl-federation/knowledge/$1/ [R=303,L]
+RewriteRule ^federation(/.*)?$ https://noelmcloughlin.github.io/ktl-federation$1 [R=302,L]
+
+# The KTL Curator plugin's own bundle, https://w3id.org/ktl/curator/knowledge/,
+# kept in the obsidian-ktl-curator repository.
+RewriteRule ^curator/(knowledge/.+\.(jsonld|json|md|nt))$ https://noelmcloughlin.github.io/obsidian-ktl-curator/$1 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^curator/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/concepts.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (application/n-triples|text/turtle)
+RewriteRule ^curator/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/graph.nt [R=303,L]
+RewriteRule ^curator/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^curator/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/$1.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^curator/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/$1.md [R=303,L]
+RewriteRule ^curator/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-curator/knowledge/$1/ [R=303,L]
+RewriteRule ^curator(/.*)?$ https://noelmcloughlin.github.io/obsidian-ktl-curator$1 [R=302,L]
+
+# The KTL Registrar plugin's own bundle, https://w3id.org/ktl/registrar/knowledge/,
+# kept in the obsidian-ktl-registrar repository.
+RewriteRule ^registrar/(knowledge/.+\.(jsonld|json|md|nt))$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/$1 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^registrar/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/concepts.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (application/n-triples|text/turtle)
+RewriteRule ^registrar/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/graph.nt [R=303,L]
+RewriteRule ^registrar/knowledge/?$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^registrar/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/$1.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^registrar/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/$1.md [R=303,L]
+RewriteRule ^registrar/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://noelmcloughlin.github.io/obsidian-ktl-registrar/knowledge/$1/ [R=303,L]
+RewriteRule ^registrar(/.*)?$ https://noelmcloughlin.github.io/obsidian-ktl-registrar$1 [R=302,L]
+
 # Anything else: the same path on the site.
 RewriteRule ^(.*)$ https://noelmcloughlin.github.io/knowledge-trust-ladder/$1 [R=302,L]

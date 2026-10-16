@@ -14,3 +14,10 @@ Source: <https://github.com/noelmcloughlin/knowledge-trust-ladder>
 
 - Noel McLoughlin
 - GitHub: [@noelmcloughlin](https://github.com/noelmcloughlin)
+
+## Sibling namespaces
+
+- `https://w3id.org/ktl/federation/knowledge/`: the top domain of the KTL federation, a bundle whose concepts are other bundles, kept in <https://github.com/noelmcloughlin/ktl-federation>. Everything else under `https://w3id.org/ktl/federation/` goes to that repository's site, which serves the workspace built from the domain's members.
+- `https://w3id.org/ktl/curator/knowledge/` and `https://w3id.org/ktl/registrar/knowledge/`: the bundles of the two Obsidian plugins, kept in <https://github.com/noelmcloughlin/obsidian-ktl-curator> and <https://github.com/noelmcloughlin/obsidian-ktl-registrar>.
+
+None of the four nests inside another, which is what lets a registry of bundles route an identifier to its owner by its longest matching prefix.
