@@ -1,0 +1,47 @@
+# # /aegis/
+#
+# Permanent identifiers for Aegis, an open, standards-based digital
+# identity platform built by Protoworks, a one-person startup in Cape Town,
+# South Africa.
+#
+# https://w3id.org/aegis/ redirects to https://ns.aegis.protoworks.dev/
+#
+# ## Identifiers
+#
+# https://w3id.org/aegis/didcomm/v1
+#   The Aegis DIDComm JSON-LD context, version 1. It defines the DIDComm
+#   service terms (did-communication, DIDCommMessaging, priority,
+#   recipientKeys, routingKeys, accept, uri) used in DID documents.
+#
+# https://w3id.org/aegis/didcomm#<term>
+#   The vocabulary those terms expand to; each term is documented at its
+#   anchor on the vocabulary page.
+#
+# ## Contact
+# This space is administered by:
+#
+# Richard Peters
+# GitHub username: Executioner1939
+
+RewriteEngine on
+
+# The context, version 1. JSON-LD processors ask for application/ld+json
+# or application/json and get the context document itself.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^didcomm/v1$ https://ns.aegis.protoworks.dev/didcomm/v1 [R=302,L]
+
+# A browser asking for HTML gets the page that documents the context.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^didcomm/v1$ https://ns.aegis.protoworks.dev/didcomm/ [R=303,L]
+
+# Any other client gets the context document, which is what the URL names.
+RewriteRule ^didcomm/v1$ https://ns.aegis.protoworks.dev/didcomm/v1 [R=302,L]
+
+# The vocabulary namespace. A term IRI such as
+# https://w3id.org/aegis/didcomm#priority arrives here without its
+# fragment; the page carries an anchor for every term.
+RewriteRule ^didcomm/?$ https://ns.aegis.protoworks.dev/didcomm/ [R=303,L]
+
+# The identifier root.
+RewriteRule ^$ https://ns.aegis.protoworks.dev/ [R=302,L]
