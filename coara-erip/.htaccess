@@ -1,0 +1,33 @@
+# w3id.org/coara-erip
+# Persistent identifiers for the CoARA-ERIP controlled vocabulary (glossary)
+# and the research assessment ontology, published on Zenodo on 29 September 2026.
+# Glossary:  https://doi.org/10.5281/zenodo.22982101
+# Ontology:  https://doi.org/10.5281/zenodo.22982144
+# Maintainer: Francis P. Crawley <fpc@gcpalliance.org>
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---- Research assessment ontology, SKOS concept layer: /coara-erip/ontology/skos
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/skos/?$ https://zenodo.org/records/22982144/files/CoARA-ERIP-2026-research-assessment-ontology-skos-v1_0.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/skos/?$ https://zenodo.org/records/22982144/files/CoARA-ERIP-2026-research-assessment-ontology-skos-v1_0.ttl [R=303,L]
+RewriteRule ^ontology/skos/?$ https://doi.org/10.5281/zenodo.22982144 [R=303,L]
+
+# ---- Research assessment ontology, OWL reasoning layer: /coara-erip/ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^ontology/?$ https://zenodo.org/records/22982144/files/CoARA-ERIP-2026-research-assessment-ontology-owl-v1_0.ttl [R=303,L]
+RewriteRule ^ontology/?$ https://doi.org/10.5281/zenodo.22982144 [R=303,L]
+
+# ---- Controlled vocabulary (glossary), SKOS concept scheme: /coara-erip/glossary
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^glossary/?$ https://zenodo.org/records/22982101/files/CoARA-ERIP-2026-controlled-vocabulary-glossary-v1_0.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^glossary/?$ https://zenodo.org/records/22982101/files/CoARA-ERIP-2026-controlled-vocabulary-glossary-v1_0.ttl [R=303,L]
+RewriteRule ^glossary/?$ https://doi.org/10.5281/zenodo.22982101 [R=303,L]
+
+# ---- Base: /coara-erip -> the CoARA-ERIP overview
+RewriteRule ^$ https://doi.org/10.5281/zenodo.23026924 [R=303,L]
