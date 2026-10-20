@@ -2,6 +2,8 @@
 
 A manufacturing ontology network built around the ISA-95-based [manufacturing ontology](https://w3id.org/imo/manufacturing), developed and maintained by [FlandersMake@UGent - ISyE](https://w3id.org/isye), a [Ghent University](https://www.ugent.be/en) core lab at [Flanders Make](https://www.flandersmake.be/en).
 
+IMO is now published as Federated Open Manufacturing Ontologies (FOMO) under [w3id.org/fomo](https://w3id.org/fomo).
+
 ## Contacts
 
 * [Arno Claeys](mailto:arno.claeys@ugent.be) — GitHub: [@ArnoClaeys](https://github.com/ArnoClaeys)

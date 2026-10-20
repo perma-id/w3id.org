@@ -27,6 +27,14 @@ Future PRs touching `sstim/` will be authored or approved by
 
 ## Routes
 
+Every unversioned route answers machines with the latest SSTIM release; the
+development line has no persistent identifier. `/sstim/{major.minor.patch}`
+pins one release. There are two exceptions. The BSC framework's vocabulary and
+shapes are not part of SSTIM, so they are served from the framework's own
+directory. The JSON-LD context serves the live context: terms are deprecated,
+never deleted, so it only grows, and a document written against any release
+still compacts and expands as it did.
+
 | PID | Content |
 |---|---|
 | `/sstim` | Generated namespace catalogue for `sstim:` hash terms |
@@ -44,20 +52,32 @@ Future PRs touching `sstim/` will be authored or approved by
 | `/sstim/module/exposure` | Exact exposure module distribution |
 | `/sstim/ecosystem` | Ecosystem relationships and consent lifecycle |
 | `/sstim/framework/bsc` | BSC framework catalog record |
+| `/sstim/framework/bsc/vocab` | The BSC framework's own vocabulary, not part of SSTIM (Turtle; browsers open the knowledge browser) |
+| `/sstim/framework/bsc/shapes` | The BSC framework's SHACL shapes (Turtle only) |
 | `/sstim/implementation/bsclab` | BSC Lab implementation catalog record |
 | `/sstim/implementation/biosyncare` | BioSynCare application catalog record |
 | `/sstim/implementation/bsclab/component/patch-studio` | Patch Studio software-component catalog record |
+| `/sstim/implementation/bsclab/{preset,protocol,experiment}/{name}` | Committed presets, protocols and experiments, one Turtle file each |
+| `/sstim/implementation/bsclab/evidence/{path}` | Committed evidence records, nested paths included |
+| `/sstim/ref/{KEY}` | Committed bibliographic references |
 | `/sstim/specialist/{id}` and `/sstim/organization/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
 | `/sstim/ecosystem-record/{relationship,activity,role}/{id}` namespaces (`synthetic-*` excluded) | Mutable live-only ecosystem projection |
 | `/sstim/void` | VoID + DCAT dataset description (Turtle only) |
-| `/sstim/{major.minor.patch}` and `/sstim/{major.minor.patch}/{file.ttl}` | Versioned immutable snapshots (Turtle only) |
+| `/sstim/context.jsonld` | SSTIM's JSON-LD context (the live one) |
+| `/sstim/{major.minor.patch}` and `/sstim/{major.minor.patch}/{file.ttl}` | Versioned immutable snapshots; the version IRI negotiates, and its files are Turtle |
 | `/sstim/{major.minor.patch}/manifest` and `/{major.minor.patch}/manifest.schema.json` | Frozen manifest and schema, where a release has them |
 
-The namespace, kernel, module, and profile routes negotiate Turtle (default),
-JSON-LD (`application/ld+json`), and RDF/XML (`application/rdf+xml`); HTML
-requests redirect to project documentation. A request whose `Accept` header
-allows none of these receives `406`. `Vary: Accept` is set, so caches do not
-serve an HTML representation to an RDF client or the reverse. The manifest and
+The namespace, kernel, module, and profile routes negotiate Turtle, JSON-LD
+(`application/ld+json`) and RDF/XML (`application/rdf+xml`), and send HTML
+requests to project documentation. mod_rewrite cannot rank by `q`, so the order
+is fixed: Turtle when the client names it (`text/turtle` or
+`application/x-turtle`), even among other types, then JSON-LD, RDF/XML and
+HTML, and Turtle again for `*/*` or no `Accept`. A request whose `Accept`
+header allows none of these receives `406`. A version IRI negotiates the same
+way, with a release page for browsers, but never answers `406`: anything else
+gets the Turtle it always got. The rules set `Vary: Accept`, but w3id.org
+does not emit it on redirects; these `303` responses carry no caching headers,
+so a conformant shared cache does not store them. The manifest and
 schema are JSON; VoID, versioned snapshots, and the instance routes below are
 Turtle resources.
 
@@ -68,17 +88,31 @@ modules. That is what keeps `/sstim#Preset` and
 wanting one exact module use `/sstim/kernel` or `/sstim/module/exposure`, and
 consumers wanting a defined subset use a `/sstim/profile/` entry point.
 
-Snapshot routes are enumerated per file rather than matched by wildcard, so a
-version or filename that does not exist returns 404 instead of redirecting to a
-missing target.
+Snapshot routes match any version-shaped path by pattern, so a new release
+needs no change here. A version or file that was never published redirects and
+then answers 404 at the target.
+
+Committed records route by one pattern per family, so a new record needs no
+change here either. An RDF client is sent to a Turtle document describing that
+record alone: its own file for presets, protocols and experiments, and for
+evidence records and references, whose source files are shared, a document
+generated for each committed record. A name that is no record redirects to a
+document that does not exist and answers 404 at the target, as an unknown
+version does. A path outside a family's grammar answers 404 here.
 
 Audited static catalog routes send RDF clients to the owning Turtle instance
 file. General live ecosystem namespace rules send RDF clients to the mutable,
 live-only `current.ttl` projection. Current synthetic contract subjects reserve
 a `synthetic-*` slug rejected by those rules and are available only through the
 direct fixture artifact; there are no fixture-specific routes. Previously
-published frozen snapshots remain unchanged. HTML requests reach the project
-landing page for static catalog and live ecosystem identifiers.
+published frozen snapshots remain unchanged. HTML requests for static catalog,
+record and live ecosystem identifiers reach that identifier's node in the
+knowledge browser.
+
+The BSC vocabulary reuses the local names of the SSTIM terms it replaced, so
+its HTML route passes the namespace as `?ns=bsc-v`. The browser re-attaches the
+term's fragment, and the knowledge browser selects the BSC term rather than the
+SSTIM one.
 
 Dataset membership belongs to the live RDF projection, not the registry
 configuration. Adding, correcting, or retracting a record therefore does not
@@ -90,4 +124,4 @@ caches or previously downloaded copies. The mutable projection is not part of
 a Zenodo ontology snapshot and carries no archival-consent implication.
 
 Redirect issues: open an issue at
-<https://github.com/laBioSynCare/laBioSynCare.github.io/issues>.
+<https://github.com/w3c-cg/sstim/issues>.

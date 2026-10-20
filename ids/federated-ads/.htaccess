@@ -1,0 +1,38 @@
+# # /federated-ads/
+#
+# Persistent identifiers for the Federated Ads Protocol, an open protocol for
+# federated advertising: the v0 vocabulary and JSON-LD context, Problem
+# Details error types, link relations and the planned content taxonomy.
+# Specification and source: https://github.com/federated-ads/spec
+#
+# ## Contact
+# This space is administered by:
+#
+# Suneesh Rajan
+# suneeshtr@gmail.com
+# GitHub username: suneeshtr
+
+RewriteEngine on
+
+# Vocabulary namespace https://w3id.org/federated-ads/v0#
+# JSON-LD clients get the context; everything else gets the HTML page.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^v0/?$ https://federated-ads.github.io/spec/ns/v0.jsonld [R=303,L]
+RewriteRule ^v0/?$ https://federated-ads.github.io/spec/ns/v0 [R=303,L]
+RewriteRule ^v0\.jsonld$ https://federated-ads.github.io/spec/ns/v0.jsonld [R=303,L]
+
+# Error type URIs, e.g. /federated-ads/errors/licence-expired.
+# NE keeps the # fragment from being escaped to %23.
+RewriteRule ^errors/([a-z0-9-]+)$ https://federated-ads.github.io/spec/errors/#$1 [R=302,NE,L]
+RewriteRule ^errors/?$ https://federated-ads.github.io/spec/errors/ [R=302,L]
+
+# Link relations, e.g. /federated-ads/rel/node
+RewriteRule ^rel/([a-z0-9-]+)$ https://federated-ads.github.io/spec/rel/#$1 [R=302,NE,L]
+RewriteRule ^rel/?$ https://federated-ads.github.io/spec/rel/ [R=302,L]
+
+# Content taxonomy (planned; currently a status page)
+RewriteRule ^tax(/.*)?$ https://federated-ads.github.io/spec/tax/ [R=302,L]
+
+# Anything else, including the identifier root: the project site
+RewriteRule ^ https://federated-ads.github.io/spec/ [R=302,L]

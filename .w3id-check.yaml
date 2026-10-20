@@ -1,0 +1,111 @@
+# Configuration for the w3id.org contribution checker (tools/check).
+#
+# Run `node tools/check/bin/w3id-check.js --help` for usage.
+# Rule documentation: https://w3id.org/docs/rules/
+
+# Base URL prepended to a rule id to build its documentation link.
+# The site is deployed from docs/ by .github/workflows/docs.yaml, and this
+# URL reaches it through a redirect in the identifier tree.
+docsBaseUrl: https://w3id.org/docs/rules/
+
+# Where the report tells a contributor to say that a rule is wrong about
+# their files, or that a check should have been made and was not. The rule
+# pages carry the same URL, and a test holds them to this value -- so moving
+# to a prefilled issue-template URL is a change here and nowhere else.
+feedbackUrl: https://github.com/perma-id/w3id.org/issues
+
+# Directory holding the hosted identifier namespaces.
+idsDir: ids
+
+# How a finding's provenance maps to the severity actually reported.
+#
+#   introduced  - on a line this change added, or in a file it created
+#   touched     - in a file or namespace this change touches, but on a line
+#                 it did not modify
+#   preexisting - anywhere else in the tree
+#
+# `as-declared` uses the rule's own severity. `off` suppresses entirely.
+#
+# The repository carries a large legacy backlog, so `preexisting` is off by
+# default: contributors are only held to what they actually changed. Raise
+# these values to ratchet strictness up over time.
+#
+# Rules marked `critical` (security problems, or redirects that are silently
+# dead in production) ignore this table and are always reported -- as a
+# non-blocking notice when pre-existing. `--triage` lists all of them.
+policy:
+  introduced: as-declared
+  touched: warning
+  preexisting: off
+
+# `--all` audits the whole tree at each rule's declared severity. Nightly and
+# on-demand maintainer runs use it; it is not what pull requests are held to.
+
+# Per-rule severity overrides: error | warning | notice | off
+rules:
+  # Many files predate the repository's own .editorconfig. These stay
+  # on so that newly introduced whitespace problems are caught, while the
+  # backlog remains suppressed by `preexisting: off` above.
+  format/no-trailing-whitespace: warning
+  format/final-newline: warning
+  format/no-crlf: warning
+
+  # Many namespaces still redirect to plain http://. Advisory for now.
+  htaccess/https-target: warning
+  htaccess/no-self-redirect: warning
+
+  # Maintainer metadata is recorded ad hoc across ~15 different shapes. The
+  # detector is deliberately lenient until a structured format is agreed.
+  meta/maintainer-github-username: warning
+
+  # A suggestion about readability, not a fault: the markup it argues against
+  # does render correctly.
+  markdown/prefer-list-over-line-breaks: notice
+
+  # Widespread and advisory. Each of these describes something that works
+  # today but will cause trouble later, so none of them blocks a change.
+  htaccess/escape-literal-dots: warning
+  htaccess/avoid-permanent-redirect: warning
+  htaccess/github-raw-target: warning
+  htaccess/no-406-fallback: warning
+
+  # Reports rather than gates: maintainers legitimately edit outside a single
+  # identifier, and so occasionally does a contributor. It is here so that an
+  # accidental edit to the shared files is seen, not to stop deliberate ones.
+  tree/only-own-identifier: warning
+
+# Rule-specific options.
+options:
+  git/minimal-commits:
+    # Commits in the pull request before it is worth suggesting a squash.
+    maxCommits: 5
+    # Commits touching any single file before suggesting a squash.
+    maxCommitsPerFile: 3
+  git/branch-not-stale:
+    # Commits the branch point may lag master by before suggesting a rebase.
+    maxBehind: 500
+  markdown/prefer-list-over-line-breaks:
+    # Manually broken lines in one block before a list is worth suggesting.
+    # Two keeps the rule off a single deliberate break inside a paragraph.
+    minBreaks: 2
+  meta/document-identifier-root:
+    # Namespaces whose sub-names belong to different people, so there is no
+    # single maintainer to record at the root. Nothing in the file layout
+    # distinguishes these from a singly-owned namespace of the same shape,
+    # so they have to be named. Temporary: remove each one once a metadata
+    # format exists that can express per-entry ownership.
+    sharedNamespaces:
+      - ids/people
+
+# Paths no rule examines at all. Installed dependencies are not repository
+# content; .gitignore should keep them untracked, and this makes sure a lapse
+# there does not bury real findings.
+ignorePaths:
+  - '**/node_modules/**'
+
+# Paths exempt from the "only .htaccess and README files" rule. These are
+# service infrastructure, not identifier namespaces.
+allowedPaths:
+  - ids/index.html
+  - ids/.utils/**
+  - ids/w3id/*.html

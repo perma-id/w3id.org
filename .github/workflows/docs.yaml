@@ -1,0 +1,97 @@
+# Build and deploy the w3id.org documentation site to https://docs.w3id.org/.
+#
+# This workflow deliberately does NOT run for the identifier changes that make
+# up nearly all of the activity in this repository. The `paths` filters below
+# are an allowlist, not a denylist: a merge that only touches `ids/**` never
+# starts a build. If a docs build is ever missed, re-run it by hand from the
+# Actions tab (workflow_dispatch).
+#
+# Prerequisites, configured in the repository settings rather than here:
+#   - Settings > Pages > Source = "GitHub Actions"
+#   - Settings > Pages > Custom domain = docs.w3id.org, with Enforce HTTPS
+#   - a DNS record: docs.w3id.org. CNAME perma-id.github.io.
+name: Docs
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yaml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yaml'
+  workflow_dispatch:
+
+# Least privilege by default. The deploy job elevates for itself only.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: docs-build-${{ github.ref }}
+      cancel-in-progress: true
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Required by `lastUpdated: true` in docs/.vitepress/config.js, which
+          # reads the git history to date each page. The repository is only
+          # about 20 MiB packed, so a full clone is cheap. Do not change this
+          # to a shallow fetch without also turning off `lastUpdated`.
+          fetch-depth: 0
+          # Never leave a token in .git/config for a later step to find.
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '26'
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # VitePress fails the build on dead internal links, which is the point of
+      # running this on pull requests as well as on master.
+      - name: Build with VitePress
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    # Never deploy from a fork -- this file is carried by every one of them --
+    # and never from a pull request build.
+    if: >-
+      github.repository == 'perma-id/w3id.org' &&
+      github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Serialize production deployments. Do not cancel one that is in flight.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

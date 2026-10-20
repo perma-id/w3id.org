@@ -4,7 +4,7 @@ RewriteBase /fair-metrics/
 
 # 1. Remove trailing slash (non-root only, to keep clean URLs)
 RewriteCond %{REQUEST_URI} !^/fair-metrics/?$
-RewriteRule ^(.+)/$ /$1 [R=301,L]
+RewriteRule ^(.+)/$ $1 [R=302,L]
 
 # 2. Root: /fair-metrics/ or /fair-metrics → main documentation
 RewriteRule ^$ https://fairmetrics.github.io/Metrics/ [R=303,L]
@@ -24,9 +24,9 @@ RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/landingpages/$1.html [R
 RewriteCond %{HTTP:Accept} text/turtle
 RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metric/$1.ttl [R=303,L,NE]
 
-# JSON if application/json or application/ld+json is acceptable 
+# JSON if application/json or application/ld+json is acceptable
 RewriteCond %{HTTP:Accept} application/json  [OR]
-RewriteCond %{HTTP:Accept} application/ld+json
+RewriteCond %{HTTP:Accept} application/ld\+json
 RewriteRule ^(.+)$ https://fairmetrics.github.io/Metrics/metric/$1.jsonld [R=303,L,NE]
 
 # Default fallback: HTML (for browsers, no Accept header, or unknown types)
