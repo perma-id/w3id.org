@@ -1,0 +1,25 @@
+# EUonAIR — persistent identifiers of the EUonAIR European University alliance
+# EUonAIR AI-Ready Course Description Profile: https://github.com/euonair/course-profile
+# Maintainers:
+#   Carsten Lanquillon, Heilbronn University of Applied Sciences (GitHub: @lanquillon)
+#   Yannik Langer, Heilbronn University of Applied Sciences (GitHub: @yanniklanger)
+
+RewriteEngine on
+
+# Identifier root
+RewriteRule ^$ https://euonair.github.io/course-profile/ [R=302,L]
+
+# Vocabulary values: https://w3id.org/euonair/vocab/<scheme>/<value>
+RewriteRule ^vocab/?$ https://euonair.github.io/course-profile/vocab/ [R=302,L]
+RewriteRule ^vocab/(.+)$ https://euonair.github.io/course-profile/vocab/#$1 [R=302,NE,L]
+
+# Versioned releases: https://w3id.org/euonair/course/profile/<version>[/<file>]
+RewriteRule ^course/profile/([0-9.]+)/?$ https://euonair.github.io/course-profile/profile/$1/ [R=302,L]
+RewriteRule ^course/profile/([0-9.]+)/(.+)$ https://euonair.github.io/course-profile/profile/$1/$2 [R=302,L]
+
+# Current files
+RewriteRule ^course/(context\.jsonld|core\.schema\.json|shapes\.ttl|profile\.xlsx)$ https://euonair.github.io/course-profile/$1 [R=302,L]
+RewriteRule ^course/examples/(.+)$ https://euonair.github.io/course-profile/examples/$1 [R=302,L]
+
+# Namespace document; terms are fragments (https://w3id.org/euonair/course#term)
+RewriteRule ^course/?$ https://euonair.github.io/course-profile/ [R=302,L]
