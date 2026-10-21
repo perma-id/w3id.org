@@ -20,12 +20,12 @@ as stated in the Technical Specification. A section IRI is
 version IRI (`https://w3id.org/m11-rdf/0.1.0`).
 
 The redirect targets are the repository's GitHub Pages site (one page per
-IRI, the whole graph as Turtle, N-Triples, RDF/XML and JSON-LD) and, for
+IRI; the whole graph as Turtle, N-Triples, RDF/XML, and JSON-LD) and, for
 version IRIs, the Turtle at the release tag.
 
 ## Status
 
-Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed
+Draft, not normative. Not an ICH, CDISC, or HL7 artifact, and not endorsed
 by them. The name names neither organisation on purpose. If ICH or CDISC
 mint official IRIs for M11 elements, the IRIs here get `owl:sameAs` to
 them and `owl:deprecated true`.
