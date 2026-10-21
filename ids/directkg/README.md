@@ -1,33 +1,15 @@
 # DirectKG persistent identifier namespace
 
-`https://w3id.org/directkg/` is the persistent namespace root for
-[OntoUML DirectKG](https://github.com/pedropaulofb/ontouml-directkg), a project
-for converting supported OntoUML JSON models into domain-oriented RDF/OWL.
+## About DirectKG
 
-The following redirects are configured with HTTP 302:
+[OntoUML DirectKG](https://github.com/pedropaulofb/ontouml-directkg) is an open-source project developing a transformation from OntoUML conceptual models into domain-oriented RDF/OWL ontologies. It is designed to represent modeled domain classes, properties, and selected logical constraints rather than serialize the OntoUML metamodel or the source JSON structure. The project repository contains its specification, development tests, and a reusable mereology vocabulary.
 
-| Persistent identifier | Destination |
-| --- | --- |
-| `https://w3id.org/directkg/` | `https://pedropaulofb.github.io/ontouml-directkg/` |
-| `https://w3id.org/directkg/docs` | `https://pedropaulofb.github.io/ontouml-directkg/` |
-| `https://w3id.org/directkg/git` | `https://github.com/pedropaulofb/ontouml-directkg` |
-| `https://w3id.org/directkg/pypi` | `https://pypi.org/project/ontouml-directkg/` |
-| `https://w3id.org/directkg/releases/latest` | `https://github.com/pedropaulofb/ontouml-directkg/releases/latest` |
-| `https://w3id.org/directkg/releases/vX.Y.Z` | `https://github.com/pedropaulofb/ontouml-directkg/releases/tag/vX.Y.Z` |
+## Namespace purpose
 
-For release-specific identifiers, `X`, `Y`, and `Z` denote nonnegative integer
-major, minor, and patch versions without leading zeroes. The version rule
-matches stable release tags only; it does not cover prerelease or build suffixes.
-A request for `https://w3id.org/directkg` without the trailing slash first
-receives Apache's normal directory-slash redirect. Unrecognized subpaths are
-not redirected.
+`https://w3id.org/directkg/` is the namespace for persistent identifiers associated with DirectKG. Its purpose is to keep identifier URLs stable when the resources they refer to change hosting locations. W3ID supplies redirects, not the underlying project files or ontology content.
 
-The documentation, PyPI, and GitHub release targets require their respective
-resources to be published. Until then, these configured redirects may lead to
-unavailable destinations; their publication should be verified before requesting
-upstream deployment. This registration does not configure `/directkg/vocab`,
-RDF content negotiation, or vocabulary dereferencing.
+The authoritative redirect configuration is [`.htaccess`](.htaccess). That file can change as resources are published or relocated without requiring this README to duplicate the list of individual redirects.
 
-## Maintainer
+## Administration and contact
 
-- Pedro Paulo Favato Barcelos — GitHub: [@pedropaulofb](https://github.com/pedropaulofb)
+The namespace is administered by **Pedro Paulo Favato Barcelos** (GitHub: [@pedropaulofb](https://github.com/pedropaulofb)). Contact the maintainer through GitHub regarding namespace ownership, identifier assignments, or updates to redirect destinations.
