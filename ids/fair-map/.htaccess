@@ -1,0 +1,33 @@
+# # /fair-map/
+#
+# Permanent identifiers for the FAIR Mappings Schema, a LinkML schema for
+# describing FAIR mapping specifications, developed by the RDA FAIR Mappings
+# Working Group.
+#
+# https://w3id.org/fair-map/               -> schema documentation
+# https://w3id.org/fair-map/schema         -> schema documentation (the schema id)
+# https://w3id.org/fair-map/fair-map.yaml  -> LinkML schema source
+# https://w3id.org/fair-map/schema.yaml    -> LinkML schema source (import by id)
+# https://w3id.org/fair-map/<Element>      -> documentation page for that class, slot or enum
+#
+# ## Contact
+# This space is administered by:
+#
+# Nico Matentzoglu
+# nicolas.matentzoglu@gmail.com
+# GitHub username: matentzn
+#
+# Editors (GitHub usernames): StroemPhi, cthoyt, jkesanie
+
+RewriteEngine on
+
+# Schema documentation; "schema" is the schema id
+RewriteRule ^(schema)?$ https://mapping-commons.github.io/fair-mappings-schema/ [R=302,L]
+
+# LinkML schema source; LinkML resolves an import of the schema id as schema.yaml
+RewriteRule ^(fair-map|schema)\.yaml$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/schema/fair_mappings_schema.yaml [R=302,L]
+
+# Schema elements (classes, slots, enums) resolve to their documentation pages.
+# Only element-shaped names match, so paths with a dot or slash stay free for
+# future artefacts instead of landing on a missing docs page.
+RewriteRule ^([A-Za-z_][A-Za-z0-9_]*)$ https://mapping-commons.github.io/fair-mappings-schema/elements/$1 [R=302,L]
