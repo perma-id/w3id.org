@@ -1,0 +1,60 @@
+# # /ontosim-dis/
+#
+# Permanent IRIs for OntoSim-Dis, an OWL 2 ontology of disease simulation
+# models. The content is published with GitHub Pages at
+# https://paulcadiouf.github.io/ontosim-dis/
+#
+# https://w3id.org/ontosim-dis             the whole ontology, latest release;
+#                                          its terms are .../ontosim-dis#Term
+# https://w3id.org/ontosim-dis/1.1         the whole ontology, one release
+# https://w3id.org/ontosim-dis/layer2      one module, latest release
+# https://w3id.org/ontosim-dis/layer2/1.1  one module, one release
+#
+# Browsers get the documentation; RDF clients get the ontology.
+#
+# ## Contact
+# This space is administered by:
+#
+# Paul Cheikh Anta Diouf
+# GitHub username: PaulCADIOUF
+
+RewriteEngine on
+
+# --- The whole ontology, latest release ------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://paulcadiouf.github.io/ontosim-dis/latest/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://paulcadiouf.github.io/ontosim-dis/latest/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://paulcadiouf.github.io/ontosim-dis/latest/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://paulcadiouf.github.io/ontosim-dis/latest/ontology.nt [R=303,L]
+
+RewriteRule ^$ https://paulcadiouf.github.io/ontosim-dis/latest/index-en.html [R=303,L]
+
+# --- The whole ontology, one release (1.1, 1.2...) -------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/ontology.nt [R=303,L]
+
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/index-en.html [R=303,L]
+
+# --- One module, latest release or one release ------------------------
+# Modules are served in Turtle only, whatever the client asks for.
+
+RewriteRule ^(layer[a-z0-9-]+)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/latest/ontology.ttl [R=303,L]
+
+RewriteRule ^(layer[a-z0-9-]+)/([0-9]+(\.[0-9]+)*)/?$ https://paulcadiouf.github.io/ontosim-dis/$1/$2/ontology.ttl [R=303,L]
