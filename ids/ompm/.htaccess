@@ -1,0 +1,41 @@
+# # /ompm/
+#
+# Ontology-mediated portable memory (OMPM). Content-negotiated IRIs for the
+# Memory Core ontology (@mem/core), published in the onto registry.
+#
+# https://w3id.org/ompm/mem (namespace https://w3id.org/ompm/mem#) redirects
+# to the latest release: Turtle for RDF clients, the package page otherwise.
+# https://w3id.org/ompm/mem/1.2.3 redirects to that release's Turtle.
+# https://w3id.org/ompm/ redirects to the package page.
+#
+# ## Contact
+# This space is administered by:
+#
+# bdot
+# GitHub username: bdot-real
+
+RewriteEngine on
+
+# --- Latest release -----------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^mem$ https://onto.melx.buzz/api/packages/@mem/core/latest/files/ontology/mem.ttl [R=303,L]
+
+RewriteRule ^mem\.ttl$ https://onto.melx.buzz/api/packages/@mem/core/latest/files/ontology/mem.ttl [R=303,L]
+
+RewriteRule ^mem$ https://onto.melx.buzz/package/@mem/core [R=303,L]
+
+# --- A specific release ---------------------------------------------------
+# The registry has no per-release HTML page, so browsers get the package page,
+# which lists every release.
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^mem/([0-9]+\.[0-9]+\.[0-9]+)$ https://onto.melx.buzz/api/packages/@mem/core/$1/files/ontology/mem.ttl [R=303,L]
+
+RewriteRule ^mem/([0-9]+\.[0-9]+\.[0-9]+)\.ttl$ https://onto.melx.buzz/api/packages/@mem/core/$1/files/ontology/mem.ttl [R=303,L]
+
+RewriteRule ^mem/([0-9]+\.[0-9]+\.[0-9]+)$ https://onto.melx.buzz/package/@mem/core [R=303,L]
+
+# --- Identifier root ------------------------------------------------------
+
+RewriteRule ^$ https://onto.melx.buzz/package/@mem/core [R=302,L]
