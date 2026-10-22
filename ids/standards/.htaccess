@@ -11,60 +11,76 @@ RewriteEngine on
 # 1. Core Ontology Terms
 # ----------------------------------------------------------------------
 # Incoming: /standards/smart/ontologies/core/<term>
-# Pattern: ^smart/ontologies/core/([^/]+)$ captures the <term> into $1
-# Target: https://smartsdu.bitbucket.io/docs/im/browse/smart<term>.html
+# Shapes end with "Shape", classes start with an uppercase letter, properties with a lowercase letter.
+# Pattern: ^smart/ontologies/core/([A-Z][^/]*Shape)$ captures the shape <term> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/smart<term>.html
+# Pattern: ^smart/ontologies/core/([A-Z][^/]*)$ captures the class <term> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/class-smart<term>.html
+# Pattern: ^smart/ontologies/core/([a-z][^/]*)$ captures the property <term> into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/prop-smart<term>.html
+# Pattern: ^smart/ontologies/core/([^A-Za-z/][^/]*)$ captures a <term> not starting with a letter into $1
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/smart<term>.html
 
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^smart/ontologies/core/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/smart$1.html [R=303,L]
+RewriteRule ^smart/ontologies/core/([A-Z][^/]*Shape)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/smart$1.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^smart/ontologies/core/([A-Z][^/]*)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/class-smart$1.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^smart/ontologies/core/([a-z][^/]*)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/prop-smart$1.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^smart/ontologies/core/([^A-Za-z/][^/]*)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/smart$1.html [R=303,L]
 
 # ----------------------------------------------------------------------
 # 2. Taxonomy Terms
 # ----------------------------------------------------------------------
 # Incoming: /standards/smart/taxonomies/<type>/<term>
 # Pattern: ^smart/taxonomies/([^/]+)/([^/]+)$ captures <type> into $1 and <term> into $2
-# Target: https://smartsdu.bitbucket.io/docs/im/browse/<type><term>.html
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/<type><term>.html
 
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^smart/taxonomies/([^/]+)/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/$1$2.html [R=303,L]
+RewriteRule ^smart/taxonomies/([^/]+)/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/$1$2.html [R=303,L]
 
 # ----------------------------------------------------------------------
 # 3. JSON-LD contexts
 # ----------------------------------------------------------------------
 # Incoming: /standards/smart/jsonldcontext/<context>
 # Pattern: ^smart/jsonldcontext/([^/]+)$ captures the <context> into $1
-# Target: https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/<context>.json
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/jsonldcontext/<context>.json
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^smart/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/$1.json [R=303,L]
+RewriteRule ^smart/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/jsonldcontext/$1.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^smart/api/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/jsonldcontext/api/$1.json [R=303,L]
+RewriteRule ^smart/api/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/jsonldcontext/api/$1.json [R=303,L]
 
 # ----------------------------------------------------------------------
 # 4. SHACL schemas
 # ----------------------------------------------------------------------
 # Incoming: /standards/smart/schema/data/<schema_name>
 # Pattern: ^smart/schema/data/([^/]+)$ captures the <schema_name> into $1
-# Target: https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/data_shapes/<schema_name>.json
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/jsonld/data_shapes/<schema_name>.json
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^smart/schema/data/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/data_shapes/$1.json [R=303,L]
+RewriteRule ^smart/schema/data/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/jsonld/data_shapes/$1.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^smart/schema/common/([^/]+)/shapes/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
+RewriteRule ^smart/schema/common/([^/]+)/shapes/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^smart/schema/common/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
+RewriteRule ^smart/schema/common/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/jsonld/common_shapes/$1.json [R=303,L]
 
 # ----------------------------------------------------------------------
 # 5. Fallback
 # ----------------------------------------------------------------------
 # Incoming: Any other path under /standards/smart/ that didn't match above
-# Target: https://smartsdu.bitbucket.io/docs/im/browse/index.html
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/index.html
 
-RewriteRule ^smart/.*$ https://smartsdu.bitbucket.io/docs/im/browse/index.html [R=303,L]
+RewriteRule ^smart/.*$ https://smartsdu.bitbucket.io/docs/im/browse/latest/index.html [R=303,L]
