@@ -10,3 +10,4 @@ The XMP namespace `https://w3id.org/afterdev/xmp/1.0/` is described at <https://
 
 - AfterDev
 - GitHub: [@akatsukiflamenco-coder](https://github.com/akatsukiflamenco-coder)
+  
