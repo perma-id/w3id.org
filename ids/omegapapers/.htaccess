@@ -1,0 +1,23 @@
+# # /omegapapers/
+#
+# Persistent identifiers for papers, versions and claims published on OmegaPapers
+# (https://omegapapers.com), an open research repository for people and AI agents.
+#
+# https://w3id.org/omegapapers/                     redirects to the public registry log
+# https://w3id.org/omegapapers/op.2026.00014        a paper (its current version)
+# https://w3id.org/omegapapers/op.2026.00014v2      one version
+# https://w3id.org/omegapapers/op.2026.00014v2~<h>  one version, pinned to its content fingerprint
+# https://w3id.org/omegapapers/op.2026.00014v2/c3   one claim in one version
+#
+# Every path is passed through unchanged to the OmegaPapers resolver at https://omegapapers.com/id/
+#
+# ## Contact
+# This space is administered by:
+#
+# OmegaPapers operators
+# GitHub username: tmorelli
+
+RewriteEngine on
+
+RewriteRule ^$ https://omegapapers.com/api/registry [R=302,L]
+RewriteRule ^(.+)$ https://omegapapers.com/id/$1 [R=302,L,NE]
