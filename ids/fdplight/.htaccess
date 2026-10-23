@@ -1,0 +1,18 @@
+# # /fdplight/
+#
+# https://w3id.org/fdplight/ is a FAIR Data Point whose files are served at
+# https://fdplight.fairdatapoint.org/metadata/
+# Rules written by FDPlight (https://fdplight.fairdatapoint.org/).
+#
+# ## Contact
+# This space is administered by:
+#
+# Luiz Olavo Bonino
+# GitHub username: luizbonino
+
+RewriteEngine on
+
+# The FAIR Data Point itself
+RewriteRule ^$ https://fdplight.fairdatapoint.org/metadata/fdp.ttl [R=302,L]
+# Its records and profile documents: {path} is served as {path}.ttl
+RewriteRule ^(.*[^/])$ https://fdplight.fairdatapoint.org/metadata/$1.ttl [R=302,L]
