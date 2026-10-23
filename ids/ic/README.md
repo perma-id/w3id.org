@@ -7,3 +7,5 @@ This set of redirects are being supervised by the DNI/IC-CIO
 ## Contact
 IC-Standards-Support@odni.gov
 
+## Maintainers
+dyuan322020
