@@ -80,12 +80,16 @@ export function makeRepo() {
  * @param {boolean} [opts.auditAll]
  * @param {string[]|null} [opts.scope] - paths to report on.
  * @param {boolean} [opts.includeWorkingTree] - count uncommitted edits.
+ * @param {string|null} [opts.author] - account that opened the change.
+ * @param {string|null} [opts.target] - tip of the branch merged into.
  */
 export function check({dir, rules, base = null, head = null, config = {},
-  auditAll = base === null, scope = null, includeWorkingTree = false}) {
+  auditAll = base === null, scope = null, includeWorkingTree = false,
+  author = null, target = null}) {
   const resolved = {...loadConfig(dir), ...config};
   const ctx = new Context({
-    root: dir, config: resolved, base, head, scope, includeWorkingTree
+    root: dir, config: resolved, base, head, scope, includeWorkingTree,
+    author, target
   });
   ctx.allRuleIds = ruleIds;
   const result = run({rules, ctx, config: resolved, auditAll});
