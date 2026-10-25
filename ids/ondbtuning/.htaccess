@@ -1,0 +1,17 @@
+# Habilita o motor de reescrita
+RewriteEngine On
+
+# Permite acesso externo CORS
+Header set Access-Control-Allow-Origin "*"
+
+# 1. Se um humano (navegador) acessar, redireciona para o GitHub Pages
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://anacrl.github.io/onDBTuning/ [R=303,L]
+
+# 2. Se uma ferramenta ou máquina pedir formato semântico (Turtle ou RDF), entrega o arquivo bruto
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/anacrl/onDBTuning/main/OntologiaOuterTuning.owl [R=303,L]
+
+# 3. Regra padrão (Fallback): redireciona para a documentação web
+RewriteRule ^$ https://anacrl.github.io/onDBTuning/ [R=303,L]
