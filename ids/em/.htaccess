@@ -1,0 +1,22 @@
+# w3id.org/em — LEGACY ALIAS of w3id.org/extendedmatrix
+#
+# Extended Matrix (CNR-ISPC). Contact: Emanuel Demetrescu
+# <emanuel.demetrescu@cnr.it>, https://github.com/ExtendedMatrix
+#
+# The Extended Matrix space is /extendedmatrix (perma-id/w3id.org#6722). Before
+# it was registered, the tools emitted IRIs under /em: the ontology
+# (https://w3id.org/em/ontology#…, in RDF already delivered), the node IRIs of
+# the RDF export (https://w3id.org/em/id/…), the first em.json schema
+# (https://w3id.org/em/schemas/em.v1.schema.json). Those IRIs cannot be
+# rewritten in the data that carries them. This directory does not open a new
+# namespace: it makes the old one an alias, and every request under /em goes to
+# the same path under /extendedmatrix, where the registered rules decide.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# the ontology keeps its content negotiation in the /extendedmatrix rules
+RewriteRule ^ontology/?$ https://w3id.org/extendedmatrix/ontology [R=302,L]
+
+# everything else, same path
+RewriteRule ^(.*)$ https://w3id.org/extendedmatrix/$1 [R=302,L]
