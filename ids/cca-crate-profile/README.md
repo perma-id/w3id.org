@@ -5,5 +5,5 @@ References:
 * https://fair2adapt-eosc.eu/
 * https://www.researchobject.org/
 
-Contacts: 
+Contacts:
 * Raul Palma <rpalma@man.poznan.pl> GitHub username: rapw3k
