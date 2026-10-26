@@ -1,15 +1,18 @@
 # /m11-rdf/
 #
 # https://w3id.org/m11-rdf/ is the namespace for a draft RDF rendering of
-# ICH M11 protocol elements and sections, with mapping statements to the
-# usdm-rdf rendering of CDISC USDM v4. Maintained in kerfors/m11-rdf.
+# ICH M11 protocol elements and sections, and a separate SSSOM mapping set
+# with mapping statements to the usdm-rdf rendering of CDISC USDM v4.
+# Maintained in kerfors/m11-rdf.
 # Slash semantics. An element IRI is <namespace codelist>.<concept code>
 # (e.g. C217356.C132352), the pair as stated in the ICH M11 Technical
 # Specification; a section IRI is C217272.<section term code>.
 #
 # Rule: a browser gets the page at the same path on the GitHub Pages site
-# of kerfors/m11-rdf, one page per IRI; an RDF client gets the whole graph
-# (Turtle, N-Triples, RDF/XML or JSON-LD; default Turtle). A version IRI
+# of kerfors/m11-rdf, one page per IRI; an RDF client gets the M11 graph
+# (Turtle, N-Triples, RDF/XML or JSON-LD; default Turtle), except for a
+# mapping record IRI (/mapping/...), which gets the mapping set as
+# SSSOM/RDF (Turtle). A version IRI
 # (bare-numeric path, e.g. /0.1.0) resolves to the Turtle at that release
 # tag through one generic rule, so a release needs no change here. Paths
 # ending in a file extension (graph files, mapping sets) pass through to
@@ -32,7 +35,14 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/kerfors
 # Files on the site: graph serializations and mapping sets, path kept.
 RewriteRule ^([A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*\.(ttl|nt|rdf|jsonld|tsv))$ https://kerfors.github.io/m11-rdf/$1 [R=302,L]
 
-# RDF clients: the whole graph, current release.
+# RDF clients asking for a mapping record: the mapping set (SSSOM/RDF, Turtle only).
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^mapping/ https://kerfors.github.io/m11-rdf/m11-usdm.sssom.ttl [R=303,L]
+
+# RDF clients: the M11 graph, current release.
 RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^(.*)$ https://kerfors.github.io/m11-rdf/m11-rdf.nt [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -48,5 +58,7 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^(.*)$ https://kerfors.github.io/m11-rdf/$1 [R=303,L]
 
-# Default (no Accept header, programmatic clients): the whole graph as Turtle.
+# Default (no Accept header, programmatic clients): Turtle; the mapping set
+# for a mapping record, otherwise the M11 graph.
+RewriteRule ^mapping/ https://kerfors.github.io/m11-rdf/m11-usdm.sssom.ttl [R=303,L]
 RewriteRule ^(.*)$ https://kerfors.github.io/m11-rdf/m11-rdf.ttl [R=303,L]
