@@ -14,3 +14,7 @@ Documentation: <https://github.com/Hamed-kalak/germany-imaging-atlas>
 - Mohammadhamed Mirbagheri
 - <Mohammadhamed.Mirbagheri@uk-augsburg.de>
 - GitHub: [@Hamed-kalak](https://github.com/Hamed-kalak)
+
+- Josua Decker
+- <josua.decker@uk-augsburg.de>
+- GitHub: [@josuadecker](https://github.com/josuadecker)
