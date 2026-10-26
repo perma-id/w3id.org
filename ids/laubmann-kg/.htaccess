@@ -1,0 +1,54 @@
+# # /laubmann-kg/
+#
+# Permanent identifiers of the Laubmann Knowledge Graph (HistOrniGraph): the
+# ontology, its SKOS vocabularies and SHACL shapes, and the instance IRIs of a
+# knowledge graph built from the ornithological field diaries of Alfred Louis
+# Laubmann (Bavaria, 1917-1965). Source: https://github.com/desyLoyz/laubmann-kg
+#
+# Layout
+#   /laubmann-kg/ontology            OWL ontology (hash namespace .../ontology#):
+#                                    Turtle for RDF clients, documentation for browsers
+#   /laubmann-kg/ontology/<x.y.z>    version IRIs (owl:versionIRI) -> git tag v<x.y.z>
+#   /laubmann-kg/vocabularies        SKOS concept schemes (controlled values)
+#   /laubmann-kg/shapes              SHACL shapes
+#   /laubmann-kg/context.jsonld      JSON-LD context
+#   /laubmann-kg/data/<id>           instance IRIs (no resolver yet: data documentation page)
+#
+# ## Contact
+# This space is administered by:
+#
+# Tobias Perschl
+# Tobias.Perschl@uni-passau.de
+# GitHub username: Maelkolb
+#
+# Alois Wieshuber
+# alois.wieshuber@gda.bayern.de
+# GitHub username: desyLoyz
+
+RewriteEngine on
+
+# ontology: RDF clients get the Turtle file of the main branch
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples|text/n3)
+RewriteRule ^ontology$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/main/ontologies/laubmann.ttl [R=303,L]
+RewriteRule ^ontology$ https://desyloyz.github.io/laubmann-kg/ontology/ [R=303,L]
+RewriteRule ^ontology\.ttl$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/main/ontologies/laubmann.ttl [R=302,L]
+RewriteRule ^ontology\.html$ https://desyloyz.github.io/laubmann-kg/ontology/ [R=302,L]
+
+# version IRIs: the ontology file of the release tag
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/v$1/ontologies/laubmann.ttl [R=303,L]
+
+# vocabularies and shapes
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json)
+RewriteRule ^vocabularies$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/main/ontologies/controlled_vocabularies.ttl [R=303,L]
+RewriteRule ^vocabularies$ https://desyloyz.github.io/laubmann-kg/ontology/vocabularies.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json)
+RewriteRule ^shapes$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/main/ontologies/shacl_shapes.ttl [R=303,L]
+RewriteRule ^shapes$ https://desyloyz.github.io/laubmann-kg/ontology/shapes.html [R=303,L]
+RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/desyLoyz/laubmann-kg/main/schemas/jsonld_context.json [R=302,L]
+
+# instance IRIs: no public SPARQL/describe service yet, so they land on the data
+# documentation page (the IRI's local name as fragment)
+RewriteRule ^data/([A-Za-z0-9_.-]+)$ https://desyloyz.github.io/laubmann-kg/ontology/data.html#$1 [R=302,NE,L]
+
+# root: the project repository
+RewriteRule ^$ https://github.com/desyLoyz/laubmann-kg [R=302,L]
