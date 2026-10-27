@@ -1,0 +1,40 @@
+# https://w3id.org/fw_ontology/ — permanent identifiers for the FW Ontology
+# (classes and properties for uncertain, vague and fuzzy/wobbly data, NFDI4Objects TWG FuzzyWobblySW).
+#
+# Addresses in use:
+#
+#   /fw_ontology/          the ontology (negotiated on Accept: Turtle, RDF/XML,
+#                          JSON-LD, otherwise the HTML documentation)
+#   /fw_ontology/<Term>    a class or property, e.g. /fw_ontology/UncertainValue
+#                          (RDF: the whole ontology; HTML: the documentation at that term)
+#
+# Everything leads to the pages on GitHub Pages of the repository
+# https://github.com/caa-datadragons/FW_Ontology (built by its workflow "Documentation").
+#
+# ## Contact
+# This space is administered by:
+#
+# Florian Thiery
+# GitHub username: @florianthiery
+# email: florian.thiery@leiza.de
+
+RewriteEngine On
+RewriteBase /fw_ontology/
+
+# The ontology itself: content negotiation on the Accept header
+RewriteCond %{HTTP_ACCEPT} text/turtle|application/x-turtle
+RewriteRule ^$ https://caa-datadragons.github.io/FW_Ontology/ontology.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://caa-datadragons.github.io/FW_Ontology/ontology.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^$ https://caa-datadragons.github.io/FW_Ontology/ontology.jsonld [R=302,L]
+RewriteRule ^$ https://caa-datadragons.github.io/FW_Ontology/ [R=302,L]
+
+# A term: the same negotiation; the HTML documentation has an anchor for every term (NE keeps the #)
+RewriteCond %{HTTP_ACCEPT} text/turtle|application/x-turtle
+RewriteRule ^([A-Za-z0-9_]+)$ https://caa-datadragons.github.io/FW_Ontology/ontology.ttl [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([A-Za-z0-9_]+)$ https://caa-datadragons.github.io/FW_Ontology/ontology.rdf [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^([A-Za-z0-9_]+)$ https://caa-datadragons.github.io/FW_Ontology/ontology.jsonld [R=302,L]
+RewriteRule ^([A-Za-z0-9_]+)$ https://caa-datadragons.github.io/FW_Ontology/#$1 [R=302,NE,L]
