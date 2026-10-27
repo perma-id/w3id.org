@@ -1,0 +1,46 @@
+# # /lokf/
+#
+# Linked Open Knowledge Format (LOKF): a LinkML schema for knowledge bundles
+# written as Markdown with frontmatter, with the JSON-LD context, JSON Schema,
+# SHACL shapes and OWL ontology generated from it. https://w3id.org/lokf/ and
+# everything under it redirects to the project's site,
+# https://lokf.nolan-nichols.com/.
+#
+# https://w3id.org/lokf/schema is the schema file, and the artifacts resolve
+# by their file names, so a bundle can declare
+# context: https://w3id.org/lokf/context.jsonld. A path that starts with a
+# release tag, such as v0.9.0/lokf.context.jsonld, resolves to that file at
+# that tag in the repository. A vocabulary term, such as
+# https://w3id.org/lokf/Concept, resolves to the OWL ontology for an RDF
+# client and to the specification for a browser.
+#
+# Source: https://github.com/nicholsn/lokf
+#
+# ## Contact
+# This space is administered by:
+#
+# Nolan Nichols
+# GitHub username: nicholsn
+#
+# Noel McLoughlin
+# GitHub username: noelmcloughlin
+
+RewriteEngine on
+
+# The schema and its generated artifacts, as the site serves them.
+RewriteRule ^schema$ https://lokf.nolan-nichols.com/lokf.yaml [R=302,L]
+RewriteRule ^context\.jsonld$ https://lokf.nolan-nichols.com/lokf.context.jsonld [R=302,L]
+RewriteRule ^(lokf\.(yaml|context\.jsonld|schema\.json|shacl\.ttl|owl\.ttl|sql))$ https://lokf.nolan-nichols.com/$1 [R=302,L]
+
+# The same files at a release tag, from the repository at that tag.
+RewriteRule ^(v[0-9]+\.[0-9]+\.[0-9]+)/context\.jsonld$ https://raw.githubusercontent.com/nicholsn/lokf/$1/lokf.context.jsonld [R=302,L]
+RewriteRule ^(v[0-9]+\.[0-9]+\.[0-9]+)/(lokf\.(yaml|context\.jsonld|schema\.json|shacl\.ttl|owl\.ttl|sql))$ https://raw.githubusercontent.com/nicholsn/lokf/$1/$2 [R=302,L]
+
+# A vocabulary term: the ontology for an RDF client, the specification for
+# a browser.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^[A-Za-z_][A-Za-z0-9_]*$ https://lokf.nolan-nichols.com/lokf.owl.ttl [R=303,L]
+RewriteRule ^[A-Za-z_][A-Za-z0-9_]*$ https://lokf.nolan-nichols.com/specification/ [R=303,L]
+
+# Everything else, the root included: the site, path kept.
+RewriteRule ^(.*)$ https://lokf.nolan-nichols.com/$1 [R=302,L]
