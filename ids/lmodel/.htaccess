@@ -33,6 +33,25 @@ RewriteRule ^$ https://github.com/lmodel [R=302,L]
 RewriteRule ^uco/([a-z0-9]+)((?:/.*)?)$ uco-$1$2 [N,DPI]
 RewriteRule ^ucs/([a-z0-9]+)((?:/.*)?)$ ucs-$1$2 [N,DPI]
 
+# Knowledge bundles: https://w3id.org/lmodel/<repo>/knowledge/ is the namespace
+# of a repository's LOKF knowledge bundle, published on its site at
+# https://lmodel.github.io/<repo>/knowledge/. These rules come before the
+# schema rules. A concept's IRI resolves (web browser), to JSON-LD  for
+# application/ld+json and Markdown for text/markdown. The IRI resolves to its
+# page, to every concept as JSON-LD, or to bundle as N-Triples. A path that
+# names a file by its extension goes to that file
+RewriteRule ^([^/]+)/(knowledge/.+\.(jsonld|json|md|nt))$ https://lmodel.github.io/$1/$2 [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([^/]+)/knowledge/?$ https://lmodel.github.io/$1/knowledge/concepts.jsonld [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} (application/n-triples|text/turtle)
+RewriteRule ^([^/]+)/knowledge/?$ https://lmodel.github.io/$1/knowledge/graph.nt [R=303,NE,L]
+RewriteRule ^([^/]+)/knowledge/?$ https://lmodel.github.io/$1/knowledge/ [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://lmodel.github.io/$1/knowledge/$2.jsonld [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://lmodel.github.io/$1/knowledge/$2.md [R=303,NE,L]
+RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://lmodel.github.io/$1/knowledge/$2/ [R=303,NE,L]
+
 # Filename-stem normalization & branch/layout overrides
 #
 # gen-project converts hyphens in repo names to underscores in artifact
