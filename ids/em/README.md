@@ -11,5 +11,5 @@ path under `/em/` is permanently redirected (301) to the same path under
 
 ## Contact
 
-Emanuel Demetrescu — CNR-ISPC (Institute of Heritage Science, Italy)
-emanuel.demetrescu@cnr.it · ORCID 0000-0002-5065-7970 · GitHub: zalmoxes-laran
+- Emanuel Demetrescu — CNR-ISPC (Institute of Heritage Science, Italy)
+- emanuel.demetrescu@cnr.it · ORCID 0000-0002-5065-7970 · GitHub: zalmoxes-laran
