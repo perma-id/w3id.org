@@ -116,6 +116,7 @@ SetEnvIf Request_URI ^.*$ XAS_PAGES=https://cdif-4-xas.github.io/XAS-CDIF
 #   data_structure/1.1  → profile-datastructure
 #   manifest/1.1        → profile-manifest
 #   provenance/1.1      → profile-provenance
+#   provenance/activityType[/<concept>] → profile-provenance vocabularies/ (SKOS)
 #   conceptscheme/1.1   → profile-conceptscheme
 #   codelist/1.1        → profile-codelist
 #   xasCore/1.0         → mBB xasProperties/xasCore     (XAS mandatory tier)
@@ -343,6 +344,23 @@ RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/cdifProvenanceStructuredSche
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/provenanceRules.shacl [R=303,L]
 RewriteRule ^provenance/1\.1/?$ %{ENV:PROFILE_PROV}/CDIFProvenanceImplementationGuide.html [R=303,L]
+
+# --- provenance/activityType → profile-provenance vocabularies/ (SKOS concept scheme) ---
+# Scheme IRI: the whole vocabulary as Turtle or JSON-LD, else its HTML page.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^provenance/activityType/?$ %{ENV:PROFILE_PROV}/vocabularies/activityTypes.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^provenance/activityType/?$ %{ENV:PROFILE_PROV}/vocabularies/activityTypes.jsonld [R=303,L]
+RewriteRule ^provenance/activityType/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/activityTypes.html [R=303,L]
+# Concept IRI: that concept's own Turtle or JSON-LD file, else its anchor on the HTML page
+# (NE keeps the # literal). The last IRI segment is the file name and the anchor.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^provenance/activityType/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/activityType/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^provenance/activityType/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/activityType/$1.jsonld [R=303,L]
+RewriteRule ^provenance/activityType/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/activityTypes.html#$1 [R=303,NE,L]
 
 # --- conceptscheme/1.1 → profile-conceptscheme ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
