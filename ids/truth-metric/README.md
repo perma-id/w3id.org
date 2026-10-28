@@ -12,8 +12,6 @@ https://github.com/Jkhcw16-arch/truth-metric-ontology
 
 ## Maintainer
 
-Jamie Kinney
-
-GitHub: Jkhcw16-arch
-
-Email: Jkhcw9277@icloud.com
+- Jamie Kinney
+  - GitHub: Jkhcw16-arch
+  - Email: Jkhcw9277@icloud.com
