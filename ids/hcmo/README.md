@@ -20,6 +20,7 @@ The ontology is developed and maintained at
 | `https://w3id.org/hcmo/id/vocab/<scheme>[/<concept>]` | SKOS vocabulary of the scheme (file formats, data-access methods, vendors, systems) |
 | `https://w3id.org/hcmo/ontology/profile/bfo-sosa-bridge` | Optional BFO/SOSA bridge profile |
 | `https://w3id.org/hcmo/ontology/external/upper-presentation` | Upper-level presentation module |
+| `https://w3id.org/hcmo/sparql` | Read-only SPARQL endpoint of the reference graph (browsers: query page of the web interface) |
 
 ## Content negotiation
 

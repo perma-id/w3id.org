@@ -13,6 +13,7 @@
 # Vocabularies:    https://w3id.org/hcmo/id/vocab/<scheme>[/<concept>]
 # Profiles:        https://w3id.org/hcmo/ontology/profile/bfo-sosa-bridge
 #                  https://w3id.org/hcmo/ontology/external/upper-presentation
+# SPARQL:          https://w3id.org/hcmo/sparql
 #
 # RDF is served from GitHub Pages (https://dhuzard.github.io/HCMO/), which
 # holds byte-identical copies of the GitHub release assets and serves them with
@@ -119,6 +120,23 @@ RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
 RewriteRule ^id/vocab/([a-z0-9-]+)(/.*)?$ https://github.com/dhuzard/HCMO/tree/main/vocabularies [R=303,L]
 RewriteRule ^id/vocab/([a-z0-9-]+)(/.*)?$ https://dhuzard.github.io/HCMO/vocab/$1.ttl [R=303,L]
+
+# ===========================================================================
+# SPARQL endpoint: https://w3id.org/hcmo/sparql
+# Read-only Fuseki endpoint of the reference graph. SPARQL clients are sent
+# to the endpoint (the query string, e.g. ?query=..., is kept); a browser
+# without a query is sent to the query page of the web interface. A POST
+# query gets a 307, so the client repeats the POST with its body.
+# ===========================================================================
+
+RewriteCond %{REQUEST_METHOD} =POST
+RewriteRule ^sparql/?$ https://sparql.hcmo.metadatapp.net/hcmo/sparql [R=307,L]
+
+RewriteCond %{QUERY_STRING} ^$
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^sparql/?$ https://sparql.hcmo.metadatapp.net/#/dataset/hcmo/query [R=302,L,NE]
+RewriteRule ^sparql/?$ https://sparql.hcmo.metadatapp.net/hcmo/sparql [R=302,L]
 
 # ===========================================================================
 # Landing: https://w3id.org/hcmo/ (and any unmatched path) -> source repo
