@@ -20,6 +20,20 @@ RewriteEngine on
 # Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/prop-smart<term>.html
 # Pattern: ^smart/ontologies/core/([^A-Za-z/][^/]*)$ captures a <term> not starting with a letter into $1
 # Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/smart<term>.html
+#
+# Asked for in Turtle (Accept: text/turtle):
+# Pattern: ^smart/ontologies/core/([A-Z][^/]*Shape)$ matches a shape
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/schemas.shacl.ttl (all the SHACL shapes)
+# Pattern: ^smart/ontologies/core(/.*)?$ matches the ontology and its terms
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/ontologies/core-ontology.ttl
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^smart/ontologies/core/([A-Z][^/]*Shape)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/schemas.shacl.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^smart/ontologies/core(/.*)?$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/ontologies/core-ontology.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^smart/ontologies/core/([A-Z][^/]*Shape)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/smart$1.html [R=303,L]
@@ -39,6 +53,14 @@ RewriteRule ^smart/ontologies/core/([^A-Za-z/][^/]*)$ https://smartsdu.bitbucket
 # Incoming: /standards/smart/taxonomies/<type>/<term>
 # Pattern: ^smart/taxonomies/([^/]+)/([^/]+)$ captures <type> into $1 and <term> into $2
 # Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/<type><term>.html
+#
+# Asked for in Turtle (Accept: text/turtle):
+# Pattern: ^smart/taxonomies/([^/]+)(/.*)?$ matches the taxonomy <type> and its terms
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/taxonomies/<type>.ttl
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^smart/taxonomies/([^/]+)(/.*)?$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/taxonomies/$1.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^smart/taxonomies/([^/]+)/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/$1$2.html [R=303,L]
@@ -64,6 +86,19 @@ RewriteRule ^smart/api/jsonldcontext/([^/]+)$ https://smartsdu.bitbucket.io/docs
 # Incoming: /standards/smart/schema/data/<schema_name>
 # Pattern: ^smart/schema/data/([^/]+)$ captures the <schema_name> into $1
 # Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/jsonld/data_shapes/<schema_name>.json
+# The same for /standards/smart/schema/common/<schema_name>, with common_shapes.
+#
+# Asked for in Turtle (Accept: text/turtle), the self-contained Turtle file of the schema:
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/ttl/data_shapes/<schema_name>.ttl
+# Target: https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/ttl/common_shapes/<schema_name>.ttl
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^smart/schema/data/([^/]+)$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/ttl/data_shapes/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^smart/schema/common/([^/]+)(/shapes/[^/]+)?$ https://smartsdu.bitbucket.io/docs/im/browse/latest/raw/schemas/shacl/ttl/common_shapes/$1.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
