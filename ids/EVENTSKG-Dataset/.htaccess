@@ -4,30 +4,118 @@
 # Said Fathalla
 # GitHub username: saidfathalla
 # Email: sm_fathalla(at) alex-sci.edu.eg
+#
+# Paths served under https://w3id.org/EVENTSKG-Dataset/
+#
+#   Documentation (HTML, GitHub Pages: docs/ folder of the master branch)
+#     /  or /docs                   documentation page
+#     /sparql                       in-browser SPARQL explorer
+#
+#   Dataset namespace, content negotiation (eventskg: = .../ekg#)
+#     /ekg   text/html              -> documentation page
+#            text/turtle            -> EVENTSKG.ttl
+#            application/rdf+xml    -> serializations/EVENTSKG.rdf
+#            application/ld+json    -> serializations/EVENTSKG.jsonld
+#            application/n-triples  -> serializations/EVENTSKG.nt
+#            text/n3                -> serializations/EVENTSKG.n3
+#            anything else          -> EVENTSKG.ttl
+#
+#   Downloads of release 3.0
+#     /ttl /rdf /jsonld /nt /n3                     generated edition
+#     /enriched  /enriched/ttl /enriched/rdf ...    enriched edition
+#     /EVENTSKG.ttl, /EVENTSKG-enriched.nt ...      by file name
+#     /void                                         dataset description (VoID.ttl)
+#     /data                                         curated record (data/EVENTSKG_data.csv)
+#     /mapping                                      SSSOM mapping (data/eventskg.sssom.tsv)
+#     /shapes                                       SHACL shapes (shapes/shapes.ttl)
+#
+#   Earlier releases
+#     /R2.1  /R2.1/ttl /R2.1/nt /R2.1/jsonld        archive/R2.1/EVENTSKG.*
+#
+# Repository layout assumed: release 3.0 Turtle files and VoID.ttl in the root,
+# the other serialisations in serializations/, earlier releases in archive/.
+
 Options +FollowSymLinks
 # Turn off MultiViews
 Options -MultiViews
 
-# Directive to ensure *.rdf files served as appropriate content type,
+# Directive to ensure RDF files are served with the appropriate content type,
 # if not present in main apache config
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
 AddType application/ld+json .json
+AddType application/ld+json .jsonld
+AddType application/n-triples .nt
+AddType text/n3 .n3
 
 RewriteEngine on
 
-#Rewrite rules for ekg
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+# ----------------------------------------------------------------------------
+# Documentation and SPARQL explorer (HTML)
+# ----------------------------------------------------------------------------
+RewriteRule ^$             https://saidfathalla.github.io/EVENTSKG-Dataset/docs/ [R=302,NE,L]
+RewriteRule ^docs/?$       https://saidfathalla.github.io/EVENTSKG-Dataset/docs/ [R=302,NE,L]
+RewriteRule ^sparql/?$     https://saidfathalla.github.io/EVENTSKG-Dataset/docs/sparql.html [R=302,NE,L]
+
+# ----------------------------------------------------------------------------
+# Content negotiation for the dataset namespace
+# The fragment (#AAAI2025) is never sent to the server, so every
+# eventskg: IRI arrives here as /ekg.
+# ----------------------------------------------------------------------------
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG.rdf [R=303,NE,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/EVENTSKG.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG.jsonld [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG.nt [R=303,NE,L]
+
+# N3
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG.n3 [R=303,NE,L]
+
+# HTML (browsers)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
-RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^ekg$ https://github.com/saidfathalla/EVENTSKG-Dataset  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^ekg$ https://saidfathalla.github.io/EVENTSKG-Dataset/docs/ [R=303,NE,L]
 
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+# Default response: Turtle
 RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/EVENTSKG.ttl [R=303,NE,L]
 
-#default response: ttl
-RewriteRule ^ekg$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/EVENTSKG.ttl [R=303,NE,L]
+# ----------------------------------------------------------------------------
+# Downloads of release 3.0
+# ----------------------------------------------------------------------------
+
+# Generated edition: Turtle in the root, other formats in serializations/
+RewriteRule ^ttl$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/EVENTSKG.ttl [R=302,NE,L]
+RewriteRule ^(rdf|jsonld|nt|n3)$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG.$1 [R=302,NE,L]
+
+# Enriched edition: /enriched (Turtle), /enriched/ttl, /enriched/rdf ...
+RewriteRule ^enriched(/ttl)?/?$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/EVENTSKG-enriched.ttl [R=302,NE,L]
+RewriteRule ^enriched/(rdf|jsonld|nt|n3)$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/EVENTSKG-enriched.$1 [R=302,NE,L]
+
+# By file name: /EVENTSKG.ttl, /EVENTSKG-enriched.ttl (root) and the other formats (serializations/)
+RewriteRule ^(EVENTSKG(-enriched)?\.ttl)$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/$1 [R=302,NE,L]
+RewriteRule ^(EVENTSKG(-enriched)?\.(rdf|jsonld|nt|n3))$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/serializations/$1 [R=302,NE,L]
+
+# Dataset description, curated record, mapping and shapes
+RewriteRule ^void/?$    https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/VoID.ttl [R=302,NE,L]
+RewriteRule ^data/?$    https://github.com/saidfathalla/EVENTSKG-Dataset/blob/master/data/EVENTSKG_data.csv [R=302,NE,L]
+RewriteRule ^mapping/?$ https://github.com/saidfathalla/EVENTSKG-Dataset/blob/master/data/eventskg.sssom.tsv [R=302,NE,L]
+RewriteRule ^shapes/?$  https://github.com/saidfathalla/EVENTSKG-Dataset/blob/master/shapes/shapes.ttl [R=302,NE,L]
+
+# ----------------------------------------------------------------------------
+# Earlier releases (archive/)
+# ----------------------------------------------------------------------------
+RewriteRule ^R2\.1(/ttl)?/?$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/archive/R2.1/EVENTSKG.ttl [R=302,NE,L]
+RewriteRule ^R2\.1/(nt|jsonld)$ https://raw.githubusercontent.com/saidfathalla/EVENTSKG-Dataset/refs/heads/master/archive/R2.1/EVENTSKG.$1 [R=302,NE,L]
