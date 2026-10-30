@@ -7,6 +7,9 @@
 # https://w3id.org/agentprov/ns         apv vocabulary namespace (content-negotiated, 303)
 # https://w3id.org/agentprov/ns/0.1.0   a released version of the vocabulary (content-negotiated, 303)
 # https://w3id.org/agentprov/exec/...   execution instance IRIs (identifiers; 302 to an explanation page)
+# https://w3id.org/agentprov/           the project website (302), served by GitHub Pages from
+#                                       https://github.com/nickjones39/AgentPROV
+# https://w3id.org/agentprov/docs/...   the user guide on the project website (302, path preserved)
 # https://w3id.org/agentprov/...        everything else (302, path preserved)
 #
 # ## Contact
@@ -28,6 +31,10 @@ RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nickjones39.github.io/agentp
 
 # Execution instance IRIs are identifiers, not individually dereferenceable
 RewriteRule ^exec(/.*)?$ https://nickjones39.github.io/agentprov-ns/exec/ [R=302,L]
+
+# The project website (landing page) and its user guide
+RewriteRule ^$ https://nickjones39.github.io/AgentPROV/ [R=302,L]
+RewriteRule ^docs(/(.*))?$ https://nickjones39.github.io/AgentPROV/docs/$2 [R=302,L]
 
 # Everything else
 RewriteRule ^(.*)$ https://nickjones39.github.io/agentprov-ns/$1 [R=302,L]

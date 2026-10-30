@@ -9,8 +9,11 @@ Permanent identifiers for AgentPROV, an execution-provenance framework for LLM-a
   the same content negotiation (HTML page or Turtle).
 - `https://w3id.org/agentprov/exec/…`: execution instance IRIs. These are identifiers; they redirect to
   an explanation page.
+- `https://w3id.org/agentprov/`: the project website, <https://nickjones39.github.io/AgentPROV/>.
+- `https://w3id.org/agentprov/docs/…`: the user guide on the project website,
+  <https://nickjones39.github.io/AgentPROV/docs/> (path preserved).
 
-Documentation: <https://nickjones39.github.io/agentprov-ns/>
+Vocabulary documentation: <https://nickjones39.github.io/agentprov-ns/>
 
 ## Contact
 
