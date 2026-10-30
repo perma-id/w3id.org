@@ -176,9 +176,10 @@ or a trailing `<br>`. Better to use a bulleted list instead, as above.
 
 There are two reasons for this recommendation. First, this repository trims
 trailing whitespace, so the two-space style silently stops working. Second,
-with any of them, the next person to edit the block may see what is holding
-it apart, so they may delete a marker, causing what was meant to be rendered
-as three lines to reflow into one line, without anyone noticing in the diff.
+with any of them, the next person to edit the block may not see what is
+holding it apart, so they may delete a marker, causing what was meant to be
+rendered as three lines to reflow into one line, without anyone noticing in
+the diff.
 
 We also recommend nesting details, like email address and GitHub handle, within 
 an item that begins with their human-friendly name.
