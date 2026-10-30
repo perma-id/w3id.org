@@ -37,6 +37,19 @@ RewriteRule ^vocab/([a-z0-9-]+)/?$ %{ENV:EM_SITE}/vocab/$1/$1.ttl [R=303,L]
 
 RewriteRule ^vocab/?$ %{ENV:EM_SITE}/vocab/ [R=302,L]
 
+# ── the ontology (CRMem, the Extended Matrix extension of CIDOC CRM) ──
+# /ontology  and  /ontology/
+# Browsers (Accept: text/html) get the declarations page; clients asking
+# for RDF/XML get em.rdf; every other client gets Turtle. Term URIs are
+# hash URIs (/ontology#Term): the fragment never reaches the server, so
+# they resolve through the same rules.
+
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/?$ %{ENV:EM_SITE}/ontology/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*$
+RewriteRule ^ontology/?$ %{ENV:EM_SITE}/ontology/em.rdf [R=303,L]
+RewriteRule ^ontology/?$ %{ENV:EM_SITE}/ontology/em.ttl [R=303,L]
+
 # ── everything else under the prefix ──────────────────────────────────
 RewriteRule ^$ %{ENV:EM_SITE}/ [R=302,L]
 RewriteRule ^(.*)$ %{ENV:EM_SITE}/$1 [R=302,L]

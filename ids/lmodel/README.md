@@ -10,6 +10,12 @@ Repositories publish LinkML either at the repository root (`src/<stem>/schema/`,
 per repository in `.htaccess` with `E=SIDECAR:.linkml/`, and is the convention
 proposed to the upstream projects (see [/finos/](../finos/)).
 
+# Knowledge bundles
+
+A repository with a LOKF knowledge bundle names it `https://w3id.org/lmodel/<repo>/knowledge/`
+and publishes its site at `https://lmodel.github.io/<repo>/knowledge/`. A concept's IRI
+resolves to its page, its JSON-LD or its Markdown by the `Accept` header.
+
 # Testing
 
 [https://github.com/lmodel/w3id_smoke_test](https://github.com/lmodel/w3id_smoke_test)

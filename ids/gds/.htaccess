@@ -1,0 +1,59 @@
+# Vocabulary namespace: https://w3id.org/gds#
+# Profile identifier: https://w3id.org/gds/profile
+#
+# Maintainer: GATE Institute, Sofia University
+
+RewriteEngine On
+
+# ------------------------------------------------------------------
+# GDS vocabulary namespace
+#
+# Resolves https://w3id.org/gds and the namespace used by GDS terms.
+# ------------------------------------------------------------------
+
+# Machine-readable Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://gate-institute.github.io/gateds-ontologies/gds/gds.ttl [R=303,L]
+
+# Human-readable documentation (default)
+RewriteRule ^$ https://gate-institute.github.io/gateds-ontologies/gds/ [R=303,L]
+
+
+# ------------------------------------------------------------------
+# Current GDS ODRL Profile
+#
+# Resolves https://w3id.org/gds/profile to the latest release.
+# ------------------------------------------------------------------
+
+# Machine-readable Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^profile/?$ https://gate-institute.github.io/gateds-ontologies/gds/gds.ttl [R=303,L]
+
+# Human-readable documentation (default)
+RewriteRule ^profile/?$ https://gate-institute.github.io/gateds-ontologies/gds/ [R=303,L]
+
+
+# ------------------------------------------------------------------
+# Version-specific GDS ODRL Profiles
+#
+# Resolves identifiers such as:
+# https://w3id.org/gds/profile/v0.1.0
+#
+# Each version redirects to its corresponding archived resources.
+# ------------------------------------------------------------------
+
+# Machine-readable Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^profile/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://gate-institute.github.io/gateds-ontologies/gds/versions/v$1/gds.ttl [R=303,L]
+
+# Human-readable documentation (default)
+RewriteRule ^profile/v([0-9]+\.[0-9]+\.[0-9]+)/?$ https://gate-institute.github.io/gateds-ontologies/gds/versions/v$1 [R=303,L]
+
+
+# ------------------------------------------------------------------
+# Source repository
+#
+# Provides a link to the GitHub repository.
+# ------------------------------------------------------------------
+
+RewriteRule ^repo/?$ https://github.com/gate-institute/gateds-ontologies [R=303,L]

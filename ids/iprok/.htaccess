@@ -1,36 +1,87 @@
-# Apache .htaccess file for w3id.org/iprok/
+# IproK persistent identifier: https://w3id.org/iprok/
+# Maintainer: Venkatesh Kone; GitHub username: konevenkatesh
+# Expanded 0.2.0 is explicitly a draft; 0.1.0 and older numeric aliases are retained.
 Options +FollowSymLinks
 RewriteEngine On
 
-# --- Rule for the base PURL (e.g., https://w3id.org/iprok/) ---
-# Redirects to the main HTML documentation.
-RewriteRule ^/?$ https://konevenkatesh.github.io/IprokDoc/main.html [R=308,L]
+# Explicit file links, including module and constraint distributions.
+RewriteRule ^(?:draft/0\.2\.0/)?ontology\.(ttl|owl|jsonld|nt)$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/ontology.$1 [R=303,L]
+RewriteRule ^(?:draft/0\.2\.0/)?shapes\.(ttl|owl|jsonld|nt)$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/shapes.$1 [R=303,L]
+RewriteRule ^(?:draft/0\.2\.0/)?(?:modules/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)\.(ttl|owl|jsonld|nt)$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/modules/$1.$2 [R=303,L]
 
-# --- Rules for versioned PURLs (e.g., https://w3id.org/iprok/1.0/) ---
-# The version pattern is captured as $1, e.g., "1.0" or "1.0.3".
-#
-# IMPORTANT NOTE ON TARGET URLs AND VERSIONING:
-# The target GitHub URLs below currently DO NOT use the captured version $1
-# in their path. This means all versioned PURLs will point to the same "latest" files.
-# If you set up versioned directories on GitHub (e.g., /IprokDoc/1.0/ontology.owl),
-# you MUST update the target URLs to include $1.
+# Current schema and the explicitly named draft version. Fragment identifiers survive redirects.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(?:draft/0\.2\.0/?)?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/ontology.ttl [R=303,L]
 
-# If Accept: application/rdf+xml is requested for a versioned PURL
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(?:draft/0\.2\.0/?)?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/ontology.owl [R=303,L]
 
-# If Accept: text/turtle is requested for a versioned PURL
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(?:draft/0\.2\.0/?)?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/ontology.jsonld [R=303,L]
 
-# If Accept: application/ld+json is requested for a versioned PURL
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.jsonld [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^(?:draft/0\.2\.0/?)?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/ontology.nt [R=303,L]
 
-# If Accept: application/n-triples is requested for a versioned PURL
-RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.nt [R=303,NE,L]
+RewriteRule ^(?:draft/0\.2\.0/?)?$ https://konevenkatesh.github.io/iprok-explorer/ [R=303,L]
 
-# Default for a versioned PURL (if no specific Accept header above matches, or if Accept: text/html)
-# Redirects to the main HTML documentation.
-RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/main.html [R=303,NE,L]
+# SHACL graph: use the same representation choices as the ontology.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?shapes/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/shapes.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?shapes/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/shapes.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?shapes/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/shapes.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?shapes/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/shapes.nt [R=303,L]
+
+RewriteRule ^(?:draft/0\.2\.0/)?shapes/?$ https://konevenkatesh.github.io/iprok-explorer/?source=expanded#workspace [R=303,L]
+
+# Namespace modules: the capture is used in the representation filename.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/modules/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/modules/$1.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/modules/$1.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^(?:draft/0\.2\.0/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)/?$ https://konevenkatesh.github.io/iprok-explorer/schema/iprok-0.2.0/modules/$1.nt [R=303,L]
+
+RewriteRule ^(?:draft/0\.2\.0/)?core/?$ https://konevenkatesh.github.io/iprok-explorer/?module=IproK [R=303,L]
+RewriteRule ^(?:draft/0\.2\.0/)?(core|approval|billing|building|coordination|cost|document|finance|handover|integrated|prediction|procurement|property|quality|reporting|resource|safety|schedule|signal|site|tender)/?$ https://konevenkatesh.github.io/iprok-explorer/?module=$1 [R=303,L]
+
+# Retained 0.1.0 graph and its documentation.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^0\.1\.0/?$ https://konevenkatesh.github.io/iprok-explorer/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^0\.1\.0/?$ https://konevenkatesh.github.io/iprok-explorer/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^0\.1\.0/?$ https://konevenkatesh.github.io/iprok-explorer/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^0\.1\.0/?$ https://konevenkatesh.github.io/iprok-explorer/ontology.nt [R=303,L]
+
+RewriteRule ^0\.1\.0/?$ https://konevenkatesh.github.io/iprok-explorer/?source=iprok [R=303,L]
+
+# Historical version-shaped aliases previously all served the same old latest release.
+# Keep these destinations; do not claim that an arbitrary numeric alias is an immutable release.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/ontology.nt [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)/?$ https://konevenkatesh.github.io/IprokDoc/main.html [R=303,L]

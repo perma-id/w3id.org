@@ -1,0 +1,15 @@
+RewriteEngine on
+
+# ClinGen JSON Schemas (clingen-data-model GitHub org).
+#
+# Dynamic version-resolving redirect, mirroring the ga4gh/schema/* pattern: the
+# versioned $id
+#     https://w3id.org/clingen/schema/<name>/<version>/<path>
+# resolves to the schema file served from raw GitHub at the matching git ref, where
+# the schema <name> is also the repository name under clingen-data-model and the files
+# live under schema/<name>/ in that repo:
+#     https://raw.githubusercontent.com/clingen-data-model/<name>/<version>/schema/<name>/<path>
+#
+# e.g. .../clingen/schema/clinvar-gkm/1.0.0/json/ClinvarAffectsProposition
+#   -> raw.githubusercontent.com/clingen-data-model/clinvar-gkm/1.0.0/schema/clinvar-gkm/json/ClinvarAffectsProposition
+RewriteRule ^schema/(clinvar-gkm)/(.*?)/(.*)  https://raw.githubusercontent.com/clingen-data-model/$1/$2/schema/$1/$3 [R=302,L]

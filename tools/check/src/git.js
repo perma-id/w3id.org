@@ -313,6 +313,25 @@ export function commits(base, head, cwd) {
 }
 
 /**
+ * Full message of every commit reachable from `head` but not `base`.
+ *
+ * Kept apart from `commits`, whose file list a multi-line body would make
+ * ambiguous to parse. Returns a Map of sha -> message.
+ */
+export function commitMessages(base, head, cwd) {
+  const out = git(
+    ['log', `--format=${REC}%H${FIELD}%B`, `${base}..${head}`], {cwd});
+  const messages = new Map();
+  for(const record of out.split(REC)) {
+    const split = record.indexOf(FIELD);
+    if(split !== -1) {
+      messages.set(record.slice(0, split), record.slice(split + 1));
+    }
+  }
+  return messages;
+}
+
+/**
  * Paths that differ between HEAD and the working tree.
  *
  * Returns the same {status, path, oldPath} shape as `changedFiles`, so callers

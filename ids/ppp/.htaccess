@@ -1,0 +1,51 @@
+# /ppp/
+#
+# Permanent identifiers for PPP (Propriétés Perceptuelles Pertinentes /
+# Relevant Perceptual Properties), a SKOS vocabulary of perceptual
+# qualities, published under CC BY 4.0.
+#
+# https://w3id.org/ppp/            -> the vocabulary: HTML site, or the SKOS export
+#                                     (Turtle or JSON-LD) by content negotiation
+# https://w3id.org/ppp/2.8         -> version IRI of the current release (same targets)
+# https://w3id.org/ppp/<id>        -> a type: its page on the site, or the export
+# https://w3id.org/ppp/<id>/...    -> a region, scale or measurement of the type <id>
+# https://w3id.org/ppp/famille/<k> -> a reading family
+# https://w3id.org/ppp/mesure/...  -> measurement states and proximities
+# https://w3id.org/ppp/<term>      -> a class or property of the vocabulary
+# https://w3id.org/ppp/ppp.ttl, ppp.jsonld -> the export files
+#
+# ## Contact
+# This space is administered by:
+#
+# Lomig Unger <lomig.unger@gmail.com>
+# GitHub username: blomig
+
+RewriteEngine on
+
+# Export files, requested by name
+RewriteRule ^ppp\.(ttl|jsonld)$ https://blomig.github.io/PPP-ontologie/export/ppp.$1 [R=302,L]
+
+# RDF requests, for any identifier in this space: the whole export
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ https://blomig.github.io/PPP-ontologie/export/ppp.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ https://blomig.github.io/PPP-ontologie/export/ppp.jsonld [R=303,L]
+
+# HTML (text/html, */* and anything else) from here on
+
+# The property regionOf: glossary entry "Valeur" (value = region)
+RewriteRule ^regionOf/?$ https://blomig.github.io/PPP-ontologie/#/glossaire/g-valeur [R=303,NE,L]
+
+# Other classes and properties of the vocabulary, version IRI, measurement states: the site
+RewriteRule ^(AssociatedMeasure|NotRetainedMeasure|MeasurementState|Proximity|associatedMeasure|notRetainedMeasure|measurementState|proximity|quantity|unitOrScale|gap|measurementConditions|reason|measurementSummary|measurementCaveat|hasScale|[0-9.]+)/?$ https://blomig.github.io/PPP-ontologie/ [R=303,L]
+RewriteRule ^mesure/ https://blomig.github.io/PPP-ontologie/ [R=303,L]
+
+# A reading family: the family in the site tree
+RewriteRule ^famille/([a-z]+)/?$ https://blomig.github.io/PPP-ontologie/#/$1 [R=303,NE,L]
+
+# A type, or anything under it (region, scale, measurement): the page of the type
+RewriteRule ^([a-zA-Z]+)(/.*)?$ https://blomig.github.io/PPP-ontologie/#/$1 [R=303,NE,L]
+
+# Default: the site
+RewriteRule ^ https://blomig.github.io/PPP-ontologie/ [R=303,L]

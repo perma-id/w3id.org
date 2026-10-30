@@ -21,6 +21,13 @@ RewriteRule ^model/([A-Za-z0-9_-]+)$ https://railclass.ldas.jp/rdf/model/$1 [R=3
 # Vocabulary: https://w3id.org/railclass/vocab#<term> (only a Turtle file exists)
 RewriteRule ^vocab$ https://railclass.ldas.jp/rdf/vocab.ttl [R=303,L]
 
+# The dataset description (VoID and DCAT): https://w3id.org/railclass/dataset
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dataset$ https://railclass.ldas.jp/rdf/void.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dataset$ https://railclass.ldas.jp/rdf/void.jsonld [R=303,L]
+RewriteRule ^dataset$ https://railclass.ldas.jp/dataset.html [R=303,L]
+
 # The whole dataset (the concept scheme): https://w3id.org/railclass/
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://railclass.ldas.jp/rdf/all.ttl [R=303,L]
