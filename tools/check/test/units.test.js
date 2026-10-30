@@ -192,6 +192,9 @@ test('maintainers: the recorded formats are all recognised', () => {
     // lowercased.
     ['- [Firstname Lastname](https://github.com/Example-User)',
       ['example-user']],
+    // A profile URL with a trailing slash or a query string.
+    ['GitHub profile: https://github.com/example-user/', ['example-user']],
+    ['https://github.com/example-user?tab=repositories', ['example-user']],
     // A hyphenated human name next to a handle: the name must not be read as
     // one.
     ['Firstname Lastname-Hyphenated @someone', ['someone']],
@@ -223,6 +226,12 @@ test('maintainers: label words are not mistaken for usernames', () => {
     'Username: someone@example.org',
     // A link to this repository, copied from a template, names nobody.
     '#  - https://github.com/perma-id/w3id.org/blob/master/food/.htaccess',
+    // A repository link names its owner, often an organisation, and an
+    // owner is not necessarily somebody who maintains the identifier.
+    'Source: https://github.com/example-user/vocab',
+    '[network](https://github.com/example-org/semantic-assets)',
+    '# https://github.com/example-org/viewer/wiki/Permalinks',
+    'github.com/example-org/vocab/blob/main/v.ttl',
     // RDF syntax quoted in a README is not a handle.
     '@prefix ex: <https://w3id.org/ex#> .',
     'URI: https://w3id.org/ex (@prefix `ex`)',
@@ -235,8 +244,9 @@ test('maintainers: label words are not mistaken for usernames', () => {
 
 test('maintainers: narrowing those cases keeps the real handles', () => {
   const cases = [
-    // A repository link still names its owner, who is usually the maintainer.
-    ['Source: https://github.com/example-user/vocab', ['example-user']],
+    // A profile link beside a repository link: only the profile counts.
+    ['By [X](https://github.com/example-user), source: ' +
+      'https://github.com/example-org/vocab', ['example-user']],
     // The keywords are excluded only as a bare @handle.
     ['# GitHub username: base', ['base']],
     ['@prefix ex: <x> . Maintained by @someone', ['someone']]
