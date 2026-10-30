@@ -181,7 +181,7 @@ holding it apart, so they may delete a marker, causing what was meant to be
 rendered as three lines to reflow into one line, without anyone noticing in
 the diff.
 
-We also recommend nesting details, like email address and GitHub handle, within 
+We also recommend nesting details, like email address and GitHub handle, within
 an item that begins with their human-friendly name.
 
 See [`markdown/prefer-list-over-line-breaks`](/rules/markdown/prefer-list-over-line-breaks).
