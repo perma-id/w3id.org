@@ -17,7 +17,7 @@ const SITE = 'https://docs.w3id.org';
 // Rendered post HTML carries root-relative URLs (`/rules/htaccess/...`). In a
 // feed reader those resolve against whatever origin the reader is on, or
 // against nothing at all, so every one of them has to be made absolute.
-function absolutise(html) {
+function absolutize(html) {
   return html.replace(/\b(href|src)="\//g, `$1="${SITE}/`);
 }
 
@@ -57,14 +57,14 @@ export async function buildEnd(siteConfig) {
       // <link> below can then change freely without a reader treating the
       // post as new.
       //
-      // Readers vary in how faithfully they honour this: careful ones dedupe
+      // Readers vary in how faithfully they honor this: careful ones dedupe
       // on the id and update an entry in place, others key on the link. It
       // is the correct hedge rather than a guarantee.
       id: frontmatter.id,
       link: `${SITE}${url}`,
 
       description: frontmatter.summary,
-      content: absolutise(html),
+      content: absolutize(html),
       date: new Date(frontmatter.date),
       category: frontmatter.categories
         .map(slug => ({name: CATEGORIES[slug]}))

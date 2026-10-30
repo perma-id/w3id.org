@@ -2,7 +2,7 @@
  * Permanent redirects.
  *
  * A 301 tells every cache along the way that the answer will never change, and
- * caches are entitled to honour that indefinitely. A mistake in a 301 cannot be
+ * caches are entitled to honor that indefinitely. A mistake in a 301 cannot be
  * retracted: browsers that saw it keep following the old target long after the
  * rule is corrected, and there is nothing this service can do about it.
  *
@@ -21,7 +21,7 @@ export default {
   files: ['**/.htaccess'],
   messages: {
     permanent:
-      'This is a permanent redirect ({{status}}). Caches may honour it for as ' +
+      'This is a permanent redirect ({{status}}). Caches may honor it for as ' +
       'long as they like, so if the target turns out to be wrong you cannot ' +
       'take it back -- clients that saw it keep going to the old place. Use ' +
       '302 for an ordinary redirect, or 303 when the identifier names a thing ' +

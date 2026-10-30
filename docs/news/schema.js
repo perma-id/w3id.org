@@ -89,7 +89,7 @@ export function validatePosts(posts) {
     if(!id) {
       problems.push(
         `${where}: no \`id\`. Every post needs a permanent identifier, so ` +
-        `that a feed reader still recognises it if the post ever moves. ` +
+        `that a feed reader still recognizes it if the post ever moves. ` +
         HOW_TO_MINT);
     } else if(!URN_UUID.test(id)) {
       problems.push(

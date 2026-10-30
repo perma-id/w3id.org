@@ -1,4 +1,4 @@
-# Rule catalogue
+# Rule catalog
 
 Each rule on this page describes one specific, checkable thing that
 contributions to this repository get wrong. They exist because these mistakes
@@ -168,7 +168,7 @@ has the id `htaccess/https-target` — and a checker can enumerate the rule set
 from `docs/rules/**/*.md` and emit `https://w3id.org/docs/rules/<id>` in its
 output.
 
-Pages named `index.md` are catalogue pages, not rules, and carry no `id`.
+Pages named `index.md` are catalog pages, not rules, and carry no `id`.
 
 That contract is itself checked, by
 [`meta/rule-docs-exist`](./meta/rule-docs-exist): every rule the checker

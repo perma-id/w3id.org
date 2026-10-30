@@ -1,6 +1,6 @@
 ---
 id: htaccess/valid-rewrite-flags
-title: Rewrite flags must be names mod_rewrite recognises
+title: Rewrite flags must be names mod_rewrite recognizes
 severity: error
 status: enforced
 applies-to: "ids/**/.htaccess"

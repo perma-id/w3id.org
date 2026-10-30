@@ -18,7 +18,7 @@ and the target is a representation of it. Avoid `301` and `308`.
 ## Why
 
 A permanent redirect tells every cache along the way that the answer will never
-change, and caches are entitled to honour that indefinitely.
+change, and caches are entitled to honor that indefinitely.
 
 That makes a mistake unretractable. Correct the rule and the clients that
 already saw the 301 keep going to the old target — for as long as their cache

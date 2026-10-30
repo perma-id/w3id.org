@@ -13,4 +13,4 @@ Rules for the README files in an identifier directory.
 Whitespace and encoding in Markdown files are covered by the
 [file format rules](../format/).
 
-Back to the [rule catalogue](../).
+Back to the [rule catalog](../).
