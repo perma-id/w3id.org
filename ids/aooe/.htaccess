@@ -1,0 +1,44 @@
+# # /aooe/
+#
+# AOOE — Agent-Oriented Ontology Engineering vocabulary.
+# Canonical namespace: https://w3id.org/aooe# (hash namespace: every term
+# resolves to the one vocabulary document).
+# Maintainer repository: https://github.com/wordlift/aooe
+# Documentation site:    https://wordlift.github.io/aooe/
+#
+# https://w3id.org/aooe/        -> vocabulary document (content negotiation) or docs page
+# https://w3id.org/aooe/<file>  -> the published file (aooe.ttl, aooe.jsonld, aooe.owl, ...)
+#
+# ## Contact
+# This space is administered by:
+#
+# Andrea Volpini
+# andrea@wordlift.io
+# hello@wordlift.io
+# GitHub username: cyberandy
+
+RewriteEngine on
+
+# Published files: /aooe/<file>
+RewriteRule ^(aooe\.(ttl|owl|jsonld)|context\.jsonld|llms(-full)?\.txt)$ https://wordlift.github.io/aooe/$1 [R=303,L]
+
+# Root IRI, content-negotiated: most specific first, default last.
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://wordlift.github.io/aooe/aooe.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://wordlift.github.io/aooe/aooe.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://wordlift.github.io/aooe/aooe.owl [R=303,L]
+
+# Anything else, including browsers and */*, gets the documentation page.
+RewriteRule ^$ https://wordlift.github.io/aooe/ [R=303,L]
+
+# Any other path under /aooe/ goes to the same path on the documentation site.
+RewriteRule ^(.+)$ https://wordlift.github.io/aooe/$1 [R=303,L]
