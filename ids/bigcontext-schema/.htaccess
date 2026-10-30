@@ -1,0 +1,26 @@
+# # /bigcontext-schema/
+#
+# Permanent identifiers for BigContext Schema, an open standard for business context:
+# https://github.com/BigContext-OpenSource/bigcontext-schema
+#
+# ## Contact
+# This space is administered by:
+#
+# Joji John
+# GitHub username: joji-figlabs
+
+RewriteEngine on
+
+# The graph's fact vocabulary (https://w3id.org/bigcontext-schema/facts/reports_to and the like)
+RewriteRule ^facts(\.owl\.ttl|/.*)?$ https://cdn.jsdelivr.net/gh/BigContext-OpenSource/bigcontext-schema@main/generated/bigcontext_facts.owl.ttl [R=303,L]
+
+# The schema and each of its terms (https://w3id.org/bigcontext-schema/Rule), for programs that ask for Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^.*$ https://cdn.jsdelivr.net/gh/BigContext-OpenSource/bigcontext-schema@main/generated/bigcontext_schema.owl.ttl [R=303,L]
+
+# The JSON-LD context, for JSON-LD processors
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://cdn.jsdelivr.net/gh/BigContext-OpenSource/bigcontext-schema@main/generated/bigcontext_schema.context.jsonld [R=303,L]
+
+# Everything else, such as a browser: the specification's home page
+RewriteRule ^ https://github.com/BigContext-OpenSource/bigcontext-schema [R=302,L]
