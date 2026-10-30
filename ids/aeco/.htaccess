@@ -1,0 +1,33 @@
+# # /aeco/
+#
+# Permanent identifiers for the Aecoware Open Taxonomy, an open SKOS taxonomy
+# for architecture, engineering, construction and operations.
+#
+# https://w3id.org/aeco/ and every concept IRI under it, such as
+# https://w3id.org/aeco/aeco-01008, redirect to https://aecoware.github.io/aecxonomy/
+# RDF clients get Turtle or JSON-LD. Browsers get the explorer, opened at the concept.
+# https://w3id.org/aeco/mappings gives the links to outside standards in Turtle.
+#
+# ## Contact
+# This space is administered by:
+#
+# Roman Makarov
+# roman@aecoware.com
+# GitHub username: odb88
+
+RewriteEngine on
+
+# Links to outside standards
+RewriteRule ^mappings$ https://aecoware.github.io/aecxonomy/aeco-mappings.ttl [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ https://aecoware.github.io/aecxonomy/aeco.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ https://aecoware.github.io/aecxonomy/aeco.jsonld [R=303,L]
+
+# Browsers and everything else: the explorer, opened at the concept when one is named
+RewriteRule ^(aeco-[0-9]{5})$ https://aecoware.github.io/aecxonomy/#$1 [R=303,NE,L]
+RewriteRule ^ https://aecoware.github.io/aecxonomy/ [R=303,L]
