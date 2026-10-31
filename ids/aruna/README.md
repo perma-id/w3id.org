@@ -36,3 +36,4 @@ ORCID: [0009-0004-4382-4760](https://orcid.org/0009-0004-4382-4760)
 
 - 2024-08-02 first version of the perma-id directing
 - 2025-05-15 update of the URL to the newer https://aruna-engine.org
+- 2026-11 all identifiers below https://w3id.org/aruna/ except the root go to the Aruna resolver at https://resolve.aruna-engine.org/aruna/, which also keeps Aruna 2 object ids working
