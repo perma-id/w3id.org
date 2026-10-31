@@ -9,5 +9,5 @@ Repository: <https://github.com/Aecoware/aecxonomy>
 ## Contact
 
 - Roman Makarov
-- <roman@aecoware.com>
-- GitHub: [@odb88](https://github.com/odb88)
+  - <roman@aecoware.com>
+  - GitHub: [@odb88](https://github.com/odb88)
