@@ -158,22 +158,31 @@ Permanent identifiers for the My Project vocabulary.
 
 Documentation: <https://my-project.example.org/docs/>
 
-## Contact
+## Contacts
 
-- Firstname Lastname
-- <firstname@example.org>
-- GitHub: [@exampleuser](https://github.com/exampleuser)
+- Firstname1 Lastname1
+  - <firstname1@example.org>
+  - GitHub: [@exampleuser1](https://github.com/exampleuser1)
+
+- Firstname2 Lastname2
+  - <lastname2@example.com>
+  - GitHub: [@exampleuser2](https://github.com/exampleuser2)
 ```
 
 ::: tip Write the contact block as a list
-Contact blocks are usually written as a stack of lines glued together with
-invisible markup — two trailing spaces, a trailing backslash, or `<br>`. Use a
-bulleted list instead, as above.
+Contact blocks are often written as a stack of lines glued together with
+markup that can be invisible — two trailing spaces, a trailing backslash,
+or a trailing `<br>`. Better to use a bulleted list instead, as above.
 
-Two reasons. This repository trims trailing whitespace, so the two-space style
-silently stops working. And with any of them, the next person to edit the block
-cannot see what is holding it apart, so deleting a marker reflows three lines
-into one paragraph without anyone noticing in the diff.
+There are two reasons for this recommendation. First, this repository trims
+trailing whitespace, so the two-space style silently stops working. Second,
+with any of them, the next person to edit the block may not see what is
+holding it apart, so they may delete a marker, causing what was meant to be
+rendered as three lines to reflow into one line, without anyone noticing in
+the diff.
+
+We also recommend nesting details, like email address and GitHub handle, within
+an item that begins with their human-friendly name.
 
 See [`markdown/prefer-list-over-line-breaks`](/rules/markdown/prefer-list-over-line-breaks).
 :::
