@@ -2,12 +2,27 @@
 # Maintainer: Arthit Suriyawongkul <suriyawa@tcd.ie>
 # GitHub username: bact
 # Source: https://github.com/bact/bom
+#
+# Redirects to https://bact.github.io/bom/ (303). Each IRI goes to an HTML page
+# or, if the client asks for RDF, to a Turtle file:
+#
+#   IRI (under https://w3id.org/bom/)  HTML                          RDF
+#   <term>                             releases/0.2.0/#<term>        bom.ttl
+#   req/<spec>/  req/<spec>/<term>     req/<spec>/[#<term>]          req/<spec>/<spec>.ttl
+#   cq/<set>/    cq/<set>/<term>       cq/<set>/[#<term>]            cq/<set>/<set>.ttl
+#   reg/<reg>/                         reg/<reg>/                    reg/<reg>/<reg>.ttl
+#   reg/<reg>/<sec>/ and .../<term>    reg/<reg>/<sec>/[#<term>]     reg/<reg>/<reg>-<sec>.ttl
+#   anything else                      same path (mapping/, files, ...)
+#
+# Terms are one path segment without a dot, so new specs, sections and terms
+# need no change here. On a new bridge release, change 0.2.0 below.
 
 Options +FollowSymLinks
 Options -MultiViews
 
 RewriteEngine on
 
+# Root: Turtle, then HTML, then Turtle as the default
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^$ https://bact.github.io/bom/bom.ttl [R=303,NE,L]
 
@@ -17,10 +32,33 @@ RewriteRule ^$ https://bact.github.io/bom/ [R=303,NE,L]
 
 RewriteRule ^$ https://bact.github.io/bom/bom.ttl [R=303,NE,L]
 
+# RDF for a spec namespace: req/<spec>, cq/<set>, reg/<reg>
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/n-triples
-RewriteRule ^(req|reg)/([^/]+)/?$ https://bact.github.io/bom/$1/$2/$2.ttl [R=303,NE,L]
+RewriteRule ^(req|reg|cq)/([^/.]+)/?$ https://bact.github.io/bom/$1/$2/$2.ttl [R=303,NE,L]
 
+# req/<spec>/<term> and cq/<set>/<term>
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(req|cq)/([^/.]+)/([^/.]+)$ https://bact.github.io/bom/$1/$2/$2.ttl [R=303,NE,L]
+
+RewriteRule ^(req|cq)/([^/.]+)/([^/.]+)$ https://bact.github.io/bom/$1/$2/#$3 [R=303,NE,L]
+
+# reg/<reg>/<section>/ and reg/<reg>/<section>/<term> (one file per section: <reg>-<section>.ttl)
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^reg/([^/.]+)/([^/.]+)/?$ https://bact.github.io/bom/reg/$1/$1-$2.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^reg/([^/.]+)/([^/.]+)/([^/.]+)$ https://bact.github.io/bom/reg/$1/$1-$2.ttl [R=303,NE,L]
+
+RewriteRule ^reg/([^/.]+)/([^/.]+)/([^/.]+)$ https://bact.github.io/bom/reg/$1/$2/#$3 [R=303,NE,L]
+
+# Bridge terms (the site's own directories are excluded)
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(?!(?:mapping|releases|req|reg|cq)$)([A-Za-z][A-Za-z0-9_-]*)$ https://bact.github.io/bom/bom.ttl [R=303,NE,L]
+
+RewriteRule ^(?!(?:mapping|releases|req|reg|cq)$)([A-Za-z][A-Za-z0-9_-]*)$ https://bact.github.io/bom/releases/0.2.0/#$1 [R=303,NE,L]
+
+# Everything else
 RewriteRule ^(.+)$ https://bact.github.io/bom/$1 [R=303,NE,L]

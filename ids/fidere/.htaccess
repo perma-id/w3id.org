@@ -1,0 +1,30 @@
+Header set Access-Control-Allow-Origin *
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+AddType application/yaml .yaml
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Redirect to the PTX OWL ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?ptx$ https://gitlab.com/gaia-x/lab/gaia-x-danube-components/gaia-x-local-extensions/fidere-extension/-/raw/development/ontology/ptx_ontology.ttl [R=303,L]
+
+# Redirect to the PTX JSON-LD context
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^/?ptx$ https://gitlab.com/gaia-x/lab/gaia-x-danube-components/gaia-x-local-extensions/fidere-extension/-/raw/development/ontology/ptx_context.jsonld [R=303,L]
+
+# Redirect to the PTX SHACL shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^/?ptx/shapes$ https://gitlab.com/gaia-x/lab/gaia-x-danube-components/gaia-x-local-extensions/fidere-extension/-/raw/development/ontology/ptx_shapes.ttl [R=303,L]
+
+# Default redirection to the PTX documentation
+RewriteRule ^ https://fidere-extension-sprint-sep-oct-2026-42df91.gitlab.io/ptx_criteria/ [R=303,L]

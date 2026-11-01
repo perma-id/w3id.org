@@ -1,26 +1,49 @@
-# https://w3id.org/digest-law
-# American Legal Digest — open, source-grounded digests of legal issues,
-# organised by jurisdiction. First jurisdiction: United States (/us/...).
+# https://w3id.org/digest-law/ — American Legal Digest
 #
-# ## Contact
-# This space is administered by:
+# Contact: Arthur S. Rodrigues <arthursrodrigues@gmail.com>, GitHub @arthrod.
+# Source of this file: https://github.com/arthrod/digest-law-us/tree/main/w3id
 #
-# Arthur S. Rodrigues
-# arthursrodrigues@gmail.com
-# GitHub username: arthrod
+# 302, not 301, throughout: the w3id.org URI is the identifier. A permanent
+# redirect invites clients to record digest.law as the identity and drop the
+# w3id form, which is precisely what a hosting-independent namespace exists to
+# prevent. Where the identifier is gone rather than moved, the target itself
+# answers 410 (see /id/{id} in worker/index.ts).
 
-# Turn off MultiViews
-Options -MultiViews
-
+Options +FollowSymLinks
 RewriteEngine on
 
-# --- United States corpus: https://w3id.org/digest-law/us/... ---
-# Bundle URIs: /us/{area}/{topic}/  (plus .../sources/{slug}/ and .../audit/)
-RewriteRule ^us/?$ https://arthrod.github.io/digest-law-us/ [R=303,NE,L]
-RewriteRule ^us/(.*)$ https://arthrod.github.io/digest-law-us/$1 [R=302,NE,L]
+# ---- Concepts -------------------------------------------------------------
+# The permanent identity namespace. The id is opaque and never changes; the
+# resolver on digest.law maps it to whatever route the concept lives at today,
+# and answers 410 for a retired concept.
+RewriteRule ^concept/([0-9a-fA-F]{32})/?$ https://digest.law/id/$1 [R=302,L]
 
-# --- Namespace root ---
-RewriteRule ^$ https://arthrod.github.io/digest-law-us/ [R=303,NE,L]
+# Anything else under concept/ is a malformed identifier, not a browse path.
+RewriteRule ^concept/?$ https://digest.law/sitemap/ [R=302,L]
 
-# --- Everything else ---
-RewriteRule ^(.*)$ https://arthrod.github.io/digest-law-us/$1 [R=302,NE,L]
+# ---- Legacy route IRIs ----------------------------------------------------
+# Concepts were published under route-derived IRIs before identity moved to
+# the concept namespace, and those forms are cited. Every one of them still
+# resolves — as a route on the site, which is what it always denoted.
+# Published per concept as digest:legacyIri.
+RewriteRule ^us/(.+)$ https://digest.law/$1 [R=302,L]
+
+# ---- Concept scheme -------------------------------------------------------
+# `us/` with nothing after it is the scheme IRI itself.
+RewriteRule ^us/?$ https://digest.law/skos.jsonld [R=302,L]
+RewriteRule ^scheme/us/?$ https://digest.law/skos.jsonld [R=302,L]
+
+# ---- Vocabulary and datatypes --------------------------------------------
+# The terms this project defines because SKOS has none for them, and the
+# datatype of the canonical notation. Both dereference to Turtle definitions.
+RewriteRule ^vocab/?$ https://digest.law/profile/digest-vocab.ttl [R=302,L]
+RewriteRule ^vocab/(.+)$ https://digest.law/profile/digest-vocab.ttl [R=302,L]
+RewriteRule ^datatype/?$ https://digest.law/profile/digest-vocab.ttl [R=302,L]
+RewriteRule ^datatype/(.+)$ https://digest.law/profile/digest-vocab.ttl [R=302,L]
+
+# ---- Shapes ---------------------------------------------------------------
+RewriteRule ^shapes/?.*$ https://digest.law/profile/digest-skos-shapes.ttl [R=302,L]
+
+# ---- Everything else ------------------------------------------------------
+RewriteRule ^$ https://digest.law/ [R=302,L]
+RewriteRule ^(.*)$ https://digest.law/ [R=302,L]

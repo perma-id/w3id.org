@@ -1,0 +1,26 @@
+# # /apodei/
+#
+# Persistent identifiers for apodei, a certify-on-use ledger of scientific
+# claims. Every claim, act, certificate, policy and local entity id in the
+# ledger is a content-addressed CIDv1 (base32, starting with "b"), and the
+# ledger's certificate formats use predicate type URIs under /apodei/predicate/.
+#
+#   https://w3id.org/apodei/                     -> project home
+#   https://w3id.org/apodei/predicate/<name>/<v> -> predicate specification
+#   https://w3id.org/apodei/<cid>                -> project home for now; the
+#       resolver of a public ledger node will be added by a later pull request
+#
+# ## Contact
+# This space is administered by:
+#
+# Stefan Decker
+# GitHub username: stefanjdecker
+
+RewriteEngine on
+
+# Certificate predicate type URIs, e.g. /apodei/predicate/lean4-proof/v1
+RewriteRule ^predicate/(.+)$ https://github.com/stefanjdecker/apodei/blob/main/predicates/$1.md [R=302,L]
+
+# Everything else, including ledger ids, goes to the project home until a
+# public resolver exists
+RewriteRule ^ https://github.com/stefanjdecker/apodei [R=302,L]

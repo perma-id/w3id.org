@@ -1,0 +1,33 @@
+# # /wattslot/
+#
+# Permanent identifiers of WattSlot, a Home Assistant app that plans household
+# appliances around solar production and electricity prices:
+# https://github.com/jmcruvellier/wattslot
+#
+# - /wattslot/ontology, /wattslot/ontology/library/home-energy and
+#   /wattslot/ontology/schema: Turtle files for RDF clients, the documentation
+#   page otherwise.
+# - /wattslot/home/...: individuals of a user's home, local to each
+#   installation; the documentation page.
+#
+# ## Contact
+# This space is administered by:
+#
+# Jean-Marc Cruvellier
+# GitHub username: jmcruvellier
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^ontology$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^ontology/library/home-energy$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/home-energy.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^ontology/schema$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/schema.ttl [R=303,L]
+
+RewriteRule ^ontology\.ttl$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/ontology.ttl [R=303,L]
+RewriteRule ^ontology/library/home-energy\.ttl$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/home-energy.ttl [R=303,L]
+RewriteRule ^ontology/schema\.ttl$ https://raw.githubusercontent.com/jmcruvellier/wattslot/main/docs/ontology/schema.ttl [R=303,L]
+
+RewriteRule ^(ontology|home)(/.*)?$ https://github.com/jmcruvellier/wattslot/blob/main/docs/ontology/README.md [R=303,L]
+RewriteRule ^$ https://github.com/jmcruvellier/wattslot [R=302,L]

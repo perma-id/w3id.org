@@ -1,0 +1,46 @@
+# KEE permanent identifier namespace
+#
+# https://w3id.org/kee
+#
+# Project: KEE — Knowledge, Epistemics & Eidos
+# Public repository: https://github.com/KnoEdg/kee
+#
+# Contact:
+# René Yap
+# GitHub: https://github.com/reneyap
+
+RewriteEngine on
+
+# Root KEE namespace: content negotiation for machine clients.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/KnoEdg/kee/main/vocab/kee.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/KnoEdg/kee/main/context/kee-context.jsonld [R=302,L]
+
+# Human-readable project landing page.
+RewriteRule ^$ https://github.com/KnoEdg/kee [R=302,L]
+
+# Controlled artifact-classification scheme.
+RewriteRule ^artifact/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/artifact-types.ttl [R=302,L]
+
+# Profile-specific lifecycle schemes.
+RewriteRule ^lifecycle/assertion/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/assertion-lifecycle.ttl [R=302,L]
+RewriteRule ^lifecycle/scientific-claim/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/scientific-claim-lifecycle.ttl [R=302,L]
+RewriteRule ^lifecycle/organizational-memory/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/organizational-memory-lifecycle.ttl [R=302,L]
+RewriteRule ^lifecycle/decision/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/decision-lifecycle.ttl [R=302,L]
+RewriteRule ^lifecycle/software-engineering/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/software-engineering-lifecycle.ttl [R=302,L]
+
+# Compatibility-only generic lifecycle namespace.
+RewriteRule ^lifecycle/?$ https://github.com/KnoEdg/kee/tree/main/docs/specs [R=302,L]
+
+# KEE-owned confidence interpretation sentinel.
+RewriteRule ^confidence/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/confidence-interpretation.ttl [R=302,L]
+
+# Local controlled vocabularies.
+RewriteRule ^vocab/contradiction-cause/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/contradiction-types.ttl [R=302,L]
+RewriteRule ^vocab/assertion-unit-kind/?$ https://raw.githubusercontent.com/KnoEdg/kee/main/schemas/skos/assertion-metadata-unit-kind.ttl [R=302,L]
+
+# Profile identities. Existence of an IRI does not imply normative maturity.
+RewriteRule ^profile/?$ https://github.com/KnoEdg/kee/blob/main/docs/profiles/README.md [R=302,L]

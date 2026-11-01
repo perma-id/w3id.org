@@ -1,0 +1,37 @@
+# # /aiprov/
+#
+# aiprov — a domain-agnostic AI-provenance extension to W3C PROV-O.
+#
+# https://w3id.org/aiprov/            -> project repository
+# https://w3id.org/aiprov/ns          -> current namespace document (content-negotiated)
+# https://w3id.org/aiprov/ns/0.1      -> the 0.1 namespace document, pinned to tag v0.1.0
+# https://w3id.org/aiprov/ns#Term     -> a term; the fragment stays with the client
+#
+# ## Contact
+# This space is administered by:
+#
+# Florian Krebs
+# fkrebs@nucli.de
+# ORCID: https://orcid.org/0000-0001-6033-801X
+# GitHub username: noheton
+
+RewriteEngine on
+
+# --- Pinned namespace versions: one rule per release, never changed once added.
+# RDF clients get the Turtle document; everything else gets the schema README.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ns/0\.1$ https://raw.githubusercontent.com/noheton/aiprov/v0.1.0/schema/aiprov-schema.ttl [R=303,L]
+RewriteRule ^ns/0\.1$ https://raw.githubusercontent.com/noheton/aiprov/v0.1.0/schema/README.md [R=303,L]
+
+# --- Current namespace: follows the default branch.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ns/?$ https://raw.githubusercontent.com/noheton/aiprov/main/schema/aiprov-schema.ttl [R=303,L]
+RewriteRule ^ns/?$ https://raw.githubusercontent.com/noheton/aiprov/main/schema/README.md [R=303,L]
+
+# --- Project root and anything else.
+RewriteRule ^$ https://github.com/noheton/aiprov [R=302,L]
+RewriteRule ^(.*)$ https://github.com/noheton/aiprov/$1 [R=302,L]

@@ -1,0 +1,40 @@
+# Persistent identifiers for IGME databases
+#
+# https://w3id.org/igme/datosabiertos/<id> redirects to IGME's open data catalogue record
+#   https://www.igme.es/datosabiertos/catalogo/<id>  (e.g. https://w3id.org/igme/datosabiertos/9088)
+# https://w3id.org/igme/ielig/<id> redirects to the IELIG record (Spain's national inventory of geological sites of interest)
+#   https://info.igme.es/ielig/LIGInfo.aspx?codigo=<id>  (e.g. https://w3id.org/igme/ielig/DU086)
+# https://w3id.org/igme/qafi/<id> redirects to the QAFI record (Quaternary Active Faults Database of Iberia)
+#   https://info.igme.es/qafi/FaultInfo.aspx?Id=<id>  (e.g. https://w3id.org/igme/qafi/es630)
+# https://w3id.org/igme/balsas/<id> redirects to the Balsas record (IGME's inventory of mining tailings ponds)
+#   https://info.igme.es/balsas/<id>  (e.g. https://w3id.org/igme/balsas/0002-8-0001)
+# https://w3id.org/igme/bdaguas/<id> redirects to the BDAguas record (IGME's database of water points)
+#   https://info.igme.es/BDAguasReport/Rpt/PointInfo.aspx?id=<id>  (e.g. https://w3id.org/igme/bdaguas/1037-7-0026)
+# https://w3id.org/igme/paleo/<id> redirects to the PALEO record (IGME's palaeontological database)
+#   https://info.igme.es/paleo/<id>  (e.g. https://w3id.org/igme/paleo/2722_AA_0506_GS)
+#
+# ## Contact
+# This space is administered by:
+# development.team@igme.es
+# GitHub organization: [IGME-CSIC Development Team](https://github.com/IGME-CSIC/)
+# Maintainers: [@sanmolhec](https://github.com/sanmolhec), [@aprieto-igme](https://github.com/aprieto-igme)
+
+RewriteEngine on
+
+# Open data federator endpoints
+RewriteRule ^datosabiertos/([0-9]+)/?$ https://www.igme.es/datosabiertos/catalogo/$1 [R=302,L]
+
+# IELIG endpoints
+RewriteRule ^ielig/([^/]{1,10})/?$ https://info.igme.es/ielig/LIGInfo.aspx?codigo=$1 [B,R=302,L]
+
+# QAFI endpoints
+RewriteRule ^qafi/([^/]{1,5})/?$ https://info.igme.es/qafi/FaultInfo.aspx?Id=$1 [B,R=302,L]
+
+# Balsas endpoints
+RewriteRule ^balsas/([^/]{1,12})/?$ https://info.igme.es/balsas/$1 [R=302,L]
+
+# BDAguas endpoints
+RewriteRule ^bdaguas/([^/]{1,11})/?$ https://info.igme.es/BDAguasReport/Rpt/PointInfo.aspx?id=$1 [B,R=302,L]
+
+# PALEO endpoints
+RewriteRule ^paleo/([^/]{1,20})/?$ https://info.igme.es/paleo/$1 [R=302,L]

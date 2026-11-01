@@ -13,7 +13,10 @@
 #                                     content negotiation (Turtle / RDF+XML)
 # https://w3id.org/onsir/<Term>    -> the term in the documentation, or the ontology
 # https://w3id.org/onsir/abox      -> the curated ABox
-# https://w3id.org/onsir/1.3.0     -> that version, from the matching git tag
+# https://w3id.org/onsir/examples  -> the illustrative individuals
+# https://w3id.org/onsir/1.7.0     -> that version of the core, from the matching git tag
+# https://w3id.org/onsir/abox/1.7.0, https://w3id.org/onsir/examples/1.7.0
+#                                  -> that version of the ABox or the examples
 #
 # ## Contact
 # This space is administered by:
@@ -49,11 +52,28 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmal
 
 RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/lfmalves/OnSIR/tree/v$1 [R=303,L]
 
-# ---------------------------------------------------------------- the ABox
+# ---------------------------------------------------------------- the ABox and the examples
+# Versioned: https://w3id.org/onsir/abox/<x.y.z> and .../examples/<x.y.z>, from the git tag.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^abox/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR_abox.owl [R=303,L]
+
+RewriteRule ^abox/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR_abox.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^examples/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR_examples.owl [R=303,L]
+
+RewriteRule ^examples/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/v$1/OnSIR_examples.ttl [R=303,L]
+
+# Current: https://w3id.org/onsir/abox and .../examples, from main.
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^abox/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_abox.owl [R=303,L]
 
 RewriteRule ^abox/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_abox.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^examples/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_examples.owl [R=303,L]
+
+RewriteRule ^examples/?$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR_examples.ttl [R=303,L]
 
 # ---------------------------------------------------------------- the ontology IRI
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
@@ -69,7 +89,7 @@ RewriteRule ^$ https://lfmalves.github.io/OnSIR/ [R=303,L]
 # ---------------------------------------------------------------- term IRIs
 # Terms are slash IRIs (https://w3id.org/onsir/HormeticDose). An RDF client is sent
 # the ontology that defines the term; a browser is sent to the term's entry in the
-# generated documentation.
+# generated documentation; NE keeps the fragment separator from being escaped.
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^(.+)$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.owl [R=303,L]
 
@@ -78,4 +98,4 @@ RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
 RewriteRule ^(.+)$ https://raw.githubusercontent.com/lfmalves/OnSIR/main/OnSIR.ttl [R=303,L]
 
-RewriteRule ^(.+)$ https://lfmalves.github.io/OnSIR/#$1 [R=303,L]
+RewriteRule ^(.+)$ https://lfmalves.github.io/OnSIR/#$1 [R=303,L,NE]

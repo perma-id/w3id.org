@@ -1,0 +1,200 @@
+#!/bin/sh
+#
+# Build an Apache httpd that an ordinary user owns and can run, into a prefix
+# under that user's cache directory. Nothing is installed system-wide and
+# nothing here needs root.
+#
+#   tools/server/bin/build-httpd
+#   tools/server/bin/build-httpd --force
+#   W3ID_HTTPD_PREFIX=/somewhere/else tools/server/bin/build-httpd
+#
+# Run this once. Afterwards `tools/server/bin/run-server` finds the result on
+# its own. The build takes a few minutes; most of it is httpd itself.
+#
+# Why build rather than install a package: the package is the part that needs
+# root. A distribution Apache also links several modules statically, which
+# quietly defeats the restricted module list that conf/w3id.conf relies on to
+# stay faithful to production -- see the note on that list below.
+#
+# POSIX sh on purpose, to match bin/resolve-identifier: this has to run
+# wherever a compiler does, without asking anyone to install a shell first.
+
+set -eu
+
+HTTPD_VERSION=2.4.68
+APR_VERSION=1.7.6
+APR_UTIL_VERSION=1.6.5
+PCRE2_VERSION=10.48
+
+# Pinned rather than fetched alongside the tarball. A checksum downloaded from
+# the host that served the tarball only proves the two arrived together, so it
+# is pinned here where changing it is a reviewable edit. These go stale only
+# when the versions above are deliberately bumped, and the build stops until
+# they are updated to match.
+#
+# The three Apache hashes are the contents of the upstream .sha256 files.
+# PCRE2 publishes only a detached GPG signature, so its hash was recorded from
+# the release asset on 2026-09-19 and must be re-recorded on a version bump.
+HTTPD_SHA256=68c74d4df38c26bed4dfbdb8f3baf1eb532f3872357becc1bba5d136f6b63c06
+APR_SHA256=49030d92d2575da735791b496dc322f3ce5cff9494779ba8cc28c7f46c5deb32
+APR_UTIL_SHA256=96de1dd6f6a0476d2d2e7964926d8c1ddc3bb0e210e1b1812d3ba5a454a392e2
+PCRE2_SHA256=b6c68fdf6f3ac31388b50aa89ff0fc49c00c987c16e7b5146491d12003f2c8ed
+
+# The modules conf/rootless.conf loads, named here so that the build is
+# guaranteed to produce every one of them as a shared object.
+#
+# This is not all that gets built. httpd's configure builds its own default
+# set shared as well, so the finished prefix holds about ninety .so files --
+# everything that needs no library beyond what this script already requires.
+# mod_ssl, mod_lua and mod_ldap are the notable absences, since their headers
+# may not be installed; --enable-mods-shared=reallyall would insist on them
+# and fail the build on an otherwise fine machine.
+#
+# The result therefore matches the official httpd:2.4 image rather than
+# tightening it: the modules are present on disk and conf/rootless.conf alone
+# decides which are loaded. Adding a LoadModule line there to make your own
+# .htaccess work is still the wrong fix -- the live server will not have it.
+# See tools/server/README.md.
+#
+# No mod_ssl means this build cannot serve HTTPS. The guide's TLS section
+# applies to the Docker and native setups, not to this one.
+W3ID_HTTPD_MODULES=${W3ID_HTTPD_MODULES:-'unixd log_config logio authn_core authz_core authz_host access_compat rewrite alias headers setenvif env mime dir autoindex negotiation deflate filter reqtimeout'}
+
+cache=${XDG_CACHE_HOME:-$HOME/.cache}/w3id/httpd
+prefix=${W3ID_HTTPD_PREFIX:-$cache/$HTTPD_VERSION}
+src=$cache/src
+build=$cache/build
+force=no
+
+usage() {
+  cat >&2 <<'USAGE'
+usage: build-httpd [--force]
+
+Builds Apache httpd into a prefix you own, for tools/server/bin/run-server.
+
+  --force   rebuild even if a built httpd is already there
+
+Environment:
+  W3ID_HTTPD_PREFIX   where to install (default: ~/.cache/w3id/httpd/<version>)
+  W3ID_HTTPD_MODULES  the shared modules to build, if you need more than the
+                      set conf/w3id.conf loads
+USAGE
+  exit 2
+}
+
+for arg in "$@"; do
+  case $arg in
+    --force) force=yes ;;
+    -h|--help) usage ;;
+    *) printf 'build-httpd: unknown argument: %s\n\n' "$arg" >&2; usage ;;
+  esac
+done
+
+for tool in curl make cc sha256sum tar; do
+  command -v "$tool" >/dev/null 2>&1 || {
+    printf 'build-httpd: %s is required but not on PATH.\n' "$tool" >&2
+    exit 1
+  }
+done
+
+# bin/run-server looks for $cache/current, so it does not have to know which
+# version was built. Replaced rather than added to, so building a new version
+# switches what runs. Refreshed on the already-built path as well: the symlink
+# can be missing when the prefix is not, and then nothing would find it.
+link_current() {
+  mkdir -p "$cache"
+  ln -sfn "$prefix" "$cache/current"
+}
+
+if [ -x "$prefix/bin/httpd" ] && [ "$force" = no ]; then
+  link_current
+  printf 'Already built: %s\n' "$prefix/bin/httpd"
+  printf 'Pass --force to build it again.\n'
+  exit 0
+fi
+
+jobs=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 2)
+
+mkdir -p "$src" "$build" "$prefix"
+
+# fetch URL FILENAME SHA256 -- download once, then verify every time. A file
+# already in the cache is still checked, so a truncated or tampered-with
+# download does not survive by being present.
+fetch() {
+  _url=$1
+  _file=$2
+  _sha=$3
+
+  if [ ! -f "$src/$_file" ]; then
+    printf 'Fetching %s\n' "$_file"
+    curl -sSL --fail -m 600 -o "$src/$_file.part" "$_url"
+    mv "$src/$_file.part" "$src/$_file"
+  fi
+
+  printf '%s  %s\n' "$_sha" "$src/$_file" | sha256sum -c - >/dev/null 2>&1 || {
+    printf 'build-httpd: checksum mismatch for %s\n' "$_file" >&2
+    printf '  expected %s\n' "$_sha" >&2
+    printf '  actually %s\n' "$(sha256sum "$src/$_file" | cut -d' ' -f1)" >&2
+    printf '\nDelete %s and try again. If it keeps failing, the pinned\n' "$src/$_file" >&2
+    printf 'checksum in this script may need updating for a new release.\n' >&2
+    exit 1
+  }
+}
+
+apache=https://dlcdn.apache.org
+pcre2_base=https://github.com/PCRE2Project/pcre2/releases/download
+
+fetch "$apache/httpd/httpd-$HTTPD_VERSION.tar.bz2" \
+  "httpd-$HTTPD_VERSION.tar.bz2" "$HTTPD_SHA256"
+fetch "$apache/apr/apr-$APR_VERSION.tar.bz2" \
+  "apr-$APR_VERSION.tar.bz2" "$APR_SHA256"
+fetch "$apache/apr/apr-util-$APR_UTIL_VERSION.tar.bz2" \
+  "apr-util-$APR_UTIL_VERSION.tar.bz2" "$APR_UTIL_SHA256"
+fetch "$pcre2_base/pcre2-$PCRE2_VERSION/pcre2-$PCRE2_VERSION.tar.bz2" \
+  "pcre2-$PCRE2_VERSION.tar.bz2" "$PCRE2_SHA256"
+
+# PCRE2 first: httpd links against it and will not configure without it. Many
+# systems ship the runtime library but not the headers, so it is built here
+# rather than looked for. Static only -- nothing but httpd will use it, and a
+# static link means the result does not need the prefix on any library path.
+if [ ! -x "$prefix/bin/pcre2-config" ] || [ "$force" = yes ]; then
+  printf 'Building pcre2 %s\n' "$PCRE2_VERSION"
+  rm -rf "$build/pcre2-$PCRE2_VERSION"
+  tar -xf "$src/pcre2-$PCRE2_VERSION.tar.bz2" -C "$build"
+  cd "$build/pcre2-$PCRE2_VERSION"
+  ./configure --prefix="$prefix" --disable-shared --enable-static \
+    --with-pic --quiet
+  make -j"$jobs" >/dev/null
+  make install >/dev/null
+fi
+
+printf 'Building httpd %s\n' "$HTTPD_VERSION"
+rm -rf "$build/httpd-$HTTPD_VERSION"
+tar -xf "$src/httpd-$HTTPD_VERSION.tar.bz2" -C "$build"
+cd "$build/httpd-$HTTPD_VERSION"
+
+# apr and apr-util go into srclib so httpd builds them in-tree. Building them
+# in place avoids installing two more packages into the prefix, and avoids the
+# separate apr-util configure having to be told where apr landed.
+tar -xf "$src/apr-$APR_VERSION.tar.bz2" -C srclib
+mv "srclib/apr-$APR_VERSION" srclib/apr
+tar -xf "$src/apr-util-$APR_UTIL_VERSION.tar.bz2" -C srclib
+mv "srclib/apr-util-$APR_UTIL_VERSION" srclib/apr-util
+
+./configure \
+  --prefix="$prefix" \
+  --with-included-apr \
+  --with-pcre="$prefix/bin/pcre2-config" \
+  --with-mpm=event \
+  --enable-mpms-shared=event \
+  --enable-mods-shared="$W3ID_HTTPD_MODULES" \
+  --quiet
+
+make -j"$jobs" >/dev/null
+make install >/dev/null
+
+link_current
+
+printf '\nBuilt %s\n' "$prefix/bin/httpd"
+"$prefix/bin/httpd" -v
+printf '\nNow run: tools/server/bin/run-server\n'
