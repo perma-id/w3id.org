@@ -2,7 +2,7 @@
 
 Permanent identifiers for the Grund Digital Archive (GDA). Every object in the archive has a short code.
 
-`https://w3id.org/gda/<code>` → `https://grund-digital-archive.github.io/<code>` (HTTP 302)
+`https://w3id.org/gda/<code>` → `https://codes.petermgrund.com/<code>` (HTTP 302)
 
 - `<code>` is 6 characters from `ABCDEFGHJKMNPQRSTUVWXYZ23456789`
   (no I, L, O, 0 or 1). Codes are written in capitals, but lowercase
