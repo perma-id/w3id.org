@@ -26,4 +26,4 @@ engagement events in nuclear new-build procurement.
 This space is administered by **Wonbae Park**.
 
 - GitHub: [@bonjwanim](https://github.com/bonjwanim)
-- GItHub username: bonjwanim
+- GitHub username: bonjwanim
