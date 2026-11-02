@@ -4,6 +4,19 @@ AddType text/turtle .ttl
 
 RewriteEngine On
 
-RewriteRule ^exato-hpc\.ttl$ https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/refs/heads/main/hpc_ontology/exaatow_hpc_ontology.ttl [R=302,L]
+# 1. Access to the physical files .ttl
+RewriteRule ^hpc/hpc-core\.ttl$ https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/main/hpc_ontology/hpc-core.ttl [R=302,L]
+RewriteRule ^hpc/hpc\.ttl$  https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/main/hpc_ontology/hpc.ttl  [R=302,L]
 
-RewriteRule ^exato-wf\.ttl$ https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/refs/heads/main/workflow_ontology/exaatow_workflow_ontology.ttl [R=302,L]
+# 2. Namespace /hpc: Turtle for software
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^hpc/?$ https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/main/hpc_ontology/hpc.ttl [R=303,L]
+
+# 3. Access the URI from a browser (HTML)
+#To be updated in the future
+RewriteRule ^hpc/?$ https://cnherrera.github.io/Exa-AToW_onto/hpc_ontology/index.html [R=303,L]
+
+# 4. Workflow Ontology
+RewriteRule ^exato-wf\.ttl$ https://raw.githubusercontent.com/logistica-dev/exa-atow-ontologies/main/workflow_ontology/exaatow_workflow_ontology.ttl [R=302,L]
+
+

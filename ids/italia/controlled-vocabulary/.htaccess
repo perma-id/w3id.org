@@ -8,6 +8,9 @@ SetEnvIf Accept ^.*application/json-ld.* SYNTAX=jsonld
 SetEnvIf Accept ^.*text/html.* SYNTAX=html
 SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/italia/dati-semantic-assets/master/VocabolariControllati
 
+# Redirect link errato licenza BCS (manuale METS 1.1) verso l'IRI corretta
+RewriteRule ^licences/BC_Standard_1\.0/?$ /italia/controlled-vocabulary/licenses/B117_BCS [R=302,L]
+
 RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|jsonld)$
 RewriteRule ^(territorial-classifications/countries/|classifications-for-public-services/life-business-event/)(business-event|life-event|italy)(/)?$ %{ENV:ROOT_URL}/$1$2/$2.%{ENV:SYNTAX} [R=303,L]
 

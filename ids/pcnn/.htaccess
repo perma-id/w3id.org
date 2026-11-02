@@ -1,11 +1,24 @@
-# PCNN variable vocabulary
-# Maintainer: Hajar Hasannejadasl (https://orcid.org/0000-0001-5262-7399)
-# GitHub: hajarhn
-
 Header set Access-Control-Allow-Origin *
 Options +FollowSymLinks
 RewriteEngine On
 
-# Whole prefix → GitHub Pages catalogue.
-# /var/{name} is claimed with this prefix; per-item pages can be added later.
-RewriteRule ^(.*)$ https://hajarhn.github.io/PCNN-vars/ [R=302,L]
+# machines asking for RDF
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary-pilot.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/vocabulary-pilot.rdf [R=303,L]
+
+# five published items → pilot page, correct card
+RewriteRule ^var/(HI7|FATEXP40|phq_tired|dsq_fatigue_freq|smokingstatus)$ https://Hajarhn.github.io/PCNN-vars/pilot.html#$1 [R=302,NE,L]
+
+# all other columns → full catalogue, correct card
+RewriteRule ^var/(.*)$ https://Hajarhn.github.io/PCNN-vars/#$1 [R=302,NE,L]
+
+# prefix root → catalogue
+RewriteRule ^$ https://Hajarhn.github.io/PCNN-vars/ [R=302,L]
+RewriteRule ^(.*)$ https://Hajarhn.github.io/PCNN-vars/$1 [R=302,L]

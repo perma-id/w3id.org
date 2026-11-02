@@ -4,10 +4,11 @@
 
 An OWL 2 DL ontology for gamma and X-ray irradiation of plant seeds. It covers irradiation
 treatments, absorbed dose and dose rate as typed QUDT quantities, measured endpoints and endpoint
-categories, dose–response models, and taxon-specific dose windows expressed as OWL 2 datatype
-facets so that a reasoner derives where a numeric dose falls relative to the statistics reported
-for a given taxon. It ships with an ABox curated from a 28-study systematic review, SPARQL
-competency questions, and external alignments to BFO, PO, NCBITaxon, ChEBI, PATO, ENVO and QUDT.
+categories, dose–response models, and dose windows expressed as OWL 2 datatype facets and
+conditioned on taxon, endpoint and stage, so that a reasoner derives where a numeric dose falls
+relative to the statistics reported for that taxon, endpoint and stage. It ships with an ABox that
+codes the 55 studies of a systematic review, illustrative individuals, SPARQL competency questions,
+and external alignments to BFO, PO, TO, PECO, ChEBI, PATO, GO, IAO, OBI, RO, NCBITaxon and QUDT.
 
 - **Canonical repository:** <https://github.com/lfmalves/OnSIR>
 - **Documentation:** <https://lfmalves.github.io/OnSIR/>
@@ -23,7 +24,9 @@ competency questions, and external alignments to BFO, PO, NCBITaxon, ChEBI, PATO
 | `/onsir/<Term>` | `text/html` | that term in the documentation |
 | `/onsir/<Term>` | RDF | the ontology defining the term |
 | `/onsir/abox` | any | the curated ABox, Turtle or RDF/XML |
-| `/onsir/<x.y.z>` | any | that release, from the matching git tag `v<x.y.z>` |
+| `/onsir/examples` | any | the illustrative individuals, Turtle or RDF/XML |
+| `/onsir/<x.y.z>` | any | that release of the core, from the matching git tag `v<x.y.z>` |
+| `/onsir/abox/<x.y.z>`, `/onsir/examples/<x.y.z>` | any | that release of the ABox or the examples, from the tag |
 
 Term IRIs are slash IRIs. Version IRIs (`owl:versionIRI`) resolve to an annotated git tag, so a
 version IRI keeps denoting the release it was minted for while the unversioned IRI tracks the

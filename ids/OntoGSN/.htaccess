@@ -15,21 +15,34 @@ RewriteEngine on
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{REQUEST_URI} \.ttl$
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl [R=303,L]
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.ttl [R=303,L]
 
 # JSON-LD
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{REQUEST_URI} \.jsonld$
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld [R=303,L]
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.jsonld [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{REQUEST_URI} \.rdf$
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf [R=303,L]
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.rdf [R=303,L]
 
 # Fallback for other Accept headers: send humans to the Turtle serialization
-RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl [R=303,L]
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.ttl [R=303,L]
+
+# SHACL shapes: the full file and its five sections, Turtle only
+RewriteRule ^shapes/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_0_full.ttl [R=303,L]
+RewriteRule ^shapes/core/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_1_core.ttl [R=303,L]
+RewriteRule ^shapes/pattern/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_2_pattern.ttl [R=303,L]
+RewriteRule ^shapes/modular/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_3_modular.ttl [R=303,L]
+RewriteRule ^shapes/confidence/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_4_confidence.ttl [R=303,L]
+RewriteRule ^shapes/dialectic/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/shapes/ontogsn-shapes_5_dialectic.ttl [R=303,L]
+
+# Augmentation and alignment, Turtle only
+RewriteRule ^augmentation/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/augmentation/ontogsn-augmentation.ttl [R=303,L]
+RewriteRule ^augmentation/shapes/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/augmentation/shapes/ontogsn-augmentation-shapes.ttl [R=303,L]
+RewriteRule ^alignment/?$ https://raw.githubusercontent.com/fortiss/OntoGSN/main/alignments/ontogsn-align.ttl [R=303,L]
 
 # Redirect /playground
 RewriteRule ^playground(/)?$ https://fortiss.github.io/OntoGSN/playground/ [R=303,L]
