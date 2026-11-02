@@ -10,8 +10,10 @@
 #
 # RDF clients (Accept: text/turtle and friends) get the Turtle file with a
 # 303; browsers get the repository page.
+#
+# Contact: Jan Willem van Veen
+# GitHub username: jwvveen
 
-Options +FollowSymLinks
 RewriteEngine on
 
 # --- RDF clients -------------------------------------------------------------
@@ -33,7 +35,4 @@ RewriteRule ^bpmn-(archimate|alignments|matrix|rules)\.ttl$ https://raw.githubus
 
 # --- Browsers and everything else: the repository ------------------------------
 RewriteRule ^$ https://github.com/jwvveen/bpmn-rdf [R=302,L]
-RewriteRule ^(archimate|alignments|matrix|rules)/?$ https://github.com/jwvveen/bpmn-rdf/blob/main/bpmn-$1.ttl [R=302,L]
-RewriteRule ^shapes(/rules)?/?$ https://github.com/jwvveen/bpmn-rdf/blob/main/shacl/bpmn-shapes.ttl [R=302,L]
-RewriteRule ^shapes/(matrix|archimate)/?$ https://github.com/jwvveen/bpmn-rdf/blob/main/shacl/bpmn-$1-shapes.ttl [R=302,L]
 RewriteRule ^(.*)$ https://github.com/jwvveen/bpmn-rdf [R=302,L]
