@@ -52,8 +52,8 @@ and its current H₂KG release targets.
 - Repository: `https://github.com/ViMiLabs/AIMWORKS`
 - Docs base: `https://vimilabs.github.io/AIMWORKS/`
 - Maintainers:
-  - [Marjan Kohandani](https://orcid.org/0009-0005-5173-202X) - affiliations a, b, c
-  - [Mohammad J. Eslamibidgoli](https://orcid.org/0000-0002-5057-2993) - affiliations a, b
+  - [Marjan Kohandani](https://orcid.org/0009-0005-5173-202X) (`@Marjanknd`) - affiliations a, b, c
+  - [Mohammad J. Eslamibidgoli](https://orcid.org/0000-0002-5057-2993) (`@meslamib3`) - affiliations a, b
   - [Kourosh Malek](https://www.fz-juelich.de/profile/malek_k) - affiliations a, b
   - [Michael Eikerling](https://orcid.org/0000-0002-0764-8948) - affiliations a, b, c
 - Affiliations:
