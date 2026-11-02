@@ -14,4 +14,4 @@ Documentation: <https://github.com/BigContext-OpenSource/bigcontext-schema>
 ## Contact
 
 - Joji John
-- GitHub: [@joji-figlabs](https://github.com/joji-figlabs)
+  - GitHub: [@joji-figlabs](https://github.com/joji-figlabs)
