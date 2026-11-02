@@ -1,0 +1,39 @@
+# w3id.org redirects for BEAT - British Early Administrative Traces.
+# Parish boundaries read from the ink of the Ordnance Survey six-inch first edition,
+# and the ancient-parish church points and metadata built on them.
+# Project: https://github.com/docuracy/beat
+#
+# Maintainer: Stephen Gadd - https://github.com/docuracy
+#
+# Namespace layout (identifiers are grouped by entity type):
+#
+#   /beat/                          -> BEAT homepage
+#   /beat/parish/{County}.{Name}    -> an ancient parish (church, boundary, registers, tithe map reference)
+#
+# Parish identifiers are {County}.{Name}: a three-letter Chapman county code and the
+# parish's canonical name with spaces as hyphens, as for https://w3id.org/campop/place/
+# (e.g. BDF.Sandy). Only rules with live targets are enabled; the parish rules below stay
+# commented out until the Pages resolver they point at is published, and will be enabled
+# in a follow-up PR.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers "Accept"
+
+# --- Namespace homepage ---
+RewriteRule ^$ https://docuracy.github.io/beat/ [R=303,L]
+
+# --- Parishes (planned) -----------------------------------------------------
+# 303 See Other: a parish is not a document. GitHub Pages is static and cannot read an
+# Accept header, so the negotiation happens here, as for /campop/place/.
+#
+# RewriteRule ^parish/([A-Za-z]{3})\.(.+)\.json$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+#
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+# RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+# RewriteCond %{HTTP_ACCEPT} application/json [NC]
+# RewriteRule ^parish/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+#
+# RewriteRule ^parish/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/beat/parish/?id=$1.$2 [R=303,L]
