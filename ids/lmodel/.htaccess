@@ -20,7 +20,7 @@ AddType application/yaml         .yaml
 # 5. [trivial] AddType sparse; GitHub sets Content-Type. Local-serve only.
 # 6. [trivial] Deprecated variants (`text/x-yaml`, `application/x-turtle`) unsupported; get 406.
 # 7. [minor]   `[N,DPI]` assumes single-pass aliasing. Chain carefully (respects LimitInternalRecursion=10).
-# 8. [minor]   UCO/UCS override matches single-segment subnames only; multi-hyphen repos need explicit entry.
+# 8. [minor]   UCS override matches single-segment subnames only; multi-hyphen repos need explicit entry.
 # 9. [trivial] `[^/]+` allows unusual chars; safe (fixed-template redirects, no traversal).
 # 10. [trivial] `+FollowSymLinks` needs vhost permission; not portable to restrictive hosts.
 
@@ -30,7 +30,6 @@ AddType application/yaml         .yaml
 RewriteRule ^$ https://github.com/lmodel [R=302,L]
 
 # Path canonicalization & aliases (internal rewrite; [N,DPI] preserves suffixes)
-RewriteRule ^uco/([a-z0-9]+)((?:/.*)?)$ uco-$1$2 [N,DPI]
 RewriteRule ^ucs/([a-z0-9]+)((?:/.*)?)$ ucs-$1$2 [N,DPI]
 
 # Knowledge bundles: https://w3id.org/lmodel/<repo>/knowledge/ is the namespace
@@ -55,7 +54,7 @@ RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ htt
 # Filename-stem normalization & branch/layout overrides
 #
 # gen-project converts hyphens in repo names to underscores in artifact
-# stems (e.g., `uco-core` -> `uco_core.context.jsonld`). Apache `.htaccess`
+# stems (e.g., `ucs-<name>` -> `ucs_<name>.context.jsonld`). Apache `.htaccess`
 # cannot translate hyphens to underscores natively (RewriteMap is forbidden
 # in this context), so we set environment variables per request:
 #
@@ -69,8 +68,7 @@ RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ htt
 # Defaults: STEM=URL repo segment, BRANCH=main, PROJECT=project/, SIDECAR=(empty)
 RewriteRule ^([^/]+) - [E=STEM:$1,E=BRANCH:main,E=PROJECT:project/]
 
-# UCO / UCS families: single hyphen after prefix, no internal hyphens.
-RewriteRule ^uco-([a-z0-9]+)(?:/|$) - [E=STEM:uco_$1]
+# UCS family: single hyphen after prefix, no internal hyphens.
 RewriteRule ^ucs-([a-z0-9]+)(?:/|$) - [E=STEM:ucs_$1]
 
 # Multi-hyphen repos (hyphen->underscore STEM). Excluded: sssom-files, linkml-project-copier (no LinkML schema).
@@ -89,6 +87,15 @@ RewriteRule ^vulnerability-core(?:/|$)    - [E=STEM:vulnerability_core]
 RewriteRule ^kev-catalog(?:/|$)           - [E=STEM:kev_catalog]
 RewriteRule ^cis-controls(?:/|$)          - [E=STEM:cis_controls]
 RewriteRule ^fluxnova-bpm-platform(?:/|$) - [E=STEM:fluxnova_bpm_platform]
+RewriteRule ^github-actions(?:/|$)        - [E=STEM:github_actions]
+
+# spdx: the Python package, and so the schema's file names, are spdx_linkml,
+# because the name spdx is taken on PyPI.
+RewriteRule ^spdx(?:/|$)                  - [E=STEM:spdx_linkml]
+
+# in-toto: the Python package, and so the schema's file names, are
+# in_toto_linkml, because the in-toto reference implementation installs in_toto.
+RewriteRule ^in-toto(?:/|$)               - [E=STEM:in_toto_linkml]
 
 # common-domain-model: FINOS upstream uses `master` branch (not `main`).
 RewriteRule ^common-domain-model(?:/|$)   - [E=STEM:common_domain_model,E=BRANCH:master]
