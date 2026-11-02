@@ -18,7 +18,7 @@ AddType application/yaml         .yaml
 # 3. [trivial] HTML conneg=303; docs=302 (same dest, different semantics).
 # 4. [trivial] `{jsonld,jsonschema}/foo.json` mis-routes; harmless 404 upstream.
 # 5. [trivial] AddType sparse; GitHub sets Content-Type. Local-serve only.
-# 6. [trivial] Deprecated variants (`text/x-yaml`, `application/x-turtle`) unsupported; get 406.
+# 6. [trivial] Deprecated variants (`text/x-yaml`, `application/x-turtle`) unsupported; get the catch-all.
 # 7. [minor]   `[N,DPI]` assumes single-pass aliasing. Chain carefully (respects LimitInternalRecursion=10).
 # 8. [minor]   UCS override matches single-segment subnames only; multi-hyphen repos need explicit entry.
 # 9. [trivial] `[^/]+` allows unusual chars; safe (fixed-template redirects, no traversal).
@@ -266,12 +266,6 @@ RewriteCond %{REQUEST_URI} !\.[^./]+$
 RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
 RewriteRule ^([^/]+)(/.*)?$ https://lmodel.github.io/$1$2 [R=303,NE,L]
-
-# 406 Not Acceptable - Accept header present, specific, no match. Accept:*/* excluded.
-RewriteCond %{REQUEST_URI} !\.[^./]+$
-RewriteCond %{HTTP_ACCEPT} .+
-RewriteCond %{HTTP_ACCEPT} !\*/\*
-RewriteRule ^(.+)$ - [R=406,L]
 
 #### LMODEL PROJECTS ###
 # Catch-all: any canonical <repo>/<rest> -> lmodel.github.io/<repo>/<rest> (302)
