@@ -19,9 +19,11 @@ IDs are language-neutral, 16 hexadecimal characters.
 | `https://w3id.org/provenance/technical_feature/{id}` | E25 Human-Made Feature (provenance feature) |
 | `https://w3id.org/provenance/modification/{id}` | E11 Modification |
 | `https://w3id.org/provenance/actor/{id}` | E39 Actor (involved in a modification) |
+| `https://w3id.org/provenance/loose_part/{id}` | E22 Human-Made Object (loose part of an artwork, e.g. frame or mount) |
 | `https://w3id.org/provenance/image/{id}` | E38 Image (of an artwork) |
 | `https://w3id.org/provenance/technicalfeature_image/{id}` | E38 Image (of a provenance feature) |
-| `https://w3id.org/provenance/vocab/{vocabulary}/{id}` | E55 Type (controlled vocabulary term) |
+| `https://w3id.org/provenance/loose_part_image/{id}` | E38 Image (of a loose part) |
+| `https://w3id.org/provenance/vocab/{vocabulary}/{id}` | E55 Type / E57 Material (controlled vocabulary term) |
 | `https://w3id.org/provenance/ontology#{Term}` | Custom classes and properties |
 | `https://w3id.org/provenance/graph` | Named graph of the dataset |
 
