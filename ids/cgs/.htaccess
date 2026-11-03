@@ -9,6 +9,7 @@
 #   Accept: text/turtle           -> <name>.ttl
 #   Accept: application/rdf+xml   -> <name>.xml
 #   Accept: application/ld+json   -> <name>.json
+#   Accept: application/json      -> <name>.json
 #   Accept: application/n-triples -> <name>.nt
 #   anything else (browsers)      -> <name>/ (HTML documentation)
 #
@@ -42,7 +43,8 @@ RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.xml [R=303,L]
 
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.json [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/n-triples
