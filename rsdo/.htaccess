@@ -1,0 +1,40 @@
+# Persistent identifier: https://w3id.org/rsdo
+# Railway Survey and Design Ontology (RSDO)
+#
+# Maintainer: Qiang Du <dq15690167260@163.com>  (GitHub: https://github.com/DQdq1998)
+# Source repository: https://github.com/DQdq1998/RSDO
+#
+# Replace every occurrence of "DQdq1998/RSDO" below if the ontology is
+# hosted in a different GitHub account or repository, and make sure the branch
+# (main) and the release tag (v1.0) actually exist before opening the pull
+# request against https://github.com/perma-id/w3id.org
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --------------------------------------------------------------------------
+# Versioned (immutable) snapshot: https://w3id.org/rsdo/1.0
+# Points at the git tag v1.0 of the target repository.
+# --------------------------------------------------------------------------
+RewriteRule ^1\.0/?$          https://raw.githubusercontent.com/DQdq1998/RSDO/v1.0/rsdo.owl [R=303,L]
+RewriteRule ^1\.0/rsdo\.ttl$  https://raw.githubusercontent.com/DQdq1998/RSDO/v1.0/rsdo.ttl [R=303,L]
+RewriteRule ^1\.0/rsdo\.rdf$  https://raw.githubusercontent.com/DQdq1998/RSDO/v1.0/rsdo.rdf [R=303,L]
+
+# --------------------------------------------------------------------------
+# Content negotiation on the ontology IRI https://w3id.org/rsdo
+# --------------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/DQdq1998/RSDO/main/rsdo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/DQdq1998/RSDO/main/rsdo.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/DQdq1998/RSDO/main/rsdo.owl [R=303,L]
+
+# --------------------------------------------------------------------------
+# Default (browsers, CURIE resolvers, plain HTTP clients): OWL/XML serialization
+# --------------------------------------------------------------------------
+RewriteRule ^$ https://raw.githubusercontent.com/DQdq1998/RSDO/main/rsdo.owl [R=303,L]
