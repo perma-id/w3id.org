@@ -54,12 +54,12 @@ const PATTERNS = [
   // A separator that excludes '.' so that `github.com/x` is left to the
   // URL pattern below rather than yielding "com".
   new RegExp(`\\bgit\\s?hub\\b[^A-Za-z\\d.\\n]{1,4}@?(${USERNAME})\\b`, 'gi'),
-  // https://github.com/x, github.com/x, with or without a scheme or trailing
-  // repository path. Not a link to this repository, which comments copied
-  // from a template point at and which names no maintainer.
+  // https://github.com/x, github.com/x, with or without a scheme. Only a
+  // profile: a repository link such as github.com/x/vocab names its owner,
+  // often an organisation, and an owner need not maintain the identifier.
   new RegExp(
-    `(?:https?://)?(?:www\\.)?github\\.com/(?!perma-id/w3id\\.org\\b)` +
-    `(${USERNAME})(?:[/)\\]>,.\\s]|$)`,
+    `(?:https?://)?(?:www\\.)?github\\.com/(${USERNAME})` +
+    `/?(?=[)\\]>,.;:?#'"*_\\s]|$)`,
     'gi'),
   BARE_HANDLE,
   // Username: x, with no "GitHub" on the line. Only at the start of a line,
@@ -129,8 +129,7 @@ export function hasMaintainerSignal(text) {
  * Maintainer usernames recorded anywhere in a namespace.
  *
  * Only `.htaccess` comments are considered, not its directives: a redirect
- * target such as `https://github.com/someone/repo` names a repository owner,
- * who need not be the person responsible for the identifier.
+ * target says where the identifier points, not who is responsible for it.
  *
  * @returns {{usernames: Set<string>, sources: string[]}}
  */
