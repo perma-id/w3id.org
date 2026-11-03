@@ -1,0 +1,16 @@
+# Justificatory Space Ontology (ONTOBRAS 2026)
+# Contact: Eduardo Caruso Barbosa Pacheco <eduardo.caruso.pacheco@usp.br>
+#          GitHub: @eduardocbpacheco
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Machine clients asking for Turtle/RDF get the ontology file
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://raw.githubusercontent.com/eduardocbpacheco/justificatory-space-ontology/main/ontology/justificatory_space.ttl [R=303,L]
+
+# Everything else (browsers, instance IRIs) goes to the repository
+RewriteRule ^$ https://github.com/eduardocbpacheco/justificatory-space-ontology [R=303,L]
+RewriteRule ^(.*)$ https://github.com/eduardocbpacheco/justificatory-space-ontology [R=303,L]
