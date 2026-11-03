@@ -155,6 +155,7 @@ request and not by a run scoped to a directory.
 
 | Rule | Severity | What |
 | --- | --- | --- |
+| [`meta/author-is-maintainer`](./meta/author-is-maintainer) | warning | A change comes from a maintainer of the directory it touches |
 | [`meta/document-identifier-root`](./meta/document-identifier-root) | warning | Claim the root of an identifier with a maintainer record |
 | [`meta/maintainer-github-username`](./meta/maintainer-github-username) | warning | Record who maintains the identifier, with a GitHub username |
 | [`meta/rule-docs-exist`](./meta/rule-docs-exist) | warning | Every rule has a page and every page has a rule |

@@ -49,13 +49,21 @@ export class Context {
    *   contents from, instead of the checkout. For checking a commit that is
    *   not checked out, such as a pull request fetched for review; the working
    *   tree never counts then.
+   * @param {string|null} opts.author - GitHub account that opened the change,
+   *   or null when it is not known.
+   * @param {string|null} opts.target - tip of the branch the change is going
+   *   into. `base` is where the change forked, which can predate the current
+   *   maintainer records; null means the same as `base`.
    */
   constructor({root, config, base = null, head = null, scope = null,
-    includeWorkingTree = true, readFrom = null}) {
+    includeWorkingTree = true, readFrom = null, author = null,
+    target = null}) {
     this.root = root;
     this.config = config;
     this.base = base;
     this.head = head;
+    this.author = author;
+    this.target = target ?? base;
     this.scope = scope;
     this.readFrom = readFrom;
     this.includeWorkingTree = readFrom === null && includeWorkingTree;
@@ -176,6 +184,23 @@ export class Context {
         return null;
       }
     });
+  }
+
+  /**
+   * Every path in the target branch, or an empty set without a range.
+   *
+   * What a change is checked against when the question is who may make it:
+   * a record the change itself adds must not vouch for the change.
+   */
+  get targetTree() {
+    return this._memo('targetTree', () => new Set(this.target === null ? [] :
+      git.listFilesAt(this.target, this.root)));
+  }
+
+  /** File contents in the target branch, or null where it is not a file. */
+  readTarget(relPath) {
+    return this._memo('readTarget:' + relPath, () => this.target === null ?
+      null : git.readAt(this.target, relPath, this.root));
   }
 
   /** File size in bytes, or null if it cannot be stat'ed. */

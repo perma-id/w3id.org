@@ -1,6 +1,6 @@
 /** Command line interface. */
 import {parseArgs} from 'node:util';
-import {writeFileSync} from 'node:fs';
+import {readFileSync, writeFileSync} from 'node:fs';
 import * as git from './git.js';
 import {loadConfig} from './config.js';
 import {Context} from './context.js';
@@ -43,7 +43,7 @@ const OPTIONS = {
 };
 
 export async function main(argv, {stdout = process.stdout,
-  stderr = process.stderr, cwd = process.cwd()} = {}) {
+  stderr = process.stderr, cwd = process.cwd(), env = process.env} = {}) {
   let values;
   let positionals;
   try {
@@ -129,7 +129,8 @@ export async function main(argv, {stdout = process.stdout,
     ...range,
     scope,
     includeWorkingTree: !values['committed-only'] && headIsCheckout,
-    readFrom
+    readFrom,
+    author: pullRequestAuthor(env)
   });
   ctx.allRuleIds = ruleIds;
 
@@ -276,6 +277,25 @@ function countNamespaces(ctx) {
 }
 
 /**
+ * The account that opened the pull request being checked, or null.
+ *
+ * Read from the event GitHub Actions writes for every run, so the workflow
+ * passes nothing. Outside Actions, and for events other than a pull request,
+ * there is no author and the rules that need one stay silent.
+ */
+function pullRequestAuthor(env) {
+  if(!env.GITHUB_EVENT_PATH) {
+    return null;
+  }
+  try {
+    const event = JSON.parse(readFileSync(env.GITHUB_EVENT_PATH, 'utf8'));
+    return event.pull_request?.user?.login ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Work out which commits to compare.
  *
  * With no arguments the tool compares the working branch against the upstream
@@ -288,7 +308,7 @@ function resolveRange(values, root, auditAll, hasPaths) {
       throw new Error('--base and --head cannot be combined with --all or ' +
         '--triage.');
     }
-    return {base: null, head: null};
+    return {base: null, head: null, target: null};
   }
 
   // Paths on their own mean "check these as they stand", not "compare them
@@ -296,7 +316,7 @@ function resolveRange(values, root, auditAll, hasPaths) {
   // comparison would have nothing to show. Passing --base asks for the
   // comparison explicitly, and then the paths only narrow it.
   if(hasPaths && values.base === undefined && values.head === undefined) {
-    return {base: null, head: null};
+    return {base: null, head: null, target: null};
   }
 
   const head = values.head ?? 'HEAD';
@@ -330,9 +350,9 @@ function resolveRange(values, root, auditAll, hasPaths) {
   }
   if(mergeBase === headSha) {
     // The branch is an ancestor of master: there is nothing to review.
-    return {base: mergeBase, head: headSha};
+    return {base: mergeBase, head: headSha, target: baseSha};
   }
-  return {base: mergeBase, head: headSha};
+  return {base: mergeBase, head: headSha, target: baseSha};
 }
 
 function listRules() {

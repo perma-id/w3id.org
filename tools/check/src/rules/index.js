@@ -51,6 +51,7 @@ import htaccessEscapeLiteralDots from './htaccess/escape-literal-dots.js';
 
 import markdownPreferListOverLineBreaks from './markdown/prefer-list-over-line-breaks.js';
 
+import metaAuthorIsMaintainer from './meta/author-is-maintainer.js';
 import metaDocumentIdentifierRoot from './meta/document-identifier-root.js';
 import metaMaintainerGithubUsername from './meta/maintainer-github-username.js';
 import metaRuleDocsExist from './meta/rule-docs-exist.js';
@@ -101,6 +102,7 @@ export const rules = [
 
   markdownPreferListOverLineBreaks,
 
+  metaAuthorIsMaintainer,
   metaDocumentIdentifierRoot,
   metaMaintainerGithubUsername,
   metaRuleDocsExist

@@ -217,6 +217,7 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Overview', link: '/rules/meta/' },
+              { text: 'author-is-maintainer', link: '/rules/meta/author-is-maintainer' },
               { text: 'document-identifier-root', link: '/rules/meta/document-identifier-root' },
               { text: 'maintainer-github-username', link: '/rules/meta/maintainer-github-username' },
               { text: 'rule-docs-exist', link: '/rules/meta/rule-docs-exist' }
