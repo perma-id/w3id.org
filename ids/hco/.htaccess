@@ -1,0 +1,76 @@
+# # /hco/
+#
+# Permanent identifiers for the Heat pump Common Ontology (HCO), developed in
+# the TDI500 project: https://gitlab.com/tdi500/heatpump-common-ontology
+#
+#   https://w3id.org/hco/ontology           ontology (namespace .../hco/ontology#)
+#   https://w3id.org/hco/ontology/<version> a specific ontology release
+#   https://w3id.org/hco/shacl              SHACL shapes (namespace .../hco/shacl#)
+#   https://w3id.org/hco/shacl/<version>    a specific shapes release
+#   https://w3id.org/hco/data/<name>        example data
+#
+# Content is hosted on GitLab Pages. Ontology and shapes IRIs use 303 See Other
+# with content negotiation, defaulting to HTML documentation.
+#
+# ## Contact
+# This space is administered by:
+#
+# David de Best
+# david.debest@tno.nl
+# GitHub username: david-debest
+
+RewriteEngine on
+
+# ---------- Ontology, latest release
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/?$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/hco.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/hco.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/hco.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/?$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/hco.nt [R=303,L]
+
+RewriteRule ^ontology/?$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/ [R=303,L]
+
+# ---------- Ontology, specific release (X.Y.Z or X.Y.Z-rc.N)
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/$1/hco.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/$1/hco.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/$1/hco.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/$1/hco.nt [R=303,L]
+
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/ontology/$1/ [R=303,L]
+
+# ---------- SHACL shapes, latest release
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^shacl/?$ https://tdi500.gitlab.io/heatpump-common-ontology/shacl/hco-shapes.ttl [R=303,L]
+
+RewriteRule ^shacl/?$ https://tdi500.gitlab.io/heatpump-common-ontology/shacl/ [R=303,L]
+
+# ---------- SHACL shapes, specific release
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^shacl/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/shacl/$1/hco-shapes.ttl [R=303,L]
+
+RewriteRule ^shacl/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://tdi500.gitlab.io/heatpump-common-ontology/shacl/$1/ [R=303,L]
+
+# ---------- Example data (Turtle only)
+
+RewriteRule ^data/([a-z0-9-]+)$ https://tdi500.gitlab.io/heatpump-common-ontology/data/$1.ttl [R=303,L]
+
+# ---------- Identifier root: project landing page
+
+RewriteRule ^$ https://tdi500.gitlab.io/heatpump-common-ontology/ [R=302,L]
