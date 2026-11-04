@@ -2,14 +2,17 @@
 #
 # Persistent identifiers for a CIDOC-CRM based provenance database
 # (artworks, loose parts, artists, provenance features, modification processes,
+# provenance chain with persons/corporate bodies, sources and places,
 # controlled vocabularies).
 #
-#   https://w3id.org/provenance/{type}/{id}              entities, id = 16 hex characters
+#   https://w3id.org/provenance/{type}/{id}              records, id = 16 hex characters
 #   https://w3id.org/provenance/vocab/{vocabulary}/{id}  vocabulary terms
 #   https://w3id.org/provenance/ontology#{Term}          classes and properties
 #
-# JSON / JSON-LD requests go to the REST API, all others to the HTML detail
-# page of the record. All redirects are 303 See Other.
+# Every request is forwarded unchanged to the project's own resolver, which
+# does the content negotiation (HTML detail page / REST API) and knows the
+# current location of every record. Moving the website or the API only
+# changes the resolver, not this file. All redirects are 303 See Other.
 #
 # ## Contact
 # This space is administered by:
@@ -21,34 +24,4 @@
 Options -MultiViews
 RewriteEngine on
 
-# ── Legacy patterns (first version, 2026-04, German type names) ───────────
-# No data was published with them. They are rewritten internally to the
-# current identifier, which is then negotiated by the rules below. Must stay first.
-RewriteRule ^werk/([0-9a-f]{16})$ /provenance/object/$1 [L]
-RewriteRule ^kuenstler/([0-9a-f]{16})$ /provenance/artist/$1 [L]
-RewriteRule ^provenienzmerkmal/([0-9a-f]{16})$ /provenance/technical_feature/$1 [L]
-RewriteRule ^modifikationsprozess/([0-9a-f]{16})$ /provenance/modification/$1 [L]
-
-# ── Machine requests (JSON / JSON-LD) → REST API ──────────────────────────
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^([a-z_]+)/([0-9a-f]{16})$ https://graphapi.witassek.ch/entities/$1/$2 [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^vocab/([a-z0-9_]+)/([0-9a-f]{16})$ https://graphapi.witassek.ch/terms/$1/$2 [R=303,L]
-
-# ── Human requests → HTML detail page ─────────────────────────────────────
-# production shares the ID of its object, actor the ID of its modification.
-RewriteRule ^(object|production)/([0-9a-f]{16})$ https://t3provenance.witassek.ch/objects/$2 [R=303,L]
-RewriteRule ^artist/([0-9a-f]{16})$ https://t3provenance.witassek.ch/artists/$1 [R=303,L]
-RewriteRule ^technical_feature/([0-9a-f]{16})$ https://t3provenance.witassek.ch/technical-features/$1 [R=303,L]
-RewriteRule ^(modification|actor)/([0-9a-f]{16})$ https://t3provenance.witassek.ch/modifications/$2 [R=303,L]
-RewriteRule ^loose_part/([0-9a-f]{16})$ https://t3provenance.witassek.ch/loose-parts/$1 [R=303,L]
-
-# ── No HTML page yet: images and vocabulary terms → REST API ──────────────
-RewriteRule ^(image|technicalfeature_image|loose_part_image)/([0-9a-f]{16})$ https://graphapi.witassek.ch/entities/$1/$2 [R=303,L]
-RewriteRule ^vocab/([a-z0-9_]+)/([0-9a-f]{16})$ https://graphapi.witassek.ch/terms/$1/$2 [R=303,L]
-
-# ── Ontology, named graph, namespace root ─────────────────────────────────
-RewriteRule ^(ontology|graph)?$ https://t3provenance.witassek.ch/ [R=303,L]
+RewriteRule ^(.*)$ https://id.bermuda-solutions.com/provenance/$1 [R=303,L]
