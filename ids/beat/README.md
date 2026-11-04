@@ -17,7 +17,7 @@ ancient parish church, as open data.
 | Pattern | Entity type | Example |
 |---------|-------------|---------|
 | `/beat/` | BEAT homepage | |
-| `/beat/parish/{County}.{Name}` | An ancient parish | `/beat/parish/BDF.Sandy` (planned) |
+| `/beat/parish/{County}.{Name}` | An ancient parish | `/beat/parish/BDF.Sandy` |
 
 Parish identifiers follow the CAMPOP Places pattern (`/campop/place/{County}.{Place}`): a
 three-letter Chapman county code and the canonical name with spaces as hyphens. Parish
