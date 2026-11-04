@@ -10,6 +10,14 @@ Permanent identifiers for [Project Delphi](http://delphibio.org/).
 
 ## Contacts
 
-- Joel Dietz: jdietz@gmail.com
-- Tobias Kuhn: kuhntobias@gmail.com
-- Ashley Caselli: ashley@knowledgepixels.com
+- Joel Dietz
+  - <jdietz@gmail.com>
+  - GitHub: [@fractastical](https://github.com/fractastical)
+
+- Tobias Kuhn
+  - <kuhntobias@gmail.com>
+  - GitHub: [@tkuhn](https://github.com/tkuhn)
+
+- Ashley Caselli
+  - <ashley@knowledgepixels.com>
+  - GitHub: [@ashleycaselli](https://github.com/ashleycaselli)
