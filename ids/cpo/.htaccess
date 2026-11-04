@@ -1,0 +1,35 @@
+# Construction Project Typology Ontology (CPO)
+#
+# https://w3id.org/cpo                 composed ontology
+# https://w3id.org/cpo/project         module: project
+# https://w3id.org/cpo/product         module: product
+# https://w3id.org/cpo/requirement     module: requirement
+# https://w3id.org/cpo#<term>          terms, resolved through the ontology (hash namespace)
+# https://w3id.org/cpo/repo            source repository
+#
+# Browsers get the HTML documentation; RDF clients get Turtle.
+#
+# ## Contact
+# This space is administered by:
+#
+# Rahel Kebede
+# rahel.kebede@ju.se
+# GitHub username: RichZele
+
+RewriteEngine on
+
+# Source repository
+RewriteRule ^repo/?$ https://github.com/RichZele/cpo [R=302,L]
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://richzele.github.io/cpo/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/#$1 [R=303,NE,L]
+
+# Turtle, also the default
+RewriteRule ^$ https://richzele.github.io/cpo/ontology.ttl [R=303,L]
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/$1/ontology.ttl [R=303,L]
