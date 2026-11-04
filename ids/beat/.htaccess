@@ -12,9 +12,8 @@
 #
 # Parish identifiers are {County}.{Name}: a three-letter Chapman county code and the
 # parish's canonical name with spaces as hyphens, as for https://w3id.org/campop/place/
-# (e.g. BDF.Sandy). Only rules with live targets are enabled; the parish rules below stay
-# commented out until the Pages resolver they point at is published, and will be enabled
-# in a follow-up PR.
+# (e.g. BDF.Sandy). The parish rules resolve to the static
+# files and page published at https://docuracy.github.io/beat/parish/.
 
 Options +FollowSymLinks
 RewriteEngine on
@@ -25,15 +24,18 @@ Header set Access-Control-Allow-Headers "Accept"
 # --- Namespace homepage ---
 RewriteRule ^$ https://docuracy.github.io/beat/ [R=303,L]
 
-# --- Parishes (planned) -----------------------------------------------------
+# --- Parishes ---------------------------------------------------------------
 # 303 See Other: a parish is not a document. GitHub Pages is static and cannot read an
 # Accept header, so the negotiation happens here, as for /campop/place/.
-#
-# RewriteRule ^parish/([A-Za-z]{3})\.(.+)\.json$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
-#
-# RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
-# RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
-# RewriteCond %{HTTP_ACCEPT} application/json [NC]
-# RewriteRule ^parish/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
-#
-# RewriteRule ^parish/([A-Za-z]{3})\.(.+)$ https://docuracy.github.io/beat/parish/?id=$1.$2 [R=303,L]
+
+# An explicit .json suffix beats any Accept header.
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)\.json$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+
+# Machine representations: one GeoJSON Feature that is also JSON-LD, sharded on the county code.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)$ https://docuracy.github.io/beat/parish/?id=$1.$2 [R=303,L]
