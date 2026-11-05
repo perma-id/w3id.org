@@ -7,4 +7,4 @@ Repository created to store the redirections of resources related to Costume Cor
 
 Costume Core ontology is in the /ontology sub-directory
 
-contact: arden@ardenkirkland.com
+contact: Arden Kirkland / arden@ardenkirkland.com / GitHub username: ArdenKirkland
