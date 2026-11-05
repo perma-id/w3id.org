@@ -1,7 +1,7 @@
 Repository for redirecting to ontology for Costume Core
 ===================
 
-Repository created to store the redirections of ontology files for Costume Core. 
+Repository created to store the redirections of ontology files for Costume Core.
 
 The ontology is available in HTML, RDF/XML, TTL, N-Triple, and JSON-LD  formats:
 
