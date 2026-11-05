@@ -1,23 +1,28 @@
 <!-- Recommended W3ID Pull Request Details. Please adjust as needed. -->
-## Brief Description
-<!-- Brief description of the purpose of this PR. -->
+## Brief description
 
-## General Checklist
-<!-- For all ID related PRs. -->
-- [ ] Changes have been tested.
-- [ ] The number of commits is minimal. Squash if needed.
-- [ ] Commits only include redirects and basic information. Serving content and full documentation is not supported on this service.
+<!-- What this changes, and its purpose. -->
 
-## New ID Directory Checklist
-<!-- For new ID PRs. -->
-- [ ] Maintainer details are in `.htaccess` or `README.md`.
-- [ ] GitHub username ids are listed in the maintainer details.
+## Checklist
 
-## Update ID Directory Checklist
-<!-- For updated ID PRs. -->
-- [ ] GitHub username ids are listed in the changed maintainer details.
-- [ ] The GitHub account submitting this PR is listed as a maintainer of the directories and files changed in this PR or one or more of those maintainers are tagged to approve these changes.
+- Update your branch from `master`:
+  https://w3id.org/docs/rules/git/branch-not-stale#how-to-fix
+- Test your redirects: https://w3id.org/docs/guides/testing
+- Add or update one identifier per pull request; related ones together are
+  fine.
+- Only `.htaccess` and an optional `README.md` in your identifier's
+  directory: https://w3id.org/docs/guides/create-an-id
+- Not a listed maintainer? Tag one here to approve.
+- Name the pull request after what it changes, for example
+  "my-project: add vocabulary redirect".
 
-## Optional Requests for W3ID Maintainers
-<!-- Optional requests for any PR. -->
-- [ ] Please squash commits for me. I understand this will likely require resyncing my local repository before making further PRs.
+## Automated checks
+
+Results appear under **Files changed** and **Checks**. Errors must be fixed;
+warnings are advice. A first contribution's checks may wait for a maintainer
+to start them. If a check looks wrong, say so here.
+
+## Requests
+
+- [ ] Please squash my commits when merging. Your fork then needs resyncing:
+  https://w3id.org/docs/faq#do-i-have-to-squash-my-commits

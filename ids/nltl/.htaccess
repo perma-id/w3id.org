@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# NLTL project root
+RewriteRule ^$ https://natural-language-to-logic.aalto.fi/ [R=302,L]
+
+# Turtle representation
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^vocab/?$ https://natural-language-to-logic.aalto.fi/vocab/nltl_benchmark_vocabulary.ttl [R=303,L]
+
+# RDF/XML representation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^vocab/?$ https://natural-language-to-logic.aalto.fi/vocab/nltl_benchmark_vocabulary.rdf [R=303,L]
+
+# Default human-readable vocabulary representation
+RewriteRule ^vocab/?$ https://natural-language-to-logic.aalto.fi/vocab/ [R=303,L]

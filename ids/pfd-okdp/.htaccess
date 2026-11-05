@@ -1,0 +1,45 @@
+# w3id.org/pfd-okdp - UNS vocabulary of the PFD-OKDP data platform
+# Contact: Didier Bombled (https://github.com/dibled)
+# Content negotiation: Turtle, JSON-LD, RDF/XML for machines, HTML documentation otherwise.
+Options +FollowSymLinks
+RewriteEngine on
+
+# Ontology / vocabulary: https://w3id.org/pfd-okdp/uns/def#... (current) and uns/def/<version>
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^uns/def/?$ https://dibled.github.io/pfd-okdp-uns/uns_ontologie.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^uns/def/?$ https://dibled.github.io/pfd-okdp-uns/uns_ontologie.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^uns/def/?$ https://dibled.github.io/pfd-okdp-uns/uns_ontologie.rdf [R=303,L]
+RewriteRule ^uns/def/?$ https://dibled.github.io/pfd-okdp-uns/def.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^uns/def/([0-9]+\.[0-9]+\.[0-9]+)$ https://dibled.github.io/pfd-okdp-uns/versions/$1/uns_ontologie.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^uns/def/([0-9]+\.[0-9]+\.[0-9]+)$ https://dibled.github.io/pfd-okdp-uns/versions/$1/uns_ontologie.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^uns/def/([0-9]+\.[0-9]+\.[0-9]+)$ https://dibled.github.io/pfd-okdp-uns/versions/$1/uns_ontologie.rdf [R=303,L]
+RewriteRule ^uns/def/([0-9]+\.[0-9]+\.[0-9]+)$ https://dibled.github.io/pfd-okdp-uns/versions/$1/def.html [R=303,L]
+
+# SKOS reference data: https://w3id.org/pfd-okdp/uns/ref/<scheme> and uns/ref/cpv/<code>
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^uns/ref(/.*)?$ https://dibled.github.io/pfd-okdp-uns/uns_referentiels.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^uns/ref(/.*)?$ https://dibled.github.io/pfd-okdp-uns/uns_referentiels.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^uns/ref(/.*)?$ https://dibled.github.io/pfd-okdp-uns/uns_referentiels.rdf [R=303,L]
+RewriteRule ^uns/ref/cpv/(.+)$ https://dibled.github.io/pfd-okdp-uns/ref.html#cpv-$1 [R=303,NE,L]
+RewriteRule ^uns/ref/([^/]+)/?$ https://dibled.github.io/pfd-okdp-uns/ref.html#$1 [R=303,NE,L]
+RewriteRule ^uns/ref/?$ https://dibled.github.io/pfd-okdp-uns/ref.html [R=303,L]
+
+# SHACL shapes: https://w3id.org/pfd-okdp/uns/shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^uns/shapes/?$ https://dibled.github.io/pfd-okdp-uns/uns_decp_shacl.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^uns/shapes/?$ https://dibled.github.io/pfd-okdp-uns/uns_decp_shacl.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^uns/shapes/?$ https://dibled.github.io/pfd-okdp-uns/uns_decp_shacl.rdf [R=303,L]
+RewriteRule ^uns/shapes/?$ https://dibled.github.io/pfd-okdp-uns/shapes.html [R=303,L]
+
+# Namespace root
+RewriteRule ^(uns/?)?$ https://dibled.github.io/pfd-okdp-uns/ [R=303,L]

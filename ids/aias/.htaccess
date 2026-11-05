@@ -1,0 +1,151 @@
+# https://w3id.org/aias/ redirects via HTTP 303 using content negotiation to
+# the AIAS ontologies, hosted on GitHub Pages at
+# https://schiesem.github.io/aias/
+#
+# AIAS is an information model for artificial intelligence applications in
+# automated plants. It consists of four ontology design patterns, one per
+# subdomain, and an alignment ontology tying them together.
+#
+# The IRIs resolve as follows:
+#
+#   https://w3id.org/aias                       the alignment, current version
+#   https://w3id.org/aias/1.0.0                 the alignment, that version
+#   https://w3id.org/aias/odp/<name>            a pattern, current version
+#   https://w3id.org/aias/odp/<name>/<version>  a pattern, that version
+#
+# where <name> is one of vdi3682, iso7498, iso22989, iec60050.
+#
+# An IRI without a version resolves to 1.0.0, the published one. Version 2.0.0
+# is reachable under its own IRI and this default moves to it once it is
+# released.
+
+# ## Contact
+# This space is administered by:
+#
+# Marvin Schieseck
+# Email: marvin.schieseck@hsu.hamburg
+# GitHub: https://github.com/schiesem
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+
+#################################################################
+#    A pattern with an explicit version
+#    /odp/<name>/<version>
+#################################################################
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^odp/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/odps/$1/v$2/docs/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^odp/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/odps/$1/v$2/docs/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^odp/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/odps/$1/v$2/docs/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^odp/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/odps/$1/v$2/docs/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^odp/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/odps/$1/v$2/docs/ontology.owl [R=303,L]
+
+#################################################################
+#    A pattern without a version, which is 1.0.0
+#    /odp/<name>
+#################################################################
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^odp/([^/]+)/?$ https://schiesem.github.io/aias/odps/$1/v1.0.0/docs/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^odp/([^/]+)/?$ https://schiesem.github.io/aias/odps/$1/v1.0.0/docs/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^odp/([^/]+)/?$ https://schiesem.github.io/aias/odps/$1/v1.0.0/docs/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^odp/([^/]+)/?$ https://schiesem.github.io/aias/odps/$1/v1.0.0/docs/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^odp/([^/]+)/?$ https://schiesem.github.io/aias/odps/$1/v1.0.0/docs/ontology.owl [R=303,L]
+
+#################################################################
+#    The alignment with an explicit version
+#    /<version>
+#################################################################
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/alignment/aias/v$1/docs/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/alignment/aias/v$1/docs/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/alignment/aias/v$1/docs/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/alignment/aias/v$1/docs/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://schiesem.github.io/aias/alignment/aias/v$1/docs/ontology.owl [R=303,L]
+
+#################################################################
+#    The alignment without a version, which is 1.0.0
+#    the bare namespace root
+#################################################################
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://schiesem.github.io/aias/alignment/aias/v1.0.0/docs/index-en.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://schiesem.github.io/aias/alignment/aias/v1.0.0/docs/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://schiesem.github.io/aias/alignment/aias/v1.0.0/docs/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://schiesem.github.io/aias/alignment/aias/v1.0.0/docs/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://schiesem.github.io/aias/alignment/aias/v1.0.0/docs/ontology.owl [R=303,L]
+
+#################################################################
+#    Anything else: the repository
+#################################################################
+
+RewriteRule ^(.*)$ https://github.com/schiesem/aias [R=303,L]

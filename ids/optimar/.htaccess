@@ -1,0 +1,88 @@
+# Name of the project: OPTiMAR
+# Description: Ontology modeling structural elements, mooring systems, sensors, events, and failures in floating offshore wind platforms, including measurement data and involved actors.
+# Contacts:
+# - Alejandro Flores <afloresb@usal.es> - GitHub: https://github.com/alexespz - https://orcid.org/0009-0005-6838-9889
+# - Cristina Aceta <cristina.aceta@tekniker.es> - GitHub: https://github.com/cristinacm - https://orcid.org/0000-0003-3566-9460
+# - Oihana Garcia <oihana.garcia@tekniker.es> - https://orcid.org/0009-0000-3720-3707
+
+## ------------------------------------------------------------
+##  OPTIMAR Ontology - Persistent URL Configuration (w3id.org)
+## ------------------------------------------------------------
+
+## Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# ---------------------------------------
+# ONTOLOGY IRI (CURRENT RELEASE: 2.4)
+# https://w3id.org/optimar
+# ---------------------------------------
+
+# HTML documentation (browsers)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://bisite.github.io/OPTIMAR-Ontology/docs/index.html [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://bisite.github.io/OPTIMAR-Ontology/docs/ontology.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://bisite.github.io/OPTIMAR-Ontology/docs/ontology.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://bisite.github.io/OPTIMAR-Ontology/docs/ontology.nt [R=303,L]
+
+# Turtle (also the default)
+RewriteRule ^$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.4.ttl [R=303,L]
+
+
+# ---------------------------------------
+# VERSION IRIs
+# https://w3id.org/optimar/X.Y
+# ---------------------------------------
+
+RewriteRule ^2\.4/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.4.ttl [R=303,L]
+RewriteRule ^2\.3/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.3.ttl [R=303,L]
+RewriteRule ^2\.2/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.2.ttl [R=303,L]
+RewriteRule ^2\.1/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.1.ttl [R=303,L]
+RewriteRule ^2\.0/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.0.ttl [R=303,L]
+RewriteRule ^1\.0/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v1.0.ttl [R=303,L]
+RewriteRule ^0\.2/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v0.2.ttl [R=303,L]
+
+
+# ---------------------------------------
+# ALIGNMENT MODULE (SAREF, OEO)
+# https://w3id.org/optimar/alignments[/X.Y]
+# ---------------------------------------
+
+RewriteRule ^alignments/2\.4/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/alignments/OPTiMAR-alignments-v2.4.ttl [R=303,L]
+RewriteRule ^alignments/?$ https://bisite.github.io/OPTIMAR-Ontology/ontology/alignments/OPTiMAR-alignments-v2.4.ttl [R=303,L]
+
+
+# ---------------------------------------
+# EXAMPLE INSTANCES
+# https://w3id.org/optimar/example
+# ---------------------------------------
+
+RewriteRule ^example/?$ https://bisite.github.io/OPTIMAR-Ontology/instances/v2.4/instances.ttl [R=303,L]
+
+
+# ---------------------------------------
+# NAMESPACE HANDLING
+# ---------------------------------------
+
+# Fragment identifiers (#ClassName) never reach the server, so term IRIs resolve
+# through the rules above. Any other path: HTML for browsers, Turtle otherwise.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://bisite.github.io/OPTIMAR-Ontology/docs/index.html [R=303,L]
+
+RewriteRule ^(.*)$ https://bisite.github.io/OPTIMAR-Ontology/ontology/OPTiMAR-v2.4.ttl [R=303,L]

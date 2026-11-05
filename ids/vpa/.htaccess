@@ -1,0 +1,12 @@
+## Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve Turtle from GitLab (raw file, not the /-/blob/ page)
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^$ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/vpa-ontology/-/raw/main/src/ontology.ttl [R=303,L]
+
+# Default: everyone else, browsers included, gets the HTML documentation
+RewriteRule ^$ https://linkedvocabs.org/onto/vpa/index-en.html [R=303,L]

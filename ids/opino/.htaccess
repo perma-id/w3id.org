@@ -1,0 +1,38 @@
+# w3id.org/opino - persistent identifiers of OPINO (OPinions and INterpretations Ontology)
+# Content negotiation: Turtle, RDF/XML, JSON-LD and N-Triples are served from the Codeberg repository,
+# anything else (browsers) gets the HTML documentation. All redirects are 303 See Other.
+
+RewriteEngine on
+
+# Version IRI of the ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^0\.2\.0/?$ https://codeberg.org/infinity-project/opino/raw/tag/0.2.0/ontology/index.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^0\.2\.0/?$ https://codeberg.org/infinity-project/opino/raw/tag/0.2.0/ontology/index.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^0\.2\.0/?$ https://codeberg.org/infinity-project/opino/raw/tag/0.2.0/ontology/index.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^0\.2\.0/?$ https://codeberg.org/infinity-project/opino/raw/tag/0.2.0/ontology/index.nt [R=303,L]
+RewriteRule ^0\.2\.0/?$ https://infinity-project.codeberg.page/opino/ [R=303,L]
+
+# Ontology IRI
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.nt [R=303,L]
+RewriteRule ^$ https://infinity-project.codeberg.page/opino/ [R=303,L]
+
+# Terms of the ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^[A-Za-z]+$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^[A-Za-z]+$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^[A-Za-z]+$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^[A-Za-z]+$ https://codeberg.org/infinity-project/opino/raw/branch/main/ontology/index.nt [R=303,L]
+RewriteRule ^[A-Za-z]+$ https://infinity-project.codeberg.page/opino/ [R=303,L]
