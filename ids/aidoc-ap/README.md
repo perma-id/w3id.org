@@ -6,7 +6,7 @@ Author/Maintainer: Sebastian Neumaier (sebastian.neumaier@ustp.at) @sebneu
 
 Co-authors: Fabian Kovac, Timea Pahi, Tobias Dam
 
-Organisation: University of Applied Sciences St. Pölten, Austria 
+Organisation: University of Applied Sciences St. Pölten, Austria
 
 AIDOC-AP documentation is online at https://certain-project.github.io/aidoc-ap/
 
