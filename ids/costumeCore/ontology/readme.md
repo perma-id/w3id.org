@@ -17,4 +17,7 @@ JSON-LD: https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/inde
 
 All files were generated using LODE 2.0 from https://opencitations.github.io/lode/
 
-contact: arden@ardenkirkland.com
+contact: 
+Arden Kirkland
+arden@ardenkirkland.com
+GitHub username: ArdenKirkland
