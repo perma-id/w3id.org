@@ -27,34 +27,34 @@ Header set Access-Control-Allow-Headers "Accept"
 # (no trailing slash — added in rules below)
 
 # --- Context document (no content negotiation needed) ---
-RewriteRule ^context$ https://docuracy.github.io/London_Customs_Accounts/api/context.json [R=303,L]
+RewriteRule ^context$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/api/context.json [R=303,L]
 
 # --- JSON-LD: Cargo URI → parent lading file ---
 # Cargo IDs have 5 hyphen-separated segments: e.g. 4-11-B-0001-0001
 # Strip the cargo suffix and serve the parent lading JSON.
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(\d+-\d+-[A-Z]-\d{4})-\d{4}$ https://docuracy.github.io/London_Customs_Accounts/api/$1.json [R=303,L]
+RewriteRule ^(\d+-\d+-[A-Z]-\d{4})-\d{4}$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/api/$1.json [R=303,L]
 
 # --- JSON-LD: Lading URI ---
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^(\d+-\d+-[A-Z]-\d{4})$ https://docuracy.github.io/London_Customs_Accounts/api/$1.json [R=303,L]
+RewriteRule ^(\d+-\d+-[A-Z]-\d{4})$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/api/$1.json [R=303,L]
 
 # --- JSON-LD: Glossary term ---
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^glossary/(.+)$ https://docuracy.github.io/London_Customs_Accounts/api/glossary/$1.json [R=303,L]
+RewriteRule ^glossary/(.+)$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/api/glossary/$1.json [R=303,L]
 
 # --- HTML: Cargo ---
-RewriteRule ^(\d+-\d+-[A-Z]-\d{4}-\d{4})$ https://docuracy.github.io/London_Customs_Accounts/entity.html#$1 [R=303,L,NE]
+RewriteRule ^(\d+-\d+-[A-Z]-\d{4}-\d{4})$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/entity.html#$1 [R=303,L,NE]
 
 # --- HTML: Lading ---
-RewriteRule ^(\d+-\d+-[A-Z]-\d{4})$ https://docuracy.github.io/London_Customs_Accounts/entity.html#$1 [R=303,L,NE]
+RewriteRule ^(\d+-\d+-[A-Z]-\d{4})$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/entity.html#$1 [R=303,L,NE]
 
 # --- HTML: Glossary term ---
-RewriteRule ^glossary/(.+)$ https://docuracy.github.io/London_Customs_Accounts/entity.html#glossary/$1 [R=303,L,NE]
+RewriteRule ^glossary/(.+)$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/entity.html#glossary/$1 [R=303,L,NE]
 
 # --- Homepage ---
-RewriteRule ^$ https://docuracy.github.io/London_Customs_Accounts/ [R=303,L]
+RewriteRule ^$ https://ihr-digital.github.io/london-customs-accounts-1380-1560/ [R=303,L]
 

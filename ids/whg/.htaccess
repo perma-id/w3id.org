@@ -36,6 +36,23 @@ RewriteCond %{HTTP_ACCEPT} application/json [OR]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^id/(.+)$ https://whgazetteer.org/entity/$1/api [R=303,L]
 
+# Identifier with no stated preference (`Accept: */*`, or no Accept header):
+# serve the machine-readable representation rather than 404.
+#
+# `*/*` is curl's and wget's default, and that of most scripted HTTP clients. It
+# means "any representation is acceptable", so answering 404 -- "this identifier
+# does not exist" -- is both the least accurate reply available and the one most
+# likely to be seen, since it is what the commonest client gets by default.
+#
+# This cannot shadow the negotiated cases above: browsers always state text/html
+# and both preceding rules terminate with [L], so anything reaching this point
+# asked for neither HTML nor JSON. A genuinely unsatisfiable Accept (say
+# `image/png`) still falls through to the 404 below, and so does the base
+# namespace, which keeps its deliberate refusal.
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} ^$
+RewriteRule ^id/(.+)$ https://whgazetteer.org/entity/$1/api [R=303,L]
+
 # Fallback: do not redirect to the main website
 # Return 404 for everything else under this namespace.
 RewriteRule ^.*$ - [R=404,L]

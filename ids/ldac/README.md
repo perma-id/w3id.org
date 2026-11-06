@@ -15,4 +15,5 @@ These URIs are maintained by the [Language Data Commons of Australia](https://ld
 
 ## Contacts
 * Peter Sefton (p.sefton@uq.edu.au) [@ptsefton](https://github.com/ptsefton)
-* Alvin Sebastian (a.sebastian@uq.edu.au) [@alvinsw](https://github.com/alvinsw)
+* Rosanna Smith (rosanna.smith@uq.edu.au) [@rosanna-smith](https://github.com/rosanna-smith)
+* Moises Sacal Bonequi (m.sacalbonequi@uq.edu.au) [@moisbo](https://github.com/moisbo)

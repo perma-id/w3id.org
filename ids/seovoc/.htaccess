@@ -1,6 +1,7 @@
 # SEOntology w3id configuration
 # Canonical namespace: https://w3id.org/seovoc/
 # Maintainer repository: https://github.com/seontology/seontology
+# Documentation site: https://seontology.github.io/seontology/
 
 Options -MultiViews
 Options +FollowSymLinks
@@ -8,39 +9,60 @@ Options +FollowSymLinks
 RewriteEngine On
 Header merge Vary "Accept"
 
-# Explicit content-type mappings
-AddType application/rdf+xml .owl
-AddType text/turtle .ttl
+# Published files: /seovoc/<file>
+# e.g. https://w3id.org/seovoc/context.jsonld
+# ---------------------------
+
+RewriteRule ^(seovoc\.(ttl|owl|jsonld)|context\.jsonld|llms(-full)?\.txt)$ https://seontology.github.io/seontology/$1 [R=303,L]
 
 # Root URI: /seovoc/
 # ---------------------------
 
+# HTML first: browsers also accept application/xml, which would otherwise
+# match the RDF/XML rule below.
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^$ https://seontology.github.io/seontology/ [R=303,L]
+
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.ttl [R=303,L]
+RewriteRule ^$ https://seontology.github.io/seontology/seovoc.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://seontology.github.io/seontology/seovoc.jsonld [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/xml [NC]
-RewriteRule ^$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.owl [R=303,L]
+RewriteRule ^$ https://seontology.github.io/seontology/seovoc.owl [R=303,L]
 
-# Default for humans and unknown media types
-RewriteRule ^$ https://github.com/seontology/seontology [R=303,L]
+# Default for unknown media types
+RewriteRule ^$ https://seontology.github.io/seontology/ [R=303,L]
 
 # Term URIs: /seovoc/<term>
 # e.g. https://w3id.org/seovoc/WebPage
 # ---------------------------
 
+# HTML: the term's entry in the pyLODE reference (NE keeps the # unescaped)
+RewriteCond %{HTTP_ACCEPT} text/html [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [NC]
+RewriteRule ^([^/]+)/?$ https://seontology.github.io/seontology/reference/#$1 [R=303,NE,L]
+
 # Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
-RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.ttl [R=303,L]
+RewriteRule ^([^/]+)/?$ https://seontology.github.io/seontology/seovoc.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([^/]+)/?$ https://seontology.github.io/seontology/seovoc.jsonld [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
 RewriteCond %{HTTP_ACCEPT} application/xml [NC]
-RewriteRule ^([^/]+)/?$ https://raw.githubusercontent.com/seontology/seontology/main/seovoc.owl [R=303,L]
+RewriteRule ^([^/]+)/?$ https://seontology.github.io/seontology/seovoc.owl [R=303,L]
 
-# Default for humans and unknown media types
-RewriteRule ^([^/]+)/?$ https://github.com/seontology/seontology [R=303,L]
+# Default for unknown media types
+RewriteRule ^([^/]+)/?$ https://seontology.github.io/seontology/reference/#$1 [R=303,NE,L]

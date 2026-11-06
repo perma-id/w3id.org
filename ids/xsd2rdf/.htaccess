@@ -1,0 +1,39 @@
+# # /xsd2rdf/
+#
+# Namespace for the xsd2rdf annotation vocabulary, published by the
+# European Union Agency for Railways (ERA).
+#
+# https://w3id.org/xsd2rdf          -> current vocabulary (main branch)
+# https://w3id.org/xsd2rdf/X.Y.Z    -> vocabulary at tag vX.Y.Z (2.1.0 onwards)
+#
+# RDF clients get the raw Turtle file; everyone else gets the rendered
+# file on GitLab.
+#
+# Source: https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/xsd2rdf
+#
+# ## Contact
+# This space is administered by:
+#
+# Ghislain Atemezing
+# ghislain.atemezing@gmail.com / ghislain.atemezing@era.europa.eu
+# GitHub username: gatemezing
+# GitLab: https://gitlab.com/ghislain.atemezing
+#
+# Mathias Vanden Auweele
+# GitLab: https://gitlab.com/mathias.vanden.auweele
+
+RewriteEngine on
+
+# --- Current vocabulary -----------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^$ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/xsd2rdf/-/raw/main/vocabulary/xsd2rdf.ttl [R=303,L]
+
+RewriteRule ^$ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/xsd2rdf/-/blob/main/vocabulary/xsd2rdf.ttl [R=303,L]
+
+# --- A specific release (owl:versionIRI) -------------------------------
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^([0-9]+(\.[0-9]+)*)$ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/xsd2rdf/-/raw/v$1/vocabulary/xsd2rdf.ttl [R=303,L]
+
+RewriteRule ^([0-9]+(\.[0-9]+)*)$ https://gitlab.com/era-europa-eu/public/interoperable-data-programme/era-ontology/xsd2rdf/-/blob/v$1/vocabulary/xsd2rdf.ttl [R=303,L]

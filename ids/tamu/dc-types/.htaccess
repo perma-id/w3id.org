@@ -1,0 +1,36 @@
+# # /tamu/dc-types/
+#
+# Content-negotiated IRIs for the TAMU Digital Collections Types vocabulary
+# (SKOS concepts for Archipelago Digital Object types and Browse/Search
+# types used across Texas A&M University Libraries digital collections).
+#
+# https://w3id.org/tamu/dc-types/ and any concept beneath it (e.g.
+# https://w3id.org/tamu/dc-types/ImageADO) redirect to
+# https://tamulib-dc-labs.github.io/tamu-dc-ontology/, which serves Turtle
+# or RDF/XML to a client that asks for it and a human-readable page to
+# everyone else. All concepts live in the same vocabulary file, so every
+# path under this namespace resolves to that same file (or to the matching
+# #fragment on the HTML page).
+#
+# ## Contact
+# This space is administered by:
+#
+# Mark Baggett
+# mark.baggett@tamu.edu
+# GitHub username: markpbaggett
+
+RewriteEngine on
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(.*)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/tamu-dc-types.rdf [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/tamu-dc-types.ttl [R=303,L]
+
+# Anything else, including browsers and clients that send */*, gets the
+# human-readable page. These rules have no condition, so the first one
+# reached always matches -- which is exactly what a default is for.
+RewriteRule ^$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/ [R=303,L]
+RewriteRule ^(.+)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/#$1 [R=303,L]
