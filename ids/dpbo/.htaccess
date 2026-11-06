@@ -1,0 +1,47 @@
+# DPBO ontology
+#
+# This space is administered by:
+# Said Fathalla
+# GitHub username: saidfathalla
+# Email: s.fathalla(at) fz-juelich.de
+
+RewriteEngine On
+
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure RDF and OBO flat-files are served with the appropriate content type
+AddType text/plain .obo
+AddType application/rdf+xml .owl
+
+
+# If semantic web clients explicitly request OWL or RDF formats, serve the OWL serialization
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^dpbo$ https://raw.githubusercontent.com/nfdi4plants/nfdi4plants_ontology/main/DPBO.owl [R=303,L]
+
+# If flat-file or plain-text environments request text/plain, serve the OBO format
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^dpbo$ https://raw.githubusercontent.com/nfdi4plants/nfdi4plants_ontology/main/dpbo.obo [R=303,L]
+
+
+# TERM-LEVEL redirection (/dpbo/DPBO_xxxxxxx)
+
+
+# For specific entity lookups requested in explicit RDF/OWL formats, route to the OWL file anchor
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^dpbo/(.+)$ https://raw.githubusercontent.com/nfdi4plants/nfdi4plants_ontology/main/DPBO.owl [NE,R=303,L]
+
+# For specific entity lookups requested as text/plain, route to the OBO file anchor position
+RewriteCond %{HTTP_ACCEPT} text/plain
+RewriteRule ^dpbo/(.+)$  https://raw.githubusercontent.com/nfdi4plants/nfdi4plants_ontology/main/dpbo.obo  [NE,R=303,L]
+
+
+# Default base fallback path targets the landing page
+RewriteRule ^dpbo$ https://github.com/nfdi4plants/nfdi4plants_ontology/ [R=303,NE,L]
+
+# Default fallback for un-headered concept targets passes them directly to the primary OBO file
+RewriteRule ^dpbo/(.+)$ https://raw.githubusercontent.com/nfdi4plants/nfdi4plants_ontology/main/dpbo.obo [NE,R=303,L]
+
