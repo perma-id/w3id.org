@@ -167,7 +167,7 @@ RewriteRule ^([^/]+)/(.+)\.ttl$             https://raw.githubusercontent.com/lm
 RewriteRule ^([^/]+)/(.+)\.linkml\.yaml$    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}linkml/$2.linkml.yaml [R=303,NE,L]
 
 # Non-Core Artifacts - information resources / code-gen outputs (302, no conneg)
-# MIME collisions handled by path segmentation (3× .py, 3× .yaml, 2× .md, 2× .sql)
+# MIME collisions handled by path segmentation (4× .py, 3× .yaml, 2× .md, 2× .sql)
 RewriteRule ^([^/]+)/(.+)\.xlsx$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}excel/$2.xlsx [R=302,NE,L]
 RewriteRule ^([^/]+)/(.+)\.java$                  https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}java/$2.java [R=302,NE,L]
 RewriteRule ^([^/]+)/(.+)\.ts$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}typescript/$2.ts [R=302,NE,L]
@@ -184,6 +184,10 @@ RewriteRule ^([^/]+)/namespaces/(.+)\.py$         https://raw.githubusercontent.
 RewriteRule ^([^/]+)/pandera/(.+)\.py$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}pandera/$2.py [R=302,NE,L]
 RewriteRule ^([^/]+)/(.+)\.plantuml$              https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}plantuml/$2.plantuml [R=302,NE,L]
 RewriteRule ^([^/]+)/sqla/(.+)\.py$               https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sqla/$2.py [R=302,NE,L]
+# Python data model: the Pydantic and dataclass modules gen-project's recipes
+# write to the package's datamodel/ folder (<stem>_pydantic.py, <stem>.py).
+# After the namespaces, pandera and sqla rules, which claim their own folders.
+RewriteRule ^([^/]+)/(.+)\.py$                    https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}src/%{ENV:STEM}/datamodel/$2.py [R=302,NE,L]
 RewriteRule ^([^/]+)/sqlvalidation/(.+)\.sql$     https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sqlvalidation/$2.sql [R=302,NE,L]
 RewriteRule ^([^/]+)/(.+)\.sssom\.tsv$            https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}sssom/$2.sssom.tsv [R=302,NE,L]
 RewriteRule ^([^/]+)/summary/(.+)\.tsv$           https://raw.githubusercontent.com/lmodel/$1/%{ENV:BRANCH}/%{ENV:SIDECAR}%{ENV:PROJECT}summary/$2.tsv [R=302,NE,L]
