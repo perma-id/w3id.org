@@ -18,8 +18,12 @@ ancient parish church, as open data.
 |---------|-------------|---------|
 | `/beat/` | BEAT homepage | |
 | `/beat/parish/{County}.{Name}` | An ancient parish | `/beat/parish/BDF.Sandy` |
+| `/beat/county/{County}` | A historic county (pre-1844 legal state) | `/beat/county/HRT` |
+
+County identifiers are the three-letter Chapman county code. Counties resolve to a map page
+and a JSON representation (GeoJSON Feature, also JSON-LD) on GitHub Pages; the county pages are
+published with BEAT's first county release.
 
 Parish identifiers follow the CAMPOP Places pattern (`/campop/place/{County}.{Place}`): a
 three-letter Chapman county code and the canonical name with spaces as hyphens. Parish
-resolution (HTML map page and JSON representations on GitHub Pages) is planned and will be
-enabled in a later PR; only the homepage rule is live now.
+resolution (HTML map page and JSON representations on GitHub Pages) is live.
