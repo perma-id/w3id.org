@@ -19,18 +19,13 @@ AddType application/yaml         .yaml
 # 4. [trivial] `{jsonld,jsonschema}/foo.json` mis-routes; harmless 404 upstream.
 # 5. [trivial] AddType sparse; GitHub sets Content-Type. Local-serve only.
 # 6. [trivial] Deprecated variants (`text/x-yaml`, `application/x-turtle`) unsupported; get the catch-all.
-# 7. [minor]   `[N,DPI]` assumes single-pass aliasing. Chain carefully (respects LimitInternalRecursion=10).
-# 8. [minor]   UCS override matches single-segment subnames only; multi-hyphen repos need explicit entry.
-# 9. [trivial] `[^/]+` allows unusual chars; safe (fixed-template redirects, no traversal).
-# 10. [trivial] `+FollowSymLinks` needs vhost permission; not portable to restrictive hosts.
+# 7. [trivial] `[^/]+` allows unusual chars; safe (fixed-template redirects, no traversal).
+# 8. [trivial] `+FollowSymLinks` needs vhost permission; not portable to restrictive hosts.
 
 #### LMODEL ORGANIZATION ###
 
 # Bare base URL -> GitHub organization page (information resource -> 302)
 RewriteRule ^$ https://github.com/lmodel [R=302,L]
-
-# Path canonicalization & aliases (internal rewrite; [N,DPI] preserves suffixes)
-RewriteRule ^ucs/([a-z0-9]+)((?:/.*)?)$ ucs-$1$2 [N,DPI]
 
 # Knowledge bundles: https://w3id.org/lmodel/<repo>/knowledge/ is the namespace
 # of a repository's LOKF knowledge bundle, published on its site at
@@ -54,7 +49,7 @@ RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ htt
 # Filename-stem normalization & branch/layout overrides
 #
 # gen-project converts hyphens in repo names to underscores in artifact
-# stems (e.g., `ucs-<name>` -> `ucs_<name>.context.jsonld`). Apache `.htaccess`
+# stems (e.g., `nist-nvd` -> `nist_nvd.context.jsonld`). Apache `.htaccess`
 # cannot translate hyphens to underscores natively (RewriteMap is forbidden
 # in this context), so we set environment variables per request:
 #
@@ -68,9 +63,6 @@ RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ htt
 # Defaults: STEM=URL repo segment, BRANCH=main, PROJECT=project/, SIDECAR=(empty)
 RewriteRule ^([^/]+) - [E=STEM:$1,E=BRANCH:main,E=PROJECT:project/]
 
-# UCS family: single hyphen after prefix, no internal hyphens.
-RewriteRule ^ucs-([a-z0-9]+)(?:/|$) - [E=STEM:ucs_$1]
-
 # Multi-hyphen repos (hyphen->underscore STEM). Excluded: sssom-files, linkml-project-copier (no LinkML schema).
 # Kept explicit by design: a generic [N]-loop (one hyphen per pass, guarded by ENV:STEM) is
 # possible but trades a loud failure mode (missing entry -> obvious 404) for a silent one
@@ -83,7 +75,6 @@ RewriteRule ^nist-ai-rmf(?:/|$)           - [E=STEM:nist_ai_rmf]
 RewriteRule ^nist-ai-100-1(?:/|$)         - [E=STEM:nist_ai_100_1]
 RewriteRule ^nist-ai-600-1(?:/|$)         - [E=STEM:nist_ai_600_1]
 RewriteRule ^nist-nvd(?:/|$)              - [E=STEM:nist_nvd]
-RewriteRule ^vulnerability-core(?:/|$)    - [E=STEM:vulnerability_core]
 RewriteRule ^kev-catalog(?:/|$)           - [E=STEM:kev_catalog]
 RewriteRule ^cis-controls(?:/|$)          - [E=STEM:cis_controls]
 RewriteRule ^github-actions(?:/|$)        - [E=STEM:github_actions]
