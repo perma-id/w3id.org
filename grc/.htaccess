@@ -1,0 +1,75 @@
+Options +FollowSymLinks
+
+RewriteEngine on
+
+AddType text/turtle .ttl
+
+# --- GRC fabric: compliance/legal-risk ontology, measurement layer, and audited clause sets.
+# --- RDF clients get Turtle; browsers get the human-readable page. Each entry is mapped twice.
+
+# grc-ontology documentation
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/grc-core.ttl [R=303,NE,L]
+RewriteRule ^ontology/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/README.md [R=303,NE,L]
+
+# evidence-type shapes
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^evidence/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/grc-evidence-types.ttl [R=303,NE,L]
+RewriteRule ^evidence/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/grc-evidence-types.ttl [R=303,NE,L]
+
+# assessment & measurement layer
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^measure/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/grc-measure.ttl [R=303,NE,L]
+RewriteRule ^measure/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/grc-measure.ttl [R=303,NE,L]
+
+# legal-risk layer (ISO 31022 aligned)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^legalrisk/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/grc-legal-risk.ttl [R=303,NE,L]
+RewriteRule ^legalrisk/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/grc-legal-risk.ttl [R=303,NE,L]
+
+# Saudi PDPL — 43 articles, official text
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^pdpl/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/pdpl-clauses.ttl [R=303,NE,L]
+RewriteRule ^pdpl/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/pdpl-clauses.ttl [R=303,NE,L]
+
+# PDPL Implementing Regulations — 38 articles
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^pdpl-reg/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/pdpl-reg-clauses.ttl [R=303,NE,L]
+RewriteRule ^pdpl-reg/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/pdpl-reg-clauses.ttl [R=303,NE,L]
+
+# ISO 37301:2021 clause structure (no copyrighted text)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^iso37301/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/iso37301-clauses.ttl [R=303,NE,L]
+RewriteRule ^iso37301/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/iso37301-clauses.ttl [R=303,NE,L]
+
+# ISO 31022:2020 clause structure (no copyrighted text)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^iso31022/?$ https://raw.githubusercontent.com/MOo207/shacl-risk-grounding/main/ontology/ttl/iso31022-clauses.ttl [R=303,NE,L]
+RewriteRule ^iso31022/?$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/ttl/iso31022-clauses.ttl [R=303,NE,L]
+
+# Everything else under /grc/ resolves to the ontology documentation
+RewriteRule ^(.*)$ https://github.com/MOo207/shacl-risk-grounding/blob/main/ontology/README.md [R=303,NE,L]
