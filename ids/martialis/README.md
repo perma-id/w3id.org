@@ -16,11 +16,13 @@ ontology/vocab/shapes):
 - `https://w3id.org/martialis/vocab`: merged SKOS vocabulary index,
   and `https://w3id.org/martialis/vocab/<scheme>[/<concept>]` for an
   individual concept scheme or concept.
+- `https://w3id.org/martialis/context.jsonld`: JSON-LD context for the
+  Martialis data.
 - `https://w3id.org/martialis/` redirects to the homepage.
 
-All three redirect with path preserved to the same paths on
-`martial.is`, which already performs content negotiation there
-(Turtle, JSON-LD, RDF/XML, HTML, ...). Entity data
+The ontology, vocabulary and context redirects go to the same paths on
+`martial.is`. The ontology and vocabulary paths perform content
+negotiation there (Turtle, HTML). Entity data
 (`https://martial.is/entity/<ULID>`, `/agent/<ULID>`) remains on
 `martial.is` and is not part of this registration.
 

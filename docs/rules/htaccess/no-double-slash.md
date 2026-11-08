@@ -18,7 +18,7 @@ The URL produced by a redirect must not contain `//` after the scheme.
 
 `https://example.org/base//vocab.ttl` is not the same URL as
 `https://example.org/base/vocab.ttl`. Many servers treat the two differently:
-some normalise, some 404, some serve a directory listing, and some redirect
+some normalize, some 404, some serve a directory listing, and some redirect
 again. Static hosts such as GitHub Pages and S3 are among the strict ones.
 
 It is also a different IRI to every RDF tool that sees it, which matters when

@@ -28,4 +28,4 @@ the note about EditorConfig on any of those pages.
 [`format/no-excessive-blank-lines`](./no-excessive-blank-lines) is the
 exception, and says so on its own page: it is fixed by hand.
 
-Back to the [rule catalogue](../).
+Back to the [rule catalog](../).

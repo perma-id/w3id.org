@@ -2,7 +2,7 @@
  * Thin wrapper around the `git` command.
  *
  * Spawning git rather than depending on a JS implementation keeps the tool
- * small and guarantees identical behaviour to what contributors and CI runners
+ * small and guarantees identical behavior to what contributors and CI runners
  * already have installed.
  */
 import {execFileSync} from 'node:child_process';
@@ -340,7 +340,7 @@ export function commitMessages(base, head, cwd) {
  * `--no-renames` keeps every record to a single `XY path` field, so a rename
  * arrives as a delete plus an add rather than a two-field record.
  * `--untracked-files=all` lists new files individually instead of collapsing a
- * new directory into one entry, and still honours .gitignore -- which is what
+ * new directory into one entry, and still honors .gitignore -- which is what
  * keeps `node_modules/` out.
  */
 export function workingTreeStatus(cwd) {
