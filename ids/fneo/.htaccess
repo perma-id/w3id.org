@@ -1,17 +1,25 @@
 # /fneo/
 #
 # https://w3id.org/fneo/ redirects to the GitHub Pages documentation.
-# https://w3id.org/fneo/ontology and the 0.1.0-rc2 version IRI redirect to the
-# ontology files in the tagged release.
+# https://w3id.org/fneo/ontology and the ontology version IRI
+# https://w3id.org/fneo/ontology/0.1.0-rc2 negotiate Turtle, RDF/XML,
+# JSON-LD, and HTML. Immutable ontology files are served from the audited
+# GitHub artefact release tag v0.1.1.
 #
-# Targets checked over HTTPS on 2026-11-07:
+# Distinction retained deliberately:
+#   artefact release tag:  v0.1.1
+#   ontology versionInfo:  0.1.0-rc2
+#   ontology version IRI:  https://w3id.org/fneo/ontology/0.1.0-rc2
+#
+# Targets checked over HTTPS on 2026-11-08:
 #   https://alihur-ecu.github.io/fneo/
-#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.ttl
-#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.owl
-#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.jsonld
+#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl
+#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.owl
+#   https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.jsonld
+#   https://zenodo.org/records/24047774
+#   https://doi.org/10.5281/zenodo.24047774
 #
-# The v0.1.0 tag is the commit that contains this file. The namespace is not
-# registered until the w3id.org pull request is merged.
+# The namespace is not registered until the w3id.org pull request is merged.
 #
 # ## Contact
 # This space is administered by:
@@ -25,15 +33,60 @@ Header set Access-Control-Allow-Origin *
 
 RewriteEngine on
 
+# ---------------------------------------------------------------------------
+# Versioned ontology IRI: https://w3id.org/fneo/ontology/0.1.0-rc2
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^ontology/0\.1\.0-rc2$ https://alihur-ecu.github.io/fneo/ [R=303,L]
+
 RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
-RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.ttl [R=303,L]
+RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
-RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.owl [R=303,L]
+RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.owl [R=303,L]
 
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.jsonld [R=303,L]
+RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.jsonld [R=303,L]
 
-RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.ttl [R=303,L]
-RewriteRule ^ontology$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.0/ontology/fneo.ttl [R=303,L]
+RewriteRule ^ontology/0\.1\.0-rc2$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Unversioned ontology IRI: https://w3id.org/fneo/ontology
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^ontology$ https://alihur-ecu.github.io/fneo/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.jsonld [R=303,L]
+
+RewriteRule ^ontology$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Public term IRIs, e.g. https://w3id.org/fneo/MarketChangeEvent
+# HTML -> documentation; RDF serialisations -> immutable ontology files.
+# ---------------------------------------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([^/]+)$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([^/]+)$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([^/]+)$ https://raw.githubusercontent.com/alihur-ecu/fneo/v0.1.1/ontology/fneo.jsonld [R=303,L]
+
+RewriteRule ^([^/]+)$ https://alihur-ecu.github.io/fneo/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Namespace landing page: https://w3id.org/fneo/
+# ---------------------------------------------------------------------------
+
 RewriteRule ^$ https://alihur-ecu.github.io/fneo/ [R=303,L]
