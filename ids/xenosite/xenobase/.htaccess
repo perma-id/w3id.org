@@ -1,0 +1,32 @@
+# # /xenosite/xenobase/
+#
+# Permanent IRIs for XenoBase catalogue accessions (CURIEs xbr: / xbm: / xbn: / xbs:).
+# Examples:
+#   https://w3id.org/xenosite/xenobase/reaction/000000000001  →  reaction page
+#   https://w3id.org/xenosite/xenobase/molecule/000000000001  →  molecule page
+#   https://w3id.org/xenosite/xenobase/network/000000000001   →  network page
+#   https://w3id.org/xenosite/xenobase/site/000000000001      →  sites-of-metabolism table page
+#
+# ## Contact
+# This space is administered by:
+#
+# S. Joshua Swamidass
+# https://github.com/swamidass
+# GitHub username: swamidass
+# Organization: swamidasslab
+# Issues: https://github.com/swamidasslab/w3id.org/issues
+
+RewriteEngine on
+
+# Catalogue root
+RewriteRule ^$ https://swami.wustl.edu/xenobase/ [R=302,L]
+
+# Stable accessions (7- or 12-digit local part). Site IRIs use singular "site";
+# the HTML app serves them under /sites/.
+RewriteRule ^reaction/([0-9]+)/?$ https://swami.wustl.edu/xenobase/reaction/$1 [R=302,L]
+RewriteRule ^molecule/([0-9]+)/?$ https://swami.wustl.edu/xenobase/molecule/$1 [R=302,L]
+RewriteRule ^network/([0-9]+)/?$ https://swami.wustl.edu/xenobase/network/$1 [R=302,L]
+RewriteRule ^site/([0-9]+)/?$ https://swami.wustl.edu/xenobase/sites/$1 [R=302,L]
+
+# Other xenobase IRIs (vocab, onto, cid, …) until they have dedicated pages
+RewriteRule ^. https://swami.wustl.edu/xenobase/ [R=302,L]
