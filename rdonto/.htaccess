@@ -1,0 +1,20 @@
+# Remote Driving Ontology (RDOnto)
+# Maintainer: Sanat Mharolkar (Nanyang Technological University, Singapore), https://github.com/sanatmharolkar
+# Target: https://sanatmharolkar.github.io/RDOnto/
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Explicit Turtle file, e.g. https://w3id.org/rdonto/op.ttl
+RewriteRule ^(core|op|link|op-shapes|link-shapes)\.ttl$ https://sanatmharolkar.github.io/RDOnto/RDOnto-$1.ttl [R=302,L]
+
+# Browsers (HTML and no RDF type requested) get the documentation page
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} !(text/turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(core|op|link|op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/RDOnto/#$1 [NE,R=303,L]
+
+# Everything else (Protégé, rdflib, curl) gets Turtle
+RewriteRule ^(core|op|link|op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/RDOnto/RDOnto-$1.ttl [R=303,L]
+
+# Base IRI
+RewriteRule ^$ https://sanatmharolkar.github.io/RDOnto/ [R=302,L]
