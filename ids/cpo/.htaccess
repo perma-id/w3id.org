@@ -1,0 +1,73 @@
+# Construction Project Typology Ontology (CPO)
+#
+# https://w3id.org/cpo                 composed ontology
+# https://w3id.org/cpo/project         module: project
+# https://w3id.org/cpo/product         module: product
+# https://w3id.org/cpo/requirement     module: requirement
+# https://w3id.org/cpo#<term>          terms, resolved through the composed ontology (hash namespace)
+# https://w3id.org/cpo/data            example data
+# https://w3id.org/cpo/data/<id>       individuals of the example data, resolved through the data file
+# https://w3id.org/cpo/repo            source repository
+#
+# Browsers get the HTML documentation; RDF clients get RDF/XML, JSON-LD,
+# N-Triples or Turtle, by content negotiation. Turtle is the default.
+#
+# ## Contact
+# This space is administered by:
+#
+# Rahel Kebede
+# rahel.kebede@ju.se
+# GitHub username: RichZele
+
+RewriteEngine on
+
+# Source repository
+RewriteRule ^repo/?$ https://github.com/RichZele/cpo [R=302,L]
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://richzele.github.io/cpo/doc/cpo/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/doc/$1/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/#data [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://richzele.github.io/cpo/ontology/cpo.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/ontology/cpo-$1.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/data/cpo-school-data.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://richzele.github.io/cpo/ontology/cpo.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/ontology/cpo-$1.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/data/cpo-school-data.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://richzele.github.io/cpo/ontology/cpo.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/ontology/cpo-$1.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/data/cpo-school-data.nt [R=303,L]
+
+# Turtle, also the default
+RewriteRule ^$ https://richzele.github.io/cpo/ontology/cpo.ttl [R=303,L]
+RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/ontology/cpo-$1.ttl [R=303,L]
+RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/data/cpo-school-data.ttl [R=303,L]

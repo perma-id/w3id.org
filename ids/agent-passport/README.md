@@ -14,5 +14,5 @@ AI agent's mandate, record and binding blocks from three independent issuers.
 This space is administered by:
 
 - Christian Schlager
-- christian.schlager@me.com
+- hello@flexyield.io
 - GitHub username: CSdev1909

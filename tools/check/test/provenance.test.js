@@ -1,6 +1,6 @@
 /**
  * The provenance ratchet is the reason a contributor is not shown the
- * repository's legacy backlog. These tests pin that behaviour down.
+ * repository's legacy backlog. These tests pin that behavior down.
  */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';

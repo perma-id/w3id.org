@@ -1,0 +1,44 @@
+# Persistent identifiers for "ArchiMate 4.0 in RDF"
+# Source and issue tracker: https://github.com/jwvveen/archimate-rdf
+#
+# https://w3id.org/archimate                    core ontology (hash namespace: https://w3id.org/archimate#)
+# https://w3id.org/archimate/profile-3.2        ArchiMate 3.2 compatibility profile
+# https://w3id.org/archimate/views              views module
+# https://w3id.org/archimate/matrix             relationship matrix (Appendix B.5)
+# https://w3id.org/archimate/matrix/plat        the same matrix, flattened over the concrete types
+# https://w3id.org/archimate/skos               SKOS annotations
+# https://w3id.org/archimate/alignments         mappings to earlier ArchiMate ontologies
+# https://w3id.org/archimate/shapes             SHACL shapes (integrity and metamodel rules)
+# https://w3id.org/archimate/shapes/matrix      SHACL shapes against the matrix
+# https://w3id.org/archimate/shapes/matrix-plat SHACL shapes against the flattened matrix
+#
+# RDF clients (Accept: text/turtle and friends) get the Turtle file with a
+# 303; browsers get the repository page.
+#
+# Contact: Jan Willem van Veen
+# GitHub username: jwvveen
+
+RewriteEngine on
+
+# --- RDF clients -------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/archimate.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(profile-3\.2|views|matrix|skos|alignments)/?$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/archimate-$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^matrix/plat/?$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/archimate-matrix-plat.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^shapes/?$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/shacl/archimate-shapes.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^shapes/(matrix|matrix-plat)/?$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/shacl/archimate-$1-shapes.ttl [R=303,L]
+
+# --- Explicit file names always give the file ----------------------------------
+RewriteRule ^archimate\.ttl$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/archimate.ttl [R=302,L]
+RewriteRule ^archimate-(profile-3\.2|views|matrix|matrix-plat|skos|alignments)\.ttl$ https://raw.githubusercontent.com/jwvveen/archimate-rdf/main/archimate-$1.ttl [R=302,L]
+
+# --- Browsers and everything else: the repository ------------------------------
+RewriteRule ^(.*)$ https://github.com/jwvveen/archimate-rdf [R=302,L]

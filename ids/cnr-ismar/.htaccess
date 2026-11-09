@@ -1,17 +1,26 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# Versioned Metadata Application Profiles
-RewriteRule ^metadata_profiles/([^/]+)/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/federicobellati/metadata_profiles/main/$1/$2/$3/profile.ttl [R=302,L]
-
-# Ontologies
-RewriteRule ^ontology/(.*)$ https://github.com/federicobellati/sosa_sensorTemplate_extension/tree/main/$1 [R=302,L]
-
-# Sensor templates
-RewriteRule ^template/(.*)$ https://github.com/federicobellati/sensor_catalog/tree/main/$1 [R=302,L]
-
-# Sensor deployments
-RewriteRule ^deployment/(.*)$ https://github.com/federicobellati/sensor_instances/tree/main/$1 [R=302,L]
-
 # Landing page
-RewriteRule ^$ https://github.com/federicobellati [R=302,L]
+RewriteRule ^$ https://assets.ve.ismar.cnr.it/ [R=302,L]
+
+# Semantic application profiles by name and version
+RewriteRule ^sap/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)(?:/(.*))?$ https://assets.ve.ismar.cnr.it/semantic-application-profiles/$1/$2/$3 [R=302,L]
+
+# Sensor description mapping ontology by version
+RewriteRule ^ontology/(sensorDescriptionMapping)/([0-9]+\.[0-9]+\.[0-9]+)(?:/(.*))?$ https://assets.ve.ismar.cnr.it/ontology/$1/$2/$3 [R=302,L]
+
+# Mapping ontology by version
+RewriteRule ^ontology/(mapping)/([0-9]+\.[0-9]+\.[0-9]+)(?:/(.*))?$ https://assets.ve.ismar.cnr.it/ontology/$1/$2/$3 [R=302,L]
+
+# Registry repositories by name
+RewriteRule ^(datastreams|facilities|features-of-interest|locations|networks|research-infrastructures|sensors-models|sensors-deployment|ultimate-features-of-interest)-registry(?:/(.*))?$ https://assets.ve.ismar.cnr.it/registry/$1-registry/$2 [R=302,L]
+
+# In situ metadata profiles by project and version
+RewriteRule ^metadata_profiles/(danubius|ismar-ve|itineris)/insitu/([0-9]+\.[0-9]+\.[0-9]+)(?:/(.*))?$ https://assets.ve.ismar.cnr.it/metadata-profiles/cnr-ismar/$1/insitu/$2/$3 [R=302,L]
+
+# Resources by path
+RewriteRule ^resources(?:/(.*))?$ https://assets.ve.ismar.cnr.it/resources/$1 [R=302,L]
+
+# Assets by path
+RewriteRule ^assets/(.*)$ https://assets.ve.ismar.cnr.it/public/$1 [R=302,L]

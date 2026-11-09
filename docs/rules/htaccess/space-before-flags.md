@@ -34,7 +34,7 @@ target with the brackets escaped onto the end as `%5B...%5D` — a URL that does
 not exist — and at mod_rewrite's default 302 rather than the 303 an ontology
 IRI meant to send.
 
-Compare its neighbour: [`htaccess/no-flag-whitespace`](./no-flag-whitespace) is
+Compare its neighbor: [`htaccess/no-flag-whitespace`](./no-flag-whitespace) is
 a space too *many*, and it fails loudly — Apache cannot parse the file and
 every URL under the identifier returns 500, so somebody notices within the
 hour. This is a space too *few*, and it fails in silence. Every instance in
