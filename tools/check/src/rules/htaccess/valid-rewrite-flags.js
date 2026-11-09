@@ -11,7 +11,7 @@ import {FLAGS, isHttpStatus} from '../../rewrite-flags.js';
 
 export default {
   id: 'htaccess/valid-rewrite-flags',
-  description: 'RewriteRule flags must be names mod_rewrite recognises',
+  description: 'RewriteRule flags must be names mod_rewrite recognizes',
   tags: ['htaccess', 'correctness'],
   severity: 'error',
   scope: 'file',
