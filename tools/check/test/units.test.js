@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {minimatch, matchesAny} from '../src/glob.js';
 import {parse, parseFlags} from '../src/htaccess.js';
 import {findUsernames} from '../src/maintainers.js';
-import {analyse, captureGroups} from '../src/rules/htaccess/no-open-redirect.js';
+import {analyze, captureGroups} from '../src/rules/htaccess/no-open-redirect.js';
 import {resolveSeverity, explainSeverity} from '../src/config.js';
 import {buildWhy} from '../src/report.js';
 import {isReadme, TEXT_FILE_PATTERNS} from '../src/paths.js';
@@ -106,7 +106,7 @@ test('htaccess: flags parse names, values and raw spelling', () => {
   assert.ok(flags.has('L'));
   assert.equal(parseFlags('not-a-flag-list').size, 0);
   assert.equal(parseFlags(undefined).size, 0);
-  // Casing is normalised for lookup but the original is kept for messages.
+  // Casing is normalized for lookup but the original is kept for messages.
   assert.equal(parseFlags('[r=302]').get('R').raw, 'r=302');
 });
 
@@ -175,7 +175,7 @@ test('rewrite flags: a bracket group is a flag list only if its names are',
     assert.ok(!FLAGS.has('OR'));
   });
 
-test('maintainers: the recorded formats are all recognised', () => {
+test('maintainers: the recorded formats are all recognized', () => {
   // Every shape below is one that occurs in the tree. The names are invented:
   // what each case pins is the *format*, and a real maintainer's handle is not
   // needed to pin a format.
@@ -188,7 +188,7 @@ test('maintainers: the recorded formats are all recognised', () => {
     ['# maintainer: @a-one @b-two', ['a-one', 'b-two']],
     ['# maintainers:\n# - @someone\n# - @someone-else',
       ['someone', 'someone-else']],
-    // A Markdown link, whose handle is capitalised and must come back
+    // A Markdown link, whose handle is capitalized and must come back
     // lowercased.
     ['- [Firstname Lastname](https://github.com/Example-User)',
       ['example-user']],
@@ -247,24 +247,24 @@ test('maintainers: narrowing those cases keeps the real handles', () => {
 });
 
 test('open redirect: an unconstrained group ending the host is unsafe', () => {
-  assert.notEqual(analyse('https://service.$1/t', '^([^/]+)/s/(.*)$'), null);
-  assert.notEqual(analyse('https://$1/$2', '^x/([^/]*)/(.*)$'), null);
-  assert.notEqual(analyse('https://data.example.com$1', '^data(.*)$'), null);
+  assert.notEqual(analyze('https://service.$1/t', '^([^/]+)/s/(.*)$'), null);
+  assert.notEqual(analyze('https://$1/$2', '^x/([^/]*)/(.*)$'), null);
+  assert.notEqual(analyze('https://data.example.com$1', '^data(.*)$'), null);
 });
 
 test('open redirect: a constrained group is safe', () => {
   // Cannot emit a dot or a slash, so it is only ever a subdomain label.
-  assert.equal(analyse('https://$1.example.com/', '^([a-z-]{1,50})$'), null);
+  assert.equal(analyze('https://$1.example.com/', '^([a-z-]{1,50})$'), null);
   // Must begin with a slash, so it lands in the path.
-  assert.equal(analyse('https://labs.example.com$1', '^labs(/.*)?$'), null);
+  assert.equal(analyze('https://labs.example.com$1', '^labs(/.*)?$'), null);
   // Cannot emit a slash, so the fixed suffix survives.
-  assert.equal(analyse('https://$1.github.io/$2', '^([^/]+)[/#](.*)$'), null);
+  assert.equal(analyze('https://$1.github.io/$2', '^([^/]+)[/#](.*)$'), null);
 });
 
 test('open redirect: a backreference in the path is safe', () => {
-  assert.equal(analyse('https://example.com/$1', '^(.*)$'), null);
-  assert.equal(analyse('/local/$1', '^(.*)$'), null);
-  assert.equal(analyse('https://example.com/', '^$'), null);
+  assert.equal(analyze('https://example.com/$1', '^(.*)$'), null);
+  assert.equal(analyze('/local/$1', '^(.*)$'), null);
+  assert.equal(analyze('https://example.com/', '^$'), null);
 });
 
 test('open redirect: capture groups are numbered as Apache numbers them', () => {
@@ -353,7 +353,7 @@ test('why: everything computed is accounted for', () => {
 
 test('severity: every suppression names which one it was', () => {
   // `--why` reports these strings. They come from the function that makes the
-  // decision, so that an explanation cannot drift from the behaviour -- a
+  // decision, so that an explanation cannot drift from the behavior -- a
   // second copy of this policy would be right only on the day it was written.
   const config = {
     rules: {'off/rule': 'off'},

@@ -1,0 +1,25 @@
+# # /symbolicworld/
+#
+# Identifiers for The Symbolic World, a knowledge graph of C. G. Jung's
+# Collected Works: https://symbolicworld.observer
+#
+# - /symbolicworld/ns (terms such as ns#Claim) goes to the vocabulary page
+# - /symbolicworld/node/<id> goes to that concept's page
+# - /symbolicworld/family/<id> goes to that family's page
+# - relation, edge, claim, reference, stage and agent IRIs go to the vocabulary page
+# - /symbolicworld/data/ goes to the dataset's Zenodo record
+#
+# ## Contact
+# This space is administered by:
+#
+# Damian Spendel
+# GitHub username: damianspendel
+
+RewriteEngine on
+
+RewriteRule ^$ https://symbolicworld.observer/ [R=302,L]
+RewriteRule ^ns$ https://symbolicworld.observer/vocabulary [R=303,L]
+RewriteRule ^node/([a-z0-9-]+)$ https://symbolicworld.observer/concept-$1 [R=303,L]
+RewriteRule ^family/([a-z-]+)$ https://symbolicworld.observer/family-$1 [R=303,L]
+RewriteRule ^(relation|edge|claim|reference|stage|agent)/ https://symbolicworld.observer/vocabulary [R=303,L]
+RewriteRule ^data/ https://doi.org/10.5281/zenodo.21631523 [R=302,L]
