@@ -1,0 +1,41 @@
+# /asgardehs/
+#
+# AsgardEHS Ontology
+# An OWL/Turtle ontology for environmental health & safety regulatory routing
+# across federal frameworks (OSHA, EPA, DOT, NRC, MSHA, NFPA, ANSI).
+#
+# https://w3id.org/asgardehs/ehs           → current ontology (TTL or HTML via content negotiation)
+# https://w3id.org/asgardehs/ehs/X.Y.Z     → versioned snapshot (e.g. /3.3.0)
+#
+# ## Contact
+# This space is administered by:
+#
+# Adam J. Bick
+# asgardehs@proton.me
+# GitHub username: pharomwinters
+# GitHub organization: asgardehs
+
+Options -MultiViews
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+RewriteBase /asgardehs/
+
+# Current ontology — Turtle for machines (reasoners, curl, Protégé)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ehs$ https://asgardehs.github.io/ehs-ontology/ehs.ttl [R=302,L]
+
+# Current ontology — HTML for humans in browsers
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla
+RewriteRule ^ehs$ https://asgardehs.github.io/ehs-ontology/ [R=302,L]
+
+# Default — serve TTL when nothing specific was asked for
+RewriteRule ^ehs$ https://asgardehs.github.io/ehs-ontology/ehs.ttl [R=302,L]
+
+# Versioned snapshots — for owl:versionIRI resolution
+# Matches /asgardehs/ehs/3.3.0 → snapshots/ehs-3.3.0.ttl
+RewriteRule ^ehs/([0-9]+\.[0-9]+\.[0-9]+)$ https://asgardehs.github.io/ehs-ontology/snapshots/ehs-$1.ttl [R=302,L]

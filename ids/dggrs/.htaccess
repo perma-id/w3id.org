@@ -1,0 +1,14 @@
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to serve HTML content of the page
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://geoplegma.github.io/dggrs-registry/ [R=303,L]
+
+# Choose the default response for core ontology
+# --------------------------------------------
+# Default Rule
+RewriteRule ^$ https://geoplegma.github.io/dggrs-registry/dggrs-ontology.ttl [R=303,L]

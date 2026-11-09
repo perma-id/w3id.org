@@ -1,0 +1,48 @@
+# Contact: Jacopo de Berardinis
+# Email: jacodb@liverpool.ac.uk
+# GitHub: jonnybluesman
+#
+# Description: Redirects for the AnIML Ontology.
+# Target: https://github.com/KE-UniLiv/animl-ontology
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Defining Base Variables
+# RAW_REPO: The direct link to the file content (for machines/Protégé)
+SetEnvIf Request_URI ^.*$ RAW_REPO=https://raw.githubusercontent.com/KE-UniLiv/animl-ontology/refs/heads/main
+# BLOB_REPO: The GitHub UI link acting as a LODE instance for now (for humans in browsers)
+SetEnvIf Request_URI ^.*$ BLOB_REPO=https://github.com/KE-UniLiv/animl-ontology/blob/main
+
+# ----------------------------------------------------------------------
+# Rules for Version 1.0.0
+# ----------------------------------------------------------------------
+
+# If the client wants HTML (Browser), send to GitHub UI
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/1.0.0/?$ %{ENV:BLOB_REPO}/ontologies/animl_ontology.owl [R=303,L]
+
+# Default: Send to the raw OWL file
+RewriteRule ^ontology/1.0.0/?$ %{ENV:RAW_REPO}/ontologies/animl_ontology.owl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Rules for Latest Version (The root /ontology/ URI)
+# ----------------------------------------------------------------------
+
+# If the client wants HTML (Browser), send to GitHub UI
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.*$
+RewriteRule ^ontology/?$ %{ENV:BLOB_REPO}/ontologies/animl_ontology.owl [R=303,L]
+
+# Default: Send to the raw OWL file
+RewriteRule ^ontology/?$ %{ENV:RAW_REPO}/ontologies/animl_ontology.owl [R=303,L]
+
+# ----------------------------------------------------------------------
+# Fallback / General Redirects
+# ----------------------------------------------------------------------
+
+# If someone goes to w3id.org/animl/ (root), send them to the GitHub repo root
+RewriteRule ^$ https://github.com/KE-UniLiv/animl-ontology [R=303,L]
+
+# Catch-all: if they type anything else, try to find it in the GitHub repo
+RewriteRule ^(.*)$ https://github.com/KE-UniLiv/animl-ontology/blob/main/$1 [R=303,L]

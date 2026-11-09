@@ -1,0 +1,32 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+AddType application/n-triples .nt
+AddType application/owl+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://abdullahikawu.github.io/wearpghdprovo/wearpghdprovo.nt [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://abdullahikawu.github.io/wearpghdprovo/wearpghdprovo.owl [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://abdullahikawu.github.io/wearpghdprovo/wearpghdprovo.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://abdullahikawu.github.io/wearpghdprovo/wearpghdprovo.jsonld [R=302,L]
+
+# https://abdullahikawu.github.io/wearpghdprovo/1.0
+RewriteRule ^1.0$ https://abdullahikawu.github.io/wearpghdprovo/ [R=302,L]
+
+RewriteRule ^$ https://abdullahikawu.github.io/wearpghdprovo [R=302,L]
+RewriteRule ^(.*)$ https://abdullahikawu.github.io/wearpghdprovo/$1 [R=302,L]

@@ -1,0 +1,81 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+AddType application/yaml .yaml
+
+# Notes on used flags:
+# NC - sets case-insensitive matching
+# NE - noescape, prevents that special characters, such as & and ?, will be converted to their hexcode equivalent for rules that result in external redirects.
+# L - last, tells mod_rewrite to stop processing further rules sets.
+# R=303 - status code for "See Other". It indicates that the redirects don't link to the requested resource itself, but to another page.
+
+# Order of rules: More specific rules must come before more general rules.
+
+# === version-tagged releases ===
+
+# Other YAML schema files
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/schema/(.*)\.yaml$" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/$2.yaml [R=303,L,NE,NC]
+
+# HTML - individual documentation for class elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/class/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/classes/$2 [R=303,L,NE,NC]
+
+# HTML - individual documentation for slot elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/slot/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/slots/$2 [R=303,L,NE,NC]
+
+# HTML - individual documentation for enum elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/enums/$2 [R=303,L,NE,NC]
+
+# Main YAML schema file
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})" https://nfdi4cat.github.io/pid4cat-model/v$1/schema/pid4cat_model.yaml  [R=303,L,NE,NC]
+
+# HTML - schema documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/elements.*$" https://nfdi4cat.github.io/pid4cat-model/v$1/elements/overview [R=303,L,NE,NC]
+
+# HTML - general documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})/?.*$" https://nfdi4cat.github.io/pid4cat-model/v$1 [R=303,L,NE,NC]
+
+# === latest release ===
+
+# Other YAML schema files
+RewriteCond %{HTTP_ACCEPT} application/yaml [OR]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^schema/(.*)\.yaml$" https://nfdi4cat.github.io/pid4cat-model/latest/schema/$1.yaml [R=303,L,NE,NC]
+
+# HTML - individual documentation for class elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^class/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/classes/$1 [R=303,L,NE,NC]
+
+# HTML - individual documentation for slot elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^slot/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/slots/$1 [R=303,L,NE,NC]
+
+# HTML - individual documentation for enum elements
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^enum/(.*)$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/enums/$1 [R=303,L,NE,NC]
+
+# Main YAML schema file
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule "^$" https://nfdi4cat.github.io/pid4cat-model/latest/schema/pid4cat_model.yaml  [R=303,L,NE,NC]
+
+# HTML - schema documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^elements.*$" https://nfdi4cat.github.io/pid4cat-model/latest/elements/overview [R=303,L,NE,NC]
+
+# HTML - general documentation
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule "^.*$" https://nfdi4cat.github.io/pid4cat-model/latest [R=303,L,NE,NC]
+
+# === No content-negotiation at all (or HTML) ===
+
+# Fallback to HTML for version-tagged and latest.
+RewriteRule "^v?([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}).*$" https://nfdi4cat.github.io/pid4cat-model/v$1 [R=303,L,NE,NC]
+RewriteRule "^.*$" https://nfdi4cat.github.io/pid4cat-model/latest [R=303,L,NE]

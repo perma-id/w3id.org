@@ -1,0 +1,54 @@
+# Automation Bias Ontology (ABO)
+#
+# https://w3id.org/abo identifies the latest release of ABO.
+# https://w3id.org/abo/1.0.0 identifies release 1.0.0.
+#
+# Maintainer:
+# Arpita Gado
+# GitHub username: arpitagado-dotcom
+
+Options -MultiViews
+
+Header always set Access-Control-Allow-Origin "*"
+Header always set Vary "Accept"
+
+AddType application/ld+json .jsonld
+AddType application/n-triples .nt
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine On
+
+# Latest release
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [NC]
+RewriteRule ^$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.owl [R=303,L]
+
+RewriteRule ^$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/index-en.html [R=303,L]
+
+# Release 1.0.0
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^1\.0\.0/?$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^1\.0\.0/?$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^1\.0\.0/?$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [NC]
+RewriteRule ^1\.0\.0/?$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/ontology.owl [R=303,L]
+
+RewriteRule ^1\.0\.0/?$ https://arpitagado-dotcom.github.io/ABO/release/1.0.0/index-en.html [R=303,L]

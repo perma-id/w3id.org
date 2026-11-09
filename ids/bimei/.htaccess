@@ -1,0 +1,21 @@
+# # /bimei/
+#
+# BIMei Ontology (ONT) — the canonical Action Statement registry.
+# https://w3id.org/bimei/{type}/{slug} (e.g. /bimei/action/conduct) redirects to
+# the backing host https://ontology.bimexcellence.org/, which dereferences the
+# IRI (content-negotiates language; serves the live head or a pinned ?version=).
+# Identity is language- and version-neutral; the register is never in the IRI.
+#
+# ## Contact
+# This space is administered by:
+#
+# Bilal Succar — Change Agents
+# GitHub username: bsuccar
+# Email: bsuccar@changeagents.com.au
+
+RewriteEngine on
+
+# Forward every /bimei/* path to the backing host, preserving the query string
+# (so ?version= pins pass through). 302 (temporary) keeps w3id.org/bimei/* the
+# permanent, citable identity while the backing host stays relocatable.
+RewriteRule ^(.*)$ https://ontology.bimexcellence.org/$1 [R=302,L,QSA]

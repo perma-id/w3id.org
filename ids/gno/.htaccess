@@ -1,0 +1,83 @@
+# /gno/
+#
+# Gno vocabulary and sub-vocabularies
+# https://w3id.org/gno redirects to https://rdf-elixir.dev/gno/
+#
+# ## Contact
+# This space is administered by:
+#
+# Marcel Otto
+# marcelotto@gmx.de
+# GitHub username: marcelotto
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- Content negotiation for https://w3id.org/gno ---
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://rdf-elixir.dev/gno/gno.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://rdf-elixir.dev/gno/gno.jsonld [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://rdf-elixir.dev/gno/gno.rdf [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://rdf-elixir.dev/gno/gno.nt [R=303,NE,L]
+
+# HTML (explicit)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^$ https://rdf-elixir.dev/gno/ [R=303,NE,L]
+
+# Default: HTML
+RewriteRule ^$ https://rdf-elixir.dev/gno/ [R=303,NE,L]
+
+# Direct file access
+RewriteRule ^gno\.ttl$ https://rdf-elixir.dev/gno/gno.ttl [R=303,NE,L]
+RewriteRule ^gno\.nt$ https://rdf-elixir.dev/gno/gno.nt [R=303,NE,L]
+RewriteRule ^gno\.rdf$ https://rdf-elixir.dev/gno/gno.rdf [R=303,NE,L]
+RewriteRule ^gno\.jsonld$ https://rdf-elixir.dev/gno/gno.jsonld [R=303,NE,L]
+
+# --- Content negotiation for https://w3id.org/gno/store/adapter/ ---
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/gnoa.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/gnoa.jsonld [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/gnoa.rdf [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/gnoa.nt [R=303,NE,L]
+
+# HTML (explicit)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/ [R=303,NE,L]
+
+# Default: HTML
+RewriteRule ^store/adapter/?$ https://rdf-elixir.dev/gno/store/adapter/ [R=303,NE,L]
+
+# Direct file access for gnoa
+RewriteRule ^store/adapter/gnoa\.ttl$ https://rdf-elixir.dev/gno/store/adapter/gnoa.ttl [R=303,NE,L]
+RewriteRule ^store/adapter/gnoa\.nt$ https://rdf-elixir.dev/gno/store/adapter/gnoa.nt [R=303,NE,L]
+RewriteRule ^store/adapter/gnoa\.rdf$ https://rdf-elixir.dev/gno/store/adapter/gnoa.rdf [R=303,NE,L]
+RewriteRule ^store/adapter/gnoa\.jsonld$ https://rdf-elixir.dev/gno/store/adapter/gnoa.jsonld [R=303,NE,L]
+
+# Individual gnoa term redirects (slash namespace)
+RewriteRule ^store/adapter/(.+)$ https://rdf-elixir.dev/gno/store/adapter/#$1 [R=303,NE,L]

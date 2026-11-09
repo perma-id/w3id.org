@@ -1,0 +1,63 @@
+# TrICS Ontology
+#
+# Persistent identifiers for the TrICS Ontology for Industrial Control
+# System threat intelligence.
+#
+# Project: https://github.com/llleafgod/trics
+# Documentation: https://llleafgod.github.io/trics/
+#
+# Contact
+# GitHub username: llleafgod
+
+Options -MultiViews
+RewriteEngine On
+
+# Latest ontology: JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/ontology.jsonld [R=303,NE,L]
+
+# Latest ontology: RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/ontology.owl [R=303,NE,L]
+
+# Latest ontology: N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/ontology.nt [R=303,NE,L]
+
+# Latest ontology: Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/ontology.ttl [R=303,NE,L]
+
+# Latest ontology: HTML and browser requests
+RewriteCond %{HTTP_ACCEPT} text/html [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR,NC]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/ [NC]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/index-en.html [R=303,NE,L]
+
+# Version 0.2.0: JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology/0\.2\.0/?$ https://raw.githubusercontent.com/llleafgod/trics/v0.2.0/docs/ontology.jsonld [R=303,NE,L]
+
+# Version 0.2.0: RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/0\.2\.0/?$ https://raw.githubusercontent.com/llleafgod/trics/v0.2.0/docs/ontology.owl [R=303,NE,L]
+
+# Version 0.2.0: N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
+RewriteRule ^ontology/0\.2\.0/?$ https://raw.githubusercontent.com/llleafgod/trics/v0.2.0/docs/ontology.nt [R=303,NE,L]
+
+# Version 0.2.0: Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [NC]
+RewriteRule ^ontology/0\.2\.0/?$ https://raw.githubusercontent.com/llleafgod/trics/v0.2.0/docs/ontology.ttl [R=303,NE,L]
+
+# Version 0.2.0: HTML and browser requests
+RewriteCond %{HTTP_ACCEPT} text/html [OR,NC]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR,NC]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/ [NC]
+RewriteRule ^ontology/0\.2\.0/?$ https://github.com/llleafgod/trics/tree/v0.2.0 [R=303,NE,L]
+
+# Default responses
+RewriteRule ^ontology/0\.2\.0/?$ https://raw.githubusercontent.com/llleafgod/trics/v0.2.0/docs/ontology.ttl [R=303,NE,L]
+RewriteRule ^ontology/?$ https://llleafgod.github.io/trics/index-en.html [R=303,NE,L]

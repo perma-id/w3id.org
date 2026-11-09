@@ -1,0 +1,11 @@
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/time-fn/latest/ [R=302,L]
+
+# Rewrite rule to serve TTL content
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://spec.knows.idlab.ugent.be/time-fn/latest/time-fn.ttl [R=302,L]

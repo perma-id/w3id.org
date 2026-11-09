@@ -1,0 +1,21 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+RewriteEngine on
+
+# The "L" flag ensures that if the rule matches no further rules are processed
+# Match anything that does not contain "." and ends with "/" -- "/" excluded -- assuming to be a request to .owl file 
+RewriteRule ^([^.]+)\/$ https://dspola.github.io/ontocare/$1.owl [R=303,L]
+
+# Match anything that does not contain "." and does not end with "/" assuming to be a request to .owl file
+RewriteRule ^([^.]+[^\/])$ https://dspola.github.io/ontocare/$1.owl [R=303,L]
+
+# Match anything that ends with .owl (including possibly strings containing dots and dashes) 
+RewriteRule ^(.+)\.owl$ https://dspola.github.io/ontocare/$1.owl [R=303,L]
+
+# Match anything that ends with .ttl (including possibly strings containing dots and dashes)
+RewriteRule ^(.+)\.ttl$ https://dspola.github.io/ontocare/$1.ttl [R=303,L]
+
+# Match anything that ends with .rdf (including possibly strings containing dots and dashes)
+RewriteRule ^(.+)\.rdf$ https://dspola.github.io/ontocare/$1.rdf [R=303,L]

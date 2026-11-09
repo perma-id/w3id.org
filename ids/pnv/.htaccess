@@ -1,0 +1,37 @@
+# # /pnv/
+#
+# Person Name Vocabulary (PNV)
+# https://github.com/HuygensING/pnv
+#
+# ## Contact
+# This space is administered by:
+#
+# Lodewijk Petram
+# lodewijk.petram@huygens.knaw.nl
+# GitHub username: lodewijk81
+
+Options +FollowSymLinks
+Options -MultiViews
+
+RewriteEngine on
+
+# RDF serializations first, so that e.g. "text/turtle, */*;q=0.1" gets Turtle
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://huygensing.github.io/pnv/pnv.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://huygensing.github.io/pnv/pnv.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://huygensing.github.io/pnv/pnv.jsonld [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://huygensing.github.io/pnv/pnv.nt [R=303,NE,L]
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://huygensing.github.io/pnv/doc/ [R=303,NE,L]
+
+# Default: Turtle
+RewriteRule ^$ https://huygensing.github.io/pnv/pnv.ttl [R=303,NE,L]

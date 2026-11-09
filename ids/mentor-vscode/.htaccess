@@ -1,0 +1,15 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Version-pinned shape graphs. The versioned file is immutable, so it is served
+# straight from `main` — no git tag needed. Matches e.g.
+# /shapes/ontology/1.0.0 -> src/ontologies/shapes/ontology-1.0.0.ttl
+RewriteRule ^shapes/([a-z0-9-]+)/([0-9]+(?:\.[0-9]+)+)$ https://raw.githubusercontent.com/faubulous/mentor-vscode/main/src/ontologies/shapes/$1-$2.ttl [R=302,L]
+
+# Unversioned "latest" shape graphs. Update the target to the current version file
+# whenever a profile's shapes change (a new src/ontologies/shapes/<name>-<version>.ttl).
+RewriteRule ^shapes/ontology$ https://raw.githubusercontent.com/faubulous/mentor-vscode/main/src/ontologies/shapes/ontology-1.0.0.ttl [R=302,L]
+RewriteRule ^shapes/taxonomy$ https://raw.githubusercontent.com/faubulous/mentor-vscode/main/src/ontologies/shapes/taxonomy-1.0.0.ttl [R=302,L]
+
+RewriteRule ^$ https://github.com/faubulous/mentor-vscode [R=302,L]

@@ -1,0 +1,54 @@
+RewriteEngine On
+
+# Extract version from the path: /v1.0.0/
+RewriteCond %{REQUEST_URI} ^/([^/]+)/?(index\.html)?$
+RewriteRule ^([^/]+)/?(index\.html)?$ - [E=VERSION:%1]
+
+# HTML (versioned)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteCond %{ENV:VERSION} !^$
+RewriteRule ^([^/]+)/?(index\.html)?$ https://aiaont.github.io/impactont/impactont.html?v=%{ENV:VERSION} [R=303,L]
+
+# JSON-LD (versioned)
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteCond %{ENV:VERSION} !^$
+RewriteRule ^([^/]+)/?(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@%{ENV:VERSION}/impactont.jsonld [R=303,L]
+
+# Turtle (versioned)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteCond %{ENV:VERSION} !^$
+RewriteRule ^([^/]+)/?(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@%{ENV:VERSION}/impactont.ttl [R=303,L]
+
+# RDF/XML (versioned)
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteCond %{ENV:VERSION} !^$
+RewriteRule ^([^/]+)/?(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@%{ENV:VERSION}/impactont.owl [R=303,L]
+
+# Fallback rules for non-versioned requests (root path)
+# HTML
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(index\.html)?$ https://aiaont.github.io/impactont/impactont.html [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/json [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@main/impactont.jsonld [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@main/impactont.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@main/impactont.owl [R=303,L]
+
+# Fallback
+RewriteRule ^(index\.html)?$ https://cdn.jsdelivr.net/gh/aiaont/impactont@main/impactont.owl [R=303,L]
+

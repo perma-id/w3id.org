@@ -1,0 +1,41 @@
+# https://w3id.org/fyndling
+#
+# Fyndling: medieval cooking recipes as a digital edition in TEI-P5.
+# 2315 recipes from 34 manuscripts and early prints, 14th to 16th century,
+# each with a diplomatic transcription, a modern German translation and
+# editorial notes.
+#
+# Dataset (TEI-P5, one file per recipe):
+#   https://github.com/neongrau/fyndling-tei
+# Human readable edition:
+#   https://fyndling.de/rezepte/
+#
+# Maintainer and contact: see README.md in this directory.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Recipe identifiers are <book>-<number> with an optional letter for
+# sub-recipes: bgs-001, bgs-074a, m5919-101, ri15632-001, w1-059.
+# 34 book prefixes, lowercase, digits allowed inside the prefix.
+# A trailing slash is tolerated.
+
+# 1. TEI-P5 source, for machines.
+#
+# Only application/tei+xml triggers this branch, deliberately not the generic
+# application/xml or text/xml: a browser sends
+#   text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+# and would be sent to the XML file by a generic match.
+#
+# The target serves exactly one content type per URL. That is a requirement,
+# not a preference: the origin sits behind a CDN that varies its cache only on
+# Accept-Encoding, so two Accept-dependent variants of one URL would be mixed
+# up in the cache. Negotiation therefore happens here and nowhere else.
+RewriteCond %{HTTP_ACCEPT} application/tei\+xml
+RewriteRule ^([a-z][a-z0-9]{1,7}-[0-9]{1,4}[a-z]?)/?$ https://fyndling.de/rezepte-data/tei/$1.xml [R=302,L]
+
+# 2. Everything else, browsers included, gets the human readable page.
+RewriteRule ^([a-z][a-z0-9]{1,7}-[0-9]{1,4}[a-z]?)/?$ https://fyndling.de/rezepte/$1/ [R=302,L]
+
+# 3. Bare namespace and anything unrecognised: the collection itself.
+RewriteRule ^(.*)$ https://fyndling.de/rezepte/ [R=302,L]

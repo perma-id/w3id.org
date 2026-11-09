@@ -1,0 +1,16 @@
+RewriteEngine on
+Options -MultiViews
+
+# Rewrite rules for a specific project.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://onestop4all.nfdi4earth.de/result/$1 [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the project URI if requested
+AddType application/ld+json .jsonld
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://cordra.knowledgehub.nfdi4earth.de/objects/n4e/$1 [R=303,L]
+
+
+

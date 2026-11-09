@@ -1,0 +1,57 @@
+Header set Access-Control-Allow-Origin *
+Options -MultiViews
+Options +FollowSymLinks
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+AddType application/json+ld .json
+AddType application/json .json
+
+RewriteEngine on
+SetEnvIf Accept ^.+$ SYNTAX=other
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*application/json-ld.* SYNTAX=json
+SetEnvIf Accept ^.*application/n-triples.* SYNTAX=nt
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Accept ^\*/\*$ SYNTAX=ttl
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://gnss.be/vocab/latest
+
+#####     GNSS-DCAT-AP     #####
+
+# Latest specification
+RewriteCond %{HTTP:Accept} application/rdf\+xml [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.rdf [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/ld\+json [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.json [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/json\+ld [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.json [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/json [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.json [R=303,L]
+
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule ^(.+)$ %{ENV:ROOT_URL}/$1.html [R=303,L]
+
+# Serve index.html for root path
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule ^$ %{ENV:ROOT_URL}/index.html [L]
+
+# ===== Redirect to 406.html for unsupported Accept types =====
+RewriteCond %{HTTP:Accept} !application/rdf\+xml [NC]
+RewriteCond %{HTTP:Accept} !application/ld\+json [NC]
+RewriteCond %{HTTP:Accept} !application/json\+ld [NC]
+RewriteCond %{HTTP:Accept} !application/json [NC]
+RewriteCond %{HTTP:Accept} !text/turtle [NC]
+RewriteCond %{HTTP:Accept} !text/html [NC]
+RewriteRule ^(.*)$ %{ENV:ROOT_URL}/406.html [R=406,L]
+

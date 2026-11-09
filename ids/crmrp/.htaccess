@@ -1,0 +1,26 @@
+#
+# ## Contact
+# This space is administered by:
+#
+# Chiara Eva Catalano
+# chiaraeva.catalano@cnr.it
+# GitHub username: chiaraevacataleno
+
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+# https://w3id.org/crmrp  actual ontology in different syntaxes
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://raw.githubusercontent.com/chiaraevacatalano/crmrp/main/rdf/crmrp.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld\+json.* 
+RewriteRule ^$ https://raw.githubusercontent.com/chiaraevacatalano/crmrp/main/rdf/crmrp.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://raw.githubusercontent.com/chiaraevacatalano/crmrp/main/rdf/crmrp.rdf [R=303,L]
+#default response: ttl
+RewriteRule ^$ https://raw.githubusercontent.com/chiaraevacatalano/crmrp/main/rdf/crmrp.ttl [R=303,L]
+
+

@@ -1,0 +1,43 @@
+# https://w3id.org/mknd/ -> MKND site on GitHub Pages, with content negotiation.
+# Source of truth: w3id/.htaccess in https://github.com/mknd-io/ontologies; copy to
+# ids/mknd/.htaccess in https://github.com/perma-id/w3id.org. Tested by `make test-w3id`.
+#
+#   https://w3id.org/mknd/                       core ontology (latest)
+#   https://w3id.org/mknd/0.4.0/                 core ontology, that release
+#   https://w3id.org/mknd/<Term>                 a term: HTML docs anchor, or the core ontology as RDF
+#   https://w3id.org/mknd/alignment/d3fend[/<v>] D3FEND alignment module
+#   https://w3id.org/mknd/examples[/<v>]         example individuals
+#   https://w3id.org/mknd/data/<name>[/<v>]      datasets (gtfobins, lolbas)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Serialization from the Accept header; later matches win, so Turtle beats RDF/XML when a
+# client accepts both. Browsers get HTML.
+RewriteRule ^ - [E=EXT:html]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ - [E=EXT:nt]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ - [E=EXT:jsonld]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ - [E=EXT:owl]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ - [E=EXT:ttl]
+
+# Modules other than core have no HTML page: browsers get Turtle.
+RewriteCond %{ENV:EXT} =html
+RewriteRule ^(alignment/d3fend|examples|data/[a-z0-9-]+)(/[0-9]+\.[0-9]+\.[0-9]+)?$ - [E=EXT:ttl]
+
+RewriteRule ^(alignment/d3fend|examples|data/[a-z0-9-]+)$ https://mknd-io.github.io/ontologies/$1.%{ENV:EXT} [R=303,L]
+RewriteRule ^(alignment/d3fend|examples|data/[a-z0-9-]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://mknd-io.github.io/ontologies/$2/$1.%{ENV:EXT} [R=303,L]
+
+# Core ontology, latest and versioned.
+RewriteCond %{ENV:EXT} =html
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+/?)?$ https://mknd-io.github.io/ontologies/ [R=303,L]
+RewriteRule ^$ https://mknd-io.github.io/ontologies/mknd.%{ENV:EXT} [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://mknd-io.github.io/ontologies/$1/mknd.%{ENV:EXT} [R=303,L]
+
+# Terms (https://w3id.org/mknd/Alert): docs anchor for browsers, core ontology otherwise.
+RewriteCond %{ENV:EXT} =html
+RewriteRule ^([^/]+)$ https://mknd-io.github.io/ontologies/#$1 [R=303,NE,L]
+RewriteRule ^([^/]+)$ https://mknd-io.github.io/ontologies/mknd.%{ENV:EXT} [R=303,L]

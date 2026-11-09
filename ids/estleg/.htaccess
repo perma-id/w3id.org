@@ -1,0 +1,27 @@
+# https://w3id.org/estleg/ — Estonian Legal Ontology namespace (estleg).
+# Adopted in issue #516, replacing the non-resolvable, government-owned
+# data.riik.ee/ontology/estleg# scheme.
+#
+# Maintainer / contact: Henrik Aavik
+# email: henrik.aavik@gmail.com
+# GitHub username: henrikaavik
+# Project / source: https://github.com/henrikaavik/estonian-legal-ontology
+#
+# A content-negotiating 303 resolver (RDF vs HTML per Accept) is planned. Until
+# it is stood up, term IRIs temporarily redirect to the project repository so
+# the identifiers resolve to something human-usable ("stable ID now, resolver
+# later").
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Version IRI (https://w3id.org/estleg/1.0.0) → tagged GitHub Release.
+RewriteRule ^1\.0\.0/?$ https://github.com/henrikaavik/estonian-legal-ontology/releases/tag/v1.0.0 [R=302,L]
+
+# (Future) content negotiation to the machine-readable graph:
+#   RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+#   RewriteCond %{HTTP_ACCEPT} application/ld\+json
+#   RewriteRule ^(.*)$ https://github.com/henrikaavik/estonian-legal-ontology/releases/download/v1.0.0/combined_ontology.jsonld.gz [R=303,L]
+
+# Interim: send every IRI under this namespace to the project repository.
+RewriteRule ^(.*)$ https://github.com/henrikaavik/estonian-legal-ontology [R=302,L]

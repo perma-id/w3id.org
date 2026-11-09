@@ -1,0 +1,44 @@
+# w3id.org permanent identifier for the SkyRwa Flight-to-Asset Ontology
+# Namespace: https://w3id.org/skyrwa#
+# This file goes into perma-id/w3id.org repository under /skyrwa/.htaccess
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------------------
+# Redirect targets (GitHub raw for serializations, GitHub Pages for HTML docs)
+# ---------------------------------------------------------------------------
+# Turtle:   modules/SkyRwa/ontology/skyrwa.ttl
+# RDF/XML:  modules/SkyRwa/ontology/skyrwa.owl
+# JSON-LD:  modules/SkyRwa/ontology/skyrwa.jsonld
+# HTML doc: modules/SkyRwa/docs/ontology/index.html
+
+# Version IRI (owl:versionIRI) — pinned snapshot of version 1.0.0 (git tag skyrwa-v1.0.0)
+RewriteRule ^1\.0\.0/?$ https://raw.githubusercontent.com/liuyushugreat/SkyNetUamPlatform/skyrwa-v1.0.0/modules/SkyRwa/ontology/skyrwa.ttl [R=303,L]
+
+# ---------------------------------------------------------------------------
+# Content negotiation for the namespace IRI (and any fragment term)
+# Order matters: most specific RDF media types first, HTML last.
+# ---------------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://raw.githubusercontent.com/liuyushugreat/SkyNetUamPlatform/main/modules/SkyRwa/ontology/skyrwa.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^$ https://raw.githubusercontent.com/liuyushugreat/SkyNetUamPlatform/main/modules/SkyRwa/ontology/skyrwa.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://raw.githubusercontent.com/liuyushugreat/SkyNetUamPlatform/main/modules/SkyRwa/ontology/skyrwa.jsonld [R=303,L]
+
+# HTML documentation (browsers / default)
+RewriteRule ^$ https://liuyushugreat.github.io/SkyNetUamPlatform/modules/SkyRwa/docs/ontology/index.html [R=303,L]
+
+# Fallback: any other path under /skyrwa/ goes to the documentation page
+RewriteRule ^(.+)$ https://liuyushugreat.github.io/SkyNetUamPlatform/modules/SkyRwa/docs/ontology/index.html [R=303,L]

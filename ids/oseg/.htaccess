@@ -1,0 +1,620 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+# See <https://www.w3.org/TR/owl-ref/#MIMEType>
+AddType application/rdf+xml     .rdf      .owl
+#AddType application/xml         .xml
+AddType application/ld+json     .jsonld
+AddType text/n3                 .n3
+AddType application/n-quads     .nq
+AddType application/n-triples   .nt
+AddType text/turtle             .ttl
+AddType application/rdf+json    .rj
+AddType text/trig               .trig
+AddType application/trix        .trix
+AddType text/html               .html
+AddType application/xhtml+xml   .html
+AddType application/schema-instance+json  .schema.json
+RewriteEngine on
+
+SetEnvIf Accept ^                          FILE_EXT=ttl    # *Default*
+SetEnvIf Accept ^.*application/rdf\+xml    FILE_EXT=rdf    # RDF/XML & OWL
+#SetEnvIf Accept ^.*application/xml         FILE_EXT=rdf    # (RDF/)XML
+SetEnvIf Accept ^.*application/ld\+json    FILE_EXT=jsonld # JSON-LD
+#SetEnvIf Accept ^.*application/json-ld     FILE_EXT=jsonld # JSON-LD (invalid/unofficial form)
+SetEnvIf Accept ^.*text/n3                 FILE_EXT=n3     # Notation3
+SetEnvIf Accept ^.*application/n-quads     FILE_EXT=nq     # N-Quads
+SetEnvIf Accept ^.*application/n-triples   FILE_EXT=nt     # N-Triples
+SetEnvIf Accept ^.*text/turtle             FILE_EXT=ttl    # Turtle
+SetEnvIf Accept ^.*application/rdf\+json   FILE_EXT=rj     # RDF/JSON
+SetEnvIf Accept ^.*text/trig               FILE_EXT=trig   # TriG
+SetEnvIf Accept ^.*application/trix        FILE_EXT=trix   # TriX
+SetEnvIf Accept ^.*text/html               FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/xhtml\+xml  FILE_EXT=html   # HTML
+SetEnvIf Accept ^.*application/schema-instance\+json  FILE_EXT=schema.json   # JSON-Schema
+
+# This is a service running <https://github.com/elevont/ontprox>
+SetEnvIf Request_URI ^ PROXY=https://ontprox.dev.opensourceecology.de
+
+# [Recommended IRI patterns for ontologies and their terms](
+# https://more.metadatacenter.org/recommended-iri-patterns-ontologies-and-their-terms)
+
+# ## Ontologies
+
+# ### OSEG
+
+SetEnvIf Request_URI ^ SRC_URL_OSEG_BASE=https://gitlab.opensourceecology.de/community-resources/profiles/-/raw
+SetEnvIf Request_URI ^ SRC_URL_OSEG_FILE_PATH=src/data/oseg.ttl
+
+# latest
+RewriteRule \
+	^ont/oseg[/-]?prof(iles)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSEG_BASE}/master/%{ENV:SRC_URL_OSEG_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/oseg[/-]?prof(iles)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSEG_BASE}/$1/%{ENV:SRC_URL_OSEG_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/oseg[/-]?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSEG_BASE}/master/%{ENV:SRC_URL_OSEG_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/oseg[/-]?prof(iles)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSEG_BASE}/$1/%{ENV:SRC_URL_OSEG_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### OKH - Core
+
+SetEnvIf Request_URI ^ SRC_URL_OKH_BASE=https://raw.githubusercontent.com/iop-alliance/OpenKnowHow
+SetEnvIf Request_URI ^ SRC_URL_OKH_FILE_PATH=src/spec/okh.ttl
+
+# latest
+RewriteRule \
+	^ont/okh([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_BASE}/master/%{ENV:SRC_URL_OKH_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_BASE}/$1/%{ENV:SRC_URL_OKH_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_BASE}/master/%{ENV:SRC_URL_OKH_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_BASE}/$1/%{ENV:SRC_URL_OKH_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### OKH - Images
+
+# This copies the value from `SRC_URL_OKH_BASE` -> `SRC_URL_OKH_IMAGE_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OKH_BASE "(.*)" "SRC_URL_OKH_IMAGE_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OKH_IMAGE_FILE_PATH=src/spec/okh-img.ttl
+
+# latest
+RewriteRule \
+	^ont/okh[/-]?im(g|age)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/master/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?im(g|age)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/$2/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh[/-]?im(g|age)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/master/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?im(g|age)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_IMAGE_BASE}/$1/%{ENV:SRC_URL_OKH_IMAGE_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### OKH - Meta
+
+# This copies the value from `SRC_URL_OKH_BASE` -> `SRC_URL_OKH_META_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OKH_BASE "(.*)" "SRC_URL_OKH_META_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OKH_META_FILE_PATH=src/spec/okh-meta.ttl
+
+# latest
+RewriteRule \
+	^ont/okh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_META_BASE}/master/%{ENV:SRC_URL_OKH_META_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_META_BASE}/$1/%{ENV:SRC_URL_OKH_META_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_META_BASE}/master/%{ENV:SRC_URL_OKH_META_FILE_PATH}&file-ext=$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_META_BASE}/$1/%{ENV:SRC_URL_OKH_META_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# ### OKH - Krawler
+
+SetEnvIf Request_URI ^ SRC_URL_OKH_KRAWLER_BASE=https://raw.githubusercontent.com/iop-alliance/OKH-krawler
+SetEnvIf Request_URI ^ SRC_URL_OKH_KRAWLER_FILE_PATH=src/ont/okh-krawler.ttl
+
+# latest
+RewriteRule \
+	^ont/okh[/-]?krawl(er)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/master/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?krawl(er)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/$1/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/okh[/-]?krawl(er)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/master/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/okh[/-]?krawl(er)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OKH_KRAWLER_BASE}/$1/%{ENV:SRC_URL_OKH_KRAWLER_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### OTRL
+
+# This copies the value from `SRC_URL_OKH_BASE` -> `SRC_URL_OTRL_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OKH_BASE "(.*)" "SRC_URL_OTRL_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OTRL_FILE_PATH=src/spec/otrl.ttl
+
+# latest
+RewriteRule \
+	^ont/otrl(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OTRL_BASE}/master/%{ENV:SRC_URL_OTRL_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/otrl(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OTRL_BASE}/$1/%{ENV:SRC_URL_OTRL_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/otrl\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OTRL_BASE}/master/%{ENV:SRC_URL_OTRL_FILE_PATH}&file-ext=$1$2 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/otrl\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OTRL_BASE}/$1/%{ENV:SRC_URL_OTRL_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# ### TsDC (core)
+
+SetEnvIf Request_URI ^ SRC_URL_TSDC_BASE=https://gitlab.com/OSEGermany/oh-tsdc/-/raw
+SetEnvIf Request_URI ^ SRC_URL_TSDC_FILE_PATH=oh-tsdc.ttl
+
+# latest
+RewriteRule \
+	^ont/tsdc([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_BASE}/master/%{ENV:SRC_URL_TSDC_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/tsdc([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_BASE}/$1/%{ENV:SRC_URL_TSDC_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/tsdc([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_BASE}/master/%{ENV:SRC_URL_TSDC_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/tsdc([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_BASE}/$1/%{ENV:SRC_URL_TSDC_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### TsDC requirements
+
+# This copies the value from `SRC_URL_TSDC_BASE` -> `SRC_URL_TSDC_REQ_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_TSDC_BASE "(.*)" "SRC_URL_TSDC_REQ_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_TSDC_REQ_FILE_PATH=tsdc-req.ttl
+
+# latest
+RewriteRule \
+	^ont/tsdc[/-]?r(eq(uirements)?)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# versioned & other branches
+RewriteRule \
+	^ont/([^/]+)/tsdc[/-]?r(eq(uirements)?)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/tsdc[/-]?r(eq(uirements)?)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/master/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# versioned & other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/tsdc[/-]?r(eq(uirements)?)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_TSDC_REQ_BASE}/$1/%{ENV:SRC_URL_TSDC_REQ_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
+# ### OSH - Core
+
+SetEnvIf Request_URI ^ SRC_URL_OSH_BASE=https://codeberg.org/oseg/osh-ont/raw
+SetEnvIf Request_URI ^ SRC_URL_OSH_FILE_PATH=src/ontology/osh.ttl
+
+# latest
+RewriteRule \
+	^ont/osh([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/branch/master/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/tag/$1/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh([/-]?core)?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/branch/$1/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/branch/master/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/tag/$1/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh([/-]?core)?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_BASE}/branch/$1/%{ENV:SRC_URL_OSH_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### OSH - Meta
+
+# This copies the value from `SRC_URL_OSH_BASE` -> `SRC_URL_OSH_META_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OSH_BASE "(.*)" "SRC_URL_OSH_META_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OSH_META_FILE_PATH=src/ontology/meta.ttl
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/branch/master/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$1 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/tag/$1/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/branch/$1/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/branch/master/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=$1$2 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/tag/$1/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?meta\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_META_BASE}/branch/$1/%{ENV:SRC_URL_OSH_META_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# ### OSH - Example - Tractor
+
+# This copies the value from `SRC_URL_OSH_BASE` -> `SRC_URL_OSH_EX_TRACTOR_BASE`.
+# See <https://stackoverflow.com/questions/65724437/htaccess-set-environment-variable-using-another-environment-variable>.
+SetEnvIf SRC_URL_OSH_BASE "(.*)" "SRC_URL_OSH_EX_TRACTOR_BASE=$1"
+SetEnvIf Request_URI ^ SRC_URL_OSH_EX_TRACTOR_FILE_PATH=src/ontology/osh-example-tractor.ttl
+
+# latest
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/branch/master/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/tag/$1/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/branch/$1/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/branch/master/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/tag/$1/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/osh[/-]?ex(ample)?[/-]?tractor\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_OSH_EX_TRACTOR_BASE}/branch/$1/%{ENV:SRC_URL_OSH_EX_TRACTOR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### Comments
+
+SetEnvIf Request_URI ^ SRC_URL_CMT_BASE=https://codeberg.org/elevont/cmt-ont/raw
+SetEnvIf Request_URI ^ SRC_URL_CMT_FILE_PATH=src/ont/cmt.ttl
+
+# latest
+RewriteRule \
+	^ont/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(cmt|comment)s?(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(cmt|comment)s?\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ### Open Data-set
+
+SetEnvIf Request_URI ^ SRC_URL_CMT_BASE=https://codeberg.org/elevont/open-dataset/raw
+SetEnvIf Request_URI ^ SRC_URL_CMT_FILE_PATH=src/ont/ods.ttl
+
+# latest
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$4 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/master/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/tag/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(o|open-)(ds|data-?set)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_CMT_BASE}/branch/$1/%{ENV:SRC_URL_CMT_FILE_PATH}&file-ext=$4$5 \
+	[R=302,L]
+
+# ### Prtr
+
+SetEnvIf Request_URI ^ SRC_URL_PRTR_BASE=https://codeberg.org/elevont/prtr-ont/raw
+SetEnvIf Request_URI ^ SRC_URL_PRTR_FILE_PATH=src/ont/prtr.ttl
+
+# latest
+RewriteRule \
+	^ont/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/master/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$2 \
+	[R=302,L]
+
+# versioned
+RewriteRule \
+	^ont/([0-9][^/]*)/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/tag/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# other branches
+RewriteRule \
+	^ont/([^/]+)/(prtr|prettier)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=%{ENV:FILE_EXT}$3 \
+	[R=302,L]
+
+# For debugging, we also support adding the format specific file-extension
+
+# latest - debugging
+RewriteRule \
+	^ont/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/master/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$2$3 \
+	[R=302,L]
+
+# versioned - debugging
+RewriteRule \
+	^ont/([0-9][^/]+)/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/tag/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# other branches - debugging
+RewriteRule \
+	^ont/([^/]+)/(prtr|prettier)\.([^/#]+)(#[^/]+)?$ \
+	%{ENV:PROXY}/?uri=%{ENV:SRC_URL_PRTR_BASE}/branch/$1/%{ENV:SRC_URL_PRTR_FILE_PATH}&file-ext=$3$4 \
+	[R=302,L]
+
+# ## Schemas
+
+# ### OKH
+
+SetEnvIf Request_URI ^ SRC_URL_SCHEMA_OKH_BASE=https://json.schemastore.org
+SetEnvIf Request_URI ^ SRC_URL_SCHEMA_OKH_FILE_PATH=okh.json
+
+RewriteRule \
+	^schemas?/okh((.schema)?.json)?(#[^/]*)?$ \
+	%{ENV:SRC_URL_SCHEMA_OKH_BASE}/%{ENV:SRC_URL_SCHEMA_OKH_FILE_PATH}$3 \
+	[R=302,L]
+
+# ## People
+
+# ### Alexander Stellmach
+
+RewriteRule \
+	^p/([Aa]lex(ander)?([._-]?[Ss]tellmach)?)/orcid \
+	https://orcid.org/0009-0009-2399-0864 \
+	[R=302,L]
+
+# ### Benjamin Kashlan (Bene)
+
+RewriteRule \
+	^p/([Bb]en(e|jamin)([._-]?[/Kk]ashlan)?)/orcid \
+	https://orcid.org/0009-0001-4393-1310 \
+	[R=302,L]
+
+# ### Martin Haeuer
+
+RewriteRule \
+	^p/(([Mm]artin([._-]?[Hh]aeuer)?)|moe)/orcid \
+	https://orcid.org/0000-0002-1611-7129 \
+	[R=302,L]
+
+# ### Oliver Schlüter
+
+RewriteRule \
+	^p/(([Oo]liver([._-]?[Ss]chlueter)?)|case06)/orcid \
+	https://orcid.org/0009-0009-4222-3396 \
+	[R=302,L]
+
+# ### Robin Vobruba
+
+RewriteRule \
+	^p/(([Rr]obin([._-]?[Vv]obruba)?)|hoijui([._-]quaero)?)/orcid \
+	https://orcid.org/0009-0004-3559-6542 \
+	[R=302,L]
+
+RewriteRule \
+	^p/(([Rr]obin([._-]?[Vv]obruba)?)|hoijui([._-]quaero)?) \
+	https://hoijui.codeberg.page \
+	[R=302,L]
+
+# ### Timm Wille
+
+RewriteRule \
+	^p/([Tt]imm([._-]?[Ww]ille)?)/orcid \
+	https://orcid.org/0009-0008-7682-0132 \
+	[R=302,L]

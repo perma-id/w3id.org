@@ -1,0 +1,67 @@
+# # /sanskrit-lexicon/
+#
+# Permanent identifier namespace for Linked Open Data derived from the
+# Cologne Digital Sanskrit Dictionaries (https://www.sanskrit-lexicon.uni-koeln.de/).
+#
+# https://w3id.org/sanskrit-lexicon/          -> namespace index
+# https://w3id.org/sanskrit-lexicon/repwg/*   -> rePWG: the re-edition graph of
+#                                                the Petersburg Dictionary
+#                                                (Boehtlingk-Roth PWG and its PW,
+#                                                 SCH, PWKVN, NWS supplements),
+#                                                with the German edition layers
+#                                                and Russian sense definitions;
+#                                                OntoLex-Lemon + TEI Lex-0 + PROV-O
+# https://w3id.org/sanskrit-lexicon/pwg-ru/*  -> 301 to the repwg equivalent
+#                                                (former name of the same graph;
+#                                                 kept permanently so identifiers
+#                                                 minted before 27-07-2026 resolve)
+#
+# Instances use slash IRIs and are resolved with 303 See Other under content
+# negotiation: an RDF media type is served Turtle, anything else HTML.
+# The hash form (vocab#term) is reserved for the project vocabulary document.
+#
+# The redirect target is GitHub Pages so that the identifiers stay independent
+# of any project domain or hosting arrangement.
+#
+# ## Contact
+# This space is administered by:
+#
+# Marcis Gasuns
+# rusamskrtam@gmail.com
+# ORCID: 0000-0003-4513-884X
+# GitHub username: gasyoun
+
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+AddType application/n-triples .nt
+
+RewriteEngine on
+
+# Namespace index.
+RewriteRule ^$ https://gasyoun.github.io/pwg-ru-lod/ [R=302,L]
+
+# ---- /pwg-ru/ -> /repwg/ ---------------------------------------------------
+#
+# The sub-namespace was renamed to `repwg` on 27-07-2026: four of the five
+# graphs it carries are not Russian (the German edition layers are public-domain
+# Boehtlingk-Roth), so `pwg-ru` named a property the namespace does not have.
+# These 301s are permanent -- an identifier is never withdrawn, only redirected.
+
+RewriteRule ^pwg-ru/?$ https://w3id.org/sanskrit-lexicon/repwg/ [R=301,L]
+RewriteRule ^pwg-ru/(.+)$ https://w3id.org/sanskrit-lexicon/repwg/$1 [R=301,L]
+
+# ---- /repwg/ ---------------------------------------------------------------
+
+# Sub-namespace root.
+RewriteRule ^repwg/?$ https://gasyoun.github.io/pwg-ru-lod/ [R=302,L]
+
+# An RDF media type was requested -> serve Turtle.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^repwg/(.+)$ https://gasyoun.github.io/pwg-ru-lod/$1.ttl [R=303,L]
+
+# Anything else -> serve HTML.
+RewriteRule ^repwg/(.+)$ https://gasyoun.github.io/pwg-ru-lod/$1.html [R=303,L]

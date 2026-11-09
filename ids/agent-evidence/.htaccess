@@ -1,0 +1,30 @@
+# # /agent-evidence/
+#
+# Persistent identifiers for Agent Evidence: in-toto predicate types,
+# conformance vectors and verifiers for evidence about the runs of AI agents.
+# Source: https://github.com/probityai/agent-evidence
+#
+# https://w3id.org/agent-evidence/predicate/v1/<name> redirects to
+# https://probityai.github.io/agent-evidence/predicate/v1/<name>/
+# https://w3id.org/agent-evidence/vocab/v1/<term> redirects to
+# https://probityai.github.io/agent-evidence/vocab/v1/<term>/
+# https://w3id.org/agent-evidence/vocab/v1/registry/sha256-<hex>.yaml redirects to
+# the published registry bytes with that SHA-256, at the same path on Pages.
+# /vocab/v1/registry alone redirects to the vocabulary index.
+# https://w3id.org/agent-evidence/, /predicate/v1/ and /vocab/v1/ redirect to
+# the pages that list them. Any other path answers 404.
+#
+# ## Contact
+# This space is administered by:
+#
+# Sankalp Gilda
+# GitHub username: astrogilda
+
+RewriteEngine on
+RewriteRule ^$ https://probityai.github.io/agent-evidence/ [R=302,L]
+RewriteRule ^predicate/v1/?$ https://probityai.github.io/agent-evidence/predicate/v1/ [R=302,L]
+RewriteRule ^predicate/v1/([a-z0-9-]+)/?$ https://probityai.github.io/agent-evidence/predicate/v1/$1/ [R=302,L]
+RewriteRule ^vocab/v1/?$ https://probityai.github.io/agent-evidence/vocab/v1/ [R=302,L]
+RewriteRule ^vocab/v1/registry/(sha256-[0-9a-f]{64}\.yaml)$ https://probityai.github.io/agent-evidence/vocab/v1/registry/$1 [R=302,L]
+RewriteRule ^vocab/v1/registry/?$ https://probityai.github.io/agent-evidence/vocab/v1/ [R=302,L]
+RewriteRule ^vocab/v1/([a-z0-9_]+)/?$ https://probityai.github.io/agent-evidence/vocab/v1/$1/ [R=302,L]

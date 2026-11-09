@@ -1,0 +1,16 @@
+# ATLAS — tribology knowledge-extraction ontology
+# https://w3id.org/atlas/
+Options +FollowSymLinks
+RewriteEngine on
+
+# Concept IRIs → public concept pages (303; client re-sends Accept, Django negotiates)
+RewriteRule ^tribology/concept/(.+)$ https://atlas-web-production-a3c8.up.railway.app/ontology/concept/$1/ [R=303,L]
+
+# Version IRIs (CalVer: YYYY.MM.DD.N) → frozen release pages
+RewriteRule ^tribology/(\d{4}\.\d{2}\.\d{2}\.\d+)/?$ https://atlas-web-production-a3c8.up.railway.app/ontology/$1/ [R=303,L]
+
+# Namespace root (also covers hash-namespace class IRIs — fragments never reach the server)
+RewriteRule ^tribology/?$ https://atlas-web-production-a3c8.up.railway.app/ontology/ [R=303,L]
+
+# Bare /atlas/ root → project homepage
+RewriteRule ^$ https://atlas-web-production-a3c8.up.railway.app/ [R=302,L]

@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+RewriteEngine On
+
+AddType text/turtle .ttl
+
+# Maintainer: Sebastian Seiß
+# GitHub: https://github.com/SebSeis
+# Contact: sebastian.seiss@uni-weimar.de
+
+# HTML documentation
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*$
+RewriteRule ^$ https://sebseis.github.io/BRIO/ [R=303,NE,L]
+
+# Turtle serialization
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://sebseis.github.io/BRIO/BrIO.ttl [R=303,NE,L]
+
+# Direct file access
+RewriteRule ^BrIO\.ttl$ https://sebseis.github.io/BRIO/BrIO.ttl [R=302,NE,L]
+RewriteRule ^BrIO\.html$ https://sebseis.github.io/BRIO/ [R=302,NE,L]
+
+# Default
+RewriteRule ^$ https://sebseis.github.io/BRIO/ [R=303,NE,L]

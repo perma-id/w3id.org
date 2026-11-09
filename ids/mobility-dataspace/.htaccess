@@ -1,0 +1,28 @@
+Header always set Access-Control-Allow-Origin *
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Connector Management API JSON-LD context (mds-edc) - https://w3id.org/mobility-dataspace/connector/management/v1
+RewriteRule ^connector/management/v1$ https://mobility-data-space.github.io/mds-edc/context/mds-management-context-v1.jsonld [R=302,L]
+
+# MDS dataspace profile (mds-profile version 2026/1)
+# https://w3id.org/mobility-dataspace/2026/1/policy/context.jsonld
+# https://w3id.org/mobility-dataspace/2026/1/credentials/context.jsonld
+RewriteRule ^2026/1/(policy|credentials)/context\.jsonld$ https://mobility-data-space.github.io/mds-profile/2026/1/$1/context.jsonld [R=302,L]
+
+# JSON Schemas of the MDS verifiable credentials - https://w3id.org/mobility-dataspace/2026/1/credentials/MembershipCredential.schema.json
+RewriteRule ^2026/1/credentials/([\w.-]+\.schema\.json)$ https://mobility-data-space.github.io/mds-profile/2026/1/credentials/$1 [R=302,L]
+
+# Vocabulary namespaces and the terms minted in them
+RewriteRule ^2026/1/(policy|credentials)/?[^/]*$ https://mobility-data-space.github.io/mds-profile/2026/1/$1/ [R=303,L]
+
+# The profile version itself - https://w3id.org/mobility-dataspace/2026/1/
+RewriteRule ^2026/1/?$ https://mobility-data-space.github.io/mds-profile/2026/1/ [R=303,L]
+
+# Default
+RewriteRule ^.*$ https://github.com/Mobility-Data-Space/mds-profile [R=303,L]

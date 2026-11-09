@@ -1,0 +1,28 @@
+# w3id.org permanent identifiers for the aktagon ontology family
+#
+# https://w3id.org/aktagon/ redirects to https://ontology.aktagon.com/
+#
+# ## Contact
+# This space is administered by:
+#
+# Christian Hellsten
+# christian@aktagon.com
+# GitHub username: christianhellsten
+
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /aktagon
+
+# Bare authority -> human-readable index
+RewriteRule ^$ https://ontology.aktagon.com/ [R=302,L]
+
+# Linked-data clients (Turtle / JSON-LD): 303 per httpRange-14,
+# since these IRIs name concepts, not the documents describing them.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://ontology.aktagon.com/$1 [R=303,L]
+
+# Default (browsers and everything else), path-preserving
+RewriteRule ^(.+)$ https://ontology.aktagon.com/$1 [R=302,L]

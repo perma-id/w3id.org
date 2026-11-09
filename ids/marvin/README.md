@@ -1,0 +1,28 @@
+# Marvin
+
+Persistent URI namespace for the Marvin AI-augmented ontology development environment.
+
+Marvin provides collaborative, AI-assisted tooling for developing and maintaining
+ontology extensions, with particular focus on 4D extensional ontologies.
+
+## Namespaces registered
+
+| URI | Description |
+|-----|-------------|
+| `https://w3id.org/marvin/` | Core Marvin ontology |
+| `https://w3id.org/marvin/projections/` | Marvin projections ontology |
+
+Turtle requests (`Accept: text/turtle`) redirect to the raw ontology files;
+all other requests redirect to the repository.
+
+## Contact
+
+This space is administered by:
+
+Dave Dyke<br>
+23141680+aigora-de@users.noreply.github.com<br>
+GitHub: aigora-de
+
+## Repository
+
+https://github.com/aigora-de/marvin-ns

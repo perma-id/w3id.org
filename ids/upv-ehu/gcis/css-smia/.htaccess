@@ -1,0 +1,22 @@
+# .htaccess file for the OWL ontology file of the CSS model adapted to the SMIA approach.
+
+RewriteEngine on
+
+# Redirect ontology IRI (RDF or XML requests) to the current file in the specific version of the SMIA GitHub repository
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(\d\.\d\.\d)/?$ https://raw.githubusercontent.com/ekhurtado/SMIA/refs/tags/v$1/additional_resources/css_smia_ontology/CSS-ontology-smia.owl [R=303,NC,L]
+
+# Redirect ontology IRI without specific version (RDF or XML requests) to the current file in the main branch of the SMIA GitHub repository
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/?$ https://raw.githubusercontent.com/ekhurtado/SMIA/refs/heads/main/additional_resources/css_smia_ontology/CSS-ontology-smia.owl [R=303,NC,L]
+
+# Redirect HTML requests to the main SMIA repository page
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(\d\.\d\.\d)?/?$ https://github.com/ekhurtado/SMIA [R=302,NC,L]

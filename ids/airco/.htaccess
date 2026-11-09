@@ -1,0 +1,25 @@
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/owl+xml .owl
+AddType application/rdf+xml .rdf
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://catalink-eu.github.io/AIRCO/airco.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://catalink-eu.github.io/AIRCO/airco.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://catalink-eu.github.io/AIRCO/airco.rdf [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://catalink-eu.github.io/AIRCO/airco.jsonld [R=302,L]
+
+RewriteRule ^$ https://catalink-eu.github.io/AIRCO [R=302,L]
+RewriteRule ^(.*)$ https://catalink-eu.github.io/AIRCO/$1 [R=302,L]

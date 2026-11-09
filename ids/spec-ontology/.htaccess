@@ -1,0 +1,31 @@
+RewriteEngine on
+
+# 1: Explicit URL of normative file (no content-negotiation)
+# Only TTL => ALL
+
+RewriteRule ^sparql$ https://hub.laces.tech/crow/spec-ontology/p/spec-all/sparql [R=302,L]
+
+# 2: Non-explicit URL, explicit Accept-header
+# Onlyt TTL => Turtle
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^spec/.*$ https://docs.crow.nl/spec-ontology/data/spec.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^bind/.*$ https://docs.crow.nl/spec-ontology/data/spec-bind.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^cat/.*$ https://docs.crow.nl/spec-ontology/data/spec-cat.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^doco/.*$ https://docs.crow.nl/spec-ontology/data/spec-doco.ttl [R=302,L]
+
+# Final, matching anything (includes Accept = text/html)
+RewriteRule ^spec/(.*)$ https://docs.crow.nl/spec-ontology/#$1 [R=302,L,NE]
+RewriteRule ^bind/(.*)$ https://docs.crow.nl/spec-ontology/spec-bind/#$1 [R=302,L,NE]
+RewriteRule ^cat/(.*)$ https://docs.crow.nl/spec-ontology/spec-cat/#$1 [R=302,L,NE]
+RewriteRule ^doco/(.*)$ https://docs.crow.nl/spec-ontology/spec-doco/#$1 [R=302,L,NE]

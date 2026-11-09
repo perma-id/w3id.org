@@ -1,0 +1,111 @@
+# --- Add content types if not configured at server level ---
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+RewriteBase /
+
+# --- 1. Content Negotiation for ontology base IRI ---
+# Ontology IRI: https://w3id.org/evorao/
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/jsonld/evora_schema.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=303,L]
+
+# Fallback: human-readable OLS if no specific format matched
+RewriteRule ^$ https://www.ebi.ac.uk/ols4/ontologies/evorao [R=303,L]
+
+# --- 2. Source file aliases (convenience redirects) ---
+RewriteRule ^owl\.ttl$         https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao$           https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.ttl$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.owl\.ttl$ https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.owl$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/owl/evora_ontology.owl.ttl [R=302,L]
+RewriteRule ^evorao\.rdf$      https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/rdf/evora_schema.rdf [R=302,L]
+RewriteRule ^evorao\.jsonld$   https://raw.githubusercontent.com/EVORA-project/evora-ontology/main/models/subsidiary_models/jsonld/evora_schema.jsonld [R=302,L]
+
+# --- 3. Redirect imported terms explicitly ---
+
+# Classes from upper ontologies
+RewriteRule ^Resource$             https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Resource [NE,R=302,L]
+RewriteRule ^Dataset$              https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Dataset [NE,R=302,L]
+RewriteRule ^DataService$          https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523DataService [NE,R=302,L]
+RewriteRule ^Catalog$              https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Catalog [NE,R=302,L]
+RewriteRule ^Catalogue$            https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523Catalog [NE,R=302,L]
+RewriteRule ^Agent$                https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FAgent [NE,R=302,L]
+RewriteRule ^PersonOrOrganization$ https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FAgent [NE,R=302,L]
+RewriteRule ^Person$               https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FPerson [NE,R=302,L]
+RewriteRule ^Organization$         https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252FOrganization [NE,R=302,L]
+
+# Classes aliases
+RewriteRule ^DOI$ evorao/Doi [R=302,L]
+RewriteRule ^PDBReference$ evorao/PdbReference [R=302,L]
+RewriteRule ^IPLCOrigin$ evorao/IplcOrigin [R=302,L]
+RewriteRule ^IATAClassification$ evorao/IataClassification [R=302,L]
+RewriteRule ^RI$ evorao/ResearchInfrastructure [R=302,L]
+RewriteRule ^MSDS$ evorao/MaterialSafetyDataSheet [R=302,L]
+RewriteRule ^ProteinTag$ evorao/TagSequence [R=302,L]
+
+# Properties from upper ontologies
+RewriteRule ^title$         https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Ftitle [NE,R=302,L]
+RewriteRule ^description$   https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fdescription [NE,R=302,L]
+RewriteRule ^dateIssued$    https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fissued [NE,R=302,L]
+RewriteRule ^dateModified$  https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fmodified [NE,R=302,L]
+RewriteRule ^identifier$    https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fidentifier [NE,R=302,L]
+RewriteRule ^publisher$     https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Fpublisher [NE,R=302,L]
+RewriteRule ^endpointURL$   https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523endpointURL [NE,R=302,L]
+RewriteRule ^version$       https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523version [NE,R=302,L]
+RewriteRule ^contactPoint$  https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523contactPoint [NE,R=302,L]
+RewriteRule ^keyword$       https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523keyword [NE,R=302,L]
+RewriteRule ^theme$         https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523theme [NE,R=302,L]
+RewriteRule ^category$      https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523theme [NE,R=302,L]
+RewriteRule ^servesDataset$ https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252Fns%\252Fdcat%\2523servesDataset [NE,R=302,L]
+RewriteRule ^license$       https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fpurl.org%\252Fdc%\252Fterms%\252Flicense [NE,R=302,L]
+RewriteRule ^name$          https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252Fname [NE,R=302,L]
+RewriteRule ^homepage$      https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fxmlns.com%\252Ffoaf%\252F0.1%\252Fhomepage [NE,R=302,L]
+RewriteRule ^note$          https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/http%\253A%\252F%\252Fwww.w3.org%\252F2004%\252F02%\252Fskos%\252Fcore%\2523note [NE,R=302,L]
+
+# Properties aliases
+RewriteRule ^endpointURL$ evorao/endpointUrl [R=302,L]
+RewriteRule ^loginURL$ evorao/loginUrl [R=302,L]
+RewriteRule ^relatedDOI$ evorao/doi [R=302,L]
+RewriteRule ^taxonomicID$ evorao/taxonomicId [R=302,L]
+RewriteRule ^taxonomicNodeID$ evorao/taxonomicNodeId [R=302,L]
+RewriteRule ^sequenceFASTA$ evorao/sequenceFasta [R=302,L]
+RewriteRule ^oRCIDiD$ evorao/orcidId [R=302,L]
+RewriteRule ^rORiD$ evorao/rorId [R=302,L]
+RewriteRule ^memberOfRI$ evorao/memberOfRi [R=302,L]
+RewriteRule ^indigenousPoepleAndLocalCommunityOrigin$ evorao/indigenousPeopleAndLocalCommunityOrigin [R=302,L]
+RewriteRule ^permitIdentifierForABS$ evorao/permitIdentifierForAbs [R=302,L]
+RewriteRule ^accessPointURL$ evorao/accessPointUrl [R=302,L]
+RewriteRule ^refSKU$ evorao/refSku [R=302,L]
+RewriteRule ^canItBeUsedToProduceGMO$ evorao/canBeUsedToProduceGmo [R=302,L]
+RewriteRule ^hasIATAClassification$ evorao/iataClassification [R=302,L]
+RewriteRule ^proteinTAG$ evorao/proteinTag [R=302,L]
+RewriteRule ^relatedPDB$ evorao/relatedPdb [R=302,L]
+RewriteRule ^functionalTechnicalDescription$ evorao/functionalAndTechnicalDescription [R=302,L]
+RewriteRule ^theTAGStatusOfTheSolubilizedProtein$ evorao/orcidId [R=302,L]
+RewriteRule ^hasGbFileOfTheConstruct$ evorao/genBankFileOfTheConstruct [R=302,L]
+RewriteRule ^isItAClonedNucleicAcid$ evorao/clonedNucleicAcid [R=302,L]
+RewriteRule ^pasmidSelection$ evorao/plasmidSelection [R=302,L]
+RewriteRule ^hasSOPFile$ evorao/standardOperatingProcedureFile [R=302,L]
+RewriteRule ^productsOfTheBundle$ evorao/itemsOfTheBundle [R=302,L]
+RewriteRule ^msdsContact$ evorao/materialSafetyContact [R=302,L]
+RewriteRule ^contentURL$ evorao/contentUrl [R=302,L]
+RewriteRule ^resourceURL$ evorao/resourceUrl [R=302,L]
+RewriteRule ^ID$ evorao/version [R=302,L]
+RewriteRule ^proteinTag$ evorao/tagSequence [R=302,L]
+RewriteRule ^beforeDate$ evorao/collectedBeforeDate [R=302,L]
+
+# --- 4. Redirect EVORAO-local terms to OLS using case pattern ---
+
+# Uppercase = classes
+RewriteRule ^([A-Z][^/]+)$ https://www.ebi.ac.uk/ols4/ontologies/evorao/classes/https%\253A%\252F%\252Fw3id.org%\252Fevorao%\252F$1 [NE,R=302,L]
+
+# Lowercase = properties
+RewriteRule ^([a-z][^/]+)$ https://www.ebi.ac.uk/ols4/ontologies/evorao/properties/https%\253A%\252F%\252Fw3id.org%\252Fevorao%\252F$1 [NE,R=302,L]
+

@@ -1,0 +1,17 @@
+# ODRL Legal Profile (ODRL-L) - https://w3id.org/odrl-legal/
+# Maintainer: Daham Mustafa (@Daham-Mustaf)
+Options -MultiViews
+RewriteEngine On
+
+# 1) RDF clients -> Turtle serialization
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples|text/n3) [NC]
+RewriteRule ^.*$ https://daham-mustaf.github.io/odrl-ufol-grounding/ontology/odrl-legal-profile.ttl [R=303,L]
+
+# 2) Version IRI -> Turtle serialization
+RewriteRule ^(?:[^/]+/)*1\.0/?$ https://daham-mustaf.github.io/odrl-ufol-grounding/ontology/odrl-legal-profile.ttl [R=303,L]
+
+# 3) Named term (browser) -> its anchor in the docs
+RewriteRule ^(?:[^/]+/)*([A-Za-z][A-Za-z0-9_-]*)/?$ https://daham-mustaf.github.io/odrl-ufol-grounding/#$1 [R=303,NE,L]
+
+# 4) Bare namespace (browser) -> docs home
+RewriteRule ^(?:[^/]+/)*$ https://daham-mustaf.github.io/odrl-ufol-grounding/ [R=303,L]

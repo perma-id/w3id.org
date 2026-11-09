@@ -1,0 +1,54 @@
+# # /cgs/
+#
+# Identifiers for the Center for Geospatial Solutions (CGS).
+#
+# https://w3id.org/cgs/ontology/core/<name> is content negotiated and
+# redirects (303) to the matching file under
+# https://cgs-earth.github.io/ontologies/
+#
+#   Accept: text/turtle           -> <name>.ttl
+#   Accept: application/rdf+xml   -> <name>.xml
+#   Accept: application/ld+json   -> <name>.json
+#   Accept: application/json      -> <name>.json
+#   Accept: application/n-triples -> <name>.nt
+#   anything else (browsers)      -> <name>/ (HTML documentation)
+#
+# e.g. https://w3id.org/cgs/ontology/core/spatiotemporal/ redirects to
+# https://cgs-earth.github.io/ontologies/spatiotemporal.ttl for Turtle clients
+# and to https://cgs-earth.github.io/ontologies/spatiotemporal/ for browsers.
+#
+# A format can also be requested explicitly, e.g.
+# https://w3id.org/cgs/ontology/core/spatiotemporal.ttl
+#
+# ## Contact
+# This space is administered by:
+#
+# Colton Loftus
+# GitHub username: C-Loftus
+#
+# Benjamin Webb
+# GitHub username: webb-ben
+
+RewriteEngine on
+
+# Explicit format in the URL, e.g. spatiotemporal.ttl
+RewriteRule ^ontology/core/([^/]+)\.(ttl|xml|json|nt)$ https://cgs-earth.github.io/ontologies/$1.$2 [R=303,L]
+
+# Content negotiation on the bare ontology IRI, with or without a trailing slash.
+# Browsers never send these types, so they fall through to the HTML default.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.xml [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.json [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ontology/core/([^/]+)/?$ https://cgs-earth.github.io/ontologies/$1.nt [R=303,L]
+
+# Default: everything else, including browsers and */*, gets the HTML documentation.
+RewriteRule ^ontology/core/(.*)$ https://cgs-earth.github.io/ontologies/$1 [R=303,L]

@@ -1,0 +1,18 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://raw.githubusercontent.com/lpanfilb/practicaDOI/main/ontology.ttl [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^$ https://raw.githubusercontent.com/lpanfilb/practicaDOI/main/ontology.owl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld+json
+RewriteRule ^$ https://raw.githubusercontent.com/lpanfilb/practicaDOI/main/ontology.jsonld [R=303,L]
+
+# Default: HTML/documentation
+RewriteRule ^$ https://github.com/lpanfilb/practicaDOI [R=303,L]

@@ -1,0 +1,159 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^$ https://adapt-ark.github.io/ark-websites/ [R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Cube
+RewriteRule ^Cube$ /ARK/Cube/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^Cube/$ https://adapt-ark.github.io/ark-ontology/ARKCube/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^Cube/$ https://adapt-ark.github.io/ark-ontology/ARKCube/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^Cube/$ https://adapt-ark.github.io/ark-ontology/ARKCube/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^Cube/$ https://adapt-ark.github.io/ark-ontology/ARKCube/ontology.owl [R=303,L]
+
+RewriteRule ^Cube/$ https://adapt-ark.github.io/ark-ontology/ARKCube/index-en.html [R=303,L]
+
+RewriteRule ^Cube/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKCube/index-en.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Platform
+RewriteRule ^Platform$ /ARK/Platform/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^Platform/$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^Platform/$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^Platform/$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^Platform/$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/ontology.owl [R=303,L]
+
+RewriteRule ^Platform/$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/index.html [R=303,L]
+
+RewriteRule ^Platform/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKPlatform/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Risk Terminology (TTL only)
+RewriteRule ^RiskTerminology$ /ARK/RiskTerminology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^RiskTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKRiskTerminology/terms.ttl [R=303,L]
+
+RewriteRule ^RiskTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKRiskTerminology/index.html [R=303,L]
+
+RewriteRule ^RiskTerminology/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKRiskTerminology/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Health Terminology (TTL only)
+RewriteRule ^HealthTerminology$ /ARK/HealthTerminology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^HealthTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKHealthTerminology/healthTerms.ttl [R=303,L]
+
+RewriteRule ^HealthTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKHealthTerminology/index.html [R=303,L]
+
+RewriteRule ^HealthTerminology/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKHealthTerminology/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Platform Terminology (TTL only)
+RewriteRule ^PlatformTerminology$ /ARK/PlatformTerminology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^PlatformTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKPlatformTerminology/ARKPlatformTerms.ttl [R=303,L]
+
+RewriteRule ^PlatformTerminology/$ https://adapt-ark.github.io/ark-ontology/ARKPlatformTerminology/index.html [R=303,L]
+
+RewriteRule ^PlatformTerminology/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKPlatformTerminology/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# Hospital Adverse Incidents Categories and Subcategories Terminology (TTL only)
+RewriteRule ^HospitalAdverseIncidentsCategoriesAndSubcategoriesTerminology$ /ARK/HospitalAdverseIncidentsCategoriesAndSubcategoriesTerminology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^HospitalAdverseIncidentsCategoriesAndSubcategoriesTerminology/$ https://adapt-ark.github.io/ark-ontology/HAdvIncCats/AIRCatSubcatTerms.ttl [R=303,L]
+
+RewriteRule ^HospitalAdverseIncidentsCategoriesAndSubcategoriesTerminology/$ https://adapt-ark.github.io/ark-ontology/HAdvIncCats/index.html [R=303,L]
+
+RewriteRule ^HospitalAdverseIncidentsCategoriesAndSubcategoriesTerminology/(.+)$ https://adapt-ark.github.io/ark-ontology/HAdvIncCats/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Controls Ontology
+RewriteRule ^ControlsOntology$ /ARK/ControlsOntology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ControlsOntology/$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^ControlsOntology/$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^ControlsOntology/$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ControlsOntology/$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/ontology.owl [R=303,L]
+
+RewriteRule ^ControlsOntology/$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/index.html [R=303,L]
+
+RewriteRule ^ControlsOntology/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKControlsOntology/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Cybersecurity Terminology
+RewriteRule ^CybersecurityTerminology$ /ARK/CybersecurityTerminology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^CybersecurityTerminology/$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^CybersecurityTerminology/$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^CybersecurityTerminology/$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CybersecurityTerminology/$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/ontology.owl [R=303,L]
+
+RewriteRule ^CybersecurityTerminology/$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/index.html [R=303,L]
+
+RewriteRule ^CybersecurityTerminology/(.+)$ https://adapt-ark.github.io/ark-ontology/CybersecurityTerminology/index.html#$1 [NE,R=302,L]
+
+# ---------------------------------------------------------------------------
+# ARK Logging Ontology
+RewriteRule ^LoggingOntology$ /ARK/LoggingOntology/ [R=301,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^LoggingOntology/$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^LoggingOntology/$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^LoggingOntology/$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^LoggingOntology/$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/ontology.owl [R=303,L]
+
+RewriteRule ^LoggingOntology/$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/index.html [R=303,L]
+
+RewriteRule ^LoggingOntology/(.+)$ https://adapt-ark.github.io/ark-ontology/ARKLoggingOntology/index.html#$1 [NE,R=302,L]

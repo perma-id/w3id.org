@@ -1,0 +1,27 @@
+# Sunstone Institute RDF registry
+# Redirects https://w3id.org/sunstone/* to https://sunstone.institute/rdf/*
+RewriteEngine on
+
+# Paths with an explicit format extension: redirect as-is
+RewriteRule ^(.*\.(ttl|jsonld|rdf|html|md))$ https://sunstone.institute/rdf/$1 [R=302,NE,L]
+
+## Content negotiation for extension-less resource IRIs
+# RDF 1.2 Turtle (opt-in via profile parameter)
+RewriteCond %{HTTP_ACCEPT} text/turtle.*profile="?https://sunstone\.institute/ns/rdf-1\.2"? [NC]
+RewriteRule ^(.*[^/])$ https://sunstone.institute/rdf/$1.1-2.ttl [R=302,NE,L]
+
+# Turtle (RDF 1.1)
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^(.*[^/])$ https://sunstone.institute/rdf/$1.ttl [R=302,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(.*[^/])$ https://sunstone.institute/rdf/$1.jsonld [R=302,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(.*[^/])$ https://sunstone.institute/rdf/$1.rdf [R=302,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/markdown [NC]
+RewriteRule ^(.*[^/])$ https://sunstone.institute/rdf/$1.md [R=302,NE,L]
+
+# Everything else (browsers, HTML, no Accept): origin negotiates
+RewriteRule ^(.*)$ https://sunstone.institute/rdf/$1 [R=302,NE,L]

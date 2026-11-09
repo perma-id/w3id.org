@@ -1,0 +1,96 @@
+# =============================================================
+# w3id.org/dmfo — DMFO Ontology
+#
+# Maintainer: Jan Christian Redlich <jan.redlich@bonnsystems.com>
+# Source repo: https://github.com/JanChristianRedlich/DMFO
+# License: CC-BY-4.0
+#
+# Resolution scheme:
+#   /dmfo                          → aggregated TBox (dmfo-full)
+#   /dmfo/{module}                 → module TBox (latest on main)
+#   /dmfo/{module}/{version}       → module TBox at that version tag
+#   /dmfo/full/{version}           → aggregated TBox at that version
+#   /dmfo/profiles/{profile}       → profile TBox (latest on main)
+#   /dmfo/profiles/{profile}/{version}
+#                                  → profile TBox at that version
+#
+#   Modules: identity, state, evidence, context, activity, location,
+#            identity-deriv
+#   Profiles: maritime, food
+#
+# HTML clients (browsers, Accept: text/html) are redirected to the
+# GitHub repo as the human-readable landing page; all other Accept
+# headers (text/turtle, application/rdf+xml, application/ld+json,
+# */*) receive the Turtle source.
+# =============================================================
+
+Options +FollowSymLinks
+Options -MultiViews
+
+AddType text/turtle               .ttl
+AddType application/rdf+xml       .rdf
+AddType application/ld+json       .jsonld
+AddType text/n3                   .n3
+
+RewriteEngine On
+
+# ------------------------------------------------------------------
+# 1. HTML clients — send to GitHub landing page
+# ------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT}  text/html
+RewriteRule ^$  https://github.com/JanChristianRedlich/DMFO  [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT}  text/html
+RewriteRule ^(identity|state|evidence|context|activity|location|identity-deriv)/?$ \
+            https://github.com/JanChristianRedlich/DMFO/blob/main/ontology/dmfo-$1.ttl  [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT}  text/html
+RewriteRule ^profiles/(maritime|food)/?$ \
+            https://github.com/JanChristianRedlich/DMFO/tree/main/profiles/$1  [R=302,L]
+
+# ------------------------------------------------------------------
+# 2. Versioned ontology requests — pin to git tag vX.Y.Z
+# ------------------------------------------------------------------
+
+# Versioned aggregated ontology:  /dmfo/full/1.0.0
+RewriteRule ^full/([0-9]+\.[0-9]+\.[0-9]+)/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/v$1/ontology/dmfo-full.ttl  [R=302,L]
+
+# Versioned module ontology:  /dmfo/identity/1.0.0  …  /dmfo/identity-deriv/1.0.0
+RewriteRule ^(identity|state|evidence|context|activity|location|identity-deriv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/v$2/ontology/dmfo-$1.ttl  [R=302,L]
+
+# Versioned profile ontology:  /dmfo/profiles/maritime/1.0.0
+# (file stems differ per profile: maritime → mar-tbox, food → food-tbox)
+RewriteRule ^profiles/maritime/([0-9]+\.[0-9]+\.[0-9]+)/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/v$1/profiles/maritime/mar-tbox.ttl  [R=302,L]
+RewriteRule ^profiles/food/([0-9]+\.[0-9]+\.[0-9]+)/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/v$1/profiles/food/food-tbox.ttl  [R=302,L]
+
+# ------------------------------------------------------------------
+# 3. Unversioned ontology requests — point at the main branch
+# ------------------------------------------------------------------
+
+# Module TBox:  /dmfo/identity, /dmfo/state, …, /dmfo/identity-deriv
+RewriteRule ^(identity|state|evidence|context|activity|location|identity-deriv)/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/main/ontology/dmfo-$1.ttl  [R=302,L]
+
+# Aggregated TBox:  /dmfo/full
+RewriteRule ^full/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/main/ontology/dmfo-full.ttl  [R=302,L]
+
+# Profile TBox:  /dmfo/profiles/maritime, /dmfo/profiles/food
+# (file stems differ per profile: maritime → mar-tbox, food → food-tbox)
+RewriteRule ^profiles/maritime/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/main/profiles/maritime/mar-tbox.ttl  [R=302,L]
+RewriteRule ^profiles/food/?$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/main/profiles/food/food-tbox.ttl  [R=302,L]
+
+# ------------------------------------------------------------------
+# 4. Default — bare /dmfo and hash-fragment requests resolve to the
+#    aggregated Turtle. This is what fetches like
+#    `https://w3id.org/dmfo#TimeVaryingEntity` resolve to (the
+#    fragment is stripped by the HTTP layer before redirection).
+# ------------------------------------------------------------------
+RewriteRule ^$ \
+            https://raw.githubusercontent.com/JanChristianRedlich/DMFO/main/ontology/dmfo-full.ttl  [R=302,L]

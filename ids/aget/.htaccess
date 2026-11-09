@@ -1,0 +1,16 @@
+# w3id.org/aget — AGET Framework Vocabulary
+# Content negotiation per W3C swbp-vocab-pub Recipe 3 (hash namespace).
+# Default (incl. */* and empty Accept) is RDF Turtle, deterministically.
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^vocab$ https://aget-framework.github.io/vocab/vocab.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^vocab$ https://aget-framework.github.io/vocab/vocab.jsonld [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^vocab$ https://aget-framework.github.io/vocab/index.html [R=302,L]
+
+RewriteRule ^vocab$ https://aget-framework.github.io/vocab/vocab.ttl [R=302,L]

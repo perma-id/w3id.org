@@ -1,0 +1,20 @@
+# w3id.org/baires-raffaelli  ->  GitHub Pages of the dataset repository
+# Hosted on GitHub Pages of the account by-res (repository baires-raffaelli).
+Options +FollowSymLinks
+RewriteEngine On
+
+# Landing page
+RewriteRule ^$ https://by-res.github.io/baires-raffaelli/ [R=302,L]
+
+# Data files and vocabulary documents
+RewriteRule ^data/(.+)$ https://by-res.github.io/baires-raffaelli/data/$1 [R=302,L]
+
+# Vocabulary IRI (https://w3id.org/baires-raffaelli/vocab#term): content negotiation
+RewriteRule ^vocab$ https://by-res.github.io/baires-raffaelli/vocab/vocab.ttl [R=303,L]
+
+# Node IRIs (https://w3id.org/baires-raffaelli/id/<node>): 303 to the data file chosen by the Accept header
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^id/ https://by-res.github.io/baires-raffaelli/data/baires-raffaelli.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^id/ https://by-res.github.io/baires-raffaelli/data/baires-raffaelli.ttl [R=303,L]
+RewriteRule ^id/ https://by-res.github.io/baires-raffaelli/ [R=303,L]

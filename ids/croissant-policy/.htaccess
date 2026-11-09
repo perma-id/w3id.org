@@ -1,0 +1,43 @@
+# Name of the project: Croissant Policy Profile
+#
+# Description: An additive policy layer for Croissant dataset descriptors.
+#   Croissant describes what a dataset is; it does not say what may be done with
+#   it. This profile lets a dataset declare the operations it admits and the
+#   conditions under which it admits them, so that a gate in front of the data
+#   can permit or refuse a request from the descriptor alone and leave a record
+#   of what it checked.
+#
+#   This is an independent profile built on Croissant. It is not an MLCommons
+#   product and carries no endorsement from the Croissant project.
+#
+# Specification, reference implementation and conformance validator:
+#   https://github.com/doytsujin/ok-croissant-policy-profile
+#
+# Contacts:
+# - Alexander Chernov, GitHub username: doytsujin
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks -MultiViews
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ PROFILE_URL=https://doytsujin.github.io/ok-croissant-policy-profile/ns
+
+# A specific version, asked for as JSON-LD: the context document.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ %{ENV:PROFILE_URL}/$1/context.jsonld [R=303,L]
+
+# A specific version, asked for by a browser or anything else: the profile.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ %{ENV:PROFILE_URL}/$1/ [R=303,L]
+
+# A term within a version, e.g. /0.1.0/policy. There is no per-term document,
+# so a term resolves to the profile document that defines it.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(.+)$ %{ENV:PROFILE_URL}/$1/ [R=303,L]
+
+# The bare namespace: the version index.
+RewriteRule ^$ %{ENV:PROFILE_URL}/ [R=303,L]
+
+# Anything else.
+RewriteRule ^(.*)$ %{ENV:PROFILE_URL}/ [R=303,L]

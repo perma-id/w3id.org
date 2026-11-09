@@ -1,0 +1,38 @@
+# Dati - schede progetto per Codice Unico di Progetto (CUP) - w3id namespace
+# Le URI  https://w3id.org/italia/PublicInvestment/data/CUP/{CUP}  sono gli
+# IDENTIFICATORI UFFICIALI E PERSISTENTI dei progetti CUP nei Linked Open Data:
+# ovunque, nei dati collegati, un progetto si riferisce con questa URI.
+#
+# Risoluzione:
+#   - HTML (e default): scheda pubblica del progetto su OpenCUP, per codice CUP.
+#   - JSON: rimandato. L'API OpenCUP per singolo CUP e' attualmente protetta da token
+#     (https://api.sogei.it/rgs/opencup/o/extServiceApi/v1/opendataes/cup/{CUP}, risponde 401),
+#     quindi non e' adatta a un'URI aperta. Verra' abilitata quando sara' disponibile un
+#     accesso aperto oppure una scheda statica (HTML+JS) ospitata dal DIPE. Vedi blocco
+#     commentato in fondo, gia' pronto da attivare.
+#
+# Maintainer: DIPE - PCM. Contatto: f.destefanis@governo.it (Francesco De Stefanis), leo.salvatori@governo.it (Leonardo Salvatori) | GitHub: https://github.com/PCM-DIPE
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Risoluzione del singolo CUP -> scheda pubblica OpenCUP (per codice CUP).
+# Esempio: /data/CUP/J59J21000640001 -> https://www.opencup.gov.it/portale/progetto/-/cup/J59J21000640001
+RewriteRule ^CUP/([A-Za-z0-9]+)/?$ https://www.opencup.gov.it/portale/progetto/-/cup/$1 [R=303,L]
+
+
+# ----------------------------------------------------------------------------
+# DA ATTIVARE IN FUTURO (content negotiation HTML/JSON), quando l'accesso al
+# dato sara' aperto. Sostituire la regola sopra con il blocco seguente:
+#
+# SetEnvIf Accept ^.*application/json.* SYNTAX=json
+# SetEnvIf Accept ^.*text/html.*        SYNTAX=html
+#
+# # JSON -> dato strutturato (API aperta o endpoint statico)
+# RewriteCond %{ENV:SYNTAX} ^json$
+# RewriteRule ^CUP/([A-Za-z0-9]+)/?$ https://api.sogei.it/rgs/opencup/o/extServiceApi/v1/opendataes/cup/$1 [R=303,L]
+#
+# # HTML (e default) -> scheda pubblica OpenCUP
+# RewriteRule ^CUP/([A-Za-z0-9]+)/?$ https://www.opencup.gov.it/portale/progetto/-/cup/$1 [R=303,L]
+# ----------------------------------------------------------------------------

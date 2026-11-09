@@ -1,0 +1,25 @@
+# mtbc-atlas -- MTBC Gene Atlas, a continuously updated functional re-annotation of the
+# Mycobacterium tuberculosis complex gene set, anchored on the MTBC0 ancestral genome.
+# Maintainer: Christophe Guyeux, FEMTO-ST Institute (CNRS UMR 6174), Besancon, France.
+# Target instance: https://mtbc.gclab.fr
+# 302 (temporary) on purpose: the instance may move, and a 301 would be cached by clients,
+# which is exactly the lock-in this identifier exists to avoid.
+
+# CORS, as the entries that front a data service do (cf. w3id.org/oc, w3id.org/arco): without it
+# a browser-side client calling the REST API through this identifier is blocked by the same-origin
+# policy, and the persistent identifier would be usable for reading pages but not for querying data.
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Per-gene pages, the URLs cited in publications: /gene/Rv1908c
+RewriteRule ^gene/(.+)$ https://mtbc.gclab.fr/gene/$1 [R=302,L]
+
+# REST API, versioned upstream: /api/v1/genes/Rv1908c
+RewriteRule ^api/(.*)$ https://mtbc.gclab.fr/api/$1 [R=302,L]
+
+# Landing page
+RewriteRule ^$ https://mtbc.gclab.fr/ [R=302,L]
+
+# Anything else keeps its path
+RewriteRule ^(.*)$ https://mtbc.gclab.fr/$1 [R=302,L]

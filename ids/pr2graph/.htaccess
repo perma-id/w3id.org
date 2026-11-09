@@ -1,0 +1,34 @@
+# Privacy Practice Analyze — Pr²Graph
+#
+# Persistent w3id namespace for the Pr²Graph Knowledge Graph ontology,
+# accompanying the ISWC 2026 Resource Track paper:
+#   "A Semantic Resource Suite for Privacy Policy Formalization"
+#
+#   https://w3id.org/pr2graph  →  schema ontology (pr2graph.ttl)
+#
+# Hash namespace: append #ClassName or #propertyName to resolve terms
+#   e.g. https://w3id.org/pr2graph#DataPractice
+# (the fragment is handled client-side and never sent to the server)
+#
+# Content negotiation:
+#   - browsers / HTML-accepting clients → human-readable landing page
+#   - RDF clients                        → pr2graph.ttl (text/turtle)
+#
+# ## Contact
+# This space is administered by:
+#
+# Rui Zhao
+# GitHub username: renyuneyun
+# Email: zhaorui@tju.edu.cn
+
+RewriteEngine on
+
+# Serve the HTML landing page to browsers
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://renyuneyun.github.io/pr2graph/ [R=303,L]
+
+# Serve the RDF ontology to machines
+RewriteRule ^$ https://renyuneyun.github.io/pr2graph/pr2graph.ttl [R=303,L]

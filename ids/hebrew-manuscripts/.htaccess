@@ -1,0 +1,39 @@
+# Hebrew Manuscripts Ontology (HMO)
+# Maintained by the Mapping Hebrew Manuscripts (MHM) project,
+# Bar-Ilan University.
+#
+# Maintainer:
+#   Alexander Goldberg
+#   GitHub: @alexandergolbergwix
+#   ORCID:  0009-0004-5967-9377
+#   Email:  shvedbook@gmail.com
+#
+# Repository:     https://github.com/alexandergolbergwix/pipeline
+# Zenodo deposit: https://doi.org/10.5281/zenodo.19560383
+
+Options +FollowSymLinks
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# Content negotiation:
+#   text/turtle      -> hebrew-manuscripts.ttl
+#   application/rdf+xml or */* -> hebrew-manuscripts.owl
+#   text/html (browsers) -> the GitHub directory page
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://github.com/alexandergolbergwix/pipeline/raw/main/ontology/hebrew-manuscripts.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://github.com/alexandergolbergwix/pipeline/raw/main/ontology/hebrew-manuscripts.owl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://github.com/alexandergolbergwix/pipeline/tree/main/ontology [R=302,L]
+
+# Default (no specific Accept header): serve the OWL/RDF-XML document
+RewriteRule ^$ https://github.com/alexandergolbergwix/pipeline/raw/main/ontology/hebrew-manuscripts.owl [R=302,L]
+
+# Fragment / sub-path requests (e.g. /hebrew-manuscripts/F4_Manifestation_Singleton)
+# also resolve to the canonical OWL document (the term IRIs live inside it).
+RewriteRule ^(.+)$ https://github.com/alexandergolbergwix/pipeline/raw/main/ontology/hebrew-manuscripts.owl [R=302,L]
