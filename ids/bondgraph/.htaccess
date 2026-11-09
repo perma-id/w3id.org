@@ -1,0 +1,54 @@
+# # /bondgraph/
+#
+# Permanent IRIs for the Bond Graph Ontology: an OWL 2 DL core for the bond
+# graph formalism, a biochemical and physiological extension, and a bridge to
+# the Basic Formal Ontology.
+#
+# Source repository: https://github.com/CellDL/bondgraph-ontology
+#
+# Ontology IRIs are content negotiated with 303. A client asking for an RDF
+# media type is sent to the Turtle source; everything else, browsers and */*
+# clients included, is sent to the repository front page. Version IRIs such as
+# https://w3id.org/bondgraph/core/0.1.0 resolve against the matching git tag,
+# so they keep naming the same bytes after main has moved on.
+#
+# ## Contact
+# This space is administered by:
+#
+# David Brooks
+# GitHub username: dbrnz
+# CellDL organisation: https://github.com/CellDL
+
+RewriteEngine on
+
+# The RDF media types this ontology is published in. The condition is repeated
+# before each rule because a RewriteCond governs only the RewriteRule that
+# immediately follows it. The '+' in the structured suffixes is escaped: it is
+# a repetition operator in a regular expression.
+
+# Versioned module IRIs resolve against the matching git tag.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^(core|bfo)/([0-9][^/]*)$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/v$2/src/bondgraph-$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^biochem/([0-9][^/]*)$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/v$1/src/domains/bondgraph-biochem.ttl [R=303,L]
+
+# Current module IRIs resolve against the default branch.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^(core|bfo)/?$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/main/src/bondgraph-$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^biochem/?$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/main/src/domains/bondgraph-biochem.ttl [R=303,L]
+
+# The exemplar model.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^examples/([^/]+)$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/main/examples/$1.ttl [R=303,L]
+
+# The regression models. Their files carry a 'test-' prefix that the IRIs do
+# not, so the prefix is added here rather than renaming the files.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3|application/rdf\+xml|application/ld\+json|application/n-triples|application/n-quads|application/trig)
+RewriteRule ^tests/([^/]+)$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/main/tests/test-$1.ttl [R=303,L]
+
+# Everything else, including browsers and clients sending */*, gets the
+# human-readable repository front page. No condition, so it always matches.
+RewriteRule ^.*$ https://github.com/CellDL/bondgraph-ontology [R=303,L]
