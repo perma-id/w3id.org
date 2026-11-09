@@ -1,0 +1,55 @@
+# # /lsh-platform/
+#
+# Permanent identifiers for the LS&H platform ontologies: the platform
+# vocabulary and the life sciences domain, written in RDF 1.2 with SHACL.
+# Source: https://github.com/pchang/platform/tree/main/ontology
+#
+# Each ontology IRI is content-negotiated: clients that ask for Turtle get the
+# Turtle file, and everything else, including browsers, gets the
+# human-readable page for that file.
+#
+# ## Contact
+# This space is administered by:
+#
+# Paul Chang
+# GitHub username: pchang
+
+RewriteEngine on
+
+# platform
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^platform$ https://raw.githubusercontent.com/pchang/platform/main/ontology/platform.ttl [R=303,L]
+RewriteRule ^platform$ https://github.com/pchang/platform/blob/main/ontology/platform.ttl [R=303,L]
+
+# life-sciences
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/model.ttl [R=303,L]
+RewriteRule ^life-sciences$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/model.ttl [R=303,L]
+
+# life-sciences/term
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences/term$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/terms.ttl [R=303,L]
+RewriteRule ^life-sciences/term$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/terms.ttl [R=303,L]
+
+# life-sciences/shape
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences/shape$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/model.ttl [R=303,L]
+RewriteRule ^life-sciences/shape$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/model.ttl [R=303,L]
+
+# life-sciences/methods
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences/methods$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/methods.ttl [R=303,L]
+RewriteRule ^life-sciences/methods$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/methods.ttl [R=303,L]
+
+# life-sciences/rules
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences/rules$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/rules.ttl [R=303,L]
+RewriteRule ^life-sciences/rules$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/rules.ttl [R=303,L]
+
+# life-sciences/roles
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^life-sciences/roles$ https://raw.githubusercontent.com/pchang/platform/main/ontology/life-sciences/roles.ttl [R=303,L]
+RewriteRule ^life-sciences/roles$ https://github.com/pchang/platform/blob/main/ontology/life-sciences/roles.ttl [R=303,L]
+
+# Anything else under /lsh-platform/, including the root, goes to the ontology folder.
+RewriteRule ^ https://github.com/pchang/platform/tree/main/ontology [R=302,L]
