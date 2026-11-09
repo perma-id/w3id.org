@@ -1,0 +1,20 @@
+# w3id.org permanent identifiers for RIS (Register of Infrastructure / Raziskovalna Infrastruktura)
+#
+# Namespace base: https://w3id.org/egeologija/ris/
+#
+# Redirects:
+#   https://w3id.org/egeologija/ris/oprema/<id>                       -> https://ris-test.geo-zs.si/ris/<id>
+#   https://w3id.org/egeologija/ris/oprema/<id>/uporaba/<uporabaId>   -> https://ris-test.geo-zs.si/ris/oprema/<id>/uporaba/<uporabaId>
+#
+# ## Contact
+# This space is administered by:
+# aljaz.srsa@geo-zs.si
+# GitHub username: asrsa-geozs
+
+RewriteEngine on
+
+# RIS oprema uporaba (equipment usage) — must precede the plain "oprema" rule
+RewriteRule ^oprema/([^/]+)/uporaba/([^/]+)$ https://ris-test.geo-zs.si/ris/oprema/$1/uporaba/$2 [R=302,L,NE]
+
+# RIS oprema (equipment)
+RewriteRule ^oprema/([^/]+)$ https://ris-test.geo-zs.si/ris/$1 [R=302,L,NE]
