@@ -2,7 +2,7 @@
 
 Permanent identifiers for CheezML, one record vocabulary for CubbyLLM, MoWM and CubeLang.
 
-`https://w3id.org/cheezml/` redirects to <https://grillcheese-ai.github.io/cheezml/>.
+`https://w3id.org/cheezml/` redirects to <https://ns.grillcheeseai.com/cheezml/>.
 
 - `https://w3id.org/cheezml/core`, `/cubby`, `/mowm` and `/cubelang` are content-negotiated (303): HTML, Turtle,
   JSON-LD or RDF/XML.
