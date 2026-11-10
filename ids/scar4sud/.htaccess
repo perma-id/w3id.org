@@ -1,11 +1,21 @@
-# SCAR4SUD - Permanent identifiers
+
+# SCAR4SUD - SECARONTO ontology
 #
-# Project: SCAR4SUD
-# Ontology: SECARONTO
+# Persistent identifier:
+# https://w3id.org/scar4sud/secaronto
 #
-# Contact:
-# GitHub username: dfsantamaria
+# Maintainer:
+# GitHub: dfsantamaria
 
 RewriteEngine on
 
-RewriteRule ^secaronto/?$ https://raw.githubusercontent.com/SCAR4SUD/D2/main/ontologies/secaronto.owl [R=302,L]
+# RDF/XML representation
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^secaronto/?$ https://raw.githubusercontent.com/SCAR4SUD/D2/main/ontologies/secaronto.owl [R=303,L]
+
+# HTML documentation (human-readable)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^secaronto/?$ https://github.com/SCAR4SUD/D2/blob/main/ontologies/secaronto.owl [R=303,L]
+
+# Default representation
+RewriteRule ^secaronto/?$ https://github.com/SCAR4SUD/D2/blob/main/ontologies/secaronto.owl [R=303,L]
