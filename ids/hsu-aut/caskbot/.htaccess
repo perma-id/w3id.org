@@ -1,0 +1,19 @@
+# CaSkBot - An Ontology Aligning the Capability and Skill Model of CaSk with the Domain of Autonomous Mobile Robots
+# Repository: https://github.com/CaSkade-Automation/CaSkBot
+# Contact: Luis Miguel Vieira da Silva / GitHub username: Miguel2617
+
+RewriteEngine on
+
+# Version IRI with an RDF request -> the ontology file of that release tag
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSkBot/v$1/caskbot.ttl [R=303,L]
+
+# Version IRI with any other request -> the repository page of that release tag
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/CaSkade-Automation/CaSkBot/tree/v$1 [R=303,L]
+
+# Ontology IRI with an RDF request -> the ontology file on the default branch
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^/?$ https://raw.githubusercontent.com/CaSkade-Automation/CaSkBot/master/caskbot.ttl [R=303,L]
+
+# Ontology IRI with any other request -> the repository page
+RewriteRule ^/?$ https://github.com/CaSkade-Automation/CaSkBot [R=303,L]
