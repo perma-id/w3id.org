@@ -1,0 +1,31 @@
+# Maintainer: Stephen Gadd (GitHub: docuracy), stephen@docuracy.co.uk
+# Project: Valor Ecclesiasticus (1535) dataset, https://github.com/docuracy/valor
+Options +FollowSymLinks
+RewriteEngine On
+
+# https://w3id.org/valor/<type>/<key>, types from the integration plan (4, 5.3, 8.2):
+#   inst, house, poss (possession), ret (return), site, unit/<diocese|archdeaconry|deanery|jurisdiction>,
+#   parish/<beat parish id> (the Valor view of a beat parish), and the vocabulary at /valor/ns.
+# Relations and tables are not separate resources: they are files under /valor/data/.
+# Content negotiation (303 See Other): JSON(-LD) for Accept application/json or application/ld+json, HTML otherwise.
+# An explicit .html / .json suffix selects the format directly. Keys contain dots, so the suffix test is exact.
+
+RewriteRule ^$ https://docuracy.github.io/valor/ [R=302,L]
+
+# vocabulary: Turtle, JSON-LD or HTML
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/?$ https://docuracy.github.io/valor/ns.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^ns/?$ https://docuracy.github.io/valor/ns.jsonld [R=303,L]
+RewriteRule ^ns/?$ https://docuracy.github.io/valor/ns.html [R=303,L]
+
+# explicit format
+RewriteRule ^((inst|house|poss|ret|site|unit/(diocese|archdeaconry|deanery|jurisdiction)|parish)/.+\.(html|json))$ https://docuracy.github.io/valor/$1 [R=303,L]
+
+# negotiated
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^((inst|house|poss|ret|site|unit/(diocese|archdeaconry|deanery|jurisdiction)|parish)/.+)$ https://docuracy.github.io/valor/$1.json [R=303,L]
+RewriteRule ^((inst|house|poss|ret|site|unit/(diocese|archdeaconry|deanery|jurisdiction)|parish)/.+)$ https://docuracy.github.io/valor/$1.html [R=303,L]
+
+# anything else (data files, docs)
+RewriteRule ^(.+)$ https://docuracy.github.io/valor/$1 [R=302,L]
