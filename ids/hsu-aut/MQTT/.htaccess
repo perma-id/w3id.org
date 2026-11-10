@@ -1,0 +1,19 @@
+# MQTT - An Ontology Design Pattern for the MQTT Version 5.0 Protocol
+# Repository: https://github.com/hsu-aut/IndustrialStandard-ODP-MQTT
+# Contact: Luis Miguel Vieira da Silva / GitHub username: Miguel2617
+
+RewriteEngine on
+
+# Version IRI with an RDF request -> the ontology file of that release tag
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-MQTT/v$1/mqtt.ttl [R=303,L]
+
+# Version IRI with any other request -> the repository page of that release tag
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/hsu-aut/IndustrialStandard-ODP-MQTT/tree/v$1 [R=303,L]
+
+# Ontology IRI with an RDF request -> the ontology file on the default branch
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^/?$ https://raw.githubusercontent.com/hsu-aut/IndustrialStandard-ODP-MQTT/main/mqtt.ttl [R=303,L]
+
+# Ontology IRI with any other request -> the repository page
+RewriteRule ^/?$ https://github.com/hsu-aut/IndustrialStandard-ODP-MQTT [R=303,L]
