@@ -371,6 +371,34 @@ test('tree/identifier-under-ids blocks a change that adds nothing under ids/',
     assert.deepEqual(findingsOf(r), ['histact/.htaccess:1:error']);
   });
 
+test('a misspelled .htaccess in a new top-level directory is reported twice',
+  () => {
+    // Where it is, and what it is called: neither rule looked outside ids/
+    // for a name other than .htaccess.
+    const repo = makeRepo();
+    repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+    repo.write('ids/a/.htaccess', OK_HTACCESS);
+    repo.write('tools/x.js', '\n');
+    const base = repo.commit('base');
+    repo.write('my-project/.htcaccess', OK_HTACCESS);
+    repo.write('my-project/README.md', OK_README);
+    // Named like an .htaccess, but in a directory the repository already
+    // has: tooling, not a misplaced identifier.
+    repo.write('tools/htaccess.js', '\n');
+    repo.commit('Add my-project');
+    const r = check({dir: repo.dir, rules: [identifierUnderIds,
+      onlyAllowedNames], base, head: 'HEAD'});
+    assert.deepEqual(findingsOf(r).sort(), [
+      'my-project/.htcaccess:1:error',
+      'my-project/.htcaccess:1:error'
+    ]);
+    const message = id => r.findings.find(f => f.ruleId === id).message;
+    assert.match(message('tree/identifier-under-ids'),
+      /move this directory to ids\/my-project\//);
+    assert.match(message('files/only-allowed-names'),
+      /misspelling of \.htaccess/);
+  });
+
 test('htaccess/no-rawgit reports both hosts and names the jsDelivr URL', () => {
   const r = audit(noRawgit, {
     'ids/a/.htaccess':
@@ -556,14 +584,22 @@ test('files/only-allowed-names names the misnamed .htaccess case', () => {
     'ids/b/htaccess.txt': OK_HTACCESS,
     'ids/c/.htaccess.txt': OK_HTACCESS,
     'ids/d/my-project.htaccess': OK_HTACCESS,
-    'ids/e/notes.txt': 'notes\n'
+    'ids/e/notes.txt': 'notes\n',
+    'ids/f/.htcaccess': OK_HTACCESS,
+    'ids/g/.httpaccess': OK_HTACCESS,
+    'ids/h/.htaccess_20210429124755': OK_HTACCESS,
+    'ids/i/access.log': 'log\n'
   });
   const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
   for(const f of ['ids/b/htaccess.txt', 'ids/c/.htaccess.txt',
-    'ids/d/my-project.htaccess']) {
+    'ids/d/my-project.htaccess', 'ids/h/.htaccess_20210429124755']) {
     assert.match(message[f], /meant to be \.htaccess/, f);
     assert.match(message[f], /web editor refuses a filename/, f);
   }
+  for(const f of ['ids/f/.htcaccess', 'ids/g/.httpaccess']) {
+    assert.match(message[f], /misspelling of \.htaccess/, f);
+  }
+  assert.match(message['ids/i/access.log'], /is not allowed here/);
   assert.match(message['ids/e/notes.txt'], /is not allowed here/);
 });
 

@@ -1,4 +1,5 @@
-import {isHtaccess, isReadme} from '../../paths.js';
+import {htaccessNearMiss, isHtaccess, isReadme, misplacedIdentifierDir}
+  from '../../paths.js';
 import {matchesAny} from '../../glob.js';
 
 /**
@@ -11,6 +12,10 @@ import {matchesAny} from '../../glob.js';
  * not only `README.md`: an AsciiDoc one works, and calling a working file an
  * error would be wrong. Preferring Markdown is a separate, softer matter --
  * see `files/prefer-readme-md`.
+ *
+ * Outside the identifier tree, the same applies to a top-level directory the
+ * change created to hold an identifier: `tree/identifier-under-ids` reports
+ * where it is, and this rule what is in it.
  */
 
 export default {
@@ -32,12 +37,17 @@ export default {
       'read it under that name -- the identifier does not resolve at all. ' +
       'This usually happens because GitHub\'s web editor refuses a filename ' +
       'beginning with a dot when the name box is empty; type ".htaccess/" ' +
-      'first and it will let you, or rename the file after committing.'
+      'first and it will let you, or rename the file after committing.',
+    misspelledHtaccess:
+      '{{name}} looks like a misspelling of .htaccess. Apache reads only ' +
+      'that exact name, so the identifier does not resolve at all. Rename ' +
+      'the file to .htaccess.'
   },
   check(ctx, report) {
-    // Only the hosted identifier tree is constrained; the repository's own
-    // files are not identifier content.
-    if(!ctx.file.startsWith(ctx.idsDir + '/')) {
+    // Only identifier content is constrained: the hosted tree, and an
+    // identifier misplaced outside it. The repository's own files are not.
+    if(!ctx.file.startsWith(ctx.idsDir + '/') &&
+      misplacedIdentifierDir(ctx, ctx.file) === null) {
       return;
     }
     // Service infrastructure -- the homepage, the update hook, the error pages.
@@ -48,20 +58,12 @@ export default {
       return;
     }
     const name = ctx.file.split('/').pop();
+    const nearMiss = htaccessNearMiss(name);
     report({
-      messageId: looksLikeHtaccess(name) ? 'misnamedHtaccess' : 'notAllowed',
+      messageId: nearMiss === 'wrapped' ? 'misnamedHtaccess' :
+        nearMiss === 'misspelled' ? 'misspelledHtaccess' : 'notAllowed',
       line: 1,
       data: {name}
     });
   }
 };
-
-/**
- * Whether a filename is a near-miss for `.htaccess`.
- *
- * Every one of these shapes has appeared in the repository: `htaccess.txt`,
- * `.htaccess.txt`, a bare `htaccess`, and `<project>.htaccess`.
- */
-function looksLikeHtaccess(name) {
-  return /(^|\.)htaccess(\.|$)/i.test(name) && name !== '.htaccess';
-}

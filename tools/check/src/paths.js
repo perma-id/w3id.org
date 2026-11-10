@@ -119,6 +119,79 @@ export function isHtaccess(relPath) {
 }
 
 /**
+ * How a filename that is not `.htaccess` looks meant to be one, or null.
+ *
+ * Two kinds have reached this repository. `'wrapped'` keeps the word and adds
+ * to it: `htaccess.txt`, `.htaccess.txt`, a bare `htaccess`,
+ * `<project>.htaccess`, `.htaccess_<timestamp>`. `'misspelled'` gets the word
+ * wrong: `.htcaccess`, `.httaccess`, `.httpaccess`, `.haccess`.
+ *
+ * The name is split at dots, underscores and spaces, and a part counts when it
+ * starts with "h" and is at most two edits from "htaccess". The "h" keeps out
+ * "access", which is two deletions away. Hyphens do not split, so a name such
+ * as `no-empty-htaccess.md` is not counted.
+ */
+export function htaccessNearMiss(name) {
+  if(name === '.htaccess') {
+    return null;
+  }
+  const parts = name.toLowerCase().split(/[._\s]+/);
+  if(parts.includes('htaccess')) {
+    return 'wrapped';
+  }
+  return parts.some(part => part.startsWith('h') &&
+    editDistance(part, 'htaccess') <= 2) ? 'misspelled' : null;
+}
+
+/**
+ * Edits (insertion, deletion, substitution, or swapping two neighbors) to
+ * turn one string into the other.
+ */
+function editDistance(a, b) {
+  const d = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0));
+  for(let i = 1; i <= a.length; i++) {
+    for(let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1,
+        d[i - 1][j - 1] + cost);
+      if(i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+      }
+    }
+  }
+  return d[a.length][b.length];
+}
+
+/**
+ * The top-level directory holding `relPath`, when the change created that
+ * directory outside the identifier tree and put an identifier in it.
+ *
+ * An `.htaccess` outside the tree is easy to find by name, but a misspelled
+ * one has no fixed name, and the repository's own files include
+ * `htaccess.md` and `htaccess.js`. A top-level directory that the change
+ * created, and that holds an `.htaccess` or a file named like one, is an
+ * identifier in the wrong place. The repository's own directories already
+ * exist, so they never qualify.
+ *
+ * Needs a range: without one, nothing counts as created.
+ */
+export function misplacedIdentifierDir(ctx, relPath) {
+  const slash = relPath.indexOf('/');
+  if(slash === -1 || relPath.startsWith(ctx.idsDir + '/')) {
+    return null;
+  }
+  const prefix = relPath.slice(0, slash + 1);
+  const inside = ctx.tree.filter(p => p.startsWith(prefix));
+  const created = inside.every(p => ctx.addedPaths.has(p));
+  const named = inside.some(p => {
+    const name = p.slice(p.lastIndexOf('/') + 1);
+    return name === '.htaccess' || htaccessNearMiss(name) !== null;
+  });
+  return created && named ? prefix.slice(0, -1) : null;
+}
+
+/**
  * Directories inside the identifier tree that hold service infrastructure
  * rather than an identifier, and so are exempt from namespace rules.
  */
