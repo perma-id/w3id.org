@@ -1,0 +1,15 @@
+# https://w3id.org/uhk/ceta/archeogeochem
+# Controlled vocabulary of the CETA archaeogeochemical laboratory, University of Hradec Králové
+# Maintainer: Barbora Kubátová, GitHub: @Barbora13
+
+RewriteEngine on
+
+# programy (Kadi4Mat, NKR...) dostanou strojovou verzi
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://uhk-ceta.github.io/archeogeochem/slovnik.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+)$ https://uhk-ceta.github.io/archeogeochem/$1.ttl [R=303,L]
+
+# lidé v prohlížeči dostanou HTML stránku
+RewriteRule ^$ https://uhk-ceta.github.io/archeogeochem/ [R=303,L]
+RewriteRule ^(.+)$ https://uhk-ceta.github.io/archeogeochem/$1.html [R=303,L]
