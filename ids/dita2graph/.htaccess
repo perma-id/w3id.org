@@ -1,0 +1,56 @@
+# # /dita2graph/
+#
+# Permanent identifiers for DITA2Graph, which builds a knowledge graph from
+# DITA documentation: https://github.com/jyjeanne/DITA2Graph
+#
+# - https://w3id.org/dita2graph/ns is the d2g vocabulary (an OWL 2
+#   ontology, namespace https://w3id.org/dita2graph/ns#), latest release.
+#   Clients asking for text/turtle get the Turtle file, anyone else its
+#   documentation.
+# - https://w3id.org/dita2graph/ns/<version> is that release of the
+#   vocabulary.
+# - https://w3id.org/dita2graph/shapes is the SHACL shapes graph, negotiated
+#   the same way.
+# - ns.ttl and shapes.ttl always return the Turtle files.
+# - https://w3id.org/dita2graph/ redirects to the project.
+#
+# The Turtle files are published on GitHub Pages from the repository's
+# d2g-<version> tags; the documentation is in the repository.
+#
+# ## Contact
+# This space is administered by:
+#
+# Jeremy Jeanne
+# GitHub username: jyjeanne
+
+RewriteEngine on
+
+# --- The vocabulary, latest release -------------------------------------
+# A term such as ns#Topic is requested as ns: the fragment is not sent.
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns$ https://jyjeanne.github.io/DITA2Graph/ns/d2g.ttl [R=303,L]
+
+RewriteRule ^ns$ https://github.com/jyjeanne/DITA2Graph/blob/main/docs/semantic-model.md [R=303,L]
+
+RewriteRule ^ns\.ttl$ https://jyjeanne.github.io/DITA2Graph/ns/d2g.ttl [R=303,L]
+
+# --- A release of the vocabulary (the owl:versionIRI) -------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)$ https://jyjeanne.github.io/DITA2Graph/ns/$1/d2g.ttl [R=303,L]
+
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/jyjeanne/DITA2Graph/blob/d2g-$1/docs/semantic-model.md [R=303,L]
+
+# --- The SHACL shapes, latest release -----------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^shapes$ https://jyjeanne.github.io/DITA2Graph/shapes/d2g-shapes.ttl [R=303,L]
+
+RewriteRule ^shapes$ https://github.com/jyjeanne/DITA2Graph/blob/main/docs/semantic-model.md [R=303,L]
+
+RewriteRule ^shapes\.ttl$ https://jyjeanne.github.io/DITA2Graph/shapes/d2g-shapes.ttl [R=303,L]
+
+# --- The project --------------------------------------------------------
+
+RewriteRule ^$ https://github.com/jyjeanne/DITA2Graph [R=302,L]
