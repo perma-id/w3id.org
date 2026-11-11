@@ -12,6 +12,12 @@ Working Group.
   resolve to the LinkML schema source.
 - `https://w3id.org/fair-map/<Element>` resolves to the documentation page of that
   schema class, slot or enum.
+- `https://w3id.org/fair-map/transforms/sssom-to-fair` and
+  `https://w3id.org/fair-map/transforms/linkmlmap-to-fair` resolve to the
+  LinkML-Map transformations from SSSOM and LinkML-Map metadata into the schema.
+- `https://w3id.org/fair-map/mappings/sssom-to-fair` and
+  `https://w3id.org/fair-map/mappings/linkmlmap-to-fair` resolve to the
+  slot-level SSSOM mapping sets that document those transformations.
 
 ## Links
 

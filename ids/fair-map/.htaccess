@@ -10,6 +10,11 @@
 # https://w3id.org/fair-map/schema.yaml    -> LinkML schema source (import by id)
 # https://w3id.org/fair-map/<Element>      -> documentation page for that class, slot or enum
 #
+# https://w3id.org/fair-map/transforms/sssom-to-fair      -> SSSOM to FAIR transformation (LinkML-Map)
+# https://w3id.org/fair-map/transforms/linkmlmap-to-fair  -> LinkML-Map to FAIR transformation (LinkML-Map)
+# https://w3id.org/fair-map/mappings/sssom-to-fair        -> SSSOM to FAIR slot mappings (SSSOM/TSV)
+# https://w3id.org/fair-map/mappings/linkmlmap-to-fair    -> LinkML-Map to FAIR slot mappings (SSSOM/TSV)
+#
 # ## Contact
 # This space is administered by:
 #
@@ -26,6 +31,14 @@ RewriteRule ^(schema)?$ https://mapping-commons.github.io/fair-mappings-schema/ 
 
 # LinkML schema source; LinkML resolves an import of the schema id as schema.yaml
 RewriteRule ^(fair-map|schema)\.yaml$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/schema/fair_mappings_schema.yaml [R=302,L]
+
+# Transformations from SSSOM and LinkML-Map metadata into the schema
+RewriteRule ^transforms/sssom-to-fair$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/transformations/sssom-to-fair.transformation.yaml [R=302,L]
+RewriteRule ^transforms/linkmlmap-to-fair$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/transformations/linkmlmap-to-fair.transformation.yaml [R=302,L]
+
+# Slot-level SSSOM mapping sets that document those transformations field by field
+RewriteRule ^mappings/sssom-to-fair$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/mappings/sssom-to-fair.sssom.tsv [R=302,L]
+RewriteRule ^mappings/linkmlmap-to-fair$ https://raw.githubusercontent.com/mapping-commons/fair-mappings-schema/main/src/fair_mappings_schema/mappings/linkmlmap-to-fair.sssom.tsv [R=302,L]
 
 # Schema elements (classes, slots, enums) resolve to their documentation pages.
 # Only element-shaped names match, so paths with a dot or slash stay free for
