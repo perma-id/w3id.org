@@ -1,15 +1,25 @@
 RewriteEngine On
 
-# Main OFBO namespace: redirects to human-readable documentation.
+# Fixed ontology version 1.2.0.
+RewriteRule ^1\.2\.0/?$ https://raw.githubusercontent.com/rfb-predictor/OFBO/v1.2.0/ontology/OFBO.ttl [R=302,L]
+
+# Fixed ontology version 1.2.1.
+RewriteRule ^1\.2\.1/?$ https://raw.githubusercontent.com/rfb-predictor/OFBO/v1.2.1/ontology/OFBO.ttl [R=302,L]
+
+# Main namespace: return Turtle when explicitly requested.
+RewriteCond %{HTTP:Accept} (^|,)[[:space:]]*text/turtle([[:space:];,]|$) [NC]
+RewriteRule ^$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/OFBO.ttl [R=302,L]
+
+# Main namespace: otherwise redirect to human-readable documentation.
 RewriteRule ^$ https://rfb-predictor.github.io/OFBO/ [R=302,L]
 
-# Explicit Turtle ontology file, for Protégé and RDF tools.
+# Explicit Turtle ontology file.
 RewriteRule ^OFBO\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/OFBO.ttl [R=302,L]
 
-# Source code, notebooks, releases, and project repository.
+# Project repository.
 RewriteRule ^repository/?$ https://github.com/rfb-predictor/OFBO [R=302,L]
 
-# Imported ontology modules
+# Imported ontology modules.
 RewriteRule ^imports/chmo-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/chmo-subset.ttl [R=302,L]
 RewriteRule ^imports/mdo-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/mdo-subset.ttl [R=302,L]
 RewriteRule ^imports/prov-o-subset\.ttl$ https://raw.githubusercontent.com/rfb-predictor/OFBO/main/ontology/imports/prov-o-subset.ttl [R=302,L]
