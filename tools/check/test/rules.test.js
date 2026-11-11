@@ -1,4 +1,4 @@
-/** Per-rule behaviour, against fixtures rather than the live tree. */
+/** Per-rule behavior, against fixtures rather than the live tree. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {makeRepo, check, findingsOf} from './helpers.js';
@@ -43,6 +43,7 @@ import noMergeCommits from '../src/rules/git/no-merge-commits.js';
 import descriptiveCommitMessage from '../src/rules/git/descriptive-commit-message.js';
 import identifierUnderIds from '../src/rules/tree/identifier-under-ids.js';
 import noRawgit from '../src/rules/htaccess/no-rawgit.js';
+import noSessionLink from '../src/rules/git/no-session-link.js';
 
 /** Build a repo from a map of path -> contents and audit it with one rule. */
 function audit(rule, files, config = {}) {
@@ -292,7 +293,7 @@ test('htaccess/space-before-flags is honest about what still happens', () => {
 test('htaccess: the flag rules cannot see a fused flag list', () => {
   // Why the rule above has to exist. Apache parses no flag list here, so
   // rewriteRules() reports none, so the three rules that judge flags have
-  // nothing to judge. If this starts failing, the parser has begun modelling
+  // nothing to judge. If this starts failing, the parser has begun modeling
   // what the author meant rather than what the server does, and several
   // other rules are now reporting on flags that never apply.
   const files = {
@@ -368,6 +369,34 @@ test('tree/identifier-under-ids blocks a change that adds nothing under ids/',
     const r = check({dir: repo.dir, rules: [identifierUnderIds], base,
       head: 'HEAD'});
     assert.deepEqual(findingsOf(r), ['histact/.htaccess:1:error']);
+  });
+
+test('a misspelled .htaccess in a new top-level directory is reported twice',
+  () => {
+    // Where it is, and what it is called: neither rule looked outside ids/
+    // for a name other than .htaccess.
+    const repo = makeRepo();
+    repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+    repo.write('ids/a/.htaccess', OK_HTACCESS);
+    repo.write('tools/x.js', '\n');
+    const base = repo.commit('base');
+    repo.write('my-project/.htcaccess', OK_HTACCESS);
+    repo.write('my-project/README.md', OK_README);
+    // Named like an .htaccess, but in a directory the repository already
+    // has: tooling, not a misplaced identifier.
+    repo.write('tools/htaccess.js', '\n');
+    repo.commit('Add my-project');
+    const r = check({dir: repo.dir, rules: [identifierUnderIds,
+      onlyAllowedNames], base, head: 'HEAD'});
+    assert.deepEqual(findingsOf(r).sort(), [
+      'my-project/.htcaccess:1:error',
+      'my-project/.htcaccess:1:error'
+    ]);
+    const message = id => r.findings.find(f => f.ruleId === id).message;
+    assert.match(message('tree/identifier-under-ids'),
+      /move this directory to ids\/my-project\//);
+    assert.match(message('files/only-allowed-names'),
+      /misspelling of \.htaccess/);
   });
 
 test('htaccess/no-rawgit reports both hosts and names the jsDelivr URL', () => {
@@ -555,14 +584,22 @@ test('files/only-allowed-names names the misnamed .htaccess case', () => {
     'ids/b/htaccess.txt': OK_HTACCESS,
     'ids/c/.htaccess.txt': OK_HTACCESS,
     'ids/d/my-project.htaccess': OK_HTACCESS,
-    'ids/e/notes.txt': 'notes\n'
+    'ids/e/notes.txt': 'notes\n',
+    'ids/f/.htcaccess': OK_HTACCESS,
+    'ids/g/.httpaccess': OK_HTACCESS,
+    'ids/h/.htaccess_20210429124755': OK_HTACCESS,
+    'ids/i/access.log': 'log\n'
   });
   const message = Object.fromEntries(r.findings.map(f => [f.file, f.message]));
   for(const f of ['ids/b/htaccess.txt', 'ids/c/.htaccess.txt',
-    'ids/d/my-project.htaccess']) {
+    'ids/d/my-project.htaccess', 'ids/h/.htaccess_20210429124755']) {
     assert.match(message[f], /meant to be \.htaccess/, f);
     assert.match(message[f], /web editor refuses a filename/, f);
   }
+  for(const f of ['ids/f/.htcaccess', 'ids/g/.httpaccess']) {
+    assert.match(message[f], /misspelling of \.htaccess/, f);
+  }
+  assert.match(message['ids/i/access.log'], /is not allowed here/);
   assert.match(message['ids/e/notes.txt'], /is not allowed here/);
 });
 
@@ -1327,4 +1364,30 @@ test('git/descriptive-commit-message spares a message that names the id', () => 
   assert.equal(r.findings.length, 1);
   assert.match(r.findings[0].message, /Create \.htaccess/);
   assert.match(r.findings[0].message, /Add redirect for b/);
+});
+
+test('git/no-session-link reports a session link and spares attribution', () => {
+  const repo = makeRepo();
+  repo.write('.w3id-check.yaml', 'idsDir: ids\n');
+  repo.write('ids/a/.htaccess', OK_HTACCESS);
+  const base = repo.commit('Add a');
+
+  repo.branch('feature');
+  repo.write('ids/b/.htaccess', OK_HTACCESS);
+  const linked = repo.commit('b: add redirect\n\nBody text.\n\n' +
+    'Co-Authored-By: Claude <noreply@anthropic.com>\n' +
+    'Claude-Session: https://claude.ai/code/session_01Example');
+  repo.write('ids/b/README.md', OK_README);
+  repo.commit('b: add README\n\n' +
+    'Co-Authored-By: Claude <noreply@anthropic.com>');
+  repo.write('ids/b/README.md', OK_README + '\nMore.\n');
+  const head = repo.commit('b: expand README\n\nAssisted-by: Claude');
+
+  const r = check({
+    dir: repo.dir, rules: [noSessionLink], base, head, auditAll: false
+  });
+  assert.equal(r.findings.length, 1);
+  assert.match(r.findings[0].message, new RegExp(linked.slice(0, 8)));
+  assert.match(r.findings[0].message,
+    /https:\/\/claude\.ai\/code\/session_01Example/);
 });

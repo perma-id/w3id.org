@@ -8,6 +8,8 @@
 #   https://w3id.org/membership/external   -> external declarations
 #   https://w3id.org/membership/shapes     -> SHACL shapes
 #   https://w3id.org/membership/mappings/x -> generated mapping set x
+#   …/X.Y.Z, …/code/X.Y.Z, …/external/X.Y.Z, …/shapes/X.Y.Z
+#                                          -> frozen copy of release X.Y.Z
 
 Options +FollowSymLinks
 RewriteEngine on
@@ -19,11 +21,16 @@ RewriteCond %{HTTP_ACCEPT} application/n-triples
 RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/membership/membership-ontology.ttl [R=303,L]
 RewriteRule ^$ https://society-ontologies.github.io/membership-fraternal/docs/membership/ [R=303,L]
 
-# Current version IRIs. When there are several releases, point each older
-# version IRI at its release tag instead of the current files.
-RewriteRule ^1\.0\.0$ https://society-ontologies.github.io/membership-fraternal/membership/membership-ontology.ttl [R=303,L]
-RewriteRule ^external(/1\.0\.0)?$ https://society-ontologies.github.io/membership-fraternal/external/external-declarations.ttl [R=303,L]
-RewriteRule ^code(/1\.0\.0)?/?$ https://society-ontologies.github.io/membership-fraternal/membership/membership-codes.ttl [R=303,L]
+# Version IRIs: every release keeps a frozen copy in versions/<version>/ in the
+# repository, so these rules never need changing for a new release.
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/membership/membership-ontology.ttl [R=303,L]
+RewriteRule ^external/([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/external/external-declarations.ttl [R=303,L]
+RewriteRule ^code/([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/membership/membership-codes.ttl [R=303,L]
+RewriteRule ^shapes/([0-9]+\.[0-9]+\.[0-9]+)$ https://society-ontologies.github.io/membership-fraternal/versions/$1/membership/membership-shapes.ttl [R=303,L]
+
+# Current files.
+RewriteRule ^external$ https://society-ontologies.github.io/membership-fraternal/external/external-declarations.ttl [R=303,L]
+RewriteRule ^code/?$ https://society-ontologies.github.io/membership-fraternal/membership/membership-codes.ttl [R=303,L]
 RewriteRule ^code/(.+)$ https://society-ontologies.github.io/membership-fraternal/membership/membership-codes.ttl [R=303,L]
 RewriteRule ^shapes$ https://society-ontologies.github.io/membership-fraternal/membership/membership-shapes.ttl [R=303,L]
 RewriteRule ^mappings/(.+)$ https://society-ontologies.github.io/membership-fraternal/mappings/generated/$1.ttl [R=303,L]

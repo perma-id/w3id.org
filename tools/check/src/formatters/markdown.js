@@ -108,11 +108,30 @@ function location(f) {
   return '`' + f.file + suffix + '`';
 }
 
-// A message is plain text, and some quote markup: a rule naming `<br>`, or a
-// line from a contributor's file. Escaped, it shows as written rather than
-// being rendered -- a `<br>` in the summary was an invisible line break.
+// A message is plain text, and some quote markup: a rule naming `<br>`, a
+// line it suggests writing, or a line from a contributor's file. Escaped, it
+// shows as written rather than being rendered -- a `<br>` in the summary was
+// an invisible line break, and a suggested `[name](url)` a link to a
+// placeholder. URLs are left alone: an escape inside one shows in it.
+const URL_IN_TEXT = /https?:\/\/\S+/g;
+
 function plain(text) {
-  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+  const s = String(text);
+  let out = '';
+  let last = 0;
+  for(const m of s.matchAll(URL_IN_TEXT)) {
+    out += noMarkdown(s.slice(last, m.index)) + noHtml(m[0]);
+    last = m.index + m[0].length;
+  }
+  return out + noMarkdown(s.slice(last));
+}
+
+function noMarkdown(text) {
+  return noHtml(text.replace(/[\\`*_[\]~]/g, '\\$&'));
+}
+
+function noHtml(text) {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 }
 

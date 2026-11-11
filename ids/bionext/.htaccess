@@ -1,0 +1,40 @@
+# # /bionext/
+#
+# Persistent IRIs for the BioNExt Ontology, which represents biological
+# entities, pathway participation, orthologous relationships, evidence and
+# cross-database integration for yeast and human models.
+#
+# Redirects to the term pages at https://s3bio.github.io/bionext-ontology/
+# (source: https://github.com/S3Bio/bionext-ontology).
+#
+#   https://w3id.org/bionext/ontology/           the ontology
+#   https://w3id.org/bionext/ontology/<Term>     a class or property
+#   https://w3id.org/bionext/releases/v<version>/bionext.<format>
+#
+# ## Contact
+# This space is administered by:
+#
+# Natapol Pornputtapong
+# GitHub username: natapol
+
+RewriteEngine on
+
+# --- Ontology ---------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/?$ https://s3bio.github.io/bionext-ontology/bionext.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://s3bio.github.io/bionext-ontology/bionext.owl [R=303,L]
+RewriteRule ^ontology/?$ https://s3bio.github.io/bionext-ontology/ [R=303,L]
+
+# --- Terms ------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/([A-Za-z0-9_]+)$ https://s3bio.github.io/bionext-ontology/ontology/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/([A-Za-z0-9_]+)$ https://s3bio.github.io/bionext-ontology/bionext.owl [R=303,L]
+RewriteRule ^ontology/([A-Za-z0-9_]+)$ https://s3bio.github.io/bionext-ontology/ontology/$1.html [R=303,L]
+
+# --- Releases ---------------------------------------------------------
+RewriteRule ^releases/(v[0-9]+(\.[0-9]+)*/bionext\.(ttl|owl|rdf|json))$ https://s3bio.github.io/bionext-ontology/releases/$1 [R=302,L]
+
+# --- Namespace root ---------------------------------------------------
+RewriteRule ^$ https://s3bio.github.io/bionext-ontology/ [R=302,L]

@@ -38,7 +38,7 @@ Read the [naming section of Scope](/overview/scope#naming) first. In short:
 - Use **lowercase**, digits, and hyphens. See
   [`tree/no-case-collision`](/rules/tree/no-case-collision).
 - Avoid generic words, and avoid anything that could be confused with an
-  existing identifier or a well-known organisation.
+  existing identifier or a well-known organization.
 - For a personal identifier, use the shared
   [`/people/`](https://github.com/perma-id/w3id.org/tree/master/ids/people)
   namespace rather than a new top-level directory.
@@ -131,7 +131,7 @@ strings, serving different formats to browsers and machines — read
 | **307** Temporary Redirect | When the request method must be preserved. Rare here. |
 | **301** Moved Permanently | Avoid. |
 
-**Avoid 301.** Browsers and caches honour it indefinitely, and many will never
+**Avoid 301.** Browsers and caches honor it indefinitely, and many will never
 re-check. If you get a 301 wrong, you cannot take it back for the users who
 already cached it — and this is a service designed for identifiers that live for
 decades. Use 302 unless you have a specific reason not to.
@@ -158,22 +158,31 @@ Permanent identifiers for the My Project vocabulary.
 
 Documentation: <https://my-project.example.org/docs/>
 
-## Contact
+## Contacts
 
-- Firstname Lastname
-- <firstname@example.org>
-- GitHub: [@exampleuser](https://github.com/exampleuser)
+- Firstname1 Lastname1
+  - <firstname1@example.org>
+  - GitHub: [@exampleuser1](https://github.com/exampleuser1)
+
+- Firstname2 Lastname2
+  - <lastname2@example.com>
+  - GitHub: [@exampleuser2](https://github.com/exampleuser2)
 ```
 
 ::: tip Write the contact block as a list
-Contact blocks are usually written as a stack of lines glued together with
-invisible markup — two trailing spaces, a trailing backslash, or `<br>`. Use a
-bulleted list instead, as above.
+Contact blocks are often written as a stack of lines glued together with
+markup that can be invisible — two trailing spaces, a trailing backslash,
+or a trailing `<br>`. Better to use a bulleted list instead, as above.
 
-Two reasons. This repository trims trailing whitespace, so the two-space style
-silently stops working. And with any of them, the next person to edit the block
-cannot see what is holding it apart, so deleting a marker reflows three lines
-into one paragraph without anyone noticing in the diff.
+There are two reasons for this recommendation. First, this repository trims
+trailing whitespace, so the two-space style silently stops working. Second,
+with any of them, the next person to edit the block may not see what is
+holding it apart, so they may delete a marker, causing what was meant to be
+rendered as three lines to reflow into one line, without anyone noticing in
+the diff.
+
+We also recommend nesting details, like email address and GitHub handle, within
+an item that begins with their human-friendly name.
 
 See [`markdown/prefer-list-over-line-breaks`](/rules/markdown/prefer-list-over-line-breaks).
 :::

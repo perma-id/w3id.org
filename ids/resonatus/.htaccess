@@ -5,6 +5,7 @@
 #
 #   https://w3id.org/resonatus         -> canonical ontology (current version)
 #   https://w3id.org/resonatus/1.0.0   -> version 1.0.0, pinned to an immutable commit
+#   https://w3id.org/resonatus/strict  -> canonical optional strict-profile vocabulary
 #
 # Source repository:
 #   https://github.com/halvrenofviryel/resonatus-ontology
@@ -20,6 +21,19 @@ RewriteEngine on
 
 # Version IRI -> immutable commit-SHA raw ontology (this target never changes)
 RewriteRule ^1\.0\.0/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/f7be377d3b355f1dbe1911f12bf597d62355619d/ontology/resonatus.ttl [R=302,L]
+
+# Optional strict-profile versioned vocabulary -> immutable v1.1.0 release content
+RewriteRule ^strict/1\.1\.0/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/c2ad91888f3cf69c291a9c8d7750dfe4aff36a3e/profiles/v1.1/ontology/resonatus-strict-vocabulary.ttl [R=302,L]
+
+# Versioned strict-profile activation identifiers
+RewriteRule ^strict/profile/strict-linear/1\.1\.0/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/c2ad91888f3cf69c291a9c8d7750dfe4aff36a3e/profiles/v1.1/profile-activation.ttl [R=302,L]
+RewriteRule ^strict/profile/strict-assessment/1\.1\.0/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/c2ad91888f3cf69c291a9c8d7750dfe4aff36a3e/profiles/v1.1/profile-activation.ttl [R=302,L]
+
+# Versioned machine-readable validation-result schema
+RewriteRule ^strict/schema/validation-result/1\.1\.0/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/c2ad91888f3cf69c291a9c8d7750dfe4aff36a3e/profiles/v1.1/schemas/validation-result.schema.json [R=302,L]
+
+# Canonical strict ontology IRI -> currently approved strict vocabulary
+RewriteRule ^strict/?$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/c2ad91888f3cf69c291a9c8d7750dfe4aff36a3e/profiles/v1.1/ontology/resonatus-strict-vocabulary.ttl [R=302,L]
 
 # Root IRI -> current canonical ontology (only this line is updated for a future version)
 RewriteRule ^$ https://raw.githubusercontent.com/halvrenofviryel/resonatus-ontology/f7be377d3b355f1dbe1911f12bf597d62355619d/ontology/resonatus.ttl [R=302,L]

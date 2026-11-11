@@ -1,10 +1,19 @@
 RewriteEngine on
 
-# KHD herbarium sheet images
-RewriteRule ^khd/images/(KHD[0-9]+)\.(JPG|jpg)$ https://khd.dbg-images.org/$1.$2 [R=302,L]
+# KHD herbarium sheet images (with optional suffixes such as _thumb)
+RewriteRule ^images/(KHD[0-9]+(?:_[A-Za-z0-9]+)*)\.(JPG|jpg)$ https://khd.dbg-images.org/$1.$2 [R=302,L]
 
-# KHD herbarium bryophyte images
-# RewriteRule ^khd/images/(KHD[0-9]+)\.(JPG|jpg)$ https://khdb.dbg-images.org/$1.$2 [R=302,L]
+# KHD herbarium bryophyte images (with optional suffixes such as _thumb)
+RewriteRule ^bryophytes/images/(KHD[0-9]+(?:_[A-Za-z0-9]+)*)\.(JPG|jpg)$ https://khdb.dbg-images.org/$1.$2 [R=302,L]
 
-# DBG fungarium specimen images
-# RewriteRule ^dbg/images/(DBG-F-[0-9]+)\.(JPG|jpg)$ https://khd-b.dbg-images.org/$1.$2 [R=302,L]
+# DBG-F card images with a _C suffix (e.g. _C1, _C2_thumb) on the dbgc host
+RewriteRule ^images/(DBG-F-[0-9]+_C[0-9]+(?:_[A-Za-z0-9]+)*)\.(JPG|jpg)$ https://dbgc.dbg-images.org/$1.$2 [R=302,L]
+
+# DBG fungarium specimen images (with optional suffixes such as _S00 or _thumb)
+RewriteRule ^images/(DBG-F-[0-9]+(?:_[A-Za-z0-9]+)*)\.(JPG|jpg)$ https://dbg.dbg-images.org/$1.$2 [R=302,L]
+
+# DBG ex situ images (any filename, including spaces and special characters)
+RewriteRule ^exsitu/images/([^/]+\.[Jj][Pp][Ee]?[Gg])$ https://dbgex.dbg-images.org/$1 [R=302,L]
+
+# DBG in situ images (any filename, including spaces and special characters)
+RewriteRule ^insitu/images/([^/]+\.[Jj][Pp][Ee]?[Gg])$ https://dbgin.dbg-images.org/$1 [R=302,L]

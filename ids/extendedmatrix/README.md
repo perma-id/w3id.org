@@ -28,6 +28,16 @@ than transcriptions, and the source is cited on every concept.
 
 Modules are licensed CC BY 4.0 unless the module itself states otherwise.
 
+### `/ontology` — CRMem, the Extended Matrix ontology
+
+CRMem is the companion ontology of the Extended Matrix: the terms the method
+needs that the CIDOC CRM family does not provide, above all the virtual
+stratigraphic units and the reasoning that supports them. Every class sits
+beneath a class of the CIDOC CRM family. Its source is maintained in the
+s3dgraphy library (<https://github.com/ExtendedMatrix/s3Dgraphy>).
+
+- Ontology: <https://w3id.org/extendedmatrix/ontology>
+
 ## Resolution
 
 Requests are redirected to <https://extendedmatrix.org>, a static site.
@@ -35,7 +45,13 @@ Requests are redirected to <https://extendedmatrix.org>, a static site.
 For vocabulary URIs, a client sending `Accept: text/html` receives the
 human-readable page (303); any other client receives the Turtle
 serialisation (303). Concept URIs use the slash convention and resolve to
-their module's document. CORS is open so that browser-based tools can fetch
+their module's document.
+
+For the ontology URI, a client sending `Accept: text/html` receives the
+declarations page (303), a client sending `Accept: application/rdf+xml`
+receives the RDF/XML serialisation (303), and any other client receives the
+Turtle serialisation (303). Term URIs are hash URIs and resolve through the
+same rules. CORS is open so that browser-based tools can fetch
 the serialisations directly.
 
 ## Contact

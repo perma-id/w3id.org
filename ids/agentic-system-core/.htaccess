@@ -7,6 +7,8 @@
 #   https://w3id.org/agentic-system-core/ns/<version> immutable vocabulary versions
 #   https://w3id.org/agentic-system-core/profile/agentic-knowledge   profile URI
 #   https://w3id.org/agentic-system-core/rel#<name>  extension link relations
+#   https://w3id.org/agentic-system-core/specs/mcp/  the MCP extension specification
+#   https://w3id.org/agentic-system-core/specs/agentic-knowledge/  the profile specification
 #
 # Every target is a static file on https://agenticsystemcore.com/ ; every
 # redirect is 303 See Other. The vocabulary table follows rule AGSC-06-06 of
@@ -104,9 +106,17 @@ RewriteRule ^profile/agentic-knowledge/?$ https://agenticsystemcore.com/specs/ag
 RewriteRule ^rel/?$ https://agenticsystemcore.com/specs/agentic-knowledge/ [R=303,L]
 
 # ---------------------------------------------------------------------------
-# 7. The project prefix itself -> the site; anything else -> the vocabulary
-#    documentation. Only the /ns/ paths above are carried over to the site;
-#    every target is on the same host, so nothing here is an open redirect.
+# 7. The two specification pages named under this prefix: /specs/mcp/ (the
+#    MCP extension) and /specs/agentic-knowledge/ (the profile) -> the same
+#    page on the site. Only these two names are matched.
+# ---------------------------------------------------------------------------
+RewriteRule ^specs/(mcp|agentic-knowledge)/?$ https://agenticsystemcore.com/specs/$1/ [R=303,L]
+
+# ---------------------------------------------------------------------------
+# 8. The project prefix itself -> the site; anything else -> the vocabulary
+#    documentation. Only the /ns/ paths and the two specification pages above
+#    are carried over to the site; every target is on the same host, so
+#    nothing here is an open redirect.
 # ---------------------------------------------------------------------------
 RewriteRule ^$ https://agenticsystemcore.com/ [R=303,L]
 RewriteRule ^ https://agenticsystemcore.com/ns/ [R=303,L]

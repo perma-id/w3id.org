@@ -1,0 +1,66 @@
+# # /people/kerfors/
+#
+# https://w3id.org/people/kerfors/ is the personal identifier of Kerstin
+# Forsberg. The root redirects to her personal site on GitHub Pages
+# (earlier, as a single entry in ids/people/.htaccess, to her blog).
+#
+# sidospar/ is the namespace for kerfors/sidospar, a set of small personal
+# history projects published on GitHub Pages at
+# https://kerfors.github.io/sidospar/. Each project lives in its own folder,
+# sidospar/<project>/, and a project that publishes linked data mints its
+# identifiers under sidospar/<project>/id/. One generic block covers every
+# project, so a new project needs no change here.
+#
+#   sidospar/<project>/id/<local-id>    the thing (a period, an event, a
+#                                       claim): 303 to a document about it,
+#                                       content-negotiated
+#   sidospar/<project>/id/<local-id>/   the page about the thing
+#   sidospar/<project>/id/              the register of a project's
+#                                       identifiers; fragment IRIs such as
+#                                       id/#dataset resolve here
+#
+# Content negotiation: text/turtle gets index.ttl, application/ld+json gets
+# index.jsonld, anything else gets the HTML page. Every other path under
+# sidospar/ goes to the same path on the GitHub Pages site.
+#
+# tweetsreborn/ and soa2usdm-collections/ are the GitHub Pages sites of
+# kerfors/tweetsreborn (an archive of her tweets) and
+# kerfors/soa2usdm-collections (protocol outputs of kerfors/soa2usdm).
+# Paths pass through unchanged, so the identifiers can be kept if a site
+# moves host.
+#
+# ## Contact
+# This space is administered by:
+#
+# Kerstin Forsberg
+# kerstin.l.forsberg@gmail.com
+# GitHub username: kerfors
+
+RewriteEngine on
+
+# --- Personal identifier: the personal site.
+RewriteRule ^$ https://kerfors.github.io/ [R=302,L]
+
+# --- sidospar: a thing IRI (no trailing slash, no file extension).
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^sidospar/([a-z0-9-]+)/id/([A-Za-z0-9_-]+)$ https://kerfors.github.io/sidospar/$1/id/$2/index.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^sidospar/([a-z0-9-]+)/id/([A-Za-z0-9_-]+)$ https://kerfors.github.io/sidospar/$1/id/$2/index.jsonld [R=303,L]
+RewriteRule ^sidospar/([a-z0-9-]+)/id/([A-Za-z0-9_-]+)$ https://kerfors.github.io/sidospar/$1/id/$2/ [R=303,L]
+
+# --- sidospar: the register of a project's identifiers.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^sidospar/([a-z0-9-]+)/id/$ https://kerfors.github.io/sidospar/$1/id/index.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^sidospar/([a-z0-9-]+)/id/$ https://kerfors.github.io/sidospar/$1/id/index.jsonld [R=303,L]
+
+# --- sidospar: everything else, including the pages and the data files
+#     themselves, to the same path on the site.
+RewriteRule ^sidospar/(.*)$ https://kerfors.github.io/sidospar/$1 [R=302,L]
+RewriteRule ^sidospar$ https://kerfors.github.io/sidospar/ [R=302,L]
+
+# --- tweetsreborn and soa2usdm-collections: same path on the site.
+RewriteRule ^tweetsreborn/(.*)$ https://kerfors.github.io/tweetsreborn/$1 [R=302,L]
+RewriteRule ^tweetsreborn$ https://kerfors.github.io/tweetsreborn/ [R=302,L]
+RewriteRule ^soa2usdm-collections/(.*)$ https://kerfors.github.io/soa2usdm-collections/$1 [R=302,L]
+RewriteRule ^soa2usdm-collections$ https://kerfors.github.io/soa2usdm-collections/ [R=302,L]

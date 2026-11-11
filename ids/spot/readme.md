@@ -1,21 +1,27 @@
-
-## Space Type Ontology
-### With Space Type Axis Mapping Extension Ontology
+## Space Types Ontology (SPOT)
+### With the extensions SPOT-AM (Axis Mapping) and SPOT-SG (Scene Graph)
 
 Core Ontology
 
-* **Doc** — https://design-computation.pages.git-ce.rwth-aachen.de/spot/
-* **Turtle** — https://design-computation.pages.git-ce.rwth-aachen.de/spot/ontology.ttl
+* **Doc** — https://design-computation-rwth.github.io/spot/
+* **Turtle** — https://design-computation-rwth.github.io/spot/ontology.ttl
+* **Repository** — https://github.com/Design-Computation-RWTH/spot
 
-Exentsion Ontology
+Extension Ontology SPOT-AM (Axis Mapping)
 - in "am" subfolder
 
-* **Doc** — https://design-computation.pages.git-ce.rwth-aachen.de/spot/am/
-* **Turtle** — https://design-computation.pages.git-ce.rwth-aachen.de/spot/am/ontology.ttl
+* **Doc** — https://design-computation-rwth.github.io/spot-am/
+* **Turtle** — https://design-computation-rwth.github.io/spot-am/ontology.ttl
+* **Repository** — https://github.com/Design-Computation-RWTH/spot-am
+
+Extension Ontology SPOT-SG (Scene Graph)
+- in "sg" subfolder
+
+* **Doc** — https://design-computation-rwth.github.io/spot-sg/
+* **Turtle** — https://design-computation-rwth.github.io/spot-sg/ontology.ttl
+* **Repository** — https://github.com/Design-Computation-RWTH/spot-sg
 
 
 Contacts
-* Public repository: https://git-ce.rwth-aachen.de/design-computation/spot
-* Anne Göbels <goebels@dc.rwth-aachen.de>, Oliver Schulz <schulz@dc.rwth-aachen.de>
-* GitHub Contact: https://github.com/AnneGoebels
-
+* Anne Göbels <goebels@dc.rwth-aachen.de>, GitHub: [AnneGoebels](https://github.com/AnneGoebels)
+* Oliver Schulz <schulz@dc.rwth-aachen.de>, GitHub: [OlliSchu](https://github.com/OlliSchu)

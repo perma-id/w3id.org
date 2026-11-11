@@ -7,6 +7,19 @@ RewriteRule ^([0-9]+)$ https://catalog.midasnetwork.us/collection/$1 [R=302,L,NE
 # --- S product: JSON Schema, catalog-hosted (live SCHEMA_ID — unchanged) ---
 RewriteRule ^schema/(.+)$ https://catalog.midasnetwork.us/schema/$1 [R=302,L,NE]
 
+# --- The MIDAS Catalog model: identity and term IRIs (model id + midas: prefix, since 1.1.0) ---
+# Model identity: content-negotiate — machines get the model (YAML), humans get the docs
+RewriteCond %{HTTP_ACCEPT} (application|text)/(x-)?yaml
+RewriteRule ^model/?$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.yaml [R=303,L,NE]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^model/?$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.owl.ttl [R=303,L,NE]
+RewriteRule ^model/?$ https://midas-network.github.io/midas-catalog-linkml/ [R=303,L,NE]
+# The model file itself, for tools that request <id>.yaml
+RewriteRule ^model\.yaml$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.yaml [R=302,L,NE]
+# Term IRIs → reference page (LinkML convention: classes CapitalCase, slots lowerCamelCase)
+RewriteRule ^model/([A-Z][A-Za-z0-9_]*)$ https://midas-network.github.io/midas-catalog-linkml/reference/classes/$1/ [R=303,L,NE]
+RewriteRule ^model/([a-z][A-Za-z0-9_]*)$ https://midas-network.github.io/midas-catalog-linkml/reference/slots/$1/ [R=303,L,NE]
+
 # --- L product: LinkML model + docs → GitHub Pages ---
 # Machine artifacts, clean aliases (these are the IRIs records will carry)
 RewriteRule ^linkml/context\.jsonld$ https://midas-network.github.io/midas-catalog-linkml/generated/midas-catalog.context.jsonld [R=302,L,NE]

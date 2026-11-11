@@ -355,8 +355,8 @@ wrong, what breaks because of it, and the command or edit that fixes it.
 Use `ctx.htaccess(path)`, not string matching. The corpus is not line-clean —
 files use CRLF, join directives with trailing backslashes, put `#` comments
 after directive arguments, and `#` appears legitimately inside
-rewrite patterns and URL fragments. The parser normalises all of that and
-records what it normalised, so rules can report those facts instead of being
+rewrite patterns and URL fragments. The parser normalizes all of that and
+records what it normalized, so rules can report those facts instead of being
 tripped by them.
 
 ## Tests

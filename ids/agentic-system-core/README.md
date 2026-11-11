@@ -19,6 +19,8 @@ The vocabulary is served in the format the client asks for in its `Accept` heade
 | `/ns/<file>` for a vocabulary file (`.ttl`, `.jsonld`, `.json`, `.rdf`, `.nt`, `.owl`, `.html`), and any `/ns/<version>/<path>` | that file under `https://agenticsystemcore.com/ns/` |
 | `/profile/agentic-knowledge` | `https://agenticsystemcore.com/specs/agentic-knowledge/` |
 | `/rel#<name>` | `https://agenticsystemcore.com/specs/agentic-knowledge/`; the browser then scrolls to `#<name>` |
+| `/specs/mcp/` | `https://agenticsystemcore.com/specs/mcp/` (the MCP extension) |
+| `/specs/agentic-knowledge/` | `https://agenticsystemcore.com/specs/agentic-knowledge/` (the profile) |
 | `/` | `https://agenticsystemcore.com/` |
 | anything else | `https://agenticsystemcore.com/ns/` |
 

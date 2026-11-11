@@ -19,55 +19,55 @@ RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)/files/(.+)$ https://github.com/
 ### METADATA -- EXPLICIT FILE EXTENSIONS ###
 
 # Schemas – explicit extension for dev release
-RewriteRule ^schema/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/dev/$1.$3 [R=302,L]
+RewriteRule ^schema/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/dev/$1.$3 [R=302,L]
 
 # Schemas – explicit extension for tagged releases
-RewriteRule ^schema/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/v$2/$1.$3 [R=302,L]
+RewriteRule ^schema/([a-z0-9-]+)/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9-]+)?)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/schema/releases/download/v$2/$1.$3 [R=302,L]
 
 # Main metadata – explicit extension for dev release
-RewriteRule ^(v/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/metadata.$2 [R=302,L]
+RewriteRule ^(v/dev)?\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/metadata.$2 [R=302,L]
 
 # Main metadata – explicit extension for tagged releases
-RewriteRule ^v/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.$2 [R=302,L]
+RewriteRule ^v/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9-]+)?)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/metadata.$2 [R=302,L]
 
 # Profile metadata (1.0.x scheme, back-compat) – explicit extension for tagged releases
-RewriteRule ^profiles/([a-z0-9-]+)/(1\.0\.\d)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
+RewriteRule ^profiles/([a-z0-9-]+)/(1\.0\.\d)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$2/profile-$1.$3 [R=302,L]
 
 # Profile metadata – explicit extension for dev release (with back-compat for 1.0.x URL scheme)
-RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.$5 [R=302,L]
+RewriteRule ^(v/dev/)?profiles/([a-z]+)-([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/profile-$2-$3.$5 [R=302,L]
 
 # Profile metadata – explicit extension for tagged releases
-RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.$4 [R=302,L]
+RewriteRule ^v/([a-z0-9.-]+)/profiles/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/profile-$2-$3.$4 [R=302,L]
 
 # Dataset metadata – explicit extension for dev release
-RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/dev/metadata.$3 [R=302,L]
+RewriteRule ^datasets/([a-z0-9-]+)(/dev)?\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/dev/metadata.$3 [R=302,L]
 
 # Dataset metadata – explicit extension for tagged releases
-RewriteRule ^datasets/([a-z0-9-]+)/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.$3 [R=302,L]
+RewriteRule ^datasets/([a-z0-9-]+)/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9-]+)?)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/dataset-$1/releases/download/v$2/metadata.$3 [R=302,L]
 
 # Task metadata – explicit extension for dev release
-RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.$4 [R=302,L]
+RewriteRule ^(v/dev/)?tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/task-$2-$3.$4 [R=302,L]
 
 # Task metadata – explicit extension for tagged releases
-RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.$4 [R=302,L]
+RewriteRule ^v/([a-z0-9.-]+)/tasks/([a-z]+)-([a-z0-9-]+)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/task-$2-$3.$4 [R=302,L]
 
 # Category metadata – explicit extension for dev release
-RewriteRule ^(v/dev/)?categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.$3 [R=302,L]
+RewriteRule ^(v/dev/)?categories/([a-z]+)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/dev/metadata.$3 [R=302,L]
 
 # Category metadata – explicit extension for tagged releases
-RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)\.(rdf|ttl|nt|jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.$3 [R=302,L]
+RewriteRule ^v/([a-z0-9.-]+)/categories/([a-z]+)\.(rdf|ttl|nt|jelly|2\.jelly)([#?].*)?$ https://github.com/RiverBench/category-$2/releases/download/v$1/metadata.$3 [R=302,L]
 
 # Metadata dumps for dev release
-RewriteRule ^dumps/dev\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump.$1.gz [R=302,L]
+RewriteRule ^dumps/dev\.(rdf|ttl|nt|jelly|2\.jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump.$1.gz [R=302,L]
 
 # Metadata dumps for tagged releases
-RewriteRule ^dumps/([a-z0-9.-]+)\.(rdf|ttl|nt|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump.$2.gz [R=302,L]
+RewriteRule ^dumps/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9-]+)?)\.(rdf|ttl|nt|jelly|2\.jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump.$2.gz [R=302,L]
 
 # Dumps with benchmark results for dev release
-RewriteRule ^dumps-with-results/dev\.(trig|nq|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump-with-results.$1.gz [R=302,L]
+RewriteRule ^dumps-with-results/dev\.(trig|nq|jelly|2\.jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/dev/dump-with-results.$1.gz [R=302,L]
 
 # Dumps with benchmark results for tagged releases
-RewriteRule ^dumps-with-results/([a-z0-9.-]+)\.(trig|nq|jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump-with-results.$2.gz [R=302,L]
+RewriteRule ^dumps-with-results/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z0-9-]+)?)\.(trig|nq|jelly|2\.jelly)\.gz([#?].*)?$ https://github.com/RiverBench/RiverBench/releases/download/v$1/dump-with-results.$2.gz [R=302,L]
 
 ### HTML DOCUMENTATION PAGES ###
 

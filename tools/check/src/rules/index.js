@@ -26,6 +26,7 @@ import gitMinimalCommits from './git/minimal-commits.js';
 import gitNoMergeCommits from './git/no-merge-commits.js';
 import gitBranchNotStale from './git/branch-not-stale.js';
 import gitDescriptiveCommitMessage from './git/descriptive-commit-message.js';
+import gitNoSessionLink from './git/no-session-link.js';
 
 import htaccessRewriteEngineRequired from './htaccess/rewrite-engine-required.js';
 import htaccessValidRewriteFlags from './htaccess/valid-rewrite-flags.js';
@@ -75,6 +76,7 @@ export const rules = [
   gitNoMergeCommits,
   gitBranchNotStale,
   gitDescriptiveCommitMessage,
+  gitNoSessionLink,
 
   htaccessRewriteEngineRequired,
   htaccessValidRewriteFlags,

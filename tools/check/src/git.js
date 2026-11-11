@@ -2,7 +2,7 @@
  * Thin wrapper around the `git` command.
  *
  * Spawning git rather than depending on a JS implementation keeps the tool
- * small and guarantees identical behaviour to what contributors and CI runners
+ * small and guarantees identical behavior to what contributors and CI runners
  * already have installed.
  */
 import {execFileSync} from 'node:child_process';
@@ -313,6 +313,25 @@ export function commits(base, head, cwd) {
 }
 
 /**
+ * Full message of every commit reachable from `head` but not `base`.
+ *
+ * Kept apart from `commits`, whose file list a multi-line body would make
+ * ambiguous to parse. Returns a Map of sha -> message.
+ */
+export function commitMessages(base, head, cwd) {
+  const out = git(
+    ['log', `--format=${REC}%H${FIELD}%B`, `${base}..${head}`], {cwd});
+  const messages = new Map();
+  for(const record of out.split(REC)) {
+    const split = record.indexOf(FIELD);
+    if(split !== -1) {
+      messages.set(record.slice(0, split), record.slice(split + 1));
+    }
+  }
+  return messages;
+}
+
+/**
  * Paths that differ between HEAD and the working tree.
  *
  * Returns the same {status, path, oldPath} shape as `changedFiles`, so callers
@@ -321,7 +340,7 @@ export function commits(base, head, cwd) {
  * `--no-renames` keeps every record to a single `XY path` field, so a rename
  * arrives as a delete plus an add rather than a two-field record.
  * `--untracked-files=all` lists new files individually instead of collapsing a
- * new directory into one entry, and still honours .gitignore -- which is what
+ * new directory into one entry, and still honors .gitignore -- which is what
  * keeps `node_modules/` out.
  */
 export function workingTreeStatus(cwd) {
