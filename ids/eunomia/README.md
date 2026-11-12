@@ -12,5 +12,5 @@ It redirects to the JSON-LD contexts, vocabularies, and ontologies modeling data
 | --- | --- |
 | `https://w3id.org/eunomia/vds/v1` | VDS JSON-LD context, `https://eunomiaupm.github.io/vds-rdf/vds-v1.jsonld` |
 | `https://w3id.org/eunomia/vad/v1` | VAD JSON-LD context, `https://eunomiaupm.github.io/vds-rdf/vad-v1.jsonld` |
-| `https://w3id.org/eunomia/vds/ns` | VDS vocabulary: `vocab.ttl` for `Accept: text/turtle`, otherwise `vocab.html`, both under `https://eunomiaupm.github.io/vds-rdf/` |
+| `https://w3id.org/eunomia/vds/ns`, `vds/ns/<Term>` | VDS vocabulary: `vocab.ttl` for `Accept: text/turtle`, otherwise `vocab.html` (`vocab.html#<Term>` for a term), both under `https://eunomiaupm.github.io/vds-rdf/` |
 | `https://w3id.org/eunomia/*` (anything else) | `https://servicios-ging.dit.upm.es/json-ld/*` |
