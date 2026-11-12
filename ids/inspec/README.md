@@ -4,13 +4,15 @@ This permanent w3id [`https://w3id.org/inspec/`](https://w3id.org/inspec/) redir
 
 ## Contact
 
-This space is administered by:  
+This space is administered by:
 
-**Matthias Palmér**  
-[MetaSolutions](https://metasolutions.se/)  
-<matthias@metasolutions.se>  
-GitHub: [matthiaspalmer](https://github.com/matthiaspalmer)
+**Matthias Palmér**
 
-**André Costa**  
-<andre@metasolutions.se>  
-GitHub: [lokal-profil](https://github.com/lokal-profil)  
+- [MetaSolutions](https://metasolutions.se/)
+- <matthias@metasolutions.se>
+- GitHub: [matthiaspalmer](https://github.com/matthiaspalmer)
+
+**André Costa**
+
+- <andre@metasolutions.se>
+- GitHub: [lokal-profil](https://github.com/lokal-profil)
