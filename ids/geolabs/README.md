@@ -3,19 +3,11 @@ This [W3ID](https://w3id.org) provides a persistent URI namespace for the [GeoLa
 
 The following sub-namespaces are defined:
 
-* GeoLabs
-  * `/bblocks` — GeoLabs versions of the OGC Building Blocks resources
-    * `/bblocks/meta-register.json` — GeoLabs versions of the OGC Building Blocks meta-registry index ([source](https://github.com/ogcincubator/bblocks-meta-register-data))
-    * `/bblocks/meta-register-orgs.json` — GeoLabs versions of the OGC Building Blocks meta-registry organisation metadata
-  * `/geopose`
-  * `/ladm`
-  * `/stac`
-* Hosted by OGC
-  * `/hosted`
+* `/ospd` — OGC Open Science Persistent Demonstrator (OSPD) registers
+  * `/ospd/data-formats/` — formats and representations register ([published](https://geolabs.github.io/bblocks-data-formats/), [source](https://github.com/GeoLabs/bblocks-data-formats)); each IRI redirects to Turtle (`Accept: text/turtle` or `?format=ttl`), Markdown (`Accept: text/markdown` or `?format=md`) or the building blocks viewer page
 
 ## Contact
 This space is administered by:
 
 **Gérald Fenoy** (@gfenoy)
 <gerald.fenoy@geolabs.fr>
-
