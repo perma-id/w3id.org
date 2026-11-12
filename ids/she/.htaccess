@@ -1,0 +1,12 @@
+# she: soil health europe
+# Persistent identifier: https://w3id.org/she
+# Maintainer contact details are in README.md.
+
+RewriteEngine on
+
+# Explicit Turtle requests receive the complete, unchanged source graph.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^$ https://soilwise-he.github.io/soil-health-knowledge-graph/soil_health_SKOS.ttl [R=303,L]
+
+# Browsers and other clients receive the WIDOCO documentation.
+RewriteRule ^$ https://soilwise-he.github.io/soil-health-knowledge-graph/ [R=303,L]
