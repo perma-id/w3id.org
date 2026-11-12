@@ -9,3 +9,18 @@ The ontology has been created by Tomas Bueno Momčilović, scientific researcher
 # Author & Maintainer
 
 - [Tomas Bueno Momcilovic](https://www.fortiss.org/ergebnisse/publikationen/autor/tomas-bueno-momcilovic) (Github: [Tomas-Bueno-Momcilovic](https://github.com/Tomas-Bueno-Momcilovic/))
+
+# Redirects
+
+| Path under `https://w3id.org/OntoGSN` | Target |
+| :--- | :--- |
+| `/` | the website, https://fortiss.github.io/OntoGSN/ |
+| `/ontology` | the current ontology on the `main` branch of https://github.com/fortiss/OntoGSN, as Turtle, JSON-LD or RDF/XML by the `Accept` header |
+| `/ontology/{x.y.z}` | the same three files at the git tag `v{x.y.z}`. A new version needs no new rule |
+| `/ontology/core`, `/pattern`, `/modular`, `/confidence`, `/dialectic` | the ontology cut by section of the GSN standard, Turtle |
+| `/shapes`, `/shapes/{section}` | the SHACL shapes, Turtle |
+| `/augmentation`, `/augmentation/shapes`, `/alignment` | the augmentation, its shapes and the alignment, Turtle |
+| `/design`, `/design/{data,queries,augmentations}`, `/alignment/design`, `/augmentation/design` | the design record, Turtle |
+| `/playground` | the playground on the website |
+
+Any other path answers 404.
