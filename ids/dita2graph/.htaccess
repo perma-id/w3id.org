@@ -6,7 +6,7 @@
 # - https://w3id.org/dita2graph/ns is the d2g vocabulary (an OWL 2
 #   ontology, namespace https://w3id.org/dita2graph/ns#), latest release.
 #   Clients asking for text/turtle get the Turtle file, anyone else its
-#   documentation.
+#   HTML documentation, term by term.
 # - https://w3id.org/dita2graph/ns/<version> is that release of the
 #   vocabulary.
 # - https://w3id.org/dita2graph/shapes is the SHACL shapes graph, negotiated
@@ -15,7 +15,8 @@
 # - https://w3id.org/dita2graph/ redirects to the project.
 #
 # The Turtle files are published on GitHub Pages from the repository's
-# d2g-<version> tags; the documentation is in the repository.
+# d2g-<version> tags, with the vocabulary's HTML documentation (pyLODE);
+# the documentation of the shapes is in the repository.
 #
 # ## Contact
 # This space is administered by:
@@ -31,7 +32,7 @@ RewriteEngine on
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ns$ https://jyjeanne.github.io/DITA2Graph/ns/d2g.ttl [R=303,L]
 
-RewriteRule ^ns$ https://github.com/jyjeanne/DITA2Graph/blob/main/docs/semantic-model.md [R=303,L]
+RewriteRule ^ns$ https://jyjeanne.github.io/DITA2Graph/ns/ [R=303,L]
 
 RewriteRule ^ns\.ttl$ https://jyjeanne.github.io/DITA2Graph/ns/d2g.ttl [R=303,L]
 
@@ -40,7 +41,7 @@ RewriteRule ^ns\.ttl$ https://jyjeanne.github.io/DITA2Graph/ns/d2g.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)$ https://jyjeanne.github.io/DITA2Graph/ns/$1/d2g.ttl [R=303,L]
 
-RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/jyjeanne/DITA2Graph/blob/d2g-$1/docs/semantic-model.md [R=303,L]
+RewriteRule ^ns/([0-9]+\.[0-9]+\.[0-9]+)$ https://jyjeanne.github.io/DITA2Graph/ns/$1/ [R=303,L]
 
 # --- The SHACL shapes, latest release -----------------------------------
 
