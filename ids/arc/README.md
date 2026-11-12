@@ -13,4 +13,5 @@ Contacts:
 * Heinrich Lukas Weil <weil@rptu.de> (GitHub: HLWeil)
 * Florian Wetzels <wetzels@cs.uni-kl.de> (GitHub: floWetzels)
 * Timo Mühlhaus <timo.muehlhaus@rptu.de> (GitHub: muehlhaus)
+* Kevin Schneider <schneike@rptu.de> (GitHub: kMutagene)
 
