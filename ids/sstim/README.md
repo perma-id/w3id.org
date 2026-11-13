@@ -72,8 +72,11 @@ The namespace, kernel, module, and profile routes negotiate Turtle, JSON-LD
 requests to project documentation. mod_rewrite cannot rank by `q`, so the order
 is fixed: Turtle when the client names it (`text/turtle` or
 `application/x-turtle`), even among other types, then JSON-LD, RDF/XML and
-HTML, and Turtle again for `*/*` or no `Accept`. A request whose `Accept`
-header allows none of these receives `406`. A version IRI negotiates the same
+HTML, and Turtle again for `*/*` or no `Accept`. If no supported branch matches,
+the final default redirects to that path's existing browser destination, even
+for refused-only headers. This informational fallback replaces the former 406
+responses; positive `q=0` exclusions and supported-format priorities are
+unchanged. A version IRI negotiates the same
 way, with a release page for browsers, but never answers `406`: anything else
 gets the Turtle it always got. The rules set `Vary: Accept`, but w3id.org
 does not emit it on redirects; these `303` responses carry no caching headers,
