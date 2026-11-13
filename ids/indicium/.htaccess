@@ -4,10 +4,11 @@
 #   https://w3id.org/indicium/<Term>            schema terms (slash namespace)
 #   https://w3id.org/indicium/context.jsonld    JSON-LD context
 #   https://w3id.org/indicium/<X.Y.Z>/<file>    the same files as tagged in release X.Y.Z
-# RDF and JSON-LD files come from raw.githubusercontent.com (served as text/plain),
-# because a raw URL can name a release tag. GitHub Pages serves them as text/turtle
-# and application/ld+json but only for the current build.
-# HTML comes from the documentation site on GitHub Pages.
+# The namespace and its terms are answered by holobiomicslab.cnrs.fr, which negotiates
+# the representation (303 to HTML, Turtle, JSON-LD or RDF/XML); the Accept header is
+# not altered by the redirect below.
+# The named files come from raw.githubusercontent.com (served as text/plain),
+# because a raw URL can name a release tag.
 # Paths with more than one segment (for example claim/<uuid>) are not served.
 # Maintainer: https://github.com/HolobiomicsLab/indicium
 
@@ -22,12 +23,5 @@ RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(indicium\.owl\.ttl|indicium\.shapes\.ttl|
 RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/HolobiomicsLab/indicium/main/src/indicium/schema/context.jsonld [R=302,L]
 RewriteRule ^(indicium\.owl\.ttl|indicium\.shapes\.ttl|indicium\.schema\.json)$ https://raw.githubusercontent.com/HolobiomicsLab/indicium/main/docs/schema-assets/$1 [R=302,L]
 
-# The namespace and its terms, by content negotiation.
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
-RewriteRule ^([A-Za-z][A-Za-z0-9_]*)?$ https://raw.githubusercontent.com/HolobiomicsLab/indicium/main/docs/schema-assets/indicium.owl.ttl [R=303,L]
-
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([A-Za-z][A-Za-z0-9_]*)?$ https://raw.githubusercontent.com/HolobiomicsLab/indicium/main/src/indicium/schema/context.jsonld [R=303,L]
-
-RewriteRule ^([A-Za-z][A-Za-z0-9_]*)?$ https://holobiomicslab.github.io/indicium/ [R=303,L]
+# The namespace and its terms.
+RewriteRule ^([A-Za-z][A-Za-z0-9_]*)?$ https://holobiomicslab.cnrs.fr/ns/indicium [R=303,L]
