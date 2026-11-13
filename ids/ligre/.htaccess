@@ -1,18 +1,20 @@
 # LiGre - Lemma Bank for Ancient Greek
-# https://w3id.org/ligre/ -> https://ligre.ugent.be/
+# https://w3id.org/ligre/       -> https://ligre-lod.github.io/ (project page)
+# https://w3id.org/ligre/<path> -> https://ligre.ugent.be/<path>
 #
 # The full path is passed through unchanged; content negotiation
 # (HTML vs. Turtle, RDF/XML, JSON-LD, ...) is handled by the target server.
-# 303 (not 301) so clients don't cache the target host permanently.
+# 302/303 (not 301) so clients don't cache the target host permanently.
 #
 # ## Contact
 # This space is administered by:
 #
 # Paulien Lemay
-# paulien.lemay@gmail.com
+# paulien.lemay@ugent.be
 # GitHub username: PaulienLem
 
 Options +FollowSymLinks
 RewriteEngine on
 
+RewriteRule ^$ https://ligre-lod.github.io/ [R=302,L]
 RewriteRule ^(.*)$ https://ligre.ugent.be/$1 [R=303,L]
