@@ -1,0 +1,16 @@
+# decision: a small vocabulary for the characteristics of a decision put to a person.
+# Maintainer: Laurent Lemonnier, GitHub Laurent-Lemonnier
+RewriteEngine on
+
+# The vocabulary as Turtle, when a client asks for it
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/Laurent-Lemonnier/decision/main/vocab/decision.ttl [R=302,L]
+
+# The vocabulary itself, https://w3id.org/decision and https://w3id.org/decision#term
+RewriteRule ^$ https://github.com/Laurent-Lemonnier/decision/blob/main/vocab.md [R=302,L]
+
+# The JSON-LD context
+RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/Laurent-Lemonnier/decision/main/context/decision.context.jsonld [R=302,L]
+
+# Anything else under the identifier goes to the repository
+RewriteRule ^(.+)$ https://github.com/Laurent-Lemonnier/decision/blob/main/$1 [R=302,L]
