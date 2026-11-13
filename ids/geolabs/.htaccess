@@ -1,0 +1,102 @@
+# # /geolabs/
+#
+# Persistent identifiers of GeoLabs SARL, see README.md.
+#
+# ## /geolabs/ospd/data-formats/
+#
+# Formats and representations of the OSPD data-formats register, published at
+# https://geolabs.github.io/bblocks-data-formats/ (source:
+# https://github.com/GeoLabs/bblocks-data-formats).
+#
+# Each IRI redirects (303) to a document about it:
+# - Turtle, for Accept: text/turtle or ?format=ttl
+# - Markdown, for Accept: text/markdown or ?format=md
+# - otherwise the HTML page of the building blocks viewer
+# An explicit ?format= wins over the Accept header.
+#
+# ## Contact
+# This space is administered by:
+#
+# Gérald Fenoy
+# gerald.fenoy@geolabs.fr
+# GitHub username: gfenoy
+
+RewriteEngine on
+
+# --- Format and representation items, and their register actions -----------
+# ospd/data-formats/format/geotiff, .../format/geotiff/actions/addition
+
+RewriteCond %{QUERY_STRING} (^|&)format=ttl(&|$)
+RewriteRule ^ospd/data-formats/(format|representation)/([a-z0-9-]+)(/actions/[A-Za-z0-9._-]+)?$ https://geolabs.github.io/bblocks-data-formats/_sources/$1/$2/ontology.ttl? [R=303,L]
+
+RewriteCond %{QUERY_STRING} (^|&)format=md(&|$)
+RewriteRule ^ospd/data-formats/(format|representation)/([a-z0-9-]+)(/actions/[A-Za-z0-9._-]+)?$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/$1/$2/index.md? [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ospd/data-formats/(format|representation)/([a-z0-9-]+)(/actions/[A-Za-z0-9._-]+)?$ https://geolabs.github.io/bblocks-data-formats/_sources/$1/$2/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^ospd/data-formats/(format|representation)/([a-z0-9-]+)(/actions/[A-Za-z0-9._-]+)?$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/$1/$2/index.md [R=303,L]
+
+RewriteRule ^ospd/data-formats/(format|representation)/([a-z0-9-]+)(/actions/[A-Za-z0-9._-]+)?$ https://geolabs.github.io/bblocks-data-formats/bblock/data-formats.$1.$2 [R=303,L]
+
+# --- Register, register owner, specification and amendment action type -----
+
+RewriteCond %{QUERY_STRING} (^|&)format=ttl(&|$)
+RewriteRule ^ospd/data-formats/(register|geolabs|specification|registerSystem|amendmentAction)$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/data.ttl? [R=303,L]
+
+RewriteCond %{QUERY_STRING} (^|&)format=md(&|$)
+RewriteRule ^ospd/data-formats/(register|geolabs|specification|registerSystem|amendmentAction)$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/register/index.md? [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ospd/data-formats/(register|geolabs|specification|registerSystem|amendmentAction)$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/data.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^ospd/data-formats/(register|geolabs|specification|registerSystem|amendmentAction)$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/register/index.md [R=303,L]
+
+RewriteRule ^ospd/data-formats/(register|geolabs|specification|registerSystem|amendmentAction)$ https://geolabs.github.io/bblocks-data-formats/bblock/data-formats.register [R=303,L]
+
+# --- Item classes ------------------------------------------------------------
+
+RewriteCond %{QUERY_STRING} (^|&)format=ttl(&|$)
+RewriteRule ^ospd/data-formats/(formatItemClass|representationItemClass)$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/data.ttl? [R=303,L]
+
+RewriteCond %{QUERY_STRING} (^|&)format=md(&|$)
+RewriteRule ^ospd/data-formats/(formatItemClass|representationItemClass)$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/item-class/index.md? [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ospd/data-formats/(formatItemClass|representationItemClass)$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/data.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^ospd/data-formats/(formatItemClass|representationItemClass)$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/item-class/index.md [R=303,L]
+
+RewriteRule ^ospd/data-formats/(formatItemClass|representationItemClass)$ https://geolabs.github.io/bblocks-data-formats/bblock/data-formats.item-class [R=303,L]
+
+# --- SHACL shapes (FormatShape, RepresentationShape, ...) --------------------
+
+RewriteCond %{QUERY_STRING} (^|&)format=ttl(&|$)
+RewriteRule ^ospd/data-formats/[A-Za-z]+Shape$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/shapes.shacl? [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ospd/data-formats/[A-Za-z]+Shape$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/shapes.shacl [R=303,L]
+
+# --- The ontology and its terms (Format, Representation, inferredMediaType, ...)
+# Also the default for the shapes in Markdown and HTML.
+
+RewriteCond %{QUERY_STRING} (^|&)format=ttl(&|$)
+RewriteRule ^ospd/data-formats(/[A-Za-z]*)?$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/ontology.ttl? [R=303,L]
+
+RewriteCond %{QUERY_STRING} (^|&)format=md(&|$)
+RewriteRule ^ospd/data-formats(/[A-Za-z]*)?$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/vocabulary/index.md? [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ospd/data-formats(/[A-Za-z]*)?$ https://geolabs.github.io/bblocks-data-formats/_sources/vocabulary/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^ospd/data-formats(/[A-Za-z]*)?$ https://geolabs.github.io/bblocks-data-formats/build/generateddocs/markdown/vocabulary/index.md [R=303,L]
+
+RewriteRule ^ospd/data-formats(/[A-Za-z]*)?$ https://geolabs.github.io/bblocks-data-formats/bblock/data-formats.vocabulary [R=303,L]
+
+# --- Anything else under /geolabs/ospd/data-formats/: the register home page --
+
+RewriteRule ^ospd/data-formats/ https://geolabs.github.io/bblocks-data-formats/? [R=302,L]

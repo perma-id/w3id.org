@@ -1,0 +1,40 @@
+# # /gems/
+#
+# Permanent identifiers for GEMS, a database of enteric methane measurements
+# from cattle made with GreenFeed systems, with the animal, diet, intake and
+# milk records collected alongside them.
+#
+# https://w3id.org/gems/ontology is the GEMS ontology. Clients asking for RDF
+# get the Turtle file; browsers and everything else get the documentation.
+# https://w3id.org/gems/ontology/<version> is one release, e.g. 0.2.0.
+# https://w3id.org/gems/ontology.ttl is always the latest Turtle file.
+# https://w3id.org/gems/id/... names records in the GEMS knowledge graph. Those
+# records are not public, so they go to the documentation.
+#
+# ## Contact
+# This space is administered by:
+#
+# Puchun Niu
+# GitHub username: pcn287
+
+RewriteEngine on
+
+# --- Ontology, latest release ---
+
+RewriteRule ^ontology\.ttl$ https://cdn.jsdelivr.net/gh/pcn287/gems-ontology@main/gems.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|application/owl\+xml|text/n3)
+RewriteRule ^ontology/?$ https://cdn.jsdelivr.net/gh/pcn287/gems-ontology@main/gems.ttl [R=303,L]
+
+RewriteRule ^ontology/?$ https://github.com/pcn287/gems-ontology [R=303,L]
+
+# --- One release ---
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json|application/owl\+xml|text/n3)
+RewriteRule ^ontology/([0-9]+(\.[0-9]+)*)$ https://cdn.jsdelivr.net/gh/pcn287/gems-ontology@v$1/gems.ttl [R=303,L]
+
+RewriteRule ^ontology/([0-9]+(\.[0-9]+)*)$ https://github.com/pcn287/gems-ontology/tree/v$1 [R=303,L]
+
+# --- Everything else, including record IDs under id/ ---
+
+RewriteRule ^ https://github.com/pcn287/gems-ontology [R=302,L]

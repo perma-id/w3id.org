@@ -1,116 +1,142 @@
-Header set Access-Control-Allow-Origin *
+### OntoStart redirects for w3id.org
+###
+### URL layout (B = a branch with its own ontology, T = a term, x.y.z = a version)
+###
+###   /                        main ontology                (HTML site, or RDF by content negotiation)
+###   /x.y.z                   main ontology, that version  (owl:versionIRI minted by CI)
+###   /T                       term of the main ontology    (HTML: term page; RDF: the ontology)
+###   /B/                      branch B ontology
+###   /B/x.y.z                 branch B, that version
+###   /B/T                     term of branch B
+###   /B/versions/(latest|x.y.z)/   versioned files (RDF by content negotiation)
+###   /B/name.(ttl|owl|jsonld|nt)   latest file in that syntax
+###   /B/<anything else>       passed through to the branch's GitHub Pages site
+###   /versions/..., /docs/... same as /main/versions/..., /main/docs/...
+###
+### Branch IRIs end with "/" (e.g. https://w3id.org/ontostart/pizza/), so a bare
+### name such as /hasUnit is a term. Names listed in BRANCHES also resolve in the
+### bare form (/pizza is the same as /pizza/).
+###
+### All targets are on https://micheldumontier.github.io/ontostart/ (GitHub Pages,
+### one folder per branch). To reuse this file, replace that host and path, and
+### the parameters below.
+###
+### Content negotiation: the first-listed RDF type in the Accept header wins.
+### If none is listed first, an RDF type anywhere in the header is used unless
+### the client also accepts HTML. Everything else gets HTML.
+###
+### Tests: apache/test-redirects.sh with apache/tests/redirects.tsv
+
+Header always set Access-Control-Allow-Origin "*"
+Header always merge Vary "Accept"
 Options -MultiViews
 RewriteEngine On
 
-### redirects for OntoStart projects
-###
-### https://w3id.org/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
-### redirects to https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPO}/%{ENV:GH_BRANCH}/versions/(latest|(\d+\.\d+\.\d+))%{ENV:ONTO}.%{ENV:EXT}
-### e.g. onto IRI:
-
-###  redirects to website if no format requested
-###  redirects to latest version if no version requested
-
-### main branch based ontology hosting
-### e.g. https://w3id.org/ontostart/
-
-### branch based ontology hosting
-### e.g. https://w3id.org/ontostart/testo/
-### e.g. Website:                 https://micheldumontier.github.io/ontostart/testo
-### e.g. GitHub:                  https://github.com/micheldumontier/ontostart/tree/testo
-### e.g. latest version IRI:      https://w3id.org/ontostart/testo/versions/latest/testo.owl
-### e.g. specified versioned IRI: https://w3id.org/ontostart/testo/versions/0.0.1/testo.owl
-### e.g. ontospy docs:            https://w3id.org/ontostart/testo/docs/ontospy/index.html
-### e.g. ontospy class docs:      https://w3id.org/ontostart/testo/docs/ontospy/class-testoThing.html
-### e.g. ontospy prop docs:       https://w3id.org/ontostart/testo/docs/ontospy/prop-testohasPart.html
-### e.g. pylode docs:             https://w3id.org/ontostart/testo/docs/pylode/index.html
-
-### Set parameters here
-RewriteRule ^ - [E=GH_USER:micheldumontier]
-RewriteRule ^ - [E=GH_REPONAME:ontostart]
-RewriteRule ^ - [E=GH_DEFAULT_BRANCH:main]
+### Parameters
+RewriteRule ^ - [E=MAIN_BRANCH:main]
+# File name (without extension) of the ontology on the main branch.
+# On other branches the file name is the branch name.
 RewriteRule ^ - [E=ONTO:ontostart]
+# Branches also reachable without the trailing slash, separated by "|" (may be empty).
+RewriteRule ^ - [E=BRANCHES:pizza|pro|testo|suloized-pizza]
+# Where browsers asking for a term go: "ontospy" (the term's OntoSpy page) or "site" (ontology home page)
+RewriteRule ^ - [E=TERM_DOCS:ontospy]
 
-# specify whether to resolve class and property IRIs to ontospy documentation
-RewriteRule ^ - [E=RESOLVE_IRI_WITH:ontospy]
+### Content negotiation -> EXT (ttl | owl | jsonld | nt | html)
 
-RewriteRule ^ - [E=GH_REPO:https://github.com/%{ENV:GH_USER}/%{ENV:GH_REPONAME}/tree]
-RewriteRule ^ - [E=GH_PAGE:https://%{ENV:GH_USER}.github.io/%{ENV:GH_REPONAME}]
-
-
-### Content negotiation for ontology formats
-## JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^ - [E=EXT:jsonld]
-
-# RDF/XML
-RewriteCond %{HTTP_ACCEPT} !text/html 
-RewriteCond %{HTTP_ACCEPT} application/xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/xml [OR]
-RewriteCond %{HTTP_ACCEPT} xml [OR]
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^ - [E=EXT:owl]
-
-# Turtle variants
-RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} text/ttl [OR]
-RewriteCond %{HTTP_ACCEPT} application/turtle [OR]
-RewriteCond %{HTTP_ACCEPT} application/x-turtle
+# 1. First-listed type wins
+RewriteCond %{HTTP_ACCEPT} ^\s*(text/turtle|application/x-turtle|application/turtle|text/ttl)\b [NC]
 RewriteRule ^ - [E=EXT:ttl]
+RewriteCond %{HTTP_ACCEPT} ^\s*(application/rdf\+xml|application/xml|text/xml)\b [NC]
+RewriteRule ^ - [E=EXT:owl]
+RewriteCond %{HTTP_ACCEPT} ^\s*application/ld\+json\b [NC]
+RewriteRule ^ - [E=EXT:jsonld]
+RewriteCond %{HTTP_ACCEPT} ^\s*application/n-triples\b [NC]
+RewriteRule ^ - [E=EXT:nt]
+RewriteCond %{HTTP_ACCEPT} ^\s*(text/html|application/xhtml\+xml)\b [NC]
+RewriteRule ^ - [E=EXT:html]
 
-# N-Triples
-RewriteCond %{HTTP_ACCEPT} application/n-triples
+# 2. Otherwise an RDF type anywhere in the header, if the client doesn't also accept HTML
+RewriteCond %{ENV:EXT} ^$
+RewriteCond %{HTTP_ACCEPT} !(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/turtle|text/ttl) [NC]
+RewriteRule ^ - [E=EXT:ttl]
+RewriteCond %{ENV:EXT} ^$
+RewriteCond %{HTTP_ACCEPT} !(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ - [E=EXT:owl]
+RewriteCond %{ENV:EXT} ^$
+RewriteCond %{HTTP_ACCEPT} !(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ - [E=EXT:jsonld]
+RewriteCond %{ENV:EXT} ^$
+RewriteCond %{HTTP_ACCEPT} !(text/html|application/xhtml\+xml) [NC]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [NC]
 RewriteRule ^ - [E=EXT:nt]
 
+# 3. Default: HTML
+RewriteCond %{ENV:EXT} ^$
+RewriteRule ^ - [E=EXT:html]
 
-# Ontology class and property documentation with ontospy
-# https://w3id.org/ontostart/hasUnit -> https://micheldumontier.github.io/ontostart/main/docs/ontospy/prop-hasUnit.html
-RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
-RewriteCond %{ENV:EXT} !.
-RewriteCond %{REQUEST_URI} ([a-z][a-zA-Z]*(?<!/))$
-RewriteCond %1 !^(github|docs|versions)$
-RewriteRule ^([a-z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/docs/ontospy/prop-%{ENV:ONTO}$1.html [R=303,L]
+### Split the path into branch B and the rest REST
+### Paths without a branch segment (/, /x.y.z, /T, /versions/..., /docs/...) belong to main.
+RewriteRule ^(.*)$ - [E=B:%{ENV:MAIN_BRANCH},E=REST:$1]
+RewriteCond $1 !^(versions|docs|\d+\.\d+\.\d+)$
+RewriteRule ^([^/]+)/(.*)$ - [E=B:$1,E=REST:$2]
+# A bare branch name (/pizza, /main) is that branch's ontology, as with /pizza/
+RewriteCond |%{ENV:MAIN_BRANCH}|%{ENV:BRANCHES}|::$1 ^.*\|([^|]+)\|.*::\1$
+RewriteRule ^([^/]+)$ - [E=B:$1,E=REST:]
 
-RewriteCond %{ENV:RESOLVE_IRI_WITH} ^ontospy$
-RewriteCond %{ENV:EXT} !.
-RewriteCond %{REQUEST_URI} ([A-Z][a-zA-Z]*(?<!/))$
-RewriteCond %1 !^(github|docs|versions)$
-RewriteRule ^([A-Z][a-zA-Z]*(?<!/))$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/docs/ontospy/class-%{ENV:ONTO}$1.html [R=303,L]
+# BONTO: ontology file name on branch B
+RewriteRule ^ - [E=BONTO:%{ENV:B}]
+RewriteCond %{ENV:B}::%{ENV:MAIN_BRANCH} ^(.*)::\1$
+RewriteRule ^ - [E=BONTO:%{ENV:ONTO}]
 
+### Ontology: /  and  /B/
+RewriteCond %{ENV:REST} ^$
+RewriteCond %{ENV:EXT} !^html$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/versions/latest/%{ENV:BONTO}.%{ENV:EXT} [R=303,L]
+RewriteCond %{ENV:REST} ^$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/ [R=303,L]
 
-# Content-type redirections to the latest version for branch-based path
-# Accept: text/turtle https://w3id.org/ontostart/testo/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/testo.ttl
-RewriteCond %{ENV:EXT} .
-RewriteCond %{REQUEST_URI} /([^/]+)/?$
-RewriteCond %1 !^(github|docs|versions|main)$
-RewriteRule ^([^/]+)/?$ %{ENV:GH_PAGE}/$1/versions/latest/$1.%{ENV:EXT} [R=303,L]
+### Version IRI: /x.y.z  and  /B/x.y.z  (HTML: the version's landing page)
+RewriteCond %{ENV:EXT} !^html$
+RewriteCond %{ENV:REST} ^(\d+\.\d+\.\d+)/?$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/versions/%1/%{ENV:BONTO}.%{ENV:EXT} [R=303,L]
+RewriteCond %{ENV:REST} ^(\d+\.\d+\.\d+)/?$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/%1/ [R=303,L]
 
-# Content-type redirections for branch versioned paths
-# Accept: text/turtle https://w3id.org/ontostart/testo/versions/latest/ -> https://micheldumontier.github.io/ontostart/testo/versions/latest/testo.ttl
-# Accept: text/turtle https://w3id.org/ontostart/testo/versions/0.0.1/ -> https://micheldumontier.github.io/ontostart/testo/versions/0.0.1/testo.ttl
-RewriteCond %{ENV:EXT} .
-RewriteCond %{REQUEST_URI} /([^/]+)/
-RewriteCond %1 !^(github|docs|versions|main)$
-RewriteRule ^([^/]+)/(.+?)/?$ %{ENV:GH_PAGE}/$1/$2/$1.%{ENV:EXT} [R=303,L]
+### Versions folder: /B/versions/(latest|x.y.z)/  (HTML: landing page, or the site for latest)
+RewriteCond %{ENV:EXT} !^html$
+RewriteCond %{ENV:REST} ^versions/(latest|\d+\.\d+\.\d+)/?$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/versions/%1/%{ENV:BONTO}.%{ENV:EXT} [R=303,L]
+RewriteCond %{ENV:REST} ^versions/latest/?$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/ [R=303,L]
+RewriteCond %{ENV:REST} ^versions/(\d+\.\d+\.\d+)/?$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/%1/ [R=303,L]
 
-# Content-type redirections to provided path (main branch: versions/latest/, versions/x.y.z/)
-# Accept: text/turtle https://w3id.org/ontostart/versions/latest/ -> https://micheldumontier.github.io/ontostart/versions/latest/ontostart.ttl
-RewriteCond %{ENV:EXT} .
-RewriteRule ^(.+?)/?$ %{ENV:GH_PAGE}/$1/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+### Latest file in a given syntax: /name.ttl  and  /B/name.owl
+RewriteCond %{ENV:REST} ^([^/]+\.(ttl|owl|jsonld|nt))$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/versions/latest/%1 [R=303,L]
 
-# Path provided, no content type redirections
-# https://w3id.org/ontostart/main/ -> https://micheldumontier.github.io/ontostart/main
-# https://w3id.org/ontostart/main/versions/latest -> https://micheldumontier.github.io/ontostart/main/versions/latest
-# https://w3id.org/ontostart/main/docs/ontospy/index.html -> https://micheldumontier.github.io/ontostart/main/docs/ontospy/index.html
-RewriteCond !%{ENV:EXT} .
-RewriteRule ^(.+)$ %{ENV:GH_PAGE}/$1 [R=303,L]
+### Folders named without their slash: /versions, /B/docs
+RewriteCond %{ENV:REST} ^(versions|docs)$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/%1/ [R=303,L]
 
-# Root, content-type redirects to main branch
-# https://w3id.org/ontostart/ -> https://micheldumontier.github.io/ontostart/main/versions/latest/ontostart.(owl|ttl|jsonld|nt)
-RewriteCond %{ENV:EXT} .
-RewriteRule ^$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH}/versions/latest/%{ENV:ONTO}.%{ENV:EXT} [R=303,L]
+### Terms: /T  and  /B/T
+# RDF: the ontology that defines the term
+RewriteCond %{ENV:EXT} !^html$
+RewriteCond %{ENV:REST} ^[A-Za-z_][A-Za-z0-9_-]*$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/versions/latest/%{ENV:BONTO}.%{ENV:EXT} [R=303,L]
+# HTML: OntoSpy page (classes start with an upper-case letter, properties don't)
+RewriteCond %{ENV:TERM_DOCS} ^ontospy$
+RewriteCond %{ENV:REST} ^([A-Z][A-Za-z0-9_-]*)$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/docs/ontospy/class-%{ENV:BONTO}%1.html [R=303,L]
+RewriteCond %{ENV:TERM_DOCS} ^ontospy$
+RewriteCond %{ENV:REST} ^([a-z_][A-Za-z0-9_-]*)$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/docs/ontospy/prop-%{ENV:BONTO}%1.html [R=303,L]
+RewriteCond %{ENV:REST} ^[A-Za-z_][A-Za-z0-9_-]*$
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/ [R=303,L]
 
-# Root, no content-type redirects to main branch
-# https://w3id.org/ontostart/ -> https://micheldumontier.github.io/ontostart/main
-RewriteRule ^$ %{ENV:GH_PAGE}/%{ENV:GH_DEFAULT_BRANCH} [R=303,L]
-
+### Anything else (docs, versions, landing pages, ...) is passed through
+RewriteRule ^ https://micheldumontier.github.io/ontostart/%{ENV:B}/%{ENV:REST} [R=303,L]

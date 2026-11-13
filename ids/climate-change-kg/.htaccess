@@ -1,0 +1,20 @@
+# # /climate-change-kg/
+#
+# Permanent identifiers of the Climate Change Knowledge Graph (CCKG), a
+# knowledge graph of climate variables, indices, models, simulations and
+# projection datasets. See README.md for what redirects where and for the
+# contacts (GitHub usernames: miguel76, anuzzolese).
+
+RewriteEngine on
+
+# SPARQL endpoint. 307 so that a query sent with POST is sent again as POST.
+RewriteRule ^sparql/?$ https://keng.istc.cnr.it/climate-change-kg/sparql [R=307,L]
+
+# The namespace itself (also the name of a graph): how to access the data.
+RewriteRule ^data/?$ https://hacid-project.github.io/climate-change-kg/data-access [R=302,L]
+
+# Resources of the knowledge graph: their description as linked data.
+RewriteRule ^data/(.+)$ https://keng.istc.cnr.it/climate-change-kg/id/$1 [R=303,L]
+
+# Anything else: the documentation website.
+RewriteRule ^(.*)$ https://hacid-project.github.io/climate-change-kg/$1 [R=302,L]
