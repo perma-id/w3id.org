@@ -1,0 +1,44 @@
+# # /kgdse/
+#
+# KG-DSE: a traceable evidence graph of dataset use in knowledge graph
+# research. It links research categories, subtasks and datasets to the exact
+# location of the evidence in the literature (systematic mapping study).
+# Source and data: https://github.com/BeefaceData/kgdse
+#
+# - https://w3id.org/kgdse/                 the resource (website, or the
+#                                            RDF graph for RDF clients)
+# - https://w3id.org/kgdse/vocab            the kd: vocabulary (vocab#Term)
+# - https://w3id.org/kgdse/shapes           the SHACL shapes (shapes#Shape)
+# - https://w3id.org/kgdse/<kind>/<id>      a resource in the graph, e.g.
+#   dataset/KGD-0001, record/B01-R001, subtask/CMP-01. Browsers get its page
+#   on the website; RDF clients get the graph that describes it.
+#
+# ## Contact
+# This space is administered by:
+#
+# Boniface Chukwuemeka Godwin
+# GitHub username: BeefaceData
+
+RewriteEngine on
+
+# Vocabulary and shapes: Turtle documents for every client
+RewriteRule ^vocab$ https://beefacedata.github.io/kgdse/rdf/kgdse-vocab.ttl [R=303,L]
+RewriteRule ^shapes$ https://beefacedata.github.io/kgdse/rdf/kgdse-shapes.ttl [R=303,L]
+
+# Resources, RDF clients: the graph that describes them
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(category|subtask|facet|domain|role|scheme|dataset|variant|report|study|record|peripheral|decision|decision-move|evidence|sample|agent)/[^/]+$ https://beefacedata.github.io/kgdse/rdf/kgdse.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(category|subtask|facet|domain|role|scheme|dataset|variant|report|study|record|peripheral|decision|decision-move|evidence|sample|agent)/[^/]+$ https://beefacedata.github.io/kgdse/rdf/kgdse.nt [R=303,L]
+
+# Resources, everyone else: their page on the website (fragment route, so NE)
+RewriteRule ^(category|subtask|dataset|variant|report|study|record)/([^/]+)$ https://beefacedata.github.io/kgdse/#$1/$2 [R=303,NE,L]
+RewriteRule ^(facet|domain|role|scheme)/[^/]+$ https://beefacedata.github.io/kgdse/#taxonomy [R=303,NE,L]
+RewriteRule ^(peripheral|decision|decision-move|evidence|sample|agent)/[^/]+$ https://beefacedata.github.io/kgdse/#data [R=303,NE,L]
+
+# The resource itself
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://beefacedata.github.io/kgdse/rdf/kgdse.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://beefacedata.github.io/kgdse/rdf/kgdse.nt [R=303,L]
+RewriteRule ^$ https://beefacedata.github.io/kgdse/ [R=302,L]
