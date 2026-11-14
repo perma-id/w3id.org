@@ -1,0 +1,22 @@
+# # /tarot/
+#
+# Tarot Ontology persistent identifiers
+#
+# Maintained by: Mikey Hogarth
+# GitHub username: mikeyhogarth <https://github.com/mikeyhogarth>
+
+RewriteEngine on
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology|symbol|correspondence|deck/[a-z0-9-]+)$ https://mikeyhogarth.github.io/tarot-ontology/data/$1.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology|symbol|correspondence|deck/[a-z0-9-]+)$ https://mikeyhogarth.github.io/tarot-ontology/data/$1.jsonld [R=303,L]
+
+# HTML: ontology documentation (WIDOCO)
+RewriteRule ^ontology$ https://mikeyhogarth.github.io/tarot-ontology/reference/index-en.html [R=303,L]
+
+# All other routes just redirect to github pages site
+RewriteRule ^(.\*)$ https://mikeyhogarth.github.io/tarot-ontology/ [R=303,L]
