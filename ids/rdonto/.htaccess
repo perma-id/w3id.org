@@ -1,0 +1,33 @@
+# # /rdonto/
+#
+# Content-negotiated IRIs for RDOnto, the Remote Driving Ontology: an ontology
+# of the remote driving (road vehicle teleoperation) context.
+#
+# https://w3id.org/rdonto/{core,op,link,op-shapes,link-shapes} are the ontology
+# IRIs, with hash namespaces (e.g. https://w3id.org/rdonto/op#RemoteOperator).
+# RDF clients are redirected to the Turtle file, everything else to the
+# documentation page.
+#
+# Target: https://sanatmharolkar.github.io/RDOnto/
+# Source: https://github.com/sanatmharolkar/RDOnto
+#
+# ## Contact
+# This space is administered by:
+#
+# Sanat Mharolkar (Nanyang Technological University, Singapore)
+# GitHub username: sanatmharolkar
+
+RewriteEngine on
+
+# An explicit Turtle file, e.g. https://w3id.org/rdonto/op.ttl
+RewriteRule ^(core|op|link|op-shapes|link-shapes)\.ttl$ https://sanatmharolkar.github.io/RDOnto/RDOnto-$1.ttl [R=302,L]
+
+# RDF clients get Turtle, the one serialization that is published
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(core|op|link|op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/RDOnto/RDOnto-$1.ttl [R=303,L]
+
+# Anything else, including browsers, gets the documentation page
+RewriteRule ^(core|op|link|op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/RDOnto/#$1 [NE,R=303,L]
+
+# The identifier root
+RewriteRule ^$ https://sanatmharolkar.github.io/RDOnto/ [R=302,L]
