@@ -1,0 +1,60 @@
+# w3id.org/nrdp — 국가 R&D 포트폴리오 MCDM 온톨로지 영구 식별자
+# 대상: https://nova-choi.github.io/nrdp-ontology/ (GitHub Pages, 저장소 docs/ 폴더)
+# 내용 협상: text/turtle, application/rdf+xml, application/ld+json, application/n-triples → 직렬화 파일,
+#            그 밖(브라우저 등) → HTML 문서. 버전 IRI(예: /nrdp/mcdm/0.3.4)는 해당 버전 파일로 연결한다.
+# 관리자: 최혜석 (연락처는 README.md)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---- 온톨로지 모듈 (현재 버전): /nrdp/mcdm, /nrdp/ontology, /nrdp/kosv
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^(mcdm|ontology|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/$1/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(mcdm|ontology|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/$1/ontology.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(mcdm|ontology|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/$1/ontology.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(mcdm|ontology|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/$1/ontology.nt [R=303,L]
+RewriteRule ^(mcdm|ontology|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/$1/ [R=303,L]
+
+# ---- 온톨로지 모듈 (버전 IRI): /nrdp/mcdm/0.3.4 등. HTML 요청은 버전 파일 목록이 없으므로 Turtle로 보낸다.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(mcdm|ontology|kosv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nova-choi.github.io/nrdp-ontology/$1/$2/ontology.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(mcdm|ontology|kosv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nova-choi.github.io/nrdp-ontology/$1/$2/ontology.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(mcdm|ontology|kosv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nova-choi.github.io/nrdp-ontology/$1/$2/ontology.nt [R=303,L]
+RewriteRule ^(mcdm|ontology|kosv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nova-choi.github.io/nrdp-ontology/$1/$2/ontology.ttl [R=303,L]
+
+# ---- SHACL shape: /nrdp/shapes/mcdm, /nrdp/shapes/kosv (+ 버전)
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^shapes/(mcdm|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/shapes/$1/shapes.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^shapes/(mcdm|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/shapes/$1/shapes.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^shapes/(mcdm|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/shapes/$1/shapes.jsonld [R=303,L]
+RewriteRule ^shapes/(mcdm|kosv)/?$ https://nova-choi.github.io/nrdp-ontology/shapes/$1/ [R=303,L]
+RewriteRule ^shapes/(mcdm|kosv)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://nova-choi.github.io/nrdp-ontology/shapes/$1/$2/shapes.ttl [R=303,L]
+
+# ---- 실데이터 지식그래프: /nrdp/data (인스턴스 해시 IRI의 기반), 배포 단위 /nrdp/data/{schemes,domain,mcdm}
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^data/?$ https://nova-choi.github.io/nrdp-ontology/data/void.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^data/?$ https://nova-choi.github.io/nrdp-ontology/data/void.jsonld [R=303,L]
+RewriteRule ^data/?$ https://nova-choi.github.io/nrdp-ontology/data/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/gzip)
+RewriteRule ^data/(schemes|mcdm)$ https://github.com/nova-choi/nrdp-ontology/raw/main/data/rdf/nrdp-$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/gzip)
+RewriteRule ^data/domain$ https://github.com/nova-choi/nrdp-ontology/raw/main/data/rdf/nrdp-domain.ttl.gz [R=303,L]
+RewriteRule ^data/(schemes|domain|mcdm)$ https://nova-choi.github.io/nrdp-ontology/data/ [R=303,L]
+
+# ---- 역량질문 세트: /nrdp/cq
+RewriteCond %{HTTP_ACCEPT} text/csv
+RewriteRule ^cq/?$ https://nova-choi.github.io/nrdp-ontology/cq/competency-questions.csv [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^cq/?$ https://nova-choi.github.io/nrdp-ontology/cq/competency-questions.json [R=303,L]
+RewriteRule ^cq/?$ https://nova-choi.github.io/nrdp-ontology/cq/ [R=303,L]
+
+# ---- 첫 화면
+RewriteRule ^$ https://nova-choi.github.io/nrdp-ontology/ [R=303,L]
