@@ -15,10 +15,19 @@
 #   - `Accept: */*` or no header (curl)  -> raw Turtle (Linked Data default)
 #
 # Resolution policy:
-#   - Persistent IRIs always resolve to a fixed Git tag (v1.x.0), never
+#   - Persistent IRIs always resolve to a fixed Git tag (vX.Y.Z), never
 #     to `main`. This guarantees that future repository refactorings do
 #     not break already-published IRIs. Update the redirect targets in
 #     this file whenever a new tag is cut.
+#
+# Versioned IRIs (owl:versionIRI and owl:priorVersion):
+#   - <module>/<X.Y.Z>  is the pattern declared inside the ontology files
+#     (core, ml, electoral, legal, inference, alignments, gufo-alignment,
+#     policy, policy/rules); <X.Y.Z> alone is the integrated ontology.
+#     They are generic: any version served here is the raw Turtle file at
+#     the Git tag v<X.Y.Z>, so a new release needs no new rule for them.
+#   - <X.Y.Z>/<module>  is the pattern of the earlier registrations, kept
+#     as it was.
 # -----------------------------------------------------------------------------
 
 Options +FollowSymLinks
@@ -78,6 +87,12 @@ RewriteRule ^alignments/?$  https://gitlab.com/gustavosouto/ontodisinfo-electora
 
 # --- gufo-alignment (no dedicated doc page; always Turtle) ---
 RewriteRule ^gufo-alignment/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/adapter/ontodis-gufo-alignment.ttl  [R=302,L]
+
+# --- policy (no dedicated doc page; always Turtle) ---
+RewriteRule ^policy/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/policy/ontodis-policy.ttl  [R=302,L]
+
+# --- policy/rules (no dedicated doc page; always Turtle) ---
+RewriteRule ^policy/rules/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/policy/policy-rules.ttl  [R=302,L]
 
 # --- full integrated (entry point for Protege/reasoners) ---
 RewriteRule ^full/?$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/composition/ontodis-full.ttl  [R=302,L]
@@ -218,7 +233,6 @@ RewriteRule ^2\.0\.0/full$            https://gitlab.com/gustavosouto/ontodisinf
 
 
 
-
 # --- 2.1.0 ---
 # Minor: auditoria de estereótipos gUFO/UFO (OntoClean). Category corrigida para
 # rígida; papéis multi-kind como RoleMixin; eventos como EventType; subtipos de
@@ -330,6 +344,28 @@ RewriteRule ^2\.9\.0/inference$         https://gitlab.com/gustavosouto/ontodisi
 RewriteRule ^2\.9\.0/alignments$        https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/adapter/ontodis-alignments.ttl  [R=302,L]
 RewriteRule ^2\.9\.0/gufo-alignment$    https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/adapter/ontodis-gufo-alignment.ttl  [R=302,L]
 RewriteRule ^2\.9\.0/full$              https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v2.9.0/ontology/composition/ontodis-full.ttl  [R=302,L]
+
+# =============================================================================
+# 3b. Versioned IRIs as declared by owl:versionIRI and owl:priorVersion
+#     Pattern <module>/<X.Y.Z>, and <X.Y.Z> alone for the integrated ontology.
+#     Always Turtle, pinned to the Git tag v<X.Y.Z>.
+# =============================================================================
+RewriteRule ^core/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/domain/core/ontodis-core.ttl  [R=302,L]
+RewriteRule ^ml/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/domain/ml/ontodis-ml.ttl  [R=302,L]
+RewriteRule ^electoral/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/domain/electoral/ontodis-elec.ttl  [R=302,L]
+RewriteRule ^legal/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/domain/legal/ontodis-legal.ttl  [R=302,L]
+RewriteRule ^inference/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/application/ontodis-inference.ttl  [R=302,L]
+RewriteRule ^alignments/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/adapter/ontodis-alignments.ttl  [R=302,L]
+RewriteRule ^gufo-alignment/([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/adapter/ontodis-gufo-alignment.ttl  [R=302,L]
+
+# The policy files first appear in v1.4.0.
+RewriteRule ^policy/((?:1\.(?:[4-9]|[1-9][0-9]+)|(?:[2-9]|[1-9][0-9]+)\.[0-9]+)\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/policy/ontodis-policy.ttl  [R=302,L]
+RewriteRule ^policy/rules/((?:1\.(?:[4-9]|[1-9][0-9]+)|(?:[2-9]|[1-9][0-9]+)\.[0-9]+)\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/policy/policy-rules.ttl  [R=302,L]
+
+# Integrated ontology: up to v1.2.0 the file lived in ontology/infrastructure/
+# (see the 1.0.0 to 1.2.0 blocks above), afterwards in ontology/composition/.
+RewriteRule ^(1\.[0-2]\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/infrastructure/ontodis-full.ttl  [R=302,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)$  https://gitlab.com/gustavosouto/ontodisinfo-electoral/-/raw/v$1/ontology/composition/ontodis-full.ttl  [R=302,L]
 
 # =============================================================================
 # 4. Documentation shortcuts (HTML site sections)
