@@ -1,0 +1,50 @@
+# # /rovo/
+#
+# Content-negotiated IRIs for R.O.V.O, the Remote Operation of Vehicles
+# Ontology: an ontology of the remote driving (road vehicle teleoperation)
+# context.
+#
+# https://w3id.org/rovo/{core,op,link,op-shapes,link-shapes} are the ontology
+# IRIs, with hash namespaces (e.g. https://w3id.org/rovo/op#RemoteOperator).
+# RDF clients are redirected to the ontology file, everything else to the
+# documentation page.
+#
+# Target: https://sanatmharolkar.github.io/ROVO/
+# Source: https://github.com/sanatmharolkar/ROVO
+#
+# ## Contact
+# This space is administered by:
+#
+# Sanat Mharolkar (Nanyang Technological University, Singapore)
+# GitHub username: sanatmharolkar
+
+RewriteEngine on
+
+# An explicit file, e.g. https://w3id.org/rovo/op.ttl
+RewriteRule ^(core|op|link|op-shapes|link-shapes)\.ttl$ https://sanatmharolkar.github.io/ROVO/ROVO-$1.ttl [R=302,L]
+RewriteRule ^(core|op|link)\.(owl|jsonld|nt)$ https://sanatmharolkar.github.io/ROVO/docs/$1/ontology.$2 [R=302,L]
+
+# RDF clients. The three ontology modules are published in four
+# serializations, the two SHACL shape files in Turtle only.
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle)
+RewriteRule ^(core|op|link|op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/ROVO/ROVO-$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|op|link)/?$ https://sanatmharolkar.github.io/ROVO/docs/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(core|op|link)/?$ https://sanatmharolkar.github.io/ROVO/docs/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(core|op|link)/?$ https://sanatmharolkar.github.io/ROVO/docs/$1/ontology.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/ROVO/ROVO-$1.ttl [R=303,L]
+
+# Anything else, including browsers, gets the documentation: a page per
+# ontology module, and the entry on the landing page for the shape files
+RewriteRule ^(core|op|link)/?$ https://sanatmharolkar.github.io/ROVO/docs/$1/ [R=303,L]
+RewriteRule ^(op-shapes|link-shapes)/?$ https://sanatmharolkar.github.io/ROVO/#$1 [NE,R=303,L]
+
+# The identifier root
+RewriteRule ^$ https://sanatmharolkar.github.io/ROVO/ [R=302,L]
