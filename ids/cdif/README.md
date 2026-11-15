@@ -19,10 +19,46 @@ CDIF specification components have persistent conformance URIs that metadata rec
 | `https://w3id.org/cdif/conceptscheme/1.1/` | CDIF Concept Scheme |
 | `https://w3id.org/cdif/codelist/1.1/` | CDIF Codelist |
 | `https://w3id.org/cdif/niaid/1.0/` | CDIF NIAID (NIAID Data Discovery Portal records) |
+| `https://w3id.org/cdif/dde/1.0/{profileName}` | DDE domain profiles (Deep-time Digital Earth), 11 of them |
 | `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core (mandatory tier) |
 | `https://w3id.org/cdif/xasOptional/1.0/` | CDIF XAS Optional (optional tier) |
 
 Each conformance URI supports the same content negotiation as building block identifiers (see below). The default (browser) redirect goes to the corresponding building block landing page.
+
+### DDE profiles
+
+DDE is the first domain whose conformance URIs name a **set** of profiles rather than a single
+specification component, so its URIs carry a third segment:
+
+```
+https://w3id.org/cdif/dde/1.0/{profileName}
+```
+
+`{profileName}` is the register item name verbatim: `DDEAudioVisualProduct`, `DDECollection`,
+`DDEDataset`, `DDEDiscovery`, `DDEDocument`, `DDEEvent`, `DDEFunctionalResource`, `DDEImage`,
+`DDESemanticResource`, `DDESoftware`, `DDEWebAPI`. Note that the version sits in the middle,
+unlike `{component}/{version}` for the components above; that is the form DDE minted, so it is
+recorded rather than normalised.
+
+A DDE record declares its profile alongside the CDIF components it builds on, each a separate
+entry in `dcterms:conformsTo`, so a `DDECollection` record carries `core/1.1`, `manifest/1.1`
+and `dde/1.0/DDECollection` together.
+
+These resolve into the [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) register,
+because DDE has no per-profile release repo and no Implementation Guide. The sub-paths are
+therefore `schema`, `resolved`, `shacl` and `context` — `context` in place of `guide`, as for the
+XAS tiers — and `1.0` tracks the register's `main` branch until DDE adopts release tags.
+
+```bash
+# Register landing page for the profile (browser default)
+curl -L https://w3id.org/cdif/dde/1.0/DDEDataset
+
+# Resolved JSON Schema
+curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/dde/1.0/DDEDataset
+
+# SHACL rules
+curl -L https://w3id.org/cdif/dde/1.0/DDEDataset/shacl
+```
 
 ```bash
 # Landing page (browser default)

@@ -156,6 +156,7 @@ SetEnvIf Request_URI ^.*$ MBB_XAS_1_0_TREE=https://github.com/Cross-Domain-Inter
 #   conceptscheme/1.1   → profile-conceptscheme
 #   codelist/1.1        → profile-codelist
 #   niaid/1.0           → profile-niaid (domain profile: NIAID Data Discovery Portal records)
+#   dde/1.0/{Profile}   → ddeBuildingBlocks register (DDE domain profiles, 11 of them)
 #   xasCore/1.2         → mBB xasProperties/xasCore     (XAS mandatory tier)
 #   xasOptional/1.2     → mBB xasProperties/xasOptional (XAS optional tier)
 #   xasDocument/1.2     → XAS-CDIF release/ on main     (XAS document profile)
@@ -163,6 +164,27 @@ SetEnvIf Request_URI ^.*$ MBB_XAS_1_0_TREE=https://github.com/Cross-Domain-Inter
 #   xasCore/1.0, xasOptional/1.0 → mBB at 1ffb495b84
 # The XAS tiers were 1.0 until 2026-10 and 1.1 until 2026-11. Both still resolve,
 # because documents declaring them were published, each to the state it names.
+#
+# DDE is the first domain whose conformance URIs name a SET of profiles rather
+# than one specification component, so its URIs carry a third segment:
+#   https://w3id.org/cdif/dde/1.0/{profileName}
+# with {profileName} the register item name verbatim -- DDEDataset, DDEImage,
+# DDECollection, DDEWebAPI and so on. Note the version sits in the middle here,
+# unlike {component}/{version} everywhere else in this file; that is the shape
+# DDE minted and published, so it is recorded rather than normalised.
+#
+# A DDE record declares its profile alongside the CDIF components it builds on,
+# each a separate entry in dcterms:conformsTo -- so a DDECollection record
+# carries core/1.1, manifest/1.1 and dde/1.0/DDECollection together.
+#
+# These resolve into the ddeBuildingBlocks register, because DDE has no
+# per-profile release repo and no Implementation Guide. Two consequences: the
+# sub-path set is schema/resolved/shacl/context, with `context` in place of
+# `guide` as for the XAS tiers; and 1.0 tracks whatever is on the register's
+# main branch, so when DDE cuts 1.1 these rules must be repointed at a release
+# tag on raw.githubusercontent -- the same discipline the release-repo bases
+# above describe, and the same one the 2.0 rules below follow by resolving to
+# each release repo's updates branch while 2.0 is unreleased.
 #
 # The composite XAS document profile is xasDocument/1.2. Documents declare the
 # component URIs (core/1.1 ... xasCore/1.2) in dcterms:conformsTo; xasDocument/1.2
@@ -226,6 +248,17 @@ RewriteRule ^niaid/1\.0/schema/?$   %{ENV:PROFILE_NIAID}/cdifNIAIDStructuredSche
 RewriteRule ^niaid/1\.0/resolved/?$ %{ENV:PROFILE_NIAID}/cdifNIAIDStructuredSchema.json [R=303,L]
 RewriteRule ^niaid/1\.0/shacl/?$    %{ENV:PROFILE_NIAID}/niaidRules.shacl [R=303,L]
 RewriteRule ^niaid/1\.0/guide/?$    %{ENV:PROFILE_NIAID}/CDIFNIAIDImplementationGuide.html [R=303,L]
+
+# --- dde/1.0/{Profile} sub-paths → ddeBuildingBlocks register ---
+# The profile name is matched with ([^/]+) rather than listed, exactly as the
+# bbr/metadata/profiles/DDEProfiles rules below match the same segment: the
+# valid names ARE the register's DDEProfiles items, so a bogus one lands on the
+# register viewer and reports itself as unknown, which is what a bogus register
+# URI already does.
+RewriteRule ^dde/1\.0/([^/]+)/schema/?$   %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/schema.yaml [R=303,L]
+RewriteRule ^dde/1\.0/([^/]+)/resolved/?$ %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/resolvedSchema.json [R=303,L]
+RewriteRule ^dde/1\.0/([^/]+)/shacl/?$    %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/rules.shacl [R=303,L]
+RewriteRule ^dde/1\.0/([^/]+)/context/?$  %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/context.jsonld [R=303,L]
 
 # --- xasCore/1.2 sub-paths → live main/_sources/xasProperties/xasCore ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
@@ -642,6 +675,28 @@ RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^niaid/1\.0/?$ %{ENV:PROFILE_NIAID}/niaidRules.shacl [R=303,L]
 RewriteRule ^niaid/1\.0/?$ %{ENV:PROFILE_NIAID}/CDIFNIAIDImplementationGuide.html [R=303,L]
 
+# --- dde/1.0/{Profile} → ddeBuildingBlocks register ---
+# No Implementation Guide exists for a DDE profile, so the browser default is the
+# register's landing page for that block, as for the bbr/metadata identifiers.
+# [^/]+ cannot match a slash, so these do not capture the sub-paths above.
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^dde/1\.0/([^/]+)/?$ %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^dde/1\.0/([^/]+)/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^dde/1\.0/([^/]+)/?$ %{ENV:DDE_BASE}/_sources/profiles/DDEProfiles/$1/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dde/1\.0/([^/]+)/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/profiles/DDEProfiles/$1/context.jsonld [R=303,L]
+RewriteRule ^dde/1\.0/([^/]+)/?$ %{ENV:DDE_BASE}/bblock/dde.bbr.metadata.profiles.DDEProfiles.$1 [R=303,L]
+
+# The DDE namespace and version roots land on the register itself. There is no
+# version-less per-profile alias (dde/DDEDataset → dde/1.0/DDEDataset): it would
+# have to exclude a leading version segment to avoid shadowing the rules above,
+# and no published record uses that form.
+RewriteRule ^dde/?$      %{ENV:DDE_BASE}/ [R=303,L]
+RewriteRule ^dde/1\.0/?$ %{ENV:DDE_BASE}/ [R=303,L]
+
 # --- xasCore/1.2 → live main/_sources/xasProperties/xasCore ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json
 RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
@@ -785,7 +840,13 @@ RewriteRule ^bbr/metadata/adaProperties/([^/]+)/?$ %{ENV:ADA_BASE}/bblock/ogch.g
 
 # --- DDE legacy aliases for renamed BBs ---
 RewriteRule ^bbr/metadata/DDEproperties/ddeMandatory(/.*)?$ /cdif/bbr/metadata/DDEproperties/ddeCore$1 [R=303,L]
-RewriteRule ^bbr/metadata/DDEproperties/ddeSubject(/.*)?$ /cdif/bbr/metadata/DDEproperties/ddeCatalogRecord$1 [R=303,L]
+
+# ddeCatalogRecord (and its older name ddeSubject) existed only to pin a ddeCore
+# conformance URI on the catalog record. DDE moved conformance onto the profiles
+# -- dde/1.0/{Profile}, above -- on 2026-11-15 and archived the block, so it is
+# no longer a register item and the generic DDEproperties rules below would 303
+# to a register page that is gone. Both names now resolve to the archived source.
+RewriteRule ^bbr/metadata/DDEproperties/(ddeSubject|ddeCatalogRecord)(/.*)?$ https://github.com/usgin/ddeBuildingBlocks/tree/main/archive/deprecated/ddeCatalogRecord [R=303,L]
 
 # --- DDE properties ---
 RewriteRule ^bbr/metadata/DDEproperties/([^/]+)/schema/?$ %{ENV:DDE_BASE}/build/annotated/bbr/metadata/DDEproperties/$1/schema.yaml [R=303,L]
