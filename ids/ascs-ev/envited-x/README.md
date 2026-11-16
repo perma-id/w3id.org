@@ -18,6 +18,8 @@ Refer to the documentation site for the current ontology catalog, version detail
 - `https://w3id.org/ascs-ev/envited-x/{ontology}/v{version}` - Ontology IRI (for owl:Ontology)
 - `https://w3id.org/ascs-ev/envited-x/{ontology}/v{version}/shapes` - SHACL shapes
 
+`{version}` is a major version (`v6`) or a SemVer version (`v1.1.0-alpha`).
+
 ## Resolution
 
 W3ID IRIs resolve to static files published on GitHub Pages. Use the documentation site for the full catalog and links to each published file.
