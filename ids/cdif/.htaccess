@@ -66,9 +66,27 @@ SetEnvIf Request_URI ^.*$ PROFILE_MANIFEST=https://cross-domain-interoperability
 SetEnvIf Request_URI ^.*$ PROFILE_PROV=https://cross-domain-interoperability-framework.github.io/profile-provenance-draft
 SetEnvIf Request_URI ^.*$ PROFILE_CS=https://cross-domain-interoperability-framework.github.io/profile-conceptscheme
 SetEnvIf Request_URI ^.*$ PROFILE_CL=https://cross-domain-interoperability-framework.github.io/profile-codelist
+SetEnvIf Request_URI ^.*$ PROFILE_NIAID=https://cross-domain-interoperability-framework.github.io/profile-niaid
 SetEnvIf Request_URI ^.*$ DOC_CD=https://cross-domain-interoperability-framework.github.io/doc-corediscovery
 SetEnvIf Request_URI ^.*$ DOC_DDD=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescription
 SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescriptionstructure
+
+# ---- 2.0 (PRE-RELEASE) ----
+# 2.0 is not released. Its targets are the updates BRANCH of each release repo,
+# served from raw.githubusercontent.com, because Pages serves main and main is
+# still 1.1. These bases therefore track a moving branch on purpose, and must be
+# repointed at Pages (or at the 2.0 tag) the moment 2.0 is merged and released.
+# raw serves text/plain; measured harmless for every CDIF consumer, which names
+# the format rather than sniffing it.
+# profile-provenance has NO updates branch, so provenance/2.0 is deliberately absent.
+SetEnvIf Request_URI ^.*$ UPD_CORE=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-core/updates
+SetEnvIf Request_URI ^.*$ UPD_DISCOVERY=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-discovery/updates
+SetEnvIf Request_URI ^.*$ UPD_DATADESC=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-datadescription/updates
+SetEnvIf Request_URI ^.*$ UPD_DATASTRUCT=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-datastructure/updates
+SetEnvIf Request_URI ^.*$ UPD_MANIFEST=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-manifest/updates
+SetEnvIf Request_URI ^.*$ UPD_CS=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-conceptscheme/updates
+SetEnvIf Request_URI ^.*$ UPD_CL=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-codelist/updates
+
 
 # Live source files on the metadataBuildingBlocks main branch:
 #   MBB_RAW  = raw file content (raw.githubusercontent.com)
@@ -97,6 +115,19 @@ SetEnvIf Request_URI ^.*$ XAS_PAGES=https://cdif-4-xas.github.io/XAS-CDIF
 # The xasDocument release package: release/ on XAS-CDIF main.
 SetEnvIf Request_URI ^.*$ XAS_RELEASE_RAW=https://raw.githubusercontent.com/CDIF-4-XAS/XAS-CDIF/main/release
 SetEnvIf Request_URI ^.*$ XAS_RELEASE_TREE=https://github.com/CDIF-4-XAS/XAS-CDIF/tree/main/release
+# Superseded XAS versions, pinned so each URI keeps serving the version it names
+# (CDIF/validation docs/w3id-redirect-policy.md). xasDocument/1.1 is the XAS-CDIF
+# tag 1.1. metadataBuildingBlocks has no tags, so xasCore and xasOptional are
+# pinned to commits: 1.1 at 39bfc139e6, the last main commit whose XAS tiers are
+# identical to the 1.1 release (its xasDocument resolved schema is byte-identical
+# to the one in XAS-CDIF tag 1.1), and 1.0 at 1ffb495b84, the commit before the
+# 1.1 bump (1dc8ceb). Until 2026-11, 1.0 and 1.1 both resolved to live main.
+SetEnvIf Request_URI ^.*$ XAS_RELEASE_1_1_RAW=https://raw.githubusercontent.com/CDIF-4-XAS/XAS-CDIF/1.1/release
+SetEnvIf Request_URI ^.*$ XAS_RELEASE_1_1_TREE=https://github.com/CDIF-4-XAS/XAS-CDIF/tree/1.1/release
+SetEnvIf Request_URI ^.*$ MBB_XAS_1_1_RAW=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/39bfc139e6ddad6b48be908b0864290ebb907d2e/_sources
+SetEnvIf Request_URI ^.*$ MBB_XAS_1_1_TREE=https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/39bfc139e6ddad6b48be908b0864290ebb907d2e/_sources
+SetEnvIf Request_URI ^.*$ MBB_XAS_1_0_RAW=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/1ffb495b847ce832fc0218fa8fe553505bc63905/_sources
+SetEnvIf Request_URI ^.*$ MBB_XAS_1_0_TREE=https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/1ffb495b847ce832fc0218fa8fe553505bc63905/_sources
 
 # ============================================================
 # Conformance URIs: /cdif/{component}/{version}/
@@ -109,7 +140,7 @@ SetEnvIf Request_URI ^.*$ XAS_RELEASE_TREE=https://github.com/CDIF-4-XAS/XAS-CDI
 #   - CDIF<Name>ImplementationGuide  (rendered to .html via Jekyll)
 #
 # CDIF dataTypes (cdifDataType/* BBs) and the XAS tier conformance URIs
-# (xasCore/1.1, xasOptional/1.1) resolve to the LIVE main-branch _sources on
+# (xasCore/1.2, xasOptional/1.2) resolve to the LIVE main-branch _sources on
 # GitHub (raw.githubusercontent.com / github.com tree), not to a build output.
 #
 # Mapping:
@@ -119,17 +150,22 @@ SetEnvIf Request_URI ^.*$ XAS_RELEASE_TREE=https://github.com/CDIF-4-XAS/XAS-CDI
 #   data_structure/1.1  → profile-datastructure
 #   manifest/1.1        → profile-manifest
 #   provenance/1.1      → profile-provenance
-#   provenance/activityType[/<concept>] → profile-provenance vocabularies/ (SKOS)
+#   provenance/activityType[/<concept>] → profile-provenance vocabularies/ (SKOS, deprecated v0.1)
+#   concepts/provenance/activity[/<concept>] → profile-provenance vocabularies/ (SKOS, CDIF activities)
+#   concepts/GSBPM-5.2/activity[/<concept>]  → profile-provenance vocabularies/ (SKOS, GSBPM 5.2)
 #   conceptscheme/1.1   → profile-conceptscheme
 #   codelist/1.1        → profile-codelist
-#   xasCore/1.1         → mBB xasProperties/xasCore     (XAS mandatory tier)
-#   xasOptional/1.1     → mBB xasProperties/xasOptional (XAS optional tier)
-#   xasDocument/1.1     → XAS-CDIF release/ on main     (XAS document profile)
-# The XAS tiers were at 1.0 until 2026-10; 1.0 still resolves, to the same
-# targets, because documents declaring it were published.
+#   niaid/1.0           → profile-niaid (domain profile: NIAID Data Discovery Portal records)
+#   xasCore/1.2         → mBB xasProperties/xasCore     (XAS mandatory tier)
+#   xasOptional/1.2     → mBB xasProperties/xasOptional (XAS optional tier)
+#   xasDocument/1.2     → XAS-CDIF release/ on main     (XAS document profile)
+#   xasCore/1.1, xasOptional/1.1 → mBB at 39bfc139e6; xasDocument/1.1 → XAS-CDIF tag 1.1
+#   xasCore/1.0, xasOptional/1.0 → mBB at 1ffb495b84
+# The XAS tiers were 1.0 until 2026-10 and 1.1 until 2026-11. Both still resolve,
+# because documents declaring them were published, each to the state it names.
 #
-# The composite XAS document profile is xasDocument/1.1. Documents declare the
-# component URIs (core/1.1 ... xasCore/1.1) in dcterms:conformsTo; xasDocument/1.1
+# The composite XAS document profile is xasDocument/1.2. Documents declare the
+# component URIs (core/1.1 ... xasCore/1.2) in dcterms:conformsTo; xasDocument/1.2
 # names the package of schema, frame, SHACL and guide that composes them.
 # ============================================================
 
@@ -185,29 +221,77 @@ RewriteRule ^codelist/1\.1/resolved/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStru
 RewriteRule ^codelist/1\.1/shacl/?$    %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
 RewriteRule ^codelist/1\.1/guide/?$    %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
-# --- xasCore/1.0 and 1.1 sub-paths → live main/_sources/xasProperties/xasCore ---
+# --- niaid/1.0 sub-paths → profile-niaid ---
+RewriteRule ^niaid/1\.0/schema/?$   %{ENV:PROFILE_NIAID}/cdifNIAIDStructuredSchema.json [R=303,L]
+RewriteRule ^niaid/1\.0/resolved/?$ %{ENV:PROFILE_NIAID}/cdifNIAIDStructuredSchema.json [R=303,L]
+RewriteRule ^niaid/1\.0/shacl/?$    %{ENV:PROFILE_NIAID}/niaidRules.shacl [R=303,L]
+RewriteRule ^niaid/1\.0/guide/?$    %{ENV:PROFILE_NIAID}/CDIFNIAIDImplementationGuide.html [R=303,L]
+
+# --- xasCore/1.2 sub-paths → live main/_sources/xasProperties/xasCore ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasCore/1\.[01]/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/xasCoreSchema.json [R=303,L]
-RewriteRule ^xasCore/1\.[01]/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
-RewriteRule ^xasCore/1\.[01]/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
-RewriteRule ^xasCore/1\.[01]/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
-RewriteRule ^xasCore/1\.[01]/context/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteRule ^xasCore/1\.2/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/xasCoreSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.2/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.2/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.2/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.2/context/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
 
-# --- xasOptional/1.0 and 1.1 sub-paths → live main/_sources/xasProperties/xasOptional ---
+# --- xasCore/1.1 sub-paths → mBB at 39bfc139e6 (superseded: pinned, see header) ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasOptional/1\.[01]/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/xasOptionalSchema.json [R=303,L]
-RewriteRule ^xasOptional/1\.[01]/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
-RewriteRule ^xasOptional/1\.[01]/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
-RewriteRule ^xasOptional/1\.[01]/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
-RewriteRule ^xasOptional/1\.[01]/context/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+RewriteRule ^xasCore/1\.1/schema/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/xasCoreSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.1/schema/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.1/resolved/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.1/shacl/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.1/context/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
 
-# --- xasDocument/1.1 sub-paths → XAS-CDIF release/ on main ---
-RewriteRule ^xasDocument/1\.1/(schema|resolved)/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
-RewriteRule ^xasDocument/1\.1/shacl/?$ %{ENV:XAS_RELEASE_RAW}/xasDocumentRules.shacl [R=303,L]
-RewriteRule ^xasDocument/1\.1/frame/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
-RewriteRule ^xasDocument/1\.1/guide/?$ https://github.com/CDIF-4-XAS/XAS-CDIF/blob/main/release/CDIFXASDocumentImplementationGuide.md [R=303,L]
+# --- xasCore/1.0 sub-paths → mBB at 1ffb495b84 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/xasCoreSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/schema/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteRule ^xasCore/1\.0/resolved/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/shacl/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteRule ^xasCore/1\.0/context/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
+
+# --- xasOptional/1.2 sub-paths → live main/_sources/xasProperties/xasOptional ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.2/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/xasOptionalSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.2/schema/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteRule ^xasOptional/1\.2/resolved/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.2/shacl/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteRule ^xasOptional/1\.2/context/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+
+# --- xasOptional/1.1 sub-paths → mBB at 39bfc139e6 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.1/schema/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/xasOptionalSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.1/schema/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteRule ^xasOptional/1\.1/resolved/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.1/shacl/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteRule ^xasOptional/1\.1/context/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+
+# --- xasOptional/1.0 sub-paths → mBB at 1ffb495b84 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.0/schema/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/xasOptionalSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/schema/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteRule ^xasOptional/1\.0/resolved/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/shacl/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteRule ^xasOptional/1\.0/context/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+
+# --- xasDocument/1.2 sub-paths → XAS-CDIF release/ on main ---
+RewriteRule ^xasDocument/1\.2/(schema|resolved)/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
+RewriteRule ^xasDocument/1\.2/shacl/?$ %{ENV:XAS_RELEASE_RAW}/xasDocumentRules.shacl [R=303,L]
+RewriteRule ^xasDocument/1\.2/frame/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
+RewriteRule ^xasDocument/1\.2/guide/?$ https://github.com/CDIF-4-XAS/XAS-CDIF/blob/main/release/CDIFXASDocumentImplementationGuide.md [R=303,L]
+
+# --- xasDocument/1.1 sub-paths → XAS-CDIF release/ at tag 1.1 (superseded: pinned) ---
+RewriteRule ^xasDocument/1\.1/(schema|resolved)/?$ %{ENV:XAS_RELEASE_1_1_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
+RewriteRule ^xasDocument/1\.1/shacl/?$ %{ENV:XAS_RELEASE_1_1_RAW}/xasDocumentRules.shacl [R=303,L]
+RewriteRule ^xasDocument/1\.1/frame/?$ %{ENV:XAS_RELEASE_1_1_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
+RewriteRule ^xasDocument/1\.1/guide/?$ https://github.com/CDIF-4-XAS/XAS-CDIF/blob/1.1/release/CDIFXASDocumentImplementationGuide.md [R=303,L]
 
 # ============================================================
 # XAS glossary concept URIs (SKOS)
@@ -325,6 +409,52 @@ RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/XAS_Glossary_SKOS_v2.json [R=303,L]
 # --- xas/ → glossary HTML index (default) ---
 RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/ [R=303,L]
 
+
+# ---- 2.0 conformance URI sub-paths (pre-release: updates branch) ----
+
+# --- core/2.0 sub-paths → profile-core (updates) ---
+RewriteRule ^core/2\.0/schema/?$   %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/2\.0/resolved/?$ %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/2\.0/shacl/?$    %{ENV:UPD_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/2\.0/guide/?$    %{ENV:UPD_CORE}/CDIFCoreImplementationGuide.md [R=303,L]
+
+# --- discovery/2.0 sub-paths → profile-discovery (updates) ---
+RewriteRule ^discovery/2\.0/schema/?$   %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/2\.0/resolved/?$ %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/2\.0/shacl/?$    %{ENV:UPD_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/2\.0/guide/?$    %{ENV:UPD_DISCOVERY}/CDIFDiscoveryImplementationGuide.md [R=303,L]
+
+# --- data_description/2.0 sub-paths → profile-datadescription (updates) ---
+RewriteRule ^data_description/2\.0/schema/?$   %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/2\.0/resolved/?$ %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/2\.0/shacl/?$    %{ENV:UPD_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/2\.0/guide/?$    %{ENV:UPD_DATADESC}/CDIFDataDescriptionImplementationGuide.md [R=303,L]
+
+# --- data_structure/2.0 sub-paths → profile-datastructure (updates) ---
+RewriteRule ^data_structure/2\.0/schema/?$   %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/2\.0/resolved/?$ %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/2\.0/shacl/?$    %{ENV:UPD_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/2\.0/guide/?$    %{ENV:UPD_DATASTRUCT}/CDIFDataStructureImplementationGuide.md [R=303,L]
+
+# --- manifest/2.0 sub-paths → profile-manifest (updates) ---
+RewriteRule ^manifest/2\.0/schema/?$   %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/2\.0/resolved/?$ %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/2\.0/shacl/?$    %{ENV:UPD_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/2\.0/guide/?$    %{ENV:UPD_MANIFEST}/CDIFManifestImplementationGuide.md [R=303,L]
+
+# --- conceptscheme/2.0 sub-paths → profile-conceptscheme (updates) ---
+RewriteRule ^conceptscheme/2\.0/schema/?$   %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/2\.0/resolved/?$ %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/2\.0/shacl/?$    %{ENV:UPD_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/2\.0/guide/?$    %{ENV:UPD_CS}/CDIFConceptSchemeImplementationGuide.md [R=303,L]
+
+# --- codelist/2.0 sub-paths → profile-codelist (updates) ---
+RewriteRule ^codelist/2\.0/schema/?$   %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/2\.0/resolved/?$ %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/2\.0/shacl/?$    %{ENV:UPD_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/2\.0/guide/?$    %{ENV:UPD_CL}/CDIFCodelistImplementationGuide.md [R=303,L]
+
+
 # ---- Conformance URI bare paths (content negotiation) ----
 # Each rule serves: application/schema+json / application/json → StructuredSchema;
 # text/turtle → Rules.shacl; default (text/html, browser, anything else) → IG.html
@@ -394,6 +524,40 @@ RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^provenance/activityType/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/activityType/$1.jsonld [R=303,L]
 RewriteRule ^provenance/activityType/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/activityTypes.html#$1 [R=303,NE,L]
 
+# --- concepts/provenance/activity → profile-provenance vocabularies/ (CDIF provenance activities) ---
+# Supersedes provenance/activityType (above, deprecated but kept resolvable). The source is
+# vocabularies/CDIF_Activities.json; tools/buildVocabularyFiles.py writes the scheme Turtle
+# and one file per concept under vocabularies/concepts/<IRI path below concepts/>.
+# Scheme IRI (.../activity/conceptScheme, or the namespace itself): whole vocabulary.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^concepts/provenance/activity/?(conceptScheme/?)?$ %{ENV:PROFILE_PROV}/vocabularies/CDIF_Activities.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^concepts/provenance/activity/?(conceptScheme/?)?$ %{ENV:PROFILE_PROV}/vocabularies/CDIF_Activities.json [R=303,L]
+RewriteRule ^concepts/provenance/activity/?(conceptScheme/?)?$ %{ENV:PROFILE_PROV}/vocabularies/docs/CDIF_Activities.html [R=303,L]
+# Concept IRI: its own Turtle or JSON-LD file, else its anchor on the HTML page.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^concepts/provenance/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/concepts/provenance/activity/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^concepts/provenance/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/concepts/provenance/activity/$1.jsonld [R=303,L]
+RewriteRule ^concepts/provenance/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/CDIF_Activities.html#$1 [R=303,NE,L]
+
+# --- concepts/GSBPM-5.2/activity → the GSBPM 5.2 overarching activities in the same vocabulary ---
+# Seven concepts, published in CDIF_Activities.json alongside the CDIF activities.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^concepts/GSBPM-5\.2/activity/?$ %{ENV:PROFILE_PROV}/vocabularies/CDIF_Activities.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^concepts/GSBPM-5\.2/activity/?$ %{ENV:PROFILE_PROV}/vocabularies/CDIF_Activities.json [R=303,L]
+RewriteRule ^concepts/GSBPM-5\.2/activity/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/CDIF_Activities.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^concepts/GSBPM-5\.2/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/concepts/GSBPM-5.2/activity/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^concepts/GSBPM-5\.2/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/concepts/GSBPM-5.2/activity/$1.jsonld [R=303,L]
+RewriteRule ^concepts/GSBPM-5\.2/activity/([A-Za-z]+)/?$ %{ENV:PROFILE_PROV}/vocabularies/docs/CDIF_Activities.html#$1 [R=303,NE,L]
+
 # --- conceptscheme/1.1 → profile-conceptscheme ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
@@ -410,41 +574,171 @@ RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
 
-# --- xasCore/1.0 and 1.1 → live main/_sources/xasProperties/xasCore ---
-RewriteCond %{HTTP_ACCEPT} application/schema\+json
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/yaml
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
-RewriteRule ^xasCore/1\.[01]/?$ %{ENV:MBB_TREE}/xasProperties/xasCore [R=303,L]
 
-# --- xasOptional/1.0 and 1.1 → live main/_sources/xasProperties/xasOptional ---
-RewriteCond %{HTTP_ACCEPT} application/schema\+json
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/yaml
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
-RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
-RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
-RewriteRule ^xasOptional/1\.[01]/?$ %{ENV:MBB_TREE}/xasProperties/xasOptional [R=303,L]
+# ---- 2.0 conformance URI bare paths (pre-release: updates branch) ----
 
-# --- xasDocument/1.1 → XAS-CDIF release/ on main ---
+# --- core/2.0 → profile-core (updates) ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
-RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_RAW}/xasDocumentRules.shacl [R=303,L]
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/CDIFCoreImplementationGuide.md [R=303,L]
+
+# --- discovery/2.0 → profile-discovery (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/CDIFDiscoveryImplementationGuide.md [R=303,L]
+
+# --- data_description/2.0 → profile-datadescription (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/CDIFDataDescriptionImplementationGuide.md [R=303,L]
+
+# --- data_structure/2.0 → profile-datastructure (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/CDIFDataStructureImplementationGuide.md [R=303,L]
+
+# --- manifest/2.0 → profile-manifest (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/CDIFManifestImplementationGuide.md [R=303,L]
+
+# --- conceptscheme/2.0 → profile-conceptscheme (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/CDIFConceptSchemeImplementationGuide.md [R=303,L]
+
+# --- codelist/2.0 → profile-codelist (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/CDIFCodelistImplementationGuide.md [R=303,L]
+
+
+# --- niaid/1.0 → profile-niaid ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^niaid/1\.0/?$ %{ENV:PROFILE_NIAID}/cdifNIAIDStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^niaid/1\.0/?$ %{ENV:PROFILE_NIAID}/niaidRules.shacl [R=303,L]
+RewriteRule ^niaid/1\.0/?$ %{ENV:PROFILE_NIAID}/CDIFNIAIDImplementationGuide.html [R=303,L]
+
+# --- xasCore/1.2 → live main/_sources/xasProperties/xasCore ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
-RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_TREE} [R=303,L]
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.2/?$ %{ENV:MBB_TREE}/xasProperties/xasCore [R=303,L]
+
+# --- xasCore/1.1 → mBB at 39bfc139e6 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.1/?$ %{ENV:MBB_XAS_1_1_TREE}/xasProperties/xasCore [R=303,L]
+
+# --- xasCore/1.0 → mBB at 1ffb495b84 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasCore/resolvedSchema.json [R=303,L]
+RewriteRule ^xasCore/1\.0/?$ %{ENV:MBB_XAS_1_0_TREE}/xasProperties/xasCore [R=303,L]
+
+# --- xasOptional/1.2 → live main/_sources/xasProperties/xasOptional ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.2/?$ %{ENV:MBB_TREE}/xasProperties/xasOptional [R=303,L]
+
+# --- xasOptional/1.1 → mBB at 39bfc139e6 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.1/?$ %{ENV:MBB_XAS_1_1_TREE}/xasProperties/xasOptional [R=303,L]
+
+# --- xasOptional/1.0 → mBB at 1ffb495b84 (superseded: pinned, see header) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/yaml
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/schema.yaml [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/context.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_RAW}/xasProperties/xasOptional/resolvedSchema.json [R=303,L]
+RewriteRule ^xasOptional/1\.0/?$ %{ENV:MBB_XAS_1_0_TREE}/xasProperties/xasOptional [R=303,L]
+
+# --- xasDocument/1.2 → XAS-CDIF release/ on main ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasDocument/1\.2/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasDocument/1\.2/?$ %{ENV:XAS_RELEASE_RAW}/xasDocumentRules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasDocument/1\.2/?$ %{ENV:XAS_RELEASE_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
+RewriteRule ^xasDocument/1\.2/?$ %{ENV:XAS_RELEASE_TREE} [R=303,L]
+
+# --- xasDocument/1.1 → XAS-CDIF release/ at tag 1.1 (superseded: pinned) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_1_1_RAW}/cdifXASDocumentResolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_1_1_RAW}/xasDocumentRules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_1_1_RAW}/cdifXASDocument-frame.jsonld [R=303,L]
+RewriteRule ^xasDocument/1\.1/?$ %{ENV:XAS_RELEASE_1_1_TREE} [R=303,L]
 
 # ============================================================
 # Domain-specific building blocks (separate repos)
@@ -769,16 +1063,19 @@ RewriteRule ^conceptscheme/(schema|resolved|shacl|guide)/?$  /cdif/conceptscheme
 RewriteRule ^codelist/?$                                /cdif/codelist/1.1/ [R=302,L]
 RewriteRule ^codelist/(schema|resolved|shacl|guide)/?$  /cdif/codelist/1.1/$1 [R=302,L]
 
-# XAS tiers are at 1.1 and live on mBB main, not in a release repo -- so they
+RewriteRule ^niaid/?$                                /cdif/niaid/1.0/ [R=302,L]
+RewriteRule ^niaid/(schema|resolved|shacl|guide)/?$  /cdif/niaid/1.0/$1 [R=302,L]
+
+# XAS tiers are at 1.2 and live on mBB main, not in a release repo -- so they
 # have a `context` sub-path and no `guide`, the reverse of the profiles above.
-RewriteRule ^xasCore/?$                                 /cdif/xasCore/1.1/ [R=302,L]
-RewriteRule ^xasCore/(schema|resolved|shacl|context)/?$ /cdif/xasCore/1.1/$1 [R=302,L]
+RewriteRule ^xasCore/?$                                 /cdif/xasCore/1.2/ [R=302,L]
+RewriteRule ^xasCore/(schema|resolved|shacl|context)/?$ /cdif/xasCore/1.2/$1 [R=302,L]
 
-RewriteRule ^xasOptional/?$                             /cdif/xasOptional/1.1/ [R=302,L]
-RewriteRule ^xasOptional/(schema|resolved|shacl|context)/?$ /cdif/xasOptional/1.1/$1 [R=302,L]
+RewriteRule ^xasOptional/?$                             /cdif/xasOptional/1.2/ [R=302,L]
+RewriteRule ^xasOptional/(schema|resolved|shacl|context)/?$ /cdif/xasOptional/1.2/$1 [R=302,L]
 
-RewriteRule ^xasDocument/?$                             /cdif/xasDocument/1.1/ [R=302,L]
-RewriteRule ^xasDocument/(schema|resolved|shacl|frame|guide)/?$ /cdif/xasDocument/1.1/$1 [R=302,L]
+RewriteRule ^xasDocument/?$                             /cdif/xasDocument/1.2/ [R=302,L]
+RewriteRule ^xasDocument/(schema|resolved|shacl|frame|guide)/?$ /cdif/xasDocument/1.2/$1 [R=302,L]
 
 # ============================================================
 # Base CDIF redirect: /cdif

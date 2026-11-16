@@ -18,6 +18,7 @@ CDIF specification components have persistent conformance URIs that metadata rec
 | `https://w3id.org/cdif/provenance/1.1/` | CDIF Provenance |
 | `https://w3id.org/cdif/conceptscheme/1.1/` | CDIF Concept Scheme |
 | `https://w3id.org/cdif/codelist/1.1/` | CDIF Codelist |
+| `https://w3id.org/cdif/niaid/1.0/` | CDIF NIAID (NIAID Data Discovery Portal records) |
 | `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core (mandatory tier) |
 | `https://w3id.org/cdif/xasOptional/1.0/` | CDIF XAS Optional (optional tier) |
 

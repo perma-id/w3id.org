@@ -35,11 +35,11 @@ features:
     linkText: What the service is not for
   - title: The mistakes we see over and over
     details: >-
-      A catalogue of specific, checkable rules, each one written because
+      A catalog of specific, checkable rules, each one written because
       contributors keep getting it wrong. A single stray space can take an
       identifier offline.
     link: /rules/
-    linkText: Rule catalogue
+    linkText: Rule catalog
   - title: Changing an identifier that people already use
     details: >-
       Identifiers on this service are meant to last for decades. Updating one
@@ -81,7 +81,7 @@ published at [`/llms.txt`](https://w3id.org/docs/llms.txt) and
 [`/llms-full.txt`](https://w3id.org/docs/llms-full.txt), and every page is
 available as raw Markdown by appending `.md` to its URL.
 
-Please read [Scope](/overview/scope) and the [rule catalogue](/rules/) before
+Please read [Scope](/overview/scope) and the [rule catalog](/rules/) before
 generating a pull request. A large share of the pull requests this project
 receives are machine-generated, plausible-looking, and wrong in ways that take a
 human reviewer longer to correct than to have written by hand.

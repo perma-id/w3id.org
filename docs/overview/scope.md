@@ -58,7 +58,7 @@ declined for names that are:
 - **too generic** — a single common English word, or a term the whole community
   would plausibly need;
 - **confusing** — close enough to an existing identifier or a well-known
-  organisation to mislead;
+  organization to mislead;
 - **inappropriate or offensive**;
 - **speculative** — claimed with no concrete project behind them, or claimed in
   bulk.

@@ -19,7 +19,7 @@ publication, and carries no endorsement.
 
 ### Does it cost anything?
 
-No. The service is run by a consortium of organisations that have pledged to
+No. The service is run by a consortium of organizations that have pledged to
 keep it operating. See [Overview — Who runs it](/overview/#who-runs-it).
 
 ### How long will my identifier last?
@@ -53,7 +53,7 @@ This is the most common out-of-scope request. See
 ### Can I have a short or generic name?
 
 Probably not. Names that are single common words, that could be confused with an
-existing identifier or a known organisation, or that look like speculative
+existing identifier or a known organization, or that look like speculative
 claims are declined. Ask on the
 [mailing list](https://lists.w3.org/Archives/Public/public-perma-id/) before
 opening a pull request if you are unsure. See
@@ -105,7 +105,7 @@ The most frequent reasons, in rough order:
 5. Untested rules that do not work
 6. Uninformative commit messages, or a long unsquashed history
 
-See the [rule catalogue](/rules/) for the full list.
+See the [rule catalog](/rules/) for the full list.
 
 ### Do I have to squash my commits?
 
@@ -159,7 +159,7 @@ explain why, and tag a maintainer from that directory to approve it. See
 Probably one of three reasons.
 
 The rule may be **documented but not mechanized** — a rule page marked
-`proposed` in the [catalogue](/rules/) has no check behind it yet.
+`proposed` in the [catalog](/rules/) has no check behind it yet.
 
 The mistake may be **outside what any checker can know**. Nothing can tell that
 your redirect points at the wrong place, only that it is well-formed. Whether
@@ -172,7 +172,7 @@ the repository will not appear.
 Note also that most of the identifiers already in this repository predate any
 automated checking and have never been checked at all. A rule being enforced
 today says nothing about whether the existing tree satisfies it — which is one
-more reason not to copy a neighbouring `.htaccess` as a template.
+more reason not to copy a neighboring `.htaccess` as a template.
 
 ## Redirects and HTTP
 
@@ -181,7 +181,7 @@ more reason not to copy a neighbouring `.htaccess` as a template.
 **302** for ordinary redirects. **303** for content-negotiated ontology IRIs,
 where the identifier names a concept and you redirect to a document about it.
 
-**Avoid 301.** Browsers and caches may honour it indefinitely and never
+**Avoid 301.** Browsers and caches may honor it indefinitely and never
 re-check, so a 301 you got wrong cannot be fully retracted. On a service built
 for identifiers that live for decades, that is a bad trade for a marginal
 caching benefit.
@@ -292,7 +292,7 @@ Introduce yourself on the mailing list, then open an issue titled
 ### I am an AI agent. What should I read?
 
 [`AGENTS.md`](https://github.com/perma-id/w3id.org/blob/master/AGENTS.md) in the
-repository, then [Scope](/overview/scope) and the [rule catalogue](/rules/).
+repository, then [Scope](/overview/scope) and the [rule catalog](/rules/).
 Machine-readable versions of this site are at
 [`/llms.txt`](https://w3id.org/docs/llms.txt) and
 [`/llms-full.txt`](https://w3id.org/docs/llms-full.txt), and any page is

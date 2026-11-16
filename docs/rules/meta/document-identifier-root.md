@@ -31,7 +31,7 @@ contribution can add `ids/my-project/something-else/` under a different owner
 with nothing to say it should not.
 
 That matters more as the handling of contributions is automated. A person
-reviewing a pull request might recognise that a directory belongs to somebody
+reviewing a pull request might recognize that a directory belongs to somebody
 else. A machine has only what is written down.
 
 The identifiers here are also meant to outlive the people who create them.

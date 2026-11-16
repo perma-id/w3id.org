@@ -1,10 +1,10 @@
 # OntoExhibit
 
-Documentation is available at: https://iarthis-lab.github.io/OntoExhibit/index-en.html
+Documentation is available at: https://complexhibit-project.github.io/OntoExhibit/index-en.html
 
 The ontology is available in:
 
-OWL: https://iarthis-lab.github.io/OntoExhibit/ontology.owl
+OWL: https://complexhibit-project.github.io/OntoExhibit/ontology.owl
 
 Contact:
 

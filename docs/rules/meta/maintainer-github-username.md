@@ -95,7 +95,7 @@ Or in `README.md`:
   GitHub: [@exampleuser](https://github.com/exampleuser)
 ```
 
-More than one maintainer is better than one. An organisation or team account is
+More than one maintainer is better than one. An organization or team account is
 fine, and is more durable than an individual.
 
 ## How to fix
@@ -114,7 +114,7 @@ checks do.
 node tools/check/bin/w3id-check.js --rule meta/maintainer-github-username ids/my-project
 ```
 
-The check recognises the many shapes this information takes across the
+The check recognizes the many shapes this information takes across the
 repository — `GitHub username: name`, `(GitHub: name)`, a bare `@name`, a
 line starting `Username: name`, a profile URL, a Markdown link. It is
 deliberately lenient, and reports only when it can find no plausible username

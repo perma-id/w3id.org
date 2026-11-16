@@ -166,7 +166,7 @@ const PATH_PATTERNS = [
  * what a rename leaves behind. It cannot catch a command naming the wrong
  * page, because that id resolves perfectly well -- and the pages are 38 near
  * copies of one another, edited together, which is exactly the shape that
- * produces a pasted-in neighbour's id.
+ * produces a pasted-in neighbor's id.
  *
  * A page with no check yet is exempt from having a command, and the exemption
  * comes from its own frontmatter rather than from a list of filenames here.
@@ -468,7 +468,7 @@ test('references: every documentation page is reachable from the site nav',
   // The forward check asks whether a page is linked. A page's route carries
   // a trailing slash when it is an index; a sidebar entry need not, and may
   // carry a fragment -- the htaccess groups point at sections of one index
-  // page. Normalised here for that comparison only. `linked` itself stays
+  // page. Normalized here for that comparison only. `linked` itself stays
   // verbatim, because the reverse check resolves each entry as written and
   // would report these synthetic spellings as links to nothing.
   const linkedRoutes = new Set();
@@ -557,7 +557,7 @@ test('references: every documentation page is reachable from the site nav',
 });
 
 /**
- * The organisations running the service are listed in both `README.md` and
+ * The organizations running the service are listed in both `README.md` and
  * `docs/overview/index.md`; assert that the two lists match.
  *
  * The floor on member count keeps a renamed heading from emptying both
@@ -578,6 +578,60 @@ test('references: the two consortium lists agree', () => {
   assert.deepEqual(readme, overview,
     'the consortium is listed in both of these files and they no longer ' +
     'agree. Edit both, or delete one and link to the other.');
+});
+
+/**
+ * The repository's own text uses American spelling.
+ *
+ * Contributed identifiers under `ids/` are left as their authors wrote them.
+ * Everything else -- docs, checker messages, comments, config -- is written
+ * here, and British forms kept creeping back in. The patterns are built from
+ * stems so that this file does not match itself.
+ */
+const BRITISH = new RegExp('\\b(?:' + [
+  '(?:hono|behavio|colo|favo|neighbo|labo|humo|flavo|rumo|harbo|endeavo)' +
+    'ur(?:s|ed|ing|able|ably|ite|ites|hood)?',
+  'catalog(?:ue|ues|ued|uing)',
+  '(?:analy|paraly|cataly)(?:se|ses|sed|sing)',
+  '(?:re|un|de|over|under)?(?:organ|recogn|normal|capital|material|absolut|' +
+    'standard|author|real|summar|priorit|initial|serial|custom|optim|minim|' +
+    'maxim|emphas|final|util|categor|character|sanit|synchron|visual|' +
+    'general|special|local|memor|stabil|central|apolog|critic|legitim)' +
+    'is(?:e|es|ed|ing|ation|ations|er|ers)',
+  '(?:model|label|cancel|travel|signal|level|fuel)l(?:ed|ing|er|ers)',
+  'cent(?:re|res)', 'licen(?:ce|ces)', 'programm(?:e|es)',
+  '(?:def|off)ence', '(?:whil|among)st'
+].join('|') + ')\\b', 'gi');
+
+// Deliberate: the maintainer extractor lists this British spelling because
+// it matches what contributors write.
+const BRITISH_ALLOWED = [
+  {file: 'tools/check/src/maintainers.js', word: /^organi[s]ation$/i}
+];
+
+test('references: the repository writes American spelling', () => {
+  const found = [];
+  for(const relative of listFiles(root)) {
+    if(relative.startsWith('ids/') || relative.endsWith('package-lock.json')) {
+      continue;
+    }
+    const text = read(path.join(root, relative));
+    // Binary files, and files deleted but not yet committed.
+    if(text === null || text.includes('\0')) {
+      continue;
+    }
+    for(const [i, line] of text.split('\n').entries()) {
+      for(const [word] of line.matchAll(BRITISH)) {
+        const allowed = BRITISH_ALLOWED.some(
+          a => a.file === relative && a.word.test(word));
+        if(!allowed) {
+          found.push(`${relative}:${i + 1}: ${word}`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(found, [],
+    'British spelling outside ids/; write the American form.');
 });
 
 /**

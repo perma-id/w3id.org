@@ -53,7 +53,12 @@ The usual cause is GitHub's web editor, which will not accept a filename
 beginning with a dot typed into an empty filename box, so people save
 `htaccess.txt` meaning to fix it later. Variants that have all happened here:
 `htaccess.txt`, `htaccess.txt.txt`, `.htaccess.txt`, `htaccess`,
-`default.htaccess`, and `<project-name>.htaccess`.
+`default.htaccess`, and `<project-name>.htaccess`. Misspellings have
+happened too: `.htcaccess`, `.httaccess`, `.httpaccess` and `.haccess`.
+
+The same applies to an identifier created in the wrong place, outside `ids/`,
+such as `my-project/.htcaccess`. That is reported here for its name, and by
+[`tree/identifier-under-ids`](../tree/identifier-under-ids) for where it is.
 
 ## Wrong
 

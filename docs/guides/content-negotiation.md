@@ -184,7 +184,7 @@ RewriteEngine on
 RewriteRule ^vocab\.(ttl|jsonld|rdf|nt)$ https://example.org/vocab/vocab.$1 [R=303,L]
 ```
 
-The two approaches combine well: negotiate on the bare IRI, and also honour an
+The two approaches combine well: negotiate on the bare IRI, and also honor an
 explicit extension when one is given.
 
 ## CORS

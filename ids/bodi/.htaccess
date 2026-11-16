@@ -1,3 +1,13 @@
+# # BoDi (Born-Digital Ontology)
+#
+# https://w3id.org/bodi/ redirects to the current version of BoDi.
+# https://w3id.org/bodi/1.0 and https://w3id.org/bodi/1.0.1 redirect to the
+# files of the corresponding GitHub releases (tags v1.0 and v1.0.1).
+#
+# ## Contact
+# Lucia Giagnolini
+# GitHub: @LuciaGiagnolini12
+
 # Disabilita MultiViews
 Options +FollowSymLinks -MultiViews
 
@@ -11,26 +21,36 @@ RewriteEngine On
 RewriteBase /bodi/
 
 # ============================================
-# VERSIONE 1.0 (esplicita)
+# VERSIONE 1.0.1 (esplicita, release v1.0.1)
 # ============================================
 
-# HTML per v1.0
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/index.html [R=303,L]
+# RDF/XML o OWL per v1.0.1
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^1\.0\.1/?$ https://raw.githubusercontent.com/LuciaGiagnolini12/bodi/v1.0.1/ontology/bodi.rdf [R=303,L]
+
+# Turtle per v1.0.1
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^1\.0\.1/?$ https://raw.githubusercontent.com/LuciaGiagnolini12/bodi/v1.0.1/ontology/bodi.ttl [R=303,L]
+
+# HTML (default) per v1.0.1: pagina della release
+RewriteRule ^1\.0\.1/?$ https://github.com/LuciaGiagnolini12/bodi/releases/tag/v1.0.1 [R=303,L]
+
+# ============================================
+# VERSIONE 1.0 (esplicita, release v1.0)
+# ============================================
 
 # RDF/XML o OWL/XML per v1.0
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
 RewriteCond %{HTTP_ACCEPT} application/owl\+xml
-RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.owl [R=303,L]
+RewriteRule ^1\.0/?$ https://raw.githubusercontent.com/LuciaGiagnolini12/bodi/v1.0/ontology/bodi.rdf [R=303,L]
 
 # Turtle per v1.0
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.ttl [R=303,L]
+RewriteRule ^1\.0/?$ https://raw.githubusercontent.com/LuciaGiagnolini12/bodi/v1.0/ontology/bodi.ttl [R=303,L]
 
-# JSON-LD per v1.0
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^1\.0/?$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.jsonld [R=303,L]
+# HTML (default) per v1.0: pagina della release
+RewriteRule ^1\.0/?$ https://github.com/LuciaGiagnolini12/bodi/releases/tag/v1.0 [R=303,L]
 
 # ============================================
 # VERSIONE CORRENTE (base URI)
@@ -53,3 +73,6 @@ RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.ttl [R=303
 # JSON-LD per base URI
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
 RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/bodi.jsonld [R=303,L]
+
+# Default per base URI (nessun Accept riconosciuto): documentazione HTML
+RewriteRule ^$ https://LuciaGiagnolini12.github.io/bodi/ontology/index.html [R=303,L]

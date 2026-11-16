@@ -27,7 +27,7 @@ has to change.
 Applications that deal with [Linked Data](https://en.wikipedia.org/wiki/Linked_data)
 need URLs that are extremely stable. A vocabulary term, an ontology IRI, or a
 JSON-LD context URL gets embedded in documents and datasets that outlive the
-web server that first published them. Universities reorganise. Companies get
+web server that first published them. Universities reorganize. Companies get
 acquired. Projects get funded for three years and then stop.
 
 An identifier under w3id.org survives all of that, because the identifier is
@@ -46,7 +46,7 @@ service. See [Creating an identifier](/guides/create-an-id).
 
 ## Who runs it
 
-A consortium of organisations has pledged responsibility for keeping the
+A consortium of organizations has pledged responsibility for keeping the
 service running:
 
 - [Digital Bazaar](https://www.digitalbazaar.com/)
@@ -57,14 +57,14 @@ service running:
 - [KurrawongAI](https://kurrawong.ai)
 
 They handle all administrative tasks associated with operating the service. The
-social contract between them gives each organisation full access to everything
+social contract between them gives each organization full access to everything
 needed to run the site, so that several of them could fail, lose interest, or
 become unreachable for long periods without affecting the service.
 
 ### Joining the consortium
 
 Introduce yourself on the mailing list first (see below) and say what your
-organisation would bring. Then open an issue on the
+organization would bring. Then open an issue on the
 [issue tracker](https://github.com/perma-id/w3id.org/issues) titled
 *Seeking to join the W3ID Consortium* with your details.
 

@@ -54,4 +54,4 @@ through to a 404 with nothing in the logs to say why.
 | [`htaccess/no-406-fallback`](./no-406-fallback) | warning | Ending negotiation in 406 answers nobody |
 | [`htaccess/no-options-directive`](./no-options-directive) | *proposed* | `Options` directives — open questions |
 
-Back to the [rule catalogue](../).
+Back to the [rule catalog](../).

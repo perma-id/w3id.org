@@ -19,7 +19,7 @@ it can be reconfigured when the information moves.
 
 That is where everything lives — what the service is and is not for, how to
 create and maintain an identifier, how to write and test `.htaccess` rules, and
-a catalogue of the mistakes that most often send a pull request back.
+a catalog of the mistakes that most often send a pull request back.
 
 <!--
 These links are relative so that they work in a fork, in an offline clone, and
@@ -133,7 +133,7 @@ your rules the way the service does.
 
 ## Management
 
-The service is operated by a consortium of organisations that have pledged
+The service is operated by a consortium of organizations that have pledged
 responsibility for keeping it running:
 
 * [Digital Bazaar](https://www.digitalbazaar.com/)

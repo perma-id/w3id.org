@@ -12,7 +12,7 @@ applies-to: "docs/rules/**"
 
 ## What
 
-The rule registry and this catalogue must agree:
+The rule registry and this catalog must agree:
 
 - every rule the checker implements has a page at `docs/rules/<id>.md`;
 - every page marked `status: enforced` corresponds to a rule that exists;
@@ -31,7 +31,7 @@ The reverse matters too. A page claiming `status: enforced` tells a contributor
 a check will catch this before review, and that promise should be true.
 
 This is the rule that keeps the two halves of this repository — the checker in
-`tools/check/` and the catalogue in `docs/rules/` — from drifting apart. They
+`tools/check/` and the catalog in `docs/rules/` — from drifting apart. They
 were written separately, which is exactly the situation that produces drift.
 
 ## Wrong
@@ -62,7 +62,7 @@ docs/rules/htaccess/https-target.md   with  id: htaccess/https-target
 ## How to fix
 
 Adding a rule means adding its page in the same change, and adding it to the
-catalogue table and the site sidebar. Removing a check without removing the
+catalog table and the site sidebar. Removing a check without removing the
 page means changing the page's `status` to `proposed`.
 
 ## How to check
@@ -84,5 +84,5 @@ else is worth checking by hand.
 
 ## See also
 
-- [The rule catalogue](../)
+- [The rule catalog](../)
 - [Report a false positive or a missing check](https://github.com/perma-id/w3id.org/issues)

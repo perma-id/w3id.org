@@ -1,0 +1,62 @@
+# # /weft/
+#
+# Permanent identifiers for Weft, a vocabulary for evidence-backed career graphs.
+#
+# https://w3id.org/weft is the ontology (terms are https://w3id.org/weft#used etc.),
+# https://w3id.org/weft/1.0 a specific version. Browsers get the HTML documentation;
+# RDF clients get Turtle, JSON-LD, RDF/XML or N-Triples. Everything is hosted at
+# https://rishirajani.github.io/weft/
+#
+# Source: https://github.com/rishirajani/weft
+#
+# ## Contact
+# This space is administered by:
+#
+# - Rishi Rajani
+#   - GitHub: @rishirajani
+
+RewriteEngine on
+
+# --- The ontology, latest version --------------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://rishirajani.github.io/weft/weft.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://rishirajani.github.io/weft/weft.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://rishirajani.github.io/weft/weft.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://rishirajani.github.io/weft/weft.nt [R=303,L]
+
+RewriteRule ^$ https://rishirajani.github.io/weft/ [R=303,L]
+
+# --- A specific version, e.g. /weft/1.0 ----------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://rishirajani.github.io/weft/$1/weft.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://rishirajani.github.io/weft/$1/weft.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://rishirajani.github.io/weft/$1/weft.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://rishirajani.github.io/weft/$1/weft.nt [R=303,L]
+
+RewriteRule ^([0-9]+(\.[0-9]+)*)/?$ https://rishirajani.github.io/weft/$1/ [R=303,L]
+
+# --- Files asked for by name ---------------------------------------------------
+
+RewriteRule ^weft\.(ttl|jsonld|rdf|nt)$ https://rishirajani.github.io/weft/weft.$1 [R=303,L]
+RewriteRule ^([0-9]+(\.[0-9]+)*)/weft\.(ttl|jsonld|rdf|nt)$ https://rishirajani.github.io/weft/$1/weft.$3 [R=303,L]
+
+# The JSON-LD context (fetched by JSON-LD processors) and the SHACL shapes.
+RewriteRule ^context(\.jsonld)?$ https://rishirajani.github.io/weft/context.jsonld [R=303,L]
+RewriteRule ^shapes(\.ttl)?$ https://rishirajani.github.io/weft/shapes.ttl [R=303,L]
+
+# The example.
+RewriteRule ^examples/([a-z0-9-]+\.ttl)$ https://rishirajani.github.io/weft/examples/$1 [R=303,L]

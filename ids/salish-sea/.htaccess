@@ -1,0 +1,26 @@
+# # /salish-sea/
+#
+# https://w3id.org/salish-sea/animals/<seven digits> identifies an animal or a
+# social group in the Salish Sea Animals register
+# (https://github.com/salish-sea/animals), and redirects to the register's
+# explanation of its identifiers.
+#
+# https://w3id.org/salish-sea/datasets/occurrences-v1 identifies the marine
+# mammal occurrence dataset SalishSea.io publishes, and redirects to its page.
+#
+# Every other address under /salish-sea/ redirects to the register's
+# explanation of its identifiers.
+#
+# ## Contact
+# This space is administered by:
+#
+# Peter Abrahamsen
+# rainhead@gmail.com
+# GitHub username: rainhead
+
+RewriteEngine on
+
+RewriteRule ^datasets/occurrences-v1/?$ https://salishsea.io/datasets/occurrences-v1 [R=302,L]
+
+# NE: without it Apache escapes the "#" as "%23", and the target is a 404.
+RewriteRule ^ https://github.com/salish-sea/animals#identifiers [R=303,NE,L]

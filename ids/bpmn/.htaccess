@@ -1,0 +1,38 @@
+# Persistent identifiers for "BPMN 2.0 in RDF"
+# Source and issue tracker: https://github.com/jwvveen/bpmn-rdf
+#
+# https://w3id.org/bpmn                 core ontology (hash namespace: https://w3id.org/bpmn#)
+# https://w3id.org/bpmn/archimate       bridge to ArchiMate 4.0
+# https://w3id.org/bpmn/alignments      mappings to earlier BPMN ontologies
+# https://w3id.org/bpmn/matrix          connection matrix (Tables 7.3 and 7.4)
+# https://w3id.org/bpmn/rules           catalogue of normative statements
+# https://w3id.org/bpmn/shapes/...      SHACL shapes (rules, matrix, archimate)
+#
+# RDF clients (Accept: text/turtle and friends) get the Turtle file with a
+# 303; browsers get the repository page.
+#
+# Contact: Jan Willem van Veen
+# GitHub username: jwvveen
+
+RewriteEngine on
+
+# --- RDF clients -------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/bpmn.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^(archimate|alignments|matrix|rules)/?$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/bpmn-$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^shapes(/rules)?/?$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/shacl/bpmn-shapes.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^shapes/(matrix|archimate)/?$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/shacl/bpmn-$1-shapes.ttl [R=303,L]
+
+# --- Explicit file names always give the file ----------------------------------
+RewriteRule ^bpmn\.ttl$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/bpmn.ttl [R=302,L]
+RewriteRule ^bpmn-(archimate|alignments|matrix|rules)\.ttl$ https://raw.githubusercontent.com/jwvveen/bpmn-rdf/main/bpmn-$1.ttl [R=302,L]
+
+# --- Browsers and everything else: the repository ------------------------------
+RewriteRule ^$ https://github.com/jwvveen/bpmn-rdf [R=302,L]
+RewriteRule ^(.*)$ https://github.com/jwvveen/bpmn-rdf [R=302,L]

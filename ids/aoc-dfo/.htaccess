@@ -1,0 +1,43 @@
+# # /aoc-dfo/
+#
+# Persistent IRIs for AOC-DFO, the AOC Data Flow Ontology: a BFO/CCO ontology
+# of USAF Air Operations Center data flows, built from public sources.
+# Source: https://github.com/semanticarchitectures/aoc-dfo
+#
+# https://w3id.org/aoc-dfo/                    landing page
+# https://w3id.org/aoc-dfo/ontology            all terms (namespace .../ontology#)
+# https://w3id.org/aoc-dfo/aoc-<module>        one module, e.g. aoc-flows
+# https://w3id.org/aoc-dfo/<x.y.z>/<doc>       a document at a release
+# https://w3id.org/aoc-dfo/<doc>.ttl           Turtle, explicitly
+#
+# Browsers (Accept: text/html) get the HTML page. Every other client gets
+# Turtle, so RDF tools that send */* or several RDF types still get data.
+# Documents are hosted on GitHub Pages and served as text/turtle.
+#
+# ## Contact
+# This space is administered by:
+#
+# Kevin G. Kelly
+# kevin.g.kelly@semanticarchitectures.com
+# GitHub username: semanticarchitectures
+
+RewriteEngine on
+
+# A document at a release: <x.y.z>/ontology or <x.y.z>/aoc-<module>
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(ontology|aoc-[a-z]+)$ https://semanticarchitectures.github.io/aoc-dfo/$1/ [R=303,L]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/(ontology|aoc-[a-z]+)$ https://semanticarchitectures.github.io/aoc-dfo/$1/$2.ttl [R=303,L]
+
+# The current document: ontology or aoc-<module>
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(ontology|aoc-[a-z]+)$ https://semanticarchitectures.github.io/aoc-dfo/ [R=303,L]
+RewriteRule ^(ontology|aoc-[a-z]+)$ https://semanticarchitectures.github.io/aoc-dfo/$1.ttl [R=303,L]
+
+# Turtle by explicit extension, current or at a release
+RewriteRule ^(([0-9]+\.[0-9]+\.[0-9]+/)?(ontology|aoc-[a-z]+))\.ttl$ https://semanticarchitectures.github.io/aoc-dfo/$1.ttl [R=302,L]
+
+# A release landing page: <x.y.z> or <x.y.z>/
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://semanticarchitectures.github.io/aoc-dfo/$1/ [R=302,L]
+
+# The identifier root
+RewriteRule ^$ https://semanticarchitectures.github.io/aoc-dfo/ [R=302,L]

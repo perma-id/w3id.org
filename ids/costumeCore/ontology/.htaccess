@@ -1,4 +1,14 @@
-Options +FollowSymLinks
+# # /costumecore/ontology/
+#
+# https://w3id.org/costumecore/ontology and everything under it redirects to
+# https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1
+#
+# ## Contact
+# This space is administered by:
+#
+# Arden Kirkland
+# arden@ardenkirkland.com
+# GitHub username: ArdenKirkland
 
 # Turn off MultiViews
 Options -MultiViews
@@ -8,20 +18,41 @@ Options -MultiViews
 AddType application/rdf+xml .rdf
 AddType application/rdf+xml .owl
 AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
 
 RewriteEngine on
 
-#Rewrite rules for Costume Core Ontology
-RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
-RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+# Rewrite rule for latest version, https://w3id.org/costumecore/ontology/  ->  ontology home page
+RewriteRule ^$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/ [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/index.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
-RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^$ https://w3id.org/lode/owlapi/http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1.rdf   [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
-RewriteRule ^$ http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1.rdf [R=303,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
-RewriteRule ^$ http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1.ttl [R=303,NE,L]
-#default response: rdf
-RewriteRule ^$ http://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/index.rdf [R=303,L]
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/index.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/index.ttl [R=303,L]
+
+# https://w3id.org/costumecore/ontology/0.4.1/anything  ->  the specific project version page, specific term
+RewriteRule ^0.4.1/(.+)$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/resources/ns1/$1.html  [R=303,L]
+
+# https://w3id.org/costumecore/ontology/0.4.1  ->  the specific project version page, no trailing slash
+RewriteRule ^(0.4.1)$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/  [R=303,L]
+
+# https://w3id.org/costumecore/ontology/0.4.1/  ->  the specific project version page, trailing slash
+RewriteRule ^(0.4.1/)$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/  [R=303,L]
+
+# https://w3id.org/costumecore/ontology/anything-else  ->  under /resources/ns1/
+RewriteRule ^(.+)$ https://ardenkirkland.com/ontologies/costumeCore/costumeCore-0.4.1/resources/ns1/$1.html [R=303,L]

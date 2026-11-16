@@ -13,6 +13,35 @@ AddType text/turtle .ttl
 AddType application/n-triples .n3
 AddType application/ld+json .jsonld
 
+# ---- https://w3id.org/hmo/eco: alignment between HMO and the Eurocode Core Ontology ----
+# HTML for browsers
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^eco(/1\.0\.0)?/?$ https://mlaura1996.github.io/HMO-ECO-Alignment/ [R=303,NE,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^eco(/1\.0\.0)?/?$ https://mlaura1996.github.io/HMO-ECO-Alignment/ontology.ttl [R=303,NE,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^eco(/1\.0\.0)?/?$ https://mlaura1996.github.io/HMO-ECO-Alignment/ontology.jsonld [R=303,NE,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^eco(/1\.0\.0)?/?$ https://mlaura1996.github.io/HMO-ECO-Alignment/ontology.nt [R=303,NE,L]
+
+# RDF/XML, also the default for any other request
+RewriteRule ^eco(/1\.0\.0)?/?$ https://mlaura1996.github.io/HMO-ECO-Alignment/ontology.owl [R=303,NE,L]
+
+# the SSSOM mapping table
+RewriteRule ^eco/mappings\.sssom\.tsv$ https://mlaura1996.github.io/HMO-ECO-Alignment/mappings.sssom.tsv [R=303,NE,L]
+# ---- end of hmo/eco ----
+
 # Rewrite rule to serve HTML content from the vocabulary URI if requested
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]

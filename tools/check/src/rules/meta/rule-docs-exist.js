@@ -47,7 +47,7 @@ export default {
         continue;
       }
       report({
-        // The catalogue page, not the directory holding it: an annotation
+        // The catalog page, not the directory holding it: an annotation
         // naming a directory never reaches the diff, and the index is where a
         // reader goes to find the page that is missing.
         file: 'docs/rules/index.md',
@@ -62,7 +62,7 @@ export default {
         continue;
       }
       const relPath = p.slice('docs/rules/'.length);
-      // The catalogue and the per-namespace landing pages are not rules.
+      // The catalog and the per-namespace landing pages are not rules.
       if(path.basename(relPath) === 'index.md') {
         continue;
       }

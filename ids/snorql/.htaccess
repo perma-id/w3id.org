@@ -1,0 +1,33 @@
+# # /snorql/
+#
+# Identifiers for Snorql-UI (https://github.com/wikipathways/Snorql-UI), the
+# SPARQL query editor of the WikiPathways SPARQL endpoint, and for the format of
+# the SPARQL example files it reads.
+#
+# https://w3id.org/snorql/ns
+#   The vocabulary for SPARQL example files (terms such as
+#   https://w3id.org/snorql/ns#alias). RDF clients asking for Turtle get the
+#   Turtle file; everyone else gets the documentation of the example format.
+#   https://w3id.org/snorql/ns.ttl always gives the Turtle file.
+#
+# https://w3id.org/snorql/param
+#   Namespace for the names of example parameters
+#   (https://w3id.org/snorql/param#species). It is not a vocabulary, so it
+#   goes to the same documentation.
+#
+# https://w3id.org/snorql/
+#   The Snorql-UI repository.
+#
+# ## Contact
+# This space is administered by:
+#
+# Marvin Martens
+# GitHub username: marvinm2
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns$ https://www.wikipathways.org/Snorql-UI/ns/snorql.ttl [R=303,L]
+RewriteRule ^ns\.ttl$ https://www.wikipathways.org/Snorql-UI/ns/snorql.ttl [R=303,L]
+RewriteRule ^(ns|param)$ https://github.com/wikipathways/Snorql-UI/blob/master/tools/examples/README.md [R=303,L]
+RewriteRule ^$ https://github.com/wikipathways/Snorql-UI [R=302,L]

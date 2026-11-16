@@ -1,0 +1,62 @@
+# w3id.org redirects for BEAT - British Early Administrative Traces.
+# Parish boundaries read from the ink of the Ordnance Survey six-inch first edition,
+# and the ancient-parish church points and metadata built on them.
+# Project: https://github.com/docuracy/beat
+#
+# Maintainer: Stephen Gadd - https://github.com/docuracy
+#
+# Namespace layout (identifiers are grouped by entity type):
+#
+#   /beat/                          -> BEAT homepage
+#   /beat/parish/{County}.{Name}    -> an ancient parish (church, boundary, registers, tithe map reference)
+#   /beat/county/{County}           -> a historic county (pre-1844 legal state; boundary, parts, sources)
+#
+# Parish identifiers are {County}.{Name}: a three-letter Chapman county code and the
+# parish's canonical name with spaces as hyphens, as for https://w3id.org/campop/place/
+# (e.g. BDF.Sandy). The parish rules resolve to the static
+# files and page published at https://docuracy.github.io/beat/parish/.
+#
+# County identifiers are {County}: the three-letter Chapman county code. The county rules
+# resolve to the files and page published at https://docuracy.github.io/beat/county/.
+
+Options +FollowSymLinks
+RewriteEngine on
+
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers "Accept"
+
+# --- Namespace homepage ---
+RewriteRule ^$ https://docuracy.github.io/beat/ [R=303,L]
+
+# --- Parishes ---------------------------------------------------------------
+# 303 See Other: a parish is not a document. GitHub Pages is static and cannot read an
+# Accept header, so the negotiation happens here, as for /campop/place/.
+
+# An explicit .json suffix beats any Accept header.
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)\.json$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+
+# Machine representations: one GeoJSON Feature that is also JSON-LD, sharded on the county code.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)$ https://docuracy.github.io/beat/parish/$1/$2.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^parish/([A-Z]{3})\.([A-Za-z0-9-]+)$ https://docuracy.github.io/beat/parish/?id=$1.$2 [R=303,L]
+
+# --- Counties ---------------------------------------------------------------
+# 303 See Other: a county is not a document. As for parishes, GitHub Pages cannot read an
+# Accept header, so the negotiation happens here. A code that is not a Chapman code (for
+# instance a Historic Counties Standard code) is resolved by the Pages county page, not here.
+
+# An explicit .json suffix beats any Accept header.
+RewriteRule ^county/([A-Z]{3})\.json$ https://docuracy.github.io/beat/county/$1.json [R=303,L]
+
+# Machine representations: one GeoJSON Feature that is also JSON-LD.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^county/([A-Z]{3})$ https://docuracy.github.io/beat/county/$1.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^county/([A-Z]{3})$ https://docuracy.github.io/beat/county/?id=$1 [R=303,L]

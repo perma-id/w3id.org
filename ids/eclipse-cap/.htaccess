@@ -1,22 +1,58 @@
-Header set Access-Control-Allow-Origin *
-
-AddType application/rdf+xml .owl.xml
-AddType text/turtle .ttl
-AddType application/ld+json .jsonld
-AddType application/yaml .yaml
+# # /eclipse-cap/
+#
+# https://w3id.org/eclipse-cap/ — Eclipse Conformity Assessment Policy and
+# Credential Profile (CAP) ontology.
+#
+# Content-negotiated IRIs for the CAP ontology.
+#   namespace   https://w3id.org/eclipse-cap/v0/             latest 0.x release
+#   staging     https://w3id.org/eclipse-cap/staging/        unstamped beta tree
+#   version     https://w3id.org/eclipse-cap/v0.1.0-beta.1/  one exact release
+#   terms       https://w3id.org/eclipse-cap/v0/#Term        hash convention,
+#               the fragment never reaches the server, so terms need no rules
+#
+# Hosts:
+#   latest 0.x   GitLab Pages
+#                https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/v0/
+#   staging      GitLab Pages
+#                https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/staging/
+#   each release GitLab release assets
+#                https://gitlab.eclipse.org/eclipse/dataspace-cap/cap-ontology/-/releases/<tag>/downloads/<file>
 
 RewriteEngine on
 
-# Redirect to JSON-LD context
+# --- 1. namespace conneg: latest of the 0.x line and the staging tree, Pages --
+# the captured prefix ($1) is v0, v1, ... or staging
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(v\d+|staging)/?$ https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/$1/ontology.owl.ttl [R=303,L]
+
+# application/ld+json gets the JSON-LD context (a context definition per
+# JSON-LD 1.1), not the ontology serialized as JSON
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.jsonld [R=303,L]
+RewriteRule ^(v\d+|staging)/?$ https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/$1/context.jsonld [R=303,L]
 
-# handle URI to ontology object
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.owl.xml [R=303,L]
+RewriteRule ^(v\d+|staging)/?$ https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/$1/ontology.owl.xml [R=303,L]
 
-#RewriteCond %{HTTP_ACCEPT} text/turtle # commented to be the default format
-RewriteRule ^(v\d+\.\d+\.\d+)/?$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/download/$1/cap.owl.ttl [R=303,L]
+# browsers, and clients that send */*, get the human-readable documentation
+RewriteRule ^(v\d+|staging)/?$ https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/$1/index.html [R=303,L]
 
-# handle the rest
-RewriteRule ^(.*)$ https://github.com/eclipse-dataspace-cap/cap-ontology/releases/tag/$1 [R=303,L]
+# --- 2. generic passthrough: every file under a namespace ---------------------
+# context.jsonld, shacl.ttl, logo.png, the Widoco HTML sections…
+RewriteRule ^(v\d+|staging)/(.+)$ https://pages.eclipse.dev/eclipse/dataspace-cap/cap-ontology/$1/$2 [R=302,L]
+
+# --- 3. version IRI conneg: one immutable release, from release assets --------
+# matches v0.1.0 and v0.1.0-beta.1, and any future prerelease shape
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(v\d+\.\d+\.\d+(?:-beta\.\d+)?)/?$ https://gitlab.eclipse.org/eclipse/dataspace-cap/cap-ontology/-/releases/$1/downloads/ontology.owl.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v\d+\.\d+\.\d+(?:-beta\.\d+)?)/?$ https://gitlab.eclipse.org/eclipse/dataspace-cap/cap-ontology/-/releases/$1/downloads/context.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v\d+\.\d+\.\d+(?:-beta\.\d+)?)/?$ https://gitlab.eclipse.org/eclipse/dataspace-cap/cap-ontology/-/releases/$1/downloads/ontology.owl.xml [R=303,L]
+
+# browsers get the release page (or the shipped HTML doc, if we add it as an asset)
+RewriteRule ^(v\d+\.\d+\.\d+(?:-beta\.\d+)?)/?$ https://gitlab.eclipse.org/eclipse/dataspace-cap/cap-ontology/-/releases/$1 [R=303,L]
+
+# --- 4. catch-all: the bare identifier goes to the project website -------------
+RewriteRule ^ https://eclipse.dev/dataspace-cap/ [R=302,L]

@@ -35,7 +35,7 @@ The rewrite rule fires first.
 it. The interaction is subtle:
 
 1. For a request to `/my-project` (no trailing slash), mod_rewrite **declines**
-   to run the rules in `ids/my-project/.htaccess`. This is deliberate behaviour
+   to run the rules in `ids/my-project/.htaccess`. This is deliberate behavior
    in Apache: when the request resolves to exactly the directory holding the
    `.htaccess`, per-directory rewriting is skipped.
 2. Normally `mod_dir` then redirects `/my-project` to `/my-project/` with a 301,

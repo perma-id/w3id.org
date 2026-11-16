@@ -6,10 +6,10 @@ Holobiomics Lab (CNRS / Université Côte d'Azur).
 ## Namespaces
 
 * `https://w3id.org/asb#` — ASB vocabulary terms (claims, components, conditions, results).
-  Redirects to https://holobiomicslab.eu/ns/asb, where the terms are also recorded under their
+  Redirects to https://holobiomicslab.cnrs.fr/ns/asb, where the terms are also recorded under their
   earlier base `https://holobiomicslab.eu/ns/asb#` and declared equivalent.
 * `https://w3id.org/asb/validation#` — terms of the validation assertions attached to released
-  records. Redirects to https://holobiomicslab.eu/ns/asbval.
+  records. Redirects to https://holobiomicslab.cnrs.fr/ns/asbval.
 
 Both targets negotiate HTML, Turtle, JSON-LD and RDF/XML.
 

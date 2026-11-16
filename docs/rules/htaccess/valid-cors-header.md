@@ -39,7 +39,7 @@ evidence that it was easy to copy, not that it was ever right.
 **CORS on a redirect does not do what people think.** When a browser makes a
 cross-origin request to `https://w3id.org/my-vocab/` and gets a 303, it follows
 the redirect and then applies the CORS check to the **final response** — the
-one from your server. Headers set on the redirect do not authorise reading the
+one from your server. Headers set on the redirect do not authorize reading the
 data. Whatever host actually serves `vocab.ttl` is what needs to send
 `Access-Control-Allow-Origin`.
 

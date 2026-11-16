@@ -1,6 +1,8 @@
 ##########################################################################
 # .htaccess file https://w3id.org/ssbd
 #
+# For testing, see https://docs.w3id.org/guides/testing
+#
 # If testing interactively with https://htaccess.madewithlove.com/
 # remember to remove the initial "/ssbd" in the URL to test.
 #
@@ -56,37 +58,37 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/?$ https://ssbd-ont
 ##########################################################################
 
 # Source: https://w3id.org/ssbd/{TERM}
-# Target from browser: https://ssbd-ontology.github.io/core/core.html?section={TERM}
+# Target from browser: https://ssbd-ontology.github.io/core/core.html#{TERM}
 # Target, otherwise:   https://ssbd-ontology.github.io/core/core.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core/core.html?section=$1 [R=303,NE,L]
+RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core/core.html#$1 [R=303,NE,L]
 RewriteRule ^([^/]+)$    https://ssbd-ontology.github.io/core/core.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/{VERSION}/{TERM}
-# Target from browser: https://ssbd-ontology.github.io/core/versions/{VERSION}/core.html?section={TERM}
+# Target from browser: https://ssbd-ontology.github.io/core/versions/{VERSION}/core.html#{TERM}
 # Target, otherwise:   https://ssbd-ontology.github.io/core/versions/{VERSION}/core.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/core/versions/$1/core.html?section=$2 [R=303,NE,L]
+RewriteRule ^([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/core/versions/$1/core.html#$2 [R=303,NE,L]
 RewriteRule ^([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/core/versions/$1/core.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/domain/{DOMAIN}/{TERM}
-# Target from browser: https://ssbd-ontology.github.io/domain-{DOMAIN}/{DOMAIN}.html?section={TERM}
+# Target from browser: https://ssbd-ontology.github.io/domain-{DOMAIN}/{DOMAIN}.html#{TERM}
 # Target, otherwise:   https://ssbd-ontology.github.io/domain-{DOMAIN}/{DOMAIN}.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^domain/(domain-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/$2.html?section=$3 [R=303,NE,L]
+RewriteRule ^domain/(domain-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/$2.html#$3 [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/$2.ttl [R=303,NE,L]
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^application/(application-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/$2.html?section=$3 [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/$2.html#$3 [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/$2.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/domain/{DOMAIN}/{VERSION}/{TERM}
-# Target from browser: https://ssbd-ontology.github.io/domain-{DOMAIN}/versions/{VERSION}/{DOMAIN}.html?section={TERM}
+# Target from browser: https://ssbd-ontology.github.io/domain-{DOMAIN}/versions/{VERSION}/{DOMAIN}.html#{TERM}
 # Target, otherwise:   https://ssbd-ontology.github.io/domain-{DOMAIN}/versions/{VERSION}/{DOMAIN}.ttl
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/versions/$3/$2.html?section=$4 [R=303,NE,L]
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/versions/$3/$2.html#$4 [R=303,NE,L]
 RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/domain-$2/versions/$3/$2.ttl [R=303,NE,L]
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/versions/$3/$2.html?section=$4 [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/versions/$3/$2.html#$4 [R=303,NE,L]
 RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https://ssbd-ontology.github.io/application-$2/versions/$3/$2.ttl [R=303,NE,L]
 
 
@@ -97,21 +99,21 @@ RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)/([^/]+)$    https:/
 
 # Source: https://w3id.org/ssbd/core/{VERSION}/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/core/{VERSION}/{PATH}/{MODULE}
-RewriteRule ^core/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/$1$2/$3.ttl [R=303,NE,L]
+RewriteRule ^core/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/$1$2/$3.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/core/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/core/main/{PATH}/{MODULE}
-RewriteRule ^core(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/refs/heads/main$1/$2.ttl [R=303,NE,L]
+RewriteRule ^core(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/core/main$1/$2.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/domain/{DOMAIN}/{VERSION}/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/domain-{DOMAIN}/{VERSION}/{PATH}/{MODULE}
-RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/$3$4/$5.ttl [R=303,NE,L]
-RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/$3$4/$5.ttl [R=303,NE,L]
+RewriteRule ^domain/(domain-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/$3$4/$5.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)/([0-9][^/]*)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/$3$4/$5.ttl [R=303,NE,L]
 
 # Source: https://w3id.org/ssbd/domain/{DOMAIN}/{PATH}/{MODULE}
 # Target: https://github.com/ssbd-ontology/domain-{DOMAIN}/main/{PATH}/{MODULE}
-RewriteRule ^domain/(domain-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/refs/heads/main$3/$4.ttl [R=303,NE,L]
-RewriteRule ^application/(application-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/refs/heads/main$3/$4.ttl [R=303,NE,L]
+RewriteRule ^domain/(domain-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/domain-$2/main$3/$4.ttl [R=303,NE,L]
+RewriteRule ^application/(application-)?([^/]+)(/.*)?/([^/]+)$    https://raw.githubusercontent.com/ssbd-ontology/application-$2/main$3/$4.ttl [R=303,NE,L]
 
 
 ##########################################################################

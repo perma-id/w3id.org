@@ -9,7 +9,7 @@
  * `If-Modified-Since`.
  *
  * Note that `$` is a legal character in an HTTP field name, so a syntax check
- * alone does not catch this; the trailing `$` is recognised specifically.
+ * alone does not catch this; the trailing `$` is recognized specifically.
  */
 
 // Field-name syntax per RFC 9110 (tchar).

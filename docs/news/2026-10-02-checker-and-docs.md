@@ -103,7 +103,7 @@ It now holds:
   identifiers other people have published.
 - [Writing `.htaccess` rules](/guides/htaccess), and
   [how to test them](/guides/testing).
-- The [rule catalogue](/rules/). Each rule has a page saying what it is, why
+- The [rule catalog](/rules/). Each rule has a page saying what it is, why
   it exists, what breaking it actually causes, and how to fix it.
 - An [FAQ](/faq).
 - [News](/news/), which is where you are.
@@ -112,7 +112,7 @@ It now holds:
 
 A growing share of contributions here are machine-generated: confident,
 well-formatted, and wrong. The usual failure is treating the service as a file
-host, or copying a broken `.htaccess` from a neighbouring directory on the
+host, or copying a broken `.htaccess` from a neighboring directory on the
 assumption that a pattern repeated in hundreds of files must be correct.
 
 So there is now something for agents to read.

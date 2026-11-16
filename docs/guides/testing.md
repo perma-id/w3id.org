@@ -2,7 +2,7 @@
 
 ::: warning Automated checks help, but they cannot resolve your redirect
 Every pull request is checked automatically against the
-[rule catalogue](/rules/), and findings appear as comments on the changed lines.
+[rule catalog](/rules/), and findings appear as comments on the changed lines.
 Run the same checks yourself first — see [Run the checks](#run-the-checks)
 below.
 

@@ -7,7 +7,7 @@
 # pinned to a mutable tag.
 #
 # Because a `pull_request` run uses the workflow files from the pull request
-# itself, a change to a workflow is analysed by the version of this file that
+# itself, a change to a workflow is analyzed by the version of this file that
 # the change proposes -- which is exactly the self-check that is wanted. Make
 # this a required status check so a workflow change cannot merge without it.
 name: zizmor
@@ -41,11 +41,11 @@ jobs:
   # Runs for pull requests, including from forks. Needs no special permission,
   # so it works where a code-scanning upload would not.
   annotate:
-    name: Analyse workflows
+    name: Analyze workflows
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
-      contents: read # to check out the workflows being analysed
+      contents: read # to check out the workflows being analyzed
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -70,7 +70,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
-      contents: read # to check out the workflows being analysed
+      contents: read # to check out the workflows being analyzed
       actions: read # required by upload-sarif to attach results to this run
       security-events: write # to publish findings to the Security tab
     steps:

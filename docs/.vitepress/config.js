@@ -108,7 +108,7 @@ export default defineConfig({
         text: 'Rules',
         collapsed: false,
         items: [
-          { text: 'Rule catalogue', link: '/rules/' },
+          { text: 'Rule catalog', link: '/rules/' },
           {
             text: 'Files and directories',
             collapsed: true,

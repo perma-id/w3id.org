@@ -1,7 +1,7 @@
 # Guides
 
 Task-oriented walkthroughs. If you are looking for a specific rule and why it
-exists, see the [rule catalogue](/rules/) instead.
+exists, see the [rule catalog](/rules/) instead.
 
 ## [Creating an identifier](./create-an-id)
 

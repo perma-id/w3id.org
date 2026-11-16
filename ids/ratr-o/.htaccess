@@ -1,0 +1,27 @@
+# # /ratr-o/
+#
+# RATR-O: Ramona Anti-Trafficking and Recruitment-fraud Ontology (OWL 2 QL).
+# Ontology IRI https://w3id.org/ratr-o, term IRIs https://w3id.org/ratr-o#Term.
+# Source repository: https://github.com/teamdaniela-png/ramona-vkg
+#
+# ## Contact
+# This space is administered by:
+#
+# Daniela Camberos
+# daniela@ramonaaliadalaboral.com
+# GitHub username: teamdaniela-png
+
+RewriteEngine on
+
+# Versioned releases, e.g. https://w3id.org/ratr-o/1.9 (git tag v1.9)
+RewriteRule ^([0-9]+\.[0-9]+(\.[0-9]+)?)$ https://raw.githubusercontent.com/teamdaniela-png/ramona-vkg/v$1/ontology/ratr-o.ttl [R=303,L]
+
+# Turtle for RDF clients
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.ttl [R=303,L]
+
+# Instance IRIs of the virtual knowledge graph have no static document: send readers to the documentation
+RewriteRule ^data/ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.html [R=302,L]
+
+# Default (browsers and anything else): HTML documentation
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.html [R=303,L]

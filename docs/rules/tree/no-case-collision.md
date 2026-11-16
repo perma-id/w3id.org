@@ -32,7 +32,7 @@ exist for no reason other than papering over past collisions, and identifiers
 have had to be renamed after the fact.
 
 Lowercase names are preferred beyond just avoiding collisions — they remove the
-question of which capitalisation a user should type — but that preference is
+question of which capitalization a user should type — but that preference is
 not mechanically checked.
 
 ## Wrong
@@ -69,8 +69,8 @@ git mv ids/MyProject ids/myproject-tmp
 git mv ids/myproject-tmp ids/my-project
 ```
 
-**If you need both capitalisations to resolve** — an existing IRI used a
-capitalised form and you are standardising on lowercase — do not create two
+**If you need both capitalizations to resolve** — an existing IRI used a
+capitalized form and you are standardizing on lowercase — do not create two
 directories. Keep one, and ask a maintainer about adding a redirect rule for
 the other form. Those rules live in the global `ids/.htaccess`, which is not a
 file contributors edit themselves — see

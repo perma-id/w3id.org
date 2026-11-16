@@ -1,0 +1,19 @@
+# RobotCapabilities - Basic Types of Capabilities of Autonomous Robots
+# Repository: https://github.com/CaSkade-Automation/RobotCapabilities
+# Contact: Luis Miguel Vieira da Silva / GitHub username: Miguel2617
+
+RewriteEngine on
+
+# Version IRI with an RDF request -> the ontology file of that release tag
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/CaSkade-Automation/RobotCapabilities/v$1/RobotCapabilities.ttl [R=303,L]
+
+# Version IRI with any other request -> the repository page of that release tag
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/CaSkade-Automation/RobotCapabilities/tree/v$1 [R=303,L]
+
+# Ontology IRI with an RDF request -> the ontology file on the default branch
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml) [NC]
+RewriteRule ^/?$ https://raw.githubusercontent.com/CaSkade-Automation/RobotCapabilities/main/RobotCapabilities.ttl [R=303,L]
+
+# Ontology IRI with any other request -> the repository page
+RewriteRule ^/?$ https://github.com/CaSkade-Automation/RobotCapabilities [R=303,L]

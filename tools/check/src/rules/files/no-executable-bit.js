@@ -1,7 +1,7 @@
 /**
  * Nothing in this repository is executed by the service. Apache resolves
  * identifiers from `.htaccess` and serves nothing else, so the executable bit
- * on a tracked file changes no behaviour at all. It is wrong for what it says
+ * on a tracked file changes no behavior at all. It is wrong for what it says
  * rather than for what it does.
  *
  * Under `ids/` it says something plainly false: an identifier directory holds
