@@ -5,8 +5,8 @@ knowledge graph research (a systematic mapping study). The graph links research
 categories, subtasks and datasets to the exact location of the evidence in the
 literature.
 
-- Website: https://beefacedata.github.io/kgdse/
-- Source and data (CC BY 4.0; code MIT): https://github.com/BeefaceData/kgdse
+- Website: https://gate-institute.github.io/kg-datasets/
+- Source and data (CC BY 4.0; code MIT): https://github.com/gate-institute/kg-datasets
 
 ## Redirects
 
@@ -18,3 +18,4 @@ literature.
 ## Maintainers
 
 - Boniface Chukwuemeka Godwin, Carnegie Mellon University (GitHub: [BeefaceData](https://github.com/BeefaceData))
+- Petar Tomov, GATE Institute, Sofia University (GitHub: [ptrtmv](https://github.com/ptrtmv))
