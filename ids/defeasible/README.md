@@ -1,4 +1,3 @@
-
 # Defeasible Ontology Collection
 
 Permanent identifiers for three independently maintained, domain-scale defeasible ontologies.
