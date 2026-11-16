@@ -71,6 +71,23 @@ SetEnvIf Request_URI ^.*$ DOC_CD=https://cross-domain-interoperability-framework
 SetEnvIf Request_URI ^.*$ DOC_DDD=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescription
 SetEnvIf Request_URI ^.*$ DOC_DDDS=https://cross-domain-interoperability-framework.github.io/doc-discoverydatadescriptionstructure
 
+# ---- 2.0 (PRE-RELEASE) ----
+# 2.0 is not released. Its targets are the updates BRANCH of each release repo,
+# served from raw.githubusercontent.com, because Pages serves main and main is
+# still 1.1. These bases therefore track a moving branch on purpose, and must be
+# repointed at Pages (or at the 2.0 tag) the moment 2.0 is merged and released.
+# raw serves text/plain; measured harmless for every CDIF consumer, which names
+# the format rather than sniffing it.
+# profile-provenance has NO updates branch, so provenance/2.0 is deliberately absent.
+SetEnvIf Request_URI ^.*$ UPD_CORE=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-core/updates
+SetEnvIf Request_URI ^.*$ UPD_DISCOVERY=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-discovery/updates
+SetEnvIf Request_URI ^.*$ UPD_DATADESC=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-datadescription/updates
+SetEnvIf Request_URI ^.*$ UPD_DATASTRUCT=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-datastructure/updates
+SetEnvIf Request_URI ^.*$ UPD_MANIFEST=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-manifest/updates
+SetEnvIf Request_URI ^.*$ UPD_CS=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-conceptscheme/updates
+SetEnvIf Request_URI ^.*$ UPD_CL=https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/profile-codelist/updates
+
+
 # Live source files on the metadataBuildingBlocks main branch:
 #   MBB_RAW  = raw file content (raw.githubusercontent.com)
 #   MBB_TREE = human-browsable directory page (github.com)
@@ -392,6 +409,52 @@ RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/XAS_Glossary_SKOS_v2.json [R=303,L]
 # --- xas/ → glossary HTML index (default) ---
 RewriteRule ^xas/?$ %{ENV:XAS_PAGES}/ [R=303,L]
 
+
+# ---- 2.0 conformance URI sub-paths (pre-release: updates branch) ----
+
+# --- core/2.0 sub-paths → profile-core (updates) ---
+RewriteRule ^core/2\.0/schema/?$   %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/2\.0/resolved/?$ %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteRule ^core/2\.0/shacl/?$    %{ENV:UPD_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/2\.0/guide/?$    %{ENV:UPD_CORE}/CDIFCoreImplementationGuide.md [R=303,L]
+
+# --- discovery/2.0 sub-paths → profile-discovery (updates) ---
+RewriteRule ^discovery/2\.0/schema/?$   %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/2\.0/resolved/?$ %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteRule ^discovery/2\.0/shacl/?$    %{ENV:UPD_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/2\.0/guide/?$    %{ENV:UPD_DISCOVERY}/CDIFDiscoveryImplementationGuide.md [R=303,L]
+
+# --- data_description/2.0 sub-paths → profile-datadescription (updates) ---
+RewriteRule ^data_description/2\.0/schema/?$   %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/2\.0/resolved/?$ %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteRule ^data_description/2\.0/shacl/?$    %{ENV:UPD_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/2\.0/guide/?$    %{ENV:UPD_DATADESC}/CDIFDataDescriptionImplementationGuide.md [R=303,L]
+
+# --- data_structure/2.0 sub-paths → profile-datastructure (updates) ---
+RewriteRule ^data_structure/2\.0/schema/?$   %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/2\.0/resolved/?$ %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteRule ^data_structure/2\.0/shacl/?$    %{ENV:UPD_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/2\.0/guide/?$    %{ENV:UPD_DATASTRUCT}/CDIFDataStructureImplementationGuide.md [R=303,L]
+
+# --- manifest/2.0 sub-paths → profile-manifest (updates) ---
+RewriteRule ^manifest/2\.0/schema/?$   %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/2\.0/resolved/?$ %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteRule ^manifest/2\.0/shacl/?$    %{ENV:UPD_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/2\.0/guide/?$    %{ENV:UPD_MANIFEST}/CDIFManifestImplementationGuide.md [R=303,L]
+
+# --- conceptscheme/2.0 sub-paths → profile-conceptscheme (updates) ---
+RewriteRule ^conceptscheme/2\.0/schema/?$   %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/2\.0/resolved/?$ %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteRule ^conceptscheme/2\.0/shacl/?$    %{ENV:UPD_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/2\.0/guide/?$    %{ENV:UPD_CS}/CDIFConceptSchemeImplementationGuide.md [R=303,L]
+
+# --- codelist/2.0 sub-paths → profile-codelist (updates) ---
+RewriteRule ^codelist/2\.0/schema/?$   %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/2\.0/resolved/?$ %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteRule ^codelist/2\.0/shacl/?$    %{ENV:UPD_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/2\.0/guide/?$    %{ENV:UPD_CL}/CDIFCodelistImplementationGuide.md [R=303,L]
+
+
 # ---- Conformance URI bare paths (content negotiation) ----
 # Each rule serves: application/schema+json / application/json → StructuredSchema;
 # text/turtle → Rules.shacl; default (text/html, browser, anything else) → IG.html
@@ -510,6 +573,66 @@ RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistProfileStructuredSch
 RewriteCond %{HTTP_ACCEPT} text/turtle
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/rules.shacl [R=303,L]
 RewriteRule ^codelist/1\.1/?$ %{ENV:PROFILE_CL}/CDIFCodelistImplementationGuide.html [R=303,L]
+
+
+# ---- 2.0 conformance URI bare paths (pre-release: updates branch) ----
+
+# --- core/2.0 → profile-core (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/cdifCoreStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/coreRules.shacl [R=303,L]
+RewriteRule ^core/2\.0/?$ %{ENV:UPD_CORE}/CDIFCoreImplementationGuide.md [R=303,L]
+
+# --- discovery/2.0 → profile-discovery (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/cdifDiscoveryStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/discoveryRules.shacl [R=303,L]
+RewriteRule ^discovery/2\.0/?$ %{ENV:UPD_DISCOVERY}/CDIFDiscoveryImplementationGuide.md [R=303,L]
+
+# --- data_description/2.0 → profile-datadescription (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/cdifDataDescriptionStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/dataDescriptionRules.shacl [R=303,L]
+RewriteRule ^data_description/2\.0/?$ %{ENV:UPD_DATADESC}/CDIFDataDescriptionImplementationGuide.md [R=303,L]
+
+# --- data_structure/2.0 → profile-datastructure (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/cdifDataStructureStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/dataStructureRules.shacl [R=303,L]
+RewriteRule ^data_structure/2\.0/?$ %{ENV:UPD_DATASTRUCT}/CDIFDataStructureImplementationGuide.md [R=303,L]
+
+# --- manifest/2.0 → profile-manifest (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/cdifManifestStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/manifestRules.shacl [R=303,L]
+RewriteRule ^manifest/2\.0/?$ %{ENV:UPD_MANIFEST}/CDIFManifestImplementationGuide.md [R=303,L]
+
+# --- conceptscheme/2.0 → profile-conceptscheme (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/cdifConceptSchemeStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/conceptSchemeRules.shacl [R=303,L]
+RewriteRule ^conceptscheme/2\.0/?$ %{ENV:UPD_CS}/CDIFConceptSchemeImplementationGuide.md [R=303,L]
+
+# --- codelist/2.0 → profile-codelist (updates) ---
+RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/CDIFCodelistProfileStructuredSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/rules.shacl [R=303,L]
+RewriteRule ^codelist/2\.0/?$ %{ENV:UPD_CL}/CDIFCodelistImplementationGuide.md [R=303,L]
+
 
 # --- niaid/1.0 → profile-niaid ---
 RewriteCond %{HTTP_ACCEPT} application/schema\+json [OR]
