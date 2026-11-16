@@ -46,6 +46,10 @@ RewriteCond %{HTTP_ACCEPT} text/markdown
 RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://lmodel.github.io/$1/knowledge/$2.md [R=303,NE,L]
 RewriteRule ^([^/]+)/knowledge/([a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)*)$ https://lmodel.github.io/$1/knowledge/$2/ [R=303,NE,L]
 
+# schema-sidecar holds Agent Skills, not a schema: everything under it that
+# is not its bundle goes to its site.
+RewriteRule ^schema-sidecar(/.*)?$ https://lmodel.github.io/schema-sidecar$1 [R=302,NE,L]
+
 # Filename-stem normalization & branch/layout overrides
 #
 # gen-project converts hyphens in repo names to underscores in artifact

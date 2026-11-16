@@ -29,6 +29,9 @@ A repository with a LOKF knowledge bundle has `https://w3id.org/lmodel/<repo>/kn
 and publishes its site at `https://lmodel.github.io/<repo>/knowledge/`. A concept's IRI
 resolves to its page, its JSON-LD or its Markdown by the `Accept` header.
 
+`schema-sidecar` holds Agent Skills rather than a schema, so everything under
+`https://w3id.org/lmodel/schema-sidecar/` other than its bundle goes to its site.
+
 # Testing
 
 [https://github.com/lmodel/w3id_smoke_test](https://github.com/lmodel/w3id_smoke_test)
