@@ -3,17 +3,19 @@ id: tree/identifier-under-ids
 title: Identifier directories must be under ids/
 severity: error
 status: enforced
-applies-to: "**/.htaccess"
+applies-to: "**"
 ---
 
 # `tree/identifier-under-ids`
 
-**Severity:** error · **Status:** enforced · **Applies to:** `**/.htaccess`
+**Severity:** error · **Status:** enforced · **Applies to:** `**`
 
 ## What
 
 An identifier's directory goes under `ids/`. An `.htaccess` anywhere else in
-the repository is reported.
+the repository is reported. So is a file named like one, such as `.htcaccess`
+or `htaccess.txt`, in a top-level directory the change creates. The
+repository's own directories already exist, so their files never count.
 
 ## Why
 
@@ -32,6 +34,11 @@ instructions written before then, including generated ones.
 
 ```
 my-project/.htaccess
+my-project/README.md
+```
+
+```
+my-project/.htcaccess    ← also misspelled: see files/only-allowed-names
 my-project/README.md
 ```
 

@@ -33,4 +33,7 @@ RewriteRule ^(.*)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/tamu-dc-ty
 # human-readable page. These rules have no condition, so the first one
 # reached always matches -- which is exactly what a default is for.
 RewriteRule ^$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/ [R=303,L]
-RewriteRule ^(.+)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/#$1 [R=303,L]
+# NE (no-escape) keeps Apache from percent-encoding the literal "#" below.
+# Without it the target becomes .../tamu-dc-ontology/%23PageADO, which is a
+# literal path on GitHub Pages rather than a URL fragment, and 404s.
+RewriteRule ^(.+)$ https://tamulib-dc-labs.github.io/tamu-dc-ontology/#$1 [R=303,L,NE]

@@ -9,8 +9,9 @@
 #
 # Each module IRI is content negotiated with 303 and resolves to the syntax
 # actually asked for -- Turtle, RDF/XML, JSON-LD or N-Triples -- served from
-# the published site, which returns each with its correct media type. Anything
-# else, browsers and */* clients included, gets the site index.
+# the published site, which returns each with its correct media type. A client
+# that asks for none of them, a browser included, gets that module's generated
+# documentation. A request naming no module gets the site index.
 #
 # Version IRIs such as https://w3id.org/bondgraph/core/0.1.0 resolve to the
 # Turtle at the matching git tag, so they keep naming the same bytes after main
@@ -62,7 +63,15 @@ RewriteRule ^examples/([^/]+)$ https://raw.githubusercontent.com/CellDL/bondgrap
 RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|text/n3)
 RewriteRule ^tests/([^/]+)$ https://raw.githubusercontent.com/CellDL/bondgraph-ontology/main/tests/test-$1.ttl [R=303,L]
 
+# --- module documentation ---------------------------------------------------
+# Reached only once the syntax rules above have not matched, so a request
+# arriving here asked for none of the RDF syntaxes: serve the human-readable
+# documentation for that module. No condition, since the Accept header has
+# already been discriminated on above.
+
+RewriteRule ^(core|bfo|biochem|hydraulic|thermal)/?$ https://celldl.github.io/bondgraph-ontology/$1/ [R=303,L]
+
 # --- everything else --------------------------------------------------------
-# Browsers, */* clients, and any request this file does not serve in the syntax
-# asked for. No condition, so it always matches.
+# Any request this file does not serve in the syntax asked for, and any request
+# naming no module. No condition, so it always matches.
 RewriteRule ^.*$ https://celldl.github.io/bondgraph-ontology/ [R=303,L]

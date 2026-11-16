@@ -32,11 +32,18 @@ A module IRI is content negotiated with 303 and answers in the syntax requested:
 | `application/rdf+xml` | `application/rdf+xml` |
 | `application/ld+json` | `application/ld+json` |
 | `application/n-triples`, `application/n-quads` | `application/n-triples` |
-| anything else | `text/html` |
+| anything else | `text/html` — that module's documentation |
 
-The published site returns each file with its correct media type. The Turtle is the
-authored source, comments included; the other syntaxes are generated from it by CI and
-checked isomorphic to it on every build.
+The published site returns each file with its correct media type. A browser following
+a module IRI lands on the generated documentation for that module, which includes a
+WebVOWL visualisation and links to all four syntaxes.
+
+The Turtle is the authored source, comments included. The other syntaxes are generated
+from it by CI, which converts through the OWL API and therefore normalises as it goes:
+two-member disjointness axioms come back in a different form, and declaration triples
+are added. They are checked logically equivalent to the Turtle on every build — mutual
+entailment, decided by a reasoner — rather than isomorphic to it, which normalised
+output cannot be.
 
 Version IRIs negotiate Turtle only, from the matching git tag, because the site serves
 only the current version and older tags predate the generated serialisations. A

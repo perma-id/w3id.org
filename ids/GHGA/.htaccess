@@ -1,0 +1,17 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# ---------------------------------------------------------------
+# w3id.org/GHGA     ->  GHGA Metadata Schema (generated Markdown documentation)
+# Source:          https://github.com/ghga-de/ghga-metadata-schema
+# Documentation:   https://github.com/ghga-de/ghga-metadata-schema/blob/main/docs/schema_markdown/
+# ---------------------------------------------------------------
+
+RewriteRule ^$ https://github.com/ghga-de/ghga-metadata-schema/blob/main/docs/schema_markdown/index.md [R=302,L]
+
+RewriteRule ^schema\.yaml$ https://raw.githubusercontent.com/ghga-de/ghga-metadata-schema/main/src/schema/submission.yaml [R=302,L]
+
+RewriteRule ^([A-Za-z0-9_\-\.]+)$ https://github.com/ghga-de/ghga-metadata-schema/blob/main/docs/schema_markdown/$1.md [R=302,NE,L]
+
+# Default redirect to metadata schema repo
+RewriteRule ^.*$ https://github.com/ghga-de/ghga-metadata-schema [R=302,L]
