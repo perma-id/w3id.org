@@ -1,0 +1,20 @@
+# # /solid-collective/
+#
+# https://w3id.org/solid-collective/vocab# is the vocabulary of Solid
+# collectives (solid-kit ADR 006 §7). Source:
+# https://github.com/nicolasdb/solid-kit/tree/main/docs/vocab
+#
+# ## Contact
+# This space is administered by:
+#
+# GitHub username: nicolasdb
+
+RewriteEngine on
+
+# A browser gets the page that explains the vocabulary; any other client
+# (RDF tools, apps) gets the Turtle itself.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(vocab)?$ https://github.com/nicolasdb/solid-kit/blob/main/docs/vocab/README.md [R=303,L]
+
+RewriteRule ^vocab$ https://raw.githubusercontent.com/nicolasdb/solid-kit/main/docs/vocab/vocab.ttl [R=303,L]
+RewriteRule ^$ https://github.com/nicolasdb/solid-kit/blob/main/docs/vocab/README.md [R=302,L]
