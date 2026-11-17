@@ -13,15 +13,30 @@
 
 RewriteEngine on
 
-# Versioned releases, e.g. https://w3id.org/ratr-o/1.9 (git tag v1.9)
+# Versioned releases, e.g. https://w3id.org/ratr-o/1.10.3 (git tag v1.10.3)
 RewriteRule ^([0-9]+\.[0-9]+(\.[0-9]+)?)$ https://raw.githubusercontent.com/teamdaniela-png/ramona-vkg/v$1/ontology/ratr-o.ttl [R=303,L]
 
-# Turtle for RDF clients
-RewriteCond %{HTTP_ACCEPT} text/turtle
+# RDF serialisations, by the media type the client asks for
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.nt [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|text/n3|text/rdf\+n3|application/turtle|application/x-turtle)
+RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.ttl [R=303,L]
+
+# A client that asks for anything at all and not for a web page is an RDF client: Turtle.
+# Browsers send text/html or application/xhtml+xml and fall through to the HTML default below.
+RewriteCond %{HTTP_ACCEPT} !text/html
+RewriteCond %{HTTP_ACCEPT} !application/xhtml
 RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.ttl [R=303,L]
 
 # Instance IRIs of the virtual knowledge graph have no static document: send readers to the documentation
 RewriteRule ^data/ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.html [R=302,L]
 
-# Default (browsers and anything else): HTML documentation
+# Default (browsers): HTML documentation
 RewriteRule ^$ https://teamdaniela-png.github.io/ramona-vkg/ontology/ratr-o.html [R=303,L]
