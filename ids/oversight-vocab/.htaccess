@@ -1,0 +1,24 @@
+# w3id.org/oversight-vocab/ : persistent identifiers for the DC oversight controlled vocabulary.
+# Maintainer: philippa-mk (GitHub). Issues: https://github.com/inplainsight-dc/oversight-vocab/issues
+# Target: https://inplainsight-dc.github.io/oversight-vocab/ (GitHub Pages, static files: <path>.html and <path>.ttl per concept,
+# plus vocab.ttl for the whole vocabulary and releases/<version>/ for frozen copies).
+# Concept IRIs are never versioned; releases are (releases/v0.19.0/...). Retired concepts are
+# deprecated, never deleted. Most specific rules first.
+
+RewriteEngine on
+
+# Frozen releases: no negotiation, same path on the target.
+RewriteRule ^releases/(.*)$ https://inplainsight-dc.github.io/oversight-vocab/releases/$1 [R=302,L]
+
+# The vocabulary root: Turtle for machines, the index page for browsers.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://inplainsight-dc.github.io/oversight-vocab/vocab.ttl [R=303,L]
+RewriteRule ^$ https://inplainsight-dc.github.io/oversight-vocab/index.html [R=303,L]
+
+# An explicit file name (vocab.ttl, vocab.css, about.html, agency/DYRS.ttl) goes to the same file.
+RewriteRule ^(.+\.(?:ttl|html|css))$ https://inplainsight-dc.github.io/oversight-vocab/$1 [R=302,L]
+
+# Any concept or scheme (agency/DYRS, program/DB0-AFO000, findings_typology, ...).
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+)$ https://inplainsight-dc.github.io/oversight-vocab/$1.ttl [R=303,L]
+RewriteRule ^(.+)$ https://inplainsight-dc.github.io/oversight-vocab/$1.html [R=303,L]
