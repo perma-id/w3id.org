@@ -1,14 +1,20 @@
 # /cdif
 
-Redirect home for Cross-Domain Interoperability Framework identifier redirects.
-
+Persistent URI namespace for the [Cross-Domain Interoperability Framework](https://cdif.codata.org/).
 [`https://w3id.org/cdif`](https://w3id.org/cdif/) redirects to [`https://cdif.codata.org/`](https://cdif.codata.org/).
+
+**Contacts:**
+* simon@codata.org
+* Stephen Richard smrtucson  gmail.com - GitHub: [@smrgeoinfo](https://github.com/smrgeoinfo), ORCID:0000-0001-6041-5302
+
+GitHub organisation: [Cross-Domain-Interoperability-Framework](https://github.com/Cross-Domain-Interoperability-Framework)
 
 ## Conformance URIs
 
-CDIF specification components have persistent conformance URIs that metadata records declare in `dcterms:conformsTo`:
+CDIF specification components have persistent conformance URIs that metadata records declare in
+`dcterms:conformsTo`:
 
-| URI | Specification Component |
+| URI | Specification component |
 |-----|------------------------|
 | `https://w3id.org/cdif/core/1.1/` | CDIF Core (mandatory properties) |
 | `https://w3id.org/cdif/discovery/1.1/` | CDIF Discovery (optional properties) |
@@ -19,166 +25,77 @@ CDIF specification components have persistent conformance URIs that metadata rec
 | `https://w3id.org/cdif/conceptscheme/1.1/` | CDIF Concept Scheme |
 | `https://w3id.org/cdif/codelist/1.1/` | CDIF Codelist |
 | `https://w3id.org/cdif/niaid/1.0/` | CDIF NIAID (NIAID Data Discovery Portal records) |
-| `https://w3id.org/cdif/dde/1.0/{profileName}` | DDE domain profiles (Deep-time Digital Earth), 11 of them |
 | `https://w3id.org/cdif/xasCore/1.0/` | CDIF XAS Core (mandatory tier) |
 | `https://w3id.org/cdif/xasOptional/1.0/` | CDIF XAS Optional (optional tier) |
+| `https://w3id.org/cdif/dde/1.0/{profileName}` | DDE domain profiles (Deep-time Digital Earth), 11 of them |
 
-Each conformance URI supports the same content negotiation as building block identifiers (see below). The default (browser) redirect goes to the corresponding building block landing page.
+Versioned conformance URIs redirect with HTTP 303. Unversioned aliases use 302 because their
+target moves with each release, so an unversioned URI must never appear in `dcterms:conformsTo`.
 
-### DDE profiles
+DDE is the first domain naming a **set** of profiles rather than one component, so its URIs carry
+the version in the middle and the register item name verbatim as `{profileName}` -- `DDEDataset`,
+`DDECollection`, `DDEImage` and eight more. A record declares its profile alongside the CDIF
+components it builds on, each a separate `dcterms:conformsTo` entry. These resolve into the
+[ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) register, with sub-paths `schema`,
+`resolved`, `shacl` and `context`; `1.0` tracks that register's `main` branch until DDE adopts
+release tags.
 
-DDE is the first domain whose conformance URIs name a **set** of profiles rather than a single
-specification component, so its URIs carry a third segment:
+## Building block identifiers
 
-```
-https://w3id.org/cdif/dde/1.0/{profileName}
-```
+CDIF metadata building blocks have persistent identifiers under `https://w3id.org/cdif/bbr/metadata/`:
 
-`{profileName}` is the register item name verbatim: `DDEAudioVisualProduct`, `DDECollection`,
-`DDEDataset`, `DDEDiscovery`, `DDEDocument`, `DDEEvent`, `DDEFunctionalResource`, `DDEImage`,
-`DDESemanticResource`, `DDESoftware`, `DDEWebAPI`. Note that the version sits in the middle,
-unlike `{component}/{version}` for the components above; that is the form DDE minted, so it is
-recorded rather than normalised.
+| URI | For |
+|-----|-----|
+| `https://w3id.org/cdif/bbr/metadata` | register viewer home |
+| `https://w3id.org/cdif/bbr/metadata/{category}/{name}` | a property block |
+| `https://w3id.org/cdif/bbr/metadata/profiles/{family}/{name}` | a profile |
 
-A DDE record declares its profile alongside the CDIF components it builds on, each a separate
-entry in `dcterms:conformsTo`, so a `DDECollection` record carries `core/1.1`, `manifest/1.1`
-and `dde/1.0/DDECollection` together.
+Domain categories and profile families redirect to their own registers --
+`adaProperties` and `profiles/adaProfiles` to
+[geochemBuildingBlocks](https://github.com/usgin/geochemBuildingBlocks), `DDEproperties` and
+`profiles/DDEProfiles` to [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks),
+`ecrrProperties` and `profiles/ecrrProfiles` to
+[ecrrBuildingBlocks](https://github.com/usgin/ecrrBuildingBlocks). Everything else falls through
+to [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks),
+which holds `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`,
+`xasProperties` and the rest.
 
-These resolve into the [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) register,
-because DDE has no per-profile release repo and no Implementation Guide. The sub-paths are
-therefore `schema`, `resolved`, `shacl` and `context` — `context` in place of `guide`, as for the
-XAS tiers — and `1.0` tracks the register's `main` branch until DDE adopts release tags.
+A building block URI and a conformance URI both serve several representations by content
+negotiation, defaulting to the HTML landing page for browsers:
+
+| Accept header | Returns |
+|---------------|---------|
+| `text/html` | landing page |
+| `application/schema+json` | JSON Schema (JSON) |
+| `application/yaml` | JSON Schema (YAML) |
+| `text/turtle` | SHACL validation rules |
+| `application/ld+json` | JSON-LD context |
+| `application/json` | full JSON documentation |
+
+Each also accepts a `profile` parameter, for example
+`Accept: text/turtle; profile="http://www.w3.org/ns/shacl#"`.
+
+Appending `/schema`, `/resolved`, `/shacl` or `/context` returns that resource regardless of the
+`Accept` header, and `https://w3id.org/cdif/bbr/metadata` is the register viewer home.
 
 ```bash
-# Register landing page for the profile (browser default)
-curl -L https://w3id.org/cdif/dde/1.0/DDEDataset
+# landing page (browser default)
+curl -L https://w3id.org/cdif/core/1.1/
 
-# Resolved JSON Schema
-curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/dde/1.0/DDEDataset
+# JSON Schema, then SHACL, by content negotiation
+curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/core/1.1/
+curl -L -H "Accept: text/turtle" https://w3id.org/cdif/core/1.1/
 
-# SHACL rules
-curl -L https://w3id.org/cdif/dde/1.0/DDEDataset/shacl
-```
-
-```bash
-# Landing page (browser default)
-curl -L https://w3id.org/cdif/core/1.0/
-
-# JSON Schema
-curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/core/1.0/
-
-# YAML Schema
-curl -L -H "Accept: application/yaml" https://w3id.org/cdif/core/1.0/
-
-# SHACL rules
-curl -L -H "Accept: text/turtle" https://w3id.org/cdif/core/1.0/
-
-# JSON-LD context
-curl -L -H "Accept: application/ld+json" https://w3id.org/cdif/core/1.0/
-```
-
-## Building Block Identifiers
-
-CDIF metadata building blocks have persistent identifiers under `https://w3id.org/cdif/bbr/metadata/`. Building blocks are hosted across multiple repositories:
-
-| Category | Repository | Identifier Prefix |
-|----------|-----------|-------------------|
-| `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties` | [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks) | `cdif.bbr.metadata.` |
-| `adaProperties`, `adaProfiles` | [geochemBuildingBlocks](https://github.com/usgin/geochemBuildingBlocks) | `ogch.` |
-| `DDEproperties`, `DDEProfiles` | [ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks) | `dde.bbr.metadata.` |
-| `ecrrProperties`, `ecrrProfiles` | [ecrrBuildingBlocks](https://github.com/usgin/ecrrBuildingBlocks) | `ecrr.bbr.metadata.` |
-
-All share the same URI pattern `https://w3id.org/cdif/bbr/metadata/{category}/{name}` but redirect to different GitHub Pages hosts based on the category.
-
-### Content negotiation on the BB URI
-
-A single URI like `https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person` serves different representations depending on the `Accept` header:
-
-| Accept header | MIME type | Returns |
-|---------------|-----------|---------|
-| `text/html` | — | Landing page (HTML viewer) |
-| `application/schema+json` | JSON Schema | Schema (JSON) |
-| `application/yaml; profile="https://json-schema.org/draft/2020-12/schema"` | JSON Schema in YAML | Schema (YAML) |
-| `application/yaml` | (fallback) | Schema (YAML) |
-| `text/turtle; profile="http://www.w3.org/ns/shacl#"` | SHACL shapes | SHACL validation rules |
-| `text/turtle` | (fallback) | SHACL validation rules |
-| `application/ld+json; profile="http://www.w3.org/ns/json-ld#context"` | JSON-LD context | JSON-LD context |
-| `application/ld+json` | (fallback) | JSON-LD context |
-| `application/json` | JSON | Full JSON documentation |
-
-### Explicit sub-path resources
-
-These always resolve to the named resource regardless of `Accept` header:
-
-| URL | Description |
-|-----|-------------|
-| `https://w3id.org/cdif/bbr/metadata` | Building block register (viewer home) |
-| `https://w3id.org/cdif/bbr/metadata/{category}/{name}` | Content-negotiated (see above) |
-| `https://w3id.org/cdif/bbr/metadata/{category}/{name}/schema` | JSON Schema (YAML default; JSON via `Accept: application/json`) |
-| `https://w3id.org/cdif/bbr/metadata/{category}/{name}/resolved` | Resolved schema (all `$ref` inlined, JSON) |
-| `https://w3id.org/cdif/bbr/metadata/{category}/{name}/shacl` | SHACL validation rules (Turtle) |
-| `https://w3id.org/cdif/bbr/metadata/{category}/{name}/context` | JSON-LD context |
-
-### Categories
-
-Core: `schemaorgProperties`, `cdifProperties`, `provProperties`, `qualityProperties`, `ddiProperties`, `xasProperties`
-
-Domain-specific (separate repos): `adaProperties`, `DDEproperties`, `ecrrProperties`
-
-Profiles: `cdifProfiles`, `adaProfiles`, `DDEProfiles`, `ecrrProfiles`
-
-### Examples
-
-Content negotiation on the BB URI:
-```bash
-# Landing page (browser default)
-curl -L -H "Accept: text/html" https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person
-
-# JSON Schema (JSON format)
+# the same for a building block, and by explicit sub-path
 curl -L -H "Accept: application/schema+json" https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person
-
-# JSON Schema (YAML format, with profile)
-curl -L -H 'Accept: application/yaml; profile="https://json-schema.org/draft/2020-12/schema"' \
-  https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person
-
-# SHACL rules (with profile)
-curl -L -H 'Accept: text/turtle; profile="http://www.w3.org/ns/shacl#"' \
-  https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person
-
-# JSON-LD context (with profile)
-curl -L -H 'Accept: application/ld+json; profile="http://www.w3.org/ns/json-ld#context"' \
-  https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person
-```
-
-Explicit sub-paths:
-```bash
-curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/schema
-curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/resolved
 curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/shacl
-curl -L https://w3id.org/cdif/bbr/metadata/schemaorgProperties/person/context
 ```
-
-All *versioned* conformance-URI redirects use HTTP 303 (See Other). The unversioned
-aliases below use 302, because their target moves with each release — for that reason an
-unversioned URI must never appear in a record's `dcterms:conformsTo`.
 
 ## Versioning
 
-**A versioned conformance URI must keep resolving to the version it names.** The rules for a
-current version point at GitHub Pages, which serves each release repo's newest release, so when
-a newer minor version ships the outgoing version's rules must be repointed to its release tag on
+**A versioned conformance URI must keep resolving to the version it names.** Rules for a current
+version point at GitHub Pages, which serves each release repo's newest release, so when a newer
+minor version ships the outgoing version must be repointed to its release tag on
 `raw.githubusercontent.com`. Miss that and the URI quietly serves the wrong spec, with no error
-anywhere.
-
-The policy, the checklist for cutting a version, and the weekly automated check are documented
-in
+anywhere. The policy, the checklist for cutting a version, and the weekly automated check are in
 [CDIF/validation `docs/w3id-redirect-policy.md`](https://github.com/Cross-Domain-Interoperability-Framework/validation/blob/main/docs/w3id-redirect-policy.md).
-
-## Contacts:
-
-- simon@codata.org
-
-- Stephen Richard smrtucson  gmail.com ORCID:0000-0001-6041-5302
-
-### GitHub:
-[CDIF github](https://github.com/Cross-Domain-Interoperability-Framework)
