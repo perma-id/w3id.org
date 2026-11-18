@@ -1,0 +1,18 @@
+# w3id.org/akg - AKG behavioral ontology (Kulkarni, Lamba, Solanki, Manipal University Jaipur)
+# Maintainer: https://github.com/gurukraj
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turtle for RDF clients
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^behavioral(/1\.0\.0)?/?$ https://gurukraj.github.io/akg-uml-behavioral/ontology/akg-behavioral.ttl [R=303,L]
+
+# Turtle by explicit extension
+RewriteRule ^behavioral(/1\.0\.0)?\.ttl$ https://gurukraj.github.io/akg-uml-behavioral/ontology/akg-behavioral.ttl [R=303,L]
+
+# HTML documentation for everything else
+RewriteRule ^behavioral(/1\.0\.0)?/?$ https://gurukraj.github.io/akg-uml-behavioral/ [R=303,L]
+RewriteRule ^$ https://github.com/gurukraj/akg-uml-behavioral [R=302,L]
