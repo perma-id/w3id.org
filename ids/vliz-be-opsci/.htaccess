@@ -29,3 +29,21 @@ RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^rocrate/(.*)$ https://vliz-be-opsci.github.io/$1/ro-crate-metadata.json [R=303,L]
 # example rocrate here https://w3id.org/vliz-be-opsci/rocrate/$1 redirects to https://vliz-be-opsci.github.io/$1
 RewriteRule ^rocrate/(.*)$ https://vliz-be-opsci.github.io/$1 [R=302,L]
+
+# RO-Crate profile crate-profiles/mrc-ro-profile/{version}
+# The version segment (e.g. 0.1, 0.2, 1.0) is captured and mapped to git tag v{version}.0.
+# All redirects below are 302 for now; they can be switched to 301 once the targets are stable.
+
+# Context file https://w3id.org/vliz-be-opsci/crate-profiles/mrc-ro-profile/{version}/context
+SetEnvIf Request_URI "^/vliz-be-opsci/crate-profiles/mrc-ro-profile/[^/]+/context/?$" W3ID_CONTEXT
+Header always set Content-Type application/ld+json env=W3ID_CONTEXT
+Header always set Access-Control-Allow-Origin * env=W3ID_CONTEXT
+RewriteRule ^crate-profiles/mrc-ro-profile/([^/]+)/context/?$ https://raw.githubusercontent.com/vliz-be-opsci/mrc-ro-profile/v$1.0/profiles/mrc-ro-profile/$1/ro-crate-metadata.json [R=302,L]
+
+# Profile https://w3id.org/vliz-be-opsci/crate-profiles/mrc-ro-profile/{version}
+# Clients that accept JSON (application/json or application/ld+json) get the JSON-LD metadata file
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^crate-profiles/mrc-ro-profile/([^/]+)/?$ https://raw.githubusercontent.com/vliz-be-opsci/mrc-ro-profile/v$1.0/profiles/mrc-ro-profile/$1/ro-crate-metadata.json [R=302,L]
+
+# All other clients (for example browsers) get the HTML profile page
+RewriteRule ^crate-profiles/mrc-ro-profile/([^/]+)/?$ https://open-science.vliz.be/mrc-ro-profile/$1/index.html [R=302,L]
