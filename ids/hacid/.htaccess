@@ -2,12 +2,15 @@ Options +FollowSymLinks
 RewriteEngine on
 
 SetEnvIf Request_URI ^.*$ LODVIEW_URL=https://semantics.istc.cnr.it/hacid/lodview/
-SetEnvIf Request_URI ^.*$ LODVIEW_CS_URL=https://keng.istc.cnr.it/hacid-cs-kg/id/
 
 RewriteRule ^$ https://www.hacid-project.eu [R=303,L]
 RewriteRule ^sparql$ https://semantics.istc.cnr.it/hacid/sparql [R=303,L]
 RewriteRule ^sparql-ui(/?)$ https://semantics.istc.cnr.it/hacid/sparql-ui/ [R=303,L]
-RewriteRule ^cs/sparql$ https://keng.istc.cnr.it/hacid-cs-kg/sparql [R=303,L]
 
-RewriteRule ^data/cs(/.+)$ %{ENV:LODVIEW_CS_URL}$1$2 [R=303,L]
-RewriteRule ^(mdx|data)(/.+)$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
+# The climate services knowledge graph is now the Climate Change Knowledge
+# Graph, with its own identifier: its resources keep resolving from here.
+# The old SPARQL endpoint. 307 so that a query sent with POST is sent again as POST.
+RewriteRule ^cs/sparql/?$ /climate-change-kg/sparql [R=307,L]
+RewriteRule ^data/cs/?$ /climate-change-kg/data [R=302,L]
+RewriteRule ^data/cs/(.+)$ /climate-change-kg/data/$1 [R=302,L]
+RewriteRule ^(mdx|data)(/.+)?$ %{ENV:LODVIEW_URL}$1$2 [R=303,L]
