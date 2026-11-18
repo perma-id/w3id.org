@@ -1,0 +1,19 @@
+# Persistent identifiers of the SmallData ML metadata schema (CRC 1597)
+# https://w3id.org/smalldata-ml/
+#
+# https://w3id.org/smalldata-ml/scheme       concept scheme
+# https://w3id.org/smalldata-ml/SD-ML-nnn    items (SD-ML-Cn: categories)
+# https://w3id.org/smalldata-ml/mappings     mapping set (SSSOM)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Mapping set to existing vocabularies (SSSOM/TSV)
+RewriteRule ^mappings/?$ https://freidata.uni-freiburg.de/records/rrr48-5j457/files/smalldata-ml-schema-mappings.sssom.tsv?download=1 [R=302,L]
+
+# RDF clients receive the SKOS serialization (Turtle)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^.*$ https://freidata.uni-freiburg.de/records/rrr48-5j457/files/smalldata-ml-schema-v2.1.ttl?download=1 [R=303,L]
+
+# All other requests are redirected to the record of the schema in FreiData
+RewriteRule ^.*$ https://doi.org/10.60493/gt98n-09n12 [R=303,L]
