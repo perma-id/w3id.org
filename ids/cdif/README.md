@@ -5,7 +5,7 @@ Persistent URI namespace for the [Cross-Domain Interoperability Framework](https
 
 **Contacts:**
 * simon@codata.org
-* Stephen Richard smrtucson  gmail.com - GitHub: [@smrgeoinfo](https://github.com/smrgeoinfo), ORCID:0000-0001-6041-5302
+* Stephen Richard smrtucson  gmail.com - GitHub: [@smrgeoinfo](https://github.com/smrgeoinfo), ORCID:0000-0001-6041-5302; Github smrgeoinfo
 
 GitHub organisation: [Cross-Domain-Interoperability-Framework](https://github.com/Cross-Domain-Interoperability-Framework)
 
