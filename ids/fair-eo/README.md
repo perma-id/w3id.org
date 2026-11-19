@@ -2,7 +2,7 @@
 
 Persistent Identifier for the FAIR-EO project. 
 
-https://w3id.org/fair-eo/ redirects to http://eodata.bvlabs.ai/ai4eo/
+https://w3id.org/fair-eo/ redirects to https://eodata.bvlabs.ai/ai4eo/
 
 ## Contact:
 
