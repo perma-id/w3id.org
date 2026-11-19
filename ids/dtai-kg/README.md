@@ -4,9 +4,10 @@ This [w3id](https://w3id.org/dtai-kg) provides a persistent URI namespace for wo
 
 ## Uses
 
-| w3id | Description                        | URL                        |
-| ---- | ---------------------------------- | -------------------------- |
-| /    | Main entry point of DTAI resources | https://github.com/dtai-kg |
+| w3id    | Description                        | URL                               |
+| ------- | ---------------------------------- | --------------------------------- |
+| /       | Main entry point of DTAI resources | https://github.com/dtai-kg        |
+| /tactic | The TACTIC project landing page    | https://dtai-kg.github.io/TACTIC/ |
 
 ## Contacts
 
