@@ -1,4 +1,4 @@
-#MWK Vocabulary
+# MWK Vocabulary
 
 Permanent identifier for the MWK vocabulary used to model WikiProject Medicine article metrics.
 
