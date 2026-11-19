@@ -7,13 +7,13 @@ This directory defines permanent identifiers for the [Virtual Acoustic Object
 https://w3id.org/modavis/vao/
 ```
 
-Version `0.4.0` and `0.5.0` identifiers resolve to files or documentation
-pinned to their matching immutable release tags. The namespace covers
-normative schemas, JSON-LD context, RDF vocabulary, SHACL shapes, profiles,
-the MODAVIS mapping, and the versioned specification. The unversioned
-vocabulary routes resolve to the current compatible vocabulary release. The
-namespace root is a project discovery link; no moving `latest` identifier is
-defined for normative use.
+Versioned VAO 0.4.0, 0.5.0 and 0.6.0 identifiers resolve to their release
+files or documentation. The `ontology` and `vocab/` aliases serve the
+current compatible core vocabulary, VAO 0.6.0.
+
+MMIC 1.0.0 has its own version under `profile/mmic/1.0.0`. Its profile page,
+JSON Schema and ontology resolve to the files published with VAO 0.6.0.
+The `mmic` route serves the ontology for the `mmic#` term namespace.
 
 ## Maintainer
 
