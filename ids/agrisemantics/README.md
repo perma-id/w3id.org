@@ -7,19 +7,19 @@ This is an umbrella namespace intended to provide persistent identifiers under:
 ## Resolution policy (HTTP redirects)
 
 - https://w3id.org/agrisemantics/
-  → https://agroportal.lirmm.fr/ontologies/
+  → https://agroportal.eu/ontologies/
 
 - https://w3id.org/agrisemantics/{X}
-  → https://agroportal.lirmm.fr/ontologies/{X}
+  → https://agroportal.eu/ontologies/{X}
 
 - https://w3id.org/agrisemantics/{X}/{PATH}
-  → https://agroportal.lirmm.fr/ontologies/{X}/{PATH}
+  → https://agroportal.eu/ontologies/{X}/{PATH}
 
 Where `{X}` is a user-chosen sub-namespace, commonly corresponding to an AgroPortal ontology acronym.
 
 ## Governance
 
-Sub-namespaces `{X}` are governed by [AgroPortal](https://agroportal.lirmm.fr) policies and are intended to correspond to AgroPortal ontology acronyms or managed projects.
+Sub-namespaces `{X}` are governed by [AgroPortal](https://agroportal.eu) policies and are intended to correspond to AgroPortal ontology acronyms or managed projects.
 
 ## Dereferencing
 
