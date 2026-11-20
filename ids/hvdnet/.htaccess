@@ -15,28 +15,59 @@ RewriteEngine On
 # 1. Root: redirect bare identifier to Skosmos home
 RewriteRule ^$ https://skosmos.highvaluedata.net/ [R=302,L]
 
-# 2. Redirect bare vocabulary name (no trailing slash) to trailing slash
-RewriteRule ^([^/]+)$ https://w3id.org/hvdnet/$1/ [R=302,L]
+# ----------------------------------------------------------------------
+# 2. QSV Statistics Vocabulary
+#    URI space:  https://w3id.org/hvdnet/qsv/statistics/
+#    Skosmos ID: qsv-statistics
+# ----------------------------------------------------------------------
 
-# 3. Content negotiation for vocabularies and concepts:
+# Redirect bare /qsv and /qsv/statistics to trailing slash
+RewriteRule ^qsv/?$ https://w3id.org/hvdnet/qsv/statistics/ [R=302,L]
+RewriteRule ^qsv/statistics$ https://w3id.org/hvdnet/qsv/statistics/ [R=302,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^qsv/statistics/(.*)$ https://skosmos.highvaluedata.net/rest/v1/qsv-statistics/data?uri=https://w3id.org/hvdnet/qsv/statistics/$1&format=text/turtle [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^qsv/statistics/(.*)$ https://skosmos.highvaluedata.net/rest/v1/qsv-statistics/data?uri=https://w3id.org/hvdnet/qsv/statistics/$1&format=application/ld\%2Bjson [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^qsv/statistics/(.*)$ https://skosmos.highvaluedata.net/rest/v1/qsv-statistics/data?uri=https://w3id.org/hvdnet/qsv/statistics/$1&format=application/rdf\%2Bxml [R=303,NE,L]
+
+# JSON
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^qsv/statistics/(.*)$ https://skosmos.highvaluedata.net/rest/v1/qsv-statistics/data?uri=https://w3id.org/hvdnet/qsv/statistics/$1&format=application/json [R=303,L]
+
+# Default: serve HTML page in Skosmos
+RewriteRule ^qsv/statistics/(.*)$ https://skosmos.highvaluedata.net/qsv-statistics/page/?uri=https://w3id.org/hvdnet/qsv/statistics/$1 [R=303,L]
+
+# ----------------------------------------------------------------------
+# 3. General Vocabularies & Concepts (e.g. statistics/, elsst/)
 #    $1 = vocabulary ID (e.g. statistics)
 #    $2 = concept or subpath (or empty for vocabulary root)
 #    https://w3id.org/hvdnet/$1/$2 = the persistent URI
+# ----------------------------------------------------------------------
+
+# Redirect bare vocabulary name (no trailing slash) to trailing slash
+RewriteRule ^([^/]+)$ https://w3id.org/hvdnet/$1/ [R=302,L]
 
 # Turtle
-RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
 RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=text/turtle [R=303,L]
 
 # JSON-LD
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
 RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/ld\%2Bjson [R=303,NE,L]
 
 # RDF/XML
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
 RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/rdf\%2Bxml [R=303,NE,L]
 
 # JSON
-RewriteCond %{HTTP_ACCEPT} application/json
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
 RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/json [R=303,L]
 
 # Default: serve HTML page in Skosmos (browsers, human readers, */*)
