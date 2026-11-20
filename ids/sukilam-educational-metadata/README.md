@@ -7,4 +7,4 @@ Homepage:
 * https://wtmla-adeac-r.com/
 
 Contact:
-* Satoru Nakamura <nakamura@hi.u-tokyo.ac.jp>
+* Satoru Nakamura <nakamura.satoru@mail.u-tokyo.ac.jp>
