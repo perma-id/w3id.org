@@ -1,35 +1,43 @@
+# # /hvdnet/
+#
+# High-Value Data Network vocabularies
+#
+# ## Contact
+# Maintainer: Pascal Heus (GitHub: @kulnor)
+# Email: pascal@codata.org
+
 # Turn off MultiViews
 Options -MultiViews
 
-# Set content types
-AddType application/ld+json .jsonld
-AddType application/json .json
-AddType text/html .html
-
 # Rewrite engine setup
 RewriteEngine On
-RewriteBase /hvdnet
 
-# Handle URIs ending with / (vocabularies)
-# Serve JSON-LD if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.jsonld [R=303,L]
+# 1. Root: redirect bare identifier to Skosmos home
+RewriteRule ^$ https://skosmos.highvaluedata.net/ [R=302,L]
 
-# Serve JSON if requested
-RewriteCond %{HTTP_ACCEPT} application/json [NC]
-RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.json [R=303,L]
+# 2. Redirect bare vocabulary name (no trailing slash) to trailing slash
+RewriteRule ^([^/]+)$ https://w3id.org/hvdnet/$1/ [R=302,L]
 
-# Default: serve HTML for browsers
-RewriteRule ^(.+)/$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1/index.html [R=303,L]
+# 3. Content negotiation for vocabularies and concepts:
+#    $1 = vocabulary ID (e.g. statistics)
+#    $2 = concept or subpath (or empty for vocabulary root)
+#    https://w3id.org/hvdnet/$1/$2 = the persistent URI
 
-# Handle URIs without trailing slash (resources)
-# Serve JSON-LD if requested
-RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
-RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.jsonld [R=303,L]
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=text/turtle [R=303,L]
 
-# Serve JSON if requested
-RewriteCond %{HTTP_ACCEPT} application/json [NC]
-RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.json [R=303,L]
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/ld\%2Bjson [R=303,NE,L]
 
-# Default: serve HTML for browsers
-RewriteRule ^(.+)$ https://hvdnet.github.io/hvdnet-vocabs/w3id.org/hvdnet/$1.html [R=303,L]
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/rdf\%2Bxml [R=303,NE,L]
+
+# JSON
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/json [R=303,L]
+
+# Default: serve HTML page in Skosmos (browsers, human readers, */*)
+RewriteRule ^([^/]+)/(.*)$ https://skosmos.highvaluedata.net/$1/page/?uri=https://w3id.org/hvdnet/$1/$2 [R=303,L]
