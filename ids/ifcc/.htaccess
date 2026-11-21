@@ -1,0 +1,57 @@
+RewriteEngine On
+
+# The cookbook itself
+# -------------------
+# The identifier https://w3id.org/ifcc is for the cookbook itself:
+#
+RewriteRule ^$   https://iupac.github.io/WFChemCookbook/intro.html [R=303,L]
+#
+# Catch https://w3id.org/ifcc/ and remove the slash; the slashed version shall not have meaning
+RewriteRule ^/$   https://w3id.org/ifcc [R=301,L]
+
+
+# Identifiers
+# ------------------
+# In the following block: define individual identifiers for recipes, of the form https://w3id.org/chalkgrp/CRGxxx
+# The order is arbitrary and does not have meaning.
+# Structure them in blocks of 10 (i.e. [000...009], [010...020], ...) for better human-readability.
+# If an identifier becomes obsolete, move them to the very bottom, there is a separate block for this purpose.
+#
+RewriteRule ^IFCC001$ https://iupac.github.io/WFChemCookbook/tools/opsin_api.html [R=303,L,QSA]
+RewriteRule ^IFCC002$ https://iupac.github.io/WFChemCookbook/tools/opsin_api_jn.html [R=303,L,QSA]
+RewriteRule ^IFCC003$ https://iupac.github.io/WFChemCookbook/datasources/goldbook_api.html [R=303,L,QSA]
+RewriteRule ^IFCC004$ https://iupac.github.io/WFChemCookbook/datasources/pubchem.html [R=303,L,QSA]
+RewriteRule ^IFCC005$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_pugrest.html [R=303,L,QSA]
+RewriteRule ^IFCC006$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_pugrest1.html [R=303,L,QSA]
+RewriteRule ^IFCC007$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_pugrest2.html [R=303,L,QSA]
+RewriteRule ^IFCC008$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_pugrest3.html [R=303,L,QSA]
+RewriteRule ^IFCC009$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_pugview.html [R=303,L,QSA]
+RewriteRule ^IFCC010$ https://iupac.github.io/WFChemCookbook/usecases/uvvis_metadata.html [R=303,L,QSA]
+RewriteRule ^IFCC011$ https://iupac.github.io/WFChemCookbook/datasources/cas_commonchem.html [R=303,L,QSA]
+RewriteRule ^IFCC012$ https://iupac.github.io/WFChemCookbook/manipulations/computing_inchis.html [R=303,L,QSA]
+RewriteRule ^IFCC013$ https://iupac.github.io/WFChemCookbook/manipulations/dataset_search.html [R=303,L,QSA]
+RewriteRule ^IFCC014$ https://iupac.github.io/WFChemCookbook/manipulations/excel_import.html [R=303,L,QSA]
+RewriteRule ^IFCC015$ https://iupac.github.io/WFChemCookbook/manipulations/gsheets_citations.html [R=303,L,QSA]
+RewriteRule ^IFCC016$ https://iupac.github.io/WFChemCookbook/datasources/pubchem_ptable.html [R=303,L,QSA]
+RewriteRule ^IFCC017$ https://iupac.github.io/WFChemCookbook/manipulations/using_inchi.html [R=303,L,QSA]
+RewriteRule ^IFCC018$ https://iupac.github.io/WFChemCookbook/tools/iupac_units_excel.html [R=303,L,QSA]
+
+
+# Obsolete Identifiers
+# --------------------
+# Obsolete Identifiers have been minted once, and are gone now.
+# Best-practice handling to communicate this and around this fact is not specified yet.
+# We redirect to a page explaining what happened to inform the user.
+#
+
+# Other identifiers
+# --------------------
+# Those identifiers are not strictly related to the Chalk Research Group, but are in the friends zone.
+#
+
+# Requests to resources that are not defined
+# ------------------------------------------
+# Catch identifiers not yet caught until here, and redirect the user to a custom 404 page to explain this fact:
+#
+ErrorDocument 404 https://github.com/404.html
+RewriteRule "^/(.+)$" "-" [R=404,L]

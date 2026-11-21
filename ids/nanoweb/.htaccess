@@ -1,0 +1,18 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Choose the default response
+# ---------------------------
+
+# Rewrite rule to serve NanoWeb index page
+RewriteRule ^$ http://nanoweb.dei.unipd.it [R=302,L]
+
+# Rewrite rule to serve the nanopublication landing page for the provided ID
+RewriteRule ^landingpage\/(RA[A-Za-z0-9_\-]{43})$ http://nanoweb.dei.unipd.it/landingpage/$1 [R=302,L]

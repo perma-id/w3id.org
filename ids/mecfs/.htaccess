@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Permanent identifiers for the ME/CFS and Long COVID literature knowledge graph
+# (AID-PAIS project): ontology modules and terms under https://w3id.org/mecfs/ .
+# The vocabulary is published with GitHub Pages from
+# https://github.com/JonasHeinickeBio/mecfs-vocabulary
+#
+# Ontology module IRIs, e.g. /mecfs/ontology/bibliometrics, go to the Turtle file.
+RewriteRule ^ontology/([a-z-]+)$ https://jonasheinickebio.github.io/mecfs-vocabulary/ontology/aid-pais-$1.ttl [R=302,L]
+# Everything else (terms under /mecfs/kg/, the bare namespace) goes to the term index.
+RewriteRule ^(.*)$ https://jonasheinickebio.github.io/mecfs-vocabulary/ [R=302,L]
+
+# ## Contact
+# This space is administered by:
+#
+# Jonas Heinicke
+# jonas.heinicke@helmholtz-hzi.de
+# GitHub username: JonasHeinickeBio

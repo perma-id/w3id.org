@@ -1,0 +1,29 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://delaramglp.github.io/vair/vair.rdf [R=302,L]
+
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://delaramglp.github.io/vair/vair.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://delaramglp.github.io/vair/vair.jsonld [R=302,L]
+
+# https://w3id.org/vair/1.0
+RewriteRule ^1.0$ https://delaramglp.github.io/vair/ [R=302,L]
+
+# Default
+
+RewriteRule ^$ https://delaramglp.github.io/vair [R=302,L]
+RewriteRule ^(.*)$ https://delaramglp.github.io/vair/$1 [R=302,L]

@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# A set of rewrite rules with content negotiation for w3id.org/people/sergio
+
+# Rewrite rule to serve turtle content:
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://srodriguez142857.github.io/me/me.ttl [R=303,L]
+
+# Rewrite rule to serve HTML content:
+RewriteCond %{HTTP_ACCEPT} ^.*text/html.* 
+RewriteRule ^$ https://about.me/srodriguez142857 [R=303,L]
+
+# Default Rule
+RewriteRule ^$ https://srodriguez142857.github.io/me/ [R=303,L]

@@ -1,0 +1,14 @@
+AddType application/rdf+xml .rdf
+AddType text/turtle .ttl
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^$ https://tm4vetr.github.io/glmo/glmo.rdf [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^$  https://tm4vetr.github.io/glmo/glmo.ttl [R=303,NE,L]
+
+RewriteRule ^$ https://tm4vetr.github.io/glmo/ [R=303,L]
+

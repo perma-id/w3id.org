@@ -1,0 +1,28 @@
+RewriteEngine On
+
+# Rule 1: Redirect base to index
+RewriteRule ^$ https://heu-batmachine.github.io/fom-public-resources/index.html [R=301,L]
+
+# Rule 2: Redirect term IRI to human readable documentation
+RewriteRule ^(public/)?ontology(|#(.*))$ https://heu-batmachine.github.io/fom-public-resources/pages/fom.html$2 [R=301,L]
+
+# Rule 3: Redirect versioned URLs to the corresponding TTL file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)\/?$ https://heu-batmachine.github.io/fom-public-resources/version/$2/fom.ttl [R=301,L]
+
+# Rule 4: Redirect latest URLs to the corresponding TTL file
+RewriteRule ^(public/)?ontology/latest\/?$ https://heu-batmachine.github.io/fom-public-resources/fom.ttl [R=301,L]
+
+# Rule 5: Redirect versioned URLs to the corresponding inferred TTL file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/inferred\/?$ https://heu-batmachine.github.io/fom-public-resources/version/$2/fom-inferred.ttl [R=301,L]
+
+# Rule 6: Redirect latest URLs to the corresponding inferred TTL file
+RewriteRule ^(public/)?ontology/latest/inferred\/?$ https://heu-batmachine.github.io/fom-public-resources/fom-inferred.ttl [R=301,L]
+
+# Rule 7: Redirect to the context JSON file
+RewriteRule ^(public/)?ontology/context\/?$ https://heu-batmachine.github.io/fom-public-resources/context/context.json [R=301,L]
+
+# Rule 8: Redirect to the versioned context JSON file
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/context\/?$ https://heu-batmachine.github.io/fom-public-resources/version/$2/context/context.json [R=301,L]
+
+# Rule 9: Redirect to the versioned docs
+RewriteRule ^(public/)?ontology/([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?)/doc\/?$ https://heu-batmachine.github.io/fom-public-resources/version/$2/pages/fom.html [R=301,L]

@@ -1,0 +1,41 @@
+# .htaccess redirect file for TUBES system ontology (tso)
+#
+
+# set CORS header 
+Header set Access-Control-Allow-Origin *
+
+# enable rewriting
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType application/ld+json .json
+AddType text/turtle .ttl
+
+# internal redirect for home page
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml|application/ld+json|text/turtle
+RewriteRule  ^/?$  tubes
+
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|application/ld+json|text/turtle)
+RewriteRule  ^/?$  index.html
+
+# internal redirect for content negotiation (using file extension, 
+# redirects .*/xyz to .*/xyz.html, etc.)
+RewriteCond %{HTTP_ACCEPT} !(application/rdf\+xml|application/ld+json|text/turtle)
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.html [L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.ttl [L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.json [L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule  ^(.*/)?([^\./]*)$  $1$2.rdf [L]
+
+# external redirect
+RewriteRule ^(.*)$ https://rwth-e3d.github.io/tso/$1 [R=303,L]

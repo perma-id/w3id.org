@@ -1,0 +1,10 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect IMO requests to FOMO
+RewriteRule ^imo/?$ https://w3id.org/fomo/ [R=302,L]
+RewriteRule ^imo/(.*)$ https://w3id.org/fomo/$1 [R=302,L]
+
+# Redirect all other requests to the main ISyE site
+RewriteRule ^(.*)$ https://isye.be/$1 [R=302,L]

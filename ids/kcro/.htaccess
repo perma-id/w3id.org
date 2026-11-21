@@ -1,0 +1,15 @@
+# w3id.org/kcro — KCRO: Kubernetes Cybersecurity Research Ontology
+# Maintainer: A. Dorneanu (see README.md)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# Machine-readable: RDF accept headers get the Turtle file directly
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://raw.githubusercontent.com/endaibos/KCRO/main/kcro.ttl [R=303,L]
+
+# Everything else: the repository page
+RewriteRule ^$ https://github.com/endaibos/KCRO [R=303,L]

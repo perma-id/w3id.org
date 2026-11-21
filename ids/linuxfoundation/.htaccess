@@ -1,0 +1,44 @@
+## template
+
+Options +FollowSymLinks
+RewriteEngine on
+
+## Mime type registrations
+# w3id mostly redirects (3xx) to GitHub raw, which sets its own Content-Type,
+# so these are belt-and-braces - useful only if a representation is ever
+# served directly from this host.
+##
+AddType application/rdf+xml        .rdf
+AddType application/rdf+xml        .owl
+AddType text/turtle                .ttl
+AddType application/n-triples      .nt
+AddType application/ld+json        .jsonld
+AddType text/shex                  .shex
+AddType application/yaml           .yaml
+
+## Section: Core Linked Data Artifacts - representations of the model (non-information
+# resource) -> 303 See Other. All use [^/]+ for the repo segment to avoid
+# greedy capture across nested paths.
+##
+
+## Section: Non-Core artifacts - concrete information sources / code-gen outputs.
+# Use 302 (cacheable). Not in scope for content negotiation: MIME types
+# collide across path-segmented outputs (.py: pandera/sqla/namespaces;
+# .yaml: schema/golr/prefixmap; .md: mermaid/markdown-datadict;
+# .sql: sqlschema/sqlvalidation) - only the URL path disambiguates
+
+## Section: Content negotiation: Linked Data representations ONLY.
+# Fires only when the request URI has no file extension (the client is
+# asking for the model as an abstract resource and letting the server
+# choose the representation). Each rule emits a single 303 See Other to
+# the canonical raw artifact (or to the docs site for HTML).
+#
+# Scope: repo root AND any depth - so class/slot IRIs like
+# /linuxfoundation/<repo>/<TermName> also content-negotiate. The repo segment
+# determines the artifact stem (gen-project convention).
+#
+##
+
+# Rewrite Base URL
+RewriteRule ^(.*)$ https://www.linuxfoundation.org/$1 [R=301,L]
+

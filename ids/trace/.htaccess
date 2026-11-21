@@ -1,0 +1,57 @@
+# TRACE Project — Transparent Research Object Vocabulary (TROV)
+# Contact: Timothy McPhillips <tmcphill@illinois.edu>
+#          GitHub: tmcphillips, transparency-certified
+#
+# Homepage: https://transparency-certified.github.io/
+# Vocabulary docs: https://transparency-certified.github.io/trace-vocabularies/trov/0.1/
+# Specification: https://github.com/transparency-certified/trace-specification
+
+RewriteEngine on
+
+# -------------------------------------------------------------------
+# TROV versioned — content negotiation
+# ([^/]+) captures a single path segment as the version (e.g. 0.1, 1).
+# New versions get content negotiation automatically as long as
+# the GitHub Pages site follows the same directory layout.
+# -------------------------------------------------------------------
+
+# Direct access to the JSON-LD context file for a specific version
+RewriteRule ^trov/([^/]+)/context\.jsonld$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/context.jsonld [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^trov/([^/]+)/?$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/trov.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^trov/([^/]+)/?$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/trov.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^trov/([^/]+)/?$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/trov.rdf [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^trov/([^/]+)/?$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/trov.nt [R=303,L]
+
+# HTML (default for browsers and anything else)
+RewriteRule ^trov/([^/]+)/?$ https://transparency-certified.github.io/trace-vocabularies/trov/$1/ [R=303,L]
+
+# -------------------------------------------------------------------
+# Pre-release namespace (2023/05/trov) — rewrite to versioned path
+# so the wildcard content negotiation rules above handle it.
+# -------------------------------------------------------------------
+RewriteRule ^2023/05/trov(/.*)?$ trov/prerelease$1 [L]
+
+# -------------------------------------------------------------------
+# Default — vocabulary index for browsers, error for RDF clients
+# Catches the root, unversioned vocabulary paths, and any other
+# unmatched requests.
+# -------------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\*
+RewriteRule ^(.*)$ https://transparency-certified.github.io/trace-vocabularies/ [R=303,L]
+
+# Anything else — no Accept header, or an Accept header that isn't
+# text/html or */* — gets 406 Not Acceptable
+RewriteRule ^(.*)$ - [R=406,L]

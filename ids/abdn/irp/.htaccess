@@ -1,0 +1,58 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+# Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+
+RewriteEngine on
+
+#Rewrite rules for transport ontology 
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^transport$ http://dcorsar.github.io/irp-ontologies/transport.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^transport$ http://dcorsar.github.io/irp-ontologies/transport.rdf [R=303,NE,L]
+#default response: rdf
+RewriteRule ^transport$ http://dcorsar.github.io/irp-ontologies/transport.rdf [R=303,NE,L]
+
+#Rewrite rules for user ontology
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^user$ http://dcorsar.github.io/irp-ontologies/user.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^user$ http://dcorsar.github.io/irp-ontologies/user.rdf [R=303,NE,L]
+#default response: owl
+RewriteRule ^user$ http://dcorsar.github.io/irp-ontologies/user.rdf [R=303,NE,L]
+
+#Rewrite rules for sensors ontology
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^sensors$ http://dcorsar.github.io/irp-ontologies/sensors.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^sensors$ http://dcorsar.github.io/irp-ontologies/sensors.rdf [R=303,NE,L]
+#default response: owl
+RewriteRule ^sensors$ http://dcorsar.github.io/irp-ontologies/sensors.rdf [R=303,NE,L]
+
+#Rewrite rules for devices ontology
+# RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^devices$ http://dcorsar.github.io/irp-ontologies/devices.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^devices$ http://dcorsar.github.io/irp-ontologies/devices.rdf [R=303,NE,L]
+#default response: owl
+RewriteRule ^devices$ http://dcorsar.github.io/irp-ontologies/devices.rdf [R=303,NE,L]
+
+#Rewrite rules for infrastructure.owl ontology
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^infrastructure$ http://dcorsar.github.io/irp-ontologies/infrastructure.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^infrastructure$ http://dcorsar.github.io/irp-ontologies/infrastructure.rdf [R=303,NE,L]
+#default response: owl
+RewriteRule ^infrastructure$ http://dcorsar.github.io/irp-ontologies/infrastructure.rdf [R=303,NE,L]
+
+#Rewrite rules for sensor-prov ontology
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^sensorprov$ http://dcorsar.github.io/irp-ontologies/sensorprov.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^sensorprov$ http://dcorsar.github.io/irp-ontologies/sensorprov.rdf [R=303,NE,L]
+#default response: owl
+RewriteRule ^sensorprov$ http://dcorsar.github.io/irp-ontologies/sensorprov.rdf [R=303,NE,L]

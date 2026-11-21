@@ -1,0 +1,21 @@
+# Name of the project: OntoINDIRE
+#
+# Description: The objective of the OntoINDIRE project is to define a set of ontologies for describing data in the education domain 
+#
+# Contacts:
+# - Aldo Gangemi <aldo.gangemi@unibo.it>
+# - Luigi Asprino <luigi.asprino@unibo.it>
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/ontoindire/
+#SetEnvIf Request_URI ^.*$ LODE_URL=https://w3id.org/lode/
+
+# Rules for release under development
+RewriteRule ^([a-zA-Z-_0-9]+)(/)?([a-zA-Z-_0-9]*)(/)?$ %{ENV:ROOT_URL}/$1/main/ontology.owl [R=303,L]
+
+# Default behaviour
+
+RewriteRule ^.*$ https://github.com/ontoindire/ [R=303,L]

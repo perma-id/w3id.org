@@ -1,0 +1,29 @@
+Header set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
+Options +FollowSymLinks
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology$ http://esw.dei.unipd.it/ontology/esw.owl [R=303]
+
+
+# Choose the default response
+# ---------------------------
+
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^ontology$ http://esw.dei.unipd.it/ontology/esw.owl [R=303]
+
+# fall-back rules
+RewriteRule ^resource/(.*)$ http://esw.dei.unipd.it/resource/$1.json [R=302,L]
+
+# Rewrite rule to the open SPARQL endpoint for ESW (matching URL: http://w3id.org/esw/sparql)
+RewriteRule ^sparql$ http://grace.dei.unipd.it/sparql/ [R=302,L]

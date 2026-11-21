@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  ## Rule to redirect RDFBones to RDFBones.owl
+  RewriteCond %{REQUEST_URI} (.*)\/RDFBones$
+  RewriteRule ^(.*)\/RDFBones %1/RDFBones.owl
+
+  ## Redirect all requests containing ontology_resources to gh-pages
+  RewriteCond %{REQUEST_URI} .*/ontology_resources/.*
+  RewriteRule  ^(ontology_resources/.*)  http://rdfbones.github.io/RDFBones-O/$1 [R=301,L]
+
+  ## Redirect everything else to wiki page
+  RewriteCond %{REQUEST_URI} !.*/ontology_resources/.*
+  RewriteRule (.*)  https://github.com/RDFBones/RDFBones-O/wiki                 [R=301,L]
+</IfModule>

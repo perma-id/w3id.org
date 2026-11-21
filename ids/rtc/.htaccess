@@ -1,0 +1,37 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/rdf+xml .rdf .owl
+AddType application/ld+json .jsonld
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://rtc-org.github.io/spec/ [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://rtc-org.github.io/spec/vocab/rtc.ttl [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://rtc-org.github.io/spec/vocab/rtc.rdf [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n\-triples
+RewriteRule ^$ https://rtc-org.github.io/spec/vocab/rtc.nt [R=303,NE,L]
+
+
+RewriteRule ^rtc.ttl$ https://rtc-org.github.io/spec/vocab/rtc.ttl [R=303,NE,L]
+RewriteRule ^rtc.rdf$ https://rtc-org.github.io/spec/vocab/rtc.rdf [R=303,NE,L]
+RewriteRule ^rtc.nt$ https://rtc-org.github.io/spec/vocab/rtc.nt [R=303,NE,L]
+RewriteRule ^rtc.html$ https://rtc-org.github.io/spec/ [R=303,NE,L]
+
+RewriteRule ^$ https://rtc-org.github.io/spec/ [R=303,NE,L]

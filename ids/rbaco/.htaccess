@@ -1,0 +1,40 @@
+# # /rbaco/
+#
+# Permanent identifiers for RBACO, the Role-Based Access Control Ontology. Its BFO edition,
+# RBACO-BFO, is under https://w3id.org/rbaco/bfo/. Every identifier redirects to a file of a
+# release tag of https://github.com/a-pereira/rbaco-bfo. On each release, add its version line,
+# and change v0.1.0 to the new tag in the rules after it, which follow the latest release.
+#
+# ## Contact
+# This space is administered by:
+#
+# Anil Pereira
+# GitHub username: a-pereira
+
+RewriteEngine on
+
+# The identifier and the edition: the repository
+RewriteRule ^$ https://github.com/a-pereira/rbaco-bfo [R=302,L]
+RewriteRule ^bfo/?$ https://github.com/a-pereira/rbaco-bfo [R=302,L]
+
+# Version IRIs, https://w3id.org/rbaco/bfo/<release date>/<file>: that file in that release
+RewriteRule ^bfo/2026-11-05/(.+)$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/$1 [R=302,L]
+
+# Terms, negotiated: RDF clients get the module that defines the term, anything else the release's
+# documentation. RBACO_0001nnn are the domain module's terms, the others the core module's.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bfo/RBACO_0001[0-9]{3}$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/rbaco-bfo-domain.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^bfo/RBACO_[0-9]{7}$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/rbaco-bfo.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bfo/RBACO_0001[0-9]{3}$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/rbaco-bfo-domain.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^bfo/RBACO_[0-9]{7}$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/rbaco-bfo.ttl [R=303,L]
+RewriteRule ^bfo/RBACO_[0-9]{7}$ https://github.com/a-pereira/rbaco-bfo/blob/v0.1.0/README.md [R=303,L]
+
+# The IAO extract the core module imports: its IRI ends in .owl, its file is Turtle
+RewriteRule ^bfo/imports/iao-extract\.owl$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/imports/iao-extract.ttl [R=302,L]
+
+# Any other path, the ontology IRIs rbaco-bfo.owl and rbaco-bfo-domain.owl and the CLIF module
+# clif/rbaco-bfo-access.cl among them: the file at that path in the latest release
+RewriteRule ^bfo/(.+)$ https://raw.githubusercontent.com/a-pereira/rbaco-bfo/v0.1.0/$1 [R=302,L]

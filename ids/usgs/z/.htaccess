@@ -1,0 +1,13 @@
+# Rewrite engine setup
+RewriteEngine on
+
+# JSON response from API
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)/(.*)$ https://api.zotero.org/groups/$1/items/$2?format=json [R=302,L]
+
+# ATOM response from API
+RewriteCond %{HTTP_ACCEPT} application/atom+xml
+RewriteRule ^(.*)/(.*)$ https://api.zotero.org/groups/$1/items/$2?format=atom [R=302,L]
+
+# Item within library in Web UI
+RewriteRule ^(.*)/(.*)$ https://www.zotero.org/groups/$1/usgs_ni_43-101_reports/items/$2 [R=302,L]

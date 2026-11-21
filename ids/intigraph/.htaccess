@@ -1,0 +1,29 @@
+# # /intigraph/
+#
+# Vocabularies and public entity identifiers for the Intigraph / Quipu stack
+# (Quipu, Quechua, Camayoc, Seeds). Every path under
+# https://w3id.org/intigraph/ redirects to the same path under
+# https://intigraph.ai/ids/, content-negotiated for Turtle and JSON-LD.
+#
+# ## Contact
+# This space is administered by:
+#
+# Steve Brown
+# steve@intigraph.ai
+# GitHub username: scbrown
+
+RewriteEngine on
+
+# The bare identifier goes to the project homepage.
+RewriteRule ^$ https://intigraph.ai/ [R=302,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.+?)/?$ https://intigraph.ai/ids/$1.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+?)/?$ https://intigraph.ai/ids/$1.jsonld [R=303,L]
+
+# Everything else, including browsers, gets the HTML page.
+RewriteRule ^(.*)$ https://intigraph.ai/ids/$1 [R=303,L]

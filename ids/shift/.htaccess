@@ -1,0 +1,13 @@
+RewriteEngine on
+
+# Ontology serialisations for semantic web clients
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^core$ https://raw.githubusercontent.com/oreganb/shift/main/ontology/shift.ttl [R=303,L]
+
+# Human-facing: ontology docs (update to the website URL when live)
+RewriteRule ^core$ https://github.com/oreganb/shift [R=303,L]
+
+# Catch-all to the project home
+RewriteRule ^(.*)$ https://github.com/oreganb/shift/$1 [R=303,L]

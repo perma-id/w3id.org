@@ -1,0 +1,32 @@
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite rules for a specific project.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.+)$ https://zbmed-semtec.github.io/projects/$1 [R=303,L]
+
+# Directive to ensure *.jsonld files served as appropriate content type, if not present in main apache config
+AddType application/ld+json .jsonld
+
+# Rewrite rule to serve JSON-LD content from the project URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)/jsonld$ https://zbmed-semtec.github.io/metadata/projects/$1.json [R=303,L]
+
+# Rewrite rule to serve RO-crate JSON-LD content from the project URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)/ro-crate$ https://zbmed-semtec.github.io/metadata/projects/$1/ro-crate-metadata.json [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the project URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(.+)$ https://zbmed-semtec.github.io/metadata/projects/$1.json [R=303,L]
+
+# not acceptable requests (asking for other than JSON-LD or html)
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://zbmed-semtec.github.io/406.html [R=406,L]
+
+
+

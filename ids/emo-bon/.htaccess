@@ -1,0 +1,44 @@
+RewriteEngine on
+
+# Add types for .ttl and .jsonld and .json
+
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+AddType application/json .json
+
+# Ontologies / Vocabularies
+
+# https://w3id.org/emo-bon/ns redirects to https://data.emobon.embrc.eu/ns
+
+# Add rules for text/turtle files in /ns
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns/(.*)$ https://data.emobon.embrc.eu/ns/$1.ttl [R=303,L]
+RewriteRule ^ns/(.*)$ https://data.emobon.embrc.eu/ns/$1 [R=302,L]
+RewriteRule ^ns$ https://data.emobon.embrc.eu/ns [R=302,L]
+
+# RO-Crates
+
+# Add rule for application/ld+json files in /rocrate
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^rocrate/(.*)/$ https://data.emobon.embrc.eu/$1/ro-crate-metadata.json [R=303,L]
+
+# Add rule for application/json files in /rocrate
+
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^rocrate/(.*)/$ https://data.emobon.embrc.eu/$1/ro-crate-metadata.json [R=303,L]
+
+# example rocrate here https://w3id.org/vliz-be-opsci/rocrate/$1 redirects to https://vliz-be-opsci.github.io/$1
+
+RewriteRule ^rocrate/(.*)/$ https://data.emobon.embrc.eu/$1 [R=302,L]
+
+# https://w3id.org/emo-bon redirects to https://data.emobon.embrc.eu/
+
+# Add rules for text/turtle files in /
+
+# emo-bon home page
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://data.emobon.embrc.eu/metadata.ttl [R=303,L]
+RewriteRule ^$ https://data.emobon.embrc.eu/ [R=302,L]

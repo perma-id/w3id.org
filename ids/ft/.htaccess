@@ -1,0 +1,23 @@
+# /ft/
+
+# Contact informations are provided in the markdown file.
+
+# 1) https://w3id.org/ft/ redirects to https://ft.mb.tu-dortmund.de/
+# 2) https://w3id.org/rdm/ redirects to https://gitlab.tu-dortmund.de/mb-ft/00_researchdatamanagement
+# 3) https://w3id.org/rdm/[uuid] redirects to https://gitlab.tu-dortmund.de/mb-ft/00_researchdatamanagement/-/tree/main/devices/[uuid]
+# 4) https://w3id.org/rdm/flowchart/[id] redirects to https://gitlab.tu-dortmund.de/mb-ft/00_researchdatamanagement/-/tree/main/flowchart/[id]
+
+
+RewriteEngine on
+
+# case 4: w3id.org/ft/rdm/flowchart/[id]
+RewriteRule ^rdm/flowchart/(.+)$ https://hartwich.github.io/01_researchdatamanagement/flowchart/$1.pdf [R=302,L]
+
+# case 3: w3id.org/ft/rdm/[uuid]
+RewriteRule ^rdm/(.+)$ https://hartwich.github.io/01_researchdatamanagement/devices/$1/device.pdf [R=302,L]
+
+# case 2: w3id.org/ft/rdm
+RewriteRule ^rdm/?$ https://gitlab.tu-dortmund.de/mb-ft/00_researchdatamanagement [R=302,L]
+
+# case 1: w3id.org/ft
+RewriteRule ^$ https://ft.mb.tu-dortmund.de [R=302,L]

@@ -1,0 +1,12 @@
+# decision-prov: a vocabulary for reading the records of the Decision Provenance Standard as W3C PROV.
+# Maintainer: Laurent Lemonnier, GitHub Laurent-Lemonnier, laurent@isoluce.net
+RewriteEngine on
+
+# The vocabulary itself, https://w3id.org/decision-prov and https://w3id.org/decision-prov#term
+RewriteRule ^$ https://github.com/Laurent-Lemonnier/decision-prov/blob/main/vocab.md [R=302,L]
+
+# The JSON-LD context
+RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/Laurent-Lemonnier/decision-prov/main/context/decision-prov.context.jsonld [R=302,L]
+
+# Anything else under the identifier goes to the repository
+RewriteRule ^(.+)$ https://github.com/Laurent-Lemonnier/decision-prov/blob/main/$1 [R=302,L]

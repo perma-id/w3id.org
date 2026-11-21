@@ -1,0 +1,23 @@
+Header set Access-Control-Allow-Origin *
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+AddType application/rdf+xml .xml
+AddType application/ld+json .json
+AddType application/yaml .yaml
+
+Options +FollowSymLinks
+
+RewriteEngine on
+
+# Redirect to the ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^owl/(.*)$ https://gaia-x.gitlab.io/lab/ontologies/dataspace/owl/$1.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf+xml
+RewriteRule ^owl/(.*)$ https://gaia-x.gitlab.io/lab/ontologies/dataspace/owl/$1.xml[R=303,L]
+
+# Default redirection to the documentation
+RewriteRule ^/?$ https://gaia-x.gitlab.io/lab/ontologies/dataspace/ [R=303,L]
+RewriteRule ^/?(.*)$ https://gaia-x.gitlab.io/lab/ontologies/dataspace/$1 [R=303,L]

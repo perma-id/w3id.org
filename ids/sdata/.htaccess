@@ -1,0 +1,48 @@
+# w3id.org redirect configuration for sdata ontology
+# Repository: https://github.com/lepy/sdata-ontology
+#
+# To register: copy this folder to a PR against https://github.com/perma-id/w3id.org
+# Folder path in w3id.org repo: /sdata/.htaccess
+#
+# Maintainer: Ingolf Lepenies <lepenies@lepy.de>
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ─── Content Negotiation: RDF vs. HTML ────────────────────────────────────────
+# Browsers get the GitHub repo page, RDF tools get the raw Turtle file.
+
+# ─── Versioned IRIs (e.g. /sdata/core/1.0) ───────────────────────────────────
+# Redirect to Git tag
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z-]+)/([0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/lepy/sdata-ontology/v$2/sdata-$1.ttl [R=303,L]
+
+# Versioned — HTML fallback (browser)
+RewriteRule ^([a-z-]+)/([0-9]+\.[0-9]+)$ https://github.com/lepy/sdata-ontology/blob/v$2/sdata-$1.ttl [R=303,L]
+
+# ─── SHACL Shapes ────────────────────────────────────────────────────────────
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^shapes/([a-z-]+)$ https://raw.githubusercontent.com/lepy/sdata-ontology/main/shapes/sdata-$1-shapes.ttl [R=303,L]
+
+# Shapes — HTML fallback
+RewriteRule ^shapes/([a-z-]+)$ https://github.com/lepy/sdata-ontology/blob/main/shapes/sdata-$1-shapes.ttl [R=303,L]
+
+# ─── Current (unversioned) module IRIs (e.g. /sdata/core) ────────────────────
+# Redirect to main branch
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([a-z-]+)$ https://raw.githubusercontent.com/lepy/sdata-ontology/main/sdata-$1.ttl [R=303,L]
+
+# Current — HTML fallback (browser)
+RewriteRule ^([a-z-]+)$ https://github.com/lepy/sdata-ontology/blob/main/sdata-$1.ttl [R=303,L]
+
+# ─── Bare /sdata/ → Repo landing page ────────────────────────────────────────
+RewriteRule ^$ https://github.com/lepy/sdata-ontology [R=303,L]

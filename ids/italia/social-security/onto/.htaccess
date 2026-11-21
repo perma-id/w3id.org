@@ -1,0 +1,21 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=rdf
+SetEnvIf Accept ^.*application/rdf\+xml.* SYNTAX=owl
+SetEnvIf Accept ^.*application/n-triples.* SYNTAX=n3
+SetEnvIf Accept ^.*text/turtle.* SYNTAX=ttl
+SetEnvIf Accept ^.*text/html.* SYNTAX=html
+SetEnvIf Request_URI ^.*$ ROOT_URL=https://raw.githubusercontent.com/INPS-it/NDC/main/assets/ontologies/
+
+
+RewriteCond %{ENV:SYNTAX} ^(rdf|ttl|owl|n3)$
+RewriteRule ^([a-zA-Z-_0-9]+)(/?)$ %{ENV:ROOT_URL}$1/latest/$1.%{ENV:SYNTAX} [R=303,L]
+
+
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)(/.+)$ https://schema.gov.it/lodview/social-security/onto/$1$2 [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)/$ https://schema.gov.it/lode/extract?url=https://w3id.org/italia/social-security/onto/$1 [R=303,L]
+RewriteCond %{ENV:SYNTAX} ^html$
+RewriteRule ^(.+)$ https://schema.gov.it/lode/extract?url=https://w3id.org/italia/social-security/onto/$1 [R=303,L]

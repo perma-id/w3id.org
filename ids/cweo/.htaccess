@@ -1,0 +1,35 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# RDF/XML / OWL
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ontology.owl [R=303,L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ontology.ttl [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ontology.jsonld [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ontology.nt [R=303,L]
+
+# HTML for browsers
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ [R=303,L]
+
+# Direct file redirects
+RewriteRule ^ontology\.owl$ https://xiaolisong1126.github.io/cweo/ontology.owl [R=303,L]
+RewriteRule ^ontology\.ttl$ https://xiaolisong1126.github.io/cweo/ontology.ttl [R=303,L]
+RewriteRule ^ontology\.jsonld$ https://xiaolisong1126.github.io/cweo/ontology.jsonld [R=303,L]
+RewriteRule ^ontology\.nt$ https://xiaolisong1126.github.io/cweo/ontology.nt [R=303,L]
+
+# Fallback
+RewriteRule ^$ https://xiaolisong1126.github.io/cweo/ontology.ttl [R=303,L]

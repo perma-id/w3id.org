@@ -1,0 +1,31 @@
+# # /cpcp/
+#
+# Coordination Protocol Contract Package (CPCP): a JSON-RPC-LD profile
+# specifying envelopes, refusal taxonomy, idempotency, layer authority and
+# operation identity for machine-to-machine coordination seams.
+#
+# https://w3id.org/cpcp/ redirects to
+# https://github.com/laquereric/coordination-protocol-contract-package
+#
+# IRI shapes in use:
+#   https://w3id.org/cpcp/ns#                    term namespace (@vocab)
+#   https://w3id.org/cpcp/ontology/base/1.0.0    ontology and version IRI
+#   https://w3id.org/cpcp/osi8/<seam>#<Method>   operation identity
+#
+# ## Contact
+# This space is administered by:
+#
+# Eric Laquer
+# GitHub username: laquereric
+
+RewriteEngine on
+
+# RDF clients asking for the term namespace or the ontology get Turtle.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ns|ontology/base(/.*)?)?$ https://raw.githubusercontent.com/laquereric/coordination-protocol-contract-package/main/ontology/cpcp-base.ttl [R=303,L]
+
+# Everything else goes to the contract repository.
+RewriteRule ^(.*)$ https://github.com/laquereric/coordination-protocol-contract-package [R=302,L]

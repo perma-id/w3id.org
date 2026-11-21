@@ -1,0 +1,19 @@
+# # /prism-specification/
+#
+# https://w3id.org/prism-specification/ redirects to the PRISM specification repository
+# https://github.com/MRI-Lab-Graz/prism-specification
+#
+# A term (https://w3id.org/prism-specification/terms/<modality>/<local-id>) redirects to its JSON file
+# in that repository (the raw file). A survey ID has no file of its own; it redirects to the list of released survey IDs.
+#
+# ## Contact
+# This space is administered by:
+#
+# Karl Koschutnig
+# karl.koschutnig@uni-graz.at
+# GitHub username: karl-koschutnig
+
+RewriteEngine on
+RewriteRule ^terms/survey/[a-z0-9][a-z0-9.-]*$ https://raw.githubusercontent.com/MRI-Lab-Graz/prism-specification/main/ids/survey-ids.txt [R=302,L]
+RewriteRule ^terms/([a-z0-9-]+)/([a-z0-9][a-z0-9.-]*)$ https://raw.githubusercontent.com/MRI-Lab-Graz/prism-specification/main/terms/$1/$2.json [R=302,L]
+RewriteRule ^ https://github.com/MRI-Lab-Graz/prism-specification [R=302,L]

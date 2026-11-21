@@ -1,0 +1,40 @@
+Options -MultiViews
+RewriteEngine on
+
+# Extension-based routing without version (with .n3=>.ttl .owl|.xml=>.rdf .jsonld=>.rdf)
+# https://w3id.org/crima-ontology/{module}.{ext} -> https://crima-ontology.github.io/latest/modules/{module}/{module}.{ext}
+RewriteRule ^([^./]+)\.(ttl|n3)$ https://crima-ontology.github.io/latest/modules/$1/$1.ttl [R=303,L]
+RewriteRule ^([^./]+)\.(rdf|owl|xml)$ https://crima-ontology.github.io/latest/modules/$1/$1.rdf [R=303,L]
+RewriteRule ^([^./]+)\.(json|jsonld)$ https://crima-ontology.github.io/latest/modules/$1/$1.json [R=303,L]
+RewriteRule ^([^./]+)\.([^/]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.$2 [R=303,L]
+
+# Extension-based routing with version (with .n3=>.ttl .owl|.xml=>.rdf .jsonld=>.rdf)
+# https://w3id.org/crima-ontology/{version}/{module}.{ext} => https://crima-ontology.github.io/{version}/modules/{module}/{module}.{ext}
+RewriteRule ^([^/]+)/([^./]+)\.(ttl|n3)$ https://crima-ontology.github.io/$1/modules/$2/$2.ttl [R=303,L]
+RewriteRule ^([^/]+)/([^./]+)\.(rdf|owl|xml)$ https://crima-ontology.github.io/$1/modules/$2/$2.rdf [R=303,L]
+RewriteRule ^([^/]+)/([^./]+)\.(json|jsonld)$ https://crima-ontology.github.io/$1/modules/$2/$2.json [R=303,L]
+RewriteRule ^([^/]+)/([^./]+)\.([^/]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.$3 [R=303,L]
+
+# Content negotiation without version ({ext} determined from Accept header, with fallback to .ttl)
+# https://w3id.org/crima-ontology/{module} => https://crima-ontology.github.io/latest/modules/{module}/{module}.{ext}
+RewriteCond %{HTTP_ACCEPT} text/html|application/xhtml\+xml
+RewriteRule ^([^./]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^./]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json|application/json
+RewriteRule ^([^./]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([^./]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.nt [R=303,L]
+RewriteRule ^([^./]+)$ https://crima-ontology.github.io/latest/modules/$1/$1.ttl [R=303,L]
+
+# Content negotiation with version ({ext} determined from Accept header, with fallback to .ttl)
+# https://w3id.org/crima-ontology/{version}{module} => https://crima-ontology.github.io/{version}/modules/{module}/{module}.{ext}
+RewriteCond %{HTTP_ACCEPT} text/html|application/xhtml\+xml
+RewriteRule ^([^/]+)/([^./]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.html [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([^/]+)/([^./]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json|application/json
+RewriteRule ^([^/]+)/([^./]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([^/]+)/([^./]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.nt [R=303,L]
+RewriteRule ^([^/]+)/([^./]+)$ https://crima-ontology.github.io/$1/modules/$2/$2.ttl [R=303,L]

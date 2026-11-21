@@ -1,0 +1,20 @@
+Header set Access-Control-Allow-Origin *
+# .htaccess file for w3id.org/HemaFAIR/fdp/
+#
+# https://w3id.org/HemaFAIR/fdp/ redirects to  https://fdp.ithanet.eu
+#
+# ## Contact
+# This space is administered by:
+#
+# HemaFAIR FDP maintainer
+# GitHub username: mxenoph
+
+# Allow Cross-Origin Resource Sharing
+Options +FollowSymLinks
+RewriteEngine on
+
+# Redirect the /fdp base to the FDP root
+RewriteRule ^$ https://fdp.ithanet.eu/ [R=302,L]
+
+# Redirect all sub-paths (e.g., /fdp/catalog/1 -> fdp.ithanet.eu/catalog/1)
+RewriteRule ^(.*)$ https://fdp.ithanet.eu/$1 [R=302,L]

@@ -1,0 +1,48 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .json
+
+###   ###   ###   ###   ###   ###   ###   
+# MOEEBIUS Ontology
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^MOEEBIUSOntology$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/index-en.html [R=303,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^MOEEBIUSOntology$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.ttl [R=303,L]
+
+# In case of accept header <application/rdf+xml>
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^MOEEBIUSOntology$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.xml [R=303,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^MOEEBIUSOntology.ttl$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.ttl [R=303,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^MOEEBIUSOntology.html$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/index-en.html [R=303,L]
+
+# If suffix rdf, redirect to rdf version
+RewriteRule ^MOEEBIUSOntology.rdf$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.xml [R=303,L]
+
+# If suffix jsonld, redirect to jsonld version
+RewriteRule ^MOEEBIUSOntology.jsonld$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.json [R=303,L]
+
+# If suffix nt, redirect to nt version
+RewriteRule ^MOEEBIUSOntology.nt$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/ontology.nt [R=303,L]
+
+# Default response: html
+RewriteRule ^MOEEBIUSOntology$ https://moeebius.github.io/MOEEBIUS_Ontology/MOEEBIUSOntology/MOEEBIUSOntology-Docs/index-en.html [R=303,L]

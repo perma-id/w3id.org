@@ -1,0 +1,39 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+# catch https://w3id.org/isample/opencontext/material; will also get https://w3id.org/isample/opencontext/material/dd.dd where dd.dd is not '0.1'
+#  or some other version that has a sibling htaccess folder.
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=0.1
+# 
+
+#if there is a version number; will match ...isample/opencontext/material/1.1, ...isample/opencontext/material/1.4/oc_materialsvocab ...isample/opencontext/material/10.043/0baesr5y4u4ey7, but always gets oc_materialsvocab 
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^/(\d+.\d+)/?(.+)?$    http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/opencontext/material/$1/oc_materialsvocab [R=303,L]
+
+
+# ../isample/opencontext/material, ../isample/opencontext/material/, ../isample/opencontext/material/oc_materialsvocab gets current version vocabulary ttl 
+#   format with text/turtle accept header
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^/?(.+)?$   http://cor.esipfed.org/ont/api/v0/ont?format=ttl&iri=https://w3id.org/isample/opencontext/material/%{ENV:currentversion}/oc_materialsvocab [R=303,L]
+
+#if there is a version number; will match ...isample/opencontext/material/3.1, ...isample/opencontext/material/1.4/oc_materialsvocab ...isample/opencontext/material/10.043/0baesr5y4u4ey7, but always gets oc_materialsvocab 
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^/(\d+.\d+)/?(.+)?$    http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/opencontext/material/$1/oc_materialsvocab [R=303,L]
+
+
+#   format with text/turtle accept header
+RewriteCond %{HTTP:Accept} appplication/rdf+xml [NC]
+RewriteRule       ^/?(.+)?$   http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=https://w3id.org/isample/opencontext/material/%{ENV:currentversion}/oc_materialsvocab [R=303,L]
+
+
+#any other accept header. ../isample/opencontext/material/0.1, ../isample/opencontext/material/1.5/, ../isample/opencontext/material/oc_materialsvocab if there is a version number but no vocab name
+
+RewriteRule       ^/(\d+.\d+)/?(.+)?$    http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/opencontext/material/$1/oc_materialsvocab [R=303,L]
+
+# any other accept header. ../isample/opencontext/material, ../isample/opencontext/material/, ../isample/opencontext/material/oc_materialsvocab
+#   gets landing page for the version of the vocab, from ESIP COR.  
+#   Pylode doesn't currently seem to be working (2023-12-30).
+RewriteRule       ^/?(.+)?$   http://cor.esipfed.org/ont/api/v0/ont?iri=https://w3id.org/isample/opencontext/material/%{ENV:currentversion}/oc_materialsvocab [R=303,L]
+

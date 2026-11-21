@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Turn off MultiViews
+Options -MultiViews
+
+AddType text/turtle .ttl
+AddType application/rdf+xml .rdf
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://sebseis.github.io/UNOCS/ [R=302,NE,L]
+
+# In case of accept header <text/turtle>
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^$ https://sebseis.github.io/UNOCS/unocs.ttl [R=303,NE,L]
+
+# If suffix ttl, redirect to turtle version
+RewriteRule ^unocs.ttl$ https://sebseis.github.io/UNOCS/unocs.ttl [R=302,NE,L]
+
+# If suffix html, redirect to html version
+RewriteRule ^unocs.html$ https://sebseis.github.io/UNOCS/ [R=302,NE,L]
+
+# Default response: html
+RewriteRule ^$ https://sebseis.github.io/UNOCS/ [R=303,NE,L]
+

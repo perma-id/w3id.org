@@ -1,0 +1,14 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+# Ontology
+RewriteRule ^$ https://git.code.tecnalia.com/afarcloud_public/ontology/-/raw/master/afarcloud.owl  [R=302,L]
+
+# JSON-LD context
+RewriteRule ^afarcloud-context.jsonld$ https://git.code.tecnalia.com/afarcloud_public/ontology/-/raw/master/jsonld/afarcloud-context.jsonld [R=302,L]

@@ -1,0 +1,42 @@
+# # /mams/
+#
+# Vocabularies of MAMS (Multi-Agent MicroServices), from University College
+# Dublin: https://gitlab.com/mams-ucd
+#
+# - https://w3id.org/mams/infra/ams#         MAMS Infrastructure: Agent Management Service
+# - https://w3id.org/mams/infra/deployment#  MAMS Infrastructure: systems, groups, pods and nodes
+# - https://w3id.org/mams/deploy#            MAMS Deploy: deployments and servers
+# - https://w3id.org/mams/otel#              OpenTelemetry vocabulary
+#
+# Turtle clients get the vocabulary's Turtle file (GitLab Pages, served as
+# text/turtle); anything else (browsers) gets its page in the repository:
+# https://gitlab.com/mams-ucd/vocabularies
+#
+# ## Contact
+# This space is administered by:
+#
+# Rem Collier
+# rem.collier@ucd.ie
+# GitHub username: remcollier
+
+RewriteEngine on
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^infra/ams$ https://mams-ucd.gitlab.io/vocabularies/infra/ams.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^infra/deployment$ https://mams-ucd.gitlab.io/vocabularies/infra/deployment.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^deploy$ https://mams-ucd.gitlab.io/vocabularies/deploy.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^otel$ https://mams-ucd.gitlab.io/vocabularies/otel.ttl [R=303,L]
+
+# Anything else: the vocabulary's page
+RewriteRule ^infra/ams$ https://gitlab.com/mams-ucd/vocabularies/-/blob/main/infra/ams.ttl [R=303,L]
+RewriteRule ^infra/deployment$ https://gitlab.com/mams-ucd/vocabularies/-/blob/main/infra/deployment.ttl [R=303,L]
+RewriteRule ^deploy$ https://gitlab.com/mams-ucd/vocabularies/-/blob/main/deploy.ttl [R=303,L]
+RewriteRule ^otel$ https://gitlab.com/mams-ucd/vocabularies/-/blob/main/otel.ttl [R=303,L]
+
+# The list of vocabularies, and the project
+RewriteRule ^infra/?$ https://mams-ucd.gitlab.io/vocabularies/ [R=302,L]
+RewriteRule ^$ https://gitlab.com/mams-ucd [R=302,L]

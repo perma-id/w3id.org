@@ -1,0 +1,34 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure .owl files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .owl
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Base directory
+RewriteBase /halo-ontology/
+
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://navapatn.github.io/halo-ontology/ontology/index-en.html [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://navapatn.github.io/halo-ontology/ontology/ontology.owl [R=303,L]
+
+# Error document in case of a 406
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^(.*)$ https://navapatn.github.io/halo-ontology/ontology/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^$ https://raw.githubusercontent.com/navapatn/halo-ontology/main/ontology/ontology.owl [R=303,L]
+
+
+

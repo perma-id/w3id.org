@@ -1,0 +1,64 @@
+# CCO-Domains — https://w3id.org/cco-domains/
+#
+# Maintainer: James Schoening  https://github.com/jimschoening1
+# Canonical repository: https://github.com/cco-domains/cco-domains
+#
+# Layout served here:
+#   /cco/<Module>[.ttl]      faithful mirror of CCO 2.1 (NCOR/CUBRC), re-IRI'd
+#   /domains/<Module>[.ttl]  CCO-Domains ontologies (Person, Address, Staging)
+#   /cco/<termId>            single-term documents, generated from the above
+#
+# Two content-negotiation defaults, by design:
+#   - a whole MODULE defaults to Turtle (ontology tooling expects .ttl)
+#   - a single TERM defaults to JSON-LD (primary consumer is a VC / JSON-LD
+#     processor; Turtle only on an explicit Accept)
+#
+# Rule order is specific-to-general. The per-term patterns must precede the
+# module catch-alls, or `/cco/ent00000001` would be swallowed by `^cco/(.*)$`
+# and sent to a module path where no such file exists. Within each group,
+# explicit-extension rules precede the extensionless ones.
+
+RewriteEngine On
+
+# ===========================================================================
+# 1. SINGLE-TERM IRIs      e.g. https://w3id.org/cco-domains/cco/ent00000001
+# ===========================================================================
+
+# 1a. Explicit extension always wins — no negotiation.
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})\.(ttl|jsonld)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.$2 [R=302,L]
+
+# 1b. Turtle only when an RDF client explicitly asks for it.
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.ttl [R=302,L]
+
+# 1c. JSON-LD is the default for a single term (browsers, VC processors, bare requests).
+RewriteRule ^cco/((?:ent|ont)[0-9]{8})$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/terms/$1.jsonld [R=302,L]
+
+# ===========================================================================
+# 2. MODULE IRIs — DOMAINS   e.g. https://w3id.org/cco-domains/domains/PersonOntology
+# ===========================================================================
+
+# 2a. Explicit extension passes straight through.
+RewriteRule ^domains/(.+\.(?:ttl|jsonld|owl|rdf))$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/domains/$1 [R=302,L]
+
+# 2b. Extensionless module IRI defaults to Turtle: append .ttl.
+#     Ontology IRIs in the files are extensionless (owl:versionIRI, owl:imports),
+#     but the file on disk is <Module>.ttl — this makes the bare IRI resolve.
+RewriteRule ^domains/([^./]+)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/domains/$1.ttl [R=302,L]
+
+# 2c. Any remaining /domains/ path (subpaths, other files) passes through as-is.
+RewriteRule ^domains/(.*)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/domains/$1 [R=302,L]
+
+# ===========================================================================
+# 3. MODULE IRIs — CCO MIRROR   e.g. https://w3id.org/cco-domains/cco/AgentOntology
+# ===========================================================================
+
+# 3a. Explicit extension passes straight through.
+RewriteRule ^cco/(.+\.(?:ttl|jsonld|owl|rdf))$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/cco/$1 [R=302,L]
+
+# 3b. Extensionless module IRI defaults to Turtle: append .ttl.
+RewriteRule ^cco/([^./]+)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/cco/$1.ttl [R=302,L]
+
+# 3c. Any remaining /cco/ path passes through as-is.
+RewriteRule ^cco/(.*)$ https://raw.githubusercontent.com/cco-domains/cco-domains/refs/heads/main/ontology/cco/$1 [R=302,L]

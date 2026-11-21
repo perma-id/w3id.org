@@ -1,0 +1,23 @@
+# # /EDUcore/
+#
+# https://w3id.org/EDUcore/ and everything under it redirects to the EDUcore
+# resolver, https://educore.dev/edc/
+#
+# EDUcore publishes permanent identifiers for education data standards: their
+# elements, the concepts those elements map to, and versioned sets of mappings.
+# The resolver answers each identifier as a document or as JSON.
+#
+# Identifiers can carry percent-encoded characters that are part of their
+# identity (%40 is not @ here), so the rule forwards the path exactly as it was
+# requested instead of the decoded path. The query string passes through.
+#
+# ## Contact
+# This space is administered by:
+#
+# TQ White II
+# tq@ed-core.org
+# GitHub username: tqwhite
+
+RewriteEngine on
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s/EDUcore/([^\s?]*)
+RewriteRule ^ https://educore.dev/edc/%1 [R=303,L,NE]

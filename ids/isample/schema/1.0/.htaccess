@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=version-1-0-1
+# increment third place version number for non-breaking changes
+
+# html is only format available currently
+
+#https://isamplesorg.github.io/metadata/{term}.html
+
+# if there is a version number
+RewriteRule       ^(^\d+.\d+)(\/.+)$    https://isamplesorg.github.io/metadata/$2.html [R=303,L]
+
+#no version number
+RewriteRule       ^(.+)$               https://isamplesorg.github.io/metadata/$1.html [R=303,L]
+
+
+

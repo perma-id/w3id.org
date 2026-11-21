@@ -1,0 +1,24 @@
+# # /lunasai/
+#
+# Permanent identifiers for the LunasAI Knowledge Graph.
+# https://w3id.org/lunasai/kg/<kind>.<id> names one entity in the graph.
+# NPI identifiers (kg/npi.<10 digits>) redirect to the NPPES NPI Registry.
+# Everything else, including https://w3id.org/lunasai/, redirects to
+# https://lunas.health/about until per-record pages exist.
+#
+# ## Contact
+# This space is administered by:
+#
+# Lorenzo Deveza
+# lorenzo@lunasai.health
+# GitHub username: ldeveza
+
+RewriteEngine on
+
+# NPI (a public scheme with no Bioregistry prefix): forward to the NPPES registry
+RewriteRule ^kg/npi\.([0-9]{10})$ https://npiregistry.cms.hhs.gov/provider-view/$1 [R=302,L]
+
+# Every other knowledge-graph identifier, and the namespace itself
+RewriteRule ^kg/(.+)$ https://lunas.health/about [R=302,L]
+RewriteRule ^kg/?$ https://lunas.health/about [R=302,L]
+RewriteRule ^$ https://lunas.health/about [R=302,L]

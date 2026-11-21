@@ -1,0 +1,27 @@
+# # /provenance/
+#
+# Persistent identifiers for a CIDOC-CRM based provenance database
+# (artworks, loose parts, artists, provenance features, modification processes,
+# provenance chain with persons/corporate bodies, sources and places,
+# controlled vocabularies).
+#
+#   https://w3id.org/provenance/{type}/{id}              records, id = 16 hex characters
+#   https://w3id.org/provenance/vocab/{vocabulary}/{id}  vocabulary terms
+#   https://w3id.org/provenance/ontology#{Term}          classes and properties
+#
+# Every request is forwarded unchanged to the project's own resolver, which
+# does the content negotiation (HTML detail page / REST API) and knows the
+# current location of every record. Moving the website or the API only
+# changes the resolver, not this file. All redirects are 303 See Other.
+#
+# ## Contact
+# This space is administered by:
+#
+# David Witassek
+# david@witassek.ch
+# GitHub username: dwitassek
+
+Options -MultiViews
+RewriteEngine on
+
+RewriteRule ^(.*)$ https://id.bermuda-solutions.com/provenance/$1 [R=303,L]

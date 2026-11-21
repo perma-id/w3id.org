@@ -1,0 +1,22 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} html
+
+# REDIRECTS TO VISUALISATIONS
+RewriteRule ^sparql$ http://projects.dharc.unibo.it/odi/sparql [R=302,L]
+RewriteRule ^data/carte/(.*) http://projects.dharc.unibo.it/odi/carte/$1 [R=302,L]
+RewriteRule ^data/storie/(.*) http://projects.dharc.unibo.it/odi/storie/$1 [R=302,L]
+RewriteRule ^data/significati/(.*) http://projects.dharc.unibo.it/odi/significati/$1 [R=302,L]
+RewriteRule ^data/semi/(.*) http://projects.dharc.unibo.it/odi/semi/$1 [R=302,L]
+RewriteRule ^data/tipologia/(.*) http://projects.dharc.unibo.it/odi/tipologia/$1 [R=302,L]
+RewriteRule ^data/storie/(.*)$ http://projects.dharc.unibo.it/odi/storie/$1 [L,R=301]
+
+# REDIRECTS TO DOCUMENTATION
+RewriteRule ^ontology$ https://raw.githubusercontent.com/ODI-documentation/materials/main/static/data/odi.owl [R=303,L]
+RewriteRule ^data$ https://raw.githubusercontent.com/ODI-documentation/materials/main/static/data/bacodi.ttl [R=303,L]
+RewriteRule ^documentation$ https://odi-documentation.github.io/materials [R=303,L]
+
+# DEFAULT RULE
+RewriteRule ^(.*)$ https://projects.dharc.unibo.it/odi$1 [L,R=301]

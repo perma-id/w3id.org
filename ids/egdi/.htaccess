@@ -1,0 +1,32 @@
+# Example
+#
+# https://w3id.org/egdi/project/<id> redirects to <LANDING_PAGE>/projects/<id>
+#
+# ## Contact
+# This space is administered by:
+# aljaz.srsa@geo-zs.si
+# GitHub username: asrsa-geozs
+
+RewriteEngine on
+
+# Project endpoints
+RewriteRule ^project/([0-9]+)/?$ https://pid.europe-geology.eu/projects/$1 [R=302,L]
+
+# New human-readable: author-year-libraryID-itemID
+# e.g. reference/smith-2024-1234567-ABC12DEF
+RewriteRule ^reference/[a-zA-Z]+-[0-9]{4}-([0-9]+)-([A-Z0-9]{8})/?$ https://pid.europe-geology.eu/references/$1/$2 [R=302,L]
+
+# Citation / reference endpoints 
+RewriteRule ^reference/([0-9]+)/?$ https://pid.europe-geology.eu/references/$1 [R=302,L]
+
+# Expert endpoints
+RewriteRule ^expert/([0-9]+)/?$ https://pid.europe-geology.eu/experts/$1 [R=302,L]
+
+# Organisation endpoints
+RewriteRule ^organisation/([0-9]+)/?$ https://pid.europe-geology.eu/organisations/$1 [R=302,L]
+
+# Container / resource endpoints
+RewriteRule ^resource/([0-9]+)/?$ https://pid.europe-geology.eu/resources/$1 [R=302,L]
+
+# Publication / document endpoints
+RewriteRule ^publication/([0-9]+)/?$ https://pid.europe-geology.eu/publications/$1 [R=302,L]

@@ -1,0 +1,61 @@
+# Example
+#
+# https://w3id.org/GayPassport/belfast redirects to https://belfast.gaypassport.com/
+# https://w3id.org/GayPassport/belfast/en redirects to https://belfast.gaypassport.com/en
+# https://w3id.org/GayPassport/belfast/outing redirects to https://belfast.gaypassport.com/en/outing
+# https://w3id.org/GayPassport/belfast/outing/accommodation redirects to https://belfast.gaypassport.com/en/outing/accommodation
+# https://w3id.org/GayPassport/belfast/outing/accommodation/en redirects to https://belfast.gaypassport.com/en/outing/accommodation
+# https://w3id.org/GayPassport/belfast/en/outing/accommodation redirects to https://belfast.gaypassport.com/en/outing/accommodation
+# https://w3id.org/GayPassport/belfast/outing/venue/europa-hotel redirects to https://belfast.gaypassport.com/en/outing/venue/europa-hotel
+# https://w3id.org/GayPassport/belfast/outing/venue/europa-hotel/en redirects to https://belfast.gaypassport.com/en/outing/venue/europa-hotel
+# https://w3id.org/GayPassport/belfast/en/outing/venue/europa-hotel redirects to https://belfast.gaypassport.com/en/outing/venue/europa-hotel
+# https://w3id.org/GayPassport/en/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts redirects to https://www.gaypassport.com/en/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts 
+# https://w3id.org/GayPassport/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts redirects to https://www.gaypassport.com/en/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts 
+# https://w3id.org/GayPassport/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts/en redirects to https://www.gaypassport.com/en/news/international/lgbtq-icons-sally-ride-inspiring-us-all-to-be-astronauts 
+#
+#
+# ## Contact
+# This space is administered by:
+#
+# Clair Kronk
+# Clair.Kronk@mountsinai.org
+# GitHub username: Superraptor
+
+# Examples tested using:
+# https://htaccess.madewithlove.com/
+# (13 February 2025)
+
+RewriteEngine On
+RewriteBase /
+
+# Redirect URLs of the form /GayPassport/$1
+RewriteRule ^([a-z]{2})$ https://gaypassport.com/$1 [R=301,NE,L]
+RewriteRule ^([a-z]{3,50})$ https://$1.gaypassport.com/ [R=301,NE,L]
+
+# Redirect URLs of the form /GayPassport/$1/$2
+RewriteRule ^(news)/(international)$ https://www.gaypassport.com/en/$1/$2 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{2})$ https://$1.gaypassport.com/$2 [R=301,NE,L]
+RewriteRule ^([a-z]{2})/([a-z]{3,50})$ https://$2.gaypassport.com/$1 [R=301,NE,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})$ https://$1.gaypassport.com/en/$2 [R=301,NE,L]
+
+# Redirect URLs of the form /GayPassport/$1/$2/$3
+RewriteRule ^(news)/(international)/([a-z\-]{3,500})$ https://www.gaypassport.com/en/$1/$2/$3 [R=301,L]
+RewriteRule ^(news)/(international)/$ https://www.gaypassport.com/en/$1/$2 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{2})/([a-z]{3,50})$ https://$1.gaypassport.com/$2/$3 [R=301,L]
+RewriteRule ^([a-z]{2})/([a-z]{5,50})/([a-z]{3,50})$ https://$2.gaypassport.com/$1/$3 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})/([a-z]{2})$ https://$1.gaypassport.com/$3/$2 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})/([a-z\-]{3,50})$ https://$1.gaypassport.com/en/$2/$3 [R=301,L]
+
+# Redirect URLs of the form /GayPassport/$1/$2/$3/$4
+RewriteRule ^([a-z]{2})/(news)/(international)/([a-z\-]{3,500})$ https://www.gaypassport.com/$1/$2/$3/$4 [R=301,L]
+RewriteRule ^(news)/(international)/([a-z\-]{3,500})/([a-z]{2})$ https://www.gaypassport.com/$4/$1/$2/$3 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{2})/([a-z]{3,50})/([a-z\-]{3,50})$ https://$1.gaypassport.com/$2/$3/$4 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})/([a-z\-]{3,50})/([a-z]{2})$ https://$1.gaypassport.com/$4/$2/$3 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})/([a-z]{3,50})/([a-z\-]{3,50})$ https://$1.gaypassport.com/en/$2/$3/$4 [R=301,L]
+
+# Redirect URLs of the form /GayPassport/$1/$2/$3/$4/$5
+RewriteRule ^([a-z]{3,50})/([a-z]{2})/([a-z]{3,50})/([a-z]{3,50})/([a-z\-]{3,50})$ https://$1.gaypassport.com/$2/$3/$4/$5 [R=301,L]
+RewriteRule ^([a-z]{3,50})/([a-z]{3,50})/([a-z]{3,50})/([a-z\-]{3,50})/([a-z]{2})$ https://$1.gaypassport.com/$5/$2/$3/$4 [R=301,L]
+
+# Redirect /GayPassport/ to https://www.gaypassport.com/
+RewriteRule ^$ https://www.gaypassport.com/ [R=301,L]

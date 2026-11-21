@@ -1,0 +1,55 @@
+# ============================================================================
+#  w3id.org/ophkg — OphKG 眼科知识图谱与本体
+#
+#  https://w3id.org/ophkg/  ->  https://raw.githubusercontent.com/hearAsk/w3id/main
+#
+# ## Contact
+# This space is administered by:
+#
+# KNeyeInno Maintainer
+# 744535612@qq.com
+# GitHub username: hearAsk
+#
+#  Homepage: https://github.com/hearAsk/w3id
+#
+#  规则语法参考 w3id 官方条目：ids/examples、ids/DOLCE、ids/BCSO 等。
+# ============================================================================
+
+Options +FollowSymLinks
+
+# 关闭 MultiViews：否则 /core 会被 Apache 自作主张地内容协商成 core.*，
+# 与我们下面的显式规则打架（DOLCE 条目同理关闭）。
+Options -MultiViews
+
+RewriteEngine On
+
+# --- 0. 命名空间根：项目主页 ------------------------------------------------
+RewriteRule ^$ https://github.com/hearAsk/w3id [R=303,L]
+
+# --- 1. 本体主文档 core -----------------------------------------------------
+# 注意：本体 IRI 形如 https://w3id.org/ophkg/core#Disease，`#` 之后是客户端
+# fragment，服务器只看到 /ophkg/core，故此处匹配 ^core$ 即可覆盖整个前缀。
+# 本部署暂无独立 HTML 文档页，故不做 Accept 内容协商、统一回 303 到 Turtle
+# 源文件；日后提供文档页时，在本行前插入 RewriteCond %{HTTP_ACCEPT} text/html 分支。
+RewriteRule ^core/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/ontologies/ophkg-core.owl [R=303,L]
+
+# --- 2. 版本化 IRI（w3id 永久承诺：只增不删） -------------------------------
+# 当前版本 0.6.0 指向工作副本；历史版本指向 archive/。
+RewriteRule ^0.6.0/core/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/ontologies/ophkg-core.owl [R=303,L]
+RewriteRule ^0.1/core/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/ontologies/archive/ophkg-core-v0.1.owl [R=303,L]
+
+# --- 3. 个体实例数据（ABox） -------------------------------------------------
+RewriteRule ^individuals/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/ontologies/ophkg-individuals.ttl [R=303,L]
+
+# --- 4. 个体 IRI 命名空间 /ind/ ---------------------------------------------
+# 形如 https://w3id.org/ophkg/ind/diabeticRetinopathy
+# 回 303 到 ABox 文件；具体个体的 #fragment 由客户端自行保留与定位。
+RewriteRule ^ind/([^/]+)/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/ontologies/ophkg-individuals.ttl [R=303,L]
+
+# --- 5. SHACL 形状 ----------------------------------------------------------
+RewriteRule ^shapes/?$ https://raw.githubusercontent.com/hearAsk/w3id/main/shapes/ophkg-shapes.ttl [R=303,L]
+
+# --- 6. 兜底：其余路径回项目主页 --------------------------------------------
+# 目的只是"不要 404"（术语 IRI 被引用时至少能落到项目入口）。
+# 刻意不拼接捕获组 —— 项目主页是代码仓/站点入口，拼一个未映射的子路径只会 404。
+RewriteRule ^(.*)$ https://github.com/hearAsk/w3id [R=303,L]

@@ -1,0 +1,52 @@
+Options +FollowSymLinks
+Options -MultiViews
+
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+AddType text/owl-manchester .omn
+
+
+RewriteEngine on
+
+#Rewrite rules for core/req-ont
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.html  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.*
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.ttl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.nt [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/ld+json.*r
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.jsonld [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/owl-manchester.*
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.omn [R=303,NE,L]
+#default response: rdf
+RewriteRule ^ontology/core$ https://data.dnv.com/ontology/requirement-ontology/core/req-ont.rdf [R=303,NE,L]
+#For versions 
+RewriteRule ^ontology/core/(.*) https://data.dnv.com/ontology/requirement-ontology/core/$1  [R=303,NE,L]
+#For templates 
+RewriteRule ^tpl/(.*) https://data.dnv.com/template/requirement-ontology/tpl/$1  [R=303,NE,L]
+
+
+#Serving information for individual URIs
+# Rewrite rule to serve HTML content from class or prop URIs if requested
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml+xml [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* 
+RewriteRule ^rdl/(.*) https://data.dnv.com/requirement-ontology/rdl/$1 [R=303,NE,L]
+RewriteRule ^documentation/(.*) https://data.dnv.com/ontology/requirement-ontology/documentation/$1 [R=303,NE,L]
+

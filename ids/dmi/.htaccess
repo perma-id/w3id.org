@@ -1,0 +1,70 @@
+# .htaccess for https://w3id.org/dmi vocabulary
+# RewriteCond inspired by Widoco
+# Tested with https://htaccess.madewithlove.com/
+#
+RewriteEngine On
+#
+# Rewrite rule for subdirectories like https://w3id.org/dmi/www.din.de/some/more/path
+# Should match the "www.din.de" part and rewrite to dmi-public/www.din.de/__ontology__
+RewriteRule ^(www\.[^\/]*) dmi-public/$1/__ontology__
+#
+# Rewrite rule for other than the above "www.din.de". We assume it only applies to https://w3id.org/dmi
+# and its non "www."-like subdirectories. Should rewrite everything that is not affected by the 
+# rule directly above to dmi-public/__ontology__
+RewriteRule !^(.*)\/__ontology__$ dmi-public/__ontology__
+#
+# Do the "content negotiation" part and rewrite to final destination
+#
+# Rewrite rule to serve HTML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^dmi-public/__ontology__$ https://materialdigital.github.io/dmi-public/index-en.html [R=303,L]
+# Rewrite rule to serve HTML content from the subdirectory URIs if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^dmi-public/(.*)/__ontology__$ https://materialdigital.github.io/dmi-public/$1/index-en.html [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dmi-public/__ontology__$ https://materialdigital.github.io/dmi-public/ontology.jsonld [R=303,L]
+# Rewrite rule to serve JSON-LD content from the subdirectory URIs if requested
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^dmi-public/(.*)/__ontology__$ https://materialdigital.github.io/dmi-public/$1/ontology.jsonld [R=303,L]
+
+# Rewrite rule to serve RDF/XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dmi-public/__ontology__$ https://materialdigital.github.io/dmi-public/ontology.rdf [R=303,L]
+# Rewrite rule to serve RDF/XML content from the subdirectory URIs if requested
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^dmi-public/(.*)/__ontology__$ https://materialdigital.github.io/dmi-public/$1/ontology.rdf [R=303,L]
+
+
+# Rewrite rule to serve N-Triples content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^dmi-public/__ontology__$ https://materialdigital.github.io/dmi-public/ontology.nt [R=303,L]
+# Rewrite rule to serve N-Triples content from the subdirectory URIs if requested
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^dmi-public/(.*)/__ontology__$ https://materialdigital.github.io/dmi-public/$1/ontology.nt [R=303,L]
+
+# Rewrite rule to serve TTL content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^dmi-public/__ontology__$ https://materialdigital.github.io/dmi-public/ontology.ttl [R=303,L]
+# Rewrite rule to serve TTL content from the subdirectory URIs if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^dmi-public/(.*)/__ontology__$ https://materialdigital.github.io/dmi-public/$1/ontology.ttl [R=303,L]
+
+#RewriteCond %{HTTP_ACCEPT} .+
+#RewriteRule ^$ https://materialdigital.github.io/core-ontology/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the RDF/XML content from the vocabulary URI by default
+RewriteRule ^(.*)$ https://materialdigital.github.io/dmi-public/$1 [R=303,L]

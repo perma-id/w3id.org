@@ -1,0 +1,53 @@
+# https://w3id.org/nuproc/ — NuProc Ontology
+#
+# Repository: https://github.com/bonjwanim/nuprockg (branch master; maintainer in README.md)
+#
+# RDF requests for a module get its Turtle file and browser requests get the documentation. A released version's
+# IRI goes to the file of that version, never to the latest one. Rules whose target is a section of the repository
+# README (#earlier-versions, #design-records) carry the NE flag: without it Apache sends '#' as '%23', and the
+# section name becomes part of the file path.
+
+
+RewriteEngine on
+
+# 1. Term IRIs (https://w3id.org/nuproc/ns#EngagementCluster). The fragment is not sent to the server, so only
+#    'ns' is matched. Terms go to the core module, which declares the classes and properties; the shape IRIs in
+#    the same namespace are declared in the shapes module (https://w3id.org/nuproc/shapes).
+RewriteRule ^ns$ https://raw.githubusercontent.com/bonjwanim/nuprockg/master/ontology/nuproc-core.ttl [R=302,L]
+
+# 2. Module IRIs, with content negotiation: RDF requests get Turtle, others the documentation (one page, generated
+#    from the core, codebook and alignments modules).
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(core|codebook|alignments|shapes)$ https://raw.githubusercontent.com/bonjwanim/nuprockg/master/ontology/nuproc-$1.ttl [R=303,L]
+RewriteRule ^(core|codebook|alignments|shapes)$ https://bonjwanim.github.io/nuprockg/ontology/ [R=303,L]
+
+# 3. Version IRIs. Versions 0.1.0 to 0.8.0 were not released (their files are available on request), so their
+#    IRIs, among them each module's owl:priorVersion, go to the README section that says so. From 0.9.0 a version
+#    IRI goes to the module file at the release tag tbox-v<version>.
+RewriteRule ^(core|codebook|alignments|shapes)/(0\.1\.0|0\.2\.0|0\.2\.1|0\.3\.0|0\.4\.0|0\.5\.0|0\.6\.0|0\.6\.1|0\.7\.0|0\.8\.0)$ https://github.com/bonjwanim/nuprockg/blob/master/README.md#earlier-versions [R=303,L,NE]
+RewriteRule ^(core|codebook|alignments|shapes)/([0-9.]+)$ https://raw.githubusercontent.com/bonjwanim/nuprockg/tbox-v$2/ontology/nuproc-$1.ttl [R=303,L]
+
+# 4. Design records (https://w3id.org/nuproc/adr/ADR-NNNN), cited by the modules. They are available on request,
+#    so their IRIs go to the README section that says so.
+RewriteRule ^adr/ADR-[0-9]{4}$ https://github.com/bonjwanim/nuprockg/blob/master/README.md#design-records [R=303,L,NE]
+RewriteRule ^adr/?.*$ https://github.com/bonjwanim/nuprockg/blob/master/README.md#design-records [R=303,L,NE]
+
+# 5. SKOS concept schemes and concepts, declared in the codebook module. directionrole and engagementfunction are
+#    IRIs of versions up to 0.7.0 and are kept.
+RewriteRule ^(channel|eventtype|playerrole|counterpartyrole|directionrole|siderole|organizationtype|resolutionstatus|engagementfunction|engagementrole|engagementidentification|occurrencestatus|typeclassificationstatus)/?(.*)$ https://raw.githubusercontent.com/bonjwanim/nuprockg/master/ontology/nuproc-codebook.ttl [R=303,L]
+
+# 6. Placeholder IRIs for PLOVER event types (PLOVER is not published as RDF), declared in the alignments module.
+RewriteRule ^ext/plover/?.*$ https://raw.githubusercontent.com/bonjwanim/nuprockg/master/ontology/nuproc-alignments.ttl [R=303,L]
+
+# 7. The synthetic demonstration graph: its instances (demo/...) and the clustering rule it states (rule/...).
+RewriteRule ^(demo|rule)/.*$ https://raw.githubusercontent.com/bonjwanim/nuprockg/master/kg/public/nuproc-demo.ttl [R=303,L]
+
+# 8. The individuals of the SHACL test graphs (fixture/...): the README of the test materials.
+RewriteRule ^fixture/.*$ https://github.com/bonjwanim/nuprockg/blob/master/tests/README.md [R=303,L]
+
+# 9. Anything else: the repository.
+RewriteRule ^$ https://github.com/bonjwanim/nuprockg [R=302,L]
+RewriteRule ^(.*)$ https://github.com/bonjwanim/nuprockg [R=302,L]

@@ -1,0 +1,30 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# https://w3id.org/geochem/vocabulary/  -- geochemistry SKOS vocabularies, published from
+# amds-ldeo/geochemBuildingBlocks vocabularies/ on GitHub Pages.
+#
+# activityTypes: laboratory activity types used in ADA / geochemistry analytical procedures
+# (TAPP workflow steps). Source vocabularies/activityTypes.jsonld; the scheme Turtle and one
+# .jsonld/.ttl file per concept (vocabularies/activityType/<localName>.*) are generated from it
+# by profile-provenance's tools/buildVocabularyFiles.py --concept-dir vocabularies/activityType.
+# The concept IRIs are https://w3id.org/geochem/vocabulary/<localName>; they replace the ADA
+# laboratory steps of the deprecated https://w3id.org/cdif/provenance/activityType/.
+#
+# No HTML rendering yet: a browser gets the JSON-LD as well.
+
+# Scheme IRI
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^activityTypes/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityTypes.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^activityTypes/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityTypes.jsonld [R=303,L]
+RewriteRule ^activityTypes/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityTypes.jsonld [R=303,L]
+
+# Concept IRI: its own Turtle or JSON-LD file
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z]+)/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityType/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^([A-Za-z]+)/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityType/$1.jsonld [R=303,L]
+RewriteRule ^([A-Za-z]+)/?$ https://amds-ldeo.github.io/geochemBuildingBlocks/vocabularies/activityType/$1.jsonld [R=303,L]

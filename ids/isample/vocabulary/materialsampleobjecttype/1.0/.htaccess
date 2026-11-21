@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+RewriteEngine on 
+
+# set environmental variable for the current version
+SetEnvIf Request_URI "^.*" currentversion=version-1-0
+# 
+
+
+#https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/version-1-0/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/fluidincontainer
+
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/%{ENV:currentversion}/resource.ttl?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/json [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/%{ENV:currentversion}/resource.json?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} application/rdf+xml [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/%{ENV:currentversion}/resource.rdf?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+
+RewriteCond %{HTTP:Accept} text/html [NC]
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/%{ENV:currentversion}/resource.html?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+
+# default format is html
+RewriteRule       ^(.+)$               https://vocabs.ardc.edu.au/repository/api/lda/isamples/isamples-material-sample-object-type-vocabulary/%{ENV:currentversion}/resource?uri=https://w3id.org/isample/vocabulary/materialsampleobjecttype/1.0/$1 [R=303,L]
+
+
+

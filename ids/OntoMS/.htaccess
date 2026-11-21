@@ -1,0 +1,41 @@
+# Enable CORS for all origins
+Header set Access-Control-Allow-Origin *
+
+# Turn off MultiViews to avoid conflicts
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Base URL
+RewriteBase /OntoMS
+
+# Serve HTML content by default for browsers or text/html requests
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ [R=303,L]
+
+# Redirect to Turtle representation for requests with text/turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.ttl [R=303,L]
+
+# Redirect to RDF/XML for application/rdf+xml requests
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.owl [R=303,L]
+
+# Redirect to JSON-LD for application/ld+json requests
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.jsonld [R=303,L]
+
+# Redirect to N-Triples for application/n-triples or text/n3 requests
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/rdf+n3
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ontology.nt [R=303,L]
+
+# Fallback: Serve HTML for any unsupported request
+RewriteRule ^$ https://kit-mms.github.io/Onto-MS.github.io/ [R=303,L]

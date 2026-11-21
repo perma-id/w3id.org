@@ -1,0 +1,15 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabularies/(.+?)/?$ https://ihfc-iugg.github.io/controlled-vocabularies/catalogue/$1/index.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^vocabularies/(.+?)/?$ https://ihfc-iugg.github.io/controlled-vocabularies/catalogue/$1/index.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^vocabularies/(.+?)/?$ https://ihfc-iugg.github.io/controlled-vocabularies/catalogue/$1/index.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^vocabularies/(.+?)/?$ https://ihfc-iugg.github.io/controlled-vocabularies/catalogue/$1/index.nt [R=303,L]
+
+RewriteRule ^vocabularies/(.*)$ https://ihfc-iugg.github.io/controlled-vocabularies/catalogue/$1 [R=303,L]

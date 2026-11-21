@@ -1,0 +1,25 @@
+RewriteEngine On
+
+# redirect to latest version JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://d4co-e3bedc.gitlab.io/ontology.jsonld [R=303,L]
+
+# redirect to latest version N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://d4co-e3bedc.gitlab.io/ontology.nt [R=303,L]
+
+# redirect to latest version Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://d4co-e3bedc.gitlab.io/ontology.ttl [R=303,L]
+
+# redirect to latest version HTML
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^(.*)$ https://d4co-e3bedc.gitlab.io/#$1 [NE,R=303,L]
+
+# otherwise redirect to latest version RDF/XML
+RewriteRule ^$ https://d4co-e3bedc.gitlab.io/ontology.owl [R=303,L]

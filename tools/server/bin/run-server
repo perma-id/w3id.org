@@ -1,0 +1,298 @@
+#!/bin/sh
+#
+# Serve this repository's ids/ tree with an Apache running as you, on a port
+# you can bind, with no Docker and no root.
+#
+#   tools/server/bin/run-server            # foreground, Ctrl-C to stop
+#   tools/server/bin/run-server start      # background
+#   tools/server/bin/run-server status
+#   tools/server/bin/run-server stop
+#   tools/server/bin/run-server test       # httpd -t, and print the command
+#
+#   W3ID_PORT=8081 tools/server/bin/run-server
+#
+# Run tools/server/bin/build-httpd once first; this finds the result on its
+# own. Then tools/server/bin/resolve-identifier asks the running server how it
+# resolves an identifier.
+#
+# All this does is work out the paths that conf/rootless.conf needs -- where
+# httpd is, where its modules are, where the repository is, where to put the
+# pid file and the logs -- and pass them as Defines. `test` prints the whole
+# invocation, so nothing here is hidden from you.
+#
+# POSIX sh on purpose, to match bin/resolve-identifier.
+
+set -eu
+
+port=${W3ID_PORT:-8080}
+
+state=${XDG_STATE_HOME:-$HOME/.local/state}/w3id/server
+rundir=${W3ID_RUNDIR:-$state/run}
+logdir=${W3ID_LOGDIR:-$state/log}
+cache=${XDG_CACHE_HOME:-$HOME/.cache}/w3id/httpd
+
+usage() {
+  cat >&2 <<'USAGE'
+usage: run-server [run|start|stop|status|test]
+
+  run      start in the foreground and stay there (the default)
+  start    start in the background
+  stop     stop a server started with `start`
+  status   say whether one is running, and where its logs are
+  test     check the configuration without starting anything
+
+Environment:
+  W3ID_PORT                 port to listen on (default 8080)
+  W3ID_HTTPD                path to an httpd binary to use
+  W3ID_HTTPD_PREFIX         a build-httpd prefix to use
+  W3ID_ALLOW_SYSTEM_HTTPD   set to 1 to fall back to a system Apache
+  W3ID_MODDIR               module directory, if the probe gets it wrong
+  W3ID_MIMETYPES            path to mime.types, likewise
+USAGE
+  exit 2
+}
+
+command=run
+if [ $# -gt 0 ]; then
+  case $1 in
+    run|start|stop|status|test) command=$1 ;;
+    -h|--help) usage ;;
+    *) printf 'run-server: unknown command: %s\n\n' "$1" >&2; usage ;;
+  esac
+  shift
+fi
+[ $# -eq 0 ] || usage
+
+# The repository is found from this script rather than from the working
+# directory, so the command works from anywhere and, with several worktrees
+# checked out, always serves the tree it was run from.
+here=$(cd "$(dirname "$0")" && pwd)
+repo=$(cd "$here/../../.." && pwd)
+conf=$repo/tools/server/conf/rootless.conf
+docroot=$repo/ids
+
+[ -d "$docroot" ] || {
+  printf 'run-server: no ids/ directory under %s\n' "$repo" >&2
+  printf 'This script must stay in tools/server/bin/ to find the repository.\n' >&2
+  exit 1
+}
+
+pidfile=$rundir/httpd.pid
+
+# --- which httpd -------------------------------------------------------------
+#
+# A built httpd is preferred over one the system provides, which is the
+# opposite of the usual advice, and deliberate. conf/w3id.conf is faithful to
+# production only because the module list is a restriction; a distribution
+# Apache links several modules into the binary, where no configuration can
+# unload them, so rules that would fail on the live server can pass locally.
+# build-httpd produces every module as a shared object, so the list decides.
+#
+# The escape hatch is there because a system Apache is still far better than
+# no local server at all -- it just cannot make the fidelity claim.
+
+find_httpd() {
+  if [ -n "${W3ID_HTTPD:-}" ]; then
+    printf '%s' "$W3ID_HTTPD"
+    return
+  fi
+  if [ -n "${W3ID_HTTPD_PREFIX:-}" ] && [ -x "$W3ID_HTTPD_PREFIX/bin/httpd" ]; then
+    printf '%s' "$W3ID_HTTPD_PREFIX/bin/httpd"
+    return
+  fi
+  if [ -x "$cache/current/bin/httpd" ]; then
+    printf '%s' "$cache/current/bin/httpd"
+    return
+  fi
+  if [ "${W3ID_ALLOW_SYSTEM_HTTPD:-}" = 1 ]; then
+    for name in httpd apache2; do
+      if command -v "$name" >/dev/null 2>&1; then
+        command -v "$name"
+        return
+      fi
+    done
+  fi
+  printf ''
+}
+
+httpd=$(find_httpd)
+
+[ -n "$httpd" ] && [ -x "$httpd" ] || {
+  cat >&2 <<EOF
+run-server: no httpd to run.
+
+Build one -- it needs no root and installs nothing system-wide:
+
+  tools/server/bin/build-httpd
+
+If you already have Apache installed and want to use it instead, set
+W3ID_ALLOW_SYSTEM_HTTPD=1. Note that a distribution Apache links some modules
+statically, so the restricted module list stops being enforced and a rule that
+works locally can still fail on the live server.
+EOF
+  exit 1
+}
+
+# --- where its pieces are ----------------------------------------------------
+
+prefix=$(cd "$(dirname "$httpd")/.." && pwd)
+
+if [ -d "$prefix/modules" ] && [ -f "$prefix/conf/mime.types" ]; then
+  # A prefix laid out by build-httpd, or any other self-contained build.
+  serverroot=$prefix
+  moddir=$prefix/modules
+  mimetypes=$prefix/conf/mime.types
+else
+  # A system Apache. Ask the binary where its root is, then look for the two
+  # paths that vary most between distributions.
+  serverroot=$("$httpd" -V 2>/dev/null |
+    sed -n 's/.*HTTPD_ROOT="\([^"]*\)".*/\1/p')
+  [ -n "$serverroot" ] || serverroot=/etc/apache2
+
+  moddir=
+  for candidate in \
+    /usr/lib/apache2/modules \
+    /usr/lib64/httpd/modules \
+    /usr/lib/httpd/modules \
+    "$serverroot/modules"
+  do
+    [ -d "$candidate" ] || continue
+    moddir=$candidate
+    break
+  done
+
+  mimetypes=
+  for candidate in \
+    /etc/mime.types \
+    "$serverroot/conf/mime.types" \
+    /etc/httpd/conf/mime.types
+  do
+    [ -f "$candidate" ] || continue
+    mimetypes=$candidate
+    break
+  done
+fi
+
+moddir=${W3ID_MODDIR:-$moddir}
+mimetypes=${W3ID_MIMETYPES:-$mimetypes}
+
+[ -n "$moddir" ] && [ -d "$moddir" ] || {
+  printf 'run-server: cannot find the module directory for %s\n' "$httpd" >&2
+  printf 'Set W3ID_MODDIR to the directory holding mod_rewrite.so.\n' >&2
+  exit 1
+}
+[ -n "$mimetypes" ] && [ -f "$mimetypes" ] || {
+  printf 'run-server: cannot find mime.types for %s\n' "$httpd" >&2
+  printf 'Set W3ID_MIMETYPES to it.\n' >&2
+  exit 1
+}
+
+mkdir -p "$rundir" "$logdir"
+
+run_httpd() {
+  "$httpd" -f "$conf" \
+    -C "Define W3ID_REPO $repo" \
+    -C "Define W3ID_DOCROOT $docroot" \
+    -C "Define W3ID_SERVERROOT $serverroot" \
+    -C "Define W3ID_MODDIR $moddir" \
+    -C "Define W3ID_MIMETYPES $mimetypes" \
+    -C "Define W3ID_RUNDIR $rundir" \
+    -C "Define W3ID_LOGDIR $logdir" \
+    -C "Define W3ID_PORT $port" \
+    "$@"
+}
+
+running_pid() {
+  [ -f "$pidfile" ] || return 1
+  _pid=$(cat "$pidfile" 2>/dev/null) || return 1
+  [ -n "$_pid" ] || return 1
+  kill -0 "$_pid" 2>/dev/null || return 1
+  printf '%s' "$_pid"
+}
+
+case $command in
+  test)
+    printf 'httpd:   %s\n' "$httpd"
+    printf 'modules: %s\n' "$moddir"
+    printf 'docroot: %s\n' "$docroot"
+    printf 'port:    %s\n\n' "$port"
+    printf 'The command this runs:\n\n'
+    printf '  %s -f %s \\\n' "$httpd" "$conf"
+    for define in \
+      "W3ID_REPO $repo" \
+      "W3ID_DOCROOT $docroot" \
+      "W3ID_SERVERROOT $serverroot" \
+      "W3ID_MODDIR $moddir" \
+      "W3ID_MIMETYPES $mimetypes" \
+      "W3ID_RUNDIR $rundir" \
+      "W3ID_LOGDIR $logdir" \
+      "W3ID_PORT $port"
+    do
+      printf "    -C 'Define %s' \\\\\n" "$define"
+    done
+    printf '    -D FOREGROUND\n\n'
+    run_httpd -t
+    ;;
+
+  run)
+    if running_pid >/dev/null 2>&1; then
+      printf 'run-server: already running in the background (pid %s).\n' \
+        "$(running_pid)" >&2
+      printf 'Stop it first: tools/server/bin/run-server stop\n' >&2
+      exit 1
+    fi
+    printf 'Serving %s at http://localhost:%s/\n' "$docroot" "$port"
+    printf 'Ctrl-C to stop.\n\n'
+    run_httpd -D FOREGROUND
+    ;;
+
+  start)
+    if running_pid >/dev/null 2>&1; then
+      printf 'Already running (pid %s) at http://localhost:%s/\n' \
+        "$(running_pid)" "$port"
+      exit 0
+    fi
+    run_httpd -k start
+    printf 'Serving %s at http://localhost:%s/\n' "$docroot" "$port"
+    printf 'Logs: %s\n' "$logdir"
+    printf 'Stop it with: tools/server/bin/run-server stop\n'
+    ;;
+
+  stop)
+    if ! running_pid >/dev/null 2>&1; then
+      printf 'Not running.\n'
+      exit 0
+    fi
+    pid=$(running_pid)
+    run_httpd -k stop
+
+    # `httpd -k stop` returns as soon as the signal is sent, not when the
+    # server is gone. Without this wait, a `status` straight afterwards still
+    # reports it running, and a restart can collide on the port.
+    waited=0
+    while [ "$waited" -lt 100 ]; do
+      kill -0 "$pid" 2>/dev/null || break
+      sleep 0.1 2>/dev/null || sleep 1
+      waited=$((waited + 1))
+    done
+
+    if kill -0 "$pid" 2>/dev/null; then
+      printf 'run-server: httpd (pid %s) has not stopped.\n' "$pid" >&2
+      exit 1
+    fi
+    printf 'Stopped.\n'
+    ;;
+
+  status)
+    if running_pid >/dev/null 2>&1; then
+      printf 'Running (pid %s) at http://localhost:%s/\n' \
+        "$(running_pid)" "$port"
+    else
+      printf 'Not running.\n'
+    fi
+    printf 'httpd:  %s\n' "$httpd"
+    printf 'Serves: %s\n' "$docroot"
+    printf 'Logs:   %s/error.log\n' "$logdir"
+    printf '        %s/access.log\n' "$logdir"
+    ;;
+esac

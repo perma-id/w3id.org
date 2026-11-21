@@ -1,0 +1,21 @@
+# AquaLex-RN persistent identifiers
+# Maintainer: Gábor Hamp (https://github.com/hampg)
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# The project identifier resolves to the human-readable landing page.
+RewriteRule ^$ https://ravo-nidaba.github.io/aqualex-rn/ [R=303,L]
+
+# Serve the combined reviewed graph according to the requested RDF media type.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^(ontology(/.*)?|concept/.*|resource/.*|evidence/.*|frame/.*|assertion/.*|relation/.*)$ https://ravo-nidaba.github.io/aqualex-rn/ontology/aqualex-rn.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^(ontology(/.*)?|concept/.*|resource/.*|evidence/.*|frame/.*|assertion/.*|relation/.*)$ https://ravo-nidaba.github.io/aqualex-rn/ontology/aqualex-rn.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^(ontology(/.*)?|concept/.*|resource/.*|evidence/.*|frame/.*|assertion/.*|relation/.*)$ https://ravo-nidaba.github.io/aqualex-rn/ontology/aqualex-rn.ttl [R=303,L]
+
+# Browsers and clients without a supported RDF Accept header receive documentation.
+RewriteRule ^(ontology(/.*)?|concept/.*|resource/.*|evidence/.*|frame/.*|assertion/.*|relation/.*)$ https://ravo-nidaba.github.io/aqualex-rn/ontology/ [R=303,L]

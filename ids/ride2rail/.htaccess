@@ -1,0 +1,21 @@
+# Turn off MultiViews
+Options -MultiViews
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine On
+
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/Ride2Rail/agreement-ledger-ontology [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} .+
+RewriteRule ^$ https://ride2rail.github.io/agreement-ledger-ontology/docs/406.html [R=406,L]
+
+# Default response
+# ---------------------------
+# Rewrite rule to serve the ontology repository
+RewriteRule ^$ https://github.com/Ride2Rail/agreement-ledger-ontology [R=303,L]

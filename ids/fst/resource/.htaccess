@@ -1,0 +1,89 @@
+## This .htaccess is currently in the state of a first productive test to try out the
+# W3ID service and the service onour end
+
+# PLEASE NOTE: This file is commented vigoursly to make it easier for succeeding
+# researchers, research assistants and research aides (german: HiWi) of the FST, that
+# usually don't have a strong informatics background, but need to take over in the
+#future, to follow along.
+
+# The main goal of the commenting is to make them able to change and mainly add to
+# this .htaccess file and consequently make them able to extend, maintain and therefore
+# reuse the service with minimal time efforts.
+
+
+RewriteEngine On
+
+# Directive to ensure files served as appropriate content type,
+# if not present in main apache config.
+# . ttl
+AddType text/turtle .ttl
+AddType application/x-turtle .ttl
+# .json
+AddType application/json .json
+# .xml
+AddType application/rdf\+xml .xml
+AddType application/xml .xml
+AddType text/xml .xml
+# .md
+AddType text/markdown .md
+
+# ### ENVIRONMENT - VARIABLE ###
+# In our case the second redirect step is a GitLab webpage hosted on top of a
+# git-data-repository structure.
+SetEnvIf REQUEST_URI ".*$" SECOND_REDIRECT_WEBPAGE_ROOT_URL=https://fst-tuda.pages.rwth-aachen.de/projects/rdm/metadata_hub/
+
+
+#*******************************************************************************************
+# 1. If the given URL doesn't contain a "." (like ".xml") use content negotiation.
+#*******************************************************************************************
+# NOTE TODO: STILL UNTESTED: Since there is a always a redirect to a .html file that
+# further redirects to the source the content negotiation of crawlers might get hickups.
+# .html
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.html [R=303,NC,L]
+
+# .ttl (turtle)
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.ttl.html [R=303,NC,L]
+
+# .json
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.json.html [R=303,NC,L]
+
+# .xml
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/xml
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.xml.html [R=303,NC,L]
+
+# .md
+RewriteCond %{REQUEST_URI} !^/?([A-Za-z0-9-]+)\./?$
+RewriteCond %{HTTP_ACCEPT} text/markdown
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.md.html [R=303,NC,L]
+
+
+#*******************************************************************************************
+# 2. If the given URL does contain a "." (like ".xml") the requested file type is explictly
+# given by the requested URL
+#*******************************************************************************************
+# .ttl (turtle)
+RewriteRule ^/?([A-Za-z0-9-]+)(\.ttl)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.ttl.html [R=303,NC,L]
+# .json
+RewriteRule ^/?([A-Za-z0-9-]+)(\.json)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.json.html [R=303,NC,L]
+# .xml
+RewriteRule ^/?([A-Za-z0-9-]+)(\.xml)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.xml.html [R=303,NC,L]
+# .md
+RewriteRule ^/?([A-Za-z0-9-]+)(\.md)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1.md.html [R=303,NC,L]
+
+
+#*******************************************************************************************
+# FALL BACK, redirect to the main fallback page of the repository redirect service
+#*******************************************************************************************
+# TODO: Add a index.html or similar to the service to be able to redirect to something
+# reasonable.
+RewriteRule ^/?([A-Za-z0-9-]+)/?$ %{ENV:SECOND_REDIRECT_WEBPAGE_ROOT_URL}/$1 [NC,L]
+

@@ -1,0 +1,29 @@
+# # /reo/
+#
+# https://w3id.org/reo/ redirects to https://pfefferniels.github.io/linked-rolls/reo/
+#
+# ## Contact
+# This space is administered by:
+#
+# Niels Pfeffer
+# GitHub username: pfefferniels
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml)
+RewriteRule ^type/(welte-t100|welte-green)/([A-Za-z]+)?$ https://pfefferniels.github.io/linked-rolls/reo/type/$1/$1.ttl [R=303,L]
+RewriteRule ^type/welte-t100/([A-Za-z]+)$ https://pfefferniels.github.io/linked-rolls/reo/type/welte-t100/#t100_$1 [R=303,NE,L]
+RewriteRule ^type/welte-green/([A-Za-z]+)$ https://pfefferniels.github.io/linked-rolls/reo/type/welte-green/#green_$1 [R=303,NE,L]
+RewriteRule ^type/(welte-t100|welte-green)/$ https://pfefferniels.github.io/linked-rolls/reo/type/$1/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml)
+RewriteRule ^type(/[A-Za-z0-9/_-]*)?$ https://pfefferniels.github.io/linked-rolls/reo/types.ttl [R=303,L]
+RewriteRule ^type/([A-Za-z0-9_-]+)$ https://pfefferniels.github.io/linked-rolls/reo/type/#reot_$1 [R=303,NE,L]
+RewriteRule ^type(/[A-Za-z0-9/_-]*)?$ https://pfefferniels.github.io/linked-rolls/reo/type/ [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml)
+RewriteRule ^([A-Za-z][A-Za-z0-9_]*)?$ https://pfefferniels.github.io/linked-rolls/reo/reo.ttl [R=303,L]
+RewriteRule ^([A-Za-z][A-Za-z0-9_]*)$ https://pfefferniels.github.io/linked-rolls/reo/#$1 [R=303,NE,L]
+RewriteRule ^$ https://pfefferniels.github.io/linked-rolls/reo/ [R=303,L]
+
+RewriteRule ^(.*)$ https://pfefferniels.github.io/linked-rolls/reo/$1 [R=302,L]

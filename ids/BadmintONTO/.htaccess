@@ -1,0 +1,21 @@
+Options +FollowSymLinks
+
+# Rewrite engine setup
+RewriteEngine on
+
+# Homepage/repository
+RewriteRule ^/?$ https://huanyu-li.github.io/BadmintONTO/ [R=308,L]
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$  https://huanyu-li.github.io/BadmintONTO/$1/index.html [R=303,NE,L]
+
+
+# Redirect request to versioned/latest RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/BadmintONTO/$1/BadmintONTO.rdf [R=303,NE,L]
+
+# Redirect request to versioned/latest Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/BadmintONTO/$1/BadmintONTO.ttl [R=303,NE,L]
+
+# Redirect request to JSON-LD (base URL)
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]\.[0-9](?:\.[0-9])?)/?$ https://huanyu-li.github.io/BadmintONTO/$1/BadmintONTO.jsonld [R=303,NE,L]

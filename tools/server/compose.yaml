@@ -1,0 +1,31 @@
+# A local w3id.org server for testing .htaccess rules.
+#
+#   cd tools/server
+#   docker compose up
+#
+# Then http://localhost:8080/ serves the repository's ids/ directory the way
+# w3id.org serves it, so ids/my-project/ answers at /my-project/.
+#
+# See docs/guides/local-server.md for what to test and how to read the result.
+
+services:
+  w3id:
+    build: .
+    # Named so `docker compose logs w3id` and the container name match what
+    # the guide tells people to type.
+    container_name: w3id-local
+    ports:
+      # Port 8080 on the host is what every curl example in the documentation
+      # uses. Change the left-hand number if something already has it; leave
+      # the right-hand 80 alone, as it is the port inside the container.
+      - '8080:80'
+    volumes:
+      # The identifier tree, mounted where conf/httpd.conf points the document
+      # root. Read-only on purpose: the server has no business writing to the
+      # tree it serves, and a local misconfiguration should not be able to
+      # modify files you are about to commit.
+      - ../../ids:/usr/local/apache2/htdocs:ro
+    # Apache logs to stdout and stderr, so `docker compose logs -f w3id` shows
+    # both. When a request returns 500, the error log is the only place that
+    # names the .htaccess file and the line that broke.
+    restart: 'no'

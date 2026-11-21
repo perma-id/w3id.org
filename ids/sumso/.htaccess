@@ -1,0 +1,32 @@
+Options -MultiViews
+RewriteEngine on
+AddType text/turtle .ttl
+
+# CONTENT NEGOTIATION ----------------------------------------------------------------------------------------
+
+## Serve TTL content when RDF formats are explicitly requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^sumso([^/]*)$ https://raw.githubusercontent.com/gioUbbiali/Sustainable-Meat-Systems-Ontology/refs/heads/main/sumso$1.ttl [R=303,L]
+
+# CONTENT NEGOTIATION SPECIFIC VERSION ----------------------------------------------------------------------------------------
+RedirectMatch 302 ^/sumso/sumso-imports-merged/?$ https://raw.githubusercontent.com/gioUbbiali/Sustainable-Meat-Systems-Ontology/refs/heads/main/sumso-imports-merged.ttl
+
+# RESOURCES' VERSIONING ----------------------------------------------------------------------------------------
+
+## Latest release
+RedirectMatch 302 ^/sumso/(latest|current)/?$  https://github.com/GioUbbiali/Sustainable-Meat-Systems-Ontology/releases/latest
+
+## All releases
+RedirectMatch 302 ^/sumso/releases/?$  https://github.com/GioUbbiali/Sustainable-Meat-Systems-Ontology/releases
+
+# RESOURCES' HOMEPAGES ----------------------------------------------------------------------------------------
+
+## Redirect to RDF content when accessing the root namespace
+RedirectMatch 302 ^/sumso/?$ https://raw.githubusercontent.com/gioUbbiali/Sustainable-Meat-Systems-Ontology/refs/heads/main/sumso.ttl
+
+## Redirect documentation requests explicitly
+RedirectMatch 302 ^/sumso/docs/?$ https://GioUbbiali.github.io/Sustainable-Meat-Systems-Ontology/docs/index.html
+
+
+## Repository links
+RedirectMatch 302 ^/sumso/(git|repo)/?$  https://github.com/GioUbbiali/Sustainable-Meat-Systems-Ontology

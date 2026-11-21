@@ -1,0 +1,40 @@
+# Marvin — AI-augmented ontology development environment
+# https://github.com/aigora-de/marvin-ns
+#
+# This space is administered by:
+# Dave Dyke
+# 23141680+aigora-de@users.noreply.github.com
+# GitHub: aigora-de
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# ------------------------------------------------------------------
+# https://w3id.org/marvin/projections/
+# ------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^projections/(.*)$ https://raw.githubusercontent.com/aigora-de/marvin-ns/main/ontology/marvin-projections.ttl [R=303,L]
+
+# RDF/XML
+#RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+#RewriteRule ^projections/(.*)$ https://raw.githubusercontent.com/aigora-de/marvin-ns/main/ontology/marvin-projections.rdf [R=303,L]
+
+# HTML / browser default
+RewriteRule ^projections/(.*)$ https://github.com/aigora-de/marvin-ns [R=303,L]
+
+# ------------------------------------------------------------------
+# https://w3id.org/marvin/  (root and everything else)
+# ------------------------------------------------------------------
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/aigora-de/marvin-ns/main/ontology/marvin-schema.ttl [R=303,L]
+
+# RDF/XML
+#RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+#RewriteRule ^(.*)$ https://raw.githubusercontent.com/aigora-de/marvin-ns/main/ontology/marvin-schema.rdf [R=303,L]
+
+# HTML / browser default
+RewriteRule ^(.*)$ https://github.com/aigora-de/marvin-ns [R=303,L]

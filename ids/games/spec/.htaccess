@@ -1,0 +1,56 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+#Rewrite rules for Asteroids vocabulary extension 
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^asteroids$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/AsteroidsOntology/asteroidsDoc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^asteroids$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/AsteroidsOntology/asteroids.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^asteroids$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/AsteroidsOntology/asteroids.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^asteroids$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/AsteroidsOntology/asteroids.owl [R=303,NE,L]
+
+#Rewrite rules for Coil vocabulary extension
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^coil$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/CoilOntology/coilDoc/  [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^coil$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/CoilOntology/coil.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^coil$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/CoilOntology/coil.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^coil$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/CoilOntology/coil.owl [R=303,NE,L]
+
+#Rewrite rules for browserquest vocabulary extension
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml|text/\*|\*/\*)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^browserquest$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/BrowserQuestOntology/browserDoc/ [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^browserquest$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/BrowserQuestOntology/browserQuest.owl [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^browserquest$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/BrowserQuestOntology/browserQuest.ttl [R=303,NE,L]
+#default response: owl
+RewriteRule ^browserquest$ http://dgarijo.github.io/VideoGameOntology/GameExtensions/BrowserQuestOntology/browserQuest.owl [R=303,NE,L]

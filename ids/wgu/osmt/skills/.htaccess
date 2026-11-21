@@ -1,0 +1,20 @@
+# w3id.org/wgu/osmt/skills → ontology
+# Maintainer: Craig Trim <craigtrim@gmail.com>
+
+RewriteEngine On
+Options +FollowSymLinks
+
+# RDF-friendly content negotiation for root
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/craigtrim/wgu-osmt-skills-ontology/master/wgu-osmt-skills-ontology_v2025.11.01.ttl [R=302,L]
+
+# Fallback (humans)
+RewriteRule ^$ https://github.com/craigtrim/wgu-osmt-skills-ontology [R=302,L]
+
+# Optional frozen version path (yyyy.mm.dd)
+RewriteRule ^2025\.11\.01$ https://raw.githubusercontent.com/craigtrim/wgu-osmt-skills-ontology/v2025.11.01/wgu-osmt-skills-ontology_v2025.11.01.ttl [R=302,L]
+
+# Generic passthrough for future subpaths (HTML landing by default)
+RewriteCond %{REQUEST_URI} !^/$
+RewriteRule ^(.*)$ https://github.com/craigtrim/wgu-osmt-skills-ontology [R=302,L]

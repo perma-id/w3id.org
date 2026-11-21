@@ -1,0 +1,19 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type
+AddType text/turtle .ttl
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://delaramglp.github.io/aiup/aiup.ttl [R=302,L]
+
+# https://w3id.org/aiup/1.0
+RewriteRule ^1.0$ https://delaramglp.github.io/aiup [R=302,L]
+
+# Default
+RewriteRule ^$ https://delaramglp.github.io/aiup [R=302,L]
+RewriteRule ^(.*)$ https://delaramglp.github.io/aiup/$1 [R=302,L]

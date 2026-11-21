@@ -1,0 +1,125 @@
+RewriteEngine on
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType text/n3 .n3
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+# Documentation
+RewriteRule ^$ https://github.com/opengeospatial/aim-swg/tree/main [R=302,L]
+
+
+### METADATA LAYER #####
+# Ontology
+RewriteRule ^metadata$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/metadata.ttl [R=302,L]
+# JSON-LD context
+RewriteRule ^metadata-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/metadata-context.jsonld [R=302,L]
+
+
+### AIM CORE METAMODEL LAYER #####
+# Ontology
+RewriteRule ^core$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/demeterCore_ngsi-ld.ttl [R=302,L]
+# JSON-LD context
+RewriteRule ^core-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/demeterCore_ngsi-ld-context.jsonld [R=302,L]
+
+
+### AIM CROSS-DOMAIN LAYER #####
+# Version
+RewriteRule ^crossDomain/(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v$1/cross-domain_v$1.ttl [R=302,L]
+# Ontology
+RewriteRule ^crossDomain$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/cross-domain.ttl [R=302,L]
+# JSON-LD context
+RewriteRule ^crossDomain-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/crossDomain-context.jsonld [R=302,L]
+
+
+### AIM extensions #####
+# JSON-LD context
+RewriteRule ^agri/ext/(.*)-context(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/extensions/jsonld/$1-context.jsonld [R=302,L]
+#RewriteRule ^agri/ext/livestockFeature-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/extensions/jsonld/livestockFeature-context.jsonld [R=302,L]
+# Ontology
+RewriteRule ^agri/ext/(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/extensions/$1.ttl [R=302,L]
+#RewriteRule ^agri/ext/livestockFeature$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/extensions/livestockFeature.ttl [R=302,L]
+
+### AIM alignments #####
+# Ontology
+RewriteRule ^agri/alignments/(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/alignments/$1.ttl [R=302,L]
+
+### AIM DOMAIN LAYER #####
+
+## Root level
+# Version
+#RewriteRule ^agri/(.*)/(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v$2/$1_v$2.ttl [R=302,L]
+#RewriteRule ^agri/(.*)/(\d+(.\d+)*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v$2/$1_v$2.ttl [R=302,L]
+RewriteRule ^agri/(.*)/(\d+(.\d+)*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v$2/$1.ttl [R=302,L]
+RewriteRule ^agri/1.0$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v1.0/demeterAgriProfile.ttl [R=302,L]
+RewriteRule ^agri/2.0$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/v2.0/demeterAgriProfile.ttl [R=302,L]
+
+# JSON-LD context
+RewriteRule ^agri-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/demeterAgriProfile-context.jsonld [R=302,L]
+
+# Ontology
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^agri$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/demeterAgriProfile.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^agri$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/rdf/demeterAgriProfile.rdf [R=303,L]
+# redirect to OGC def server
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^agri$ https://defs-dev.opengis.net/def/w3id.org/demeter/agri [R=303,L]
+# default
+RewriteRule ^agri$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/demeterAgriProfile.ttl [R=303,L]
+
+
+## Modules
+# JSON-LD contexts
+RewriteRule ^agri/(.*)-context(.*)$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/$1-context.jsonld [R=302,L]
+
+#RewriteRule ^agri/agriFeature-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriFeature-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriCrop-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriCrop-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriCommon-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriCommon-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriIntervention-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriIntervention-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriAlert-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriAlert-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriProduct-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriProduct-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriProperty-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriProperty-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriSystem-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriSystem-context.jsonld [R=302,L]
+#RewriteRule ^agri/agriPest-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/agriPest-context.jsonld [R=302,L]
+#RewriteRule ^agri/farmAnimal-context.jsonld$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/jsonld/farmAnimal-context.jsonld [R=302,L]
+
+
+# Ontologies
+RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.* 
+RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/opengeospatial/aim-swg/main/$1.ttl [R=303,L]
+# necessary for loading in protege/json-ld tool
+RewriteCond %{HTTP_ACCEPT} ^.*application/rdf\+xml.* 
+RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/opengeospatial/aim-swg/main/rdf/$1.rdf [R=303,L]
+# redirect to OGC def server
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^agri/(.*)$  https://defs-dev.opengis.net/def/w3id.org/demeter/agri/$1 [R=303,L]
+# default
+RewriteRule ^agri/(.*)$  https://raw.githubusercontent.com/opengeospatial/aim-swg/main/$1.ttl [R=303,L]
+
+
+#RewriteRule ^agri/(?!.*context)(.*)$  https://defs-dev.opengis.net/def/w3id.org/demeter/agri/$1 [R=303,L]
+#RewriteRule ^agri/agriCrop$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriCrop.ttl [R=303,L]
+#RewriteRule ^agri/agriFeature$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriFeature.ttl [R=302,L]
+#RewriteRule ^agri/agriCommon$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriCommon.ttl [R=302,L]
+#RewriteRule ^agri/agriIntervention$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriIntervention.ttl [R=302,L]
+#RewriteRule ^agri/agriAlert$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriAlert.ttl [R=302,L]
+#RewriteRule ^agri/agriProduct$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriProduct.ttl [R=302,L]
+#RewriteRule ^agri/agriProperty$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriProperty.ttl [R=302,L]
+#RewriteRule ^agri/agriSystem$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriSystem.ttl [R=302,L]
+#RewriteRule ^agri/agriPest$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/agriPest.ttl [R=302,L]
+#RewriteRule ^agri/farmAnimal$ https://raw.githubusercontent.com/opengeospatial/aim-swg/main/farmAnimal.ttl [R=302,L]
+
+
+
+
+
+
+
+
+

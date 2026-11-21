@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# whole vocab
+RewriteCond %{QUERY_STRING} ^_mediatype=text/turtle$ [OR]
+RewriteCond %{HTTP:Accept} text/turtle [NC]
+RewriteRule ^voc$ https://raw.githack.com/RDFLib/timefuncs/master/voc/timefuncs.ttl [R=302,L]
+RewriteRule ^voc.ttl$ https://raw.githack.com/RDFLib/timefuncs/master/voc/timefuncs.ttl [R=302,L]
+RewriteRule ^voc$ https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md [R=302,L]
+
+# each concept
+RewriteRule ^contains https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#contains [R=302,NE,L]
+RewriteRule ^hasDuring https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#has-during [R=302,NE,L]
+RewriteRule ^hasInside https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#has-inside [R=302,NE,L]
+RewriteRule ^isAfter https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#is-after [R=302,NE,L]
+RewriteRule ^isBefore https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#is-before [R=302,NE,L]
+RewriteRule ^isContainedBy https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#is-contained-by [R=302,NE,L]
+RewriteRule ^isDuring https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#is-during [R=302,NE,L]
+RewriteRule ^isInside https://github.com/RDFLib/timefuncs/blob/master/voc/timefuncs.md#is-inside [R=302,NE,L]

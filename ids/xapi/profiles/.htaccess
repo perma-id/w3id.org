@@ -1,0 +1,98 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# Directive to allow Cross origin requests
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Accept, Accept-Language"
+Header always set Access-Control-Allow-Methods "GET, OPTIONS"
+
+
+# xAPI PROFILES ONTOLOGY
+# ---------------------------------------------
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-profiles [R=303]
+
+# Ontology Rewrite rule to serve RDF/XML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-profiles/ontology/ontology.rdf [R=303]
+
+# Ontology Rewrite rule to serve Turtle content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ontology/?$ https://adlnet.github.io/xapi-profiles/ontology/ontology.ttl [R=303]
+
+# xAPI PROFILE SPEC VERSION
+# ---------------------------------------------
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^#([0-9a-zA-Z\-]+)/?$ https://adlnet.github.io/xapi-profiles [R=303]
+
+
+
+# xAPI PROFILES CONTEXT
+# ---------------------------------------------
+
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^context/?$ https://adlnet.github.io/xapi-profiles/context/profile-context.jsonld [R=303]
+
+# Context for xAPI Profiles published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^context/?$ https://adlnet.github.io/xapi-profiles/context/profile-context.jsonld [R=303]
+
+# xAPI PROFILES ACTIVITY CONTEXT
+# ---------------------------------------------
+
+# Ontology Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^activity-context/?$ https://adlnet.github.io/xapi-profiles/context/activity-context.jsonld [R=303]
+
+
+# Context for xAPI Profiles published as constrained JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^activity-context/?$ https://adlnet.github.io/xapi-profiles/context/activity-context.jsonld [R=303]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# cmi-5 Rewrite rule to serve HTML content from the URI if requested
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^cmi5/CourseStructure$ https://github.com/AICC/CMI-5_Spec_Current [R=303]
+RewriteRule ^cmi5/CourseStructure/$ https://github.com/AICC/CMI-5_Spec_Current/ [R=303]
+RewriteRule ^cmi5/CourseStructure.xsd$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
+RewriteRule ^cmi5/v1/CourseStructure.xsd$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
+
+# cmi-5 Rewrite rule to serve XML content from the vocabulary URI if requested
+RewriteCond %{HTTP_ACCEPT} application/xml
+RewriteRule ^cmi5/CourseStructure$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
+RewriteRule ^cmi5/v1/CourseStructure$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
+RewriteRule ^cmi5/CourseStructure/$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]
+RewriteRule ^cmi5/v1/CourseStructure/$ https://raw.githubusercontent.com/AICC/CMI-5_Spec_Current/quartz/v1/CourseStructure.xsd [R=303]

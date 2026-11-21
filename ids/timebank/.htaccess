@@ -1,0 +1,16 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .json
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule to redirect to current version
+RewriteRule ^(.*)$ https://w3id.org/timebank/0.2 [R=303]

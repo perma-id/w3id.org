@@ -1,0 +1,31 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+AddType text/turtle .ttl
+
+RewriteEngine on
+
+# versioned urls
+#----------------
+
+# Default response serves turtle for now
+RewriteRule ^/v2/?$ https://raw.githubusercontent.com/proycon/folia/master/schemas/folia.ttl [R=303,L]
+
+# Rewrite rule to serve JSON-LD content from the vocabulary URI if requested (not implemented yet)
+# RewriteCond %{HTTP_ACCEPT} application/ld\+json
+# RewriteRule ^/v2/$ https://raw.githubusercontent.com/proycon/folia/master/schemas/folia.jsonld [R=303,L]
+
+# Default response on non-versioned url
+# ---------------------------
+
+# Turtle requested, get latest version
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/proycon/folia/master/schemas/folia.ttl [R=303,L]
+
+# Rewrite rule to the info website
+RewriteRule ^$ https://proycon.github.io/folia [R=303,L]
+

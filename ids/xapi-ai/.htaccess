@@ -1,0 +1,31 @@
+# # /xapi-ai/
+#
+# Persistent IRIs for the xAPI AI Agent Actions Profile (AIAAP): an xAPI
+# profile for AI agents, robots, hybrid AI systems and swarms.
+# Browsers get the HTML documentation (one anchor per concept); clients asking
+# for JSON or JSON-LD get the xAPI Profile document.
+#
+# Source: https://github.com/seanrugg/xapi-ai
+#
+# ## Contact
+# This space is administered by:
+#
+# Sean Rugge
+# GitHub username: seanrugg
+
+RewriteEngine on
+
+# Profile and its versions: https://w3id.org/xapi-ai/profile[/0.10.0]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^profile(/[0-9.]+)?/?$ https://seanrugg.github.io/xapi-ai/profile.json [R=303,L]
+RewriteRule ^profile(/[0-9.]+)?/?$ https://seanrugg.github.io/xapi-ai/ [R=303,L]
+
+# Concepts and templates: https://w3id.org/xapi-ai/<kind>/<name>[/<name>]
+# JSON clients get the whole profile document; browsers get the concept's anchor.
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^(verbs|activity-type|extensions|templates)/[a-z0-9-]+(/[a-z0-9-]+)?$ https://seanrugg.github.io/xapi-ai/profile.json [R=303,L]
+RewriteRule ^(verbs|activity-type|extensions|templates)/([a-z0-9-]+)/([a-z0-9-]+)$ https://seanrugg.github.io/xapi-ai/#$1-$2-$3 [NE,R=303,L]
+RewriteRule ^(verbs|activity-type|extensions|templates)/([a-z0-9-]+)$ https://seanrugg.github.io/xapi-ai/#$1-$2 [NE,R=303,L]
+
+# Everything else, including the bare identifier, goes to the documentation.
+RewriteRule ^ https://seanrugg.github.io/xapi-ai/ [R=302,L]

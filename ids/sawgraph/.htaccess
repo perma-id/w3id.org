@@ -1,0 +1,39 @@
+# # /sawgraph/
+#
+# https://w3id.org/sawgraph/ html request redirects to project website datasources
+# specific ontologies redirect to github ttl files
+#
+#
+# ## Contact
+# This space is administered by:
+#
+# Katrina Schweikert
+# Github username: kschweikert
+#
+# Torsten Hahmann
+# Github username: thahmann
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Rewrite rule for me-egad
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^v1/me-egad$ https://raw.githubusercontent.com/SAWGraph/pfas-kg/refs/heads/main/datasets/maine/egad/ontology/egad-sites-samples-schema.ttl [R=303,L,NE]
+
+# Rewrite rule for us-wqp
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml 
+RewriteRule ^v1/us-wqp$ https://raw.githubusercontent.com/SAWGraph/pfas-kg/refs/heads/main/datasets/federal/us-wqp/ontology/wqp_schema.ttl [R=303,L,NE]
+
+
+# Default response
+# -----------------------------
+
+# Rewrite rule for all other request to point back to the main github repo 
+RewriteRule ^(.*) https://sawgraph.github.io/kg.html#data-sources [R=303,L,NE]

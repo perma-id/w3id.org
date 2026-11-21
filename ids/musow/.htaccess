@@ -1,0 +1,30 @@
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+
+# Default behaviour
+# Rewrite rule to serve HTML content
+RewriteCond %{HTTP_ACCEPT} html
+RewriteRule ^$ http://projects.dharc.unibo.it/musow/ [R=302,L]
+RewriteRule ^sparql$ http://projects.dharc.unibo.it/musow/sparql [R=302,L]
+RewriteRule ^view-$1 http://projects.dharc.unibo.it/musow/view-$1 [R=302,L]
+RewriteRule ^term-$1 http://projects.dharc.unibo.it/musow/term-$1 [R=302,L]
+RewriteRule ^record-$1 http://projects.dharc.unibo.it/musow/record-$1 [R=302,L]
+RewriteRule ^modify-$1 http://projects.dharc.unibo.it/musow/modify-$1 [R=302,L]
+RewriteRule ^review-$1 http://projects.dharc.unibo.it/musow/review-$1 [R=302,L]
+RewriteRule ^records$ http://projects.dharc.unibo.it/musow/records [R=302,L]
+RewriteRule ^welcome-$1 http://projects.dharc.unibo.it/musow/welcome-$1 [R=302,L]
+RewriteRule ^model$ http://projects.dharc.unibo.it/musow/model [R=302,L]
+RewriteRule ^documentation$ http://projects.dharc.unibo.it/musow/documentation [R=302,L]
+RewriteRule ^(.+)$ http://projects.dharc.unibo.it/musow/view-$1 [R=303,L]
+
+# Rewrite rule to serve RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3 [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/n-triples [OR]
+RewriteCond %{HTTP_ACCEPT} text/plain [OR]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.+)$ http://projects.dharc.unibo.it/musow/sparql?query=DESCRIBE%20<https://w3id.org/musow/$1> [R=303,L]

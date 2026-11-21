@@ -1,0 +1,17 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf *.owl *.jsonld *.ttl files served as appropriate content type,
+# if not present in main apache config
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/ld+json .jsonld
+
+# Rewrite engine setup
+RewriteEngine On
+
+# Default Rule
+RewriteRule ^id/(.*)$ http://ld.zdb-services.de/resource/$1 [R=303,L]
+
+# test.skohub DDC 
+RewriteRule ^ddc/(.*) https://test.skohub.io/Zeitschriftendatenbank/ddc/heads/gh-pages/w3id.org/zdb/ddc/$1 [R=302,L]

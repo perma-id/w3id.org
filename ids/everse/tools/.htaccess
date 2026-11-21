@@ -1,0 +1,20 @@
+# Turn off MultiViews
+Options -MultiViews
+
+# Directive to ensure *.rdf files served as appropriate content type,
+# if not present in main apache config
+
+AddType application/ld+json .json
+
+RewriteEngine on
+
+# indicator redirects for instances
+
+# Rewrite rule to serve JSON-LD content from each tool if requested.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/EVERSE-ResearchSoftware/TechRadar/refs/heads/main/quality-tools/$1.json [R=303,L]
+
+# Rewrite rule for HTML and anything else
+RewriteRule ^(.*)$ https://everse.software/TechRadar/#/tool/$1 [NE,R=303,L]
+
