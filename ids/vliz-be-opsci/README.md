@@ -9,6 +9,10 @@ RO-Crates:
 
 * https://w3id.org/vliz-be-opsci/crates
 
+RO-Profiles
+
+* https://w3id.org/vliz-be-opsci/crate-profiles
+
 References:
 
 * https://open-science.vliz.be/
@@ -17,3 +21,4 @@ Contacts:
 
 * VLIZ open science team <OpSci@vliz.be>
 * Decruw Cedric <cedric.decruw@vliz.be> -Github : https://github.com/cedricdcc
+* Gertjan Bisschop <gertjan.bisschop@vliz.be> -Github : https://github.com/GertjanBisschop
