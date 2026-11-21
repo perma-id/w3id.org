@@ -1,0 +1,39 @@
+# # /icon-ioc/
+#
+# https://w3id.org/icon-ioc/ redirects to the ICON ontologies, the open model
+# behind the Internet of Conservation, published at
+# https://icon-ioc.github.io/icon-ontologies/ from
+# https://github.com/ICON-IoC/icon-ontologies
+#
+# Terms are https://w3id.org/icon-ioc/ICON_nnnnnnn, modules
+# https://w3id.org/icon-ioc/<module>.owl or .ttl (files named icon-<module>),
+# releases https://w3id.org/icon-ioc/releases/<version>/<module>.owl, and
+# LinkML schemas https://w3id.org/icon-ioc/linkml/<schema>.
+#
+# ## Contact
+# This space is administered by:
+#
+# Information for the Conservation of Nature (ICON)
+# GitHub username: ICON-IoC
+
+RewriteEngine on
+
+# A term: Turtle or RDF/XML for clients that ask for it, its page for everyone else.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ICON_[0-9]{7})$ https://icon-ioc.github.io/icon-ontologies/terms/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(ICON_[0-9]{7})$ https://icon-ioc.github.io/icon-ontologies/terms/$1.rdf [R=303,L]
+RewriteRule ^(ICON_[0-9]{7})$ https://icon-ioc.github.io/icon-ontologies/terms/$1.html [R=303,L]
+
+# The whole set, and one module.
+RewriteRule ^icon\.owl$ https://icon-ioc.github.io/icon-ontologies/icon.owl [R=302,L]
+RewriteRule ^([a-z]+)\.(owl|ttl)$ https://icon-ioc.github.io/icon-ontologies/icon-$1.$2 [R=302,L]
+RewriteRule ^releases/([0-9-]+)/icon\.owl$ https://icon-ioc.github.io/icon-ontologies/releases/$1/icon.owl [R=302,L]
+RewriteRule ^releases/([0-9-]+)/([a-z]+)\.(owl|ttl)$ https://icon-ioc.github.io/icon-ontologies/releases/$1/icon-$2.$3 [R=302,L]
+
+# LinkML schemas and SSSOM mapping sets.
+RewriteRule ^linkml/([a-z-]+)$ https://icon-ioc.github.io/icon-ontologies/linkml/$1.yaml [R=302,L]
+RewriteRule ^mappings/(.+)$ https://icon-ioc.github.io/icon-ontologies/mappings/$1 [R=302,L]
+
+# Anything else, including the bare address, goes to the same path on the site.
+RewriteRule ^(.*)$ https://icon-ioc.github.io/icon-ontologies/$1 [R=302,L]
