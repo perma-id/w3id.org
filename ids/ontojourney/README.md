@@ -8,14 +8,15 @@ ontology for narrative-heroic learning journeys.
 - `https://w3id.org/ontojourney/core` — ontology IRI
 - `https://w3id.org/ontojourney/core#` — entity namespace
 - `https://w3id.org/ontojourney/core/0.9` — immutable Core v0.9.0 version IRI
-- `https://w3id.org/ontojourney/core/0.9.1` — Core v0.9.1 version IRI
+- `https://w3id.org/ontojourney/core/0.9.1` — immutable Core v0.9.1 version IRI
+- `https://w3id.org/ontojourney/core/0.9.2` — Core v0.9.2 version IRI
 
 The rules negotiate HTML, Turtle, RDF/XML, JSON-LD, and N-Triples. Entity
 fragments such as `#JourneyModel` are resolved by the client after the base
 ontology IRI is redirected.
 
 The unversioned ontology IRI negotiates the current public release. Versioned
-IRIs remain fixed: adding v0.9.1 does not change the v0.9 targets. The
+IRIs remain fixed: the v0.9 and v0.9.1 targets are unchanged; the unversioned IRI tracks the latest release. The
 post-deployment redirect test is maintained in the
 [OntoJourney repository](https://github.com/luisfcosta2015/ontojourney/tree/main/w3id).
 
