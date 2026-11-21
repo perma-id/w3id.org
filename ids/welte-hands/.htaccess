@@ -1,0 +1,16 @@
+# The hands that signed Welte rolls, as authority records: persons known by a signature,
+# at present on the red rolls of the Condon collection at Stanford. Each hand has an IRI
+# of its own, e.g. /fritz, which is answered with the one document that describes them
+# all; 303, since the IRI names a person and the document describes one. The document is
+# served from GitHub Pages; moving it means changing this file only.
+
+RewriteEngine on
+
+# A browser is shown the hand's signatures on the page; anything else is given the
+# JSON-LD.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z0-9-]+)$ https://pfefferniels.github.io/condon-dates/#$1 [R=303,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^$ https://pfefferniels.github.io/condon-dates/#registry-section [R=302,NE,L]
+RewriteRule ^$ https://pfefferniels.github.io/condon-dates/hands.jsonld [R=302,L]
+RewriteRule ^([a-z0-9-]+)$ https://pfefferniels.github.io/condon-dates/hands.jsonld [R=303,L]
