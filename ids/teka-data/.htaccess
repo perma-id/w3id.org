@@ -1,0 +1,19 @@
+# /teka-data/
+# Persistent identifiers for archival records in Archivarious.
+# The identifier root redirects to https://search.archivarious.com/.
+# Maintainer contacts are listed in README.md.
+
+RewriteEngine on
+Header always merge Vary Accept
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*text/turtle(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^([a-z0-9]+(?:-[a-z0-9]+)*)/recordsets/((?:FOND|INV|FILE)-[0-9]+)$ https://search.archivarious.com/api/rdf/records/$1/$2?format=ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/ld\+json(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^([a-z0-9]+(?:-[a-z0-9]+)*)/recordsets/((?:FOND|INV|FILE)-[0-9]+)$ https://search.archivarious.com/api/rdf/records/$1/$2?format=jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/rdf\+xml(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^([a-z0-9]+(?:-[a-z0-9]+)*)/recordsets/((?:FOND|INV|FILE)-[0-9]+)$ https://search.archivarious.com/api/rdf/records/$1/$2?format=rdf [R=303,L]
+
+RewriteRule ^([a-z0-9]+(?:-[a-z0-9]+)*)/recordsets/((?:FOND|INV|FILE)-[0-9]+)$ https://search.archivarious.com/records/$1/$2 [R=303,L,QSD]
+RewriteRule ^$ https://search.archivarious.com/ [R=303,L,QSD]

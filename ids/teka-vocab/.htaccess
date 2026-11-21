@@ -4,12 +4,8 @@
 # project — metadata standards for archival records from Eastern European and
 # post-Soviet historical collections.
 #
-# https://w3id.org/teka-vocab/ redirects to
-# https://ravve.github.io/teka-vocab-placeholder/
-#
-# Placeholder stage: temporary 302 (Found) redirect to an "under construction"
-# page. When the real vocabularies are hosted, the target will be updated and
-# the redirect switched to 301 (permanent) via a follow-up PR.
+# Place and fonds creator identifiers resolve to Archivarious.
+# The root and other paths keep the temporary redirect to the placeholder.
 #
 # ## Contact
 # This space is administered by:
@@ -19,4 +15,28 @@
 # Email: roman.ravve@gmail.com
 
 RewriteEngine on
+Header always merge Vary Accept "expr=%{REQUEST_URI} =~ m#^/teka-vocab/(?:places/(?:GEO-[0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)|agents/(?:ORG|PERS)-[0-9]+)$#"
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*text/turtle(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^places/(GEO-[0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$ https://search.archivarious.com/api/rdf/entities/place/$1?format=ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/ld\+json(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^places/(GEO-[0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$ https://search.archivarious.com/api/rdf/entities/place/$1?format=jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/rdf\+xml(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^places/(GEO-[0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$ https://search.archivarious.com/api/rdf/entities/place/$1?format=rdf [R=303,L]
+
+RewriteRule ^places/(GEO-[0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$ https://search.archivarious.com/entities/place/$1 [R=303,L,QSD]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*text/turtle(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^agents/((?:ORG|PERS)-[0-9]+)$ https://search.archivarious.com/api/rdf/entities/creator/$1?format=ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/ld\+json(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^agents/((?:ORG|PERS)-[0-9]+)$ https://search.archivarious.com/api/rdf/entities/creator/$1?format=jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} (?:^|,)[[:blank:]]*application/rdf\+xml(?=[[:blank:]]*(?:[;,]|$))(?![^,]*;[[:blank:]]*q[[:blank:]]*=[[:blank:]]*0(?:\.0{0,3})?[[:blank:]]*(?:[;,]|$)) [NC]
+RewriteRule ^agents/((?:ORG|PERS)-[0-9]+)$ https://search.archivarious.com/api/rdf/entities/creator/$1?format=rdf [R=303,L]
+
+RewriteRule ^agents/((?:ORG|PERS)-[0-9]+)$ https://search.archivarious.com/entities/creator/$1 [R=303,L,QSD]
+
 RewriteRule ^ https://ravve.github.io/teka-vocab-placeholder/ [R=302,L]
