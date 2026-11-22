@@ -1,0 +1,27 @@
+# /opdm/
+#
+# OPDM, Open Professional Data Model: the open RDF model of professional life.
+# https://w3id.org/opdm/ and everything under it redirects to
+# https://docs.opdm.org/model/
+#
+# ## Contact
+# Aleksandr Rozum
+# GitHub username: rozumalex
+
+RewriteEngine on
+
+# The namespace itself: the ontology for RDF tools, the JSON-LD context for
+# JSON-LD tools, the documentation for everyone else.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://docs.opdm.org/model/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://docs.opdm.org/model/context.jsonld [R=303,L]
+RewriteRule ^$ https://docs.opdm.org/model/ [R=303,L]
+
+# The SHACL shapes.
+RewriteRule ^shapes/?$ https://docs.opdm.org/model/shapes.ttl [R=303,L]
+
+# Codes of national lists and crosswalks, and every class, property and
+# concept: its entry in the reference.
+RewriteRule ^(code|crosswalk)/(.+)$ https://docs.opdm.org/model/reference/ [R=303,L]
+RewriteRule ^([^/]+)$ https://docs.opdm.org/model/reference/#$1 [R=303,NE,L]

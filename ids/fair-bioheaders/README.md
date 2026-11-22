@@ -11,6 +11,8 @@ headers that embed provenance in reference genome, transcriptome, protein and an
 | `/fair-bioheaders/fhr/vX.Y.Z/PATH` | PATH in that release; JSON-LD files (`jsonld/...`) go to the GitHub Pages copy |
 | `/fair-bioheaders/fhp/vX.Y.Z` | The FHP (protein FASTA header) JSON schema (`fhp.json`) of release vX.Y.Z |
 | `/fair-bioheaders/fhgff3/vX.Y.Z` | The FHGFF3 (GFF3 annotation header) JSON schema (`fhgff3.json`) of release vX.Y.Z |
+| `/fair-bioheaders/fht/vX.Y.Z` | The FHT (transcriptome header) JSON schema (`fht.json`) of shared release vX.Y.Z |
+| `/fair-bioheaders/model-contracts/fhgm/0.1` | The native FHGM model 0.1 contract fixed at shared v0.8.0; separate from FHGFF3 header identity |
 | `/fair-bioheaders/terms` | The FAIR-bioHeaders vocabulary: Turtle, JSON-LD or HTML by content negotiation |
 | `/fair-bioheaders/gff3-validator` | The in-browser GFF3 validator |
 

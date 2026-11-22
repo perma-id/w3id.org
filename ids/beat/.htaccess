@@ -9,12 +9,20 @@
 #
 #   /beat/                          -> BEAT homepage
 #   /beat/parish/{County}.{Name}    -> an ancient parish (church, boundary, registers, tithe map reference)
+#   /beat/unit/{U}                  -> a parochial unit, named by an opaque identifier (U + 8 characters)
+#   /beat/site/{S}                  -> a church or chapel site, named by an opaque identifier (S + 8 characters)
 #   /beat/county/{County}           -> a historic county (pre-1844 legal state; boundary, parts, sources)
 #
 # Parish identifiers are {County}.{Name}: a three-letter Chapman county code and the
 # parish's canonical name with spaces as hyphens, as for https://w3id.org/campop/place/
 # (e.g. BDF.Sandy). The parish rules resolve to the static
 # files and page published at https://docuracy.github.io/beat/parish/.
+#
+# Unit identifiers (/beat/unit/) and site identifiers (/beat/site/) are opaque: the letter U or
+# S followed by eight characters from 0-9 and A-Z. They carry no name, no county and no date,
+# so they stay valid when a parish is renamed or its boundary revised. They resolve to the
+# files and pages published at https://docuracy.github.io/beat/parish/ and .../site/.
+# The /beat/parish/ rules are kept unchanged.
 #
 # County identifiers are {County}: the three-letter Chapman county code. The county rules
 # resolve to the files and page published at https://docuracy.github.io/beat/county/.
@@ -60,3 +68,33 @@ RewriteRule ^county/([A-Z]{3})$ https://docuracy.github.io/beat/county/$1.json [
 
 # Human representation: everything else, including text/html and */*.
 RewriteRule ^county/([A-Z]{3})$ https://docuracy.github.io/beat/county/?id=$1 [R=303,L]
+
+# --- Units ------------------------------------------------------------------
+# 303 See Other: a unit is not a document. An opaque identifier, U followed by eight characters.
+
+# An explicit .json suffix beats any Accept header.
+RewriteRule ^unit/(U[0-9A-Z]{8})\.json$ https://docuracy.github.io/beat/parish/$1.json [R=303,L]
+
+# Machine representations: one GeoJSON Feature that is also JSON-LD.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^unit/(U[0-9A-Z]{8})$ https://docuracy.github.io/beat/parish/$1.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^unit/(U[0-9A-Z]{8})$ https://docuracy.github.io/beat/parish/?id=$1 [R=303,L]
+
+# --- Sites ------------------------------------------------------------------
+# 303 See Other: a site is not a document. An opaque identifier, S followed by eight characters.
+
+# An explicit .json suffix beats any Accept header.
+RewriteRule ^site/(S[0-9A-Z]{8})\.json$ https://docuracy.github.io/beat/site/$1.json [R=303,L]
+
+# Machine representations: one GeoJSON Feature that is also JSON-LD.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/geo\+json [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^site/(S[0-9A-Z]{8})$ https://docuracy.github.io/beat/site/$1.json [R=303,L]
+
+# Human representation: everything else, including text/html and */*.
+RewriteRule ^site/(S[0-9A-Z]{8})$ https://docuracy.github.io/beat/site/?id=$1 [R=303,L]

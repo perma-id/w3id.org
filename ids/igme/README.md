@@ -59,6 +59,33 @@ We define the following redirects:
 * Example: https://w3id.org/igme/paleo/2722_AA_0506_GS
 
 
+### SID
+**[Eng]** SID is database of IGME's Document Information System (DIS).<br/>
+**[Spa]** SID es la base de datos del Sistema de Información Documental (SID) del IGME.
+* `https://w3id.org/igme/sid/{id}` → `https://info.igme.es/sid/{id}`
+* Example: https://w3id.org/igme/sid/133435
+
+
+### Litoteca
+**[Eng]** Litoteca is IGME's Core Rock database.<br/>
+**[Spa]** Litoteca es la base de datos de la Litoteca del IGME.
+* `https://w3id.org/igme/litoteca/{id}` → `https://info.igme.es/litoteca/{id}`
+* Example: https://w3id.org/igme/litoteca/5491
+
+
+### BDMoves
+**[Eng]** BDMoves is the IGME’s ground movement database.<br/>
+**[Spa]** BDMoves es la base de datos de movimientos del terreno del IGME.
+* `https://w3id.org/igme/bdmoves/{id}` → `https://info.igme.es/bdmoves/{id}`
+* Example: https://w3id.org/igme/bdmoves/50
+
+
+### BDMin
+**[Eng]** BDMin is the IGME’s minerals database (metallogeny and industrial rocks and minerals).<br/>
+**[Spa]** BDMin es la base de datos de minerales (metalogenia y rocas y minerales industriales) del IGME.
+* `https://w3id.org/igme/bdmin/{id}` → `https://info.igme.es/bdmin/{id}`
+* Example: https://w3id.org/igme/bdmin/0640009_1
+
 
 ## Contact / Maintainers
 

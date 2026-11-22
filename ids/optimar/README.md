@@ -17,7 +17,7 @@ Source repository: https://github.com/bisite/OPTIMAR-Ontology
 | URL | Resolves to |
 |---|---|
 | https://w3id.org/optimar | Latest release, with content negotiation: HTML documentation, Turtle (default), RDF/XML, JSON-LD, N-Triples |
-| https://w3id.org/optimar/X.Y | Specific release (e.g. https://w3id.org/optimar/2.4) in Turtle |
+| https://w3id.org/optimar/X.Y | Specific release (e.g. https://w3id.org/optimar/2.5) in Turtle |
 | https://w3id.org/optimar/alignments | Alignment module with SAREF and the Open Energy Ontology (latest release) |
 | https://w3id.org/optimar/alignments/X.Y | Alignment module of a specific release |
 | https://w3id.org/optimar/example | Example instantiation of the latest release |
