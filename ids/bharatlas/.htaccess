@@ -1,0 +1,33 @@
+# # /bharatlas/
+#
+# Permanent identifiers of bharatlas releases. bharatlas (https://bharatlas.com)
+# is an open atlas of India's geographic data: administrative boundaries with
+# LGD codes, city wards, and environment and infrastructure layers. Each dated
+# release has a code bharatlas-<dataset>-<year>.<month>, pinned by a SHA-256
+# checksum, and is never changed once published. A dataset is a layer id
+# (e.g. lgd_states) or a short code (e.g. cw).
+#
+# https://w3id.org/bharatlas/                  -> the list of releases
+# https://w3id.org/bharatlas/cw                -> every release of the dataset cw
+# https://w3id.org/bharatlas/cw/latest         -> the newest release of cw
+# https://w3id.org/bharatlas/cw/latest/<file>  -> that file of the newest release
+# https://w3id.org/bharatlas/cw/2026.11        -> the release bharatlas-cw-2026.11
+#                                                 (its manifest: files, checksums,
+#                                                 sources and licences)
+# https://w3id.org/bharatlas/cw/2026.11/<file> -> that file of the release
+#
+# ## Contact
+# This space is administered by:
+#
+# urbanmorph (https://urbanmorph.com)
+# GitHub username: sathya-sankaran
+# GitHub username: urbanmorph
+
+RewriteEngine on
+
+RewriteRule ^$ https://bharatlas.com/releases [R=302,L]
+RewriteRule ^([a-z0-9_]+)/?$ https://bharatlas.com/releases/$1 [R=302,L]
+RewriteRule ^([a-z0-9_]+)/latest/?$ https://bharatlas.com/releases/$1/latest [R=302,L]
+RewriteRule ^([a-z0-9_]+)/latest/([A-Za-z0-9_][A-Za-z0-9._-]*)$ https://bharatlas.com/releases/$1/latest/$2 [R=302,L]
+RewriteRule ^([a-z0-9_]+)/([0-9]{4}\.[0-9]{2})/?$ https://bharatlas.com/releases/bharatlas-$1-$2 [R=302,L]
+RewriteRule ^([a-z0-9_]+)/([0-9]{4}\.[0-9]{2})/([A-Za-z0-9_][A-Za-z0-9._-]*)$ https://bharatlas.com/releases/bharatlas-$1-$2/$3 [R=302,L]

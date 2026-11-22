@@ -8,6 +8,7 @@
 # https://w3id.org/cpo/data            example data
 # https://w3id.org/cpo/data/<id>       individuals of the example data, resolved through the data file
 # https://w3id.org/cpo/repo            source repository
+# https://w3id.org/cpo/checkpoint/<n>  a version handed out in the course, such as lecture-4c
 #
 # Browsers get the HTML documentation; RDF clients get RDF/XML, JSON-LD,
 # N-Triples or Turtle, by content negotiation. Turtle is the default.
@@ -23,6 +24,12 @@ RewriteEngine on
 
 # Source repository
 RewriteRule ^repo/?$ https://github.com/RichZele/cpo [R=302,L]
+
+# Course checkpoints: the README for browsers, the composed ontology in Turtle otherwise
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^checkpoint/([a-z0-9-]+)/?$ https://github.com/RichZele/cpo/tree/main/checkpoints/$1 [R=303,L]
+RewriteRule ^checkpoint/([a-z0-9-]+)/?$ https://richzele.github.io/cpo/checkpoints/$1/cpo.ttl [R=303,L]
 
 # HTML documentation
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
