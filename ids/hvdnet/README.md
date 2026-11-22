@@ -2,5 +2,5 @@
 
 https://www.highvaluedata.net/
 
-Contacts: 
+Contacts:
 - [kulnor](https://github.com/kulnor)  (pascal@codata.org)
