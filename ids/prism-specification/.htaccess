@@ -1,0 +1,21 @@
+# # /prism-specification/
+#
+# https://w3id.org/prism-specification/ redirects to the PRISM specification repository
+# https://github.com/MRI-Lab-Graz/prism-specification
+#
+# A term is https://w3id.org/prism-specification/terms/<modality>/<id>, the same for every modality
+# (<id> is the PRISM ID without the "prism:" prefix). It redirects to the file that defines the term in that
+# repository (the raw file). One rule per modality; a new modality adds one line.
+# A survey item (<slug>.<item>) redirects to the file of its instrument.
+#
+# ## Contact
+# This space is administered by:
+#
+# Karl Koschutnig
+# karl.koschutnig@uni-graz.at
+# GitHub username: karl-koschutnig
+
+RewriteEngine on
+RewriteRule ^terms/survey/([a-z0-9]+(-[a-z0-9]+)*)(\.[a-z0-9-]+)?$ https://raw.githubusercontent.com/MRI-Lab-Graz/prism-specification/main/library/survey/survey-$1.json [R=302,L]
+RewriteRule ^terms/(biosample|environment)/([a-z0-9][a-z0-9.-]*)$ https://raw.githubusercontent.com/MRI-Lab-Graz/prism-specification/main/terms/$1/$2.json [R=302,L]
+RewriteRule ^ https://github.com/MRI-Lab-Graz/prism-specification [R=302,L]
