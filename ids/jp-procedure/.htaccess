@@ -1,0 +1,44 @@
+# # /jp-procedure/
+#
+# 行政手続LOD(日本の行政手続と、その根拠の条・項・号、改正の記録)の永続的な識別子。
+# Permanent identifiers for "Gyosei Tetsuzuki LOD", Linked Open Data on Japanese
+# administrative procedures, their legal bases and amendment records.
+#
+# https://w3id.org/jp-procedure/{path} について:
+# - def(語彙。def#… の # 以下はサーバーに届かない)は、語彙のファイル(Turtle)へ 303
+# - procedure・provision・law・change・record・organisation・code の下は、
+#   - HTML を求めるとき(ブラウザ)は、GitHub Pages の閲覧ページ view.html へ 303
+#   - それ以外(Turtle・JSON-LD・Accept が */* や無いときを含む)は、Cloud Run の SPARQL(読むだけ)の DESCRIBE へ 303
+#     返る形は Accept で決まる(text/turtle なら Turtle、application/ld+json なら JSON-LD、*/* や無いときは N-Triples の形)
+# - 出どころの資源(activity・agent・dataset・period・plan・source の下)は、HTML 以外のときだけ DESCRIBE へ 303
+# - それ以外(一番上など)は、GitHub Pages へ 302
+# 英数字・_・.・/・- 以外を含む URL は、最後の行で GitHub Pages へ行く
+# 出どころの資源(activity など)を HTML で求められたときも GitHub Pages へ行く
+# 転送先の SPARQL は Cloud Run(読むだけ、だれでも引ける)。
+# Cloud Run を止めるときは、DESCRIBE の行を一括ダウンロードの案内(GitHub Pages)へ直す(deploy.md の「止めるとき」)。
+# 手元の Apache(httpd 2.4)で、転送先と百分率符号を確かめた(reports/prepush-report.md)。
+#
+# ## Contact
+# This space is administered by:
+#
+# 橋本一輝
+# GitHub username: h-kazuki-pixel
+
+RewriteEngine on
+
+# 語彙
+RewriteRule ^def/?$ https://h-kazuki-pixel.github.io/jp-procedure/vocab.ttl [R=303,L]
+
+# 人が見るとき(HTML)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^((procedure|provision|law|change|record|organisation|code)/[A-Za-z0-9_./-]+)$ https://h-kazuki-pixel.github.io/jp-procedure/view.html?uri=https://w3id.org/jp-procedure/$1 [R=303,L,NE]
+
+# それ以外はすべて DESCRIBE(< > 空白は百分率符号で書く。\% は RewriteCond の後方参照と取り違えないため)
+# HTML を求めるときは、ここに来るのは出どころの資源(activity など)だけ。それは下の最後の行で GitHub Pages へ行かせる
+RewriteCond %{HTTP_ACCEPT} !text/html
+RewriteCond %{HTTP_ACCEPT} !application/xhtml\+xml
+RewriteRule ^((procedure|provision|law|change|record|organisation|code|activity|agent|dataset|period|plan|source)/[A-Za-z0-9_./-]+)$ https://jp-procedure-sparql-5psr6o4zja-an.a.run.app/query?query=DESCRIBE\%20\%3Chttps://w3id.org/jp-procedure/$1\%3E [R=303,L,NE]
+
+# それ以外(一番上の https://w3id.org/jp-procedure/ など)
+RewriteRule ^(.*)$ https://h-kazuki-pixel.github.io/jp-procedure/$1 [R=302,L]
