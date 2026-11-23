@@ -9,6 +9,7 @@ The following sub-namespaces are defined:
     * `/bblocks/meta-register-orgs.json` — OGC Building Blocks meta-registry organisation metadata
   * `/geopose`
   * `/ladm`
+  * `/ospd` — OGC Open Science Persistent Demonstrator (OSPD) activity types and related definitions
   * `/stac`
 * Hosted by OGC
   * `/hosted`
