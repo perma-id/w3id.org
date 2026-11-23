@@ -29,31 +29,31 @@ AddType application/ld+json .json
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^process$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+RewriteRule ^process$ https://kogn-io.github.io/arknet/ontology/arknet-actor.ttl [R=303,L]
 
-# Serve HTML content for ontology modules (GitHub blob view until a generated doc site exists)
+# Serve HTML content for ontology modules (latest GitHub release page until a generated doc site exists)
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://github.com/kogn-io/arknet/blob/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://github.com/kogn-io/arknet/releases/latest [R=303,L]
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^process$ https://github.com/kogn-io/arknet/blob/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+RewriteRule ^process$ https://github.com/kogn-io/arknet/releases/latest [R=303,L]
 
 # Serve RDF/XML content for ontology modules
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-$1.ttl [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^process$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-actor.ttl [R=303,L]
+RewriteRule ^process$ https://kogn-io.github.io/arknet/ontology/arknet-actor.ttl [R=303,L]
 
 
 ### SHACL shapes: out of scope for this fix, see arknet project notes
@@ -65,7 +65,7 @@ RewriteRule ^process$ https://raw.githubusercontent.com/kogn-io/arknet/main/arkn
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^$ https://raw.githubusercontent.com/kogn-io/arknet/main/arknet-ontology/src/main/resources/arknet-core.ttl [R=303,L]
+RewriteRule ^$ https://kogn-io.github.io/arknet/ontology/arknet-core.ttl [R=303,L]
 
 # Default: redirect to repository
 RewriteRule ^$ https://github.com/kogn-io/arknet [R=303,L]
