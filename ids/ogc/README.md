@@ -9,6 +9,8 @@ The following sub-namespaces are defined:
     * `/bblocks/meta-register-orgs.json` — OGC Building Blocks meta-registry organisation metadata
   * `/geopose`
   * `/ladm`
+  * `/ospd` — OGC Open Science Persistent Demonstrator (OSPD) activity types and related definitions
+  * `/rim` — Registered Item Model: base RDF/SHACL model for register items and register governance, based on ISO 19135:2026 ([source](https://github.com/ogcincubator/registered-item-model))
   * `/stac`
 * Hosted by OGC
   * `/hosted`
