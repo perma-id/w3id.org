@@ -39,3 +39,26 @@ RewriteRule ^SHACL$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs
 
 
 RewriteRule ^SHACL$ https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL [R=303,L]
+
+### VERSION 2 #####
+
+## Process ontology (v2): Turtle for machines, repository for everyone else
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^v2/process/?$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/terms/apkg-pro-v2.ttl [R=303,L]
+
+RewriteRule ^v2/process/?$ https://github.com/ILIAD-ocean-twin/APKG/tree/version2 [R=303,L]
+
+## Record ontology (v2): Turtle for machines, repository for everyone else
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/turtle
+RewriteRule ^v2/record/?$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/terms/apkg-rec-v2.ttl [R=303,L]
+
+RewriteRule ^v2/record/?$ https://github.com/ILIAD-ocean-twin/APKG/tree/version2 [R=303,L]
+
+## SHACL shapes (v2)
+RewriteRule ^v2/process/shapes/?$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/shacl/apkg-pro-shapes-v2.ttl [R=303,L]
+RewriteRule ^v2/record/shapes/?$ https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/shacl/apkg-rec-shapes-v2.ttl [R=303,L]
+
+## Examples (v2)
+RewriteRule ^v2/examples/?$ https://github.com/ILIAD-ocean-twin/APKG/tree/version2/examples [R=303,L]
