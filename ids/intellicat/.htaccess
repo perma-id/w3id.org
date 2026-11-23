@@ -1,0 +1,41 @@
+# Intellicat permanent identifiers
+#
+# https://w3id.org/intellicat/caveat
+#   CAVEAT: Controlled Annotation Vocabulary for Epistemic Aberration Types.
+#   An OWL 2 ontology for classifying unreliable scientific literature.
+#   Hash namespace: term IRIs (#Fabrication, #lexiconFile, ...) resolve to
+#   the ontology document; fragments never reach the server.
+#
+# ## Contact
+# This space is administered by:
+#
+# Valentin Rodionov
+# GitHub username: @vrodionov
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- CAVEAT ontology root, content negotiated ---
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^caveat/?$ https://intellicat-ai.github.io/caveat/caveat.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^caveat/?$ https://intellicat-ai.github.io/caveat/caveat.owl [R=303,L]
+
+RewriteRule ^caveat/?$ https://intellicat-ai.github.io/caveat/ [R=303,L]
+
+# --- Modules and imports: machine-facing, Turtle for every Accept ---
+
+RewriteRule ^caveat/modules/([A-Za-z0-9-]+)/?$ https://intellicat-ai.github.io/caveat/modules/$1.ttl [R=303,L]
+RewriteRule ^caveat/imports/([A-Za-z0-9-]+)/?$ https://intellicat-ai.github.io/caveat/imports/$1.ttl [R=303,L]
+
+# --- Examples and vocabularies: extension already in the IRI ---
+
+RewriteRule ^caveat/examples/(.+)$     https://intellicat-ai.github.io/caveat/examples/$1 [R=303,L]
+RewriteRule ^caveat/vocabularies/(.+)$ https://intellicat-ai.github.io/caveat/vocabularies/$1 [R=303,L]
+
+# --- Namespace root ---
+
+RewriteRule ^/?$ https://intellicat.ai/ [R=302,L]

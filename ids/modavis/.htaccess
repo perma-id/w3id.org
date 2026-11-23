@@ -1,0 +1,86 @@
+# MODAVIS Ontology Network permanent identifiers.
+# Versioned targets are immutable; stable ontology and vocabulary routes may
+# advance under the MODAVIS release and persistence policy.
+# Maintainer: Dominik Ukolov (ORCID: 0000-0002-7904-3892)
+# GitHub: @modavis-project
+
+Options -MultiViews
+RewriteEngine On
+
+# Network landing page.
+RewriteRule ^$ https://modavis-project.github.io/modavis-ontology-network/index.html [R=303,L]
+
+# MODAVIS persistent entity, name, location, alias, and dataset identifiers.
+# The MODAVIS identity resolver performs content negotiation and redirects to
+# the public Navigator or immutable linked-data representations.
+RewriteRule ^entity/(.+)$ https://id.modavis.org/resolve/entity/$1 [R=302,L,NE]
+RewriteRule ^name/(.+)$ https://id.modavis.org/resolve/name/$1 [R=302,L,NE]
+RewriteRule ^location/(.+)$ https://id.modavis.org/resolve/location/$1 [R=302,L,NE]
+RewriteRule ^alias/([^/]+)/(.+)$ https://id.modavis.org/resolve/alias/$1/$2 [R=302,L,NE]
+RewriteRule ^dataset/pod$ https://id.modavis.org/resolve/dataset/pod [R=302,L,NE]
+RewriteRule ^dataset/pod/version/(.+)$ https://id.modavis.org/resolve/dataset/pod/version/$1 [R=302,L,NE]
+
+# Stable ontology identifiers follow the current compatible release. Only these
+# moving aliases need to change when a later release becomes current.
+RewriteRule ^ontology/?$ https://w3id.org/modavis/ontology/0.1.0 [R=302,L]
+RewriteRule ^ontology/([a-z][a-z0-9-]*)/?$ https://w3id.org/modavis/ontology/$1/0.1.0 [R=302,L]
+
+# Versioned aggregate ontology. The version is delegated to the matching
+# project-controlled publication path.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/ontology.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/ontology.rdf [R=303,L]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/index.html [R=303,L]
+
+# Versioned ontology modules. Module and version availability are determined by
+# the publication site rather than enumerated in W3ID.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^ontology/([a-z][a-z0-9-]*)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/$2/$1.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^ontology/([a-z][a-z0-9-]*)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/$2/$1.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^ontology/([a-z][a-z0-9-]*)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/$2/$1.rdf [R=303,L]
+RewriteRule ^ontology/([a-z][a-z0-9-]*)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/ontology/$1/$2/index.html [R=303,L]
+
+# Combined controlled vocabulary. The stable vocabulary IRI follows the current
+# release; scheme and concept IRIs resolve to its aggregate representation.
+RewriteRule ^vocab/?$ https://w3id.org/modavis/vocab/0.1.0 [R=302,L]
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/$1/vocab.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/$1/vocab.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/$1/vocab.rdf [R=303,L]
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/$1/index.html [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^vocab/(.*[^/])/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/0.1.0/vocab.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^vocab/(.*[^/])/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/0.1.0/vocab.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^vocab/(.*[^/])/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/0.1.0/vocab.rdf [R=303,L]
+RewriteRule ^vocab/(.*[^/])/?$ https://modavis-project.github.io/modavis-ontology-network/vocab/0.1.0/index.html#$1 [R=303,L,NE]
+
+# Versioned JSON-LD context.
+RewriteRule ^context/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/context/$1/context.jsonld [R=303,L]
+
+# Versioned SHACL profiles.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^shapes/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/shapes/$1/$2/shapes.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^shapes/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/shapes/$1/$2/shapes.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^shapes/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/shapes/$1/$2/shapes.rdf [R=303,L]
+RewriteRule ^shapes/([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/shapes/$1/$2/index.html [R=303,L]
+
+# Versioned release catalog.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^release/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/release/$1/catalog.jsonld [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^release/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/release/$1/catalog.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^release/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/release/$1/catalog.rdf [R=303,L]
+RewriteRule ^release/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://modavis-project.github.io/modavis-ontology-network/release/$1/index.html [R=303,L]

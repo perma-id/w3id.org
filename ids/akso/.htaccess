@@ -1,0 +1,41 @@
+# # /akso/
+#
+# Permanent IRIs for AKSO: Agile Knowledge Structure Ontology.
+#
+# https://w3id.org/akso/ontology (terms: https://w3id.org/akso/ontology#Term)
+#   RDF/XML clients -> the current ontology file on GitHub
+#   everything else -> the GitHub repository
+# https://w3id.org/akso/ontology/X.Y.Z -> the ontology file of release vX.Y.Z
+# https://w3id.org/akso/ontology/gufo-alignment[/X.Y.Z] -> the gUFO alignment module
+#
+# ## Contact
+# This space is administered by:
+#
+# Hajar Chnok
+# IPSS, Faculty of Sciences, Mohammed V University in Rabat, Morocco
+# GitHub username: hajarchnok
+
+RewriteEngine on
+
+# Versioned alignment module
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/gufo-alignment/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/hajarchnok/akso/v$1/ontology/akso-gufo-alignment.owl [R=303,L]
+RewriteRule ^ontology/gufo-alignment/([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/hajarchnok/akso/releases/tag/v$1 [R=303,L]
+
+# Current alignment module
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/gufo-alignment/?$ https://raw.githubusercontent.com/hajarchnok/akso/main/ontology/akso-gufo-alignment.owl [R=303,L]
+RewriteRule ^ontology/gufo-alignment/?$ https://github.com/hajarchnok/akso [R=303,L]
+
+# Versioned ontology
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/hajarchnok/akso/v$1/ontology/akso.owl [R=303,L]
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)$ https://github.com/hajarchnok/akso/releases/tag/v$1 [R=303,L]
+
+# Current ontology
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/hajarchnok/akso/main/ontology/akso.owl [R=303,L]
+RewriteRule ^ontology/?$ https://github.com/hajarchnok/akso [R=303,L]
+
+# Anything else under /akso/
+RewriteRule ^ https://github.com/hajarchnok/akso [R=302,L]

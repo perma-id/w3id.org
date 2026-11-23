@@ -1,0 +1,40 @@
+# # /hvdnet/
+#
+# High-Value Data Network vocabularies
+#
+# ## Contact
+# Maintainer: Pascal Heus (GitHub: @kulnor)
+# Email: pascal@codata.org
+
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+# 1. Root: redirect bare identifier to Skosmos home
+RewriteRule ^$ https://skosmos.highvaluedata.net/en/ [R=302,L]
+
+# 2. Content negotiation for all vocabularies and concepts:
+#    $1 = vocabulary ID (e.g. statistics, elsst)
+#    $2 = concept or subpath (or empty for vocabulary root)
+#    https://w3id.org/hvdnet/$1/$2 = the persistent URI
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^([^/]+)(?:/(.*?))?/?$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=text/turtle [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^([^/]+)(?:/(.*?))?/?$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/ld\%2Bjson [R=303,NE,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^([^/]+)(?:/(.*?))?/?$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/rdf\%2Bxml [R=303,NE,L]
+
+# JSON
+RewriteCond %{HTTP_ACCEPT} application/json [NC]
+RewriteRule ^([^/]+)(?:/(.*?))?/?$ https://skosmos.highvaluedata.net/rest/v1/$1/data?uri=https://w3id.org/hvdnet/$1/$2&format=application/json [R=303,L]
+
+# Default: serve HTML page in Skosmos (browsers, human readers, */*)
+RewriteRule ^([^/]+)(?:/(.*?))?/?$ https://skosmos.highvaluedata.net/$1/en/page/?uri=https://w3id.org/hvdnet/$1/$2 [R=303,L]

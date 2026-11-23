@@ -1,0 +1,28 @@
+# /asof-kg/
+#
+# Permanent IRIs for the AsOf-KG ontology, a bitemporal extension for
+# Biolink knowledge graphs.
+#
+# ## Contact
+# This space is administered by:
+#
+# Scroll Ash Lab
+# scrollash.lab@gmail.com
+# GitHub username: scrollashlab
+
+RewriteEngine on
+
+# Ontology IRI (https://w3id.org/asof-kg/ontology): RDF/XML clients get the .owl file,
+# everyone else gets the Turtle file.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^ontology$ https://raw.githubusercontent.com/scrollashlab/asof-kg/main/ontology/asof-kg.owl [R=303,L]
+RewriteRule ^ontology$ https://raw.githubusercontent.com/scrollashlab/asof-kg/main/ontology/asof-kg.ttl [R=303,L]
+
+# Versioned ontology IRIs (https://w3id.org/asof-kg/ontology/0.1.4) go to the matching release tag.
+RewriteRule ^ontology/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/scrollashlab/asof-kg/v$1/ontology/asof-kg.ttl [R=303,L]
+
+# Example namespace (https://w3id.org/asof-kg/example) is defined in the same file.
+RewriteRule ^example$ https://raw.githubusercontent.com/scrollashlab/asof-kg/main/ontology/asof-kg.ttl [R=303,L]
+
+# Anything else goes to the repository.
+RewriteRule ^(.*)$ https://github.com/scrollashlab/asof-kg [R=302,L]

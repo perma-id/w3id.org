@@ -1,0 +1,48 @@
+# # /do/
+#
+# Content-negotiated IRIs for the Decision ontology (do), whose namespace is
+# https://w3id.org/do# and whose documentation is at
+# https://kvistgaard.github.io/do/
+#
+# https://w3id.org/do redirects to the latest version, and
+# https://w3id.org/do/X.Y.Z to the release X.Y.Z.
+#
+# ## Contact
+# This space is administered by:
+#
+# Ivo Velitchkov
+# GitHub username: kvistgaard
+
+RewriteEngine on
+
+# The latest version
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://kvistgaard.github.io/do/do.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://kvistgaard.github.io/do/do.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://kvistgaard.github.io/do/do.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://kvistgaard.github.io/do/do.nt [R=303,L]
+
+RewriteRule ^$ https://kvistgaard.github.io/do/ [R=303,L]
+
+# A release, by version
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://kvistgaard.github.io/do/$1/do.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://kvistgaard.github.io/do/$1/do.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://kvistgaard.github.io/do/$1/do.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://kvistgaard.github.io/do/$1/do.nt [R=303,L]
+
+RewriteRule ^([0-9]+\.[0-9]+\.[0-9]+)/?$ https://kvistgaard.github.io/do/$1/ [R=303,L]

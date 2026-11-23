@@ -1,0 +1,48 @@
+# =====================================================================
+# w3id.org/mailo/.htaccess
+#
+# This file lives in the w3id.org GitHub repo (perma-id/w3id.org),
+# NOT on GitHub Pages. w3id.org runs Apache and actually executes
+# mod_rewrite; GitHub Pages is static-only and ignores .htaccess.
+#
+# Redirect target: https://vrkkao-eng.github.io/Mailo-ontology/
+# =====================================================================
+
+Options -MultiViews
+
+AddType application/rdf+xml .rdf .owl
+AddType text/turtle .ttl
+AddType application/n-triples .nt
+AddType application/ld+json .jsonld
+
+RewriteEngine On
+RewriteBase /mailo/
+
+# --- JSON-LD ---
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/ontology.jsonld [R=303,L]
+
+# --- N-Triples ---
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/ontology.nt [R=303,L]
+
+# --- Turtle ---
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/ontology.ttl [R=303,L]
+
+# --- RDF/XML ---
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/ontology.owl [R=303,L]
+
+# --- HTML (browsers) — must come after the specific RDF matches above ---
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/index-en.html [R=303,L]
+
+# --- Default fallback: HTML documentation ---
+RewriteRule ^$ https://vrkkao-eng.github.io/Mailo-ontology/index-en.html [R=303,L]
+
+# --- SHACL shapes (no content negotiation needed — Turtle only) ---
+RewriteRule ^shacl$ https://vrkkao-eng.github.io/Mailo-ontology/mailo_shacl_shapes.ttl [R=303,L]

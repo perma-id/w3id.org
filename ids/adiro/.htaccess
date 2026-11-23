@@ -1,0 +1,35 @@
+# https://w3id.org/adiro  —  ADIRO: AEC Drawing Information Representation Ontologies
+#
+# An open bundle of OWL/TTL ontologies for making Architecture / Engineering /
+# Construction drawings machine-readable (drawing metadata, cross-discipline
+# symbols, domain-specific symbols).
+#
+# Maintainer : Buro Happold — Machine Learning R&D
+# Project    : https://github.com/BuroHappoldMachineLearning/ADIRO
+# Docs       : https://burohappoldmachinelearning.github.io/ADIRO/
+# Contacts   : see README.md in this directory (GitHub usernames + emails)
+#
+# The backing host (GitHub Pages) cannot content-negotiate, so this .htaccess
+# does it: the bare ontology IRI serves Turtle to RDF clients and the HTML
+# documentation to browsers. 302 (temporary) keeps w3id.org/adiro the stable
+# identifier and lets the backing host change later (host-independence).
+
+RewriteEngine on
+
+# 1. Versioned ontology IRI:  /adiro/<module>/<x.y.z>  (no trailing file)
+#    Only Turtle is published per version, so all clients get the versioned .ttl.
+#    (Explicit .../<module>/<x.y.z>/<module>.ttl requests fall through to rule 3.)
+RewriteRule ^([^/]+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://burohappoldmachinelearning.github.io/ADIRO/$1/$2/$1.ttl [R=302,L]
+
+# 2. Latest ontology IRI (content negotiation):  /adiro/<module>
+#    Single bare segment, no dot. Term IRIs (/adiro/<module>#Term) also arrive
+#    here — the #fragment is resolved client-side against the same document.
+#    RDF clients -> Turtle:
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/n-triples|application/ld\+json|text/n3|application/trig|application/n-quads) [NC]
+RewriteRule ^([^/.]+)$ https://burohappoldmachinelearning.github.io/ADIRO/$1.ttl [R=302,L]
+#    Everything else (browsers, */*) -> pyLODE HTML documentation:
+RewriteRule ^([^/.]+)$ https://burohappoldmachinelearning.github.io/ADIRO/$1.html [R=302,L]
+
+# 3. Passthrough for explicit files & sub-paths (<module>.ttl, <module>.html,
+#    <module>/<x.y.z>/<module>.ttl, ontologies/<module>/, assets, the landing page).
+RewriteRule ^(.*)$ https://burohappoldmachinelearning.github.io/ADIRO/$1 [R=302,L]

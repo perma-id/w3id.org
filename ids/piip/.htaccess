@@ -1,0 +1,27 @@
+# PIIP – Process Information Infrastructure Protocol
+#
+# https://w3id.org/piip/...
+#
+# Pattern (nested paths allowed):
+#   https://w3id.org/piip                 -> GitHub repo
+#   https://w3id.org/piip/{Path}/{Major}  -> spec/{Path}.yaml  @ main
+#   https://w3id.org/piip/{Path}/{X.Y.Z}  -> spec/{Path}.yaml  @ git tag vX.Y.Z
+#
+# e.g. Core → spec/Core.yaml, Rail/Signaling → spec/Rail/Signaling.yaml
+
+Header set Access-Control-Allow-Origin *
+Options +FollowSymLinks
+RewriteEngine on
+Options -MultiViews
+
+# Base
+RewriteRule ^$ https://github.com/A-S-Consult-GmbH/PIIP [R=302,L]
+
+# Exact SemVer → git tag vX.Y.Z  (Path may contain slashes)
+RewriteRule ^(.+)/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/A-S-Consult-GmbH/PIIP/blob/v$2/spec/$1.yaml [R=302,L]
+
+# Major only → main
+RewriteRule ^(.+)/([0-9]+)/?$ https://github.com/A-S-Consult-GmbH/PIIP/blob/main/spec/$1.yaml [R=302,L]
+
+# Fallback
+RewriteRule ^(.*)$ https://github.com/A-S-Consult-GmbH/PIIP [R=302,L]

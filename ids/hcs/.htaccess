@@ -1,0 +1,28 @@
+# # /hcs/
+#
+# Permanent identifiers for the HCS Registry. Everything under
+# https://w3id.org/hcs/ redirects to https://registry.hatoxsolutions.com/
+#
+# ## Contact
+# This space is administered by:
+#
+# Yakuphan Sarıkaya, Techsafe Solutions
+# GitHub username: YakuphanSrky
+#
+# Ruhan Ağar, Techsafe Solutions
+# r.agar@techsafe-solutions.com
+
+RewriteEngine on
+
+# id/{code}: an item. Codes are six characters, Crockford base32, matched
+# case-insensitively; a sub-path after the code is kept.
+RewriteRule ^id/([0-9A-Z]{6})(/.*)?$ https://registry.hatoxsolutions.com/id/$1$2 [R=302,L,NC]
+
+# vocab/{area}: a term of the HCS vocabulary (the #fragment stays with the client)
+RewriteRule ^vocab/(.*)$ https://registry.hatoxsolutions.com/vocab/$1 [R=302,L]
+
+# data/{area}/{key}: a record that is not an identity
+RewriteRule ^data/(.*)$ https://registry.hatoxsolutions.com/data/$1 [R=302,L]
+
+# anything else under /hcs/: the registry home
+RewriteRule ^ https://registry.hatoxsolutions.com/ [R=302,L]

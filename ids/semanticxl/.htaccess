@@ -1,0 +1,33 @@
+# # /semanticxl/
+#
+# Persistent identifiers for SemanticXL, a modelling suite for concepts,
+# ArchiMate, BPMN, MIM and registers (https://www.semanticxl.com).
+#
+# https://w3id.org/semanticxl/kennismodel   vocabulary of the SemanticXL
+#                                           knowledge model (hash namespace:
+#                                           https://w3id.org/semanticxl/kennismodel#,
+#                                           prefix sxlkm:), used alongside SHACL
+#
+# RDF clients (Accept: text/turtle and friends) get the Turtle file with a
+# 303; browsers get a readable page. Everything else goes to the website.
+#
+# ## Contact
+# This space is administered by:
+#
+# Jan Willem van Veen
+# GitHub username: jwvveen
+
+RewriteEngine on
+
+# --- RDF clients -------------------------------------------------------------
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle|application/rdf\+xml|application/ld\+json|application/n-triples)
+RewriteRule ^kennismodel/?$ https://www.semanticxl.com/api/kennismodel/vocabulaire?formaat=ttl [R=303,L]
+
+# --- An explicit file name always gives the file --------------------------------
+RewriteRule ^kennismodel\.ttl$ https://www.semanticxl.com/api/kennismodel/vocabulaire?formaat=ttl [R=302,L]
+
+# --- Browsers: the readable page ------------------------------------------------
+RewriteRule ^kennismodel/?$ https://www.semanticxl.com/api/kennismodel/vocabulaire [R=302,L]
+
+# --- Everything else: the website -----------------------------------------------
+RewriteRule ^(.*)$ https://www.semanticxl.com/ [R=302,L]

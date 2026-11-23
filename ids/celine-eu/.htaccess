@@ -1,0 +1,126 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# CELINE Core Ontology — https://w3id.org/celine-eu
+# Contact: https://github.com/celine-eu
+# Docs:    https://celine-eu.github.io/ontologies/
+#
+# The vocabulary is a hash namespace — terms are https://w3id.org/celine-eu#Term —
+# so a term dereference reaches this file as a request for the ontology itself.
+# The HTML target is therefore the WIDOCO document rather than the project's
+# landing page: it carries a per-term anchor for every term, so the fragment the
+# browser kept across the redirect lands on the term the reader asked for.
+#
+# Artifacts are served from GitHub Pages, which returns text/turtle,
+# application/rdf+xml, application/ld+json and application/n-triples correctly.
+# Do not point these at raw.githubusercontent.com — it serves every serialization
+# as text/plain.
+#
+# Rule order is load-bearing. mod_rewrite cannot evaluate q-values, so each block
+# runs three passes:
+#   1. the requested type is listed FIRST  (^[^,]* cannot cross a comma), which
+#      honours a client that states a real preference;
+#   2. the requested type appears ANYWHERE, which catches clients that list it
+#      after text/html;
+#   3. HTML, unconditionally.
+# Browsers ask for none of the RDF types, so they always fall through to pass 3.
+# An RDF client that also accepts text/html no longer gets the HTML page, which
+# is what the previous revision of this file did.
+
+# No AddType directives: every rule below is an external 303 and w3id never serves
+# the bytes, so a media-type mapping here would do nothing. The Content-Type comes
+# from GitHub Pages.
+
+# ── Ontology root IRI: https://w3id.org/celine-eu ──────────────────────────
+
+# pass 1 — first-listed type wins
+RewriteCond %{HTTP_ACCEPT} ^[^,]*text/turtle
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/rdf\+xml
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/ld\+json
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/n-triples
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.nt [R=303,L]
+
+# pass 2 — type present anywhere in the header
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://celine-eu.github.io/ontologies/ontology.nt [R=303,L]
+
+# pass 3 — HTML, and anything that stated no preference
+RewriteRule ^$ https://celine-eu.github.io/ontologies/index-en.html [R=303,L]
+
+# ── Versioned IRI: https://w3id.org/celine-eu/vX.Y ─────────────────────────
+
+# pass 1 — first-listed type wins
+RewriteCond %{HTTP_ACCEPT} ^[^,]*text/turtle
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/rdf\+xml
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/ld\+json
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} ^[^,]*application/n-triples
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.nt [R=303,L]
+
+# pass 2 — type present anywhere in the header
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.owl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.jsonld [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/ontology.nt [R=303,L]
+
+# pass 3 — the WIDOCO document for that version, not the current one
+RewriteRule ^(v[0-9]+\.[0-9]+)/?$ https://celine-eu.github.io/ontologies/$1/index-en.html [R=303,L]
+
+# ── Current artifacts by name ──────────────────────────────────────────────
+#
+# The unversioned form of the block below, resolving to whatever `current` is —
+# the same promise the release model already makes, where specs/current and
+# releases/current are byte copies of the newest version.
+#
+#   https://w3id.org/celine-eu/celine.jsonld        latest JSON-LD context
+#   https://w3id.org/celine-eu/celine.shacl.ttl     latest SHACL shapes
+#   https://w3id.org/celine-eu/ontology.ttl         latest serializations
+#
+# A consumer that wants a stable pin uses the versioned form; this one follows
+# releases, and that is the whole difference between them.
+RewriteRule ^(celine\.[A-Za-z0-9._-]+|ontology\.[A-Za-z0-9._-]+)$ https://celine-eu.github.io/ontologies/$1 [R=303,L]
+
+# ── Versioned artifacts by name ────────────────────────────────────────────
+#
+# Every artifact of a version is published in one directory, because the two
+# source trees share no filenames: the WIDOCO build is ontology.{ttl,owl,jsonld,nt}
+# and the specification is celine.{ttl,jsonld,shacl.ttl,schema.json}. These are
+# addressed by name and need no negotiation — the extension already says what
+# they are.
+#
+#   https://w3id.org/celine-eu/v0.10/celine.jsonld       JSON-LD context
+#   https://w3id.org/celine-eu/v0.10/celine.schema.json  JSON Schema $id
+#   https://w3id.org/celine-eu/v0.10/celine.shacl.ttl    SHACL shapes
+#   https://w3id.org/celine-eu/v0.10/ontology.ttl        serializations
+RewriteRule ^(v[0-9]+\.[0-9]+)/([A-Za-z0-9._-]+)$ https://celine-eu.github.io/ontologies/$1/$2 [R=303,L]

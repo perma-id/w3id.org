@@ -1,0 +1,15 @@
+# Name of the project: Data Terra EOSC Resource Catalogue
+# Description: Permanent identifiers for the Data Terra EOSC node
+# Contacts:
+# - Alessandro Rizzo (alessandro.rizzo@ird.fr) - Coordinator, Data Terra EOSC Node
+# - Christelle Pierkot (christelle.pierkot@cnrs.fr) - Deputy coordinator, Data Terra EOSC Node
+# - Foxcub, Julien Homo (julien.homo@foxcub.fr) - Maintainer
+
+Options -MultiViews
+RewriteEngine on
+
+# Resource identifiers resolve to the catalogue (canonical production host).
+RewriteRule ^resource/(.+)$ https://resources.earth-data.eu/api/resource?uri=https://w3id.org/earth-data/resource/$1 [R=302,L]
+
+# Anything else under the namespace goes to the catalogue.
+RewriteRule ^(.*)$ https://resources.earth-data.eu/ [R=302,L]

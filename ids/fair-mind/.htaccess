@@ -1,0 +1,15 @@
+Options -MultiViews
+Require all granted
+Header set Access-Control-Allow-Origin *
+Header set Cache-Control "max-age=3600"
+
+# Redirect AP namespace to GitHub raw TTL
+RewriteEngine on
+
+RewriteRule ^ap$ https://raw.githubusercontent.com/cik860/fair-mind-ap/main/fair_mind_ap_v3.ttl [R=303,L]
+RewriteRule ^ap/(.*)$ https://raw.githubusercontent.com/cik860/fair-mind-ap/main/fair_mind_ap_v3.ttl [R=303,L]
+
+# SPARQL endpoint and GraphDB Workbench (only these lines change if the host moves)
+# 307 keeps POST requests as POST, so SPARQL clients can post queries to this URL
+RewriteRule ^sparql$ https://inkyungs-macbook-pro.tailb04c8d.ts.net/repositories/fair-mind-ap [R=307,L]
+RewriteRule ^workbench/?$ https://inkyungs-macbook-pro.tailb04c8d.ts.net/ [R=302,L]

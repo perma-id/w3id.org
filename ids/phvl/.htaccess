@@ -1,0 +1,19 @@
+# PHVL — Plant Health Vision-Language ontology
+# Maintainer: Allan Lincoln Rodrigues Siriani (GitHub @siriani, allansiriani@unesp.br)
+# Ontology record: https://doi.org/10.5281/zenodo.23893673 ; browser: https://agroportal.eu/ontologies/PHVL
+
+RewriteEngine on
+
+# Machine-readable SKOS (Turtle) for the whole ontology
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://zenodo.org/records/23896655/files/phvl.ttl?download=1 [R=303,L]
+
+# Ontology home
+RewriteRule ^$ https://agroportal.eu/ontologies/PHVL [R=302,L]
+
+# One concept: PHVL_nnnnnnn (and host groups H_<taxid>)
+RewriteRule ^((PHVL_[0-9]{7})|(H_[0-9]+))$ https://agroportal.eu/ontologies/PHVL?p=classes&conceptid=https\%3A\%2F\%2Fw3id.org\%2Fphvl\%2F$1 [R=302,NE,L]
+
+# Anything else: ontology home
+RewriteRule ^.*$ https://agroportal.eu/ontologies/PHVL [R=302,L]

@@ -1,0 +1,27 @@
+# # /hali/
+#
+# Namespace of the hali ontology, https://w3id.org/hali#, and of the graph and
+# media-type names that hali derives from it. hali is an open-source command-line
+# tool that keeps a SKOS/OWL/SHACL description of local files:
+# https://github.com/natemarks/hali
+#
+# https://w3id.org/hali           the ontology (Turtle on request; otherwise the project page)
+# https://w3id.org/hali/...       any other name under it: the project page
+#
+# ## Contact
+# This space is administered by:
+#
+# Nate Marks
+# GitHub username: natemarks
+
+RewriteEngine on
+
+# Turtle: the core ontology.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/natemarks/hali/main/src/ontology/core.ttl [R=303,L]
+
+# Anything else, including browsers and clients that send */*.
+RewriteRule ^$ https://github.com/natemarks/hali [R=303,L]
+
+# Names under /hali/ (graph names, media types) are identifiers only.
+RewriteRule ^.+$ https://github.com/natemarks/hali [R=302,L]

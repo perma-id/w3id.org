@@ -1,0 +1,9 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# 1. Ha egy szoftver kifejezetten a JSON-LD kontextust kéri
+RewriteCond %{HTTP:Accept} application/ld\+json
+RewriteRule ^context\.jsonld$ https://raw.githubusercontent.com/kreeedit/KONI/main/context.jsonld [R=303,L]
+
+# 2. Minden más kérés átirányítása a most élesített GitHub Pages oldaladra
+RewriteRule ^(.*)$ https://kreeedit.github.io/KONI/$1 [R=303,L]

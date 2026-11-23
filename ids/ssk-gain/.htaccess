@@ -1,0 +1,30 @@
+# w3id.org persistent identifiers for the SSK-GAIN ontology and knowledge graph
+# Namespace root: https://w3id.org/ssk-gain/
+#
+# Maintainer: https://github.com/psh2975-dev (Sungho Park, Dong-A University,
+#             psh2975@dau.ac.kr)
+#
+# Targets resolve to the deposit repository's raw content. The archived release
+# carries the citable DOI: https://doi.org/10.5281/zenodo.21715914
+
+Options -MultiViews
+RewriteEngine On
+
+# Namespace root: human-readable landing page.
+RewriteRule ^$ https://github.com/psh2975-dev/ssk-gain-ontology [R=302,L]
+
+# Each module dereferences to its own document, so a consumer can retrieve one
+# module and follow owl:imports rather than take the whole vocabulary.
+RewriteRule ^ontology/(core|intl|gvc|bridge)/?$ https://raw.githubusercontent.com/psh2975-dev/ssk-gain-ontology/main/system/ontology/$1.ttl [R=302,L]
+
+# Merged document carrying all four modules.
+RewriteRule ^ontology/?$ https://raw.githubusercontent.com/psh2975-dev/ssk-gain-ontology/main/system/ontology/ontology.ttl [R=302,L]
+
+# SHACL constraint shapes.
+RewriteRule ^ontology/shapes/?$ https://raw.githubusercontent.com/psh2975-dev/ssk-gain-ontology/main/system/ontology/shapes.ttl [R=302,L]
+
+# Direct Turtle requests, e.g. .../ontology/core.ttl
+RewriteRule ^ontology/(.+)\.ttl$ https://raw.githubusercontent.com/psh2975-dev/ssk-gain-ontology/main/system/ontology/$1.ttl [R=302,L]
+
+# Knowledge-graph instances.
+RewriteRule ^kg/(.*)$ https://raw.githubusercontent.com/psh2975-dev/ssk-gain-ontology/main/system/kg/out/$1 [R=302,L]

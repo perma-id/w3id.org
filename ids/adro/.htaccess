@@ -1,0 +1,32 @@
+# adro - Anti-Doping Regulation Ontology
+# Maintainer: Minjeong Kwak <cynicalrei@gmail.com>, GitHub: Minjeong-Kwak
+# Source: https://github.com/Minjeong-Kwak/anti-doping-regulation-ontology
+# Archive: https://doi.org/10.5281/zenodo.23202745
+
+RewriteEngine on
+
+# A request that states it accepts HTML is sent to the repository,
+# which carries the documentation, the build scripts and the reports.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(.*)$ https://github.com/Minjeong-Kwak/anti-doping-regulation-ontology [R=303,L]
+
+# A dated request is sent to the file as it stood in that release.
+RewriteRule ^([0-9]{4}-[0-9]{2}-[0-9]{2})/(.+)$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/$1/$2 [R=303,L]
+
+# The merged release and the vocabulary alone.
+RewriteRule ^full$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/dist/adro-full.ttl [R=303,L]
+RewriteRule ^full\.owl$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/dist/adro-full.owl [R=303,L]
+RewriteRule ^tbox$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/dist/adro-tbox.ttl [R=303,L]
+RewriteRule ^tbox\.owl$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/dist/adro-tbox.owl [R=303,L]
+
+# The modules.
+RewriteRule ^designations$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-designations.ttl [R=303,L]
+RewriteRule ^substances$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-substances.ttl [R=303,L]
+RewriteRule ^analytes$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-analytes.ttl [R=303,L]
+RewriteRule ^cases-cas$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-cases-cas.ttl [R=303,L]
+RewriteRule ^cases-national$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-cases-national.ttl [R=303,L]
+RewriteRule ^procedure$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-procedure.ttl [R=303,L]
+
+# Classes and individuals sit directly under the base IRI, so every
+# remaining request is a term and the core module declares them.
+RewriteRule ^(.*)$ https://raw.githubusercontent.com/Minjeong-Kwak/anti-doping-regulation-ontology/main/doping-ontology-core.ttl [R=303,L]

@@ -1,0 +1,45 @@
+# # /tectonica/
+#
+# Tectonica: architecture and the built world as data. Core ontology, norms,
+# JSON-LD context and layer file JSON Schema.
+#
+# https://w3id.org/tectonica/ redirects to https://guilnunes.github.io/Tectonica-Files/
+#
+# | Identifier                                   | Turtle client           | Browser                 |
+# | -------------------------------------------- | ----------------------- | ----------------------- |
+# | /tectonica/core, /tectonica/core/<version>   | ontology .ttl (303)     | ontology docs (303)     |
+# | /tectonica/norms, /tectonica/norms/<version> | norms .ttl (303)        | norms docs (303)        |
+# | /tectonica/context/<version>.jsonld          | JSON-LD context (302)   | same                    |
+# | /tectonica/schemas/...                       | JSON Schema (302)       | same                    |
+# | /tectonica/guid/<GlobalId>                   | page about GlobalId IRIs (302)                    |
+# | anything else                                | same path on the site (302)                       |
+#
+# ## Contact
+# This space is administered by:
+#
+# Guil
+# GitHub username: guilnunes
+
+RewriteEngine on
+
+# Ontology
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^core/?$ https://guilnunes.github.io/Tectonica-Files/core/tectonica-core.ttl [R=303,L]
+RewriteRule ^core/?$ https://guilnunes.github.io/Tectonica-Files/core/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^core/([0-9]+\.[0-9]+)/?$ https://guilnunes.github.io/Tectonica-Files/core/$1/tectonica-core.ttl [R=303,L]
+RewriteRule ^core/([0-9]+\.[0-9]+)/?$ https://guilnunes.github.io/Tectonica-Files/core/ [R=303,L]
+
+# Norms
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^norms/?$ https://guilnunes.github.io/Tectonica-Files/norms/tectonica-norms.ttl [R=303,L]
+RewriteRule ^norms/?$ https://guilnunes.github.io/Tectonica-Files/norms/ [R=303,L]
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/x-turtle) [NC]
+RewriteRule ^norms/([0-9]+\.[0-9]+)/?$ https://guilnunes.github.io/Tectonica-Files/norms/$1/tectonica-norms.ttl [R=303,L]
+RewriteRule ^norms/([0-9]+\.[0-9]+)/?$ https://guilnunes.github.io/Tectonica-Files/norms/ [R=303,L]
+
+# Node identifiers (IFC GlobalIds)
+RewriteRule ^guid/ https://guilnunes.github.io/Tectonica-Files/guid/ [R=302,L]
+
+# Context, schemas and everything else: same path on the site
+RewriteRule ^(.*)$ https://guilnunes.github.io/Tectonica-Files/$1 [R=302,L]

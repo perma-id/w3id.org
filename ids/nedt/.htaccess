@@ -1,0 +1,26 @@
+# NEDT (National Energy Digital Twin) persistent identifier
+# Namespace: https://w3id.org/nedt#
+# Source: https://github.com/buildinginformaticslab/nedt-ontology
+
+Options -MultiViews
+Options +FollowSymLinks
+RewriteEngine On
+
+# Human-readable ontology landing page.
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://github.com/buildinginformaticslab/nedt-ontology/blob/main/DT_ontology.ttl [R=303,L]
+
+# Machine-readable JSON-LD, RDF/XML and Turtle serialisations. Turtle is the
+# canonical/default representation until additional serialisations are hosted.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/buildinginformaticslab/nedt-ontology/main/DT_ontology.ttl [R=303,L]
+
+# Default for clients without an Accept header, and for hash-term IRIs (whose
+# fragments are not sent to the server).
+RewriteRule ^$ https://raw.githubusercontent.com/buildinginformaticslab/nedt-ontology/main/DT_ontology.ttl [R=303,L]

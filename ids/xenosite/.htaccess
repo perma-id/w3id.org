@@ -1,0 +1,21 @@
+# # /xenosite/
+#
+# https://w3id.org/xenosite/ — XenoSite project namespace
+#
+# ## Contact
+# This space is administered by:
+#
+# S. Joshua Swamidass
+# https://github.com/swamidass
+# GitHub username: swamidass
+# Organization: swamidasslab
+# Issues: https://github.com/swamidasslab/w3id.org/issues
+
+RewriteEngine on
+
+# XenoBase catalogue IRIs live under /xenosite/xenobase/ (subdirectory .htaccess).
+# Pass those paths through so they are not swallowed by the landing redirect.
+RewriteRule ^xenobase(/.*)?$ - [L]
+
+# Interim landing: everything else under /xenosite/ → xenosite.org
+RewriteRule ^ https://xenosite.org/ [R=302,L]

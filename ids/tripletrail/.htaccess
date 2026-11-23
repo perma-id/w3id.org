@@ -1,0 +1,30 @@
+# # /tripletrail/
+#
+# Namespaces of TripleTrail, an RDF triple store with SPARQL, GeoSPARQL
+# and SHACL. Each namespace is a hash namespace, for example
+# https://w3id.org/tripletrail/st# for the spatial functions.
+#
+# https://w3id.org/tripletrail/NAME redirects to the namespace's
+# documentation at https://tripletrail.eu/ns/NAME/, or to its Turtle
+# file at https://tripletrail.eu/ns/NAME.ttl when the client asks for
+# text/turtle. https://w3id.org/tripletrail/ redirects to the list of
+# namespaces at https://tripletrail.eu/ns/.
+#
+# ## Contact
+# This space is administered by:
+#
+# Mathias Vanden Auweele
+# info@matdata.eu
+# GitHub username: MathiasVDA
+
+RewriteEngine on
+
+# The list of namespaces
+RewriteRule ^$ https://tripletrail.eu/ns/ [R=303,L]
+
+# One namespace, such as st, pgr or compat/rinf: Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)?)$ https://tripletrail.eu/ns/$1.ttl [R=303,L]
+
+# One namespace: documentation for everything else
+RewriteRule ^([a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)?)$ https://tripletrail.eu/ns/$1/ [R=303,L]

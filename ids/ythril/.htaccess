@@ -1,0 +1,29 @@
+# # /ythril/
+#
+# Permanent identifiers of the Ythril project, an open-source knowledge graph
+# server: https://github.com/ythril-network/Ythril
+#
+# https://w3id.org/ythril/ns is the namespace of the Ythril vocabulary, the
+# terms Ythril's RDF export defines itself (prefix ythril:, terms written
+# https://w3id.org/ythril/ns#Term). A request for Turtle is redirected to the
+# vocabulary file, any other request to its documentation page.
+#
+# https://w3id.org/ythril/ redirects to the project.
+#
+# ## Contact
+# This space is administered by the Ythril project:
+#
+# GitHub organisation: ythril-network
+# GitHub username: MetalMMagic
+
+RewriteEngine on
+
+# The vocabulary namespace, as Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^ns$ https://raw.githubusercontent.com/ythril-network/Ythril/main/docs/rdf/ythril.ttl [R=303,L]
+
+# The vocabulary namespace, for everything else: the documentation page
+RewriteRule ^ns$ https://github.com/ythril-network/Ythril/blob/main/docs/rdf/ythril-vocabulary.md [R=303,L]
+
+# The identifier itself: the project
+RewriteRule ^$ https://github.com/ythril-network/Ythril [R=302,L]

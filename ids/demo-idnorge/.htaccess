@@ -1,0 +1,84 @@
+Options +FollowSymLinks
+# Turn off MultiViews
+Options -MultiViews
+
+# Rewrite engine setup
+RewriteEngine On
+
+
+Options +FollowSymLinks
+RewriteEngine On
+
+###############################################################
+######## Rewrite rules for /demo-idnorge/vocabulary/los/<lostag>
+######## example: w3id.org/demo-idnorge/vocabulary/los/01005
+
+# 1. Norwegian Bokmål (nb) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nb [OR]
+RewriteCond %{HTTP:Accept-Language} nb
+RewriteRule ^vocabulary/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nb/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 2. Norwegian Nynorsk (nn) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nn [OR]
+RewriteCond %{HTTP:Accept-Language} nn
+RewriteRule ^vocabulary/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nn/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 3. English (en) — full path
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=en [OR]
+RewriteCond %{HTTP:Accept-Language} en
+RewriteRule ^vocabulary/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/en/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 4. Turtle (RDF) — full path
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabulary/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/rest/v1/los/data?uri=https://id.norge.no/los/$1&format=text/turtle [R=302,L,NE]
+
+# 5. Fallback for full path — default to Bokmål HTML
+RewriteRule ^vocabulary/los/(.+)$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/nb/page/?uri=https://id.norge.no/los/$1 [R=302,L,NE]
+
+# 6. Turtle for bare /vocabulary/los and /vocabulary/los/
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^vocabulary/los/?$ https://raw.githubusercontent.com/fellesdatakatalog/skosmos-config/refs/heads/main/apps/skosmos-store/src/main/resources/LOS/los-export.ttl [R=302,L]
+
+# 7. Fallback for bare /vocabulary/los and /vocabulary/los/
+RewriteRule ^vocabulary/los/?$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/ [R=302,L]
+
+# 8. Fallback for bare /vocabulary/ and anything else under it
+RewriteRule ^vocabulary/?$ https://skosmos.demo.fellesdatakatalog.digdir.no/los/ [R=302,L]
+
+
+###############################################################
+######## Rewrite rules for /demo-idnorge/organisation/<number>
+######## example: w3id.org/demo-idnorge/organisation/991825827
+RewriteCond %{REQUEST_URI} ^organisation/([0-9]+)$
+
+# 1. Norwegian Bokmål (nb)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nb [OR]
+RewriteCond %{HTTP:Accept-Language} nb
+RewriteRule ^organisation/([0-9]+)$ https://virksomhet.brreg.no/nb/oppslag/enheter/$1 [R=302,L]
+
+# 2. Norwegian Nynorsk (nn)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=nn [OR]
+RewriteCond %{HTTP:Accept-Language} nn
+RewriteRule ^organisation/([0-9]+)$ https://virksomhet.brreg.no/nn/oppslag/enheter/$1 [R=302,L]
+
+# 3. English (en)
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteCond %{HTTP_ACCEPT} lang=en [OR]
+RewriteCond %{HTTP:Accept-Language} en
+RewriteRule ^organisation/([0-9]+)$ https://virksomhet.brreg.no/en/oppslag/enheter/$1 [R=302,L]
+
+# 4. Turtle (RDF)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^organisation/([0-9]+)$ https://organization-catalog.fellesdatakatalog.digdir.no/organizations/$1 [R=302,L]
+
+# 4. JSON (Enhetsregisteret API)
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^organisation/([0-9]+)$ https://data.brreg.no/enhetsregisteret/api/enheter/$1 [R=302,L]
+
+# Fallback: default to Bokmål HTML
+RewriteRule ^organisation/([0-9]+)$ https://virksomhet.brreg.no/nb/oppslag/enheter/$1 [R=302,L]

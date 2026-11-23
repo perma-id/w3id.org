@@ -1,0 +1,26 @@
+# https://w3id.org/eu-ai-act-oscal
+# Machine-readable OSCAL catalog of the obligations of the EU Artificial Intelligence Act
+# (Regulation (EU) 2024/1689, as amended by Regulation (EU) 2026/1744).
+# Contact: standards@olon.media
+# Repo:    https://github.com/olon-standards/eu-ai-act-oscal
+# Licence: Apache-2.0
+
+Options +FollowSymLinks
+RewriteEngine On
+
+SetEnvIf Request_URI ".*" PUBLISH_BASE=https://olon-standards.github.io/w3id-host/eu-ai-act-oscal
+
+# Property namespace documentation.
+RewriteRule ^ns/?$ %{ENV:PUBLISH_BASE}/ns.html [R=302,L]
+
+# Current machine-readable artifacts.
+RewriteRule ^catalog/?$              %{ENV:PUBLISH_BASE}/catalogs/eu-ai-act/catalog.json [R=302,L]
+RewriteRule ^profiles/(.+)$          %{ENV:PUBLISH_BASE}/profiles/$1 [R=302,L]
+RewriteRule ^assessment-plans/(.+)$  %{ENV:PUBLISH_BASE}/assessment-plans/$1 [R=302,L]
+RewriteRule ^examples/(.+)$          %{ENV:PUBLISH_BASE}/docs/examples/$1 [R=302,L]
+
+# Immutable versioned artifacts.
+RewriteRule ^v/([0-9]+\.[0-9]+\.[0-9]+)/(.*)$ %{ENV:PUBLISH_BASE}/v/$1/$2 [R=302,L]
+
+# Human landing page and any directly mirrored path.
+RewriteRule ^(.*)$ %{ENV:PUBLISH_BASE}/$1 [R=302,L]

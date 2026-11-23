@@ -1,0 +1,26 @@
+# https://w3id.org/mathematical-systems/
+#
+# Permanent identifiers for the Mathematical Systems project — a catalogue of
+# formal mathematical definitions of "system" and the maps between them.
+#
+# Maintainer: Shingai Thornton (GitHub: @rsthornton) <rsthornton@gmail.com>
+# ORCID:   https://orcid.org/0009-0001-8261-1109
+# Source:  https://github.com/halcyonic-systems/mathematical-systems
+
+Options +FollowSymLinks
+RewriteEngine on
+
+# --- machines: content negotiation on the catalogue -------------------------
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/n3
+RewriteRule ^atlas(/.*)?$ https://math.systems/data/atlas.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [OR]
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^atlas(/.*)?$ https://math.systems/data/atlas.owl [R=302,L]
+
+# --- people -----------------------------------------------------------------
+RewriteRule ^atlas/entry/(.+)$ https://math.systems/entry/$1 [R=302,L]
+RewriteRule ^atlas/?$          https://math.systems/         [R=302,L]
+RewriteRule ^(.*)$             https://math.systems/$1       [R=302,L]

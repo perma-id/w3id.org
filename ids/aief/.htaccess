@@ -1,0 +1,39 @@
+Options -MultiViews
+Require all granted
+
+# Content types for ontology serialisations
+AddType application/rdf+xml .rdf
+AddType application/rdf+xml .owl
+AddType text/turtle .ttl
+AddType application/n-triples .n3
+AddType application/ld+json .jsonld
+
+RewriteEngine on
+
+# HTML / browsers → WIDOCO documentation (GitHub Pages, docs/ on main)
+RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
+RewriteRule ^$ https://navinaamuthan.github.io/ai-ethics-framework-tool/widoco/doc/index-en.html [R=303,L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^$ https://navinaamuthan.github.io/ai-ethics-framework-tool/widoco/doc/ontology.jsonld [R=303,L]
+
+# RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://navinaamuthan.github.io/ai-ethics-framework-tool/widoco/doc/ontology.owl [R=303,L]
+
+# N-Triples
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^$ https://navinaamuthan.github.io/ai-ethics-framework-tool/widoco/doc/ontology.nt [R=303,L]
+
+# Turtle (canonical ontology source)
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} text/\* [OR]
+RewriteCond %{HTTP_ACCEPT} \*/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/navinaamuthan/ai-ethics-framework-tool/main/ontology/ai-ethics-final.ttl [R=303,L]
+
+# Default: Turtle (preserves prior RDF-client behaviour)
+RewriteRule ^$ https://raw.githubusercontent.com/navinaamuthan/ai-ethics-framework-tool/main/ontology/ai-ethics-final.ttl [R=303,L]
