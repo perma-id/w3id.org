@@ -18,4 +18,4 @@ https://wanqin-liu.github.io/ahkto/doc/ontology.owl
 
 ## Maintainer
 
-Wanqin Liu
+[Wanqin-Liu](https://github.com/wanqin-liu)
