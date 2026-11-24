@@ -1,0 +1,31 @@
+# # /icareonto/
+# Permanent identifiers for the iCARE Onto ontology and educational catalogue.
+# Contact: MAYA, Robert Gordon University, maya.eu@rgu.ac.uk
+# GitHub username: RGU-Computing
+
+RewriteEngine on
+
+# Version paths mirror the preserved publication tree; no release is hard-coded.
+RewriteRule ^releases/([0-9]+\.[0-9]+\.[0-9]+)/(imports/[a-z][a-z0-9-]*|[a-z][a-z0-9-]*)/?$ https://rgu-computing.github.io/icareonto/releases/$1/$2.ttl [R=303,L]
+RewriteRule ^releases/([0-9]+\.[0-9]+\.[0-9]+)/((imports/)?[a-z][a-z0-9-]*\.(ttl|rdf)|manifest\.json)$ https://rgu-computing.github.io/icareonto/releases/$1/$2 [R=303,L]
+RewriteRule ^releases/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://rgu-computing.github.io/icareonto/releases/$1/ontology.ttl [R=303,L]
+
+# Explicit educational release/current documents retain their filenames.
+RewriteRule ^education/(releases/[a-f0-9]{24}|current)/([a-z][a-z0-9-]*\.(ttl|rdf|trig|json))$ https://rgu-computing.github.io/icareonto/education/$1/$2 [R=303,L]
+RewriteRule ^education/dataset/?$ https://rgu-computing.github.io/icareonto/education/current/dataset.ttl [R=303,L]
+RewriteRule ^education/(graphs/activities|activity-templates/[^/]+(/goal)?)/?$ https://rgu-computing.github.io/icareonto/education/current/activity-templates.ttl [R=303,L]
+RewriteRule ^education/(graphs/resources|metadata|resources/[^/]+)/?$ https://rgu-computing.github.io/icareonto/education/current/catalogue.ttl [R=303,L]
+
+# Current module and import documents use predictable, lower-case paths.
+RewriteRule ^current/((imports/)?[a-z][a-z0-9-]*\.(ttl|rdf)|manifest\.json)$ https://rgu-computing.github.io/icareonto/current/$1 [R=303,L]
+RewriteRule ^(imports/[a-z][a-z0-9-]*|[a-z][a-z0-9-]*)/?$ https://rgu-computing.github.io/icareonto/current/$1.ttl [R=303,L]
+RewriteRule ^ontology\.(ttl|rdf)$ https://rgu-computing.github.io/icareonto/current/ontology.$1 [R=303,L]
+
+# Machine requests receive a complete ontology document, including term definitions.
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://rgu-computing.github.io/icareonto/current/ontology.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://rgu-computing.github.io/icareonto/current/ontology.rdf [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html [NC]
+RewriteRule ^$ https://rgu-computing.github.io/icareonto/ [R=303,L]
+RewriteRule ^([A-Za-z][A-Za-z0-9_-]*)?$ https://rgu-computing.github.io/icareonto/current/ontology.ttl [R=303,L]
