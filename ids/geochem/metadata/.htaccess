@@ -1,0 +1,448 @@
+# https://w3id.org/geochem/metadata/ -- geochemistry metadata profiles
+# (amds-ldeo/geochemBuildingBlocks). See README.md.
+#
+#   https://w3id.org/geochem/metadata/profiles/1.1/{name}
+#
+# The 1.1 is the CDIF version the profile is built on. Every target is the repository at the
+# tag profiles-1.1, not its main branch, so a 1.1 URI keeps resolving to the 1.1 schema after the
+# profiles move to a later CDIF.
+#
+#   Accept: application/schema+json or application/json  -> the resolved JSON Schema
+#   .../{name}/schema                                    -> the resolved JSON Schema
+#   .../{name}/shacl                                     -> the SHACL rules, for the profiles that have them
+#   anything else                                          -> the building block's folder on GitHub
+
+Header set Access-Control-Allow-Origin *
+Options -MultiViews +FollowSymLinks
+RewriteEngine on
+
+SetEnvIf Request_URI ^.*$ GBB_RAW=https://raw.githubusercontent.com/amds-ldeo/geochemBuildingBlocks/refs/tags/profiles-1.1
+SetEnvIf Request_URI ^.*$ GBB_TREE=https://github.com/amds-ldeo/geochemBuildingBlocks/tree/profiles-1.1
+
+# adaAIVA
+RewriteRule ^profiles/1\.1/adaAIVA/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AIVA/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaAIVA/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AIVA/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaAIVA$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AIVA/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaAIVA$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/AIVA/profile-ada [R=303,L]
+
+# adaAMS
+RewriteRule ^profiles/1\.1/adaAMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaAMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaAMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/AMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaAMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/AMS/profile-ada [R=303,L]
+
+# adaARGT
+RewriteRule ^profiles/1\.1/adaARGT/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ARGT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaARGT/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ARGT/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaARGT$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ARGT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaARGT$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/ARGT/profile-ada [R=303,L]
+
+# adaCAPD
+RewriteRule ^profiles/1\.1/adaCAPD/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/CAPD/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaCAPD$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/CAPD/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaCAPD$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/CAPD/profile [R=303,L]
+
+# adaCPD
+RewriteRule ^profiles/1\.1/adaCPD/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/CPD/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaCPD$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/CPD/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaCPD$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/CPD/profile [R=303,L]
+
+# adaDSC
+RewriteRule ^profiles/1\.1/adaDSC/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/DSC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaDSC/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/DSC/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaDSC$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/DSC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaDSC$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/DSC/profile-ada [R=303,L]
+
+# adaDSSM
+RewriteRule ^profiles/1\.1/adaDSSM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/DSSM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaDSSM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/DSSM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaDSSM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/DSSM/profile [R=303,L]
+
+# adaEAIRMS
+RewriteRule ^profiles/1\.1/adaEAIRMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/EAIRMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaEAIRMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/EAIRMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaEAIRMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/EAIRMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaEAIRMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/EAIRMS/profile-ada [R=303,L]
+
+# adaEPMA
+RewriteRule ^profiles/1\.1/adaEPMA/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/EPMA/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaEPMA$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/EPMA/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaEPMA$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/EPMA/profile [R=303,L]
+
+# adaEPMAFull
+RewriteRule ^profiles/1\.1/adaEPMAFull/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/EPMA/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaEPMAFull/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/EPMA/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaEPMAFull$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/EPMA/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaEPMAFull$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/EPMA/profile-ada [R=303,L]
+
+# adaFINESSE
+RewriteRule ^profiles/1\.1/adaFINESSE/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/FINESSE/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaFINESSE$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/FINESSE/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaFINESSE$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/FINESSE/profile [R=303,L]
+
+# adaFTICRMS
+RewriteRule ^profiles/1\.1/adaFTICRMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/FTICRMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaFTICRMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/FTICRMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaFTICRMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/FTICRMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaFTICRMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/FTICRMS/profile-ada [R=303,L]
+
+# adaGCCIRMS
+RewriteRule ^profiles/1\.1/adaGCCIRMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/GC-C-IRMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaGCCIRMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/GC-C-IRMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaGCCIRMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/GC-C-IRMS/profile [R=303,L]
+
+# adaGCMS
+RewriteRule ^profiles/1\.1/adaGCMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GCMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaGCMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GCMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaGCMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GCMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaGCMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/GCMS/profile-ada [R=303,L]
+
+# adaGPYC
+RewriteRule ^profiles/1\.1/adaGPYC/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GPYC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaGPYC/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GPYC/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaGPYC$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/GPYC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaGPYC$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/GPYC/profile-ada [R=303,L]
+
+# adaIC
+RewriteRule ^profiles/1\.1/adaIC/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/IC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaIC/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/IC/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaIC$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/IC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaIC$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/IC/profile-ada [R=303,L]
+
+# adaICMS
+RewriteRule ^profiles/1\.1/adaICMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/IC-MS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaICMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/IC-MS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaICMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/IC-MS/profile [R=303,L]
+
+# adaICPMS
+RewriteRule ^profiles/1\.1/adaICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaICPMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/ICPMS/profile-ada [R=303,L]
+
+# adaICPOES
+RewriteRule ^profiles/1\.1/adaICPOES/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPOES/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaICPOES/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPOES/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaICPOES$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ICPOES/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaICPOES$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/ICPOES/profile-ada [R=303,L]
+
+# adaL2MS
+RewriteRule ^profiles/1\.1/adaL2MS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/L2MS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaL2MS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/L2MS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaL2MS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/L2MS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaL2MS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/L2MS/profile-ada [R=303,L]
+
+# adaLAF
+RewriteRule ^profiles/1\.1/adaLAF/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LAF/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAF/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LAF/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLAF$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LAF/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAF$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/LAF/profile-ada [R=303,L]
+
+# adaLAMCICPMS
+RewriteRule ^profiles/1\.1/adaLAMCICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLAMCICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAMCICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS/profile [R=303,L]
+
+# adaLAMCICPMSUPb
+RewriteRule ^profiles/1\.1/adaLAMCICPMSUPb/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLAMCICPMSUPb$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAMCICPMSUPb$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-MC-ICPMS-UPb/profile [R=303,L]
+
+# adaLAQICPMS
+RewriteRule ^profiles/1\.1/adaLAQICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLAQICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAQICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS/profile [R=303,L]
+
+# adaLAQICPMSUPb
+RewriteRule ^profiles/1\.1/adaLAQICPMSUPb/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLAQICPMSUPb$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLAQICPMSUPb$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-Q-ICPMS-UPb/profile [R=303,L]
+
+# adaLASFICPMS
+RewriteRule ^profiles/1\.1/adaLASFICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLASFICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLASFICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS/profile [R=303,L]
+
+# adaLASFICPMSUPb
+RewriteRule ^profiles/1\.1/adaLASFICPMSUPb/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLASFICPMSUPb$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS-UPb/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLASFICPMSUPb$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/LA-SF-ICPMS-UPb/profile [R=303,L]
+
+# adaLCMS
+RewriteRule ^profiles/1\.1/adaLCMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LCMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLCMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LCMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLCMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LCMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLCMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/LCMS/profile-ada [R=303,L]
+
+# adaLIT
+RewriteRule ^profiles/1\.1/adaLIT/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LIT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLIT/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LIT/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLIT$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/LIT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLIT$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/LIT/profile-ada [R=303,L]
+
+# adaLabXCT
+RewriteRule ^profiles/1\.1/adaLabXCT/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XCT/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaLabXCT$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XCT/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaLabXCT$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/XCT/profile [R=303,L]
+
+# adaNGNSMS
+RewriteRule ^profiles/1\.1/adaNGNSMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NGNSMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNGNSMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NGNSMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaNGNSMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NGNSMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNGNSMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/NGNSMS/profile-ada [R=303,L]
+
+# adaNIMI
+RewriteRule ^profiles/1\.1/adaNIMI/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/NI-MI/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaNIMI$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/NI-MI/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNIMI$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/NI-MI/profile [R=303,L]
+
+# adaNanoIR
+RewriteRule ^profiles/1\.1/adaNanoIR/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoIR/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNanoIR/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoIR/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaNanoIR$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoIR/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNanoIR$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/NanoIR/profile-ada [R=303,L]
+
+# adaNanoSIMS
+RewriteRule ^profiles/1\.1/adaNanoSIMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoSIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNanoSIMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoSIMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaNanoSIMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/NanoSIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaNanoSIMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/NanoSIMS/profile-ada [R=303,L]
+
+# adaPCDAFM
+RewriteRule ^profiles/1\.1/adaPCDAFM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/PCD-AFM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaPCDAFM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/PCD-AFM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaPCDAFM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/PCD-AFM/profile [R=303,L]
+
+# adaPSFD
+RewriteRule ^profiles/1\.1/adaPSFD/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/PSFD/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaPSFD/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/PSFD/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaPSFD$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/PSFD/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaPSFD$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/PSFD/profile-ada [R=303,L]
+
+# adaProduct
+RewriteRule ^profiles/1\.1/adaProduct/schema$ %{ENV:GBB_RAW}/_sources/BaseSchema/adaProduct/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaProduct/shacl$ %{ENV:GBB_RAW}/_sources/BaseSchema/adaProduct/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaProduct$ %{ENV:GBB_RAW}/_sources/BaseSchema/adaProduct/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaProduct$ %{ENV:GBB_TREE}/_sources/BaseSchema/adaProduct [R=303,L]
+
+# adaQRIS
+RewriteRule ^profiles/1\.1/adaQRIS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/QRIS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaQRIS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/QRIS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaQRIS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/QRIS/profile [R=303,L]
+
+# adaRAMAN
+RewriteRule ^profiles/1\.1/adaRAMAN/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/RAMAN/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaRAMAN$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/RAMAN/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaRAMAN$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/RAMAN/profile [R=303,L]
+
+# adaRITOFNGMS
+RewriteRule ^profiles/1\.1/adaRITOFNGMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/RITOFNGMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaRITOFNGMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/RITOFNGMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaRITOFNGMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/RITOFNGMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaRITOFNGMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/RITOFNGMS/profile-ada [R=303,L]
+
+# adaSEM
+RewriteRule ^profiles/1\.1/adaSEM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM/profile [R=303,L]
+
+# adaSEMCL
+RewriteRule ^profiles/1\.1/adaSEMCL/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-CL/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEMCL$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-CL/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMCL$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM-CL/profile [R=303,L]
+
+# adaSEMComposition
+RewriteRule ^profiles/1\.1/adaSEMComposition/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-Composition/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEMComposition$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-Composition/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMComposition$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM-Composition/profile [R=303,L]
+
+# adaSEMFIBSEM
+RewriteRule ^profiles/1\.1/adaSEMFIBSEM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-FIBSEM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEMFIBSEM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-FIBSEM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMFIBSEM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM-FIBSEM/profile [R=303,L]
+
+# adaSEMFull
+RewriteRule ^profiles/1\.1/adaSEMFull/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMFull/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEMFull$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMFull$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM/profile-ada [R=303,L]
+
+# adaSEMImaging
+RewriteRule ^profiles/1\.1/adaSEMImaging/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-Imaging/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSEMImaging$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/SEM-Imaging/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSEMImaging$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/SEM-Imaging/profile [R=303,L]
+
+# adaSIMS
+RewriteRule ^profiles/1\.1/adaSIMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSIMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SIMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSIMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSIMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/SIMS/profile-ada [R=303,L]
+
+# adaSLS
+RewriteRule ^profiles/1\.1/adaSLS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SLS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSLS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SLS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSLS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SLS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSLS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/SLS/profile-ada [R=303,L]
+
+# adaSTHMAFM
+RewriteRule ^profiles/1\.1/adaSTHMAFM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/STHM-AFM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSTHMAFM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/STHM-AFM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSTHMAFM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/STHM-AFM/profile [R=303,L]
+
+# adaSVRUEC
+RewriteRule ^profiles/1\.1/adaSVRUEC/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SVRUEC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSVRUEC/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SVRUEC/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSVRUEC$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/SVRUEC/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSVRUEC$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/SVRUEC/profile-ada [R=303,L]
+
+# adaSXRF
+RewriteRule ^profiles/1\.1/adaSXRF/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/S-XRF/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSXRF$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/S-XRF/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSXRF$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/S-XRF/profile [R=303,L]
+
+# adaSolutionMCICPMS
+RewriteRule ^profiles/1\.1/adaSolutionMCICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-MC-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSolutionMCICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-MC-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSolutionMCICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/Solution-MC-ICPMS/profile [R=303,L]
+
+# adaSolutionQICPMS
+RewriteRule ^profiles/1\.1/adaSolutionQICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-Q-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSolutionQICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-Q-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSolutionQICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/Solution-Q-ICPMS/profile [R=303,L]
+
+# adaSolutionSFICPMS
+RewriteRule ^profiles/1\.1/adaSolutionSFICPMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-SF-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaSolutionSFICPMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/Solution-SF-ICPMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaSolutionSFICPMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/Solution-SF-ICPMS/profile [R=303,L]
+
+# adaTDM
+RewriteRule ^profiles/1\.1/adaTDM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TDM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaTDM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TDM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaTDM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/TDM/profile [R=303,L]
+
+# adaTEM
+RewriteRule ^profiles/1\.1/adaTEM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TEM/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaTEM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TEM/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaTEM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/TEM/profile [R=303,L]
+
+# adaTEMFull
+RewriteRule ^profiles/1\.1/adaTEMFull/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TEM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaTEMFull/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TEM/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaTEMFull$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TEM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaTEMFull$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/TEM/profile-ada [R=303,L]
+
+# adaTIMS
+RewriteRule ^profiles/1\.1/adaTIMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TIMS/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaTIMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/TIMS/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaTIMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/TIMS/profile [R=303,L]
+
+# adaToFSIMS
+RewriteRule ^profiles/1\.1/adaToFSIMS/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ToFSIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaToFSIMS/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ToFSIMS/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaToFSIMS$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/ToFSIMS/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaToFSIMS$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/ToFSIMS/profile-ada [R=303,L]
+
+# adaUVFM
+RewriteRule ^profiles/1\.1/adaUVFM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/UVFM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaUVFM/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/UVFM/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaUVFM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/UVFM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaUVFM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/UVFM/profile-ada [R=303,L]
+
+# adaVLM
+RewriteRule ^profiles/1\.1/adaVLM/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/VLM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaVLM/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/VLM/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaVLM$ %{ENV:GBB_RAW}/_sources/techniqueProfile/adaProfile/VLM/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaVLM$ %{ENV:GBB_TREE}/_sources/techniqueProfile/adaProfile/VLM/profile-ada [R=303,L]
+
+# adaVNMIR
+RewriteRule ^profiles/1\.1/adaVNMIR/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/VNMIR/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaVNMIR$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/VNMIR/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaVNMIR$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/VNMIR/profile [R=303,L]
+
+# adaXANES
+RewriteRule ^profiles/1\.1/adaXANES/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XANES/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaXANES$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XANES/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaXANES$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/XANES/profile [R=303,L]
+
+# adaXCT
+RewriteRule ^profiles/1\.1/adaXCT/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XCT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaXCT/shacl$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XCT/profile-ada/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaXCT$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XCT/profile-ada/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaXCT$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/XCT/profile-ada [R=303,L]
+
+# adaXRD
+RewriteRule ^profiles/1\.1/adaXRD/schema$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XRD/profile/resolvedSchema.json [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/adaXRD$ %{ENV:GBB_RAW}/_sources/techniqueProfile/geochemProfile/XRD/profile/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/adaXRD$ %{ENV:GBB_TREE}/_sources/techniqueProfile/geochemProfile/XRD/profile [R=303,L]
+
+# geochemProduct
+RewriteRule ^profiles/1\.1/geochemProduct/schema$ %{ENV:GBB_RAW}/_sources/BaseSchema/geochemProduct/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/geochemProduct/shacl$ %{ENV:GBB_RAW}/_sources/BaseSchema/geochemProduct/rules.shacl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/(schema\+)?json
+RewriteRule ^profiles/1\.1/geochemProduct$ %{ENV:GBB_RAW}/_sources/BaseSchema/geochemProduct/resolvedSchema.json [R=303,L]
+RewriteRule ^profiles/1\.1/geochemProduct$ %{ENV:GBB_TREE}/_sources/BaseSchema/geochemProduct [R=303,L]
