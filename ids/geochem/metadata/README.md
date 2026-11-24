@@ -8,4 +8,5 @@
 
 The `1.1` is the CDIF version the profile is built on. 66 profiles are registered. Each URI redirects to the building block at the repository tag `profiles-1.1`: the resolved JSON Schema for a JSON request or `/schema`, the SHACL rules for `/shacl` (32 profiles have them), and the block's folder on GitHub otherwise.
 
-**Contacts:** as for /geochem (see ../README.md).
+**Maintainers:**
+* Stephen Richard <smrTucson@gmail.com> - GitHub: https://github.com/smrgeoinfo
