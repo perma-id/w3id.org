@@ -5,6 +5,10 @@
 #
 # https://w3id.org/osd/<version>/<kind>.schema.json redirects to the JSON
 # Schema of that version, served from the specification's repository.
+# https://w3id.org/osd/vocabulary/<state>/<file>.json redirects to the role
+# vocabulary of that state and to its JSON Schema, served from the same place.
+# https://w3id.org/osd/extensions redirects to the register of extensions, a
+# page for people to read.
 # https://w3id.org/osd/ redirects to that repository.
 #
 # ## Contact
@@ -15,4 +19,6 @@
 
 RewriteEngine on
 RewriteRule ^([0-9]+\.[0-9]+)/([a-z]+\.schema\.json)$ https://roomi-fields.github.io/open-synth-descriptors/schemas/$1/$2 [R=302,L]
+RewriteRule ^vocabulary/([0-9]+)/([a-z]+(?:\.schema)?\.json)$ https://roomi-fields.github.io/open-synth-descriptors/schemas/vocabulary/$1/$2 [R=302,L]
+RewriteRule ^extensions$ https://github.com/roomi-fields/open-synth-descriptors/blob/main/schemas/extensions.md [R=302,L]
 RewriteRule ^$ https://github.com/roomi-fields/open-synth-descriptors [R=302,L]
