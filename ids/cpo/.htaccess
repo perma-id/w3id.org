@@ -8,7 +8,10 @@
 # https://w3id.org/cpo/data            example data
 # https://w3id.org/cpo/data/<id>       individuals of the example data, resolved through the data file
 # https://w3id.org/cpo/repo            source repository
-# https://w3id.org/cpo/checkpoint/<n>  a version handed out in the course, such as lecture-4c
+# https://w3id.org/cpo/duplex/<id>     the duplex model converted from IFC with IFCtoLBD
+# https://w3id.org/cpo/class/<scheme>/<code>  classes written for the course, such as IEC 81346-2
+# https://w3id.org/cpo/shapes/<name>   the SHACL shapes of the level of information need
+# https://w3id.org/cpo/lecture7        the ontology with the SWRL rules
 #
 # Browsers get the HTML documentation; RDF clients get RDF/XML, JSON-LD,
 # N-Triples or Turtle, by content negotiation. Turtle is the default.
@@ -25,12 +28,6 @@ RewriteEngine on
 # Source repository
 RewriteRule ^repo/?$ https://github.com/RichZele/cpo [R=302,L]
 
-# Course checkpoints: the README for browsers, the composed ontology in Turtle otherwise
-RewriteCond %{HTTP_ACCEPT} text/html [OR]
-RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
-RewriteRule ^checkpoint/([a-z0-9-]+)/?$ https://github.com/RichZele/cpo/tree/main/checkpoints/$1 [R=303,L]
-RewriteRule ^checkpoint/([a-z0-9-]+)/?$ https://richzele.github.io/cpo/checkpoints/$1/cpo.ttl [R=303,L]
-
 # HTML documentation
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
@@ -43,6 +40,21 @@ RewriteRule ^(project|product|requirement)/?$ https://richzele.github.io/cpo/doc
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
 RewriteRule ^data(/.*)?$ https://richzele.github.io/cpo/#data [R=303,NE,L]
+
+# The information delivery cycle: the duplex graph, the classes, the shapes and the rules.
+# Browsers get the section of the website; RDF clients get the Turtle file, the only serialization.
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^(duplex|class|shapes)(/.*)?$ https://richzele.github.io/cpo/#cycle [R=303,NE,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html [OR]
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteRule ^lecture7/?$ https://richzele.github.io/cpo/#cycle [R=303,NE,L]
+
+RewriteRule ^duplex(/.*)?$ https://richzele.github.io/cpo/graphdb/ifcmodel_LBD.ttl [R=303,L]
+RewriteRule ^class(/.*)?$ https://richzele.github.io/cpo/classification/cpo-classification.ttl [R=303,L]
+RewriteRule ^shapes(/.*)?$ https://richzele.github.io/cpo/shapes/cpo-lighting-shapes.ttl [R=303,L]
+RewriteRule ^lecture7/?$ https://richzele.github.io/cpo/rules/cpo-rules.ttl [R=303,L]
 
 # RDF/XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
