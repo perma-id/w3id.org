@@ -1,0 +1,53 @@
+# # /cdsg/
+#
+# Persistent IRIs of the Cultural Diversity Society Governance (CDSG) ontology:
+# its core, analytics and vocabulary modules, the evidence set, the SHACL shapes
+# and the individuals under /cdsg/resource/.
+# Source: https://github.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology
+#
+# ## Contact
+# This space is administered by:
+#
+# Minjeong Kwak
+# cynicalrei@gmail.com
+# GitHub username: Minjeong-Kwak
+
+RewriteEngine on
+
+# Browsers get the repository at the release that the IRI names.
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^(core|analytics|vocab|data)/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://github.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/tree/v$2 [R=303,L]
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^ https://github.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/tree/v1.0.0-rc.2 [R=303,L]
+
+# Core module, a given release, as RDF/XML or Turtle.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/ontology/cdsg_core_v$1.owl [R=303,L]
+RewriteRule ^core/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/ontology/cdsg_core_v$1.ttl [R=303,L]
+# Core module, current release. Term IRIs core#Term arrive here as core.
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^core/?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/ontology/cdsg_core_v1.0.0-rc.2.owl [R=303,L]
+RewriteRule ^core\.owl$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/ontology/cdsg_core_v1.0.0-rc.2.owl [R=303,L]
+RewriteRule ^core(/|\.ttl)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/ontology/cdsg_core_v1.0.0-rc.2.ttl [R=303,L]
+
+# Analytics and vocabulary modules and the evidence set, a given release.
+RewriteRule ^analytics/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/analytics/cdsg_analytics_v$1.ttl [R=303,L]
+RewriteRule ^vocab/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/vocab/cdsg_vocab_v$1.ttl [R=303,L]
+RewriteRule ^data/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/data/cdsg_data_v$1.ttl [R=303,L]
+# The same, current release.
+RewriteRule ^analytics(/|\.ttl)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/analytics/cdsg_analytics_v1.0.0-rc.2.ttl [R=303,L]
+RewriteRule ^vocab(/|\.ttl)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/vocab/cdsg_vocab_v1.0.0-rc.2.ttl [R=303,L]
+RewriteRule ^data(/|\.ttl)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/data/cdsg_data_v1.0.0-rc.2.ttl [R=303,L]
+RewriteRule ^merged(\.ttl)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/data/cdsg_v1.0.0-rc.2_active_merged.ttl [R=303,L]
+
+# Individuals of the evidence set.
+RewriteRule ^resource/. https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/data/cdsg_data_v1.0.0-rc.2.ttl [R=303,L]
+
+# SHACL shapes: a given release, then the current one for the module and its shapes.
+RewriteRule ^shapes/(core|target)/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$2/validation/shapes/cdsg_$1_shapes_v$2.ttl [R=303,L]
+RewriteRule ^shapes/actor-jurisdiction/([0-9]+\.[0-9]+\.[0-9]+(-rc\.[0-9]+)?)$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v$1/validation/shapes/cdsg_actor_jurisdiction_shapes_v$1.ttl [R=303,L]
+RewriteRule ^shapes/(core|target)(/.*)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/validation/shapes/cdsg_$1_shapes_v1.0.0-rc.2.ttl [R=303,L]
+RewriteRule ^shapes/actor-jurisdiction(/.*)?$ https://raw.githubusercontent.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology/v1.0.0-rc.2/validation/shapes/cdsg_actor_jurisdiction_shapes_v1.0.0-rc.2.ttl [R=303,L]
+
+# Anything else goes to the repository.
+RewriteRule ^ https://github.com/Minjeong-Kwak/cultural-diversity-society-governance-ontology [R=302,L]
