@@ -1,0 +1,27 @@
+# # /dredto/
+#
+# Identifier for DREDTO, the Ontology of cyberdiseases - diseases resulting
+# from exposure to digital technologies (ITPCC).
+#
+# The ontology IRI is https://w3id.org/dredto and its terms are hash IRIs,
+# e.g. https://w3id.org/dredto#SomeTerm. The fragment is never sent to the
+# server, so only the ontology IRI itself needs a redirect.
+#
+# - Clients asking for OWL/XML are sent to the ontology file hosted by ITPCC:
+#   https://www.itpcc.pl/research/cyberdiseases-ontology/dredto.owx
+# - Everyone else (browsers, */*, no Accept header) is sent to the ontology
+#   page on BioPortal: https://bioportal.bioontology.org/ontologies/DREDTO
+#
+# ## Contact
+# This space is administered by:
+#
+# Paweł Barczyk
+# pjbarczyk@gmail.com
+# GitHub username: PJBarczyk
+
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} application/owl\+xml
+RewriteRule ^$ https://www.itpcc.pl/research/cyberdiseases-ontology/dredto.owx [R=303,L]
+
+RewriteRule ^ https://bioportal.bioontology.org/ontologies/DREDTO [R=303,L]
