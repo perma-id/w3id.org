@@ -12,6 +12,9 @@ It is implemented in the [Dataspecer](https://dataspecer.com) tool.
 * JSON-LD   https://mff-uk.github.io/data-specification-vocabulary/dsv/model.owl.jsonld
 * GitHub    https://github.com/mff-uk/data-specification-vocabulary
 
+The [controlled vocabularies extension](https://w3id.org/dsv/cv#) and its
+[usage expectations](https://w3id.org/dsv/cv/usage-expectation#) are also published under this identifier.
+
 ## Contact
 This space is administered by:
 

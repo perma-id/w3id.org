@@ -8,10 +8,13 @@ It is implemented in the [Dataspecer](https://dataspecer.com) tool.
 
 ## Ontology resources
 * HTML      https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/
-* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.ttl
-* RDF/XML   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.rdf
-* JSON-LD   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap.jsonld
+* Turtle    https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/dsv.ttl
+* RDF/XML   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/dsv.rdf
+* JSON-LD   https://mff-uk.github.io/data-specification-vocabulary/dsv-dap/dsv.jsonld
 * GitHub    https://github.com/mff-uk/data-specification-vocabulary
+
+The [controlled vocabularies application profile](https://w3id.org/dsv-dap/cv#)
+is also published under this identifier.
 
 ## Contact
 This space is administered by:

@@ -1,0 +1,15 @@
+# Controlled vocabularies extension; maintainer: GitHub jakubklimek
+RewriteEngine on
+
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/model.owl.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/model.owl.rdf [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/model.owl.jsonld [R=303,L]
+
+RewriteRule ^$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/ [R=303,L]
+RewriteRule ^usage-expectation/?$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/usage-expectation/usage-expectation.ttl [R=303,L]
+RewriteRule ^(.+)$ https://mff-uk.github.io/data-specification-vocabulary/dsv/cv/$1 [R=302,L]
