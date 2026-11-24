@@ -14,6 +14,7 @@ Union under the Interregional Innovation Investments instrument
 | `https://w3id.org/vaimee/awm` | <https://wastemap.vaimee.com/ontology/awm> |
 | `https://w3id.org/vaimee/awm/sources` | <https://wastemap.vaimee.com/ontology/awm-sources> |
 | `https://w3id.org/vaimee/awm/legal` | <https://wastemap.vaimee.com/ontology/awm-legal> |
+| `https://w3id.org/vaimee/awm/shapes` | <https://wastemap.vaimee.com/ontology/awm-shapes> |
 
 Each target is content-negotiated: a browser is served documentation, a client
 asking for `text/turtle` is served the Turtle.
