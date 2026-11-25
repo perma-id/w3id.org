@@ -2,9 +2,15 @@
 #
 # BIMei Ontology (ONT) — the canonical Action Statement registry.
 # https://w3id.org/bimei/{type}/{slug} (e.g. /bimei/action/conduct) redirects to
-# the backing host https://ontology.bimexcellence.org/, which dereferences the
-# IRI (content-negotiates language; serves the live head or a pinned ?version=).
-# Identity is language- and version-neutral; the register is never in the IRI.
+# a backing host, which dereferences the IRI (content-negotiates language;
+# serves the live head or a pinned ?version=). Identity is language- and
+# version-neutral; the register is never in the IRI.
+#
+# Host split:
+#   /bimei/term/{slug}   → https://bimdictionary.com (the BIM Dictionary, the
+#                          source of dictionary terms)
+#   /bimei/{type}/{slug} → https://ontology.bimexcellence.org (everything else)
+# The IRIs themselves never change; only the 302 backing host splits.
 #
 # ## Contact
 # This space is administered by:
@@ -15,7 +21,19 @@
 
 RewriteEngine on
 
-# Forward every /bimei/* path to the backing host, preserving the query string
-# (so ?version= pins pass through). 302 (temporary) keeps w3id.org/bimei/* the
-# permanent, citable identity while the backing host stays relocatable.
+# Terms held only by the ontology host stay there, so these IRIs keep
+# resolving. Must precede the /bimei/term/* rule.
+RewriteRule ^term/(3d-printing-in-constuction|7010-7090|activity-flows|additive-manufacturing|agile-method-in-construction|applications|architecture|bim-excellence|cde|certification|classification-systems|competency-topics|computers-and-peripherals|concurrent-engineering|construction-technique|contracts|cpm|cross-domain-equipment|cross-domain-software|cybernetics|dfma|digital-twins|foundational-traits|framework-model|functions-human|golden-thread|governance|guides|hardware-and-equpment|historical-indicators|indicators|indices|infrabim|infrastructure|insurance|interior-design|iso-19650|kanban|lbms|lean-design|lean-methodology|logistics|machine-learning|mandates|measurements|methods|modelling-specialties|modelling-techniques|operations|organisational-management|plm|plugins|product-data|product-management|protocols|railbim|recycle|refurbish|responsibilities|rfid|robotics|scrum|site-machinery|situational-enablers|standardisation-and-templates|taxonomy-classification)/?$ https://ontology.bimexcellence.org/term/$1 [R=302,L,QSA]
+
+# /bimei/term/* → the BIM Dictionary. Must precede the catch-all. QSA preserves
+# the query string (so ?version= pins pass through). 302 (temporary) keeps
+# w3id.org/bimei/term/* the permanent, citable identity while the backing host
+# stays relocatable.
+RewriteRule ^term/(.+)$ https://bimdictionary.com/term/$1 [R=302,L,QSA]
+
+# Bare /bimei/term (with or without trailing slash) also → the BIM Dictionary.
+RewriteRule ^term/?$ https://bimdictionary.com/term [R=302,L,QSA]
+
+# Forward every other /bimei/* path to the backing host, preserving the query
+# string. 302 keeps w3id.org/bimei/* the permanent, citable identity.
 RewriteRule ^(.*)$ https://ontology.bimexcellence.org/$1 [R=302,L,QSA]
