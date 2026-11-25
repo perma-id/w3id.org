@@ -10,3 +10,5 @@ Maintainer:
 
 Roger H. French (Github account: frenchrh)
 Van Tran (Github account: vandttran)
+Redad Mehdi (Github account: redad110)
+Erika Barcelos (Github account: erikaib8)
