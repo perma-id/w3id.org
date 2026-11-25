@@ -1,0 +1,18 @@
+# /euremap/
+# EUREMAP ontology and knowledge-graph namespace
+#
+# Contact:
+# Cymon J. Cox
+# w3id.org.unwarlike566@passmail.net
+# GitHub username: cymon
+
+RewriteEngine on
+
+# Namespace root -> ontology documentation (pyLODE)
+RewriteRule ^$ https://euremap.github.io/euremap-kg/ [R=302,L]
+# Ontology Turtle file
+RewriteRule ^ontology/ontology\.ttl$ https://euremap.github.io/euremap-kg/euremap-ontology.ttl [R=302,L]
+# Everything else under /euremap/ontology/ -> ontology documentation
+RewriteRule ^ontology/?(.*)$ https://euremap.github.io/euremap-kg/ [R=302,L]
+# Catch-all: anything else under /euremap/ -> project page
+RewriteRule ^(.*)$ https://euremap.github.io/euremap-kg/ [R=302,L]
