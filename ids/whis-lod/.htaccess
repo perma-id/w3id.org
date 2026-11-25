@@ -1,0 +1,48 @@
+# # /whis-lod/
+#
+# Permanent identifiers for whis-lod: the World Heritage Irrigation
+# Structures (WHIS) in Japan as Linked Open Data.
+#
+# https://w3id.org/whis-lod/ and everything under it redirects to
+# https://ysh17-hub.github.io/whis-lod/
+# Facility IRIs (resource/WHIS-JP-nnn), the vocabulary (ontology) and the
+# dataset (dataset) are content-negotiated: Turtle, JSON-LD or HTML.
+#
+# Homepage: https://ysh17-hub.github.io/whis-lod/
+# Source: https://github.com/ysh17-hub/whis-lod
+#
+# ## Contact
+# This space is administered by:
+#
+# abe
+# GitHub username: ysh17-hub
+
+RewriteEngine on
+
+# Facilities: Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^resource/(WHIS-JP-[0-9]{3})$ https://ysh17-hub.github.io/whis-lod/resource/$1.ttl [R=303,L]
+
+# Facilities: JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^resource/(WHIS-JP-[0-9]{3})$ https://ysh17-hub.github.io/whis-lod/resource/$1.jsonld [R=303,L]
+
+# Facilities: anything else, including browsers, gets the HTML page
+RewriteRule ^resource/(WHIS-JP-[0-9]{3})$ https://ysh17-hub.github.io/whis-lod/resource/$1.html [R=303,L]
+
+# Vocabulary and dataset: Turtle (both are described in whis_japan.ttl)
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(ontology|dataset)$ https://ysh17-hub.github.io/whis-lod/whis_japan.ttl [R=303,L]
+
+# Vocabulary and dataset: JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^(ontology|dataset)$ https://ysh17-hub.github.io/whis-lod/whis_japan.jsonld [R=303,L]
+
+# Vocabulary: HTML documentation
+RewriteRule ^ontology$ https://ysh17-hub.github.io/whis-lod/ontology.html [R=303,L]
+
+# Dataset: the top page
+RewriteRule ^dataset$ https://ysh17-hub.github.io/whis-lod/ [R=303,L]
+
+# Everything else (files and pages) keeps its path
+RewriteRule ^(.*)$ https://ysh17-hub.github.io/whis-lod/$1 [R=302,L]
