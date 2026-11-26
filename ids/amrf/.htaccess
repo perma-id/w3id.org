@@ -6,9 +6,10 @@
 # applied to a sample. Developed as part of Cocos:
 # https://github.com/DEAL-US/Cocos
 #
-# https://w3id.org/amrf/shapes redirects to the SHACL shapes; everything else
-# under https://w3id.org/amrf/ (the vocabulary and its terms) redirects to the
-# vocabulary, both in Turtle.
+# The vocabulary, its terms and the SHACL shapes (https://w3id.org/amrf/shapes)
+# redirect to the Cocos deployment, which serves an HTML page or RDF (Turtle,
+# JSON-LD) depending on the Accept header. Version IRIs redirect to the
+# archived release on Zenodo.
 #
 # ## Contact
 # This space is administered by:
@@ -27,5 +28,10 @@
 
 RewriteEngine on
 
-RewriteRule ^shapes$ https://raw.githubusercontent.com/DEAL-US/Cocos/main/app/semantics/vocab/shapes.ttl [R=303,L]
-RewriteRule ^.*$ https://raw.githubusercontent.com/DEAL-US/Cocos/main/app/semantics/vocab/amrf.ttl [R=303,L]
+# Version 0.1.0: the Turtle file for RDF clients, the Zenodo record otherwise
+RewriteCond %{HTTP_ACCEPT} text/turtle|application/x-turtle [NC]
+RewriteRule ^0\.1\.0$ https://zenodo.org/records/24083396/files/amrf.ttl [R=303,L]
+RewriteRule ^0\.1\.0$ https://zenodo.org/records/24083396 [R=303,L]
+
+# The vocabulary, its terms and the shapes
+RewriteRule ^(.*)$ https://gin.us.es/cocos/amrf/$1 [R=303,L]
