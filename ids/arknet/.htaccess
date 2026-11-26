@@ -12,11 +12,10 @@ AddType application/n-triples .nt
 AddType application/ld+json .json
 
 
-### Ontology modules: core, ddd, provenance, project, requirements, process (arknet-actor.ttl)
-# Not (yet) published, no live consumer / known-bad module cut:
+### Ontology modules: core, ddd, provenance, project, requirements, architecture, privacy,
+### resource, process (arknet-actor.ttl)
+# Not (yet) published:
 #   - tech (arktech:)         -- module not shipped yet
-#   - architecture (arkarch:) -- zero references in code, no BC
-#   - privacy (arkpriv:)      -- zero references in code, no BC
 # ddd (arkddd:) is live for BoundedContext/Domain/Subdomain only (arknet-ddd.ttl); Context
 # Mapping and the tactical-DDD block stay parked (parked/arknet-ddd_parked.ttl, not routed
 # here) even though they share the same namespace.
@@ -29,7 +28,7 @@ AddType application/ld+json .json
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements|architecture|privacy|resource)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
 RewriteCond %{HTTP_ACCEPT} text/\* [OR]
 RewriteCond %{HTTP_ACCEPT} \*/turtle
@@ -40,7 +39,7 @@ RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
 RewriteCond %{HTTP_USER_AGENT} ^Mozilla/.*
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://github.com/kogn-io/arknet/releases/latest [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements|architecture|privacy|resource)$ https://github.com/kogn-io/arknet/releases/latest [R=303,L]
 RewriteCond %{HTTP_ACCEPT} !application/rdf\+xml.*(text/html|application/xhtml\+xml)
 RewriteCond %{HTTP_ACCEPT} text/html [OR]
 RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml [OR]
@@ -50,7 +49,7 @@ RewriteRule ^process$ https://github.com/kogn-io/arknet/releases/latest [R=303,L
 # Serve RDF/XML content for ontology modules
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^(core|ddd|provenance|project|requirements)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
+RewriteRule ^(core|ddd|provenance|project|requirements|architecture|privacy|resource)$ https://kogn-io.github.io/arknet/ontology/arknet-$1.ttl [R=303,L]
 RewriteCond %{HTTP_ACCEPT} \*/\* [OR]
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
 RewriteRule ^process$ https://kogn-io.github.io/arknet/ontology/arknet-actor.ttl [R=303,L]
