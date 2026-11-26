@@ -5,7 +5,7 @@ metadata standards for archival records from Eastern European and post-Soviet hi
 
 ## Status
 
-Place and fonds creator identifiers redirect to Archivarious. Other paths continue to redirect to the placeholder page.
+Place, fonds creator, and archive identifiers redirect to Archivarious. Other paths continue to redirect to the placeholder page.
 
 ## Contact
 
