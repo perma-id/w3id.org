@@ -1,0 +1,44 @@
+# # /kord/
+#
+# KORD: Automatic Construction of Linked, Provenance-Aware Knowledge for Relational Databases.
+# Each database is published as a bundle (Markdown with YAML-LD frontmatter, SHACL shapes);
+# the bundles share one publication vocabulary.
+# https://w3id.org/kord/ redirects to the GitHub Pages site of
+# wagner-niklas/kord (https://wagner-niklas.github.io/kord/).
+# Hash fragments (#col-name) never reach the server; they select a node inside the document a
+# rule returns.
+#
+# ## Contact
+# This space is administered by:
+#
+# Niklas Wagner
+# GitHub username: wagner-niklas
+
+RewriteEngine on
+
+# Vocabulary terms https://w3id.org/kord/vocab/<term>: documentation for browsers,
+# JSON-LD for everything else
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^vocab/?(.*)$ https://github.com/wagner-niklas/kord/blob/main/bundles/profiles/kord/vocab.md [R=303,L]
+RewriteRule ^vocab/?(.*)$ https://wagner-niklas.github.io/kord/bundles/profiles/kord/vocab.jsonld [R=303,L]
+
+# The catalog of all bundles of the current publication (DCAT)
+RewriteRule ^bundle/?$ https://wagner-niklas.github.io/kord/bundles/catalog.jsonld [R=303,L]
+
+# Profile files: context, vocabulary, SHACL shapes
+RewriteRule ^bundle/profiles/(.+)$ https://wagner-niklas.github.io/kord/bundles/profiles/$1 [R=303,L]
+
+# A bundle: its dataset description
+RewriteRule ^bundle/([^/]+)/([^/]+)/?$ https://wagner-niklas.github.io/kord/bundles/$1/$2/dataset.jsonld [R=303,L]
+
+# The conceptual model of a bundle (entities, relationships and attributes in RDF/OWL terms)
+RewriteRule ^bundle/([^/]+)/([^/]+)/conceptual-model$ https://wagner-niklas.github.io/kord/bundles/$1/$2/graph/conceptual-model.ttl [R=303,L]
+
+# A file of a bundle with its own extension (graph/context.ttl, context.jsonld)
+RewriteRule ^bundle/([^/]+)/([^/]+)/(.+\.[a-z]+)$ https://wagner-niklas.github.io/kord/bundles/$1/$2/$3 [R=303,L]
+
+# A page of a bundle: tables/recipe -> tables/recipe.md (YAML-LD frontmatter and text)
+RewriteRule ^bundle/([^/]+)/([^/]+)/(.+)$ https://wagner-niklas.github.io/kord/bundles/$1/$2/$3.md [R=303,L]
+
+# The project
+RewriteRule ^$ https://github.com/wagner-niklas/kord [R=302,L]
