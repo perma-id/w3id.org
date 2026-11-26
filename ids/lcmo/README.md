@@ -1,10 +1,10 @@
 # /lcmo/
 
-## LCMO: An ontology for the sustainability assessment of circular concrete reuse
-This [W3ID](https://w3id.org) provides a persistent URI namespace for **LCMO** Ontology resources.
+## lcmo: An ontology for the sustainability assessment of circular concrete reuse
+This [W3ID](https://w3id.org) provides a redirect to the updated version of id: lcmdo
 
 ## Ontology resources
-* Turtle    https://rub-informatik-im-bauwesen.github.io/crc1683-ontologies/lcmo/ontology.ttl
+* Turtle    https://rub-informatik-im-bauwesen.github.io/crc1683-ontologies/lcdmo/ontology.ttl
 
 
 

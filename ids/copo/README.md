@@ -1,10 +1,10 @@
 # /copo/
 
 ## COPO: An ontology for the sustainability assessment of circular concrete reuse
-This [W3ID](https://w3id.org) provides a persistent URI namespace for **COPO** Ontology resources.
+This [W3ID](https://w3id.org) provides a redirect to the updated version of id: rc-copo
 
 ## Ontology resources
-* Turtle    https://rub-informatik-im-bauwesen.github.io/crc1683-ontologies/copo/ontology.ttl
+* Turtle    https://rub-informatik-im-bauwesen.github.io/crc1683-ontologies/rc-copo/ontology.ttl
 
 
 ## Contact
