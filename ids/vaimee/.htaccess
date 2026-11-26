@@ -1,0 +1,41 @@
+# # /vaimee/
+#
+# Permanent identifiers for vocabularies published by VAIMEE S.r.l.
+#
+# https://w3id.org/vaimee/awm          AgoràWasteMap, the by-product vocabulary
+# https://w3id.org/vaimee/awm/sources  its data source inventory module
+# https://w3id.org/vaimee/awm/legal    its regulatory framework module
+# https://w3id.org/vaimee/awm/shapes   the SHACL constraints the data is validated against
+#
+# Terms are minted in one namespace, https://w3id.org/vaimee/awm#, and the
+# document served there is the union of the three modules, so any term resolves
+# to a document that defines it. 303 because the identifier names a concept and
+# the redirect leads to a document about it.
+#
+# ## Contact
+# This space is administered by:
+#
+# Luca Roffia
+# GitHub username: lroffia
+#
+# VAIMEE S.r.l. — https://vaimee.com
+
+RewriteEngine on
+
+# The three ontology documents. Exact matches, and they come first: the legal
+# module is /awm/legal, while the acts it cites are /awm/legal/<act>, and a
+# loose rule here would swallow them.
+RewriteRule ^awm$          https://wastemap.vaimee.com/ontology/awm [R=303,L]
+RewriteRule ^awm/sources$  https://wastemap.vaimee.com/ontology/awm-sources [R=303,L]
+RewriteRule ^awm/legal$    https://wastemap.vaimee.com/ontology/awm-legal [R=303,L]
+RewriteRule ^awm/shapes$   https://wastemap.vaimee.com/ontology/awm-shapes [R=303,L]
+
+# Individuals named by the vocabulary — categories, sources, legal acts,
+# territorial estimates. They are described in the knowledge graph rather than
+# served one document each, so for now they land on the ontology index, which
+# explains the model and links to the public query console. This rule is
+# expected to become per-resource once the graph is published for dereferencing.
+RewriteRule ^awm/          https://wastemap.vaimee.com/ontology/ [R=302,L]
+
+# Anything else under this identifier.
+RewriteRule ^(.*)$         https://vaimee.com/$1 [R=302,L]
