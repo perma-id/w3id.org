@@ -14,6 +14,12 @@ Content negotiation is supported, so different representations (HTML documentati
 - `https://w3id.org/ontologies-ULL/OSDi` → Persistent IRI for the ontology  
   - **HTML**: Shown in web browsers (Widoco documentation).  
   - **Turtle / RDF/XML / JSON-LD**: Returned to semantic web clients via content negotiation.
+- `https://w3id.org/ontologies-ULL/OSDi/X.Y` → A specific version (e.g., `1.3`), with the same content negotiation.
+- `https://w3id.org/ontologies-ULL/OSDi/individuals/<name>` and `.../OSDi/X.Y/individuals/<name>` → The Turtle file of a set of individuals (e.g., `PBD`). Paths with the file name (`<name>.ttl`) also work.
+- `https://w3id.org/ontologies-ULL/OSDi/examples/<case>` and `.../OSDi/X.Y/examples/<case>` → A validation example (e.g., `evans1997-migraine`).
+  - **HTML**: Its description on GitHub (for `X.Y`, that of the release tag `vX.Y`).
+  - **Any other client**: Its ontology in Turtle.
+  - The other files of an example are available at `.../examples/<case>/<file>`.
 
 ---
 

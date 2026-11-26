@@ -49,7 +49,22 @@ RewriteRule ^([0-9]+\.[0-9]+)/?$ \
 
 
 # ===============================================================
-# 3) INDIVIDUALS: for any version
+# 3) INDIVIDUALS WITHOUT EXTENSION: their Turtle file
+#    /OSDi/X.Y/individuals/<name> and /OSDi/individuals/<name>
+#    These are the IRIs that the individuals files declare,
+#    e.g., https://w3id.org/ontologies-ULL/OSDi/individuals/PBD.
+#    Before section 4, which passes the path through unchanged.
+# ===============================================================
+
+RewriteRule ^([0-9]+\.[0-9]+)/individuals/([^/.]+)$ \
+  https://ontologies-ULL.github.io/OSDi/$1/individuals/$2.ttl [R=303,L]
+
+RewriteRule ^individuals/([^/.]+)$ \
+  https://ontologies-ULL.github.io/OSDi/latest/individuals/$1.ttl [R=303,L]
+
+
+# ===============================================================
+# 4) INDIVIDUALS: for any version
 #    /OSDi/X.Y/individuals/<archivo.owl>
 # ===============================================================
 
@@ -59,3 +74,40 @@ RewriteRule ^([0-9]+\.[0-9]+)/individuals/(.*)$ \
 # INDIVIDUALS from "latest"
 RewriteRule ^individuals/(.*)$ \
   https://ontologies-ULL.github.io/OSDi/latest/individuals/$1 [R=303,L]
+
+
+# ===============================================================
+# 5) VALIDATION EXAMPLES
+#    /OSDi/X.Y/examples/<case> and /OSDi/examples/<case>
+#    Each example is a folder <case>/ with its ontology <case>.ttl.
+# ===============================================================
+
+# Index of the examples: that of the version (tag vX.Y), or the latest one
+RewriteRule ^([0-9]+\.[0-9]+)/examples/?$ \
+  https://github.com/ontologies-ULL/OSDi/blob/v$1/examples/README.md [R=302,L]
+
+RewriteRule ^examples/?$ \
+  https://github.com/ontologies-ULL/OSDi/blob/main/examples/README.md [R=302,L]
+
+# Files of an example (e.g., expected-results.json)
+RewriteRule ^([0-9]+\.[0-9]+)/examples/([^/]+/.+)$ \
+  https://ontologies-ULL.github.io/OSDi/$1/examples/$2 [R=303,L]
+
+RewriteRule ^examples/([^/]+/.+)$ \
+  https://ontologies-ULL.github.io/OSDi/latest/examples/$1 [R=303,L]
+
+# Browsers: the description of the example, in the version (tag vX.Y) or the latest one
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([0-9]+\.[0-9]+)/examples/([^/]+)/?$ \
+  https://github.com/ontologies-ULL/OSDi/blob/v$1/examples/$2/README.md [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^examples/([^/]+)/?$ \
+  https://github.com/ontologies-ULL/OSDi/blob/main/examples/$1/README.md [R=303,L]
+
+# Any other client: the ontology of the example (Turtle)
+RewriteRule ^([0-9]+\.[0-9]+)/examples/([^/]+)/?$ \
+  https://ontologies-ULL.github.io/OSDi/$1/examples/$2/$2.ttl [R=303,L]
+
+RewriteRule ^examples/([^/]+)/?$ \
+  https://ontologies-ULL.github.io/OSDi/latest/examples/$1/$1.ttl [R=303,L]
