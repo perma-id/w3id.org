@@ -1,0 +1,34 @@
+# # /cocos/
+#
+# Cocos: a framework to apply antimicrobial resistance prediction models to
+# bacterial sequencing samples. Its registry describes the processing steps and
+# prediction models it offers, with the AMRF vocabulary (https://w3id.org/amrf/).
+# Source code: https://github.com/DEAL-US/Cocos
+#
+# Everything under https://w3id.org/cocos/ (the registry, its models and steps,
+# the VoID description, the data dump and the SPARQL endpoint) redirects to the
+# Cocos deployment, which serves an HTML page or RDF (Turtle, JSON-LD)
+# depending on the Accept header.
+#
+# ## Contact
+# This space is administered by:
+#
+# María Quirós Quiroga
+# mquiros1@us.es
+# GitHub username: mquirosq
+#
+# Daniel Ayala Hernández
+# dayala1@us.es
+# GitHub username: dayala1
+#
+# Fernando Sola Espinosa
+# fsola@us.es
+# GitHub username: fersolesp
+
+RewriteEngine on
+
+# SPARQL endpoint: 307 so that POST queries keep their method and body
+RewriteRule ^sparql$ https://gin.us.es/cocos/sparql [R=307,L]
+
+# The registry, its models and steps, and everything else
+RewriteRule ^(.*)$ https://gin.us.es/cocos/$1 [R=303,L]
