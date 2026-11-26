@@ -18,4 +18,4 @@ Paths in use:
 
 ## Contact
 
-David Carling — david@teho.ai — GitHub [@david-built-by-dc](https://github.com/david-built-by-dc)
+David Carling — david@teho.ai — GitHub [@david-teho](https://github.com/david-teho)
