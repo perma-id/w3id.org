@@ -1,0 +1,37 @@
+# # /espresso-dt
+#
+# EKO (Espresso Knowledge Ontology), an OWL 2 ontology for the espresso
+# extraction process, developed at Universidad del Cauca, Colombia.
+#
+# https://w3id.org/espresso-dt              -> EKO core
+# https://w3id.org/espresso-dt/acquisition  -> data acquisition module
+# https://w3id.org/espresso-dt/simulation   -> simulation module
+#
+# Each IRI, and its version IRIs (for example /espresso-dt/3.5.0 or
+# /espresso-dt/simulation/1.1.4), returns Turtle to clients that ask for
+# text/turtle and the HTML documentation otherwise. Only the current
+# release is hosted, so version IRIs resolve to it.
+#
+# Source: https://github.com/Alejandro-OB/metis-espresso
+#
+# ## Contact
+# This space is administered by:
+#
+# José Alejandro Ortega Benavides
+# GitHub username: Alejandro-OB
+
+RewriteEngine on
+
+# --- Modules (and their version IRIs) -----------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(acquisition|simulation)(/[0-9]+(\.[0-9]+)*)?/?$ https://alejandro-ob.github.io/metis-espresso/$1/espresso-$1.ttl [R=303,L]
+
+RewriteRule ^(acquisition|simulation)(/[0-9]+(\.[0-9]+)*)?/?$ https://alejandro-ob.github.io/metis-espresso/$1/ [R=303,L]
+
+# --- Core (and its version IRIs) -----------------------------------------
+
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([0-9]+(\.[0-9]+)*)?/?$ https://alejandro-ob.github.io/metis-espresso/espresso-dt.ttl [R=303,L]
+
+RewriteRule ^([0-9]+(\.[0-9]+)*)?/?$ https://alejandro-ob.github.io/metis-espresso/ [R=303,L]
