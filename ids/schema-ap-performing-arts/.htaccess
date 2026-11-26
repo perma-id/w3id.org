@@ -1,0 +1,30 @@
+# # /schema-ap-performing-arts/
+#
+# SCHEMA-AP-NDE Extension for Dance and Dance Films: an application profile that
+# extends the Schema.org Application Profile for NDE (SCHEMA-AP-NDE), aligned with
+# Podiumkunst.net (PK-NET). Hosted on GitLab Pages.
+#
+# https://w3id.org/schema-ap-performing-arts/                 -> the specification
+# https://w3id.org/schema-ap-performing-arts/context.jsonld   -> JSON-LD context
+# https://w3id.org/schema-ap-performing-arts/shacl            -> SHACL shapes (Turtle)
+# https://w3id.org/schema-ap-performing-arts/def              -> vocabulary (shapes and value lists):
+#                                                                 Turtle for RDF clients, the specification for browsers
+#
+# ## Contact
+# This space is administered by:
+#
+# Jeroen Seeverens, Xentropics
+# info@xentropics.nl
+# GitHub username: Xentropics
+
+RewriteEngine on
+
+RewriteRule ^context\.jsonld$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/context.jsonld [R=302,L]
+RewriteRule ^shacl/?$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/shacl/extension.shacl.ttl [R=302,L]
+
+RewriteCond %{HTTP_ACCEPT} (text/turtle|application/rdf\+xml|application/n-triples|application/ld\+json)
+RewriteRule ^def$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/def.ttl [R=303,L]
+RewriteRule ^def$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/#value-lists [R=303,NE,L]
+
+RewriteRule ^$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/ [R=302,L]
+RewriteRule ^(.*)$ https://xentropics-open-source.gitlab.io/xentropics-schema-ap-performing-arts-extension/$1 [R=302,L]
