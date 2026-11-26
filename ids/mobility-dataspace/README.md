@@ -6,8 +6,8 @@ The namespace holds the machine-readable artefacts a participant needs in order 
 
 Identifiers redirect to the specifications published from:
 
-* [Mobility-Data-Space/mds-profile](https://github.com/Mobility-Data-Space/mds-profile) — the MDS dataspace profile, versioned as `<YYYY>/<n>`. The current version is `2026/1`.
-* [Mobility-Data-Space/mds-edc](https://github.com/Mobility-Data-Space/mds-edc) — the MDS connector Management API, currently `v1`.
+* [Mobility-Data-Space/mds-profile](https://github.com/Mobility-Data-Space/mds-profile) — the MDS dataspace profile.
+* [Mobility-Data-Space/mds-edc](https://github.com/Mobility-Data-Space/mds-edc) — the MDS connector Management API.
 
 ## Contact
 
