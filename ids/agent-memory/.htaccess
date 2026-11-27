@@ -1,0 +1,35 @@
+# # /agent-memory/
+#
+# Agent Memory ontologies: temporal records, agent memory, work and software
+# modules. Module IRIs redirect to Turtle for RDF clients and to the HTML
+# documentation otherwise.
+#
+# Homepage: https://github.com/eljeffeg/memory-ontology
+#
+# ## Contact
+# This space is administered by:
+#
+# Jeff Gentes
+# GitHub username: eljeffeg
+
+RewriteEngine on
+
+# Module namespaces use hash IRIs, so https://w3id.org/agent-memory/temporal#Closure
+# reaches the server as agent-memory/temporal.
+
+# Versioned module, for owl:versionIRI: agent-memory/temporal/0.3.0
+RewriteRule ^(temporal|memory|work|software)/([0-9]+\.[0-9]+\.[0-9]+)$ https://raw.githubusercontent.com/eljeffeg/memory-ontology/v$2/ontologies/$1.ttl [R=303,L]
+
+# SHACL shapes: agent-memory/temporal/shapes, agent-memory/memory/shapes
+RewriteRule ^(temporal|memory)/shapes$ https://eljeffeg.github.io/memory-ontology/ontologies/$1-shapes.shacl.ttl [R=303,L]
+
+# Module, Turtle for RDF clients
+RewriteCond %{HTTP_ACCEPT} text/turtle [OR]
+RewriteCond %{HTTP_ACCEPT} application/x-turtle
+RewriteRule ^(temporal|memory|work|software)$ https://eljeffeg.github.io/memory-ontology/ontologies/$1.ttl [R=303,L]
+
+# Module, HTML documentation by default
+RewriteRule ^(temporal|memory|work|software)$ https://eljeffeg.github.io/memory-ontology/ [R=303,L]
+
+# Root
+RewriteRule ^$ https://eljeffeg.github.io/memory-ontology/ [R=303,L]
