@@ -1,0 +1,33 @@
+# # /souvenance/
+#
+# The Souvenance vocabulary and the RO-Crate profile of a Souvenance Box. Souvenance is
+# a memory keeper for iPhone, iPad and Mac that exports every Box as an RO-Crate;
+# souv is its open-source command-line tool. https://sunshine-it.eu/souvenance/
+#
+# https://w3id.org/souvenance/ns           the vocabulary (terms as ns#term)
+# https://w3id.org/souvenance/context      its JSON-LD context
+# https://w3id.org/souvenance/profile/1.0  the RO-Crate profile, version 1.0
+#
+# ## Contact
+# This space is administered by:
+#
+# Bas Meijer, Sunshine IT
+# souvenance.app@icloud.com
+# GitHub username: bbaassssiiee
+
+RewriteEngine on
+
+# The vocabulary: JSON-LD for a client that asks for it, else the page.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^ns/?$ https://sunshine-it.eu/souvenance/ns/vocabulary.jsonld [R=303,L]
+RewriteRule ^ns/?$ https://sunshine-it.eu/souvenance/ns/index.html [R=303,L]
+
+RewriteRule ^context/?$ https://sunshine-it.eu/souvenance/ns/context.jsonld [R=303,L]
+
+# A profile version: its Profile Crate for a client that asks for JSON-LD, else its page.
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^profile/([0-9]+\.[0-9]+)/?$ https://sunshine-it.eu/souvenance/profile/$1/ro-crate-metadata.json [R=303,L]
+RewriteRule ^profile/([0-9]+\.[0-9]+)/?$ https://sunshine-it.eu/souvenance/profile/$1/index.html [R=303,L]
+
+RewriteRule ^$ https://sunshine-it.eu/souvenance/index.html [R=302,L]
+
