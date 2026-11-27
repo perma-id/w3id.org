@@ -28,17 +28,6 @@ RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^model/common/(.*)$ https://glosis-ld.github.io/glosis/glosis_common/index-en.html#/$1 [NE,R=302,L]
 RewriteRule ^model/common/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_common.ttl [R=302,L]
 
-## glosis_cl
-### ontology
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/codelists/?$ https://glosis-ld.github.io/glosis/glosis_cl/index-en.html [R=302,L]
-RewriteRule ^model/codelists/?$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_cl.ttl [R=302,L]
-### terms in def server
-RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/codelists/(.*)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/glosis/model/codelists/$1 [R=302,L]
-#RewriteRule ^model/codelists/(.*)$ https://glosis.isric.org/glosis_cl/en/page/$1 [R=302,L]
-RewriteRule ^model/codelists/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_cl.ttl [R=302,L]
-
 ## glosis_siteplot
 ### ontology
 RewriteCond %{HTTP_ACCEPT} text/html
@@ -89,16 +78,15 @@ RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^model/surface/(.*)$ https://glosis-ld.github.io/glosis/glosis_surface/index-en.html#/$1 [NE,R=302,L]
 RewriteRule ^model/surface/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_surface.ttl [R=302,L]
 
-## glosis_procedure
+## glosis_unit
 ### ontology
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/procedure/?$ https://glosis-ld.github.io/glosis/glosis_procedure/index-en.html [R=302,L]
-RewriteRule ^model/procedure/?$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_procedure.ttl [R=302,L]
-### terms in def server
+RewriteRule ^model/unit/?$ https://glosis-ld.github.io/glosis/glosis_unit/index-en.html [R=302,L]
+RewriteRule ^model/unit/?$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_unit.ttl [R=302,L]
+### terms
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/procedure/(.*)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/glosis/model/procedure/$1 [R=302,L]
-#RewriteRule ^model/procedure/(.*)$ https://glosis.isric.org/glosis_proc/en/page/$1 [R=302,L]
-RewriteRule ^model/procedure/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_procedure.ttl [R=302,L]
+RewriteRule ^model/unit/(.*)$ https://glosis-ld.github.io/glosis/glosis_unit/index-en.html#/$1 [NE,R=302,L]
+RewriteRule ^model/unit/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_unit.ttl [R=302,L]
 
 ## glosis_main
 ### ontology
@@ -110,17 +98,55 @@ RewriteCond %{HTTP_ACCEPT} text/html
 RewriteRule ^model/main/(.*)$ https://glosis-ld.github.io/glosis/glosis_main/index-en.html#/$1 [NE,R=302,L]
 RewriteRule ^model/main/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_main.ttl [R=302,L]
 
-## glosis_unit
+
+# codelists
+
+## glosis_codelist_properties
 ### ontology
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/unit/?$ https://glosis-ld.github.io/glosis/glosis_unit/index-en.html [R=302,L]
-RewriteRule ^model/unit/?$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_unit.ttl [R=302,L]
-### terms
+RewriteRule ^model/codelists/properties/?$ https://glosis-ld.github.io/glosis/glosis_properties/index-en.html [R=302,L]
+RewriteRule ^model/codelists/properties/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_properties.ttl [R=302,L]
+### Versioned ontology
 RewriteCond %{HTTP_ACCEPT} text/html
-RewriteRule ^model/unit/(.*)$ https://glosis-ld.github.io/glosis/glosis_unit/index-en.html#/$1 [NE,R=302,L]
-RewriteRule ^model/unit/(.*)$ https://raw.githubusercontent.com/glosis-ld/glosis/master/glosis_unit.ttl [R=302,L]
+RewriteRule ^model/codelists/properties/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/glosis-ld/glosis/blob/refs/tags/$1/glosis_properties.ttl [R=302,L]
+RewriteRule ^model/codelists/properties/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/tags/$1/glosis_properties.ttl [R=302,L]
+### terms in def server
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/codelists/properties/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/glosis/model/codelists/properties/$1 [R=302,L]
+#RewriteRule ^model/codelists/properties/(.+)$ https://glosis.isric.org/glosis_cl/en/page/$1 [R=302,L]
+RewriteRule ^model/codelists/properties/(.+)$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_properties.ttl [R=302,L]
 
-### codelist TERMS 
+
+## glosis_codelist_results
+### ontology
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/codelists/results/?$ https://glosis-ld.github.io/glosis/glosis_results/index-en.html [R=302,L]
+RewriteRule ^model/codelists/results/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_results.ttl [R=302,L]
+### Versioned ontology
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/codelists/results/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/glosis-ld/glosis/blob/refs/tags/$1/glosis_results.ttl [R=302,L]
+RewriteRule ^model/codelists/results/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/tags/$1/glosis_results.ttl [R=302,L]
+### terms in def server
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/codelists/results/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/glosis/model/codelists/results/$1 [R=302,L]
+#RewriteRule ^model/codelists/results/(.+)$ https://glosis.isric.org/glosis_cl/en/page/$1 [R=302,L]
+RewriteRule ^model/codelists/results/(.+)$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_results.ttl [R=302,L]
+
+## glosis_procedure
+### ontology
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/procedure/?$ https://glosis-ld.github.io/glosis/glosis_procedure/index-en.html [R=302,L]
+RewriteRule ^model/procedure/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_procedure.ttl [R=302,L]
+### Versioned ontology
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/procedure/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://github.com/glosis-ld/glosis/blob/refs/tags/$1/glosis_procedure.ttl [R=302,L]
+RewriteRule ^model/procedure/([0-9]+\.[0-9]+\.[0-9]+)/?$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/tags/$1/glosis_procedure.ttl [R=302,L]
+### terms in def server
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^model/procedure/(.+)$ https://defs-dev.opengis.net/vocprez-hosted/object?uri=http://w3id.org/glosis/model/procedure/$1 [R=302,L]
+#RewriteRule ^model/procedure/(.+)$ https://glosis.isric.org/glosis_proc/en/page/$1 [R=302,L]
+RewriteRule ^model/procedure/(.+)$ https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_procedure.ttl [R=302,L]
+
 
 # codelists OGC definition server
 
