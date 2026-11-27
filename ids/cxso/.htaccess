@@ -1,0 +1,48 @@
+# # /cxso/
+#
+# Permanent identifiers for the Cathexis Somatic Ontology (CSO).
+# Every address below redirects to the CSO's files on GitHub Pages,
+# https://cathexis-health.github.io/cxso/
+# Source: https://github.com/cathexis-health/cxso
+#
+# ## Contact
+# This space is administered by:
+#
+# Justin DeGarbo, Cathexis Health LLC
+# support@cathexis.health
+# GitHub username: justindegarbo
+
+RewriteEngine on
+
+# A release: https://w3id.org/cxso/releases/2.0.0/cxso.ttl
+RewriteRule ^releases/(.+)$ https://cathexis-health.github.io/cxso/releases/$1 [R=302,L]
+
+# The ontology, which is also the FHIR CodeSystem: https://w3id.org/cxso
+# Machines get the file they ask for; browsers get the page listing every code.
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://cathexis-health.github.io/cxso/cxso.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://cathexis-health.github.io/cxso/cxso.owl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/fhir\+json
+RewriteRule ^$ https://cathexis-health.github.io/cxso/fhir/input/resources/CodeSystem-cxso.json [R=303,L]
+RewriteRule ^$ https://cathexis-health.github.io/cxso/ [R=303,L]
+
+# A term: https://w3id.org/cxso/CXSO_0000020
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^CXSO_[0-9]{7}$ https://cathexis-health.github.io/cxso/cxso.ttl [R=303,L]
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^CXSO_[0-9]{7}$ https://cathexis-health.github.io/cxso/cxso.owl [R=303,L]
+RewriteRule ^(CXSO_[0-9]{7})$ https://cathexis-health.github.io/cxso/#$1 [R=303,NE,L]
+
+# The modules: https://w3id.org/cxso/core and https://w3id.org/cxso/clinical
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^(core|clinical)$ https://cathexis-health.github.io/cxso/cxso-$1.owl [R=303,L]
+RewriteRule ^(core|clinical)$ https://cathexis-health.github.io/cxso/cxso-$1.ttl [R=303,L]
+
+# The data rules and their shapes: https://w3id.org/cxso/shapes
+RewriteRule ^shapes(/.*)?$ https://cathexis-health.github.io/cxso/cxso-shapes.ttl [R=303,L]
+
+# The FHIR package: value sets, profiles and the package itself
+RewriteRule ^fhir/ValueSet/([a-z-]+)$ https://cathexis-health.github.io/cxso/fhir/input/resources/ValueSet-cxso-$1.json [R=302,L]
+RewriteRule ^fhir/StructureDefinition/([a-z-]+)$ https://cathexis-health.github.io/cxso/fhir/fsh-generated/resources/StructureDefinition-$1.json [R=302,L]
+RewriteRule ^fhir/?$ https://github.com/cathexis-health/cxso/tree/main/fhir [R=302,L]
