@@ -1,3 +1,10 @@
-Options +FollowSymLinks
 RewriteEngine on
-RewriteRule ^(.*) http://fairdata.services:8181/$1 [R=307,L]
+
+# Legacy gen2 tests (FAIR Evaluator tests server, via Cloudflare/lighttpd → 8181)
+RewriteRule ^(tests/gen2_.*)$ https://fairdata.services/$1 [R=307,L]
+
+# Community tests (separate path on the same server as the current tests)
+RewriteRule ^(community-tests/.*)$ https://tests.ostrails.eu/$1 [R=307,L]
+
+# Current tests
+RewriteRule ^(.*)$ https://tests.ostrails.eu/tests/$1 [R=307,L]
