@@ -2,44 +2,52 @@ Options +FollowSymLinks
 RewriteEngine on
 Options -MultiViews
 
-# The rewrite rules below work on the following conditions:
-# 1. each ontology directory contains a symbolic link 'latest' to the directory of the latest published version of the ontology, and
-# 2. each ontology version directory contains symbolic links to different serializations ('ttl', 'json', 'xml', 'nt')
-# Minor translations
-RewriteRule ^(.+)/$                                         $1                                                          [R=302,NE,L]
-RewriteRule ^(.+).owl$                                      $1.xml                                                      [R=302,NE,L]
-RewriteRule ^(.+).jsonld$                                   $1.json                                                     [R=302,NE,L]
-# Accept headers
-RewriteCond %{HTTP_ACCEPT} ^.*text/turtle.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
-RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/ttl                                                  [R=302,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/(.*)json.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
-RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/json                                                 [R=302,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/n-triples.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
-RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/nt                                                   [R=302,NE,L]
-RewriteCond %{HTTP_ACCEPT} ^.*application/(rdf|owl)\+xml.*
-RewriteCond %{REQUEST_URI} !^.*(ttl|json|xml|nt|html)
-RewriteRule ^([0-9].[0-9]\/)?([A-Z])(.*)([\/\.]?)$          $1$2$3/xml                                                  [R=302,NE,L]
-# URI patterns
+# Circular Factory ontologies, documentation and serializations on GitHub Pages:
+#   https://circularfactory.github.io/<Ontology>/latest/...          (latest release)
+#   https://circularfactory.github.io/<Ontology>/v/<version>/docs/... (one release)
+# Each release folder holds index.html and ontology.ttl, ontology.owl, ontology.jsonld, ontology.nt.
+# Every target below is an absolute URL: a relative target in this file resolves to the
+# server's file path (/var/www/w3id.org/ids/circularfactory/...).
 
-# Documentation redirects (GitHub Pages)
-# Root index (latest docs of our ontology overview page)
-RewriteRule ^index.html$                                https://circularfactory.github.io/latest/index.html     [R=302,NE,L]
+# Trailing slash: remove it
+RewriteRule ^(.+)/$                                                   https://w3id.org/circularfactory/$1                                    [R=302,NE,L]
 
-# Versioned root index
-RewriteRule ^([0-9]+\.[0-9]+(\.[0-9]+)?)/index.html$  https://circularfactory.github.io/v/$1/index.html       [R=302,NE,L]
+# Serialization by file extension (<Ontology>.ttl, <Ontology>/<version>.owl, ...)
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)\.(ttl|owl|jsonld|nt)$  https://circularfactory.github.io/$1/v/$2/docs/ontology.$3  [R=302,NE,L]
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?\.(ttl|owl|jsonld|nt)$                    https://circularfactory.github.io/$1/latest/ontology.$2    [R=302,NE,L]
 
-# Generic ontology (versioned)
-RewriteRule ^([A-Za-z0-9]+)(.*)/([0-9]+\.[0-9]+(\.[0-9]+)?)$  https://circularfactory.github.io/$1/v/$3/docs/index.html [R=302,NE,L]
+# Serialization by path (<Ontology>/ttl, <Ontology>/<version>/xml, ...)
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)/(ttl|xml|json|nt)$    https://circularfactory.github.io/$1/v/$2/docs/$3          [R=302,NE,L]
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?/(ttl|xml|json|nt)$                       https://circularfactory.github.io/$1/latest/$2             [R=302,NE,L]
 
+# Serialization by Accept header (content negotiation) for <Ontology>, <Ontology>/latest, <Ontology>/<version>
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)$            https://circularfactory.github.io/$1/v/$2/docs/ontology.ttl          [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?$                              https://circularfactory.github.io/$1/latest/ontology.ttl             [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/(rdf|owl)\+xml
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)$            https://circularfactory.github.io/$1/v/$2/docs/ontology.owl          [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/(rdf|owl)\+xml
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?$                              https://circularfactory.github.io/$1/latest/ontology.owl             [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)$            https://circularfactory.github.io/$1/v/$2/docs/ontology.jsonld       [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/(ld\+)?json
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?$                              https://circularfactory.github.io/$1/latest/ontology.jsonld          [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)$            https://circularfactory.github.io/$1/v/$2/docs/ontology.nt           [R=302,NE,L]
+RewriteCond %{HTTP_ACCEPT} application/n-triples
+RewriteRule ^([A-Za-z0-9]+)(?:/latest)?$                              https://circularfactory.github.io/$1/latest/ontology.nt              [R=302,NE,L]
 
-# Root version redirect to docs for versions like 1.3 or 1.2.5
-RewriteRule ^([0-9]+\.[0-9]+(\.[0-9]+)?)[\/]?$	       https://circularfactory.github.io/v/$1/index.html       [R=302,NE,L]
+# Documentation (HTML)
+# Suite overview page: latest, and one version
+RewriteRule ^$                                                        https://circularfactory.github.io/latest/index.html                  [R=302,NE,L]
+RewriteRule ^index.html$                                              https://circularfactory.github.io/latest/index.html                  [R=302,NE,L]
+RewriteRule ^([0-9]+\.[0-9]+(?:\.[0-9]+)?)(?:/index.html)?$           https://circularfactory.github.io/v/$1/index.html                    [R=302,NE,L]
 
-# Generic ontology (latest)
-RewriteRule ^([A-Za-z0-9]+)(.*)$                       https://circularfactory.github.io/$1/latest$2           [R=302,NE,L]
+# One ontology, one version: <Ontology>/<version>
+RewriteRule ^([A-Za-z0-9]+)/([0-9]+\.[0-9]+(?:\.[0-9]+)?)$            https://circularfactory.github.io/$1/v/$2/docs/index.html            [R=302,NE,L]
 
-# Fallback root
-RewriteRule ^$                                         https://circularfactory.github.io/latest/index.html     [R=302,NE,L]
+# One ontology, latest version: <Ontology>, <Ontology>/latest, <Ontology>/latest/<path>
+RewriteRule ^([A-Za-z0-9]+)$                                          https://circularfactory.github.io/$1/latest/                         [R=302,NE,L]
+RewriteRule ^([A-Za-z0-9]+)/latest(?:/(.*))?$                         https://circularfactory.github.io/$1/latest/$2                       [R=302,NE,L]
+RewriteRule ^([A-Za-z0-9]+)(.*)$                                      https://circularfactory.github.io/$1/latest$2                        [R=302,NE,L]
