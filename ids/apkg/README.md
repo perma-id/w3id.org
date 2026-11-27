@@ -4,43 +4,87 @@ Profile of an OGC API Records record describing one Application Package (APKG) e
 https://github.com/ILIAD-ocean-twin/APKG
 
 # Performed tests
+## Version 1
 ```console
 > curl -i -v http://<host>/apkg/
-
+ 
 HTTP/1.1 301 Moved Permanently
 Location: http://localhost/apkg/
 ```
 ```console
 > curl -i -v http://<host>/apkg/terms
-
+ 
 HTTP/1.1 303 See Other
 Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/terms/apkg-ms.ttl
 ```
 ```console
 > curl -i -v http://<host>/apkg/map
-
+ 
 HTTP/1.1 303 See Other
 Location: https://github.com/ILIAD-ocean-twin/APKG/tree/main
 ```
 ```console
 > curl -i -v http://<host>/apkg/examples
-
+ 
 HTTP/1.1 303 See Other
 Location: https://github.com/ILIAD-ocean-twin/APKG/tree/main/AP-examples
 ```
 ```console
 > curl -i -v http://<host>/apkg/SHACL
-
+ 
 HTTP/1.1 303 See Other
 Location: https://github.com/ILIAD-ocean-twin/APKG/tree/main/SHACL
 ```
 ```console
 > curl -i -v -H Accept:text/turtle http://<host>/apkg/SHACL
-
+ 
 HTTP/1.1 303 See Other
 Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/main/SHACL/APKG-shacl.ttl
 ```
-
+ 
+## Version 2
+```console
+> curl -i -v -H Accept:text/turtle http://<host>/apkg/v2/process
+ 
+HTTP/1.1 303 See Other
+Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/terms/apkg-pro-v2.ttl
+```
+```console
+> curl -i -v http://<host>/apkg/v2/process
+ 
+HTTP/1.1 303 See Other
+Location: https://github.com/ILIAD-ocean-twin/APKG/tree/version2
+```
+```console
+> curl -i -v -H Accept:text/turtle http://<host>/apkg/v2/record
+ 
+HTTP/1.1 303 See Other
+Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/terms/apkg-rec-v2.ttl
+```
+```console
+> curl -i -v http://<host>/apkg/v2/record
+ 
+HTTP/1.1 303 See Other
+Location: https://github.com/ILIAD-ocean-twin/APKG/tree/version2
+```
+```console
+> curl -i -v http://<host>/apkg/v2/process/shapes
+ 
+HTTP/1.1 303 See Other
+Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/shacl/apkg-pro-shapes-v2.ttl
+```
+```console
+> curl -i -v http://<host>/apkg/v2/record/shapes
+ 
+HTTP/1.1 303 See Other
+Location: https://raw.githubusercontent.com/ILIAD-ocean-twin/APKG/refs/heads/version2/shacl/apkg-rec-shapes-v2.ttl
+```
+```console
+> curl -i -v http://<host>/apkg/v2/examples
+ 
+HTTP/1.1 303 See Other
+Location: https://github.com/ILIAD-ocean-twin/APKG/tree/version2/examples
+```
 
 Contacts
 * Mariana Curado Malta : <mariana.c.malta@inesctec.pt> (GitHub: [@marianamalta](https://github.com/marianamalta))
