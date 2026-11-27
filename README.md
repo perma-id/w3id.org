@@ -7,6 +7,6 @@ Permanent identifiers for research outputs, theses, and datasets hosted by the *
 * **Contact:** psruir@psru.ac.th
 
 ## Maintainers
-* @psru-ir-admin
+
 * @khomgun-source
 * @yanatcharagun-art
