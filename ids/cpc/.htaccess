@@ -1,0 +1,23 @@
+# # /cpc/
+#
+# https://w3id.org/cpc/ redirects to https://isbe-tue.github.io/D1-DX/
+# CPC Framework (Cyber-Physical Construction): ontology modules and dictionaries.
+# HTML for browsers, Turtle otherwise. /cpc/<path>/<version> is a release.
+#
+# ## Contact
+# This space is administered by:
+#
+# Lukas Kirner, Eindhoven University of Technology
+# GitHub username: kirnerlukas
+
+RewriteEngine on
+
+RewriteRule ^$ https://isbe-tue.github.io/D1-DX/ [R=302,L]
+
+RewriteRule ^([a-z0-9/-]+)\.(ttl|html)$ https://isbe-tue.github.io/D1-DX/$1.$2 [R=303,L]
+RewriteRule ^([a-z0-9/-]+)/([0-9]+\.[0-9]+\.[0-9]+)$ https://isbe-tue.github.io/D1-DX/$1/$2.ttl [R=303,L]
+
+RewriteCond %{HTTP_ACCEPT} text/html
+RewriteRule ^([a-z0-9/-]*[a-z0-9-])/?$ https://isbe-tue.github.io/D1-DX/$1.html [R=303,L]
+
+RewriteRule ^([a-z0-9/-]*[a-z0-9-])/?$ https://isbe-tue.github.io/D1-DX/$1.ttl [R=303,L]
