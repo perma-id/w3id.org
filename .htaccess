@@ -1,0 +1,14 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+# 1. หน้าหลักของคลังข้อมูล: https://w3id.org/psruir/ -> https://psruir.psru.ac.th/
+RewriteRule ^$ https://psruir.psru.ac.th/ [R=302,L]
+
+# 2. รหัส Handle แบบสั้น: https://w3id.org/psruir/630 -> https://psruir.psru.ac.th/handle/123456789/630
+RewriteRule ^([0-9]+)$ https://psruir.psru.ac.th/handle/123456789/$1 [R=302,L]
+
+# 3. รหัส Handle แบบเต็ม: https://w3id.org/psruir/handle/123456789/630
+RewriteRule ^handle/123456789/([0-9]+)$ https://psruir.psru.ac.th/handle/123456789/$1 [R=302,L]
+
+# 4. รหัส UUID ของรายการใน DSpace 7/8: https://w3id.org/psruir/items/<uuid>
+RewriteRule ^items/([a-f0-9-]+)$ https://psruir.psru.ac.th/items/$1 [R=302,L]
